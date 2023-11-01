@@ -201,7 +201,7 @@ ODE_API int dAllocateODEDataForThread(unsigned int uiAllocateFlags);
  * @see dCloseODE
  * @ingroup init
  */
-ODE_API void dCleanupODEAllDataForThread();
+ODE_API void dCleanupODEAllDataForThread(void);
 
 
 /**

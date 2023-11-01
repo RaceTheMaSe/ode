@@ -85,10 +85,10 @@ extern "C" {
 typedef struct dsFunctions {
   int version;			/* put DS_VERSION here */
   /* version 1 data */
-  void (*start)();		/* called before sim loop starts */
+  void (*start)(void);		/* called before sim loop starts */
   void (*step) (int pause);	/* called before every frame */
   void (*command) (int cmd);	/* called if a command key is pressed */
-  void (*stop)();		/* called after sim loop exits */
+  void (*stop)(void);		/* called after sim loop exits */
   /* version 2 data */
   const char *path_to_textures;	/* if nonzero, path to texture files */
 } dsFunctions;
@@ -117,7 +117,7 @@ DS_API void dsInitializeConsole(int argc, char **argv);
  *
  * @ingroup drawstuff
  */
-DS_API void dsFinalizeConsole();
+DS_API void dsFinalizeConsole(void);
 
 
 #define DS_SIMULATION_DEFAULT_WIDTH 1280
@@ -185,14 +185,14 @@ DS_API void dsGetViewpoint (float xyz[3], float hpr[3]);
  * user used the exit command. using this outside the loop will have no
  * effect.
  */
-DS_API void dsStop();
+DS_API void dsStop(void);
 
 /**
  * @brief Get the elapsed time (on wall-clock)
  * @ingroup drawstuff
  * It returns the nr of seconds since the last call to this function.
  */
-DS_API double dsElapsedTime();
+DS_API double dsElapsedTime(void);
 
 /**
  * @brief Toggle the rendering of textures.

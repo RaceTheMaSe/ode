@@ -145,12 +145,12 @@ extern "C" double dsElapsedTime()
 #endif
 }
 
-int osxGetModifierMask()
+static int osxGetModifierMask()
 {
     return glutGetModifiers() & ~GLUT_ACTIVE_SHIFT;
 }
 
-void osxKeyEventHandler( unsigned char key, int /*x*/, int /*y*/ )
+static void osxKeyEventHandler( unsigned char key, int /*x*/, int /*y*/ )
 {
     unsigned char uppercase;
     if (key >= 'a' && key <= 'z')
@@ -202,7 +202,7 @@ void osxKeyEventHandler( unsigned char key, int /*x*/, int /*y*/ )
     }
 }
 
-void osxMouseEventHandler(int button, int state, int x, int y)
+static void osxMouseEventHandler(int button, int state, int x, int y)
 {
     prev_x = x;
     prev_y = y;
@@ -239,14 +239,14 @@ void osxMouseEventHandler(int button, int state, int x, int y)
     }
 }
 
-void osxMotionEventHandler(int x, int y)
+static void osxMotionEventHandler(int x, int y)
 {
     dsMotion( mouseButtonMode, x - prev_x, y - prev_y );
     prev_x = x;
     prev_y = y;
 }
 
-void osxWindowReshapeEventHandler(int width, int height)
+static void osxWindowReshapeEventHandler(int width, int height)
 {
     windowWidth = width;
     windowHeight = height;
@@ -267,7 +267,7 @@ static void osxCreateMainWindow( int width, int height )
 	windowHeight = height;
 }
 
-void osxRedisplayEventHandler()
+static void osxRedisplayEventHandler()
 {
     dsDrawFrame( windowWidth, windowHeight, functions, paused && !singlestep );
     singlestep = false;
@@ -280,20 +280,20 @@ void osxRedisplayEventHandler()
     }
 }
 
-void osxTimerEventHandler(int);
+static void osxTimerEventHandler(int);
 
-void osxInstallTimerHandler()
+static void osxInstallTimerHandler()
 {
     glutTimerFunc(1000/60, osxTimerEventHandler, 0);
 }
 
-void osxTimerEventHandler(int)
+static void osxTimerEventHandler(int)
 {
     glutPostRedisplay();
     osxInstallTimerHandler();
 }
 
-int  osxInstallEventHandlers()
+static int  osxInstallEventHandlers()
 {
     glutKeyboardFunc(osxKeyEventHandler);
     glutMouseFunc(osxMouseEventHandler);

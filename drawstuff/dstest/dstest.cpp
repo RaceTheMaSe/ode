@@ -30,7 +30,7 @@
 #endif
 
 
-void start()
+static void start()
 {
   // adjust the starting viewpoint a bit
   float xyz[3],hpr[3];
@@ -40,7 +40,7 @@ void start()
 }
 
 
-void simLoop (int pause)
+static void simLoop (int pause)
 {
   float pos[3];
   float R[12];
@@ -101,7 +101,7 @@ void simLoop (int pause)
 }
 
 
-void command (int cmd)
+static void command (int cmd)
 {
   dsPrint ("received command %d (`%c')\n",cmd,cmd);
 }

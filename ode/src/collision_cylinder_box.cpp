@@ -31,6 +31,7 @@
 #include "matrix.h"
 #include "odemath.h"
 #include "collision_util.h"
+#include "collision_std.h"
 
 static const int MAX_CYLBOX_CLIP_POINTS  = 16;
 static const int nCYLINDER_AXIS			 = 2;

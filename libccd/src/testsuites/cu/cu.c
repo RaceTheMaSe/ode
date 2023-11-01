@@ -43,10 +43,10 @@ char cu_out_prefix[CU_OUT_PREFIX_LENGTH+1] = "";
 
 
 /* globally used file descriptor for reading/writing messages */
-int fd;
+static int fd;
 
 /* indicate if test has failed */
-int test_failed;
+static int test_failed;
 
 /* codes of messages */
 #define CHECK_FAILED '0'

@@ -72,7 +72,7 @@ typedef struct dxThreadingThreadPool *dThreadingThreadPoolID;
  * @see dThreadingAllocateMultiThreadedImplementation
  * @see dThreadingFreeImplementation
  */
-ODE_API dThreadingImplementationID dThreadingAllocateSelfThreadedImplementation();
+ODE_API dThreadingImplementationID dThreadingAllocateSelfThreadedImplementation(void);
 
 /**
  * @brief Allocates built-in multi-threaded threading implementation object.
@@ -89,7 +89,7 @@ ODE_API dThreadingImplementationID dThreadingAllocateSelfThreadedImplementation(
  * @see dExternalThreadingServeMultiThreadedImplementation
  * @see dThreadingFreeImplementation
  */
-ODE_API dThreadingImplementationID dThreadingAllocateMultiThreadedImplementation();
+ODE_API dThreadingImplementationID dThreadingAllocateMultiThreadedImplementation(void);
 
 /**
  * @brief Retrieves the functions record of a built-in threading implementation.

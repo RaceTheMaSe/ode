@@ -37,6 +37,7 @@
 #include "odemath.h"
 #include "collision_kernel.h"	// for dxGeom
 #include "collision_util.h"
+#include "collision_std.h"
 
 
 int dCollideCylinderPlane(dxGeom *Cylinder, dxGeom *Plane, int flags, dContactGeom *contact, int skip)

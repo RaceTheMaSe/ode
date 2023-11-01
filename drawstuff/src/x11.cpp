@@ -332,7 +332,7 @@ static void captureFrame (int num)
   XDestroyImage (image);
 }
 
-void processDrawFrame(int *frame, dsFunctions *fn)
+static void processDrawFrame(int *frame, dsFunctions *fn)
 {
   dsDrawFrame (width,height,fn,pausemode && !singlestep);
   singlestep = 0;
@@ -348,7 +348,7 @@ void processDrawFrame(int *frame, dsFunctions *fn)
   }
 }
 
-void microsleep(int usecs)
+static void microsleep(int usecs)
 {
 #ifdef HAVE_UNISTD_H
   usleep(usecs);

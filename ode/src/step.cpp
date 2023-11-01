@@ -32,6 +32,7 @@
 #include "lcp.h"
 #include "util.h"
 #include "threadingutils.h"
+#include "step.h"
 
 #include <new>
 

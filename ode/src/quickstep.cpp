@@ -33,6 +33,7 @@
 #include "lcp.h"
 #include "util.h"
 #include "threadingutils.h"
+#include "quickstep.h"
 
 #include <new>
 

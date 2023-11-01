@@ -33,6 +33,7 @@
 #include "odemath.h"
 #include "collision_util.h"
 #include "collision_trimesh_internal.h"
+#include "collision_trimesh_colliders.h"
 #include "util.h"
 
 #if dTRIMESH_ENABLED
