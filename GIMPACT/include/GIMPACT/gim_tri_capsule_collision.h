@@ -83,9 +83,9 @@ struct GIM_CAPSULE_DATA
 //! Utility function to find the closest point between a segment and a triangle
 /*!
 
-\param triangle
-\param s1
-\param s2
+\param triangle triangle data
+\param s1 segment point 1
+\param s2 segment point 2
 \param contacts Contains the closest points on the segment (1,2), and the normal points to segment, and m_depth contains the distance
 
 \post The contacts array is not set to 0. It adds additional contacts
@@ -99,8 +99,8 @@ void gim_closest_point_triangle_segment(GIM_TRIANGLE_DATA * triangle, vec3f s1,v
 //! Utility function to find the closest point between a capsule and a triangle
 /*!
 
-\param triangle
-\param capsule
+\param triangle triangle data
+\param capsule capsule data
 \param contacts Contains the closest points on the capsule, and the normal points to triangle
 \return 1 if the triangle collides the capsule
 \post The contacts array is not set to 0. It adds additional contacts

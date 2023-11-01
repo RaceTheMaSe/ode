@@ -27,7 +27,7 @@
 	inline_ void ZeroMemory(void* addr, udword size)					{ memset(addr, 0, size);		}
 
 	//!	Fills a buffer with a given byte.
-	//!	\param		addr	[in] buffer address
+	//!	\param		dest	[in] buffer address
 	//!	\param		size	[in] buffer length
 	//!	\param		val		[in] the byte value
 	//!	\see		StoreDwords
@@ -37,7 +37,7 @@
 	inline_ void FillMemory(void* dest, udword size, ubyte val)			{ memset(dest, val, size);		}
 
 	//!	Fills a buffer with a given dword.
-	//!	\param		addr	[in] buffer address
+	//!	\param		dest	[in] buffer address
 	//!	\param		nb		[in] number of dwords to write
 	//!	\param		value	[in] the dword value
 	//!	\see		FillMemory
@@ -51,8 +51,8 @@
 	}
 
 	//!	Copies a buffer.
-	//!	\param		addr	[in] destination buffer address
-	//!	\param		addr	[in] source buffer address
+	//!	\param		dest	[in] destination buffer address
+	//!	\param		src		[in] source buffer address
 	//!	\param		size	[in] buffer length
 	//!	\see		ZeroMemory
 	//!	\see		FillMemory
@@ -61,8 +61,8 @@
 	inline_ void CopyMemory(void* dest, const void* src, udword size)	{ memcpy(dest, src, size);		}
 
 	//!	Moves a buffer.
-	//!	\param		addr	[in] destination buffer address
-	//!	\param		addr	[in] source buffer address
+	//!	\param		dest	[in] destination buffer address
+	//!	\param		src		[in] source buffer address
 	//!	\param		size	[in] buffer length
 	//!	\see		ZeroMemory
 	//!	\see		FillMemory

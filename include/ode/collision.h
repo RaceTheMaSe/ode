@@ -277,7 +277,7 @@ ODE_API int dGeomIsSpace (dGeomID geom);
  *          not contained by a space.
  * @ingroup collide
  */
-ODE_API dSpaceID dGeomGetSpace (dGeomID);
+ODE_API dSpaceID dGeomGetSpace (dGeomID geom);
 
 
 /**
@@ -341,22 +341,20 @@ ODE_API void dGeomSetCollideBits (dGeomID geom, unsigned long bits);
  * @brief Get the "category" bitfield for the given geom.
  *
  * @param geom the geom to set
- * @param bits the new bitfield value
  * @sa dGeomSetCategoryBits
  * @ingroup collide
  */
-ODE_API unsigned long dGeomGetCategoryBits (dGeomID);
+ODE_API unsigned long dGeomGetCategoryBits (dGeomID geom);
 
 
 /**
  * @brief Get the "collide" bitfield for the given geom.
  *
  * @param geom the geom to set
- * @param bits the new bitfield value
  * @sa dGeomSetCollideBits
  * @ingroup collide
  */
-ODE_API unsigned long dGeomGetCollideBits (dGeomID);
+ODE_API unsigned long dGeomGetCollideBits (dGeomID geom);
 
 
 /**
@@ -464,6 +462,10 @@ ODE_API int dGeomLowLevelControl (dGeomID geom, int controlClass, int controlCod
  * returned.
  *
  * @ingroup collide
+ * @param geom the geom to query.
+ * @param px x-component in geom-relative coordinates
+ * @param py y-component in geom-relative coordinates
+ * @param pz z-component in geom-relative coordinates
  * @param result will contain the result.
  */
 ODE_API void dGeomGetRelPointPos
@@ -482,6 +484,10 @@ ODE_API void dGeomGetRelPointPos
  * @remarks
  * This is the inverse of dGeomGetRelPointPos()
  * @ingroup collide
+ * @param geom the geom to query.
+ * @param px x-component of global coordinates
+ * @param py y-component of global coordinates
+ * @param pz z-component of global coordinates
  * @param result will contain the result.
  */
 ODE_API void dGeomGetPosRelPoint
@@ -497,6 +503,10 @@ ODE_API void dGeomGetPosRelPoint
  * returned.
  *
  * @ingroup collide
+ * @param geom the geom to query.
+ * @param px x-component in geom-local coordinates
+ * @param py y-component in geom-local coordinates
+ * @param pz z-component in geom-local coordinates
  * @param result will contain the result.
  */
 ODE_API void dGeomVectorToWorld
@@ -512,6 +522,10 @@ ODE_API void dGeomVectorToWorld
  * returned.
  *
  * @ingroup collide
+ * @param geom the geom to query.
+ * @param px x-component of world coordinates
+ * @param py y-component of world coordinates
+ * @param pz z-component of world coordinates
  * @param result will contain the result.
  */
 ODE_API void dGeomVectorFromWorld
@@ -624,7 +638,7 @@ ODE_API void dGeomSetOffsetWorldRotation (dGeomID geom, const dMatrix3 R);
  * @param Q the new rotation.
  * @ingroup collide
  */
-ODE_API void dGeomSetOffsetWorldQuaternion (dGeomID geom, const dQuaternion);
+ODE_API void dGeomSetOffsetWorldQuaternion (dGeomID geom, const dQuaternion Q);
 
 
 /**
@@ -765,7 +779,9 @@ ODE_API void dGeomGetOffsetQuaternion (dGeomID geom, dQuaternion result);
  * @param contact Points to an array of dContactGeom structures. The array
  * must be able to hold at least the maximum number of contacts. These
  * dContactGeom structures may be embedded within larger structures in the
- * array -- the skip parameter is the byte offset from one dContactGeom to
+ * array
+
+ * @param skip the skip parameter is the byte offset from one dContactGeom to
  * the next in the array. If skip is sizeof(dContactGeom) then contact
  * points to a normal (C-style) array. It is an error for skip to be smaller
  * than sizeof(dContactGeom).
@@ -975,7 +991,7 @@ ODE_API void dGeomSetConvex (dGeomID g,
 			     const dReal *_points,
 			     unsigned int _pointcount,
                  const unsigned int *_polygons);
-/*<-- Convex Functions*/
+/**<-- Convex Functions*/
 
 /**
  * @defgroup collide_box Box Class
@@ -1113,7 +1129,7 @@ typedef struct dxHeightfieldData* dHeightfieldDataID;
  * @param p_user_data User data specified when creating the dHeightfieldDataID
  * @param x The index of a sample in the local x axis. It is a value
  * in the range zero to ( nWidthSamples - 1 ).
- * @param x The index of a sample in the local z axis. It is a value
+ * @param z The index of a sample in the local z axis. It is a value
  * in the range zero to ( nDepthSamples - 1 ).
  *
  * @return The sample height which is then scaled and offset using the
@@ -1184,6 +1200,10 @@ ODE_API void dGeomHeightfieldDataDestroy( dHeightfieldDataID d );
  * This call specifies that the heightfield data is computed by
  * the user and it should use the given callback when determining
  * the height of a given element of it's shape.
+ *
+ * @param pUserData optional user-defined data
+ *
+ * @param pCallback callback pointer
  *
  * @param d A new dHeightfieldDataID created by dGeomHeightfieldDataCreate
  *
@@ -1429,8 +1449,8 @@ ODE_API void dGeomHeightfieldDataBuildDouble( dHeightfieldDataID d,
  * A close fit will yield a more efficient collision check.
  *
  * @param d A dHeightfieldDataID created by dGeomHeightfieldDataCreate
- * @param min_height The new minimum height value. Scale, offset and thickness is then applied.
- * @param max_height The new maximum height value. Scale and offset is then applied.
+ * @param minHeight The new minimum height value. Scale, offset and thickness is then applied.
+ * @param maxHeight The new maximum height value. Scale and offset is then applied.
  * @ingroup collide
  */
 ODE_API void dGeomHeightfieldDataSetBounds( dHeightfieldDataID d,

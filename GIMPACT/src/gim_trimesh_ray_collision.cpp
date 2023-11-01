@@ -32,8 +32,8 @@ email: projectileman@yahoo.com
 //! Trimesh Ray Collisions
 /*!
 
-\param trimesh
-\param contact
+\param trimesh triangle mesh
+\param contact contact result structure
 \return 1 if the ray collides, else 0
 */
 int gim_trimesh_ray_collision(GIM_TRIMESH * trimesh,vec3f origin,vec3f dir, GREAL tmax, GIM_TRIANGLE_RAY_CONTACT_DATA * contact)
@@ -93,8 +93,8 @@ int gim_trimesh_ray_collision(GIM_TRIMESH * trimesh,vec3f origin,vec3f dir, GREA
 //! Trimesh Ray Collisions closest
 /*!
 Finds the closest primitive collided by the ray
-\param trimesh
-\param contact
+\param trimesh triangle mesh
+\param contact contact result structure
 \return 1 if the ray collides, else 0
 */
 int gim_trimesh_ray_closest_collision(GIM_TRIMESH * trimesh,vec3f origin,vec3f dir, GREAL tmax, GIM_TRIANGLE_RAY_CONTACT_DATA * contact)

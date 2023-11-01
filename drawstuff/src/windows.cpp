@@ -945,7 +945,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
 // main(); this code is no longer necessary
 /*
 
-//***************************************************************************
+// ****************************************************************************
 // windows entry point
 //
 // NOTE: WinMain is not guaranteed to be called with MinGW, because MinGW

@@ -269,7 +269,6 @@ float AABBTreeOfVerticesBuilder::GetSplittingValue(udword index, udword axis) co
 /**
  *	Computes the splitting value along a given axis for a given primitive.
  *	\param		index		[in] index of the primitive to split
- *	\param		axis		[in] axis index (0,1,2)
  *	\return		splitting value
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

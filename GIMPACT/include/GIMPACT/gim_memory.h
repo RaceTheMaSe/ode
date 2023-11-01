@@ -550,8 +550,8 @@ void gim_terminate_buffer_managers(GBUFFER_MANAGER_DATA buffer_managers[]);
 
 //!Creates a buffer on the buffer manager specified by buffer_manager_id
 /*!
-\param buffer_manager_id
-\param buffer_size
+\param buffer_manager_id buffer manager id
+\param buffer_size Size of the data buffer
 \param usage An usage constant. Use G_MU_DYNAMIC_READ_WRITE as default.
 \param buffer_id a pointer to receive the new buffer id
 \return An error code. 0 if success.
@@ -566,7 +566,7 @@ GUINT32 gim_create_buffer(
 
 //!Creates a buffer on the buffer manager specified by buffer_manager_id
 /*!
-\param buffer_manager_id
+\param buffer_manager_id buffer manager id
 \param pdata Data for allocating
 \param buffer_size Size of the data buffer
 \param usage An usage constant. Use G_MU_DYNAMIC_READ_WRITE as default.
@@ -598,8 +598,8 @@ GINT32 gim_buffer_add_ref(GBUFFER_ID * buffer_id);
 
 //! Function for resize buffer, preserving the content
 /*!
-\param buffer_id
-\param newsize
+\param buffer_id buffer id
+\param newsize new buffer size
 \return An error code. 0 if success.
 \post If m_refcount>0 then it decrements it.
 */
@@ -997,11 +997,11 @@ void GIM_BUFFER_ARRAY_DESTROY(GBUFFER_ARRAY & array_data);
 
 //!Kernel function prototype for process streams, given a buffered array as source and
 /*!
-\param 1 the uniform arguments
-\param 2 the source stream
-\param 3 the destination stream
+\param uniform_args the uniform arguments
+\param source_stream the source stream
+\param destination_stream the destination stream
 */
-typedef void (* gim_kernel_func)(void *,GBUFFER_ARRAY *,GBUFFER_ARRAY *);
+typedef void (* gim_kernel_func)(void *uniform_args,GBUFFER_ARRAY *source_stream,GBUFFER_ARRAY *destination_stream);
 
 //! Generic Stream Processingp loop
 /*!

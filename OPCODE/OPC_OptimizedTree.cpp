@@ -260,9 +260,10 @@ bool AABBCollisionTree::Build(AABBTree* tree)
  *	\return		true if success
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool AABBCollisionTree::Refit(const MeshInterface* /*mesh_interface*/)
+bool AABBCollisionTree::Refit(const MeshInterface* mesh_interface)
 {
 	ASSERT(!"Not implemented since AABBCollisionTrees have twice as more nodes to refit as AABBNoLeafTrees!");
+	(void)mesh_interface; // keep for documentation
 	return false;
 }
 
@@ -642,9 +643,10 @@ bool AABBQuantizedTree::Build(AABBTree* tree)
  *	\return		true if success
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool AABBQuantizedTree::Refit(const MeshInterface* /*mesh_interface*/)
+bool AABBQuantizedTree::Refit(const MeshInterface* mesh_interface)
 {
 	ASSERT(!"Not implemented since requantizing is painful !");
+	(void)mesh_interface; // keep for documentation
 	return false;
 }
 
@@ -762,9 +764,10 @@ bool AABBQuantizedNoLeafTree::Build(AABBTree* tree)
  *	\return		true if success
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool AABBQuantizedNoLeafTree::Refit(const MeshInterface* /*mesh_interface*/)
+bool AABBQuantizedNoLeafTree::Refit(const MeshInterface* mesh_interface)
 {
 	ASSERT(!"Not implemented since requantizing is painful !");
+	(void)mesh_interface; // keep for documentation
 	return false;
 }
 

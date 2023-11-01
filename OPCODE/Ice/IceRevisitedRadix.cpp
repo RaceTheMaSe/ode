@@ -341,7 +341,7 @@ RadixSort& RadixSort::Sort(const udword* input, udword nb, RadixHint hint)
 /**
  *	Main sort routine.
  *	This one is for floating-point values. After the call, mRanks contains a list of indices in sorted order, i.e. in the order you may process your data.
- *	\param		input			[in] a list of floating-point values to sort
+ *	\param		input2		[in] a list of floating-point values to sort
  *	\param		nb				[in] number of values to sort, must be < 2^31
  *	\return		Self-Reference
  *	\warning	only sorts IEEE floating-point values

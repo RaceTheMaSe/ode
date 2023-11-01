@@ -274,8 +274,8 @@ bool IntersectSegmentPlane(dVector3 a,
 /*! \brief Returns the Closest Point in Ray 1 to Ray 2
   \param Origin1 The origin of Ray 1
   \param Direction1 The direction of Ray 1
-  \param Origin1 The origin of Ray 2
-  \param Direction1 The direction of Ray 3
+  \param Origin2 The origin of Ray 2
+  \param Direction2 The direction of Ray 3
   \param t the time "t" in Ray 1 that gives us the closest point
   (closest_point=Origin1+(Direction1*t).
   \return true if there is a closest point, false if the rays are parallel.
@@ -308,9 +308,8 @@ inline bool ClosestPointInRay(const dVector3 Origin1,
   \param q1 end of segment 1
   \param p2 start of segment 2
   \param q2 end of segment 2
-  \param t the time "t" in Ray 1 that gives us the closest point
-  (closest_point=Origin1+(Direction1*t).
-  \return true if there is a closest point, false if the rays are parallel.
+  \param c1 closest point on segment 1
+  \param c2 closest point on segment 2
   \note Adapted from Christer Ericson's Real Time Collision Detection Book.
 */
 inline void ClosestPointBetweenSegments(dVector3& p1,
@@ -909,9 +908,8 @@ struct ConvexConvexSATOutput
 /*! \brief Does an axis separation test using cvx1 planes on cvx1 and cvx2, returns true for a collision false for no collision
   \param cvx1 [IN] First Convex object, its planes are used to do the tests
   \param cvx2 [IN] Second Convex object
-  \param min_depth [IN/OUT] Used to input as well as output the minimum depth so far, must be set to a huge value such as dInfinity for initialization.
-  \param g1 [OUT] Pointer to the convex which should be used in the returned contact as g1
-  \param g2 [OUT] Pointer to the convex which should be used in the returned contact as g2
+  \param ccso [IN/OUT] Used to input as well as output the minimum depth (and further info) so far, must be set to a huge value such as dInfinity for initialization.
+  \return true on collision
 */
 inline bool CheckSATConvexFaces(dxConvex& cvx1,
                                 dxConvex& cvx2,
@@ -956,9 +954,8 @@ inline bool CheckSATConvexFaces(dxConvex& cvx1,
 /*! \brief Does an axis separation test using cvx1 and cvx2 edges, returns true for a collision false for no collision
   \param cvx1 [IN] First Convex object
   \param cvx2 [IN] Second Convex object
-  \param min_depth [IN/OUT] Used to input as well as output the minimum depth so far, must be set to a huge value such as dInfinity for initialization.
-  \param g1 [OUT] Pointer to the convex which should be used in the returned contact as g1
-  \param g2 [OUT] Pointer to the convex which should be used in the returned contact as g2
+  \param ccso [IN/OUT] Used to input as well as output the minimum depth (and further info) so far, must be set to a huge value such as dInfinity for initialization.
+  \return true on collision
 */
 inline bool CheckSATConvexEdges(dxConvex& cvx1,
                                 dxConvex& cvx2,
@@ -1618,4 +1615,4 @@ int dCollideRayConvex(dxGeom *o1, dxGeom *o2,
 }
 
 #endif
-//<-- Convex Collision
+///<-- Convex Collision

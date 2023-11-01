@@ -219,7 +219,7 @@ static void setAllColliders (int i, dColliderFn *fn)
     setCollider (dCapsuleClass, dCylinderClass, &dCollideCapsuleCylinder);
 #endif
 
-    //--> Convex Collision
+    ///--> Convex Collision
 #ifdef dLIBCCD_CONVEX_BOX
     setCollider (dConvexClass, dBoxClass, &dCollideConvexBoxCCD);
 #else
@@ -250,9 +250,9 @@ static void setAllColliders (int i, dColliderFn *fn)
 
     setCollider (dConvexClass,dPlaneClass,&dCollideConvexPlane);
     setCollider (dRayClass,dConvexClass,&dCollideRayConvex);
-    //<-- Convex Collision
+    ///<-- Convex Collision
 
-    //--> dHeightfield Collision
+    ///--> dHeightfield Collision
     setCollider (dHeightfieldClass,dRayClass,&dCollideHeightfield);
     setCollider (dHeightfieldClass,dSphereClass,&dCollideHeightfield);
     setCollider (dHeightfieldClass,dBoxClass,&dCollideHeightfield);
@@ -262,7 +262,7 @@ static void setAllColliders (int i, dColliderFn *fn)
 #if dTRIMESH_ENABLED
     setCollider (dHeightfieldClass,dTriMeshClass,&dCollideHeightfield);
 #endif
-    //<-- dHeightfield Collision
+    ///<-- dHeightfield Collision
 
     setAllColliders (dGeomTransformClass,&dCollideTransform);
 }

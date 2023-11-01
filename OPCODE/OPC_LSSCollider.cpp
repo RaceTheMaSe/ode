@@ -322,6 +322,7 @@ bool LSSCollider::Collide(LSSCache& cache, const LSS& lss, const AABBTree* tree)
 inline_ BOOL LSSCollider::LSSContainsBox(const Point& bc, const Point& be)
 {
 	// Not implemented
+	(void)bc; (void) be; // keep for documentation
 	return FALSE;
 }
 

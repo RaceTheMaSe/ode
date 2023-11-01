@@ -383,9 +383,9 @@ void dJointSetPUAnchor( dJointID j, dReal x, dReal y, dReal z )
  * @param z The Z position of the anchor point in world frame
  * @param dx A delta to be added to the X position as if the anchor was set
  *           when body1 was at current_position[X] + dx
- * @param dx A delta to be added to the Y position as if the anchor was set
+ * @param dy A delta to be added to the Y position as if the anchor was set
  *           when body1 was at current_position[Y] + dy
- * @param dx A delta to be added to the Z position as if the anchor was set
+ * @param dz A delta to be added to the Z position as if the anchor was set
  *           when body1 was at current_position[Z] + dz
  * @note Should have the same meaning as dJointSetSliderAxisDelta
  */
@@ -440,9 +440,9 @@ void dJointSetPUAnchorDelta( dJointID j, dReal x, dReal y, dReal z,
  * @param z The Z position of the anchor point in world frame
  * @param dx A delta to be added to the X position as if the anchor was set
  *           when body1 was at current_position[X] + dx
- * @param dx A delta to be added to the Y position as if the anchor was set
+ * @param dy A delta to be added to the Y position as if the anchor was set
  *           when body1 was at current_position[Y] + dy
- * @param dx A delta to be added to the Z position as if the anchor was set
+ * @param dz A delta to be added to the Z position as if the anchor was set
  *           when body1 was at current_position[Z] + dz
  * @note Should have the same meaning as dJointSetSliderAxisDelta
  */

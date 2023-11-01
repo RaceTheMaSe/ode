@@ -191,7 +191,7 @@ public:
 
 			/*
 			 *	Implementation Note:
-			 *	1) This function may be not a memory barrier. However that would also mean that
+			 *	1) This function may not be a memory barrier. However that would also mean that
 			 *	no modification occurred and result is 'false'. Such behavior should be OK.
 			 *	2) Even though second assignment to bResult is unnecessary it might yield
 			 *	better code as compiler does not need to save variable's value for the call

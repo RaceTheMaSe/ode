@@ -31,7 +31,7 @@
 #include "icosahedron_geom.h"
 
 
-//<---- Convex Object
+///<---- Convex Object
 dReal planes[]= // planes for a cube, these should coincide with the face array
   {
     1.0f ,0.0f ,0.0f ,0.25f,

@@ -138,9 +138,9 @@ dxJointHinge2::getInfo1( dxJoint::Info1 *info )
 ///
 /// @param ax1 Will contain the joint axis1 in world frame
 /// @param ax2 Will contain the joint axis2 in world frame
-/// @param axis Will contain the cross product of ax1 x ax2
-/// @param sin_angle
-/// @param cos_angle
+/// @param axCross Will contain the cross product of ax1 x ax2
+/// @param sin_angle Will contain the sin of the angle
+/// @param cos_angle  Will contain the cos of the angle
 ////////////////////////////////////////////////////////////////////////////////
 void
 dxJointHinge2::getAxisInfo(dVector3 ax1, dVector3 ax2, dVector3 axCross,

@@ -31,9 +31,9 @@ email: projectileman@yahoo.com
 //! Utility function to find the closest point between a segment and a triangle
 /*!
 
-\param triangle
-\param s1
-\param s2
+\param triangle triangle mesh
+\param s1 segment point 1
+\param s2 segment point 2
 \param contacts Contains the closest points on the segment (1,2), and the normal points to segment, and m_depth contains the distance
 
 \post The contacts array is not set to 0. It adds additional contacts
@@ -169,8 +169,8 @@ void gim_closest_point_triangle_segment(GIM_TRIANGLE_DATA * triangle, vec3f s1,v
 //! Utility function to find the closest point between a capsule and a triangle
 /*!
 
-\param triangle
-\param capsule
+\param triangle triangle mesh
+\param capsule capsule data
 \param contacts Contains the closest points on the capsule, and the normal points to triangle
 
 \post The contacts array is not set to 0. It adds additional contacts
@@ -216,9 +216,8 @@ int gim_triangle_capsule_collision(GIM_TRIANGLE_DATA * triangle, GIM_CAPSULE_DAT
 //! Trimesh Capsule collision
 /*!
 Finds the closest primitive collided by the ray
-\param trimesh
-\param capsule
-\param contact
+\param trimesh triangle mesh
+\param capsule capsule data
 \param contacts A GIM_CONTACT array. Must be initialized
 */
 void gim_trimesh_capsule_collision(GIM_TRIMESH * trimesh, GIM_CAPSULE_DATA * capsule, GDYNAMIC_ARRAY * contacts)

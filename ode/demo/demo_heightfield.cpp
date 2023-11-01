@@ -52,7 +52,7 @@ dGeomID gheight;
 
 
 
-//<---- Convex Object
+///<---- Convex Object
 dReal planes[]= // planes for a cube
   {
     1.0f ,0.0f ,0.0f ,0.25f,

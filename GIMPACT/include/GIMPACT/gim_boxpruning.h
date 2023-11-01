@@ -93,7 +93,7 @@ void gim_aabbset_calc_global_bound(GIM_AABB_SET * aabbset);
 2) Sorts the min coords
 3) Calcs the global bound
 \pre aabbset must be allocated. And the boxes must be already set.
-\param aabbset
+\param aabbset set of AABBs
 \param calc_global_bound If 1 , calcs the global bound
 \post If aabbset->m_sorted_mincoords == 0, then it allocs the sorted coordinates
 */

@@ -37,9 +37,9 @@ email: projectileman@yahoo.com
 
 //! Finds the contact points from a collision of a triangle and a sphere
 /*!
-\param tri
-\param center
-\param radius
+\param tri triangle data
+\param center sphere center
+\param radius sphere radius
 \param contact_data Contains the closest points on the Sphere, and the normal is pointing to triangle
 */
 int gim_triangle_sphere_collision(

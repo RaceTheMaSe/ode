@@ -156,7 +156,7 @@ void IndexedTriangle::CenteredNormal(const Point* verts, Point& normal)	const
 /**
  *	Computes a random point within the triangle.
  *	\param		verts	[in] the list of indexed vertices
- *	\param		normal	[out] the computed centered normal
+ *	\param		random	[out] the computed random point
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void IndexedTriangle::RandomPoint(const Point* verts, Point& random)	const
@@ -242,7 +242,7 @@ bool IndexedTriangle::BackfaceCulling(const Point* verts, const Point& source)	c
 /**
  *	Computes the occlusion potential of the triangle.
  *	\param		verts	[in] the list of indexed vertices
- *	\param		source	[in] source point (in local space) from which occlusion potential must be computed
+ *	\param		view	[in] source point (in local space) from which occlusion potential must be computed
  *	\return		the occlusion potential
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -442,7 +442,8 @@ float IndexedTriangle::MaxEdgeLength(const Point* verts)	const
 /**
  *	Computes a point on the triangle according to the stabbing information.
  *	\param		verts		[in] the list of indexed vertices
- *	\param		u,v			[in] point's barycentric coordinates
+ *	\param		u			[in] point's barycentric coordinates u-component
+ *	\param		v			[in] point's barycentric coordinates v-component
  *	\param		pt			[out] point on triangle
  *	\param		nearvtx		[out] index of nearest vertex
  */

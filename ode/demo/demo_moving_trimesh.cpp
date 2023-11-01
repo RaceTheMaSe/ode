@@ -29,7 +29,7 @@
 #pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
 #endif
 
-//<---- Convex Object
+///<---- Convex Object
 static const dReal planes[] =  // planes for a cube
 {
     1.0f ,0.0f ,0.0f ,0.25f, 

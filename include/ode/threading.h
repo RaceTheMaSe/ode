@@ -69,7 +69,7 @@ typedef struct dxMutexGroup *dMutexGroupID;
  *
  * @param impl Threading implementation ID
  * @param Mutex_count Number of Mutex to create
- * @Mutex_names_ptr Pointer to optional Mutex names array to be associated with individual Mutex
+ * @param Mutex_names_ptr Pointer to optional Mutex names array to be associated with individual Mutex
  * @returns MutexGroup ID or NULL if error occurred.
  *
  * @ingroup threading

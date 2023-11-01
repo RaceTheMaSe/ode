@@ -181,9 +181,9 @@ void gim_trimesh_post_update(GIM_TRIMESH * trimesh);
 //! Creates the aabb set and the triangles cache
 /*!
 
-\param trimesh
-\param vertex_array
-\param triindex_array
+\param trimesh triangle mesh data
+\param vertex_array vertex positions array
+\param triindex_array triangle indices - indices addressing the position array
 \param transformed_reply If 1, then the m_transformed_vertices is a reply of the source vertices. Else it just is a reference to the original array.
 \post it copies the arrays by reference, and creates the auxiliary data (m_aabbset,m_planes_cache_buffer)
 */
@@ -196,9 +196,9 @@ void gim_trimesh_create_from_arrays(GBUFFER_MANAGER_DATA buffer_managers[],
 /*!
 \param trimesh An uninitialized GIM_TRIMESH structure
 \param vertex_array A buffer to a vec3f array
-\param vertex_count
-\param triindex_array
-\param index_count
+\param vertex_count number of vertices
+\param triindex_array triangle indices - indices addressing the position array
+\param index_count number of indices
 \param copy_vertices If 1, it copies the source vertices in another buffer. Else (0) it constructs a reference to the data.
 \param copy_indices If 1, it copies the source vertices in another buffer. Else (0) it constructs a reference to the data.
 \param transformed_reply If 1, then the m_transformed_vertices is a reply of the source vertices. Else it just be a reference to the original array. Use 1 if you will apply transformations to the trimesh. See \ref gim_trimesh_set_tranform().
@@ -212,8 +212,8 @@ void gim_trimesh_destroy(GIM_TRIMESH * trimesh);
 
 //! Copies two meshes
 /*!
-\param source_trimesh
-\param dest_trimesh
+\param source_trimesh source triangle mesh
+\param dest_trimesh destination triangle mesh
 \param copy_by_reference If 1, it attaches a reference to the source vertices, else it copies the vertices
 \param transformed_reply If 1, transformed vertices are reply of source vertives. 1 Is recommended
 */
@@ -225,7 +225,7 @@ void gim_trimesh_copy(GIM_TRIMESH * source_trimesh,
 //! Locks the trimesh for working with it
 /*!
 \post locks m_tri_index_buffer and m_transformed_vertex_buffer.
-\param trimesh
+\param trimesh triangle mesh to lock
 */
 void gim_trimesh_locks_work_data(GIM_TRIMESH * trimesh);
 
@@ -233,7 +233,7 @@ void gim_trimesh_locks_work_data(GIM_TRIMESH * trimesh);
 //! unlocks the trimesh
 /*!
 \post unlocks m_tri_index_buffer and m_transformed_vertex_buffer.
-\param trimesh
+\param trimesh triangle mesh to unlock
 */
 void gim_trimesh_unlocks_work_data(GIM_TRIMESH * trimesh);
 
@@ -383,9 +383,9 @@ In each contact
 <li> m_feature1 Is a triangle index of trimesh.
 </ul>
 
-\param trimesh
-\param center
-\param radius
+\param trimesh triangle mesh
+\param center sphere center
+\param radius sphere radius
 \param contacts A GIM_CONTACT array. Must be initialized
 */
 void gim_trimesh_sphere_collision(GIM_TRIMESH * trimesh,vec3f center,GREAL radius, GDYNAMIC_ARRAY * contacts);
@@ -444,8 +444,8 @@ In each contact
 <li> m_feature1 Is a triangle index of trimesh.
 </ul>
 
-\param trimesh
-\param capsule
+\param trimesh triangle mesh
+\param capsule caspule data
 \param contacts A GIM_CONTACT array. Must be initialized
 */
 void gim_trimesh_capsule_collision(GIM_TRIMESH * trimesh, GIM_CAPSULE_DATA * capsule, GDYNAMIC_ARRAY * contacts);
@@ -506,7 +506,7 @@ int collide_trimesh_plane(GIM_TRIMESH * trimesh, vec4f plane)
 
 In each contact the 3 first coordinates refer to the contact point, the fourth refers to the distance depth and the normal is the normal of the plane.
 
-\param trimesh
+\param trimesh triangle mesh
 \param plane vec4f plane
 \param contacts A vec4f array. Must be initialized (~100). Each element have the coordinate point in the first 3 elements, and vec4f[3] has the penetration depth.
 */
@@ -515,11 +515,11 @@ void gim_trimesh_plane_collision(GIM_TRIMESH * trimesh,vec4f plane, GDYNAMIC_ARR
 
 //! Trimesh Ray Collisions
 /*!
-\param trimesh
-\param origin
-\param dir
-\param tmax
-\param contact
+\param trimesh triangle mesh
+\param origin ray origin
+\param dir ray direction
+\param tmax maximum length
+\param contact contact result structure
 \return 1 if the ray collides, else 0
 */
 int gim_trimesh_ray_collision(GIM_TRIMESH * trimesh,vec3f origin,vec3f dir, GREAL tmax, GIM_TRIANGLE_RAY_CONTACT_DATA * contact);
@@ -528,11 +528,11 @@ int gim_trimesh_ray_collision(GIM_TRIMESH * trimesh,vec3f origin,vec3f dir, GREA
 //! Trimesh Ray Collisions closest
 /*!
 Finds the closest primitive collided by the ray
-\param trimesh
-\param origin
-\param dir
-\param tmax
-\param contact
+\param trimesh triangle mesh
+\param origin ray origin
+\param dir ray direction
+\param tmax maximum length
+\param contact contact result structure
 \return 1 if the ray collides, else 0
 */
 int gim_trimesh_ray_closest_collision(GIM_TRIMESH * trimesh,vec3f origin,vec3f dir, GREAL tmax, GIM_TRIANGLE_RAY_CONTACT_DATA * contact);

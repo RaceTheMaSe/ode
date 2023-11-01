@@ -81,7 +81,7 @@ struct dxJointPiston : public dxJoint
     ///       you must add the position of the prismatic joint
     ///       i.e anchor = R1 * anchor1 + dJointGetPistonPosition() * (R1 * axis1)
     dVector3 anchor1;
-    dVector3 anchor2;        //< anchor w.r.t second body
+    dVector3 anchor2;        ///< anchor w.r.t second body
 
     /// limit and motor information for the prismatic
     /// part of the joint

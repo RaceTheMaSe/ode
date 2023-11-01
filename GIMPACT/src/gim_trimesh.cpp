@@ -38,9 +38,9 @@ GUINT32 gim_trimesh_get_triangle_count(GIM_TRIMESH * trimesh)
 //! Creates the aabb set and the triangles cache
 /*!
 
-\param trimesh
-\param vertex_array
-\param triindex_array
+\param trimesh triangle mesh
+\param vertex_array vertex positions array
+\param triindex_array triangle indices - indices addressing the position array
 \param transformed_reply If 1, then the m_transformed_vertices is a reply of the source vertices. Else it just is a reference to the original array.
 \post it copies the arrays by reference, and creates the auxiliary data (m_aabbset,m_planes_cache_buffer)
 */
@@ -86,9 +86,9 @@ void gim_trimesh_create_from_arrays(GBUFFER_MANAGER_DATA buffer_managers[],
 
 \param trimesh An uninitialized GIM_TRIMESH structure
 \param vertex_array A buffer to a vec3f array
-\param vertex_count
-\param triindex_array
-\param index_count
+\param vertex_count number of vertices
+\param triindex_array triangle indices - indices addressing the position array
+\param index_count number of indices
 \param copy_vertices If 1, it copies the source vertices to another buffer. Else (0) it constructs a reference to the data.
 \param copy_indices If 1, it copies the source vertices to another buffer. Else (0) it constructs a reference to the data.
 \param transformed_reply If 1, then the m_transformed_vertices is a reply of the source vertices. Else (0) it just is a reference to the original array.
@@ -152,8 +152,8 @@ void gim_trimesh_destroy(GIM_TRIMESH * trimesh)
 /*!
 \pre dest_trimesh shouldn't be created
 \post dest_trimesh will be created
-\param source_trimesh
-\param dest_trimesh
+\param source_trimesh source triangle mesh
+\param dest_trimesh destination triangle mesh
 \param copy_by_reference If 1, it attaches a reference to the source vertices, else it copies the vertices
 \param transformed_reply IF 1, then it forces the m_trasnformed_vertices to be a reply of the source vertices
 */
@@ -161,6 +161,7 @@ void gim_trimesh_copy(GIM_TRIMESH * source_trimesh,
 	GBUFFER_MANAGER_DATA dest_buffer_managers[], GIM_TRIMESH * dest_trimesh, 
 	char copy_by_reference, char transformed_reply)
 {
+    (void)copy_by_reference; // keep for documentation
 /* -- trimesh can not be copied by reference until GBUFFER_MANAGER_DATA is rewritten
 	to be thread safe and until it is moved back to global variables.
     if(copy_by_reference==1)
@@ -190,7 +191,7 @@ void gim_trimesh_copy(GIM_TRIMESH * source_trimesh,
 //! Locks the trimesh for working with it
 /*!
 \post locks m_tri_index_buffer and m_transformed_vertex_buffer.
-\param trimesh
+\param trimesh triangle mesh
 */
 void gim_trimesh_locks_work_data(GIM_TRIMESH * trimesh)
 {
@@ -204,7 +205,7 @@ void gim_trimesh_locks_work_data(GIM_TRIMESH * trimesh)
 //! unlocks the trimesh
 /*!
 \post unlocks m_tri_index_buffer and m_transformed_vertex_buffer.
-\param trimesh
+\param trimesh triangle mesh
 */
 void gim_trimesh_unlocks_work_data(GIM_TRIMESH * trimesh)
 {

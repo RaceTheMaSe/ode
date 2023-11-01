@@ -1,4 +1,4 @@
-//<---- Icosahedron ---->
+///<---- Icosahedron ---->
 /*
    This is a description of a convex icosahedron, to test
    the convex collision detection.

@@ -154,7 +154,7 @@ DS_API void dsDebug (const char *msg, ...);
 /**
  * @brief print log message
  * @ingroup drawstuff
- * @param msg format string, like printf, without the \n.
+ * @param msg format string, like printf, without the \\n.
  */
 DS_API void dsPrint (const char *msg, ...);
 
@@ -199,7 +199,7 @@ DS_API double dsElapsedTime();
  * @ingroup drawstuff
  * It changes the way objects are drawn. these changes will apply to all further
  * dsDrawXXX() functions. 
- * @param the texture number must be a DS_xxx texture constant.
+ * @param texture_number the texture number must be a DS_xxx texture constant.
  * The current texture is colored according to the current color.
  * At the start of each frame, the texture is reset to none and the color is
  * reset to white.
@@ -231,7 +231,7 @@ DS_API void dsSetColorAlpha (float red, float green, float blue, float alpha);
  *        [ R11 R12 R13 0 ]
  *        [ R21 R22 R23 0 ]
  *        [ R31 R32 R33 0 ]
- * @param sides[] is an array of x,y,z side lengths.
+ * @param sides is an array of x,y,z side lengths.
  */
 DS_API void dsDrawBox (const float pos[3], const float R[12], const float sides[3]);
 
@@ -240,7 +240,7 @@ DS_API void dsDrawBox (const float pos[3], const float R[12], const float sides[
  * @ingroup drawstuff
  * @param pos Position of center.
  * @param R orientation.
- * @param radius
+ * @param radius radius.
  */
 DS_API void dsDrawSphere (const float pos[3], const float R[12], float radius);
 
@@ -250,7 +250,7 @@ DS_API void dsDrawSphere (const float pos[3], const float R[12], float radius);
  * @param pos Position of center
  * @param R orientation
  * @param v0 first vertex
- * @param v1 second
+ * @param v1 second vertex
  * @param v2 third vertex
  * @param solid set to 0 for wireframe
  */

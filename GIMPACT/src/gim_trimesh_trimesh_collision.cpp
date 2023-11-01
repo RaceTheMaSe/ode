@@ -313,7 +313,7 @@ void gim_trimesh_trimesh_collision(GIM_TRIMESH * trimesh1, GIM_TRIMESH * trimesh
 //! Trimesh Plane Collisions
 /*!
 
-\param trimesh
+\param trimesh triangle mesh
 \param plane vec4f plane
 \param contacts A vec4f array. Must be initialized (~100). Each element have the coordinate point in the first 3 elements, and vec4f[3] has the penetration depth.
 */

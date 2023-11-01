@@ -82,7 +82,7 @@ ODE_API void dEstimateCooperativelyFactorLDLTResourceRequirements(dResourceRequi
  * @param A The 'A' matrix
  * @param d The 'd' vector
  * @param rowCount The row count in @a A and @a d
- * @param rowskip The actual number of elements to be added to skip to next row in @a A
+ * @param rowSkip The actual number of elements to be added to skip to next row in @a A
  * @ingroup matrix_coop
  * @see dEstimateCooperativelyFactorLDLTResourceRequirements
  * @see dResourceContainerAcquire
@@ -132,7 +132,7 @@ ODE_API void dEstimateCooperativelySolveLDLTResourceRequirements(dResourceRequir
  * @param d The 'd' vector
  * @param b The 'b' vector; also the result is stored here
  * @param rowCount The row count in @a L, @a d and @a b
- * @param rowskip The actual number of elements to be added to skip to next row in @a L
+ * @param rowSkip The actual number of elements to be added to skip to next row in @a L
  * @ingroup matrix_coop
  * @see dEstimateCooperativelySolveLDLTResourceRequirements
  * @see dResourceContainerAcquire
@@ -180,7 +180,7 @@ ODE_API void dEstimateCooperativelySolveL1StraightResourceRequirements(dResource
  * @param L The 'L' matrix
  * @param b The 'b' vector; also the result is stored here
  * @param rowCount The row count in @a L and @a b
- * @param rowskip The actual number of elements to be added to skip to next row in @a L
+ * @param rowSkip The actual number of elements to be added to skip to next row in @a L
  * @ingroup matrix_coop
  * @see dEstimateCooperativelySolveL1StraightResourceRequirements
  * @see dResourceContainerAcquire
@@ -228,7 +228,7 @@ ODE_API void dEstimateCooperativelySolveL1TransposedResourceRequirements(dResour
  * @param L The 'L' matrix
  * @param b The 'b' vector; also the result is stored here
  * @param rowCount The row count in @a L and @a b
- * @param rowskip The actual number of elements to be added to skip to next row in @a L
+ * @param rowSkip The actual number of elements to be added to skip to next row in @a L
  * @ingroup matrix_coop
  * @see dEstimateCooperativelySolveL1TransposedResourceRequirements
  * @see dResourceContainerAcquire

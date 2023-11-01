@@ -77,7 +77,7 @@ int dCollideCylinderSphere(dxGeom *gCylinder, dxGeom *gSphere,
 int dCollideCylinderPlane(dxGeom *gCylinder, dxGeom *gPlane, 
                           int flags, dContactGeom *contact, int skip); 
 
-//--> Convex Collision
+///> Convex Collision
 int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
                          dContactGeom *contact, int skip);
 int dCollideSphereConvex (dxGeom *o1, dxGeom *o2, int flags,
@@ -90,7 +90,7 @@ int dCollideConvexConvex (dxGeom *o1, dxGeom *o2, int flags,
                           dContactGeom *contact, int skip);
 int dCollideRayConvex (dxGeom *o1, dxGeom *o2, int flags, 
                        dContactGeom *contact, int skip);
-//<-- Convex Collision
+///< Convex Collision
 
 // dHeightfield
 int dCollideHeightfield( dxGeom *o1, dxGeom *o2, 

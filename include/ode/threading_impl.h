@@ -178,7 +178,7 @@ typedef void (dThreadReadyToServeCallback)(void *callback_context);
  * This function can be used to provide external threads instead of ODE's built-in
  * thread pools.
  *
- * The optional callback @readiness_callback is called after the thread has reached 
+ * The optional callback @p readiness_callback is called after the thread has reached 
  * and has registered within the implementation. The implementation should not 
  * be used until all dedicated threads register within it as otherwise it will not
  * have accurate view of the execution resources available.
