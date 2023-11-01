@@ -45,7 +45,14 @@
 
 #define BAN_OPCODE_AUTOLINK
 #include "Opcode.h"
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wheader-hygiene" // using namespace directive in global context in header
+#endif
 using namespace Opcode;
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 
 #if !dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER
