@@ -177,7 +177,6 @@ void osxKeyEventHandler( unsigned char key, int /*x*/, int /*y*/ )
                 break;
             case 'X':
                 exit(0);
-                break;
             case 'P':
                 paused = !paused;
                 singlestep = false;

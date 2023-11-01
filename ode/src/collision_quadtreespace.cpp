@@ -434,8 +434,6 @@ dxGeom* dxQuadTreeSpace::getGeom(int Index){
     //@@@
     dDebug (0,"dxQuadTreeSpace::getGeom() not yet implemented");
 
-    return 0;
-
     // This doesnt work
 /*
     if (CurrentIndex == Index){
@@ -498,8 +496,6 @@ PARENTRECURSE:
         getGeom(i);
     }
 */
-
-    return 0;
 }
 
 void dxQuadTreeSpace::add(dxGeom* g){

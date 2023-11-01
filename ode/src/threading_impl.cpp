@@ -33,6 +33,10 @@
 #include <ode/threading_impl.h>
 #include "config.h"
 #include "threading_impl_posix.h"
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable: 4702) // 'unreachable code' with dxFakeLull
+#endif
 #include "threading_impl_win.h"
 #include "threading_impl.h"
 
@@ -298,4 +302,8 @@ int PreallocateResourcesForThreadedCalls(dThreadingImplementationID impl, ddepen
 {
     return ((dxIThreadingImplementation *)impl)->PreallocateJobInfos(max_simultaneous_calls_estimate);
 }
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 

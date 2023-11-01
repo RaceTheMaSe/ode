@@ -276,5 +276,4 @@ int dCollideCylinderSphere(dxGeom* Cylinder, dxGeom* Sphere,
             return GeomCount;
         }
     }
-    return GeomCount;
 }

@@ -15,7 +15,7 @@ TEST(test_collision_trimesh_sphere_exact)
      * the numerical approximation used for the square root produces inexact results.
      */
     return;
-    #endif
+    #else
 
     {
         const int VertexCount = 4;
@@ -94,6 +94,7 @@ TEST(test_collision_trimesh_sphere_exact)
             CHECK_ARRAY_EQUAL(rtrinormal, cg[i].normal, 3);
         }
     }
+    #endif // dTRIMESH_GIMPACT
 }
 
 

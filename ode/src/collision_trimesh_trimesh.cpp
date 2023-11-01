@@ -918,9 +918,7 @@ dReal IntervalPenetration(dReal &vmin1,dReal &vmax1,
 
             return vmax2-vmin1;
         }
-
     }
-    return 0;
 }
 
 void FindInterval(

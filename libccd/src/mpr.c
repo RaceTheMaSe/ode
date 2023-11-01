@@ -322,8 +322,6 @@ static int refinePortal(const void *obj1, const void *obj2,
         // difference (direction from v0).
         expandPortal(portal, &v4);
     }
-
-    return -1;
 }
 
 

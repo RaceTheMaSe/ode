@@ -313,8 +313,8 @@ int main (int argc, char **argv)
   dSpaceDestroy (space);
   dWorldDestroy (world);
   dCloseODE();
-  return 0;
   (void)world_normals; // get rid of compiler warnings
+  return 0;
 }
 
 

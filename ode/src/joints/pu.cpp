@@ -716,13 +716,10 @@ dReal dJointGetPUParam( dJointID j, int parameter )
     {
     case dParamGroup1:
         return joint->limot1.get( parameter );
-        break;
     case dParamGroup2:
         return joint->limot2.get( parameter & 0xff );
-        break;
     case dParamGroup3:
         return joint->limotP.get( parameter & 0xff );
-        break;
     }
 
     return 0;

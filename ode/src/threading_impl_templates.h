@@ -874,7 +874,7 @@ dxThreadedJobInfo *dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomic
             }
 
             m_info_wait_lull.WaitForLullAlarm();
-            waited_lull = true;
+            waited_lull = true; // 'unreachable code' with dxFakeLull
         }
 
         // Extraction must be locked so that other thread does not "steal" head info,

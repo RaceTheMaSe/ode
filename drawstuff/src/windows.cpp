@@ -82,7 +82,7 @@ extern "C" void dsDebug(const char *msg, ...)
     va_end(ap);
     // *((char *)0) = 0;	 ... commit SEGVicide ?
     abort();
-    exit(1);	  // should never get here, but just in case...
+    //exit(1);	  // should never get here, but just in case...
 }
 
 
@@ -172,13 +172,13 @@ unsigned CALLBACK renderingThread(LPVOID lpParam)
         glc = wglCreateContext(pRendererParams->m_rendererDC);
         if (glc == NULL) {
             dsError("could not create OpenGL context");
-            break;
+            // break;
         }
         contextCreated = true;
 
         if (!wglMakeCurrent(pRendererParams->m_rendererDC, glc)) {
             dsError("could not make OpenGL context current");
-            break;
+            // break;
         }
         currentMade = true;
 
@@ -632,7 +632,7 @@ bool startupStuff()
             g_accelerators = LoadAccelerators(g_instance, MAKEINTRESOURCE(IDR_ACCELERATOR1));
             if (g_accelerators == NULL) {
                 dsError("could not load accelerators");
-                break;
+                // break;
             }
 
             // register the window class
@@ -649,7 +649,7 @@ bool startupStuff()
             wc.lpszClassName = g_mainWindowClassName;
             if (RegisterClass(&wc) == 0) {
                 dsError("could not register window class");
-                break;
+                // break;
             }
 
             allocateConsole();
@@ -775,14 +775,14 @@ void dsPlatformSimLoop(int window_width, int window_height,
             NULL, NULL, g_instance, NULL);
         if (mainWindow == NULL) {
             dsError("could not create main window");
-            break;
+            // break;
         }
         windowCreated = true;
 
         windowDC = GetDC(mainWindow);			// get DC for this window
         if (windowDC == NULL) {
             dsError("could not get window DC");
-            break;
+            // break;
         }
         dcObtained = true;
 
@@ -812,12 +812,12 @@ void dsPlatformSimLoop(int window_width, int window_height,
         int iPixelFormat = ChoosePixelFormat(windowDC, &pfd);
         if (iPixelFormat == 0) {
             dsError("could not find a good OpenGL pixel format");
-            break;
+            // break;
         }
         // set the pixel format of the device context
         if (!SetPixelFormat(windowDC, iPixelFormat, &pfd)) {
             dsError("could not set DC pixel format for OpenGL");
-            break;
+            // break;
         }
 
         // Preapre renderer parameters
@@ -843,7 +843,7 @@ void dsPlatformSimLoop(int window_width, int window_height,
 
         if (hThread == NULL) {
             dsError("Could not create rendering thread");
-            break;
+            // break;
         }
 
         MainWindowExternalAborter::registerForAborts();
@@ -887,7 +887,7 @@ void handleMessageLoop()
     while ((retrievalResult = GetMessage(&msg, NULL, 0, 0)) != FALSE) {
         if (retrievalResult == -1) {
             dsError("Error retrieving GUI thread messages");
-            break;
+            // break;
         }
 
         if (!TranslateAccelerator(msg.hwnd, g_accelerators, &msg)) {

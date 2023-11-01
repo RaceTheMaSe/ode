@@ -1195,7 +1195,7 @@ void dxStepIsland_Stage2b(dxStepperStage2CallContext *stage2CallContext)
             dxJoint *joint = jointinfos[ji].joint;
 
             dxBody *jb0 = joint->node[0].body;
-            if (true || jb0 != NULL) { // -- always true
+            if (/* DISABLES CODE */ (true) || jb0 != NULL) { // -- always true
                 dReal body_invMass0 = jb0->invMass;
                 const dReal *body_invI0 = invI + (sizeint)(unsigned int)jb0->tag * dM3E__MAX;
                 for (unsigned int j = infom; j != 0; --j) {
@@ -1316,7 +1316,7 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
             dxJoint *joint = jointinfos[ji].joint;
 
             dxBody *jb0 = joint->node[0].body;
-            if (true || jb0 != NULL) { // -- always true
+            if (/* DISABLES CODE */ (true) || jb0 != NULL) { // -- always true
                 // compute diagonal block of A
                 const dReal *JRow = J + (sizeint)ofsi * (2 * JME__MAX);
                 MultiplyAddJinvMxJToA (Arow + ofsi, JinvMRow, JRow, infom, infom, mskip);
@@ -1388,7 +1388,7 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
             dxJoint *joint = jointinfos[ji].joint;
 
             dxBody *jb0 = joint->node[0].body;
-            if (true || jb0 != NULL) { // -- always true
+            if (/* DISABLES CODE */ (true) || jb0 != NULL) { // -- always true
                 unsigned bodyIndex = (unsigned)jb0->tag;
                 MultiplySubJxRhsTmpFromRHS (currRhsCfm, JRow, rhs_tmp + (sizeint)bodyIndex * dDA__MAX, infom);
 
