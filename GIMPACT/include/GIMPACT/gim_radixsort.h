@@ -75,19 +75,19 @@ struct GIM_RSORT_TOKEN
 
 #define GIM_RADIX_SORT_RTOKENS(array,sorted,element_count)\
 {\
-	GUINT32 i;\
+	GUINT32 ii;\
 	GUINT32 b0[kHist * 3];\
 	GUINT32 *b1 = b0 + kHist;\
 	GUINT32 *b2 = b1 + kHist;\
-	for (i = 0; i < kHist * 3; i++)\
+	for (ii = 0; ii < kHist * 3; ii++)\
 	{\
-		b0[i] = 0;\
+		b0[ii] = 0;\
 	}\
 	GUINT32 fi;\
 	GUINT32 pos;\
-	for (i = 0; i < element_count; i++)\
+	for (ii = 0; ii < element_count; ii++)\
 	{\
-	    fi = array[i].m_key;\
+	    fi = array[ii].m_key;\
 		b0[D11_0(fi)] ++;\
 		b1[D11_1(fi)] ++;\
 		b2[D11_2(fi)] ++;\
@@ -95,42 +95,42 @@ struct GIM_RSORT_TOKEN
 	{\
 		GUINT32 sum0 = 0, sum1 = 0, sum2 = 0;\
 		GUINT32 tsum;\
-		for (i = 0; i < kHist; i++)\
+		for (ii = 0; ii < kHist; ii++)\
 		{\
-			tsum = b0[i] + sum0;\
-			b0[i] = sum0 - 1;\
+			tsum = b0[ii] + sum0;\
+			b0[ii] = sum0 - 1;\
 			sum0 = tsum;\
-			tsum = b1[i] + sum1;\
-			b1[i] = sum1 - 1;\
+			tsum = b1[ii] + sum1;\
+			b1[ii] = sum1 - 1;\
 			sum1 = tsum;\
-			tsum = b2[i] + sum2;\
-			b2[i] = sum2 - 1;\
+			tsum = b2[ii] + sum2;\
+			b2[ii] = sum2 - 1;\
 			sum2 = tsum;\
 		}\
 	}\
-	for (i = 0; i < element_count; i++)\
+	for (ii = 0; ii < element_count; ii++)\
 	{\
-        fi = array[i].m_key;\
+        fi = array[ii].m_key;\
 		pos = D11_0(fi);\
 		pos = ++b0[pos];\
-		sorted[pos].m_key = array[i].m_key;\
-		sorted[pos].m_value = array[i].m_value;\
+		sorted[pos].m_key = array[ii].m_key;\
+		sorted[pos].m_value = array[ii].m_value;\
 	}\
-	for (i = 0; i < element_count; i++)\
+	for (ii = 0; ii < element_count; ii++)\
 	{\
-        fi = sorted[i].m_key;\
+        fi = sorted[ii].m_key;\
 		pos = D11_1(fi);\
 		pos = ++b1[pos];\
-		array[pos].m_key = sorted[i].m_key;\
-		array[pos].m_value = sorted[i].m_value;\
+		array[pos].m_key = sorted[ii].m_key;\
+		array[pos].m_value = sorted[ii].m_value;\
 	}\
-	for (i = 0; i < element_count; i++)\
+	for (ii = 0; ii < element_count; ii++)\
 	{\
-        fi = array[i].m_key;\
+        fi = array[ii].m_key;\
 		pos = D11_2(fi);\
 		pos = ++b2[pos];\
-		sorted[pos].m_key = array[i].m_key;\
-		sorted[pos].m_value = array[i].m_value;\
+		sorted[pos].m_key = array[ii].m_key;\
+		sorted[pos].m_value = array[ii].m_value;\
 	}\
 }\
 

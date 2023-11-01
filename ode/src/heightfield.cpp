@@ -476,7 +476,7 @@ dxHeightfieldData::~dxHeightfieldData()
 
 // dxHeightfield constructor
 dxHeightfield::dxHeightfield( dSpaceID space,
-                             dHeightfieldDataID data,
+                             dHeightfieldDataID hfData,
                              int bPlaceable )			:
     dxGeom( space, bPlaceable ),
     tempPlaneBuffer(0),
@@ -490,7 +490,7 @@ dxHeightfield::dxHeightfield( dSpaceID space,
     tempHeightBufferSizeZ(0)
 {
     type = dHeightfieldClass;
-    this->m_p_data = data;
+    this->m_p_data = hfData;
 }
 
 

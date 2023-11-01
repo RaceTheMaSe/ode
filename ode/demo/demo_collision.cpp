@@ -123,9 +123,9 @@ void nearCallback(void *, dGeomID o1, dGeomID o2)
         for (i = 0; i < n; i++) {
             contact[i].pos[2] += Z_OFFSET;
             dsDrawBox(contact[i].pos, RI, ss);
-            dVector3 n;
-            for (j = 0; j < 3; j++) n[j] = contact[i].pos[j] + 0.1*contact[i].normal[j];
-            dsDrawLine(contact[i].pos, n);
+            dVector3 norm;
+            for (j = 0; j < 3; j++) norm[j] = contact[i].pos[j] + 0.1*contact[i].normal[j];
+            dsDrawLine(contact[i].pos, norm);
         }
     }
 }
@@ -202,18 +202,18 @@ void draw_all_objects(dSpaceID space)
         }
 
         case dPlaneClass: {
-            dVector4 n;
+            dVector4 norm;
             dMatrix3 R, sides;
             dVector3 pos2;
-            dGeomPlaneGetParams(g, n);
-            dRFromZAxis(R, n[0], n[1], n[2]);
-            for (j = 0; j < 3; j++) pos[j] = n[j] * n[3];
+            dGeomPlaneGetParams(g, norm);
+            dRFromZAxis(R, norm[0], norm[1], norm[2]);
+            for (j = 0; j < 3; j++) pos[j] = norm[j] * norm[3];
             pos[2] += Z_OFFSET;
             sides[0] = 2;
             sides[1] = 2;
             sides[2] = 0.001;
             dsSetColor(1, 0, 1);
-            for (j = 0; j < 3; j++) pos2[j] = pos[j] + 0.1*n[j];
+            for (j = 0; j < 3; j++) pos2[j] = pos[j] + 0.1*norm[j];
             dsDrawLine(pos, pos2);
             dsSetColorAlpha(1, 0, 1, 0.8);
             dsDrawBox(pos, R, sides);

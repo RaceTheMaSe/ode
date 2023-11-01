@@ -575,18 +575,18 @@ static void simLoop (int pause)
 
         if (joint->getType() == dJointTypePiston )
         {
-            dVector3 anchor;
-            dJointGetPistonAnchor(joint->id(), anchor);
+            dVector3 pistonAnchor;
+            dJointGetPistonAnchor(joint->id(), pistonAnchor);
 
             // Draw the rotoide axis
             rot = dGeomGetRotation (geom[BODY2]);
             dsSetColor (1,0.5,0);
-            dsDrawCylinder (anchor, rot, 4, AXIS_RADIUS);
+            dsDrawCylinder (pistonAnchor, rot, 4, AXIS_RADIUS);
 
 
             dsSetColor (0,1,1);
             rot = dGeomGetRotation (geom[BODY1]);
-            dsDrawSphere (anchor, rot, 1.5*RADIUS);
+            dsDrawSphere (pistonAnchor, rot, 1.5*RADIUS);
         }
 
     }
@@ -757,9 +757,9 @@ int main (int argc, char **argv)
     if ( fixed )
     {
         // Attache external cylinder to the world
-        dJointID fixed = dJointCreateFixed (world,0);
-        dJointAttach (fixed , NULL, body[BODY2]);
-        dJointSetFixed (fixed );
+        dJointID fixedJoint = dJointCreateFixed (world,0);
+        dJointAttach (fixedJoint , NULL, body[BODY2]);
+        dJointSetFixed (fixedJoint );
         dWorldSetGravity (world,0,0,-0.8);
     }
     else

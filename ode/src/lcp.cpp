@@ -511,8 +511,7 @@ dLCP::dLCP (unsigned n, unsigned nskip, unsigned nub, dReal *Adata, dReal *pairs
         solveEquationSystemWithLDLT<1, PBX__MAX> (m_L, m_d, m_pairsbx + PBX_X, currNub, nskip);
         dSetZero (m_w, currNub);
         {
-            unsigned *C = m_C;
-            for (unsigned k = 0; k < currNub; ++k) C[k] = k;
+            for (unsigned k = 0; k < currNub; ++k) m_C[k] = k;
         }
         m_nC = currNub;
     }
@@ -775,12 +774,12 @@ void dLCP::solve1 (dReal *a, unsigned i, bool dir_positive, int only_transfer)
             solveL1Transposed<1>(m_L, tmp, nC, m_nskip);
             if (dir_positive) {
                 unsigned *C = m_C;
-                dReal *tmp = m_tmp;
-                for (unsigned j = 0; j < nC; ++j) a[C[j]] = -tmp[j];
+                dReal *temp = m_tmp;
+                for (unsigned j = 0; j < nC; ++j) a[C[j]] = -temp[j];
             } else {
                 unsigned *C = m_C;
-                dReal *tmp = m_tmp;
-                for (unsigned j = 0; j < nC; ++j) a[C[j]] = tmp[j];
+                dReal *temp = m_tmp;
+                for (unsigned j = 0; j < nC; ++j) a[C[j]] = temp[j];
             }
         }
     }

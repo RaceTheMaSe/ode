@@ -167,8 +167,8 @@ void UpdateContactKey(CONTACT_KEY & key, dContactGeom * contact)
         memcpy(hash_v, &coord, sizeof(coord));
 
         unsigned int hash_input = hash_v[0];
-        for (int i=1; i<sz; ++i)
-            hash_input ^= hash_v[i];
+        for (int j=1; j<sz; ++j)
+            hash_input ^= hash_v[j];
 
         hash = (( hash << 4 ) + (hash_input >> 24)) ^ ( hash >> 28 );
         hash = (( hash << 4 ) + ((hash_input >> 16) & 0xFF)) ^ ( hash >> 28 );

@@ -221,9 +221,9 @@ static void simLoop (int pause)
   
   dsSetColor (1,0,0);
   for (i=0; i<obstacle_num; i++) {
-    dVector3 ss;
-	dGeomBoxGetLengths (obstacle[i],ss);
-	dsDrawBox (dGeomGetPosition(obstacle[i]),dGeomGetRotation(obstacle[i]),ss);
+    dVector3 ss1;
+	  dGeomBoxGetLengths (obstacle[i],ss1);
+	  dsDrawBox (dGeomGetPosition(obstacle[i]),dGeomGetRotation(obstacle[i]),ss1);
   }
 
   dsSetColor (1,1,0);

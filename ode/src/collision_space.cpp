@@ -243,7 +243,7 @@ void dxSimpleSpace::cleanGeoms()
 }
 
 
-void dxSimpleSpace::collide (void *data, dNearCallback *callback)
+void dxSimpleSpace::collide (void *userData, dNearCallback *callback)
 {
     dAASSERT (callback);
 
@@ -255,7 +255,7 @@ void dxSimpleSpace::collide (void *data, dNearCallback *callback)
         if (GEOM_ENABLED(g1)){
             for (dxGeom *g2=g1->next; g2; g2=g2->next) {
                 if (GEOM_ENABLED(g2)){
-                    collideAABBs (g1,g2,data,callback);
+                    collideAABBs (g1,g2,userData,callback);
                 }
             }
         }
@@ -265,7 +265,7 @@ void dxSimpleSpace::collide (void *data, dNearCallback *callback)
 }
 
 
-void dxSimpleSpace::collide2 (void *data, dxGeom *geom,
+void dxSimpleSpace::collide2 (void *userData, dxGeom *geom,
                               dNearCallback *callback)
 {
     dAASSERT (geom && callback);
@@ -277,7 +277,7 @@ void dxSimpleSpace::collide2 (void *data, dxGeom *geom,
     // intersect bounding boxes
     for (dxGeom *g=first; g; g=g->next) {
         if (GEOM_ENABLED(g)){
-            collideAABBs (g,geom,data,callback);
+            collideAABBs (g,geom,userData,callback);
         }
     }
 
@@ -418,7 +418,7 @@ void dxHashSpace::cleanGeoms()
 }
 
 
-void dxHashSpace::collide (void *data, dNearCallback *callback)
+void dxHashSpace::collide (void *userData, dNearCallback *callback)
 {
     dAASSERT(this && callback);
     dxGeom *geom;
@@ -444,13 +444,13 @@ void dxHashSpace::collide (void *data, dNearCallback *callback)
         if (!GEOM_ENABLED(geom)){
             continue;
         }
-        dxAABB aabb;
-        aabb.geom = geom;
+        dxAABB box;
+        box.geom = geom;
         // compute level, but prevent cells from getting too small
         int level = findLevel (geom->aabb);
         if (level < global_minlevel) level = global_minlevel;
         if (level <= global_maxlevel) {
-            aabb.level = level;
+            box.level = level;
             if (level > maxlevel) maxlevel = level;
             // cellsize = 2^level
             dReal cellSizeRecip = dRecip(ldexp(REAL(1.0), level)); // No computational errors here!
@@ -459,17 +459,17 @@ void dxHashSpace::collide (void *data, dNearCallback *callback)
                 dReal aabbBound = geom->aabb[i] * cellSizeRecip; // No computational errors so far!
                 dICHECK(aabbBound >= dMinIntExact && aabbBound </*=*/ dMaxIntExact); // Otherwise the scene is too large for integer types used 
 
-                aabb.dbounds[i] = (int) dFloor(aabbBound);
+                box.dbounds[i] = (int) dFloor(aabbBound);
             }
             // set AABB index
-            aabb.index = hash_boxes.size();
+            box.index = hash_boxes.size();
             // aabb goes in main list
-            hash_boxes.push_back(aabb);
+            hash_boxes.push_back(box);
         }
         else {
             // aabb is too big, put it in the big_boxes list. we don't care about
             // setting level, dbounds, index, or the maxlevel
-            big_boxes.push_back(aabb);
+            big_boxes.push_back(box);
         }
     }
 
@@ -501,14 +501,14 @@ void dxHashSpace::collide (void *data, dNearCallback *callback)
 
     // add each AABB to the hash table (may need to add it to up to 8 cells)
     const AABBlist::iterator hashend = hash_boxes.end();
-    for (AABBlist::iterator aabb = hash_boxes.begin(); aabb != hashend; ++aabb) {
-        const int *dbounds = aabb->dbounds;
+    for (AABBlist::iterator aabbIt = hash_boxes.begin(); aabbIt != hashend; ++aabbIt) {
+        const int *dbounds = aabbIt->dbounds;
         const int xend = dbounds[1];
         for (int xi = dbounds[0]; xi <= xend; xi++) {
             const int yend = dbounds[3];
             for (int yi = dbounds[2]; yi <= yend; yi++) {
                 int zbegin = dbounds[4];
-                unsigned long hi = (getVirtualAddressBase(aabb->level,xi,yi) + zbegin) % sz;
+                unsigned long hi = (getVirtualAddressBase(aabbIt->level,xi,yi) + zbegin) % sz;
                 const int zend = dbounds[5];
                 for (int zi = zbegin; zi <= zend; (hi = hi + 1U != sz ? hi + 1U : 0UL), zi++) {
                     // get the hash index
@@ -517,7 +517,7 @@ void dxHashSpace::collide (void *data, dNearCallback *callback)
                     node->x = xi;
                     node->y = yi;
                     node->z = zi;
-                    node->aabb = &*aabb;
+                    node->aabb = &*aabbIt;
                     node->next = table[hi];
                     table[hi] = node;
                 }
@@ -531,10 +531,10 @@ void dxHashSpace::collide (void *data, dNearCallback *callback)
     // intersecting higher level cells.
 
     int db[6];			// discrete bounds at current level
-    for (AABBlist::iterator aabb = hash_boxes.begin(); aabb != hashend; ++aabb) {
+    for (AABBlist::iterator aabbIt = hash_boxes.begin(); aabbIt != hashend; ++aabbIt) {
         // we are searching for collisions with aabb
-        for (i=0; i<6; i++) db[i] = aabb->dbounds[i];
-        for (int level = aabb->level; ; ) {
+        for (i=0; i<6; i++) db[i] = aabbIt->dbounds[i];
+        for (int level = aabbIt->level; ; ) {
             dIASSERT(level <= maxlevel);
             const int xend = db[1];
             for (int xi = db[0]; xi <= xend; xi++) {
@@ -548,25 +548,25 @@ void dxHashSpace::collide (void *data, dNearCallback *callback)
                         // search all nodes at this index
                         for (Node* node = table[hi]; node; node=node->next) {
                             // node points to an AABB that may intersect aabb
-                            if (node->aabb == &*aabb)
+                            if (node->aabb == &*aabbIt)
                                 continue;
                             if (node->aabb->level == level &&
                                 node->x == xi && node->y == yi && node->z == zi) {
                                     // see if aabb and node->aabb have already been tested
                                     // against each other
                                     unsigned char mask;
-                                    if (aabb->index <= node->aabb->index) {
-                                        i = (aabb->index * tested_rowsize)+(node->aabb->index >> 3);
+                                    if (aabbIt->index <= node->aabb->index) {
+                                        i = (aabbIt->index * tested_rowsize)+(node->aabb->index >> 3);
                                         mask = 1 << (node->aabb->index & 7);
                                     }
                                     else {
-                                        i = (node->aabb->index * tested_rowsize)+(aabb->index >> 3);
-                                        mask = 1 << (aabb->index & 7);
+                                        i = (node->aabb->index * tested_rowsize)+(aabbIt->index >> 3);
+                                        mask = 1 << (aabbIt->index & 7);
                                     }
                                     dIASSERT (i >= 0 && (sizeint)i < (tested_rowsize*n));
                                     if ((tested[i] & mask)==0) {
                                         tested[i] |= mask;
-                                        collideAABBs (aabb->geom,node->aabb->geom,data,callback);
+                                        collideAABBs (aabbIt->geom,node->aabb->geom,userData,callback);
                                     }
                             }
                         }
@@ -587,17 +587,17 @@ void dxHashSpace::collide (void *data, dNearCallback *callback)
     // AABB in the big_boxes list. so let's hope there are not too many objects
     // in the big_boxes list.
     const AABBlist::iterator bigend = big_boxes.end();
-    for (AABBlist::iterator aabb = hash_boxes.begin(); aabb != hashend; ++aabb) {
+    for (AABBlist::iterator aabb1 = hash_boxes.begin(); aabb1 != hashend; ++aabb1) {
         for (AABBlist::iterator aabb2 = big_boxes.begin(); aabb2 != bigend; ++aabb2) {
-            collideAABBs (aabb->geom, aabb2->geom, data, callback);
+            collideAABBs (aabb1->geom, aabb2->geom, userData, callback);
         }
     }
 
     // intersected all AABBs in the big_boxes list together
-    for (AABBlist::iterator aabb = big_boxes.begin(); aabb != bigend; ++aabb) {
-        AABBlist::iterator aabb2 = aabb;
+    for (AABBlist::iterator aabb1 = big_boxes.begin(); aabb1 != bigend; ++aabb1) {
+        AABBlist::iterator aabb2 = aabb1;
         while (++aabb2 != bigend) {
-            collideAABBs (aabb->geom, aabb2->geom, data, callback);
+            collideAABBs (aabb1->geom, aabb2->geom, userData, callback);
         }
     }
 
@@ -605,16 +605,16 @@ void dxHashSpace::collide (void *data, dNearCallback *callback)
     const HashTable::iterator tableend = table.end();
     for (HashTable::iterator el = table.begin(); el != tableend; ++el)
         for (Node* node = *el; node; ) {
-            Node* next = node->next;
+            Node* nextNode = node->next;
             delete node;
-            node = next;
+            node = nextNode;
         }
 
     lock_count--;
 }
 
 
-void dxHashSpace::collide2 (void *data, dxGeom *geom,
+void dxHashSpace::collide2 (void *userData, dxGeom *geom,
                             dNearCallback *callback)
 {
     dAASSERT (geom && callback);
@@ -628,7 +628,7 @@ void dxHashSpace::collide2 (void *data, dxGeom *geom,
 
     // intersect bounding boxes
     for (dxGeom *g=first; g; g=g->next) {
-        if (GEOM_ENABLED(g)) collideAABBs (g,geom,data,callback);
+        if (GEOM_ENABLED(g)) collideAABBs (g,geom,userData,callback);
     }
 
     lock_count--;

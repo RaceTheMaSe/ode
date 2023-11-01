@@ -407,7 +407,7 @@ static void command (int cmd)
 
 // draw a geom
 
-void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
+void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
   if (!g) return;
   if (!pos) pos = dGeomGetPosition (g);
@@ -440,7 +440,7 @@ void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
                  polygons);
   }
 
-  if (show_aabb) {
+  if (draw_aabb) {
     // draw the bounding box for this geom
     dReal aabb[6];
     dGeomGetAABB (g,aabb);
@@ -524,7 +524,7 @@ static void simLoop (int pause)
         }
       
         if (dGeomGetClass(obj[i].geom[j]) == dTriMeshClass) {
-          dTriIndex* Indices = (dTriIndex*)::Indices;
+          dTriIndex* triIndices = (dTriIndex*)::Indices;
 
           // assume all trimeshes are drawn as bunnies
           const dReal* Pos = dGeomGetPosition(obj[i].geom[j]);
@@ -532,15 +532,15 @@ static void simLoop (int pause)
         
           for (int ii = 0; ii < IndexCount / 3; ii++) {
             const dReal v[9] = { // explicit conversion from float to dReal
-              Vertices[Indices[ii * 3 + 0] * 3 + 0],
-              Vertices[Indices[ii * 3 + 0] * 3 + 1],
-              Vertices[Indices[ii * 3 + 0] * 3 + 2],
-              Vertices[Indices[ii * 3 + 1] * 3 + 0],
-              Vertices[Indices[ii * 3 + 1] * 3 + 1],
-              Vertices[Indices[ii * 3 + 1] * 3 + 2],
-              Vertices[Indices[ii * 3 + 2] * 3 + 0],
-              Vertices[Indices[ii * 3 + 2] * 3 + 1],
-              Vertices[Indices[ii * 3 + 2] * 3 + 2]
+              Vertices[triIndices[ii * 3 + 0] * 3 + 0],
+              Vertices[triIndices[ii * 3 + 0] * 3 + 1],
+              Vertices[triIndices[ii * 3 + 0] * 3 + 2],
+              Vertices[triIndices[ii * 3 + 1] * 3 + 0],
+              Vertices[triIndices[ii * 3 + 1] * 3 + 1],
+              Vertices[triIndices[ii * 3 + 1] * 3 + 2],
+              Vertices[triIndices[ii * 3 + 2] * 3 + 0],
+              Vertices[triIndices[ii * 3 + 2] * 3 + 1],
+              Vertices[triIndices[ii * 3 + 2] * 3 + 2]
             };
             dsDrawTriangle(Pos, Rot, &v[0], &v[3], &v[6], 1);
           }
@@ -569,22 +569,22 @@ static void simLoop (int pause)
     }
   }
 
-  dTriIndex* Indices = (dTriIndex*)::Indices;
+  dTriIndex* triIndices = (dTriIndex*)::Indices;
 
   {const dReal* Pos = dGeomGetPosition(TriMesh1);
   const dReal* Rot = dGeomGetRotation(TriMesh1);
 
   {for (int i = 0; i < IndexCount / 3; i++){
     const dReal v[9] = { // explicit conversion from float to dReal
-      Vertices[Indices[i * 3 + 0] * 3 + 0],
-      Vertices[Indices[i * 3 + 0] * 3 + 1],
-      Vertices[Indices[i * 3 + 0] * 3 + 2],
-      Vertices[Indices[i * 3 + 1] * 3 + 0],
-      Vertices[Indices[i * 3 + 1] * 3 + 1],
-      Vertices[Indices[i * 3 + 1] * 3 + 2],
-      Vertices[Indices[i * 3 + 2] * 3 + 0],
-      Vertices[Indices[i * 3 + 2] * 3 + 1],
-      Vertices[Indices[i * 3 + 2] * 3 + 2]
+      Vertices[triIndices[i * 3 + 0] * 3 + 0],
+      Vertices[triIndices[i * 3 + 0] * 3 + 1],
+      Vertices[triIndices[i * 3 + 0] * 3 + 2],
+      Vertices[triIndices[i * 3 + 1] * 3 + 0],
+      Vertices[triIndices[i * 3 + 1] * 3 + 1],
+      Vertices[triIndices[i * 3 + 1] * 3 + 2],
+      Vertices[triIndices[i * 3 + 2] * 3 + 0],
+      Vertices[triIndices[i * 3 + 2] * 3 + 1],
+      Vertices[triIndices[i * 3 + 2] * 3 + 2]
     };
     dsDrawTriangle(Pos, Rot, &v[0], &v[3], &v[6], 0);
   }}}
@@ -594,15 +594,15 @@ static void simLoop (int pause)
 
   {for (int i = 0; i < IndexCount / 3; i++){
     const dReal v[9] = { // explicit conversion from float to dReal
-      Vertices[Indices[i * 3 + 0] * 3 + 0],
-      Vertices[Indices[i * 3 + 0] * 3 + 1],
-      Vertices[Indices[i * 3 + 0] * 3 + 2],
-      Vertices[Indices[i * 3 + 1] * 3 + 0],
-      Vertices[Indices[i * 3 + 1] * 3 + 1],
-      Vertices[Indices[i * 3 + 1] * 3 + 2],
-      Vertices[Indices[i * 3 + 2] * 3 + 0],
-      Vertices[Indices[i * 3 + 2] * 3 + 1],
-      Vertices[Indices[i * 3 + 2] * 3 + 2]
+      Vertices[triIndices[i * 3 + 0] * 3 + 0],
+      Vertices[triIndices[i * 3 + 0] * 3 + 1],
+      Vertices[triIndices[i * 3 + 0] * 3 + 2],
+      Vertices[triIndices[i * 3 + 1] * 3 + 0],
+      Vertices[triIndices[i * 3 + 1] * 3 + 1],
+      Vertices[triIndices[i * 3 + 1] * 3 + 2],
+      Vertices[triIndices[i * 3 + 2] * 3 + 0],
+      Vertices[triIndices[i * 3 + 2] * 3 + 1],
+      Vertices[triIndices[i * 3 + 2] * 3 + 2]
     };
     dsDrawTriangle(Pos, Rot, &v[0], &v[3], &v[6], 1);
   }}}

@@ -103,10 +103,10 @@ SUITE(JointHinge2)
         dJointSetHinge2Param(jId, dParamLoStop, -M_PI/4.0);
         dJointSetHinge2Param(jId, dParamHiStop,  M_PI/4.0);
 
-        dxJoint::Info1 info;
+        info = dxJoint::Info1();
 
 
-        dxJointHinge2* joint = (dxJointHinge2*)jId;
+        joint = (dxJointHinge2*)jId;
 
         // Original position inside the limits
         joint->getInfo1(&info);
@@ -290,10 +290,10 @@ SUITE(JointUniversal)
         dJointSetUniversalParam(jId, dParamLoStop2, -M_PI/4.0);
         dJointSetUniversalParam(jId, dParamHiStop2,  M_PI/4.0);
 
-        dxJoint::Info1 info;
+        info = dxJoint::Info1();
 
 
-        dxJointUniversal* joint = (dxJointUniversal*)jId;
+        joint = (dxJointUniversal*)jId;
 
         // Original position inside the limits
         joint->getInfo1(&info);
@@ -432,10 +432,10 @@ SUITE(JointUniversal)
         dJointSetUniversalParam(jId, dParamLoStop2, -M_PI/4.0);
         dJointSetUniversalParam(jId, dParamHiStop2,  M_PI/4.0);
 
-        dxJoint::Info1 info;
+        info = dxJoint::Info1();
 
 
-        dxJointUniversal* joint = (dxJointUniversal*)jId;
+        joint = (dxJointUniversal*)jId;
 
         // Original position inside the limits
         joint->getInfo1(&info);

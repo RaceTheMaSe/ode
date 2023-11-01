@@ -1307,21 +1307,21 @@ SUITE (TestdxJointUniversal)
         CHECK_CLOSE (0, angle1, 1e-4);
         CHECK_CLOSE (0, angle2, 1e-4);
 
-        dVector3 axis;
-        dJointGetUniversalAxis1 (jId, axis);
+        dVector3 axis1;
+        dJointGetUniversalAxis1 (jId, axis1);
 
         dReal ang1 = REAL(0.0);
         dReal ang2 = REAL(0.0);
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang1);
+        dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
         dBodySetRotation (bId1, R);
 
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (ang2, dJointGetUniversalAngle2 (jId), 1e-4);
 
 
-        dJointSetUniversalAxis1Offset (jId, axis[0], axis[1], axis[2],
+        dJointSetUniversalAxis1Offset (jId, axis1[0], axis1[1], axis1[2],
                                        ang1, ang2);
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (ang2, dJointGetUniversalAngle2 (jId), 1e-4);
@@ -1369,21 +1369,21 @@ SUITE (TestdxJointUniversal)
         CHECK_CLOSE (0, angle1, 1e-4);
         CHECK_CLOSE (0, angle2, 1e-4);
 
-        dVector3 axis;
-        dJointGetUniversalAxis1 (jId, axis);
+        dVector3 axis1;
+        dJointGetUniversalAxis1 (jId, axis1);
 
         dReal ang1 = d2r(90);
         dReal ang2 = REAL(0.0);
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang1);
+        dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
         dBodySetRotation (bId1, R);
 
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (ang2, dJointGetUniversalAngle2 (jId), 1e-4);
 
 
-        dJointSetUniversalAxis1Offset (jId, axis[0], axis[1], axis[2],
+        dJointSetUniversalAxis1Offset (jId, axis1[0], axis1[1], axis1[2],
                                        ang1, ang2);
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (ang2, dJointGetUniversalAngle2 (jId), 1e-4);
@@ -1431,21 +1431,21 @@ SUITE (TestdxJointUniversal)
         CHECK_CLOSE (0, angle1, 1e-4);
         CHECK_CLOSE (0, angle2, 1e-4);
 
-        dVector3 axis;
-        dJointGetUniversalAxis2 (jId, axis);
+        dVector3 axis2;
+        dJointGetUniversalAxis2 (jId, axis2);
 
         dReal ang1 = d2r(REAL(0.0));
         dReal ang2 = d2r(REAL(0.0));
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang2);
+        dRFromAxisAndAngle (R, axis2[0], axis2[1], axis2[2], ang2);
         dBodySetRotation (bId2, R);
 
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (-ang2, dJointGetUniversalAngle2 (jId), 1e-4);
 
 
-        dJointSetUniversalAxis2Offset (jId, axis[0], axis[1], axis[2],
+        dJointSetUniversalAxis2Offset (jId, axis2[0], axis2[1], axis2[2],
                                        ang1, -ang2);
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (-ang2, dJointGetUniversalAngle2 (jId), 1e-4);
@@ -1489,21 +1489,21 @@ SUITE (TestdxJointUniversal)
         CHECK_CLOSE (0, angle1, 1e-4);
         CHECK_CLOSE (0, angle2, 1e-4);
 
-        dVector3 axis;
-        dJointGetUniversalAxis2 (jId, axis);
+        dVector3 axis2;
+        dJointGetUniversalAxis2 (jId, axis2);
 
         dReal ang1 = d2r(REAL(0.0));
         dReal ang2 = d2r(REAL(90.0));
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang2);
+        dRFromAxisAndAngle (R, axis2[0], axis2[1], axis2[2], ang2);
         dBodySetRotation (bId2, R);
 
         CHECK_CLOSE (0, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (-ang2, dJointGetUniversalAngle2 (jId), 1e-4);
 
 
-        dJointSetUniversalAxis2Offset (jId, axis[0], axis[1], axis[2],
+        dJointSetUniversalAxis2Offset (jId, axis2[0], axis2[1], axis2[2],
                                        ang1, -ang2);
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (-ang2, dJointGetUniversalAngle2 (jId), 1e-4);
@@ -1547,15 +1547,15 @@ SUITE (TestdxJointUniversal)
         CHECK_CLOSE (0, angle1, 1e-4);
         CHECK_CLOSE (0, angle2, 1e-4);
 
-        dVector3 axis;
-        dJointGetUniversalAxis2 (jId, axis);
+        dVector3 axis2;
+        dJointGetUniversalAxis2 (jId, axis2);
 
         dReal ang1 = d2r(0.0);
         dReal ang2 = d2r(REAL(-90.0));
 
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang2);
+        dRFromAxisAndAngle (R, axis2[0], axis2[1], axis2[2], ang2);
         dBodySetRotation (bId2, R);
 
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
@@ -1565,9 +1565,10 @@ SUITE (TestdxJointUniversal)
         CHECK_CLOSE (ang1, angle1, 1e-4);
         CHECK_CLOSE (-ang2, angle2, 1e-4);
 
-
-        dJointGetUniversalAxis1 (jId, axis);
-        dJointSetUniversalAxis1Offset (jId, axis[0], axis[1], axis[2],
+        
+        dVector3 axis1;
+        dJointGetUniversalAxis1 (jId, axis1);
+        dJointSetUniversalAxis1Offset (jId, axis1[0], axis1[1], axis1[2],
                                        ang1, -ang2);
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (-ang2, dJointGetUniversalAngle2 (jId), 1e-4);
@@ -1613,21 +1614,21 @@ SUITE (TestdxJointUniversal)
         CHECK_CLOSE (0, angle1, 1e-4);
         CHECK_CLOSE (0, angle2, 1e-4);
 
-        dVector3 axis;
-        dJointGetUniversalAxis1 (jId, axis);
+        dVector3 axis1;
+        dJointGetUniversalAxis1 (jId, axis1);
 
         dReal ang1 = REAL(0.23);
         dReal ang2 = REAL(0.0);
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang1);
+        dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
         dBodySetRotation (bId1, R);
 
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (-ang2, dJointGetUniversalAngle2 (jId), 1e-4);
 
 
-        dJointSetUniversalAxis1Offset (jId, axis[0], axis[1], axis[2],  ang1, ang2);
+        dJointSetUniversalAxis1Offset (jId, axis1[0], axis1[1], axis1[2],  ang1, ang2);
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
         CHECK_CLOSE (-ang2, dJointGetUniversalAngle2 (jId), 1e-4);
 
@@ -1671,9 +1672,9 @@ SUITE (TestdxJointUniversal)
 
         CHECK_CLOSE (REAL(0.23), dJointGetUniversalAngle1 (jId), 1e-4);
 
-        dVector3 axis;
-        dJointGetUniversalAxis1 (jId, axis);
-        dJointSetUniversalAxis1Offset (jId, axis[0], axis[1], axis[2],  REAL(0.23), 0);
+        dVector3 axis1;
+        dJointGetUniversalAxis1 (jId, axis1);
+        dJointSetUniversalAxis1Offset (jId, axis1[0], axis1[1], axis1[2],  REAL(0.23), 0);
         CHECK_CLOSE (REAL(0.23), dJointGetUniversalAngle1 (jId), 1e-4);
 
         dRFromAxisAndAngle (R, 1, 0, 0, 0);
@@ -1826,18 +1827,18 @@ SUITE (TestdxJointUniversal)
     {
         CHECK_CLOSE (0, dJointGetUniversalAngle1 (jId), 1e-4);
 
-        dVector3 axis;
-        dJointGetUniversalAxis1(jId, axis);
+        dVector3 axis1;
+        dJointGetUniversalAxis1(jId, axis1);
 
         dReal ang1 = d2r(REAL(90.0));
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang1);
+        dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
         dBodySetRotation (bId1, R);
 
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
 
-        dJointSetUniversalAxis1Offset (jId, axis[0], axis[1], axis[2], ang1, 0);
+        dJointSetUniversalAxis1Offset (jId, axis1[0], axis1[1], axis1[2], ang1, 0);
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), 1e-4);
 
         dRSetIdentity(R); // Set the rotation of the body to be zero
@@ -1869,9 +1870,9 @@ SUITE (TestdxJointUniversal)
 
         CHECK_CLOSE (REAL(0.23), dJointGetUniversalAngle1 (jId), 1e-4);
 
-        dVector3 axis;
-        dJointGetUniversalAxis1 (jId, axis);
-        dJointSetUniversalAxis1Offset (jId, axis[0], axis[1], axis[2],  REAL(0.23), 0);
+        dVector3 axis1;
+        dJointGetUniversalAxis1 (jId, axis1);
+        dJointSetUniversalAxis1Offset (jId, axis1[0], axis1[1], axis1[2],  REAL(0.23), 0);
         CHECK_CLOSE (REAL(0.23), dJointGetUniversalAngle1 (jId), 1e-4);
 
         dRFromAxisAndAngle (R, 1, 0, 0, 0);

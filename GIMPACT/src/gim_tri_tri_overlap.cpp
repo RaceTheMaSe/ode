@@ -52,10 +52,10 @@ email: projectileman@yahoo.com
 #define SORT(a,b)       \
              if(a>b)    \
              {          \
-               float c; \
-               c=a;     \
+               float t; \
+               t=a;     \
                a=b;     \
-               b=c;     \
+               b=t;     \
              }
 
 

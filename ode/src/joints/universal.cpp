@@ -410,12 +410,12 @@ dxJointUniversal::buildFirstBodyTorqueVector(dVector3 torqueVector, dReal torque
         torque2 = -temp;
     }
 
-    dVector3 axis1, axis2;
-    getAxis(this, axis1, this->axis1);
-    getAxis2(this, axis2, this->axis2);
-    torqueVector[0] = axis1[0] * torque1 + axis2[0] * torque2;
-    torqueVector[1] = axis1[1] * torque1 + axis2[1] * torque2;
-    torqueVector[2] = axis1[2] * torque1 + axis2[2] * torque2;
+    dVector3 a1, a2;
+    getAxis(this, a1, this->axis1);
+    getAxis2(this, a2, this->axis2);
+    torqueVector[0] = a1[0] * torque1 + a2[0] * torque2;
+    torqueVector[1] = a1[1] * torque1 + a2[1] * torque2;
+    torqueVector[2] = a1[2] * torque1 + a2[2] * torque2;
 }
 
 void dJointSetUniversalAnchor( dJointID j, dReal x, dReal y, dReal z )

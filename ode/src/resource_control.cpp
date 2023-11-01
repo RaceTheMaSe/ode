@@ -64,8 +64,8 @@ bool dxRequiredResourceContainer::allocateResources(const dxResourceRequirementD
         if (memorySizeRequirement != 0)
         {
             unsigned memoryAlignmentRequirement = requirementDescriptor.getMemoryAlignmentRequirement();
-            void *bufferAllocated = m_memoryAllocation.allocAligned(memorySizeRequirement, memoryAlignmentRequirement);
-            if (bufferAllocated == NULL)
+            void *allocatedBuffer = m_memoryAllocation.allocAligned(memorySizeRequirement, memoryAlignmentRequirement);
+            if (allocatedBuffer == NULL)
             {
                 break;
             }

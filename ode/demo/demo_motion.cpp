@@ -350,7 +350,7 @@ static void command (int cmd)
 
 // draw a geom
 
-void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
+void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
     int i;
 	
@@ -388,7 +388,7 @@ void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
             dsDrawBox(bodypos,bodyr,bodySides); 
         }
     }
-    if (show_aabb) {
+    if (draw_aabb) {
         // draw the bounding box for this geom
         dReal aabb[6];
         dGeomGetAABB (g,aabb);

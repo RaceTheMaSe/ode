@@ -388,13 +388,13 @@ dxQuadTreeSpace::dxQuadTreeSpace(dSpaceID _space, const dVector3 Center, const d
     sizeint BlockCount = numNodes(Depth);
 
     Blocks = (Block*)dAlloc(BlockCount * sizeof(Block));
-    Block* Blocks = this->Blocks + 1;	// This pointer gets modified!
+    Block* TempBlocks = Blocks + 1;	// This pointer gets modified!
 
     dReal MinX = Center[AXIS0] - Extents[AXIS0];
     dReal MaxX = dNextAfter((Center[AXIS0] + Extents[AXIS0]), (dReal)dInfinity);
     dReal MinZ = Center[AXIS1] - Extents[AXIS1];
     dReal MaxZ = dNextAfter((Center[AXIS1] + Extents[AXIS1]), (dReal)dInfinity);
-    this->Blocks[0].Create(MinX, MaxX, MinZ, MaxZ, 0, Depth, Blocks);
+    Blocks[0].Create(MinX, MaxX, MinZ, MaxZ, 0, Depth, TempBlocks);
 
     CurrentBlock = 0;
     CurrentChild = (int*)dAlloc((Depth + 1) * sizeof(int));
@@ -592,15 +592,15 @@ void dxQuadTreeSpace::collide2(void* UserData, dxGeom* g2, dNearCallback* Callba
 
     if (g2->parent_space == this){
         // The block the geom is in
-        Block* CurrentBlock = (Block*)g2->tome_ex;
+        Block* CurrentGeomBlock = (Block*)g2->tome_ex;
 
         // Collide against block and its children
         DataCallback dc = {UserData, Callback};
-        CurrentBlock->Collide(g2, CurrentBlock->mFirst, &dc, swap_callback);
+        CurrentGeomBlock->Collide(g2, CurrentGeomBlock->mFirst, &dc, swap_callback);
 
         // Collide against parents
-        while ((CurrentBlock = CurrentBlock->mParent))
-            CurrentBlock->CollideLocal(g2, UserData, Callback);
+        while ((CurrentGeomBlock = CurrentGeomBlock->mParent))
+            CurrentGeomBlock->CollideLocal(g2, UserData, Callback);
 
     }
     else {

@@ -596,9 +596,9 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                 dIASSERT(finalRowBlock != completedRowBlock || finalRowBlock == 0);
 
                 unsigned rowCounter = finalRowBlock - completedRowBlock;
-                bool exitLoop = rowCounter == 0;
+                bool exitLoopNested = rowCounter == 0;
 
-                if (exitLoop)
+                if (exitLoopNested)
                 {
                     columnEndReached = true;
                 }
@@ -668,7 +668,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                             if (finalRowBlock == currentBlock)
                             {
                                 columnEndReached = true;
-                                exitLoop = true;
+                                exitLoopNested = true;
                                 break;
                             }
 
@@ -678,7 +678,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                             if (completedBlocks == finalRowBlock)
                             {
-                                exitLoop = true;
+                                exitLoopNested = true;
                                 break;
                             }
 
@@ -691,7 +691,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                     }
                 }
 
-                for (; !exitLoop; exitLoop = false)
+                for (; !exitLoopNested; exitLoopNested = false)
                 {
                     dReal q1, p4, p3, p2, p1;
 

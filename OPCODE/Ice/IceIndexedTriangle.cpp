@@ -148,8 +148,8 @@ void IndexedTriangle::CenteredNormal(const Point* verts, Point& normal)	const
 	const Point& p0 = verts[mVRef[0]];
 	const Point& p1 = verts[mVRef[1]];
 	const Point& p2 = verts[mVRef[2]];
-	Point Center = (p0+p1+p2)*INV3;
-	normal = Center + ((p2-p1)^(p0-p1)).Normalize();
+	Point center = (p0+p1+p2)*INV3;
+	normal = center + ((p2-p1)^(p0-p1)).Normalize();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,10 +196,10 @@ bool IndexedTriangle::IsVisible(const Point* verts, const Point& source)	const
 	const Point& p2 = verts[mVRef[2]];
 
 	// Compute denormalized normal
-	Point Normal = (p2 - p1)^(p0 - p1);
+	Point normal = (p2 - p1)^(p0 - p1);
 
 	// Backface culling
-	return (Normal | source) >= 0.0f;
+	return (normal | source) >= 0.0f;
 
 // Same as:
 //	Plane PL(verts[mVRef[0]], verts[mVRef[1]], verts[mVRef[2]]);
@@ -227,11 +227,11 @@ bool IndexedTriangle::BackfaceCulling(const Point* verts, const Point& source)	c
 //	Point Base = (p0 + p1 + p2)*INV3;
 
 	// Compute denormalized normal
-	Point Normal = (p2 - p1)^(p0 - p1);
+	Point normal = (p2 - p1)^(p0 - p1);
 
 	// Backface culling
 //	return (Normal | (source - Base)) >= 0.0f;
-	return (Normal | (source - p0)) >= 0.0f;
+	return (normal | (source - p0)) >= 0.0f;
 
 // Same as: (but a bit faster)
 //	Plane PL(verts[mVRef[0]], verts[mVRef[1]], verts[mVRef[2]]);

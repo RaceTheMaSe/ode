@@ -457,7 +457,7 @@ static void command(int cmd)
 
 // draw a geom
 
-void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
+void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
     if (!g)
         return;
@@ -500,20 +500,20 @@ void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
 
     } else if (type == dTriMeshClass) {
 
-        dTriIndex* Indices = (dTriIndex*)::Indices;
+        dTriIndex* triIndices = (dTriIndex*)::Indices;
 
         // assume all trimeshes are drawn as bunnies
         for (int ii = 0; ii < IndexCount / 3; ii++) {
             const dReal v[9] = { // explicit conversion from float to dReal
-                Vertices[Indices[ii * 3 + 0] * 3 + 0],
-                Vertices[Indices[ii * 3 + 0] * 3 + 1],
-                Vertices[Indices[ii * 3 + 0] * 3 + 2],
-                Vertices[Indices[ii * 3 + 1] * 3 + 0],
-                Vertices[Indices[ii * 3 + 1] * 3 + 1],
-                Vertices[Indices[ii * 3 + 1] * 3 + 2],
-                Vertices[Indices[ii * 3 + 2] * 3 + 0],
-                Vertices[Indices[ii * 3 + 2] * 3 + 1],
-                Vertices[Indices[ii * 3 + 2] * 3 + 2]
+                Vertices[triIndices[ii * 3 + 0] * 3 + 0],
+                Vertices[triIndices[ii * 3 + 0] * 3 + 1],
+                Vertices[triIndices[ii * 3 + 0] * 3 + 2],
+                Vertices[triIndices[ii * 3 + 1] * 3 + 0],
+                Vertices[triIndices[ii * 3 + 1] * 3 + 1],
+                Vertices[triIndices[ii * 3 + 1] * 3 + 2],
+                Vertices[triIndices[ii * 3 + 2] * 3 + 0],
+                Vertices[triIndices[ii * 3 + 2] * 3 + 1],
+                Vertices[triIndices[ii * 3 + 2] * 3 + 2]
             };
             dsDrawTriangle(pos, R, &v[0], &v[3], &v[6], 1);
         }
@@ -555,7 +555,7 @@ void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
 
     }
 
-    if (show_aabb) {
+    if (draw_aabb) {
         // draw the bounding box for this geom
         dReal aabb[6];
         dGeomGetAABB(g,aabb);

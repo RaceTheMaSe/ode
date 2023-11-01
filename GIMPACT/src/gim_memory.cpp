@@ -816,16 +816,16 @@ GINT32  gim_copy_buffers(
     else
     {
         //very hard copy
-        void * tempdata = gim_alloc(copysize);
+        void * tmpdata = gim_alloc(copysize);
         //download data
         bm_data1->m_prototype->download_from_buffer_fn(
-			pbuffer1->m_buffer_handle,source_pos,tempdata,copysize);
+			pbuffer1->m_buffer_handle,source_pos,tmpdata,copysize);
 
         //upload data
         bm_data2->m_prototype->upload_to_buffer_fn(
-			pbuffer2->m_buffer_handle,dest_pos,tempdata,copysize);
+			pbuffer2->m_buffer_handle,dest_pos,tmpdata,copysize);
         //delete temp buffer
-        gim_free(tempdata,copysize);
+        gim_free(tmpdata,copysize);
     }
     return G_BUFFER_OP_SUCCESS;
 }

@@ -981,7 +981,7 @@ void dsStopGraphics()
 
 
 static
-void drawSky(float view_xyz[3])
+void drawSky(float view_pos[3])
 {
     glDisable(GL_LIGHTING);
     if (use_textures) {
@@ -1003,18 +1003,18 @@ void drawSky(float view_xyz[3])
     static float offset = 0.0f;
 
     float x = ssize * sky_scale;
-    float z = view_xyz[2] + sky_height;
+    float z = view_pos[2] + sky_height;
 
     glBegin(GL_QUADS);
     glNormal3f(0, 0, -1);
     glTexCoord2f(-x + offset, -x + offset);
-    glVertex3f(-ssize + view_xyz[0], -ssize + view_xyz[1], z);
+    glVertex3f(-ssize + view_pos[0], -ssize + view_pos[1], z);
     glTexCoord2f(-x + offset, x + offset);
-    glVertex3f(-ssize + view_xyz[0], ssize + view_xyz[1], z);
+    glVertex3f(-ssize + view_pos[0], ssize + view_pos[1], z);
     glTexCoord2f(x + offset, x + offset);
-    glVertex3f(ssize + view_xyz[0], ssize + view_xyz[1], z);
+    glVertex3f(ssize + view_pos[0], ssize + view_pos[1], z);
     glTexCoord2f(x + offset, -x + offset);
-    glVertex3f(ssize + view_xyz[0], -ssize + view_xyz[1], z);
+    glVertex3f(ssize + view_pos[0], -ssize + view_pos[1], z);
     glEnd();
 
     offset = offset + 0.002f;

@@ -425,7 +425,7 @@ void dxSAPSpace::cleanGeoms()
     lock_count--;
 }
 
-void dxSAPSpace::collide( void *data, dNearCallback *callback )
+void dxSAPSpace::collide( void *userData, dNearCallback *callback )
 {
     dAASSERT (callback);
 
@@ -468,7 +468,7 @@ void dxSAPSpace::collide( void *data, dNearCallback *callback )
         const Pair& pair = overlapBoxes[ j ];
         dxGeom* g1 = TmpGeomList[ pair.id0 ];
         dxGeom* g2 = TmpGeomList[ pair.id1 ];
-        collideGeomsNoAABBs( g1, g2, data, callback );
+        collideGeomsNoAABBs( g1, g2, userData, callback );
     }
 
     int infSize = TmpInfGeomList.size();
@@ -482,20 +482,20 @@ void dxSAPSpace::collide( void *data, dNearCallback *callback )
         // collide infinite ones
         for( n = m+1; n < infSize; ++n ) {
             dxGeom* g2 = TmpInfGeomList[n];
-            collideGeomsNoAABBs( g1, g2, data, callback );
+            collideGeomsNoAABBs( g1, g2, userData, callback );
         }
 
         // collide infinite ones with normal ones
         for( n = 0; n < normSize; ++n ) {
             dxGeom* g2 = TmpGeomList[n];
-            collideGeomsNoAABBs( g1, g2, data, callback );
+            collideGeomsNoAABBs( g1, g2, userData, callback );
         }
     }
 
     lock_count--;
 }
 
-void dxSAPSpace::collide2( void *data, dxGeom *geom, dNearCallback *callback )
+void dxSAPSpace::collide2( void *userData, dxGeom *geom, dNearCallback *callback )
 {
     dAASSERT (geom && callback);
 
@@ -511,28 +511,28 @@ void dxSAPSpace::collide2( void *data, dxGeom *geom, dNearCallback *callback )
     for ( int i = 0; i < geom_count; ++i ) {
         dxGeom* g = GeomList[i];
         if ( GEOM_ENABLED(g) )
-            collideAABBs (g,geom,data,callback);
+            collideAABBs (g,geom,userData,callback);
     }
 
     lock_count--;
 }
 
 
-void dxSAPSpace::BoxPruning( int count, const dxGeom** geoms, dArray< Pair >& pairs )
+void dxSAPSpace::BoxPruning( int numBoxes, const dxGeom** geoms, dArray< Pair >& pairs )
 {
     // Size the poslist (+1 for infinity end cap)
-    poslist.setSize( count );
+    poslist.setSize( numBoxes );
 
     // 1) Build main list using the primary axis
     //  NOTE: uses floats instead of dReals because that's what radix sort wants
-    for( int i = 0; i < count; ++i )
+    for( int i = 0; i < numBoxes; ++i )
         poslist[ i ] = (float)TmpGeomList[i]->aabb[ ax0idx ];
 
     // 2) Sort the list
-    const uint32* Sorted = sortContext.RadixSort( poslist.data(), count );
+    const uint32* Sorted = sortContext.RadixSort( poslist.data(), numBoxes );
 
     // 3) Prune the list
-    const uint32* const LastSorted = Sorted + count;
+    const uint32* const LastSorted = Sorted + numBoxes;
     const uint32* RunningAddress = Sorted;
 
     bool bExitLoop;

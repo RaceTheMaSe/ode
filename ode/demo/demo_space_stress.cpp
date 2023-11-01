@@ -308,7 +308,7 @@ static void command (int cmd)
 
 // draw a geom
 
-void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
+void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
     if (!draw_geom){
         return;
@@ -337,7 +337,7 @@ void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
         dsDrawCylinder(pos,R,length,radius);
     }
 
-    if (show_aabb) {
+    if (draw_aabb) {
         // draw the bounding box for this geom
         dReal aabb[6];
         dGeomGetAABB(g,aabb);

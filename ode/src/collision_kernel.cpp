@@ -926,10 +926,10 @@ void dxUserGeom::computeAABB()
 }
 
 
-int dxUserGeom::AABBTest (dxGeom *o, dReal aabb[6])
+int dxUserGeom::AABBTest (dxGeom *o, dReal box[6])
 {
     dGeomClass *c = &user_classes[type-dFirstUserClass];
-    if (c->aabb_test) return c->aabb_test (this,o,aabb);
+    if (c->aabb_test) return c->aabb_test (this,o,box);
     else return 1;
 }
 

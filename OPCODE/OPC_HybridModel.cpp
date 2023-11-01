@@ -192,8 +192,8 @@ bool HybridModel::Build(const OPCODECREATE& create)
 		{
 			if(current->IsLeaf())
 			{
-				Internal* Data = (Internal*)user_data;
-				Data->mNbLeaves++;
+				Internal* UserData = (Internal*)user_data;
+				UserData->mNbLeaves++;
 			}
 			return true;
 		}
@@ -203,16 +203,16 @@ bool HybridModel::Build(const OPCODECREATE& create)
 		{
 			if(current->IsLeaf())
 			{
-				Internal* Data = (Internal*)user_data;
+				Internal* UserData = (Internal*)user_data;
 
 				// Get current leaf's box
-				Data->mLeaves[Data->mNbLeaves] = *current->GetAABB();
+				UserData->mLeaves[UserData->mNbLeaves] = *current->GetAABB();
 
 				// Setup leaf data
-				udword Index = udword((size_t(current->GetPrimitives()) - size_t(Data->mBase)) / sizeof(udword));
-				Data->mTriangles[Data->mNbLeaves].SetData(current->GetNbPrimitives(), Index);
+				udword Index = udword((size_t(current->GetPrimitives()) - size_t(UserData->mBase)) / sizeof(udword));
+				UserData->mTriangles[UserData->mNbLeaves].SetData(current->GetNbPrimitives(), Index);
 
-				Data->mNbLeaves++;
+				UserData->mNbLeaves++;
 			}
 			return true;
 		}

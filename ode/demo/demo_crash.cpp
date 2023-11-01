@@ -173,14 +173,14 @@ static void start()
 void makeCar(dReal x, dReal y, int &bodyI, int &jointI, int &boxI, int &sphereI)
 {
 	int i;
-	dMass m;
+	dMass mass;
 	
 	// chassis body
 	body[bodyI] = dBodyCreate (world);
 	dBodySetPosition (body[bodyI],x,y,STARTZ);
-	dMassSetBox (&m,1,LENGTH,WIDTH,HEIGHT);
-	dMassAdjust (&m,CMASS/2.0);
-	dBodySetMass (body[bodyI],&m);
+	dMassSetBox (&mass,1,LENGTH,WIDTH,HEIGHT);
+	dMassAdjust (&mass,CMASS/2.0);
+	dBodySetMass (body[bodyI],&mass);
 	box[boxI] = dCreateBox (space,LENGTH,WIDTH,HEIGHT);
 	dGeomSetBody (box[boxI],body[bodyI]);
 	
@@ -190,9 +190,9 @@ void makeCar(dReal x, dReal y, int &bodyI, int &jointI, int &boxI, int &sphereI)
 		dQuaternion q;
 		dQFromAxisAndAngle (q,1,0,0,M_PI*0.5);
 		dBodySetQuaternion (body[bodyI+i],q);
-		dMassSetSphere (&m,1,RADIUS);
-		dMassAdjust (&m,WMASS);
-		dBodySetMass (body[bodyI+i],&m);
+		dMassSetSphere (&mass,1,RADIUS);
+		dMassAdjust (&mass,WMASS);
+		dBodySetMass (body[bodyI+i],&mass);
 		sphere[sphereI+i-1] = dCreateSphere (space,RADIUS);
 		dGeomSetBody (sphere[sphereI+i-1],body[bodyI+i]);
 	}
@@ -215,16 +215,16 @@ void makeCar(dReal x, dReal y, int &bodyI, int &jointI, int &boxI, int &sphereI)
 	}
 	
 	//center of mass offset body. (hang another copy of the body COMOFFSET units below it by a fixed joint)
-	dBodyID b = dBodyCreate (world);
-	dBodySetPosition (b,x,y,STARTZ+COMOFFSET);
-	dMassSetBox (&m,1,LENGTH,WIDTH,HEIGHT);
-	dMassAdjust (&m,CMASS/2.0);
-	dBodySetMass (b,&m);
+	dBodyID bo = dBodyCreate (world);
+	dBodySetPosition (bo,x,y,STARTZ+COMOFFSET);
+	dMassSetBox (&mass,1,LENGTH,WIDTH,HEIGHT);
+	dMassAdjust (&mass,CMASS/2.0);
+	dBodySetMass (bo,&mass);
 	dJointID j = dJointCreateFixed(world, 0);
-	dJointAttach(j, body[bodyI], b);
+	dJointAttach(j, body[bodyI], bo);
 	dJointSetFixed(j);
 	//box[boxI+1] = dCreateBox(space,LENGTH,WIDTH,HEIGHT);
-	//dGeomSetBody (box[boxI+1],b);
+	//dGeomSetBody (box[boxI+1],bo);
 	
 	bodyI	+= 5;
 	jointI	+= 4;
@@ -632,19 +632,19 @@ int main (int argc, char **argv)
 	
 	setupSimulation();
 	
-	dThreadingImplementationID threading = dThreadingAllocateMultiThreadedImplementation();
-	dThreadingThreadPoolID pool = dThreadingAllocateThreadPool(8, 0, dAllocateFlagBasicData, NULL);
-	dThreadingThreadPoolServeMultiThreadedImplementation(pool, threading);
+	dThreadingImplementationID threadingImpl = dThreadingAllocateMultiThreadedImplementation();
+	dThreadingThreadPoolID threadPool = dThreadingAllocateThreadPool(8, 0, dAllocateFlagBasicData, NULL);
+	dThreadingThreadPoolServeMultiThreadedImplementation(threadPool, threadingImpl);
 	// dWorldSetStepIslandsProcessingMaxThreadCount(world, 1);
-	dWorldSetStepThreadingImplementation(world, dThreadingImplementationGetFunctions(threading), threading);
+	dWorldSetStepThreadingImplementation(world, dThreadingImplementationGetFunctions(threadingImpl), threadingImpl);
 
 	// run simulation
 	dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &fn);
 	
-	dThreadingImplementationShutdownProcessing(threading);
-	dThreadingFreeThreadPool(pool);
+	dThreadingImplementationShutdownProcessing(threadingImpl);
+	dThreadingFreeThreadPool(threadPool);
 	dWorldSetStepThreadingImplementation(world, NULL, NULL);
-	dThreadingFreeImplementation(threading);
+	dThreadingFreeImplementation(threadingImpl);
 
 	shutdownSimulation();
 	dCloseODE();

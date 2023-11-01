@@ -678,25 +678,25 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
 
                 if ( rotational )
                 {
-                    dxBody *b1 = joint->node[1].body;
-                    if ( b1 != NULL ) 
+                    dxBody *body1 = joint->node[1].body;
+                    if ( body1 != NULL ) 
                     {
-                        dBodyAddTorque( b1, fm_ax1_0, fm_ax1_1, fm_ax1_2 );
+                        dBodyAddTorque( body1, fm_ax1_0, fm_ax1_1, fm_ax1_2 );
                     }
 
                     dBodyAddTorque( b0, -fm_ax1_0, -fm_ax1_1, -fm_ax1_2 );
                 }
                 else
                 {
-                    dxBody *b1 = joint->node[1].body;
-                    if ( b1 != NULL )
+                    dxBody *body1 = joint->node[1].body;
+                    if ( body1 != NULL )
                     {
                         // linear limot torque decoupling step: refer to above discussion
                         dReal neg_fm_ltd_0 = -fm*ltd[0], neg_fm_ltd_1 = -fm*ltd[1], neg_fm_ltd_2 = -fm*ltd[2];
                         dBodyAddTorque( b0, neg_fm_ltd_0, neg_fm_ltd_1, neg_fm_ltd_2 );
-                        dBodyAddTorque( b1, neg_fm_ltd_0, neg_fm_ltd_1, neg_fm_ltd_2 );
+                        dBodyAddTorque( body1, neg_fm_ltd_0, neg_fm_ltd_1, neg_fm_ltd_2 );
 
-                        dBodyAddForce( b1, fm_ax1_0, fm_ax1_1, fm_ax1_2 );
+                        dBodyAddForce( body1, fm_ax1_0, fm_ax1_1, fm_ax1_2 );
                     }
 
                     dBodyAddForce( b0, -fm_ax1_0, -fm_ax1_1, -fm_ax1_2 );
@@ -737,18 +737,18 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
                 if ( bounce > 0 )
                 {
                     // calculate joint velocity
-                    dReal vel;
+                    dReal velocity;
                     if ( rotational )
                     {
-                        vel = dCalcVectorDot3( joint->node[0].body->avel, ax1 );
+                        velocity = dCalcVectorDot3( joint->node[0].body->avel, ax1 );
                         if ( joint->node[1].body )
-                            vel -= dCalcVectorDot3( joint->node[1].body->avel, ax1 );
+                            velocity -= dCalcVectorDot3( joint->node[1].body->avel, ax1 );
                     }
                     else
                     {
-                        vel = dCalcVectorDot3( joint->node[0].body->lvel, ax1 );
+                        velocity = dCalcVectorDot3( joint->node[0].body->lvel, ax1 );
                         if ( joint->node[1].body )
-                            vel -= dCalcVectorDot3( joint->node[1].body->lvel, ax1 );
+                            velocity -= dCalcVectorDot3( joint->node[1].body->lvel, ax1 );
                     }
 
                     // only apply bounce if the velocity is incoming, and if the
@@ -756,18 +756,18 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
                     if ( limit == 1 )
                     {
                         // low limit
-                        if ( vel < 0 )
+                        if ( velocity < 0 )
                         {
-                            dReal newc = -bounce * vel;
+                            dReal newc = -bounce * velocity;
                             if ( newc > pairRhsCfm[GI2_RHS] ) pairRhsCfm[GI2_RHS] = newc;
                         }
                     }
                     else
                     {
                         // high limit - all those computations are reversed
-                        if ( vel > 0 )
+                        if ( velocity > 0 )
                         {
-                            dReal newc = -bounce * vel;
+                            dReal newc = -bounce * velocity;
                             if ( newc < pairRhsCfm[GI2_RHS] ) pairRhsCfm[GI2_RHS] = newc;
                         }
                     }
@@ -887,11 +887,11 @@ bool dxJointLimitMotor::addTwoPointLimot( dxJoint *joint, dReal fps,
                 if ( bounce > 0 )
                 {
                     // calculate relative velocity of the two anchor points
-                    dReal vel = 
+                    dReal velocity = 
   	                    dCalcVectorDot3( joint->node[0].body->lvel, J1 + GI2__JL_MIN ) +
   	                    dCalcVectorDot3( joint->node[0].body->avel, J1 + GI2__JA_MIN );
   	                if (joint->node[1].body) {
-  	                    vel +=
+  	                    velocity +=
   	                        dCalcVectorDot3( joint->node[1].body->lvel, J2 + GI2__JL_MIN ) +
   	                        dCalcVectorDot3( joint->node[1].body->avel, J2 + GI2__JA_MIN );
   	                }
@@ -901,18 +901,18 @@ bool dxJointLimitMotor::addTwoPointLimot( dxJoint *joint, dReal fps,
                     if ( limit == 1 )
                     {
                         // low limit
-                        if ( vel < 0 )
+                        if ( velocity < 0 )
                         {
-                            dReal newc = -bounce * vel;
+                            dReal newc = -bounce * velocity;
                             if ( newc > pairRhsCfm[GI2_RHS] ) pairRhsCfm[GI2_RHS] = newc;
                         }
                     }
                     else
                     {
                         // high limit - all those computations are reversed
-                        if ( vel > 0 )
+                        if ( velocity > 0 )
                         {
-                            dReal newc = -bounce * vel;
+                            dReal newc = -bounce * velocity;
                             if ( newc < pairRhsCfm[GI2_RHS] ) pairRhsCfm[GI2_RHS] = newc;
                         }
                     }

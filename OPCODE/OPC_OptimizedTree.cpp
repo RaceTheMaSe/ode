@@ -481,8 +481,8 @@ bool AABBNoLeafTree::Walk(GenericWalkingCallback callback, void* user_data) cons
 	/* Get max values */																		\
 	Point CMax(MIN_FLOAT, MIN_FLOAT, MIN_FLOAT);												\
 	Point EMax(MIN_FLOAT, MIN_FLOAT, MIN_FLOAT);												\
-	const udword NbNodes = mNbNodes;                                                            \
-	for(udword i=0;i<NbNodes;i++)																\
+	const udword NbNodesMacro = mNbNodes;                                                            \
+	for(udword i=0;i<NbNodesMacro;i++)																\
 	{																							\
 		float cx = fabsf(Nodes[i].mAABB.mCenter.x); if(cx>CMax.x)	CMax.x = cx;	            \
 		float cy = fabsf(Nodes[i].mAABB.mCenter.y); if(cy>CMax.y)	CMax.y = cy;	            \

@@ -70,9 +70,9 @@ const dReal Card::sides[3] = { cwidth, cthikness, clength };
 
 std::vector<Card*> cards;
 
-int getncards(int levels)
+int getncards(int nLevels)
 {
-    return (3*levels*levels + levels) / 2;
+    return (3*nLevels*nLevels + nLevels) / 2;
 }
 
 void place_cards()

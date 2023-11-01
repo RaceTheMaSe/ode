@@ -1318,10 +1318,10 @@ int coplanar_tri_tri(dReal N[3],dReal V0[3],dReal V1[3],dReal V2[3],
 #define SORT2(a,b,smallest)       \
     if(a>b)       \
     {             \
-        dReal c;    \
-        c=a;        \
+        dReal t;    \
+        t=a;        \
         a=b;        \
-        b=c;        \
+        b=t;        \
         smallest=1; \
     }             \
     else smallest=0;

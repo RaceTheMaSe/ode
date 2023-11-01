@@ -98,7 +98,6 @@ dxJointFixed::getInfo2 ( dReal worldFPS, dReal worldERP,
         }
     }
 
-    dReal cfm = this->cfm;
     pairRhsCfm[GI2_CFM] = cfm;
     pairRhsCfm[pairskip + GI2_CFM] = cfm;
     pairRhsCfm[2 * pairskip + GI2_CFM] = cfm;

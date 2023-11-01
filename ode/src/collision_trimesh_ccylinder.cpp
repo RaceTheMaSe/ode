@@ -1080,10 +1080,10 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
                 dVector3 dv[3];
                 TriMesh->fetchMeshTriangle(dv, Triint, cData.m_vTriMeshPos, cData.m_mTriMeshRot);
 
-                uint8 flags = useFlags != NULL ? useFlags[Triint] : (uint8)dxTriMeshData::CUF__USE_ALL_COMPONENTS;
+                uint8 meshFlags = useFlags != NULL ? useFlags[Triint] : (uint8)dxTriMeshData::CUF__USE_ALL_COMPONENTS;
 
                 bool bFinishSearching;
-                ctContacts0 = cData.TestCollisionForSingleTriangle(ctContacts0, Triint, dv, flags, bFinishSearching);
+                ctContacts0 = cData.TestCollisionForSingleTriangle(ctContacts0, Triint, dv, meshFlags, bFinishSearching);
 
                 if (bFinishSearching) 
                 {

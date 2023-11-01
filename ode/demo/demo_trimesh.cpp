@@ -379,7 +379,7 @@ static void command (int cmd)
 
 // draw a geom
 
-void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
+void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
   if (!g) return;
   if (!pos) pos = dGeomGetPosition (g);
@@ -415,7 +415,7 @@ void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int show_aabb)
   }
 */
 
-  if (show_aabb) {
+  if (draw_aabb) {
     // draw the bounding box for this geom
     dReal aabb[6];
     dGeomGetAABB (g,aabb);
