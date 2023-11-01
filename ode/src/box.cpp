@@ -410,7 +410,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     invert_normal = ((expr1_val) < 0); \
     code = (cc); \
     if (flags & CONTACTS_UNIMPORTANT) break; \
-    }
+    } do {} while(0)
 
         s = -dInfinity;
         invert_normal = 0;
@@ -444,7 +444,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     code = (cc); \
     if (flags & CONTACTS_UNIMPORTANT) break; \
     } \
-    }
+    } do {} while(0)
 
         // We only need to check 3 edges per box 
         // since parallel edges are equivalent.
@@ -817,7 +817,7 @@ int dCollideBoxPlaneOld(dxGeom *o1, dxGeom *o2,
     p[0] op REAL(0.5)*box->side[i] * R[0+i]; \
     p[1] op REAL(0.5)*box->side[i] * R[4+i]; \
     p[2] op REAL(0.5)*box->side[i] * R[8+i];
-#define BAR(i,iinc) if (A ## iinc > 0) { FOO(i,-=) } else { FOO(i,+=) }
+#define BAR(i,iinc) if (A ## iinc > 0) { FOO(i,-=) } else { FOO(i,+=) } do {} while(0)
     BAR(0,1);
     BAR(1,2);
     BAR(2,3);
@@ -843,7 +843,7 @@ int dCollideBoxPlaneOld(dxGeom *o1, dxGeom *o2,
     if (depth - B ## sideinc < 0) goto done; \
     if (A ## sideinc > 0) { FOO(ctact,side,+); } else { FOO(ctact,side,-); } \
     CONTACT(contact,ctact*skip)->depth = depth - B ## sideinc; \
-    ret++;
+    ret++
 
     if (B1 < B2) {
         if (B3 < B1) goto use_side_3; else {
@@ -1076,7 +1076,8 @@ int dCollideBoxPlane(dxGeom *o1, dxGeom *o2,
     {                                                                                                                                                    \
         break;                                                                                                                                           \
     }                                                                                                                                                    \
-} // END OF MACRO DEFINITION
+}                                                                                                                                                        \
+do {} while (0) // END OF MACRO DEFINITION
 
         // But first we need to sort the sides and Bs. We'll start with them in their original order...
         const dReal *orderedSignedHalfSideVectors[3] = {

@@ -9,7 +9,7 @@
 		const float t=a;	\
 		a=b;				\
 		b=t;				\
-	}
+	}  do{} while(0)
 
 //! Edge to edge test based on Franlin Antonio's gem: "Faster Line Segment Intersection", in Graphics Gems III, pp. 199-202
 #define EDGE_EDGE_TEST(V0, U0, U1)						\
@@ -30,7 +30,7 @@
 		{												\
 			if(e<=0.0f && e>=f) return TRUE;			\
 		}												\
-	}
+	} do {} while(0)
 
 //! TO BE DOCUMENTED
 #define EDGE_AGAINST_TRI_EDGES(V0, V1, U0, U1, U2)		\
@@ -44,7 +44,7 @@
 	EDGE_EDGE_TEST(V0, U1, U2);							\
 	/* test edge U2,U1 against V0,V1 */					\
 	EDGE_EDGE_TEST(V0, U2, U0);							\
-}
+} do {} while(0)
 
 //! TO BE DOCUMENTED
 #define POINT_IN_TRI(V0, U0, U1, U2)					\
@@ -69,7 +69,7 @@
 	{													\
 		if(d0*d2>0.0f) return TRUE;						\
 	}													\
-}
+} do {} while(0)
 
 //! TO BE DOCUMENTED
 BOOL CoplanarTriTri(const Point& n, const Point& v0, const Point& v1, const Point& v2, const Point& u0, const Point& u1, const Point& u2)
@@ -152,7 +152,7 @@ BOOL CoplanarTriTri(const Point& n, const Point& v0, const Point& v1, const Poin
 		/* triangles are coplanar */													\
 		return CoplanarTriTri(N1, V0, V1, V2, U0, U1, U2);								\
 	}																					\
-}
+} do{} while(0)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**

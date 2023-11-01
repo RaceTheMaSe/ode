@@ -168,7 +168,7 @@ using namespace Opcode;
 			const CollisionFace* Current = mStabbedFaces->GetFaces();	\
 			if(Current)	*cache	= Current->mFaceID;						\
 			else		*cache	= INVALID_ID;							\
-		}
+		} do {} while(0)
 #endif
 
 #define SEGMENT_PRIM(prim_index, flag)														\

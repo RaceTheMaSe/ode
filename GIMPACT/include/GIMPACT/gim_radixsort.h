@@ -132,7 +132,7 @@ struct GIM_RSORT_TOKEN
 		sorted[pos].m_key = array[ii].m_key;\
 		sorted[pos].m_value = array[ii].m_value;\
 	}\
-}\
+} do{} while(0)
 
 /// Get the sorted tokens from an array. For generic use. Tokens are GIM_RSORT_TOKEN
 #define GIM_RADIX_SORT_ARRAY_TOKENS(array, sorted_tokens, element_count, get_uintkey_macro)\
@@ -146,7 +146,7 @@ struct GIM_RSORT_TOKEN
     }\
     GIM_RADIX_SORT_RTOKENS(_unsorted,sorted_tokens,element_count);\
     gim_free(_unsorted,sizeof(GIM_RSORT_TOKEN )*element_count);\
-}\
+} do{} while(0)
 
 /// Sorts array in place. For generic use
 #define GIM_RADIX_SORT(type,array,element_count,get_uintkey_macro,copy_elements_macro)\
@@ -162,7 +162,7 @@ struct GIM_RSORT_TOKEN
     }\
     gim_free(_original_array,sizeof(type)*element_count);\
     gim_free(_sorted,sizeof(GIM_RSORT_TOKEN )*element_count);\
-}\
+} do{} while(0)
 
 /// Sorts array in place using quick sort
 #define GIM_QUICK_SORT_ARRAY(type, array, array_count, comp_macro, exchange_macro) \
@@ -244,14 +244,14 @@ struct GIM_RSORT_TOKEN
       }\
     }\
   }\
-}\
+} do{} while(0)
 
 #define GIM_DEF_EXCHANGE_MACRO(type, _array, _i, _j)\
 {\
     type _e_tmp_ =(_array)[(_i)];\
     (_array)[(_i)]=(_array)[(_j)];\
     (_array)[(_j)]= _e_tmp_;\
-}\
+} do{} while(0)
 
 #define GIM_COMP_MACRO(x, y) ((GINT32)((x) - (y)))
 //! @}

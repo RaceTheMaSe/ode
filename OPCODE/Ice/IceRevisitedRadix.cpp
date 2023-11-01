@@ -139,7 +139,8 @@ using namespace IceCore;
 	{																						\
 		/* Create histograms without the previous overhead */								\
 		h0[*p++]++;	h1[*p++]++;	h2[*p++]++;	h3[*p++]++;										\
-	}
+	}\
+	do {} while(0)
 
 #define CHECK_PASS_VALIDITY(pass)															\
 	/* Shortcut to current counters */														\
@@ -160,7 +161,7 @@ using namespace IceCore;
 	ubyte UniqueVal = *(((ubyte*)input)+pass);												\
 																							\
 	/* Check that byte's counter */															\
-	if(CurCount[UniqueVal]==nb)	PerformPass=false;
+	if(CurCount[UniqueVal]==nb)	PerformPass=false
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**

@@ -52,7 +52,7 @@
 #endif // #if _OU_TARGET_OS == ...
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -288,7 +288,7 @@ private:
 };
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #if _OU_FEATURE_SET >= _OU_FEATURE_SET_TLS

@@ -47,6 +47,7 @@ email: projectileman@yahoo.com
 	    out_of_face = 0;\
 	}\
 }\
+do {} while(0)
 
 /* sort so that a<=b */
 #define SORT(a,b)       \
@@ -56,7 +57,7 @@ email: projectileman@yahoo.com
                t=a;     \
                a=b;     \
                b=t;     \
-             }
+             } do{} while(0)
 
 
 /* this edge to edge test is based on Franlin Antonio's gem:
@@ -80,7 +81,7 @@ email: projectileman@yahoo.com
     {                                                 \
       if(e<=0 && e>=f) return 1;                      \
     }                                                 \
-  }
+  } do {} while(0)
 
 #define EDGE_AGAINST_TRI_EDGES(V0,V1,U0,U1,U2) \
 {                                              \
@@ -93,7 +94,7 @@ email: projectileman@yahoo.com
   EDGE_EDGE_TEST(V0,U1,U2);                    \
   /* test edge U2,U1 against V0,V1 */          \
   EDGE_EDGE_TEST(V0,U2,U0);                    \
-}
+} do {} while(0)
 
 #define POINT_IN_TRI(V0,U0,U1,U2)           \
 {                                           \
@@ -118,7 +119,7 @@ email: projectileman@yahoo.com
   {                                         \
     if(d0*d2>0.0) return 1;                 \
   }                                         \
-}
+} do {} while(0)
 
 int coplanar_tri_tri(GIM_TRIANGLE_DATA *tri1,
                     GIM_TRIANGLE_DATA *tri2)
@@ -176,7 +177,7 @@ int coplanar_tri_tri(GIM_TRIANGLE_DATA *tri1,
                 /* triangles are coplanar */ \
                 return coplanar_tri_tri(tri1,tri2); \
         } \
-}\
+} do{} while(0)\
 
 
 

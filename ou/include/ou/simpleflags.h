@@ -36,7 +36,7 @@
 #include <stddef.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 template<typename ContainerType>
@@ -346,7 +346,7 @@ private:
 typedef CSimpleFlagsTemplate<uint32ou> CSimpleFlags;
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #ifndef __OU_SIMPLEFLAGS_H_INCLUDED

@@ -55,7 +55,7 @@
 	    CountDown		= 50;
 	  }
 #else
-	  void	ResetCountDown(){};
+	  void	ResetCountDown(){}
 #endif // __MESHMERIZER_H__
 
 		const Model*		Model0;	//!< Model for first object

@@ -272,7 +272,7 @@ So the maximum size of a room should be about 3276x3276 . Its dimensions must li
     GUINT32 _z = ((GUINT32)(vz*ERROR_AABB))+32768;\
     uint_key = ((GUINT32)(vx*ERROR_AABB))+32768;\
     uint_key = (uint_key<<16) + _z;\
-}\
+} do{} while(0)
 
 //! Converts a vector coordinate to an integer for box sorting, rounding to the upper int
 /*!
@@ -285,7 +285,7 @@ So the maximum size of a room should be about 3276x3276 . Its dimensions must li
     GUINT32 _z = ((GUINT32)ceilf(vz*ERROR_AABB))+32768;\
     uint_key = ((GUINT32)ceilf(vx*ERROR_AABB))+32768;\
     uint_key = (uint_key<<16) + _z;\
-}\
+} do{} while(0)
 
 
 //! Converts a vector coordinate to an integer for box sorting. Secure clamped
@@ -301,7 +301,7 @@ So the maximum size of a room should be about 3276x3276 . Its dimensions must li
     GUINT32 _z = ((GUINT32)(_cz*ERROR_AABB))+32768;\
     uint_key = ((GUINT32)(_cx*ERROR_AABB))+32768;\
     uint_key = (uint_key<<16) + _z;\
-}\
+} do{} while(0)
 
 //! Converts a vector coordinate to an integer for box sorting. Secure clamped, rounded
 /*!
@@ -316,7 +316,7 @@ So the maximum size of a room should be about 3276x3276 . Its dimensions must li
     GUINT32 _z = ((GUINT32)ceilf(_cz*ERROR_AABB))+32768;\
     uint_key = ((GUINT32)ceilf(_cx*ERROR_AABB))+32768;\
     uint_key = (uint_key<<16) + _z;\
-}\
+} do{} while(0)
 
 //! @}
 

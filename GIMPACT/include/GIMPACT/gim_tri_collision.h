@@ -78,7 +78,7 @@ email: projectileman@yahoo.com
 		} \
 		_prevclassif = _classif; \
 	} \
-}\
+} do{} while(0)
 
 
 struct GIM_TRIPLANES_CACHE
@@ -109,7 +109,7 @@ struct GIM_TRIANGLE_DATA
         EDGE_PLANE((tri_data).m_vertices[0],(tri_data).m_vertices[1],((tri_data).m_planes.m_planes[0]),((tri_data).m_planes.m_planes[1]));\
         EDGE_PLANE((tri_data).m_vertices[1],(tri_data).m_vertices[2],((tri_data).m_planes.m_planes[0]),((tri_data).m_planes.m_planes[2]));\
         EDGE_PLANE((tri_data).m_vertices[2],(tri_data).m_vertices[0],((tri_data).m_planes.m_planes[0]), ((tri_data).m_planes.m_planes[3]));\
-}\
+} do{} while(0)
 
 //Structure for collision
 
@@ -227,7 +227,7 @@ if 0.0<= u+v <=1.0 then they are inside of triangle
 			outside = 0;\
 		}\
 	}\
-}\
+} do{} while(0)
 
 //! Finds the collision of a ray and a triangle.
 #define RAY_TRIANGLE_INTERSECTION(vOrigin,vDir,vec1,vec2,vec3,tri_plane,pout,u,v,tparam,tmax,does_intersect)\
@@ -245,7 +245,7 @@ if 0.0<= u+v <=1.0 then they are inside of triangle
             does_intersect = !does_intersect;\
         }\
 	}\
-}\
+} do{} while(0)
 
 
 //! @}

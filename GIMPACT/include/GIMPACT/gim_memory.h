@@ -65,7 +65,7 @@ Functions for manip packed arrays of numbers
     {\
     	(dest_array)[_i_] = (source_array)[_i_];\
     }\
-}\
+} do{} while(0)
 
 #define GIM_COPY_ARRAYS_1(dest_array, source_array, element_count, copy_macro)\
 {\
@@ -74,7 +74,7 @@ Functions for manip packed arrays of numbers
     {\
     	copy_macro((dest_array)[_i_], (source_array)[_i_]);\
     }\
-}\
+} do{} while(0)
 
 
 #define GIM_ZERO_ARRAY(array, element_count)\
@@ -84,7 +84,7 @@ Functions for manip packed arrays of numbers
     {\
     	(array)[_i_] = 0;\
     }\
-}\
+} do{} while(0)
 
 #define GIM_CONSTANT_ARRAY(array, element_count, constant)\
 {\
@@ -93,7 +93,7 @@ Functions for manip packed arrays of numbers
     {\
     	(array)[_i_] = (constant);\
     }\
-}\
+} do{} while(0)
 //! @}
 
 /*! \defgroup MEMORY_FUNCTION_PROTOTYPES
@@ -166,7 +166,7 @@ struct GDYNAMIC_ARRAY
     (array_data).m_pdata = (char *)gim_alloc((reserve_size) * sizeof(type)); \
     (array_data).m_size = 0; \
     (array_data).m_reserve_size = (reserve_size); \
-} \
+} do{} while(0)
 
 //! Creates a dynamic array with n = size elements
 #define GIM_DYNARRAY_CREATE_SIZED(type, array_data, size) \
@@ -174,7 +174,7 @@ struct GDYNAMIC_ARRAY
     (array_data).m_pdata = (char *)gim_alloc((size) * sizeof(type)); \
     (array_data).m_size = (size); \
     (array_data).m_reserve_size = (size); \
-} \
+} do{} while(0)
 
 //! Reserves memory for a dynamic array.
 #define GIM_DYNARRAY_RESERVE_SIZE(type, array_data, old_size, reserve_size) \
@@ -184,14 +184,14 @@ struct GDYNAMIC_ARRAY
         (array_data).m_pdata = (char *) gim_realloc((array_data).m_pdata, (old_size) * sizeof(type), (reserve_size) * sizeof(type)); \
         (array_data).m_reserve_size = (reserve_size); \
     } \
-} \
+} do{} while(0)
 
 //! Set the size of the array
 #define GIM_DYNARRAY_SET_SIZE(type, array_data, size) \
 { \
     GIM_DYNARRAY_RESERVE_SIZE(type, array_data, (array_data).m_size, size); \
     (array_data).m_size = size; \
-} \
+} do{} while(0)
 
 //! Gets a pointer from the beginning of the array
 #define GIM_DYNARRAY_POINTER(type, array_data) ((type *)((array_data).m_pdata))
@@ -209,7 +209,7 @@ struct GDYNAMIC_ARRAY
     type * _pt = GIM_DYNARRAY_POINTER(type, array_data); \
     memcpy(&_pt[(array_data).m_size], &(item), sizeof(type)); \
     (array_data).m_size++; \
-} \
+} do{} while(0)
 
 //! Inserts an element at the last position
 #define GIM_DYNARRAY_PUSH_EMPTY(type, array_data) \
@@ -219,7 +219,7 @@ struct GDYNAMIC_ARRAY
         GIM_DYNARRAY_RESERVE_SIZE(type, array_data, (array_data).m_size, (array_data).m_size + G_ARRAY_GROW_SIZE); \
     } \
     (array_data).m_size++; \
-} \
+} do{} while(0)
 
 //! Inserts an element
 #define GIM_DYNARRAY_INSERT_ITEM(type, array_data, item, index) \
@@ -235,7 +235,7 @@ struct GDYNAMIC_ARRAY
     } \
     memcpy(&_pt[(index)], &(item), sizeof(type)); \
     array_data.m_size++; \
-} \
+} do{} while(0)
 
 //! Removes an element
 #define GIM_DYNARRAY_DELETE_ITEM(type, array_data, index) \
@@ -255,7 +255,7 @@ struct GDYNAMIC_ARRAY
     { \
         (array_data).m_size--; \
     } \
-}\
+} do{} while(0)
 
 //! Destroys the array
 void GIM_DYNARRAY_DESTROY(GDYNAMIC_ARRAY & array_data);
@@ -284,7 +284,7 @@ Bitsets , based on \ref DYNAMIC_ARRAYS .
     GIM_DYNARRAY_CREATE(GUINT32, array_data, array_size); \
     GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
     memset(_pt, 0, sizeof(GUINT32) * ((array_data).m_size)); \
-} \
+} do{} while(0)
 
 //! Gets the bitset bit count.
 #define GIM_BITSET_SIZE(array_data) ((array_data).m_size * GUINT32_BIT_COUNT)
@@ -303,19 +303,19 @@ Bitsets , based on \ref DYNAMIC_ARRAYS .
         GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
         memset(&_pt[_oldsize], 0, sizeof(GUINT32) * ((array_data).m_size - _oldsize)); \
     } \
-} \
+} do{} while(0)
 
 //! Sets all bitset bit to 0.
 #define GIM_BITSET_CLEAR_ALL(array_data) \
 { \
     memset((array_data).m_pdata, 0, sizeof(GUINT32) * (array_data).m_size); \
-} \
+} do{} while(0)
 
 //! Sets all bitset bit to 1.
 #define GIM_BITSET_SET_ALL(array_data) \
 { \
     memset((array_data).m_pdata, 0xFF, sizeof(GUINT32) * (array_data).m_size); \
-} \
+} do{} while(0)
 
 ///Sets the desired bit to 1
 #define GIM_BITSET_SET(array_data, bit_index) \
@@ -326,7 +326,7 @@ Bitsets , based on \ref DYNAMIC_ARRAYS .
 	} \
 	GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
 	_pt[(bit_index) >> GUINT32_EXPONENT] |= (1 << ((bit_index) & (GUINT32_BIT_COUNT - 1))); \
-} \
+} do{} while(0)
 
 ///Return 0 or 1
 #define GIM_BITSET_GET(array_data, bit_index, get_value) \
@@ -340,7 +340,7 @@ Bitsets , based on \ref DYNAMIC_ARRAYS .
         GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
         (get_value) = _pt[(bit_index) >> GUINT32_EXPONENT] & (1 << ((bit_index) & (GUINT32_BIT_COUNT - 1))); \
 	} \
-} \
+} do{} while(0)
 
 ///Sets the desired bit to 0
 #define GIM_BITSET_CLEAR(array_data, bit_index) \
@@ -350,7 +350,7 @@ Bitsets , based on \ref DYNAMIC_ARRAYS .
         GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
         _pt[(bit_index) >> GUINT32_EXPONENT] &= ~(1 << ((bit_index) & (GUINT32_BIT_COUNT - 1))); \
 	} \
-} \
+} do{} while(0)
 //! @}
 
 /*! \defgroup MEMORY_ACCESS_CONSTANTS
@@ -748,7 +748,7 @@ struct GBUFFER_ARRAY
     { \
         (aresame) = 0; \
     } \
-} \
+} do{} while(0)
 
 //! Reserve size for a buffered array.
 /*!
@@ -767,7 +767,7 @@ struct GBUFFER_ARRAY
             gim_buffer_realloc(&(array_data).m_buffer_id, _newarray_size); \
         } \
     } \
-} \
+} do{} while(0)
 
 //! Pushes an element at last position
 /*!
@@ -781,7 +781,7 @@ struct GBUFFER_ARRAY
     memcpy(_pt, &(item), sizeof(type)); \
     gim_buffer_array_unlock(&(array_data)); \
     (array_data)->m_element_count++; \
-} \
+} do{} while(0)
 
 //! Pushes a new element at last position
 /*!
@@ -791,7 +791,7 @@ struct GBUFFER_ARRAY
 {\
     GIM_BUFFER_ARRAY_RESERVE_SIZE(type, array_data, (array_data).m_element_count + 1); \
     (array_data)->m_element_count++; \
-}\
+} do{} while(0)
 
 //! Inserts an element
 /*!
@@ -809,7 +809,7 @@ struct GBUFFER_ARRAY
     memcpy(&_pt[(index)], &(item), sizeof(type)); \
     gim_buffer_array_unlock(&(array_data)); \
     (array_data).m_element_count++; \
-} \
+} do{} while(0)
 
 //! Deletes an element
 /*!
@@ -825,7 +825,7 @@ struct GBUFFER_ARRAY
         gim_buffer_array_unlock(&(array_data)); \
     } \
     (array_data).m_element_count--; \
-} \
+} do{} while(0)
 
 //! Deletes an element at last position
 /*!
@@ -837,7 +837,7 @@ struct GBUFFER_ARRAY
     { \
         (array_data).m_element_count--; \
     } \
-} \
+} do{} while(0)
 
 
 //! Initializes an GBUFFER_ARRAY object from a buffer ID
@@ -860,7 +860,7 @@ m_buffer_data will be 0, for access to the elements, you'd need to call lock_arr
     (array_data).m_byte_stride = (byte_stride); \
     GIM_BUFFER_ARRAY_SET_OFFSET(array_data, offset); \
     gim_buffer_add_ref(&(buffer_id)); \
-} \
+} do{} while(0)
 
 //! Initializes an GBUFFER_ARRAY object from a buffer ID and a Given type
 /*!
@@ -882,7 +882,7 @@ m_buffer_data will be 0, for access to the elements, you'd need to call lock_arr
     GIM_BUFFER_ARRAY_SET_STRIDE(type, array_data); \
     GIM_BUFFER_ARRAY_SET_OFFSET(array_data, offset); \
     gim_buffer_add_ref(&(buffer_id)); \
-}\
+} do{} while(0)
 
 //! Initializes a buffer array giving a data type and a buffer id
 /*!
@@ -963,7 +963,7 @@ void GIM_BUFFER_ARRAY_DESTROY(GBUFFER_ARRAY & array_data);
         } \
         gim_buffer_array_unlock(&(array_data)); \
     } \
-} \
+} do{} while(0)
 
 //! Upload the content of a pointer to a buffered array
 /*!
@@ -992,7 +992,7 @@ void GIM_BUFFER_ARRAY_DESTROY(GBUFFER_ARRAY & array_data);
         } \
         gim_buffer_array_unlock(&(array_data)); \
     } \
-} \
+} do{} while(0)
 
 
 //!Kernel function prototype for process streams, given a buffered array as source and
@@ -1049,7 +1049,7 @@ This macro executes a kernel macro or function for each element of the streams
     } \
     gim_buffer_array_unlock(&(_src_array)); \
     gim_buffer_array_unlock(&(_dst_array)); \
-} \
+} do{} while(0)
 
 //! @}
 

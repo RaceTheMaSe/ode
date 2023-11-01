@@ -78,7 +78,7 @@ struct GIM_CAPSULE_DATA
         aabb.minZ = capsule.m_point2[2] - capsule.m_radius;\
         aabb.maxZ = capsule.m_point1[2] + capsule.m_radius;\
     }\
-}\
+} do{} while(0)
 
 //! Utility function to find the closest point between a segment and a triangle
 /*!

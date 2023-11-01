@@ -91,7 +91,7 @@ void dMultiply0_331(volatile dReal *res, const dReal *a, const dReal *b)
 }
 
 
-}; // namespace dxTruncToType
+} // namespace dxTruncToType
 
 
 #endif

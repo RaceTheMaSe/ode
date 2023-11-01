@@ -56,7 +56,7 @@
 #define dOPESIGN(a, op1, op2,b) \
     (a)[0] op1 op2 ((b)[0]); \
     (a)[1] op1 op2 ((b)[1]); \
-    (a)[2] op1 op2 ((b)[2]);
+    (a)[2] op1 op2 ((b)[2])
 
 #define dGeomRaySetNoNormalize(myRay, MyPoint, MyVector) {  \
     \
@@ -65,7 +65,7 @@
     (myRay).final_posr->R[6] = (MyVector)[1];       \
     (myRay).final_posr->R[10] = (MyVector)[2];      \
     dGeomMoved (&myRay);                        \
-            }
+            } do {} while(0)
 
 #define dGeomPlaneSetNoNormalize(MyPlane, MyPlaneDef) { \
     \
@@ -74,7 +74,7 @@
     (MyPlane)->p[2] = (MyPlaneDef)[2];  \
     (MyPlane)->p[3] = (MyPlaneDef)[3];  \
     dGeomMoved (MyPlane);           \
-                    }
+                    } do {} while(0)
 //////// Local Build Option ////////////////////////////////////////////////////
 
 // Uncomment this #define to use the (0,0) corner of the geom as the origin,

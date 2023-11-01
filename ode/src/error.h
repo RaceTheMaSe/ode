@@ -46,18 +46,18 @@
 #ifndef dNODEBUG
 #  ifdef __GNUC__
 #    define dIASSERT(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); } }
+      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); } } do {} while(0)
 #    define dUASSERT(a,msg) { if (!(a)) { dDebug (d_ERR_UASSERT, \
-      msg " in %s()", __FUNCTION__); } }
+      msg " in %s()", __FUNCTION__); } } do {} while(0)
 #    define dDEBUGMSG(msg) { dMessage (d_ERR_UASSERT,				\
-  msg " in %s() [%s:%u]", __FUNCTION__,__FILE__,__LINE__); }
+  msg " in %s() [%s:%u]", __FUNCTION__,__FILE__,__LINE__); } do {} while(0)
 #  else // not __GNUC__
 #    define dIASSERT(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); } }
+      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); } } do {} while(0)
 #    define dUASSERT(a,msg) { if (!(a)) { dDebug (d_ERR_UASSERT, \
-      msg " (%s:%u)", __FILE__,__LINE__); } }
+      msg " (%s:%u)", __FILE__,__LINE__); } } do {} while(0)
 #    define dDEBUGMSG(msg) { dMessage (d_ERR_UASSERT, \
-      msg " (%s:%u)", __FILE__,__LINE__); }
+      msg " (%s:%u)", __FILE__,__LINE__); } do {} while(0)
 #  endif
 #  define dIVERIFY(a) dIASSERT(a)
 #  define dUVERIFY(a, msg) dUASSERT(a, msg)
@@ -94,10 +94,10 @@
 
 #  ifdef __GNUC__
 #    define dICHECK(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(int *)0 = 0; } }
+      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(int *)0 = 0; } } do {} while(0)
 #  else // not __GNUC__
 #    define dICHECK(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); *(int *)0 = 0; } }
+      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); *(int *)0 = 0; } } do {} while(0)
 #  endif
 
 // Argument assert is a special case of user assert

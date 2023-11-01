@@ -60,9 +60,9 @@ const double tol = 1e-5;
 // misc messages and error handling
 
 #ifdef __GNUC__
-#define HEADER printf ("%s()\n", __FUNCTION__);
+#define HEADER printf ("%s()\n", __FUNCTION__)
 #else
-#define HEADER printf ("%s:%d\n",__FILE__,__LINE__);
+#define HEADER printf ("%s:%d\n",__FILE__,__LINE__)
 #endif
 
 static jmp_buf jump_buffer;
@@ -89,7 +89,7 @@ void myMessageFunction (int num, const char *msg, va_list ap)
         do ; \
         ifnomsg ; \
     } \
-    dSetMessageHandler (0);
+    dSetMessageHandler (0)
 
 //****************************************************************************
 // utility stuff

@@ -783,7 +783,7 @@ void sCylinderTrimeshColliderData::_cldClipCylinderToTriangle(
                 m_gLocalContacts[m_nContacts].nFlags = 1;
                 m_nContacts++;
                 if(m_nContacts >= (m_iFlags & NUMC_MASK)) 
-                    return;;
+                    return;
             }
         }
     }
@@ -808,7 +808,7 @@ void sCylinderTrimeshColliderData::_cldClipCylinderToTriangle(
                 m_gLocalContacts[m_nContacts].nFlags = 1;
                 m_nContacts++;
                 if(m_nContacts >= (m_iFlags & NUMC_MASK)) 
-                    return;;
+                    return;
             }
         }
     }

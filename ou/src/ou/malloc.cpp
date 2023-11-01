@@ -42,7 +42,7 @@
 #endif // #if _OU_TARGET_OS != _OU_TARGET_OS_MAC && _OU_TARGET_OS != _OU_TARGET_OS_IOS
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 /*extern*/ void *_OU_CONVENTION_API AllocateMemoryBlock(size_t nBlockSize)
@@ -102,5 +102,5 @@ BEGIN_NAMESPACE_OU();
 }
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 

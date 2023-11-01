@@ -98,7 +98,7 @@ public:
     (b)[1] = (a)[1];              \
     (b)[2] = (a)[2];              \
     (b)[3] = 0;                   \
-}
+} do {} while(0)
 
 static inline 
 void gim_trimesh_get_triangle_verticesODE(GIM_TRIMESH * trimesh, GUINT32 triangle_index, dVector3 v1, dVector3 v2, dVector3 v3)
@@ -169,7 +169,7 @@ void gim_trimesh_plane_collisionODE( GIM_TRIMESH *mesh, const dVector4 plane, GD
     (dst)[ 3 ]= (src) -> maxY;			\
     (dst)[ 4 ]= (src) -> minZ;			\
     (dst)[ 5 ]= (src) -> maxZ;			\
-}
+} do {} while(0)
 
 
 #else // #ifdef !dDOUBLE

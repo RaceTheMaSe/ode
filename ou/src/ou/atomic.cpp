@@ -34,7 +34,7 @@
 #include <ou/namespace.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 #if !defined(__OU_ATOMIC_PTR_FUNCTIONS_DEFINED)
@@ -50,7 +50,7 @@ BEGIN_NAMESPACE_OU();
 #endif // #if !defined(__OU_ATOMIC_INITIALIZATION_FUNCTIONS_DEFINED)
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #include <pthread.h>
@@ -64,7 +64,7 @@ END_NAMESPACE_OU();
 #endif
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 static unsigned int g_uiAtomicAPIInitializationCount = 0;
@@ -438,7 +438,7 @@ static void FinalizeAtomicAPIValidated()
 #endif // #if !defined(__OU_ATOMIC_PTR_FUNCTIONS_DEFINED)
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #if _OU_FEATURE_SET >= _OU_FEATURE_SET_ATOMICS

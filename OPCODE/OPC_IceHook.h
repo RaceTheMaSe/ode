@@ -26,7 +26,7 @@
 	#include <math.h>
 
 	#ifndef ASSERT
-		#define	ASSERT(exp)	{}
+		#define	ASSERT(exp)	{} do{} while(0)
 	#endif
 	#define ICE_COMPILE_TIME_ASSERT(exp)	extern char ICE_Dummy[ (exp) ? 1 : -1 ]
 

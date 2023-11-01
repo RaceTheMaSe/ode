@@ -34,7 +34,7 @@
 #include <stddef.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 void *_OU_CONVENTION_API AllocateMemoryBlock(size_t nBlockSize);
@@ -42,7 +42,7 @@ void *_OU_CONVENTION_API ReallocateMemoryBlock(void *pv_ExistingBlock, size_t nN
 void _OU_CONVENTION_API FreeMemoryBlock(void *pv_ExistingBlock);
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #ifndef __OU_MALLOC_H_INCLUDED

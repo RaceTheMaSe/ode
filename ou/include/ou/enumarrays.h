@@ -34,7 +34,7 @@
 #include <ou/namespace.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -250,7 +250,7 @@ private:
 };
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #ifndef __OU_ENUMARRAYS_H_INCLUDED

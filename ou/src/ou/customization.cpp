@@ -27,7 +27,7 @@
 #include <ou/customization.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 #if !defined(__FILE__)
@@ -60,5 +60,5 @@ extern const unsigned int __LINE__ = 0;
 /*extern*/ CMemoryDeallocationProcedure CMemoryManagerCustomization::g_fnMemoryDeallocationProcedure = NULL;
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 

@@ -72,7 +72,7 @@ struct GIM_CONTACT
 	_uitmp++;\
 	_hash += (*_uitmp)<<8;\
 	hash = _hash;\
-}\
+} do{} while(0)
 
 ///Creates a contact list for queries
 #define GIM_CREATE_CONTACT_LIST(contact_array) GIM_DYNARRAY_CREATE(GIM_CONTACT,contact_array,100)
@@ -88,7 +88,7 @@ struct GIM_CONTACT
     _last->m_handle2 = handle2;\
     _last->m_feature1 = feat1;\
     _last->m_feature2 = feat2;\
-}\
+} do{} while(0)
 
 ///Receive pointer to contacts
 #define GIM_COPY_CONTACTS(dest_contact, source_contact)\
@@ -100,7 +100,7 @@ struct GIM_CONTACT
     dest_contact->m_handle2 = source_contact->m_handle2;\
     dest_contact->m_feature1 = source_contact->m_feature1;\
     dest_contact->m_feature2 = source_contact->m_feature2;\
-}\
+} do{} while(0)
 
 //! Merges duplicate contacts with minimum depth criterion
 void gim_merge_contacts(GDYNAMIC_ARRAY * source_contacts,

@@ -32,7 +32,7 @@
 #include <ou/namespace.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 	
 
 //////////////////////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ _OU_INLINE bool _OU_CONVENTION_API IsEmptySz(const ValueType *szLine)
 }
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #ifndef __OU_TEMPLATES_H_INCLUDED

@@ -32,7 +32,7 @@
 #include <ou/namespace.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 template<typename ContainedType, const int Instance=0>
@@ -105,7 +105,7 @@ template<typename ContainedType, const int Instance>
 _OU_INLINE bool _OU_CONVENTION_API operator >=(const ContainedType &ctLeftValue, const CTypeSimpleWrapper<ContainedType, Instance> &twRightWrapper) { return !(ctLeftValue < twRightWrapper); }
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #ifndef __OU_TYPEWRAPPER_H_INCLUDED

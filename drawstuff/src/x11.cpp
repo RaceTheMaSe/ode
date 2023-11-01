@@ -433,7 +433,7 @@ void dsPlatformSimLoop (int window_width, int window_height, dsFunctions *fn,
 #else
     processDrawFrame(&frame, fn);
 #endif
-  };
+  }
 
   if (fn->stop) fn->stop();
   dsStopGraphics();

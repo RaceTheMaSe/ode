@@ -561,7 +561,7 @@ public:
     { return dJointGetFeedback(get_id()); }
 
   // If not implemented it will do nothing as describe in the doc
-  virtual void setParam (int, dReal) {};
+  virtual void setParam (int, dReal) {}
   virtual dReal getParam (int) const { return 0; }
 };
 

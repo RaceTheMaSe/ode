@@ -81,7 +81,7 @@ extern "C" {
         cu_success_assertation(); \
     }else{ \
         cu_fail_assertation(__FILE__, __LINE__, message); \
-    }
+    } do{} while(0)
 #define assertTrue(a) \
     assertTrueM((a), #a " is not true")
 

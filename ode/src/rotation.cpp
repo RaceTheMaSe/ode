@@ -46,7 +46,7 @@ quaternions have the format: (s,vx,vy,vz) where (vx,vy,vz) is the
     _R(2,0) = REAL(0.0); \
     _R(2,1) = REAL(0.0); \
     _R(2,2) = REAL(1.0); \
-    _R(2,3) = REAL(0.0);
+    _R(2,3) = REAL(0.0)
 
 
 void dRSetIdentity (dMatrix3 R)

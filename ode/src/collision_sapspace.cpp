@@ -220,8 +220,8 @@ dSpaceID dSweepAndPruneSpaceCreate( dxSpace* space, int axisorder ) {
 #define GEOM_ENABLED(g) (((g)->gflags & GEOM_ENABLE_TEST_MASK) == GEOM_ENABLE_TEST_VALUE)
 
 // HACK: We abuse 'next' and 'tome' members of dxGeom to store indices into dirty/geom lists.
-#define GEOM_SET_DIRTY_IDX(g,idx) { (g)->next_ex = (dxGeom*)(sizeint)(idx); }
-#define GEOM_SET_GEOM_IDX(g,idx) { (g)->tome_ex = (dxGeom**)(sizeint)(idx); }
+#define GEOM_SET_DIRTY_IDX(g,idx) { (g)->next_ex = (dxGeom*)(sizeint)(idx); } do {} while(0)
+#define GEOM_SET_GEOM_IDX(g,idx) { (g)->tome_ex = (dxGeom**)(sizeint)(idx); } do {} while(0)
 #define GEOM_GET_DIRTY_IDX(g) ((int)(sizeint)(g)->next_ex)
 #define GEOM_GET_GEOM_IDX(g) ((int)(sizeint)(g)->tome_ex)
 #define GEOM_INVALID_IDX (-1)
@@ -592,7 +592,7 @@ void dxSAPSpace::BoxPruning( int numBoxes, const dxGeom** geoms, dArray< Pair >&
 
 #define CHECK_PASS_VALIDITY(pass)															\
     /* Shortcut to current counters */														\
-    const uint32* CurCount = &mHistogram[pass<<8];												\
+    const uint32* CurCount = &mHistogram[pass<<8];											\
     \
     /* Reset flag. The sorting pass is supposed to be performed. (default) */				\
     bool PerformPass = true;																\
@@ -606,10 +606,10 @@ void dxSAPSpace::BoxPruning( int numBoxes, const dxGeom** geoms, dArray< Pair >&
     /* for words and O(n) for bytes. Running time for floats depends on actual values... */	\
     \
     /* Get first byte */																	\
-    uint8 UniqueVal = *(((const uint8*)input)+pass);												\
+    uint8 UniqueVal = *(((const uint8*)input)+pass);										\
     \
     /* Check that byte's counter */															\
-    if(CurCount[UniqueVal]==nb)	PerformPass=false;
+    if(CurCount[UniqueVal]==nb)	PerformPass=false
 
 // WARNING ONLY SORTS IEEE FLOATING-POINT VALUES
 const uint32* RaixSortContext::RadixSort( const float* input2, uint32 nb )

@@ -32,7 +32,7 @@
 #include <ou/platform.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 /*
  *	Implementation Note:
@@ -62,7 +62,7 @@ typedef unsigned __int64 uint64ou;
 #else // #if _OU_TARGET_OS != _OU_TARGET_OS_WINDOWS
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #include <inttypes.h>
@@ -80,7 +80,7 @@ typedef int64_t __ou_global_int64;
 typedef uint64_t __ou_global_uint64;
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 typedef ::__ou_global_int8 int8ou;
@@ -130,7 +130,7 @@ typedef ::__ou_global_uint64 uint64ou;
 #define OU_INT64_MIN		((_OU_NAMESPACE::int64ou)(OU_UINT64_MAX - OU_INT64_MAX))
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #ifndef __OU_INTTYPES_H_INCLUDED

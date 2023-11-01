@@ -36,8 +36,8 @@
 #endif // #ifndef _OU_NAMESPACE
 
 
-#define BEGIN_NAMESPACE_OU() namespace _OU_NAMESPACE {
-#define END_NAMESPACE_OU() } /* namespace _OU_NAMESPACE */
+#define BEGIN_NAMESPACE_OU namespace _OU_NAMESPACE {
+#define END_NAMESPACE_OU } /* namespace _OU_NAMESPACE */
 
 
 #endif // #ifndef __OU_NAMESPACE_H_INCLUDED

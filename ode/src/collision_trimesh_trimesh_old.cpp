@@ -1126,11 +1126,11 @@ dInvertMatrix4( dMatrix4& B, dMatrix4& Binv )
         c=a;     \
         a=b;     \
         b=c;     \
-    }
+    } do {} while(0)
 
 #define ISECT(VV0,VV1,VV2,D0,D1,D2,isect0,isect1) \
     isect0=VV0+(VV1-VV0)*D0/(D0-D1);    \
-    isect1=VV0+(VV2-VV0)*D0/(D0-D2);
+    isect1=VV0+(VV2-VV0)*D0/(D0-D2)
 
 
 #define COMPUTE_INTERVALS(VV0,VV1,VV2,D0,D1,D2,D0D1,D0D2,isect0,isect1) \
@@ -1162,7 +1162,8 @@ dInvertMatrix4( dMatrix4& B, dMatrix4& Binv )
     {                                                     \
         /* triangles are coplanar */                        \
         return coplanar_tri_tri(N1,V0,V1,V2,U0,U1,U2);      \
-    }
+    }                                                     \
+    do {} while(0)
 
 
 
@@ -1200,7 +1201,7 @@ pp. 199-202 */
     EDGE_EDGE_TEST(V0,U1,U2);                    \
     /* test edge U2,U1 against V0,V1 */          \
     EDGE_EDGE_TEST(V0,U2,U0);                    \
-}
+} do {} while(0)
 
 #define POINT_IN_TRI(V0,U0,U1,U2)           \
 {                                           \
@@ -1225,7 +1226,7 @@ pp. 199-202 */
     {                                         \
         if(d0*d2>0.0) return 1;                 \
     }                                         \
-}
+} do {} while(0)
 
 int coplanar_tri_tri(dReal N[3],dReal V0[3],dReal V1[3],dReal V2[3],
                      dReal U0[3],dReal U1[3],dReal U2[3])
@@ -1309,7 +1310,7 @@ int coplanar_tri_tri(dReal N[3],dReal V0[3],dReal V1[3],dReal V2[3],
         /* triangles are coplanar */ \
         return coplanar_tri_tri(N1,V0,V1,V2,U0,U1,U2); \
     } \
-}
+} do{} while(0)
 
 
 
@@ -1324,7 +1325,7 @@ int coplanar_tri_tri(dReal N[3],dReal V0[3],dReal V1[3],dReal V2[3],
         b=t;        \
         smallest=1; \
     }             \
-    else smallest=0;
+    else smallest=0
 
 
 inline void isect2(dReal VTX0[3],dReal VTX1[3],dReal VTX2[3],dReal VV0,dReal VV1,dReal VV2,

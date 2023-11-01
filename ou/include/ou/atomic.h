@@ -385,7 +385,7 @@
  */
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -394,14 +394,14 @@ BEGIN_NAMESPACE_OU();
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #include <windows.h>
 #include <stddef.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 typedef ULONG atomicord32;
@@ -577,13 +577,13 @@ static _OU_ALWAYSINLINE bool _OU_CONVENTION_API
 #define __OU_ATOMIC_READREORDERBARRIER_FUNCTION_DEFINED
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #include <intrin.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 static _OU_ALWAYSINLINE void _OU_CONVENTION_API 
@@ -614,14 +614,14 @@ static _OU_ALWAYSINLINE void _OU_CONVENTION_API
 
 #if _OU_TARGET_OS == _OU_TARGET_OS_QNX
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #include <atomic.h>
 #include _NTO_CPU_HDR_(smpxchg.h)
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 typedef unsigned int atomicord32;
 typedef void *atomicptr;
@@ -732,13 +732,13 @@ static _OU_ALWAYSINLINE void _OU_CONVENTION_API
 #if MAC_OS_X_VERSION >= 1040
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #include <libkern/OSAtomic.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 typedef uint32_t atomicord32;
@@ -977,13 +977,13 @@ static _OU_ALWAYSINLINE void _OU_CONVENTION_API
 #if _OU_TARGET_OS == _OU_TARGET_OS_AIX
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #include <sys/atomic_op.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 typedef unsigned int atomicord32;
@@ -1106,13 +1106,13 @@ static _OU_ALWAYSINLINE bool _OU_CONVENTION_API
 #if _OU_TARGET_OS == _OU_TARGET_OS_SUNOS
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #include <atomic.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 typedef uint32_t atomicord32;
@@ -1631,13 +1631,13 @@ static _OU_ALWAYSINLINE bool _OU_CONVENTION_API
 #if !defined(__OU_ATOMIC_ORD32_FUNCTIONS_DEFINED)
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #include <stddef.h>
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 typedef uint32_t atomicord32;
@@ -1899,7 +1899,7 @@ static _OU_INLINE void _OU_CONVENTION_API FinalizeAtomicAPI()
 #endif // #if !defined(__OU_ATOMIC_INITIALIZE_FUNCTIONS_DEFINED)
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #if _OU_FEATURE_SET >= _OU_FEATURE_SET_ATOMICS

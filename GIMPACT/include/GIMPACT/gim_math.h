@@ -124,18 +124,18 @@ mathematical functions
     GREAL _swap_tmp = (a); \
     (a) = (b); \
     (b) = _swap_tmp; \
-}
+} do {} while(0)
 
 
 #define GIM_SQRT(va,sva)\
 {\
     (sva) = GIM_SQRT_FN(va);\
-}
+} do {} while(0)
 
 #define GIM_INV_SQRT(va,isva)\
 {\
     (isva) = 1.0f / GIM_SQRT_FN(va);\
-}
+} do {} while(0)
 
 
 //! Computes 1.0f / sqrtf(x). Comes from Quake3. See http://www.magic-software.com/3DGEDInvSqrt.html

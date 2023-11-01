@@ -297,7 +297,7 @@ int sCylinderBoxData::_cldTestEdgeCircleAxis(
     dNormalize3(vDirEdge);
     // starting point of edge 
     dVector3 vEStart;
-    dVector3Copy(vVx0,vEStart);;
+    dVector3Copy(vVx0,vEStart);
 
     // calculate angle cosine between cylinder axis and edge
     dReal fdot2 = dVector3Dot (vDirEdge,m_vCylinderAxis);

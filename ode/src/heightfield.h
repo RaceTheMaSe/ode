@@ -100,7 +100,7 @@ typedef int HeightFieldVertexCoords[2];
 class HeightFieldVertex
 {
 public:
-    HeightFieldVertex(){};
+    HeightFieldVertex(){}
 
     dVector3 vertex;
     HeightFieldVertexCoords coords;
@@ -110,7 +110,7 @@ public:
 class HeightFieldEdge
 {
 public:
-    HeightFieldEdge(){};
+    HeightFieldEdge(){}
 
     HeightFieldVertex   *vertices[2];
 };
@@ -118,13 +118,13 @@ public:
 class HeightFieldTriangle
 {
 public:
-    HeightFieldTriangle(){};
+    HeightFieldTriangle(){}
 
     inline void setMinMax()
     {
         maxAAAB = vertices[0]->vertex[1] > vertices[1]->vertex[1] ? vertices[0]->vertex[1] : vertices[1]->vertex[1];
         maxAAAB = vertices[2]->vertex[1] > maxAAAB  ? vertices[2]->vertex[1] : maxAAAB;
-    };
+    }
 
     HeightFieldVertex   *vertices[3];
     dReal               planeDef[4];
@@ -161,7 +161,7 @@ public:
                     maxAAAB = trianglelist[k]->maxAAAB;
             }
         }
-    };
+    }
 
     void resetTriangleListSize(const sizeint newSize)
     {

@@ -41,7 +41,7 @@ email: projectileman@yahoo.com
 	{\
 	    out_of_face = 0;\
 	}\
-}\
+} do {} while(0)
 
 
 //! Receives the 3 edge planes
@@ -77,7 +77,7 @@ email: projectileman@yahoo.com
             VEC_COPY(deep_points[_k],points[_max_candidates[_k]]);\
         }\
     }\
-}\
+} do {} while(0)
 
 //! Receives the 3 edge planes
 #define CLIP_TRI_POINTS_BY_TRI_EDGE_PLANES(tri_points,tri_edge_planes, clipped_points, clipped_point_count)\
@@ -94,7 +94,7 @@ email: projectileman@yahoo.com
             PLANE_CLIP_POLYGON(tri_edge_planes[2],_temp_clip2,_temp_clip_count2,clipped_points,clipped_point_count,MAX_TRI_CLIPPING);\
         }\
     }\
-}\
+} do {} while(0)
 
 
 
@@ -243,7 +243,7 @@ void gim_trimesh_trimesh_collision(GIM_TRIMESH * trimesh1, GIM_TRIMESH * trimesh
 {
     contacts->m_size = 0;
     GDYNAMIC_ARRAY collision_pairs;
-    GIM_CREATE_PAIR_SET(collision_pairs)
+    GIM_CREATE_PAIR_SET(collision_pairs);
 
     gim_aabbset_bipartite_intersections(&trimesh1->m_aabbset,&trimesh2->m_aabbset,&collision_pairs);
 

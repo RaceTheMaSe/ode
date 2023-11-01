@@ -81,11 +81,11 @@ int draw_all_objects_called;
   if (testslot[number].name) dDebug (0,"test number already used"); \
   if (number <= 0 || number >= MAX_TESTS) dDebug (0,"bad test number"); \
   testslot[number].name = # function; \
-  testslot[number].test_fn = function;
+  testslot[number].test_fn = function
 
 #define FAILED() { if (graphical_test==0) { \
-  testslot[current_test].last_failed_line=__LINE__; return 0; } }
-#define PASSED() { return 1; }
+  testslot[current_test].last_failed_line=__LINE__; return 0; } } do {} while(0)
+#define PASSED() { return 1; } do {} while(0)
 
 //****************************************************************************
 // globals

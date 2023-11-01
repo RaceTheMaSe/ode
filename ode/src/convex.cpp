@@ -1328,7 +1328,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
                         r1[1]*cvx2.planes[(j*4)+1]+
                         r1[2]*cvx2.planes[(j*4)+2]-
                         cvx2.planes[(j*4)+3];
-                    if(d>=0){out = true;break;};
+                    if(d>=0){out = true;break;}
                 }
                 if(!out)
                 {

@@ -57,7 +57,7 @@
 #endif // #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 
 
-BEGIN_NAMESPACE_OU();
+BEGIN_NAMESPACE_OU
 
 
 class CTLSStorageInstance;
@@ -1334,7 +1334,7 @@ void CTLSInitialization::FinalizeTLSAPIValidated(unsigned int uiInstanceKind)
 }
 
 
-END_NAMESPACE_OU();
+END_NAMESPACE_OU
 
 
 #endif // #if _OU_FEATURE_SET >= _OU_FEATURE_SET_TLS
