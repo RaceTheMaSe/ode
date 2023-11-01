@@ -250,7 +250,14 @@ struct dxSpace : public dxGeom {
     int getCleanup() const { return cleanup; }
     void setSublevel(int value) { sublevel = value; }
     int getSublevel() const { return sublevel; }
-    void setManulCleanup(int value) { tls_kind = (value ? dSPACE_TLS_KIND_MANUAL_VALUE : dSPACE_TLS_KIND_INIT_VALUE); }
+    void setManulCleanup(int value) { tls_kind = 
+    #if dSPACE_TLS_KIND_MANUAL_VALUE != dSPACE_TLS_KIND_INIT_VALUE
+    (value ? dSPACE_TLS_KIND_MANUAL_VALUE : dSPACE_TLS_KIND_INIT_VALUE);
+    #else // identical branches
+    dSPACE_TLS_KIND_MANUAL_VALUE;
+    (void)value;
+    #endif
+    }
     int getManualCleanup() const { return (tls_kind == dSPACE_TLS_KIND_MANUAL_VALUE) ? 1 : 0; }
     int query (dxGeom *geom) const { dAASSERT(geom); return (geom->parent_space == this); }
     int getNumGeoms() const { return count; }
