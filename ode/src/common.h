@@ -227,7 +227,7 @@ bool _cast_to_smaller(DstType &dtOutResult, const SrcType &stArgument)
     return (SrcType)(dtOutResult = (DstType)stArgument) == stArgument;
 }
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && __GNUC__ < 4 && !defined(__clang__) // NOTE: ISO C++ forbids braced-groups within expressions (-Wpedantic) - tested with GCC4.8, GCC10, GCC11 and Clang 17
 
 #define dCAST_TO_SMALLER(TargetType, SourceValue) ({ TargetType ttCastSmallerValue; dIVERIFY(_cast_to_smaller(ttCastSmallerValue, SourceValue)); ttCastSmallerValue; })
 
