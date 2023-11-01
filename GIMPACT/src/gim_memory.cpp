@@ -155,7 +155,7 @@ void * gim_realloc(void *ptr, size_t oldsize, size_t newsize)
 	return newptr;
 }
 
-void gim_free(void *ptr, size_t size)
+void gim_free(void *ptr, size_t /*size*/)
 {
   if (!ptr) return;
 /* -- if custom allocation function is not used, custom free must not be used too
@@ -174,21 +174,21 @@ void gim_free(void *ptr, size_t size)
 
 //!** Basic buffer prototype functions
 
-static GPTR _system_buffer_alloc_function(GUINT32 size,int usage)
+static GPTR _system_buffer_alloc_function(GUINT32 size,int /*usage*/)
 {
     void * newdata = gim_alloc(size);
     memset(newdata,0,size);
     return (GPTR)newdata;
 }
 
-static GPTR _system_buffer_alloc_data_function(const void * pdata,GUINT32 size,int usage)
+static GPTR _system_buffer_alloc_data_function(const void * pdata,GUINT32 size,int /*usage*/)
 {
     void * newdata = gim_alloc(size);
     memcpy(newdata,pdata,size);
     return (GPTR)(newdata);
 }
 
-static GPTR _system_buffer_realloc_function(GPTR buffer_handle,GUINT32 oldsize,int old_usage,GUINT32 newsize,int new_usage)
+static GPTR _system_buffer_realloc_function(GPTR buffer_handle,GUINT32 oldsize,int /*old_usage*/,GUINT32 newsize,int /*new_usage*/)
 {
     void * newdata = gim_realloc(buffer_handle,oldsize,newsize);
     return (GPTR)(newdata);
@@ -199,13 +199,13 @@ static void _system_buffer_free_function(GPTR buffer_handle,GUINT32 size)
     gim_free(buffer_handle,size);
 }
 
-static char * _system_lock_buffer_function(GPTR buffer_handle,int access)
+static char * _system_lock_buffer_function(GPTR buffer_handle,int /*access*/)
 {
     return (char * )(buffer_handle);
 }
 
 
-static void _system_unlock_buffer_function(GPTR buffer_handle)
+static void _system_unlock_buffer_function(GPTR /*buffer_handle*/)
 {
 }
 
@@ -244,12 +244,12 @@ static void  _system_copy_buffers_function(
 	memcpy(pdata2+dest_pos,pdata1+source_pos,copysize);
 }
 
-static GPTR _shared_buffer_alloc_function(GUINT32 size,int usage)
+static GPTR _shared_buffer_alloc_function(GUINT32 /*size*/,int /*usage*/)
 {
     return 0;
 }
 
-static GPTR _shared_buffer_alloc_data_function(const void * pdata,GUINT32 size,int usage)
+static GPTR _shared_buffer_alloc_data_function(const void * pdata,GUINT32 /*size*/,int /*usage*/)
 {
     return (GPTR)pdata;
 }
@@ -261,7 +261,7 @@ static GPTR _shared_buffer_realloc_function(GPTR buffer_handle,GUINT32 oldsize,i
 }
 #endif
 
-static void _shared_buffer_free_function(GPTR buffer_handle,GUINT32 size)
+static void _shared_buffer_free_function(GPTR /*buffer_handle*/,GUINT32 /*size*/)
 {
 }
 

@@ -87,6 +87,8 @@ unsigned ThreadedEquationSolverLDLT::restrictSolvingL1StraightAllowedThreadCount
     {
         limitedThreadCount = threading->calculateThreadingLimitedThreadCount(allowedThreadCount, true);
     }
+#else
+    (void)threading; (void)allowedThreadCount; (void)rowCount;
 #endif // #if dCOOPERATIVE_ENABLED
 
     return limitedThreadCount;

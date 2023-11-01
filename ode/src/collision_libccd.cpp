@@ -110,6 +110,8 @@ static bool testAndPrepareDiscContactForAngle(dReal angle, dReal radius, dReal l
 // Adds a contact between 2 cylinders
 static int addCylCylContact(dxGeom *o1, dxGeom *o2, ccd_vec3_t* axis, dContactGeom *contacts, ccd_vec3_t* p, dReal normaldir, dReal depth, int j, int flags, int skip);
 
+#if dTRIMESH_ENABLED
+
 static unsigned addTrianglePerturbedContacts(dxGeom *o1, dxGeom *o2, IFaceAngleStorageView *meshFaceAngleView, 
     const int *indices, unsigned numIndices, int flags, dContactGeom *contacts, int skip,
     ccd_convex_t *c1, ccd_triangle_t *c2, dVector3 *triangle, dContactGeom *contact, unsigned contacCount);
@@ -118,6 +120,7 @@ static unsigned addUniqueContact(dContactGeom *contacts, dContactGeom *c, unsign
 static void setObjPosToTriangleCenter(ccd_triangle_t *t); 
 static void ccdSupportTriangle(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v);
 
+#endif
 
 static 
 void ccdGeomToObj(const dGeomID g, ccd_obj_t *o)
@@ -306,7 +309,7 @@ void ccdCenter(const void *obj, ccd_vec3_t *c)
 
 static 
 int ccdCollide(
-    dGeomID o1, dGeomID o2, int flags, dContactGeom *contact, int skip,
+    dGeomID o1, dGeomID o2, int flags, dContactGeom *contact, int /*skip*/,
     void *obj1, ccd_support_fn supp1, ccd_center_fn cen1,
     void *obj2, ccd_support_fn supp2, ccd_center_fn cen2)
 {
@@ -734,10 +737,10 @@ int addCylCylContact(dxGeom *o1, dxGeom *o2, ccd_vec3_t* axis, dContactGeom *con
 
 #if dTRIMESH_ENABLED
 
-const static float CONTACT_DEPTH_EPSILON = 0.0001f;
+// const static float CONTACT_DEPTH_EPSILON = 0.0001f;
 const static float CONTACT_POS_EPSILON = 0.0001f;
 const static float CONTACT_PERTURBATION_ANGLE = 0.001f;
-const static float NORMAL_PROJ_EPSILON = 0.0001f;
+// const static float NORMAL_PROJ_EPSILON = 0.0001f;
 
 
 /*extern */
@@ -882,7 +885,7 @@ unsigned addTrianglePerturbedContacts(dxGeom *o1, dxGeom *o2, IFaceAngleStorageV
 
 static 
 bool correctTriangleContactNormal(ccd_triangle_t *t, dContactGeom *contact, 
-    IFaceAngleStorageView *meshFaceAngleView, const int *indices, unsigned numIndices) 
+    IFaceAngleStorageView *meshFaceAngleView, const int * /*indices*/, unsigned /*numIndices*/) 
 {
     dIASSERT(meshFaceAngleView != NULL);
 

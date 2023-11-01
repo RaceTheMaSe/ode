@@ -375,7 +375,7 @@ MainWindowParameters *retrieveMainWindowWindowParameters(HWND mainWindow)
 
 static 
 LRESULT CALLBACK AboutDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
-    LPARAM lParam)
+    LPARAM /*lParam*/)
 {
     switch (uMsg) {
         case WM_INITDIALOG: {
@@ -527,7 +527,7 @@ LRESULT CALLBACK mainWndProc(HWND hWnd, UINT msg, WPARAM wParam,
 }
 
 static 
-LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM lParam)
+LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM /*lParam*/)
 {
     LRESULT result = 0;
 
@@ -927,7 +927,7 @@ double dsElapsedTime()
 // I can find the accelerators table later
 
 /*extern */
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID /*lpReserved*/)
 {
     switch (fdwReason)
     {

@@ -7444,7 +7444,7 @@ bool TestTypeWrappers_Constructors()
 	CTestWrapper twEmptyWrapper;
 	CTestWrapper twZeroWrapper(0);
 	CTestWrapper twCopyWrapper(twZeroWrapper);
-
+	(void)twCopyWrapper;
 	return true;
 }
 
@@ -9017,7 +9017,7 @@ bool ProcessOUCoverageTests(unsigned int &nOutFailureCount)
 	return nSuccessCount == OST__MAX;
 }
 
-int main(int argc, char* argv[])
+int main(int /*argc*/, char* /*argv*/[])
 {
 	unsigned int nFailureCount;
 	ProcessOUCoverageTests(nFailureCount);

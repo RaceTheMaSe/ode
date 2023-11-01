@@ -423,6 +423,9 @@ void dMassSetTrimesh( dMass *m, dReal density, dGeomID g )
     dMassCheck (m);
 # endif
 
+#else
+    (void)density;
+    (void)g;
 #endif // dTRIMESH_ENABLED
 }
 

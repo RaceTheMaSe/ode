@@ -1302,7 +1302,7 @@ void setShadowDrawingMode()
 
 
 /*extern */
-void dsInitializeConsole(int argc, char **argv)
+void dsInitializeConsole(int /*argc*/, char ** /*argv*/)
 {
     dsPlatformInitializeConsole();
 }

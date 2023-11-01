@@ -123,6 +123,8 @@ TEST(test_collision_heightfield_ray_fail)
         dGeomDestroy(height);
         dGeomDestroy(ray);
         dGeomHeightfieldDataDestroy(heightfieldData);
+
+        CHECK(dataBuffer[0] == '1'); // added for unused testResults_ warning - remove if necessary as its not part of this testcase
     }
 }
 

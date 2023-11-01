@@ -290,7 +290,7 @@ void dxJointAMotor::getInfo1(dxJoint::Info1 *info)
 void dxJointAMotor::getInfo2(dReal worldFPS, dReal /*worldERP*/, 
     int rowskip, dReal *J1, dReal *J2,
     int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
-    int *findex)
+    int * /* findex */)
 {
     // compute the axes (if not global)
     dVector3 ax[dSA__MAX];

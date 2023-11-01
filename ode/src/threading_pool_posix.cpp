@@ -762,7 +762,7 @@ void dxThreadingThreadPool::WaitIdleState()
 
 
 /*extern */dThreadingThreadPoolID dThreadingAllocateThreadPool(unsigned thread_count, 
-                                                               sizeint stack_size, unsigned int ode_data_allocate_flags, void *reserved/*=NULL*/)
+                                                               sizeint stack_size, unsigned int ode_data_allocate_flags, void * /*reserved*/ /*=NULL*/)
 {
     dAASSERT(thread_count != 0);
 
@@ -785,7 +785,7 @@ void dxThreadingThreadPool::WaitIdleState()
     dThreadingThreadPoolID thread_pool = NULL;
     (void)stack_size; // unused
     (void)ode_data_allocate_flags; // unused
-    (void)reserved; // unused
+    (void)thread_count; // unused
 #endif // #if dBUILTIN_THREADING_IMPL_ENABLED
 
     return (dThreadingThreadPoolID)thread_pool;

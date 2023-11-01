@@ -375,6 +375,8 @@ static void findPenetrTouch(const void *obj1, const void *obj2, const ccd_t *ccd
                             ccd_simplex_t *portal,
                             ccd_real_t *depth, ccd_vec3_t *dir, ccd_vec3_t *pos)
 {
+    (void)obj1; (void)obj2; (void)ccd;
+
     // Touching contact on portal's v1 - so depth is zero and direction
     // is unimportant and pos can be guessed
     *depth = CCD_REAL(0.);
@@ -389,6 +391,8 @@ static int findPenetrSegment(const void *obj1, const void *obj2, const ccd_t *cc
                               ccd_simplex_t *portal,
                               ccd_real_t *depth, ccd_vec3_t *dir, ccd_vec3_t *pos)
 {
+    (void)obj1; (void)obj2; (void)ccd;
+
     /*
     ccd_vec3_t vec;
     ccd_real_t k;
@@ -423,6 +427,8 @@ static int findPenetrSegment(const void *obj1, const void *obj2, const ccd_t *cc
 static int findPos(const void *obj1, const void *obj2, const ccd_t *ccd,
                     const ccd_simplex_t *portal, ccd_vec3_t *pos)
 {
+    (void)obj1; (void)obj2; (void)ccd;
+
     ccd_vec3_t dir;
     size_t i;
     ccd_real_t b[4], sum, inv;
@@ -566,6 +572,8 @@ _ccd_inline int portalCanEncapsuleOrigin(const ccd_simplex_t *portal,
                                          const ccd_support_t *v4,
                                          const ccd_vec3_t *dir)
 {
+    (void)portal;
+
     ccd_real_t dot;
     dot = ccdVec3Dot(&v4->v, dir);
     return ccdIsZero(dot) || dot > CCD_ZERO;

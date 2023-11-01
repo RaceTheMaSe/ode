@@ -113,6 +113,7 @@ public:
 #if dCOOPERATIVE_ENABLED
         return ::AtomicDecrement(paoDestination);
 #else
+        (void)paoDestination;
         dIASSERT(false); return 0; // The function is not supposed to be called in this case
 #endif // #if dCOOPERATIVE_ENABLED
     }
@@ -122,6 +123,7 @@ public:
 #if dCOOPERATIVE_ENABLED
         return ::AtomicCompareExchange(paoDestination, aoComparand, aoExchange);
 #else
+        (void)paoDestination; (void)aoComparand; (void)aoExchange;
         dIASSERT(false); return false; // The function is not supposed to be called in this case
 #endif // #if dCOOPERATIVE_ENABLED
     }
@@ -131,6 +133,7 @@ public:
 #if dCOOPERATIVE_ENABLED
         return ::AtomicCompareExchangePointer((volatile atomicptr *)destination, (atomicptr)comparand, (atomicptr)exchange);
 #else
+        (void)destination; (void)comparand; (void)exchange;
         dIASSERT(false); return false; // The function is not supposed to be called in this case
 #endif // #if dCOOPERATIVE_ENABLED
     }
@@ -140,6 +143,7 @@ public:
 #if dCOOPERATIVE_ENABLED
         ::AtomicStorePointer((volatile atomicptr *)destination, (atomicptr)value);
 #else
+        (void)destination; (void)value;
         dIASSERT(false); // The function is not supposed to be called in this case
 #endif // #if dCOOPERATIVE_ENABLED
     }

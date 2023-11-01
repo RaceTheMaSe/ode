@@ -49,7 +49,7 @@ dReal planes[]= // planes for a cube, these should coincide with the face array
     -1.0f,0.0f ,0.0f ,0.0f
     */
   };
-const unsigned int planecount=6;
+// const unsigned int planecount=6;
 
 dReal points[]= // points for a cube
   {
@@ -65,7 +65,7 @@ dReal points[]= // points for a cube
     0.25f,-0.25f,-0.25f,//  point 6
     -0.25f,-0.25f,-0.25f,// point 7 
   };
-const unsigned int pointcount=8;
+// const unsigned int pointcount=8;
 unsigned int polygons[] = //Polygons for a cube (6 squares)
   {
     4,0,2,6,4, // positive X

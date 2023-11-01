@@ -489,6 +489,8 @@ bool CTLSStorageArray::FindFreeStorageBlockIndex(unsigned int &nOutFreeBlockInde
 		}
 	}
 
+#else
+	(void)iValueCount;
 
 #endif // #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 
@@ -511,6 +513,8 @@ bool CTLSStorageArray::FindFreeStorageBlockIndexWithPossibilityVerified(unsigned
 				AllocateBlockThreadHandle(nBlockIndex);
 			}
 			
+#else
+	(void)bIsManualCleanup;
 
 #endif // #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 
@@ -1042,6 +1046,7 @@ bool CTLSStorageInstance::AllocateStorageKey(HTLSKEYVALUE &hkvOutStorageKey, EST
 		bResult = true;
 	}
 	
+	(void)ikInstanceKind;
 
 #else // #if _OU_TARGET_OS != _OU_TARGET_OS_WINDOWS
 	

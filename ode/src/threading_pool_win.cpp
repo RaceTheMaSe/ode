@@ -619,7 +619,7 @@ void dxThreadingThreadPool::WaitIdleState()
 
 
 /*extern */dThreadingThreadPoolID dThreadingAllocateThreadPool(unsigned thread_count, 
-                                                               sizeint stack_size, unsigned int ode_data_allocate_flags, void *reserved/*=NULL*/)
+                                                               sizeint stack_size, unsigned int ode_data_allocate_flags, void * /*reserved*/ /*=NULL*/)
 {
     dAASSERT(thread_count != 0);
 
@@ -640,6 +640,9 @@ void dxThreadingThreadPool::WaitIdleState()
     }
 #else
     dThreadingThreadPoolID thread_pool = NULL;
+    (void)thread_count;
+    (void)stack_size;
+    (void)ode_data_allocate_flags;
 #endif // #if dBUILTIN_THREADING_IMPL_ENABLED
 
     return (dThreadingThreadPoolID)thread_pool;
@@ -650,6 +653,9 @@ void dxThreadingThreadPool::WaitIdleState()
 #if dBUILTIN_THREADING_IMPL_ENABLED
     dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     thread_pool->ServeThreadingImplementation(impl);
+#else
+    (void)pool;
+    (void)impl;
 #endif // #if dBUILTIN_THREADING_IMPL_ENABLED
 }
 
@@ -658,6 +664,8 @@ void dxThreadingThreadPool::WaitIdleState()
 #if dBUILTIN_THREADING_IMPL_ENABLED
     dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     thread_pool->WaitIdleState();
+#else
+    (void)pool;
 #endif // #if dBUILTIN_THREADING_IMPL_ENABLED
 }
 
@@ -666,6 +674,8 @@ void dxThreadingThreadPool::WaitIdleState()
 #if dBUILTIN_THREADING_IMPL_ENABLED
     dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     delete thread_pool;
+#else
+    (void)pool;
 #endif // #if dBUILTIN_THREADING_IMPL_ENABLED
 }
 

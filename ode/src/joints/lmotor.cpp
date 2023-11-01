@@ -90,7 +90,7 @@ void
 dxJointLMotor::getInfo2( dReal worldFPS, dReal /*worldERP*/, 
     int rowskip, dReal *J1, dReal *J2,
     int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
-    int *findex )
+    int * /* findex */ )
 {
     dVector3 ax[3];
     computeGlobalAxes( ax );

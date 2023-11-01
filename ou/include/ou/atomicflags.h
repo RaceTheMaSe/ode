@@ -209,7 +209,9 @@ public:
 	/*void */EnumSetEnumeratedFlagValue(atomicord32 aoStartingFlag, unsigned int uiEnumeratedValue, unsigned int uiEnumeratedMaximum, bool bFlagValue) 
 	{
 		OU_ASSERT(uiEnumeratedValue < uiEnumeratedMaximum && OU_FLAGS_ENUMFLAGS_START_VALID(atomicord32, aoStartingFlag, uiEnumeratedMaximum));
-
+#if defined (NDEBUG)
+		(void)uiEnumeratedMaximum;
+#endif
 		SetFlagsMaskValue(aoStartingFlag << uiEnumeratedValue, bFlagValue);
 	}
 
@@ -218,6 +220,9 @@ public:
 	/*void */EnumSignalEnumeratedFlagValue(atomicord32 aoStartingFlag, unsigned int uiEnumeratedValue, unsigned int uiEnumeratedMaximum)
 	{
 		OU_ASSERT(uiEnumeratedValue < uiEnumeratedMaximum && OU_FLAGS_ENUMFLAGS_START_VALID(atomicord32, aoStartingFlag, uiEnumeratedMaximum));
+#if defined (NDEBUG)
+		(void)uiEnumeratedMaximum;
+#endif
 
 		SignalFlagsMaskValue(aoStartingFlag << uiEnumeratedValue);
 	}
@@ -227,7 +232,10 @@ public:
 	/*void */EnumDropEnumeratedFlagValue(atomicord32 aoStartingFlag, unsigned int uiEnumeratedValue, unsigned int uiEnumeratedMaximum) 
 	{
 		OU_ASSERT(uiEnumeratedValue < uiEnumeratedMaximum && OU_FLAGS_ENUMFLAGS_START_VALID(atomicord32, aoStartingFlag, uiEnumeratedMaximum));
-		
+#if defined (NDEBUG)
+		(void)uiEnumeratedMaximum;
+#endif
+
 		DropFlagsMaskValue(aoStartingFlag << uiEnumeratedValue);
 	}
 	
@@ -238,7 +246,10 @@ public:
 	/*bool */EnumToggleEnumeratedFlagValue(atomicord32 aoStartingFlag, unsigned int uiEnumeratedValue, unsigned int uiEnumeratedMaximum)
 	{
 		OU_ASSERT(uiEnumeratedValue < uiEnumeratedMaximum && OU_FLAGS_ENUMFLAGS_START_VALID(atomicord32, aoStartingFlag, uiEnumeratedMaximum));
-		
+#if defined (NDEBUG)
+		(void)uiEnumeratedMaximum;
+#endif
+
 		return ToggleSingleFlagValue(aoStartingFlag << uiEnumeratedValue); 
 	}
 
@@ -248,6 +259,9 @@ public:
 	/*bool */EnumModifyEnumeratedFlagValue(atomicord32 aoStartingFlag, unsigned int uiEnumeratedValue, unsigned int uiEnumeratedMaximum, bool bFlagValue)
 	{
 		OU_ASSERT(uiEnumeratedValue < uiEnumeratedMaximum && OU_FLAGS_ENUMFLAGS_START_VALID(atomicord32, aoStartingFlag, uiEnumeratedMaximum));
+#if defined (NDEBUG)
+		(void)uiEnumeratedMaximum;
+#endif
 
 		return ModifySingleFlagValue(aoStartingFlag << uiEnumeratedValue, bFlagValue);
 	}
@@ -277,6 +291,9 @@ public:
 	/*bool */EnumGetEnumeratedFlagValue(atomicord32 aoStartingFlag, unsigned int uiEnumeratedValue, unsigned int uiEnumeratedMaximum) const
 	{
 		OU_ASSERT(uiEnumeratedValue < uiEnumeratedMaximum && OU_FLAGS_ENUMFLAGS_START_VALID(atomicord32, aoStartingFlag, uiEnumeratedMaximum));
+#if defined (NDEBUG)
+		(void)uiEnumeratedMaximum;
+#endif
 
 		return GetFlagsMaskValue(aoStartingFlag << uiEnumeratedValue);
 	}

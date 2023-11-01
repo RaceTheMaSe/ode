@@ -187,6 +187,9 @@ void swapRowsAndCols (unsigned i1, unsigned i2, ATYPE A, unsigned n, unsigned ns
 {
     dAASSERT (A && n > 0 && i1 >= 0 && i2 >= 0 && i1 < n && i2 < n &&
         nskip >= n && i1 < i2);
+#if defined(dNODEBUG)
+    (void)nskip;
+#endif
 
 # ifdef ROWPTRS
     dReal *A_i1 = A[i1];
@@ -849,7 +852,7 @@ void dxSolveLCP (dxWorldProcessMemArena *memarena, unsigned n, dReal *A, dReal p
 // if all the variables are unbounded then we can just factor, solve, and return
 
 static 
-void dxSolveLCP_AllUnbounded (dxWorldProcessMemArena *memarena, unsigned n, dReal *A, dReal pairsbx[PBX__MAX])
+void dxSolveLCP_AllUnbounded (dxWorldProcessMemArena * /*memarena*/, unsigned n, dReal *A, dReal pairsbx[PBX__MAX])
 {
     dAASSERT(A != NULL);
     dAASSERT(pairsbx != NULL);

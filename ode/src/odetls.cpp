@@ -135,6 +135,7 @@ void COdeTls::FreeTrimeshCollidersCache(TrimeshCollidersCache *pccCacheInstance)
     delete pccCacheInstance;
 #else
     dIASSERT(pccCacheInstance == NULL); // The cache is not being allocated if the library is configured without trimeshes
+    (void)pccCacheInstance;
 #endif
 }
 

@@ -125,8 +125,8 @@ public:
     explicit dxQuickStepParameters(void *);
 
 private:
-    dxQuickStepParameters(const dxQuickStepParameters &anotherInstance) { dIASSERT(false); } // disabled
-    dxQuickStepParameters &operator =(const dxQuickStepParameters &anotherInstance) { dIASSERT(false); return *this; } // disabled
+    dxQuickStepParameters(const dxQuickStepParameters &/*anotherInstance*/) { dIASSERT(false); } // disabled
+    dxQuickStepParameters &operator =(const dxQuickStepParameters &/*anotherInstance*/) { dIASSERT(false); return *this; } // disabled
 
 public:
     void AssignNumIterations(unsigned iterationCount)

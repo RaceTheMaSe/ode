@@ -53,6 +53,9 @@ int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* cont
     dIASSERT( o1->type == dConvexClass );
     dIASSERT( o2->type == dTriMeshClass );
     dIASSERT ((flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)o1; (void)o2; (void)flags; (void)skip;
+#endif
 
 #if dLIBCCD_ENABLED
 
@@ -109,8 +112,12 @@ int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* cont
     }
 
     GIM_DYNARRAY_DESTROY(collision_result);
+#else
+    (void)contacts;
 #endif // dTRIMESH_GIMPACT
 
+#else
+    (void)contacts;
 #endif // dLIBCCD_ENABLED
 
     return contactcount;

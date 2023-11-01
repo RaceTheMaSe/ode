@@ -158,7 +158,7 @@ void
 dxJointHinge2::getInfo2( dReal worldFPS, dReal worldERP, 
     int rowskip, dReal *J1, dReal *J2,
     int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
-    int *findex )
+    int * /* findex */ )
 {
     // get information we need to set the hinge row
     dReal s, c;

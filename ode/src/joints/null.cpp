@@ -52,9 +52,9 @@ dxJointNull::getInfo1( dxJoint::Info1 *info )
 
 void
 dxJointNull::getInfo2( dReal /*worldFPS*/, dReal /*worldERP*/, 
-    int rowskip, dReal *J1, dReal *J2,
-    int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
-    int *findex )
+    int /*rowskip*/, dReal * /* J1 */, dReal * /* J2 */,
+    int /*pairskip*/, dReal * /* pairRhsCfm*/, dReal * /* pairLoHi */, 
+    int * /* findex */ )
 {
     dDebug( 0, "this should never get called" );
 }

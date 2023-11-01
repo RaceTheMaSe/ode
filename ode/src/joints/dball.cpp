@@ -55,9 +55,9 @@ dxJointDBall::getInfo1( dxJoint::Info1 *info )
 
 void
 dxJointDBall::getInfo2( dReal worldFPS, dReal /*worldERP*/, 
-    int rowskip, dReal *J1, dReal *J2,
-    int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
-    int *findex )
+    int /*rowskip*/, dReal *J1, dReal *J2,
+    int /*pairskip*/, dReal *pairRhsCfm, dReal * /* pairLoHi */, 
+    int * /* findex */ )
 {
     dVector3 globalA1, globalA2;
     dBodyGetRelPointPos(node[0].body, anchor1[0], anchor1[1], anchor1[2], globalA1);

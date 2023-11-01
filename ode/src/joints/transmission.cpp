@@ -81,9 +81,9 @@ dxJointTransmission::getInfo1( dxJoint::Info1* info )
 
 void
 dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
-    int rowskip, dReal *J1, dReal *J2,
-    int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
-    int *findex )
+    int /*rowskip*/, dReal *J1, dReal *J2,
+    int /*pairskip*/, dReal *pairRhsCfm, dReal *pairLoHi, 
+    int * /* findex */ )
  {
     dVector3 a[2], n[2], l[2], r[2], c[2], s, t, O, d, z, u, v;
     dReal theta, delta, nn, na_0, na_1, cosphi, sinphi, m;

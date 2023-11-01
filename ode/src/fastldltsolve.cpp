@@ -131,6 +131,8 @@ unsigned ThreadedEquationSolverLDLT::restrictSolvingLDLTAllowedThreadCount(
     {
         limitedThreadCount = threading->calculateThreadingLimitedThreadCount(allowedThreadCount, true);
     }
+#else
+    (void)threading; (void)allowedThreadCount; (void)rowCount;
 #endif // #if dCOOPERATIVE_ENABLED
 
     out_stageBlockCountSifficiencyMask = stageBlockCountSifficiencyMask;

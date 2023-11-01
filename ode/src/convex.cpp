@@ -640,6 +640,9 @@ int dCollideSphereConvex (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT (o1->type == dSphereClass);
     dIASSERT (o2->type == dConvexClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)o1; (void)o2; (void)flags; (void)skip;
+#endif
 
     dxSphere *Sphere = (dxSphere*) o1;
     dxConvex *Convex = (dxConvex*) o2;
@@ -768,6 +771,9 @@ int dCollideConvexBox (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT (o1->type == dConvexClass);
     dIASSERT (o2->type == dBoxClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)o1; (void)o2; (void)flags; (void)skip;
+#endif
 
     //dxConvex *Convex = (dxConvex*) o1;
     //dxBox *Box = (dxBox*) o2;
@@ -782,6 +788,9 @@ int dCollideConvexCapsule (dxGeom *o1, dxGeom *o2,
     dIASSERT (o1->type == dConvexClass);
     dIASSERT (o2->type == dCapsuleClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)o1; (void)o2; (void)flags; (void)skip;
+#endif
 
     //dxConvex *Convex = (dxConvex*) o1;
     //dxCapsule *Capsule = (dxCapsule*) o2;
@@ -1087,7 +1096,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
                            dContactGeom *contact, int skip)
 {
     ConvexConvexSATOutput ccso;
-#ifndef dNDEBUG
+#ifndef dNODEBUG
     memset(&ccso, 0, sizeof(ccso)); // get rid of 'uninitialized values' warning
 #endif
     ccso.min_depth=dInfinity; // Min not min at all
@@ -1475,6 +1484,9 @@ int dCollideRayConvex(dxGeom *o1, dxGeom *o2,
     dIASSERT(o1->type == dRayClass);
     dIASSERT(o2->type == dConvexClass);
     dIASSERT((flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)skip;
+#endif
 
     dxRay* ray = (dxRay*)o1;
     dxConvex* convex = (dxConvex*)o2;

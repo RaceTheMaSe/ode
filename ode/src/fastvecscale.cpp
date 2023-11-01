@@ -86,6 +86,8 @@ unsigned ThreadedEquationSolverLDLT::restrictScalingVectorAllowedThreadCount(
     {
         limitedThreadCount = threading->calculateThreadingLimitedThreadCount(allowedThreadCount, true);
     }
+#else
+    (void)threading; (void)allowedThreadCount; (void)elementCount;
 #endif // #if dCOOPERATIVE_ENABLED
 
     return limitedThreadCount;
@@ -94,7 +96,7 @@ unsigned ThreadedEquationSolverLDLT::restrictScalingVectorAllowedThreadCount(
 /*static */
 void ThreadedEquationSolverLDLT::doEstimateCooperativeScalingVectorResourceRequirementsValidated(
     dxResourceRequirementDescriptor *summaryRequirementsDescriptor,
-    unsigned allowedThreadCount, unsigned elementCount)
+    unsigned allowedThreadCount, unsigned /*elementCount*/)
 {
     unsigned simultaneousCallCount = 1 + (allowedThreadCount - 1);
 

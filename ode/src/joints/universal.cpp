@@ -297,7 +297,7 @@ void
 dxJointUniversal::getInfo2( dReal worldFPS, dReal worldERP, 
     int rowskip, dReal *J1, dReal *J2,
     int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
-    int *findex )
+    int * /* findex */ )
 {
     // set the three ball-and-socket rows
     setBall( this, worldFPS, worldERP, rowskip, J1, J2, pairskip, pairRhsCfm, anchor1, anchor2 );

@@ -1385,9 +1385,8 @@ void dJointAttach (dxJoint *joint, dxBody *body1, dxBody *body2)
     // check arguments
     dUASSERT (joint,"bad joint argument");
     dUASSERT (body1 == NULL || body1 != body2, "can't have body1==body2");
-    dxWorld *world = joint->world;
-    dUASSERT ( (body1 == NULL || body1->world == world) &&
-        (body2 == NULL || body2->world == world),
+    dUASSERT ( (body1 == NULL || body1->world == joint->world) &&
+        (body2 == NULL || body2->world == joint->world),
         "joint and bodies must be in same world");
 
     // check if the joint can not be attached to just one body
@@ -1861,6 +1860,7 @@ void dWorldSetStepThreadingImplementation(dWorldID w,
     dUASSERT (!functions_info || functions_info->struct_size >= sizeof(*functions_info), "Bad threading functions info");
 
 #if dTHREADING_INTF_DISABLED
+    (void)w; (void)functions_info; (void)threading_impl;
     dUASSERT(functions_info == NULL && threading_impl == NULL, "Threading interface is not available");
 #else
     w->assignThreadingImpl(functions_info, threading_impl);
@@ -1912,6 +1912,9 @@ void dWorldImpulseToForce (dWorldID w, dReal stepsize,
                            dVector3 force)
 {
     dAASSERT (w);
+#if defined(dNODEBUG)
+    (void)w;
+#endif
     stepsize = dRecip(stepsize);
     force[0] = stepsize * ix;
     force[1] = stepsize * iy;

@@ -149,8 +149,8 @@
 											}
 
 	#else
-		inline_			bool				SetStrides(udword tri_stride=sizeof(IndexedTriangle), udword vertex_stride=sizeof(Point)) { return true; }
-		inline_			void				SetSingle(bool value) {}
+		inline_			bool				SetStrides(udword tri_stride=sizeof(IndexedTriangle), udword vertex_stride=sizeof(Point)) { (void)tri_stride; (void)vertex_stride; return true; }
+		inline_			void				SetSingle(bool /*value*/) {}
 		inline_			udword				GetTriStride()		const	{ return sizeof(IndexedTriangle);	}
 		inline_			udword				GetVertexStride()	const	{ return sizeof(Point);	}
 	#endif
@@ -176,6 +176,7 @@
 												// but get rig of branching and dead code injection.
 												((*this).*mFetchTriangle)(vp, index, vc);
 	#else
+												(void)vc;
 												const Point* Verts = GetVerts();
 												const IndexedTriangle* T = &mTris[index];
 												vp.Vertex[0] = &Verts[T->mVRef[0]];
@@ -199,6 +200,7 @@
 												((*this).*mFetchExTriangle)(vpe, index, vc);
 												return true;
 	#else
+												(void)vc;
 												const Point* Verts = GetVerts();
 												const IndexedTriangle* T = &mTris[index];
 												dTriIndex VertIndex0 = T->mVRef[0];

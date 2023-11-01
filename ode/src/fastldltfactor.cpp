@@ -88,6 +88,8 @@ unsigned ThreadedEquationSolverLDLT::restrictFactoringLDLTAllowedThreadCount(
     {
         limitedThreadCount = threading->calculateThreadingLimitedThreadCount(allowedThreadCount, false);
     }
+#else
+    (void)threading; (void)allowedThreadCount; (void)rowCount;
 #endif // #if dCOOPERATIVE_ENABLED
 
     return limitedThreadCount;

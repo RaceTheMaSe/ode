@@ -29,6 +29,9 @@ SignalTranslator::SignalTranslator ()
     sigaction( SIGTRAP, &action, &m_old_SIGTRAP_action );
     sigaction( SIGBUS , &action, &m_old_SIGBUS_action  );
     sigaction( SIGILL , &action, &m_old_SIGBUS_action  );
+
+    (void)m_old_SIGABRT_action;
+    (void)m_old_SIGALRM_action;
 }
 
 SignalTranslator::~SignalTranslator()

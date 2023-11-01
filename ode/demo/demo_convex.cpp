@@ -173,7 +173,7 @@ static void simLoop(int pause)
 	for ( int i=0; i<halton_numc; ++i )
 	{
 		dGeomID geom = hgeom[i];
-		dBodyID body = dGeomGetBody(geom);
+		//dBodyID body = dGeomGetBody(geom);
 		//const dReal *pos = dBodyGetPosition(body);
 		//const dReal *rot = dBodyGetRotation(body);
 		const dReal *pos = dGeomGetPosition(geom);

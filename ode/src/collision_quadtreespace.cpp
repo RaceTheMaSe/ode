@@ -427,6 +427,9 @@ dxQuadTreeSpace::~dxQuadTreeSpace(){
 
 dxGeom* dxQuadTreeSpace::getGeom(int Index){
     dUASSERT(Index >= 0 && Index < count, "index out of range");
+#if defined(dNODEBUG)
+    (void)Index;
+#endif
 
     //@@@
     dDebug (0,"dxQuadTreeSpace::getGeom() not yet implemented");

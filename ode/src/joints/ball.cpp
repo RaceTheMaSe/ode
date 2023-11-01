@@ -57,8 +57,8 @@ dxJointBall::getInfo1( dxJoint::Info1 *info )
 void
 dxJointBall::getInfo2( dReal worldFPS, dReal /*worldERP*/, 
     int rowskip, dReal *J1, dReal *J2,
-    int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
-    int *findex )
+    int pairskip, dReal *pairRhsCfm, dReal * /* pairLoHi */, 
+    int * /* findex */ )
 {
     pairRhsCfm[GI2_CFM] = cfm;
     pairRhsCfm[pairskip + GI2_CFM] = cfm;

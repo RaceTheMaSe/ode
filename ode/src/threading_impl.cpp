@@ -129,6 +129,7 @@ const dThreadingFunctionsInfo *dThreadingImplementationGetFunctions(dThreadingIm
 #if dBUILTIN_THREADING_IMPL_ENABLED
     dAASSERT(impl != NULL);
 #endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+    (void)impl; // maybe unused
 
     const dThreadingFunctionsInfo *functions = NULL;
 

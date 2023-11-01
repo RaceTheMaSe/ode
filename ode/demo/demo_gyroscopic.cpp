@@ -49,7 +49,7 @@ const dReal pinradius = 0.05f;
 const dReal pinlength = 1.5f;
 const dReal topradius = 1.0f;
 const dReal toplength = 0.25f;
-const dReal topmass = 1.0f;
+// const dReal topmass = 1.0f;
 
 #define MAX_CONTACTS 4
 

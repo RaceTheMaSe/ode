@@ -133,9 +133,9 @@ static dJoint *joint;
 
 
 
-const dReal BOX_SIDES[3]  = {1.0,1.0,1.0};
-const dReal OBS_SIDES[3]  = {0.4,0.4,0.4};
-const dReal RECT_SIDES[3] = {0.3, 0.1, 0.2};
+// const dReal BOX_SIDES[3]  = {1.0,1.0,1.0};
+// const dReal OBS_SIDES[3]  = {0.4,0.4,0.4};
+// const dReal RECT_SIDES[3] = {0.3, 0.1, 0.2};
 
 
 //collision detection

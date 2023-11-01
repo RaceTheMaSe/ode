@@ -68,7 +68,7 @@
 #define CANNON_BALL_MASS 10	// mass of the cannon ball
 #define CANNON_BALL_RADIUS 0.5
 
-static const dVector3 xunit = { 1, 0, 0 }, yunit = { 0, 1, 0 }, zpunit = { 0, 0, 1 }, zmunit = { 0, 0, -1 };
+static const dVector3 /*xunit = { 1, 0, 0 },*/ yunit = { 0, 1, 0 }, zpunit = { 0, 0, 1 }, zmunit = { 0, 0, -1 };
 
 //#define BOX
 #define CARS

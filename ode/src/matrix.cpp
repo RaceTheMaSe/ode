@@ -402,6 +402,8 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
         n1 >= n2 && nskip >= n1);
 #ifndef dNODEBUG
     for (unsigned i = 0; i < n2; ++i) dIASSERT(p[i] >= 0 && p[i] < n1);
+#else
+    (void)n1;
 #endif
 
     if (r == n2 - 1) {

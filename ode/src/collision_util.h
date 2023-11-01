@@ -45,6 +45,9 @@ some useful collision utility stuff.
 static inline 
 dContactGeom* SAFECONTACT(int Flags, dContactGeom* Contacts, int Index, int Stride){
     dIASSERT(Index >= 0 && Index < (Flags & NUMC_MASK));
+#if defined(dNODEBUG)
+    (void)Flags;
+#endif
     return ((dContactGeom*)(((char*)Contacts) + (Index * Stride)));
 }
 #endif

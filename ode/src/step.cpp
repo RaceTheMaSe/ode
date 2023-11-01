@@ -1663,7 +1663,7 @@ sizeint dxEstimateStepMemoryRequirements (dxBody * const *body, unsigned int nb,
 
 /*extern */
 unsigned dxEstimateStepMaxCallCount(
-    unsigned /*activeThreadCount*/, unsigned steppingAllowedThreadCount, unsigned lcpAllowedThreadCount)
+    unsigned /*activeThreadCount*/, unsigned steppingAllowedThreadCount, unsigned /*lcpAllowedThreadCount*/)
 {
     unsigned result = 1 // dxStepIsland itself
         + (2 * steppingAllowedThreadCount + 2) // (dxStepIsland_Stage2a + dxStepIsland_Stage2b) * steppingAllowedThreadCount + 2 * dxStepIsland_Stage2?_Sync

@@ -171,6 +171,9 @@ public:
         dIASSERT(newcount <= oldcount);
         dIASSERT(dOFFSET_EFFICIENTLY(arr, oldcount * sizeof(ElementType)) == m_pAllocCurrentOrNextArena);
         m_pAllocCurrentOrNextArena = dOFFSET_EFFICIENTLY(arr, newcount * sizeof(ElementType));
+#if defined(dNODEBUG)
+    (void)oldcount;
+#endif
     }
 
 public:

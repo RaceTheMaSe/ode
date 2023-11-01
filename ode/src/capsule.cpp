@@ -134,6 +134,9 @@ int dCollideCapsuleSphere (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT (o1->type == dCapsuleClass);
     dIASSERT (o2->type == dSphereClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)flags; (void)skip;
+#endif
 
     dxCapsule *ccyl = (dxCapsule*) o1;
     dxSphere *sphere = (dxSphere*) o2;

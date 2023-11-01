@@ -114,6 +114,9 @@ int dCollideSphereSphere (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT (o1->type == dSphereClass);
     dIASSERT (o2->type == dSphereClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)flags; (void)skip;
+#endif
 
     dxSphere *sphere1 = (dxSphere*) o1;
     dxSphere *sphere2 = (dxSphere*) o2;
@@ -135,6 +138,9 @@ int dCollideSphereBox (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT (o1->type == dSphereClass);
     dIASSERT (o2->type == dBoxClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)flags; (void)skip;
+#endif
 
     // this is easy. get the sphere center `p' relative to the box, and then clip
     // that to the boundary of the box (call that point `q'). if q is on the
@@ -226,6 +232,9 @@ int dCollideSpherePlane (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT (o1->type == dSphereClass);
     dIASSERT (o2->type == dPlaneClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)flags; (void)skip;
+#endif
 
     dxSphere *sphere = (dxSphere*) o1;
     dxPlane *plane = (dxPlane*) o2;

@@ -200,6 +200,7 @@ void gim_trimesh_locks_work_data(GIM_TRIMESH * trimesh)
     assert(res==G_BUFFER_OP_SUCCESS);
     res=gim_buffer_array_lock(&trimesh->m_transformed_vertex_buffer,G_MA_READ_ONLY);
     assert(res==G_BUFFER_OP_SUCCESS);
+    (void)res;
 }
 
 //! unlocks the trimesh

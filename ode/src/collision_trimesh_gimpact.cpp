@@ -402,10 +402,13 @@ dGeomID dCreateTriMesh(dSpaceID space,
 
 
 /*extern */
-void dGeomTriMeshSetLastTransform(dGeomID g, const dMatrix4 last_trans ) 
+void dGeomTriMeshSetLastTransform(dGeomID g, const dMatrix4 /*last_trans*/ ) 
 {
     dAASSERT(g);
     dUASSERT(g->type == dTriMeshClass, "The geom is not a trimesh");
+#if defined(dNODEBUG)
+    (void)g;
+#endif
 
     //stub
 }
@@ -415,6 +418,9 @@ const dReal *dGeomTriMeshGetLastTransform(dGeomID g)
 {
     dAASSERT(g);
     dUASSERT(g->type == dTriMeshClass, "The geom is not a trimesh");
+#if defined(dNODEBUG)
+    (void)g;
+#endif
 
     return NULL; // stub
 }

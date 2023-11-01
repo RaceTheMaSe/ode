@@ -150,7 +150,7 @@ void
 dxJointSlider::getInfo2 ( dReal worldFPS, dReal worldERP, 
     int rowskip, dReal *J1, dReal *J2,
     int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
-    int *findex )
+    int * /* findex */ )
 {
     // 3 rows to make body rotations equal
     setFixedOrientation ( this, worldFPS, worldERP, rowskip, J1, J2, pairskip, pairRhsCfm, qrel );

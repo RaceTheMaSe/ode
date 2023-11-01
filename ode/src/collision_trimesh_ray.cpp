@@ -158,12 +158,15 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
     dIASSERT (g1->type == dTriMeshClass);
     dIASSERT (RayGeom->type == dRayClass);
     dIASSERT ((Flags & NUMC_MASK) >= 1);
+#if defined(dNODEBUG)
+    (void)Flags; (void)Stride;
+#endif
 
     dxTriMesh* TriMesh = (dxTriMesh*)g1;
 
     dReal Length = dGeomRayGetLength(RayGeom);
-    int FirstContact = dGeomRayGetFirstContact(RayGeom);
-    int BackfaceCull = dGeomRayGetBackfaceCull(RayGeom);
+    //int FirstContact = dGeomRayGetFirstContact(RayGeom);
+    //int BackfaceCull = dGeomRayGetBackfaceCull(RayGeom);
     int ClosestHit = dGeomRayGetClosestHit(RayGeom);
     dVector3 Origin, Direction;
     dGeomRayGet(RayGeom, Origin, Direction);

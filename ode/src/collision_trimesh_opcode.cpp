@@ -621,7 +621,7 @@ void dGeomTriMeshDataSet(dTriMeshDataID g, int dataId, void *pDataLocation)
 static void *geomTriMeshDataGet(dTriMeshDataID g, int dataId, sizeint *pOutDataSize);
 
 /*extern */
-void *dGeomTriMeshDataGet(dTriMeshDataID g, int dataId, sizeint *pOutDataSize)
+void *dGeomTriMeshDataGet(dTriMeshDataID g, int dataId, sizeint * /*pOutDataSize*/)
 {
     return geomTriMeshDataGet(g, dataId, NULL);
 }
