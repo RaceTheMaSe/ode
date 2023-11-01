@@ -1532,8 +1532,8 @@ static int TriTriIntersectWithIsectLine(dReal V0[3],dReal V1[3],dReal V2[3],
     index=0;
     b= dFabs(D[1]);
     c= dFabs(D[2]);
-    if(b>max) max=b,index=1;
-    if(c>max) max=c,index=2;
+    if(b>max) {max=b;index=1;}
+    if(c>max) {max=c;index=2;}
 
     /* this is the simplified projection onto L*/
     vp0=V0[index];

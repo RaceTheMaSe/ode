@@ -281,7 +281,14 @@ bool dxThreadPoolThreadInfo::WaitInitStatus()
 
     DWORD error_code = (DWORD)(sizeint)m_command_param;
 
-    bool init_status = error_code == ERROR_SUCCESS ? true : (SetLastError(error_code), false);
+    bool init_status;
+    if(error_code == ERROR_SUCCESS)
+        init_status = true;
+    else
+    {
+        SetLastError(error_code);
+        init_status = false;
+    }
     return init_status;
 }
 

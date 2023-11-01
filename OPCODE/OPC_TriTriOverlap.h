@@ -257,8 +257,8 @@ inline_ BOOL AABBTreeCollider::TriTriOverlap(const Point& V0, const Point& V1, c
 	short index=0;
 	float bb=fabsf(D[1]);
 	float cc=fabsf(D[2]);
-	if(bb>max) max=bb,index=1;
-	if(cc>max) max=cc,index=2;
+	if(bb>max) {max=bb;index=1;}
+	if(cc>max) {max=cc;index=2;}
 
 	// This is the simplified projection onto L
 	const float vp0 = V0[index];

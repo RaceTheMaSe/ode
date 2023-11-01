@@ -1248,8 +1248,13 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
     // no further passes are needed in case of ray class
     if (!needFurtherPasses && o2->type != dRayClass)
     {
-        dReal zratio, xratio = (o2->aabb[1] - o2->aabb[0]) * m_p_data->m_fInvSampleWidth;
-        needFurtherPasses = xratio > REAL(1.5) || (zratio = (o2->aabb[5] - o2->aabb[4]) * m_p_data->m_fInvSampleDepth, zratio > REAL(1.5));
+        dReal xratio = (o2->aabb[1] - o2->aabb[0]) * m_p_data->m_fInvSampleWidth;
+        needFurtherPasses = xratio > REAL(1.5);
+        if(!needFurtherPasses)
+        {
+            dReal zratio = (o2->aabb[5] - o2->aabb[4]) * m_p_data->m_fInvSampleDepth;
+            needFurtherPasses = zratio > REAL(1.5);
+        }
     }
 
     unsigned int numTri = 0;

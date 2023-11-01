@@ -70,7 +70,13 @@ int _condvar_clock_gettime(int clock_type, timespec *ts)
 {
     (void)clock_type; // Unused
     timeval tv;
-    return gettimeofday(&tv, NULL) == 0 ? (ts->tv_sec = tv.tv_sec, ts->tv_nsec = tv.tv_usec * 1000, 0) : (-1);
+    if(gettimeofday(&tv, NULL) == 0)
+    {
+        ts->tv_sec = tv.tv_sec;
+        ts->tv_nsec = tv.tv_usec * 1000;
+        return 0;
+    }
+    return -1;
 }
 
 

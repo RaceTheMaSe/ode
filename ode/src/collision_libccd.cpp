@@ -953,8 +953,9 @@ bool correctTriangleContactNormal(ccd_triangle_t *t, dContactGeom *contact,
                 FaceAngleDomain angleDomain = meshFaceAngleView->retrieveFacesAngleFromStorage(angleValueAsDRead, contact->side2, (dMeshTriangleVertex)testEdgeIndex);
                 ccd_real_t angleValue = (ccd_real_t)angleValueAsDRead;
 
-                ccd_real_t targetAngle;
-                contactGenerated = false, contactPreserved = false; // re-assign to make optimizer's task easier
+                ccd_real_t targetAngle=CCD_ZERO;
+                contactGenerated = false; // re-assign to make optimizer's task easier
+                contactPreserved = false;
 
                 if (angleDomain != FAD_CONCAVE) {
                     // Convex or flat - ensure the contact normal is within the allowed range

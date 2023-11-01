@@ -97,7 +97,13 @@ public:
     dCallWaitID AllocateOrRetrieveStockCallWaitID()
     {
         dCallWaitID stock_wait_id = GetStockCallWait();
-        return stock_wait_id != NULL ? (ResetThreadedCallWait(stock_wait_id), stock_wait_id) : DoAllocateStockCallWait(); 
+        if(stock_wait_id != NULL)
+        {
+            ResetThreadedCallWait(stock_wait_id);
+            return stock_wait_id;
+        }
+        else
+            return DoAllocateStockCallWait(); 
     }
 
 public:
