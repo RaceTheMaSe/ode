@@ -522,12 +522,6 @@ void dxThreadPoolThreadInfo::RunCommandHandlingLoop()
                 break;
             }
 
-            default:
-            {
-                dIASSERT(false);
-                // break; -- proceed to case dxTHREAD_COMMAND_NOOP
-            }
-
             case dxTHREAD_COMMAND_NOOP:
             {
                 m_acknowledgement_event.SetEvent();
