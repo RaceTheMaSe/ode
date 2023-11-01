@@ -367,7 +367,6 @@
         "../ode/src/gimpact_contact_export_helper.h",
         "../ode/src/gimpact_gim_contact_accessor.h",
         "../ode/src/gimpact_plane_contact_accessor.h",
-        "../ode/src/collision_trimesh_internal.cpp",
         "../ode/src/collision_trimesh_opcode.cpp",
         "../ode/src/collision_trimesh_gimpact.cpp",
         "../ode/src/collision_trimesh_box.cpp",

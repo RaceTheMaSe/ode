@@ -234,6 +234,7 @@ set(
 	ode/src/collision_trimesh_colliders.h
 	ode/src/collision_trimesh_disabled.cpp
 	ode/src/collision_trimesh_gimpact.h
+	ode/src/collision_trimesh_internal.cpp
 	ode/src/collision_trimesh_internal.h
 	ode/src/collision_trimesh_opcode.h
 	ode/src/collision_util.cpp
@@ -371,9 +372,7 @@ if(ODE_WITH_GIMPACT)
 		ode/src/collision_trimesh_box.cpp
 		ode/src/collision_trimesh_ccylinder.cpp
 		ode/src/collision_trimesh_gimpact.cpp
-		ode/src/collision_trimesh_internal.cpp
 		ode/src/collision_trimesh_internal_impl.h
-		ode/src/collision_trimesh_internal.h
 		ode/src/collision_trimesh_plane.cpp
 		ode/src/collision_trimesh_ray.cpp
 		ode/src/collision_trimesh_sphere.cpp
@@ -424,9 +423,7 @@ if(ODE_WITH_OPCODE)
 		ode/src/collision_cylinder_trimesh.cpp
 		ode/src/collision_trimesh_box.cpp
 		ode/src/collision_trimesh_ccylinder.cpp
-		ode/src/collision_trimesh_internal.cpp
 		ode/src/collision_trimesh_internal_impl.h
-		ode/src/collision_trimesh_internal.h
 		ode/src/collision_trimesh_opcode.cpp
 		ode/src/collision_trimesh_plane.cpp
 		ode/src/collision_trimesh_ray.cpp

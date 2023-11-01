@@ -29,9 +29,12 @@
 #include "odemath.h"
 
 
-#if dTRIMESH_ENABLED
-
 #include "collision_trimesh_internal.h"
+
+dxMeshBase::~dxMeshBase() {}
+
+
+#if defined(dTRIMESH_ENABLED)
 #include "odeou.h"
 
 #include <algorithm>
@@ -145,7 +148,6 @@ public:
 
 IFaceAngleStorageControl::~IFaceAngleStorageControl() {}
 IFaceAngleStorageView::~IFaceAngleStorageView() {}
-dxMeshBase::~dxMeshBase() {}
 
 template<class TStorageCodec>
 class FaceAnglesWrapper:

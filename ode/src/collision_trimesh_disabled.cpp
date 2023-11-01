@@ -51,8 +51,9 @@ public:
         dxDisabledTriMesh_Parent(Space, NULL, Callback, ArrayCallback, RayCallback, false)
     {
     }
+    ~dxDisabledTriMesh() ODE_OVERRIDE {}
 
-    virtual void computeAABB(); // This is an abstract method in the base class
+    virtual void computeAABB() ODE_OVERRIDE; // This is an abstract method in the base class
 };
 
 /*virtual */
@@ -288,6 +289,12 @@ dTriMeshDataID dGeomTriMeshGetTriMeshDataID(dGeomID /*g*/)
 int dGeomTriMeshGetTriangleCount (dGeomID /*g*/)
 {
     return 0;
+}
+
+/*extern ODE_API */
+void dGeomTriMeshGetTriangle(dGeomID /*g*/, int /*index*/, dVector3 */*v0*//*=NULL*/, dVector3 */*v1*//*=NULL*/, dVector3 */*v2*//*=NULL*/)
+{
+    // Do nothing
 }
 
 /*extern */

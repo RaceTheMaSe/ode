@@ -2331,6 +2331,9 @@ extern "C" void dTestDataStructures()
 //****************************************************************************
 // configuration
 #define REGISTER_EXTENSION( __a )  #__a " "
+#if defined(REGISTER_EXTENSION)
+// avoid unused macro when no extension is used
+#endif
 
 static const char ode_configuration[] = "ODE "
 
