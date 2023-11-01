@@ -79,7 +79,7 @@
 
 // Uncomment this #define to use the (0,0) corner of the geom as the origin,
 // rather than the center. This was the way the original heightfield worked,
-// but as it does not match the way all other geometries work, so, for consistency, it
+// but as it does not match the way all other geometries work, so for consistency it
 // was changed to work like this.
 
 // #define DHEIGHTFIELD_CORNER_ORIGIN

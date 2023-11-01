@@ -55,7 +55,7 @@ void dGeomMoved (dxGeom *geom)
         geom->gflags |= GEOM_POSR_BAD;
     }
 
-    // from the bottom of the space heirarchy up, process all clean geoms
+    // from the bottom of the space hierarchy up, process all clean geoms
     // turning them into dirty geoms.
     dxSpace *parent = geom->parent_space;
 

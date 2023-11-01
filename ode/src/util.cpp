@@ -881,7 +881,7 @@ static unsigned EstimateIslandProcessingSimultaneousCallsMaximumCount(unsigned a
 // in an island are reachable by going through connected bodies and joints.
 // each island can be simulated separately.
 // note that joints that are not attached to anything will not be included
-// in any island, an so they do not affect the simulation.
+// in any island, and so they do not affect the simulation.
 //
 // this function starts new island from unvisited bodies. however, it will
 // never start a new islands from a disabled body. thus islands of disabled

@@ -568,7 +568,7 @@ void dCleanupODEAllDataForThread()
 
 void dCloseODE()
 {
-    dUASSERT(g_uiODEInitCounter != 0, "dCloseODE must not be called without dInitODE2 or if dInitODE2 fails"); // dCloseODE must not be called without dInitODE2 or if dInitODE2 fails
+    dUASSERT(g_uiODEInitCounter != 0, "dCloseODE must not be called without dInitODE2 or if dInitODE2 fails");
 
     InternalCloseODE();
 }

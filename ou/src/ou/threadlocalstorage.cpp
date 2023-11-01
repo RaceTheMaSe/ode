@@ -471,8 +471,8 @@ bool CTLSStorageArray::FindFreeStorageBlockIndex(unsigned int &nOutFreeBlockInde
 
 	else if (!bIsManualCleanup)
 	{
-		// If execution gets here it means that all slots were already occupied or
-		// they becomed occupied during the search (otherwise why has
+		// If execution gets here, it means that all slots were already occupied or
+		// they became occupied during search (otherwise why has
 		// FindFreeStorageBlockIndexWithPossibilityVerified call failed???).
 		// In Automatic cleanup mode a block can't become free by itself -
 		// it is just re-allocated for new thread and remains busy.
