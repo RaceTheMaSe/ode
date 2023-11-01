@@ -177,7 +177,11 @@ simLoop(int pause)
     dsDrawBox(matraca_geom->getPosition(), matraca_geom->getRotation(), lengths);
 
     // and the boxes
+#if defined(__cplusplus) && __cplusplus >= 201103L || defined(_MSC_VER)
     for_each(boxes.begin(), boxes.end(), std::mem_fn(&Box::draw));
+#else
+    for_each(boxes.begin(), boxes.end(), std::mem_fun(&Box::draw));
+#endif
 }
 
 static void command(int c)
