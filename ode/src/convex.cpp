@@ -1111,249 +1111,144 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
     {
         return 0;
     }
-    else
-        if(!CheckSATConvexFaces(cvx2,cvx1,ccso))
-        {
-            return 0;
-        }
-        else if(!CheckSATConvexEdges(cvx1,cvx2,ccso))
-        {
-            return 0;
-        }
-        // If we get here, there was a collision
-        if(ccso.depth_type==1) // face-face
-        {
-            // cvx1 MUST always be in contact->g1 and cvx2 in contact->g2
-            // This was learned the hard way :(
-            unsigned int incident_side;
-            const unsigned int* pIncidentPoly;
-            const unsigned int* pIncidentPoints;
-            unsigned int reference_side;
-            const unsigned int* pReferencePoly;
-            const unsigned int* pReferencePoints;
-            dVector4 plane,rplane,iplane;
-            dVector3 tmp;
-            dVector3 dist,p;
-            dReal t,d,d1,d2;
-            bool outside,out;
-            dVector3Copy(ccso.dist,dist);
-            reference_side = GetSupportSide(dist,cvx1);
-            dNegateVector3(dist);
-            incident_side = GetSupportSide(dist,cvx2);
+    else if(!CheckSATConvexFaces(cvx2,cvx1,ccso))
+    {
+        return 0;
+    }
+    else if(!CheckSATConvexEdges(cvx1,cvx2,ccso))
+    {
+        return 0;
+    }
+    // If we get here, there was a collision
+    if(ccso.depth_type==1) // face-face
+    {
+        // cvx1 MUST always be in contact->g1 and cvx2 in contact->g2
+        // This was learned the hard way :(
+        unsigned int incident_side;
+        const unsigned int* pIncidentPoly;
+        const unsigned int* pIncidentPoints;
+        unsigned int reference_side;
+        const unsigned int* pReferencePoly;
+        const unsigned int* pReferencePoints;
+        dVector4 plane,rplane,iplane;
+        dVector3 tmp;
+        dVector3 dist,p;
+        dReal t,d,d1,d2;
+        bool outside,out;
+        dVector3Copy(ccso.dist,dist);
+        reference_side = GetSupportSide(dist,cvx1);
+        dNegateVector3(dist);
+        incident_side = GetSupportSide(dist,cvx2);
 
-            pReferencePoly = cvx1.polygons;
-            pIncidentPoly  = cvx2.polygons;
-            // Get Reference plane (We may not have to apply transforms Optimization Oportunity)
-            // Rotate
-            dMultiply0_331(rplane,cvx1.final_posr->R,cvx1.planes+(reference_side*4));
-            dNormalize3(rplane);
-            // Translate
-            rplane[3]=
-                (cvx1.planes[(reference_side*4)+3])+
-                ((rplane[0] * cvx1.final_posr->pos[0]) +
-                (rplane[1] * cvx1.final_posr->pos[1]) +
-                (rplane[2] * cvx1.final_posr->pos[2]));
-            // flip
-            rplane[0]=-rplane[0];
-            rplane[1]=-rplane[1];
-            rplane[2]=-rplane[2];
-            rplane[3]=-rplane[3];
-            for(unsigned int i=0;i<incident_side;++i)
-            {
-                pIncidentPoly+=pIncidentPoly[0]+1;
-            }
-            pIncidentPoints = pIncidentPoly+1;
-            // Get the first point of the incident face
-            dMultiply0_331(i2,cvx2.final_posr->R,&cvx2.points[(pIncidentPoints[0]*3)]);
+        pReferencePoly = cvx1.polygons;
+        pIncidentPoly  = cvx2.polygons;
+        // Get Reference plane (We may not have to apply transforms Optimization Oportunity)
+        // Rotate
+        dMultiply0_331(rplane,cvx1.final_posr->R,cvx1.planes+(reference_side*4));
+        dNormalize3(rplane);
+        // Translate
+        rplane[3]=
+            (cvx1.planes[(reference_side*4)+3])+
+            ((rplane[0] * cvx1.final_posr->pos[0]) +
+            (rplane[1] * cvx1.final_posr->pos[1]) +
+            (rplane[2] * cvx1.final_posr->pos[2]));
+        // flip
+        rplane[0]=-rplane[0];
+        rplane[1]=-rplane[1];
+        rplane[2]=-rplane[2];
+        rplane[3]=-rplane[3];
+        for(unsigned int i=0;i<incident_side;++i)
+        {
+            pIncidentPoly+=pIncidentPoly[0]+1;
+        }
+        pIncidentPoints = pIncidentPoly+1;
+        // Get the first point of the incident face
+        dMultiply0_331(i2,cvx2.final_posr->R,&cvx2.points[(pIncidentPoints[0]*3)]);
+        dVector3Add(i2,cvx2.final_posr->pos,i2);
+        // Get the same point in the reference convex space
+        dVector3Copy(i2,r2);
+        dVector3Subtract(r2,cvx1.final_posr->pos,r2);
+        dVector3Copy(r2,tmp);
+        dMultiply1_331(r2,cvx1.final_posr->R,tmp);
+        for(unsigned int i=0;i<pIncidentPoly[0];++i)
+        {
+            // Move i2 to i1, r2 to r1
+            dVector3Copy(i2,i1);
+            dVector3Copy(r2,r1);
+            dMultiply0_331(i2,cvx2.final_posr->R,&cvx2.points[(pIncidentPoints[(i+1)%pIncidentPoly[0]]*3)]);
             dVector3Add(i2,cvx2.final_posr->pos,i2);
             // Get the same point in the reference convex space
             dVector3Copy(i2,r2);
             dVector3Subtract(r2,cvx1.final_posr->pos,r2);
             dVector3Copy(r2,tmp);
             dMultiply1_331(r2,cvx1.final_posr->R,tmp);
-            for(unsigned int i=0;i<pIncidentPoly[0];++i)
+            outside=false;
+            for(unsigned int j=0;j<cvx1.planecount;++j)
             {
-                // Move i2 to i1, r2 to r1
-                dVector3Copy(i2,i1);
-                dVector3Copy(r2,r1);
-                dMultiply0_331(i2,cvx2.final_posr->R,&cvx2.points[(pIncidentPoints[(i+1)%pIncidentPoly[0]]*3)]);
-                dVector3Add(i2,cvx2.final_posr->pos,i2);
-                // Get the same point in the reference convex space
-                dVector3Copy(i2,r2);
-                dVector3Subtract(r2,cvx1.final_posr->pos,r2);
-                dVector3Copy(r2,tmp);
-                dMultiply1_331(r2,cvx1.final_posr->R,tmp);
-                outside=false;
-                for(unsigned int j=0;j<cvx1.planecount;++j)
+                plane[0]=cvx1.planes[(j*4)+0];
+                plane[1]=cvx1.planes[(j*4)+1];
+                plane[2]=cvx1.planes[(j*4)+2];
+                plane[3]=cvx1.planes[(j*4)+3];
+                // Get the distance from the points to the plane
+                d1 = r1[0]*plane[0]+
+                    r1[1]*plane[1]+
+                    r1[2]*plane[2]-
+                    plane[3];
+                d2 = r2[0]*plane[0]+
+                    r2[1]*plane[1]+
+                    r2[2]*plane[2]-
+                    plane[3];
+                if(d1*d2<0)
                 {
-                    plane[0]=cvx1.planes[(j*4)+0];
-                    plane[1]=cvx1.planes[(j*4)+1];
-                    plane[2]=cvx1.planes[(j*4)+2];
-                    plane[3]=cvx1.planes[(j*4)+3];
-                    // Get the distance from the points to the plane
-                    d1 = r1[0]*plane[0]+
-                        r1[1]*plane[1]+
-                        r1[2]*plane[2]-
-                        plane[3];
-                    d2 = r2[0]*plane[0]+
-                        r2[1]*plane[1]+
-                        r2[2]*plane[2]-
-                        plane[3];
-                    if(d1*d2<0)
+                    out = false;
+
+                    // Edge intersects plane
+                    if (!IntersectSegmentPlane(r1,r2,plane,t,p))
                     {
-                        out = false;
+                        out = true;
+                    }
 
-                        // Edge intersects plane
-                        if (!IntersectSegmentPlane(r1,r2,plane,t,p))
+                    if (!out)
+                    {
+                        // Check the resulting point again to make sure it is inside the reference convex
+                        for (unsigned int k = 0; k < cvx1.planecount; ++k)
                         {
-                            out = true;
-                        }
-
-                        if (!out)
-                        {
-                            // Check the resulting point again to make sure it is inside the reference convex
-                            for (unsigned int k = 0; k < cvx1.planecount; ++k)
-                            {
-                                d = p[0]*cvx1.planes[(k*4)+0]+
-                                    p[1]*cvx1.planes[(k*4)+1]+
-                                    p[2]*cvx1.planes[(k*4)+2]-
-                                    cvx1.planes[(k*4)+3];
-                                if(d>0)
-                                {
-                                    out = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if(!out)
-                        {
-#if 0
-                            // Use t to move p into global space
-                            p[0] = i1[0]+((i2[0]-i1[0])*t);
-                            p[1] = i1[1]+((i2[1]-i1[1])*t);
-                            p[2] = i1[2]+((i2[2]-i1[2])*t);
-#else
-                            // Apply reference convex transformations to p
-                            // The commented out piece of code is likely to
-                            // produce less operations than this one, but
-                            // this way we know we are getting the right data
-                            dMultiply0_331(tmp,cvx1.final_posr->R,p);
-                            dVector3Add(tmp,cvx1.final_posr->pos,p);
-#endif
-                            // get p's distance to reference plane
-                            d = p[0]*rplane[0]+
-                                p[1]*rplane[1]+
-                                p[2]*rplane[2]-
-                                rplane[3];
+                            d = p[0]*cvx1.planes[(k*4)+0]+
+                                p[1]*cvx1.planes[(k*4)+1]+
+                                p[2]*cvx1.planes[(k*4)+2]-
+                                cvx1.planes[(k*4)+3];
                             if(d>0)
                             {
-                                dContactGeom *target = SAFECONTACT(flags, contact, contacts, skip);
-                                dVector3Copy(p, target->pos);
-                                dVector3Copy(rplane, target->normal);
-                                target->g1 = &cvx1;
-                                target->g2 = &cvx2;
-                                target->depth = d;
-                                ++contacts;
-                                if (contacts==maxc) return contacts;
+                                out = true;
+                                break;
                             }
                         }
                     }
-                    if(d1>0)
-                    {
-                        outside=true;
-                    }
-                }
-                if(outside) continue;
-                d = i1[0]*rplane[0]+
-                    i1[1]*rplane[1]+
-                    i1[2]*rplane[2]-
-                    rplane[3];
-                if(d>0)
-                {
-                    dContactGeom *target = SAFECONTACT(flags, contact, contacts, skip);
-                    dVector3Copy(i1, target->pos);
-                    dVector3Copy(rplane, target->normal);
-                    target->g1 = &cvx1;
-                    target->g2 = &cvx2;
-                    target->depth = d;
-                    ++contacts;
-                    if (contacts==maxc) return contacts;
-                }
-            }
-            // IF we get here, we got the easiest contacts to calculate,
-            // but there is still space in the contacts array for more.
-            // So, project the Reference's face points onto the Incident face
-            // plane and test them for inclusion in the reference plane as well.
-            // We already have computed intersections so, skip those.
 
-            /* Get Incident plane, we need it for projection */
-            /* Rotate */
-            dMultiply0_331(iplane,cvx2.final_posr->R,cvx2.planes+(incident_side*4));
-            dNormalize3(iplane);
-            /* Translate */
-            iplane[3]=
-                (cvx2.planes[(incident_side*4)+3])     +
-                ((iplane[0] * cvx2.final_posr->pos[0]) +
-                (iplane[1] * cvx2.final_posr->pos[1])  +
-                (iplane[2] * cvx2.final_posr->pos[2]));
-            // get reference face
-            for(unsigned int i=0;i<reference_side;++i)
-            {
-                pReferencePoly+=pReferencePoly[0]+1;
-            }
-            pReferencePoints = pReferencePoly+1;
-            for(unsigned int i=0;i<pReferencePoly[0];++i)
-            {
-                dMultiply0_331(i1,cvx1.final_posr->R,&cvx1.points[(pReferencePoints[i]*3)]);
-                dVector3Add(cvx1.final_posr->pos,i1,i1);
-                // Project onto Incident face plane
-                t = -(i1[0]*iplane[0]+
-                    i1[1]*iplane[1]+
-                    i1[2]*iplane[2]-
-                    iplane[3]);
-                i1[0]+=iplane[0]*t;
-                i1[1]+=iplane[1]*t;
-                i1[2]+=iplane[2]*t;
-                // Get the same point in the incident convex space
-                dVector3Copy(i1,r1);
-                dVector3Subtract(r1,cvx2.final_posr->pos,r1);
-                dVector3Copy(r1,tmp);
-                dMultiply1_331(r1,cvx2.final_posr->R,tmp);
-                // Check if it is outside the incident convex
-                out = false;
-                for(unsigned int j=0;j<cvx2.planecount;++j)
-                {
-                    d = r1[0]*cvx2.planes[(j*4)+0]+
-                        r1[1]*cvx2.planes[(j*4)+1]+
-                        r1[2]*cvx2.planes[(j*4)+2]-
-                        cvx2.planes[(j*4)+3];
-                    if(d>=0){out = true;break;}
-                }
-                if(!out)
-                {
-                    // check that the point is not a duplicate
-                    outside = false;
-                    for(int j=0;j<contacts;++j)
+                    if(!out)
                     {
-                        dContactGeom *cur_contact = SAFECONTACT(flags, contact, j, skip);
-                        if((cur_contact->pos[0] == i1[0]) &&
-                            (cur_contact->pos[1] == i1[1]) &&
-                            (cur_contact->pos[2] == i1[2]))
-                        {
-                            outside=true;
-                        }
-                    }
-                    if(!outside)
-                    {
-                        d = i1[0]*rplane[0]+
-                            i1[1]*rplane[1]+
-                            i1[2]*rplane[2]-
+#if 0
+                        // Use t to move p into global space
+                        p[0] = i1[0]+((i2[0]-i1[0])*t);
+                        p[1] = i1[1]+((i2[1]-i1[1])*t);
+                        p[2] = i1[2]+((i2[2]-i1[2])*t);
+#else
+                        // Apply reference convex transformations to p
+                        // The commented out piece of code is likely to
+                        // produce less operations than this one, but
+                        // this way we know we are getting the right data
+                        dMultiply0_331(tmp,cvx1.final_posr->R,p);
+                        dVector3Add(tmp,cvx1.final_posr->pos,p);
+#endif
+                        // get p's distance to reference plane
+                        d = p[0]*rplane[0]+
+                            p[1]*rplane[1]+
+                            p[2]*rplane[2]-
                             rplane[3];
                         if(d>0)
                         {
                             dContactGeom *target = SAFECONTACT(flags, contact, contacts, skip);
-                            dVector3Copy(i1, target->pos);
+                            dVector3Copy(p, target->pos);
                             dVector3Copy(rplane, target->normal);
                             target->g1 = &cvx1;
                             target->g2 = &cvx2;
@@ -1363,41 +1258,145 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
                         }
                     }
                 }
-            }
-        }
-        else if (ccso.depth_type == 2) // edge-edge
-        {
-            dVector3 c1, c2;
-            ClosestPointBetweenSegments(ccso.e1a, ccso.e1b, ccso.e2a, ccso.e2b, c1, c2);
-
-            dContactGeom *target = SAFECONTACT(flags, contact, contacts, skip);
-            dSubtractVectors3(target->normal, c2, c1);
-            dReal depth_square = dCalcVectorLengthSquare3(target->normal);
-
-            if (dxSafeNormalize3(target->normal))
-            {
-                target->depth = dSqrt(depth_square);
-            }
-            else
-            {
-                // If edges coincide return direction from one center to the other as the contact normal
-                dVector3Copy(ccso.dist, target->normal);
-
-                if (!dxSafeNormalize3(target->normal))
+                if(d1>0)
                 {
-                    // If the both centers coincide as well return an arbitrary vector. The depth is going to be zero anyway.
-                    dAssignVector3(target->normal, 1, 0, 0);
+                    outside=true;
                 }
+            }
+            if(outside) continue;
+            d = i1[0]*rplane[0]+
+                i1[1]*rplane[1]+
+                i1[2]*rplane[2]-
+                rplane[3];
+            if(d>0)
+            {
+                dContactGeom *target = SAFECONTACT(flags, contact, contacts, skip);
+                dVector3Copy(i1, target->pos);
+                dVector3Copy(rplane, target->normal);
+                target->g1 = &cvx1;
+                target->g2 = &cvx2;
+                target->depth = d;
+                ++contacts;
+                if (contacts==maxc) return contacts;
+            }
+        }
+        // IF we get here, we got the easiest contacts to calculate,
+        // but there is still space in the contacts array for more.
+        // So, project the Reference's face points onto the Incident face
+        // plane and test them for inclusion in the reference plane as well.
+        // We already have computed intersections so, skip those.
 
-                target->depth = 0; // Since the edges coincide, return a contact of zero depth
+        /* Get Incident plane, we need it for projection */
+        /* Rotate */
+        dMultiply0_331(iplane,cvx2.final_posr->R,cvx2.planes+(incident_side*4));
+        dNormalize3(iplane);
+        /* Translate */
+        iplane[3]=
+            (cvx2.planes[(incident_side*4)+3])     +
+            ((iplane[0] * cvx2.final_posr->pos[0]) +
+            (iplane[1] * cvx2.final_posr->pos[1])  +
+            (iplane[2] * cvx2.final_posr->pos[2]));
+        // get reference face
+        for(unsigned int i=0;i<reference_side;++i)
+        {
+            pReferencePoly+=pReferencePoly[0]+1;
+        }
+        pReferencePoints = pReferencePoly+1;
+        for(unsigned int i=0;i<pReferencePoly[0];++i)
+        {
+            dMultiply0_331(i1,cvx1.final_posr->R,&cvx1.points[(pReferencePoints[i]*3)]);
+            dVector3Add(cvx1.final_posr->pos,i1,i1);
+            // Project onto Incident face plane
+            t = -(i1[0]*iplane[0]+
+                i1[1]*iplane[1]+
+                i1[2]*iplane[2]-
+                iplane[3]);
+            i1[0]+=iplane[0]*t;
+            i1[1]+=iplane[1]*t;
+            i1[2]+=iplane[2]*t;
+            // Get the same point in the incident convex space
+            dVector3Copy(i1,r1);
+            dVector3Subtract(r1,cvx2.final_posr->pos,r1);
+            dVector3Copy(r1,tmp);
+            dMultiply1_331(r1,cvx2.final_posr->R,tmp);
+            // Check if it is outside the incident convex
+            out = false;
+            for(unsigned int j=0;j<cvx2.planecount;++j)
+            {
+                d = r1[0]*cvx2.planes[(j*4)+0]+
+                    r1[1]*cvx2.planes[(j*4)+1]+
+                    r1[2]*cvx2.planes[(j*4)+2]-
+                    cvx2.planes[(j*4)+3];
+                if(d>=0){out = true;break;}
+            }
+            if(!out)
+            {
+                // check that the point is not a duplicate
+                outside = false;
+                for(int j=0;j<contacts;++j)
+                {
+                    dContactGeom *cur_contact = SAFECONTACT(flags, contact, j, skip);
+                    if((cur_contact->pos[0] == i1[0]) &&
+                        (cur_contact->pos[1] == i1[1]) &&
+                        (cur_contact->pos[2] == i1[2]))
+                    {
+                        outside=true;
+                    }
+                }
+                if(!outside)
+                {
+                    d = i1[0]*rplane[0]+
+                        i1[1]*rplane[1]+
+                        i1[2]*rplane[2]-
+                        rplane[3];
+                    if(d>0)
+                    {
+                        dContactGeom *target = SAFECONTACT(flags, contact, contacts, skip);
+                        dVector3Copy(i1, target->pos);
+                        dVector3Copy(rplane, target->normal);
+                        target->g1 = &cvx1;
+                        target->g2 = &cvx2;
+                        target->depth = d;
+                        ++contacts;
+                        if (contacts==maxc) return contacts;
+                    }
+                }
+            }
+        }
+    }
+    else if (ccso.depth_type == 2) // edge-edge
+    {
+        dVector3 c1, c2;
+        ClosestPointBetweenSegments(ccso.e1a, ccso.e1b, ccso.e2a, ccso.e2b, c1, c2);
+
+        dContactGeom *target = SAFECONTACT(flags, contact, contacts, skip);
+        dSubtractVectors3(target->normal, c2, c1);
+        dReal depth_square = dCalcVectorLengthSquare3(target->normal);
+
+        if (dxSafeNormalize3(target->normal))
+        {
+            target->depth = dSqrt(depth_square);
+        }
+        else
+        {
+            // If edges coincide return direction from one center to the other as the contact normal
+            dVector3Copy(ccso.dist, target->normal);
+
+            if (!dxSafeNormalize3(target->normal))
+            {
+                // If the both centers coincide as well return an arbitrary vector. The depth is going to be zero anyway.
+                dAssignVector3(target->normal, 1, 0, 0);
             }
 
-            target->g1 = &cvx1;
-            target->g2 = &cvx2;
-            dVector3Copy(c1, target->pos);
-            contacts++;
+            target->depth = 0; // Since the edges coincide, return a contact of zero depth
         }
-        return contacts;
+
+        target->g1 = &cvx1;
+        target->g2 = &cvx2;
+        dVector3Copy(c1, target->pos);
+        contacts++;
+    }
+    return contacts;
 }
 
 int dCollideConvexConvex (dxGeom *o1, dxGeom *o2, int flags,
