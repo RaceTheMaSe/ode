@@ -1,12 +1,25 @@
 cmake_minimum_required(VERSION 3.10...3.31)
 
+if(POLICY CMP0091)
+	cmake_policy(SET CMP0091 NEW)
+endif()
+
 project(ODE)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
+include(cmake/CompilerFlags.cmake)
+
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "" FORCE)
 endif()
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(CheckFunctionExists)
 include(CheckIncludeFiles)
@@ -518,6 +531,7 @@ list(
 source_group( "SRCS" FILES ${SRCS} )
 source_group( "HDRS" FILES ${HDRS} )
 add_library(ODE ${SRCS} ${HDRS})
+APPLY_COMPILER_OPTIONS_TO_TARGET(ODE)
 
 set_target_properties(
 	ODE
@@ -800,6 +814,7 @@ if(ODE_WITH_DEMOS)
 	
 	add_library(drawstuff ${DRAWSTUFF_SRCS})
 	target_compile_definitions(drawstuff PUBLIC -DDRAWSTUFF_TEXTURE_PATH="${CMAKE_CURRENT_SOURCE_DIR}/drawstuff/textures")
+	APPLY_COMPILER_OPTIONS_TO_TARGET(drawstuff)
 	
 	if(BUILD_SHARED_LIBS)
 		target_compile_definitions(drawstuff PRIVATE -DDS_DLL -DUSRDLL)
@@ -883,6 +898,7 @@ if(ODE_WITH_DEMOS)
 
 		if(NOT WIN32 OR ${DEMO} STREQUAL "demo_ode")
 			add_executable(${DEMO} ${DEMO_SRC})
+			APPLY_COMPILER_OPTIONS_TO_TARGET(${DEMO})
 		else()
 			if(NOT BUILD_SHARED_LIBS)
 				list(
@@ -895,6 +911,7 @@ if(ODE_WITH_DEMOS)
 			if(WIN32 AND MSVC)
 				set_target_properties(${DEMO} PROPERTIES LINK_FLAGS /ENTRY:mainCRTStartup)
 			endif()
+			APPLY_COMPILER_OPTIONS_TO_TARGET(${DEMO})
 		endif()
 		target_link_libraries(${DEMO} drawstuff)
 		
@@ -981,6 +998,7 @@ if(ODE_WITH_TESTS)
 	add_executable(tests ${TEST_SRCS})
 	target_include_directories(tests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/tests/UnitTest++/src)
 	target_link_libraries(tests ODE)
+	APPLY_COMPILER_OPTIONS_TO_TARGET(tests)
 	
 	enable_testing()
 	add_test(tests ${CMAKE_CURRENT_BINARY_DIR}/tests)
@@ -989,8 +1007,8 @@ endif()
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/ode-config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/ode-config.cmake
-  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ode
+	${CMAKE_CURRENT_SOURCE_DIR}/ode-config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/ode-config.cmake
+	INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ode
 )
 install(
 	FILES ${CMAKE_CURRENT_BINARY_DIR}/ode-config.cmake

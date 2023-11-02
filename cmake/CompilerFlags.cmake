@@ -1,0 +1,32 @@
+MACRO(APPLY_COMPILER_OPTIONS)
+  if (MSVC)
+    add_compile_options(/Wall /WX)
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 19.10) # MSVC 2017
+      add_compile_options(/Zc:__cplusplus /permissive-)
+    endif()
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+  elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+    add_compile_options(-Werror)
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+      add_compile_options(-Weverything) # consider reducing to -Wall -Wextra -Wpedantic as -Weverything is even discuraged by clang authors
+    else()
+      add_compile_options(-Wall -Wextra -Wpedantic -pedantic-errors)
+    endif()
+  endif()
+ENDMACRO()
+
+if (MSVC)
+	include(cmake/DetailedCompilerFlagsMSVC.cmake)
+else(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+	include(cmake/DetailedCompilerFlags.cmake)
+endif()
+
+MACRO(APPLY_COMPILER_OPTIONS_TO_TARGET TARGET_NAME)
+  if (MSVC)
+    APPLY_COMPILER_OPTIONS_MSVC(${TARGET_NAME})
+  else(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+    APPLY_COMPILER_OPTIONS_GNU(${TARGET_NAME})
+  endif()
+ENDMACRO()
+
+APPLY_COMPILER_OPTIONS()
