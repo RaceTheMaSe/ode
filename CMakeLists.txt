@@ -25,28 +25,32 @@ set(VERSION_PATCH 7)
 set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
 option(BUILD_SHARED_LIBS "Build shared libraries." ON)
-option(ODE_16BIT_INDICES "Use 16-bit indices for trimeshes (default is 32-bit)." OFF)
-option(ODE_NO_BUILTIN_THREADING_IMPL "Disable built-in multithreaded threading implementation." OFF)
-option(ODE_NO_THREADING_INTF "Disable threading interface support (external implementations cannot be assigned." OFF)
-option(ODE_OLD_TRIMESH "Use old OPCODE trimesh-trimesh collider." OFF)
-option(ODE_WITH_DEMOS "Builds the demo applications and DrawStuff library." ON)
-option(ODE_WITH_GIMPACT "Use GIMPACT for trimesh collisions (experimental)." OFF)
-option(ODE_WITH_LIBCCD "Use libccd for handling some collision tests absent in ODE." OFF)
-option(ODE_WITH_OPCODE "Use old OPCODE trimesh-trimesh collider." ON)
-option(ODE_WITH_OU "Use TLS for global caches (allows threaded collision checks for separated spaces)." OFF)
-option(ODE_WITH_TESTS "Builds the unit test application." ON)
 option(ODE_WIN32_LIB_OUTPUT_NAME_BASED_ON_FLOAT_SIZE "The output name of the library will be based on the size of float, on Windows." ON)
 option(ODE_WIN32_INSTALL_STATIC_LIBS_PDB "Install the PDB files for the static libraries (.lib) on Windows." OFF)
 
-cmake_dependent_option(ODE_WITH_LIBCCD_BOX_CYL "Use libccd for box-cylinder." ON "ODE_WITH_LIBCCD" OFF)
-cmake_dependent_option(ODE_WITH_LIBCCD_CAP_CYL "Use libccd for capsule-cylinder." ON "ODE_WITH_LIBCCD" OFF)
-cmake_dependent_option(ODE_WITH_LIBCCD_CYL_CYL "Use libccd for cylinder-cylinder." ON "ODE_WITH_LIBCCD" OFF)
-cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_BOX "Use libccd for convex-box." ON "ODE_WITH_LIBCCD" OFF)
-cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_CAP "Use libccd for convex-capsule." ON "ODE_WITH_LIBCCD" OFF)
-cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_CONVEX "Use libccd for convex-convex." ON "ODE_WITH_LIBCCD" OFF)
-cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_CYL "Use libccd for convex-cylinder." ON "ODE_WITH_LIBCCD" OFF)
-cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_SPHERE "Use libccd for convex-sphere." ON "ODE_WITH_LIBCCD" OFF)
-cmake_dependent_option(ODE_WITH_LIBCCD_SYSTEM "Use system libccd." OFF "ODE_WITH_LIBCCD" OFF)
+option(ODE_WITH_DEMOS "Builds the demo applications and DrawStuff library." ON)
+option(ODE_WITH_TESTS "Builds the unit test application." ON)
+
+option(ODE_NO_BUILTIN_THREADING_IMPL "Disable built-in multithreaded threading implementation." OFF)
+option(ODE_NO_THREADING_INTF "Disable threading interface support (external implementations cannot be assigned." OFF)
+option(ODE_WITH_OU "Use TLS for global caches (allows threaded collision checks for separated spaces)." OFF)
+
+option(ODE_NO_TRIMESH "Builds without support for trimesh collisions" OFF)
+cmake_dependent_option(ODE_WITH_GIMPACT "Use GIMPACT for trimesh collisions (experimental)." OFF "NOT ODE_NO_TRIMESH" OFF)
+cmake_dependent_option(ODE_WITH_OPCODE  "Use OPCODE for trimesh-trimesh collider." ON "NOT ODE_NO_TRIMESH" OFF)
+cmake_dependent_option(ODE_OLD_TRIMESH  "Use old OPCODE trimesh-trimesh collider implementation" OFF "ODE_WITH_OPCODE" OFF)
+option(ODE_16BIT_INDICES "Use 16-bit indices for trimeshes (default is 32-bit)." OFF)
+
+option(ODE_WITH_LIBCCD   "Use libccd for handling some collision tests absent in ODE." OFF)
+cmake_dependent_option(ODE_WITH_LIBCCD_BOX_CYL       "Use libccd for box-cylinder."      ON  "ODE_WITH_LIBCCD" OFF)
+cmake_dependent_option(ODE_WITH_LIBCCD_CAP_CYL       "Use libccd for capsule-cylinder."  ON  "ODE_WITH_LIBCCD" OFF)
+cmake_dependent_option(ODE_WITH_LIBCCD_CYL_CYL       "Use libccd for cylinder-cylinder." ON  "ODE_WITH_LIBCCD" OFF)
+cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_BOX    "Use libccd for convex-box."        ON  "ODE_WITH_LIBCCD" OFF)
+cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_CAP    "Use libccd for convex-capsule."    ON  "ODE_WITH_LIBCCD" OFF)
+cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_CONVEX "Use libccd for convex-convex."     ON  "ODE_WITH_LIBCCD" OFF)
+cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_CYL    "Use libccd for convex-cylinder."   ON  "ODE_WITH_LIBCCD" OFF)
+cmake_dependent_option(ODE_WITH_LIBCCD_CONVEX_SPHERE "Use libccd for convex-sphere."     ON  "ODE_WITH_LIBCCD" OFF)
+cmake_dependent_option(ODE_WITH_LIBCCD_SYSTEM        "Use system libccd."                OFF "ODE_WITH_LIBCCD" OFF)
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 	option(ODE_DOUBLE_PRECISION "Use double-precision math." OFF)
@@ -319,7 +323,7 @@ set(
 	ode/src/joints/universal.h
 )
 
-if(ODE_WITH_GIMPACT AND NOT ODE_NO_TRIMESH)
+if(ODE_WITH_GIMPACT)
 	list(
 		APPEND SRCS
 		GIMPACT/src/gim_boxpruning.cpp
@@ -384,7 +388,7 @@ if(ODE_WITH_LIBCCD)
 	)
 endif()
 
-if(ODE_WITH_OPCODE AND NOT ODE_NO_TRIMESH)
+if(ODE_WITH_OPCODE)
 	list(
 		APPEND SRCS
 		ode/src/collision_convex_trimesh.cpp
@@ -615,7 +619,7 @@ if(ODE_NO_THREADING_INTF)
 	target_compile_definitions(ODE PRIVATE -DdTHREADING_INTF_DISABLED)
 endif()
 
-if(ODE_WITH_GIMPACT AND NOT ODE_NO_TRIMESH)
+if(ODE_WITH_GIMPACT)
 	target_compile_definitions(ODE PRIVATE -DdTRIMESH_ENABLED -DdTRIMESH_GIMPACT)
 	target_include_directories(ODE PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/GIMPACT/include>)
 endif()
@@ -677,7 +681,7 @@ if(ODE_WITH_LIBCCD)
 	endif()
 endif()
 
-if(ODE_WITH_OPCODE AND NOT ODE_NO_TRIMESH)
+if(ODE_WITH_OPCODE)
 	target_compile_definitions(ODE PRIVATE -DdTRIMESH_ENABLED -DdTRIMESH_OPCODE)
 	
 	if(ODE_OLD_TRIMESH)
