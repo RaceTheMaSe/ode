@@ -213,6 +213,7 @@ ODE_API void dExternalThreadingServeMultiThreadedImplementation(dThreadingImplem
  * @param thread_count Number of threads to start in pool
  * @param stack_size Size of stack to be used for every thread or 0 for system default value
  * @param ode_data_allocate_flags Flags to be passed to @c dAllocateODEDataForThread on behalf of each thread
+ * @param reserved reserved / unused
  * @returns ID of object allocated or NULL on failure
  *
  * @ingroup threading

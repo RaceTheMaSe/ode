@@ -1494,12 +1494,18 @@ typedef dColliderFn * dGetColliderFnFn (int num);
 typedef void dGeomDtorFn (dGeomID o);
 typedef int dAABBTestFn (dGeomID o1, dGeomID o2, dReal aabb[6]);
 
+
+/**
+ * @brief User-provided collision class with C-API
+ *
+ * @ingroup collide
+ */
 typedef struct dGeomClass {
-  int bytes;
-  dGetColliderFnFn *collider;
-  dGetAABBFn *aabb;
-  dAABBTestFn *aabb_test;
-  dGeomDtorFn *dtor;
+  int bytes;                  /**< size of the user-provided class */
+  dGetColliderFnFn *collider; /**< collider interface function pointer */
+  dGetAABBFn *aabb;           /**< get AABB function pointer */
+  dAABBTestFn *aabb_test;     /**< test AABB function pointer */
+  dGeomDtorFn *dtor;          /**< destructor function pointer */
 } dGeomClass;
 
 ODE_API int dCreateGeomClass (const dGeomClass *classptr);

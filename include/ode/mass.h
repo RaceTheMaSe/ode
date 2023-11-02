@@ -84,11 +84,13 @@ ODE_API void dMassAdd (dMass *a, const dMass *b);
 ODE_API_DEPRECATED ODE_API void dMassSetCappedCylinder(dMass *a, dReal b, int c, dReal d, dReal e);
 ODE_API_DEPRECATED ODE_API void dMassSetCappedCylinderTotal(dMass *a, dReal b, int c, dReal d, dReal e);
 
-
+/**
+ * @brief mass properties
+ */
 struct dMass {
-  dReal mass;
-  dVector3 c;
-  dMatrix3 I;
+  dReal mass; /**< mass */
+  dVector3 c; /**< center of gravity in local coordinates */
+  dMatrix3 I; /**< inertia */
 
 #ifdef __cplusplus
   dMass()

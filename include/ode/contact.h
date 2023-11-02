@@ -31,7 +31,7 @@ extern "C" {
 
 
 enum {
-  dContactMu2	  = 0x001,      /**< Use axis dependent friction */
+  dContactMu2	    = 0x001,      /**< Use axis dependent friction */
   dContactAxisDep = 0x001,      /**< Same as above */
   dContactFDir1	  = 0x002,      /**< Use FDir for the first friction value */
   dContactBounce  = 0x004,      /**< Restore collision energy anti-parallel to the normal */
@@ -53,23 +53,29 @@ enum {
 };
 
 
+/**
+ * @brief surface parameters
+ */
 typedef struct dSurfaceParameters {
   /* must always be defined */
-  int   mode;
-  dReal mu;
+  int   mode;               /**< bitmask of dContact* flags */
+  dReal mu;                 /**< friction */
 
   /* only defined if the corresponding flag is set in mode */
-  dReal mu2;
-  dReal rho;                    /**< Rolling friction */
-  dReal rho2;
-  dReal rhoN;                   /**< Spinning friction */
-  dReal bounce;                 /**< Coefficient of restitution */
-  dReal bounce_vel;             /**< Bouncing threshold */
-  dReal soft_erp;
-  dReal soft_cfm;
-  dReal motion1,motion2,motionN;
-  dReal slip1,slip2;
-  dReal inward_force_limit;     /**< Inward force limit (zero or a negative number up to -dInfinity) */
+  dReal mu2;                /**< friction orthogonal */
+  dReal rho;                /**< Rolling friction */
+  dReal rho2;               /**< Rolling friction orthogonal */
+  dReal rhoN;               /**< Spinning friction */
+  dReal bounce;             /**< Coefficient of restitution */
+  dReal bounce_vel;         /**< Bouncing threshold */
+  dReal soft_erp;           /**< error reduction parameter for soft-body contacts */
+  dReal soft_cfm;           /**< constraint force mixing for soft-body contacts */
+  dReal motion1;            /**< Non-zero target velocity for the constraint */
+  dReal motion2;            /**< Non-zero target velocity for the constraint */
+  dReal motionN;            /**< Non-zero target velocity for the constraint */
+  dReal slip1;              /**< Force-dependent slip */
+  dReal slip2;              /**< Force-dependent slip orthogonal */
+  dReal inward_force_limit; /**< Inward force limit (zero or a negative number up to -dInfinity) */
 } dSurfaceParameters;
 
 
@@ -88,20 +94,28 @@ typedef struct dSurfaceParameters {
  * @ingroup collide
  */
 typedef struct dContactGeom {
-    dVector3 pos;          /*< contact position*/
-    dVector3 normal;       /*< normal vector*/
-    dReal depth;           /*< penetration depth*/
-    dGeomID g1,g2;         /*< the colliding geoms*/
-    int side1,side2;       /*< (to be documented)*/
+    dVector3 pos;    /**< contact position*/
+    dVector3 normal; /**< normal vector*/
+    dReal depth;     /**< penetration depth*/
+    dGeomID g1;      /**< the first colliding geom*/
+    dGeomID g2;      /**< the second colliding geom*/
+    int side1;       /**< (to be documented)*/
+    int side2;       /**< (to be documented)*/
 } dContactGeom;
 
 
 /* contact info used by contact joint */
 
+/**
+ * @brief Describe a contact. Its a container used on contact joints to
+ * hold information about surface, contact point and force direction
+ *
+ * @ingroup collide
+ */
 typedef struct dContact {
-  dSurfaceParameters surface;
-  dContactGeom geom;
-  dVector3 fdir1;
+  dSurfaceParameters surface; /**< surface parameters*/
+  dContactGeom geom;          /**< contact geometry*/
+  dVector3 fdir1;             /**< friction direction */
 } dContact;
 
 

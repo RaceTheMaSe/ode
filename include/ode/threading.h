@@ -53,6 +53,12 @@ typedef struct dxMutexGroup *dMutexGroupID;
 #define dTHREADING_THREAD_COUNT_UNLIMITED       0U
 
 
+/**
+ * @defgroup threading Threading functions
+ *
+ * Multi-threading
+ */
+
 
 /**
  * @brief Allocates a group of mutexes.
@@ -125,7 +131,7 @@ typedef void dMutexGroupMutexLockFunction (dThreadingImplementationID impl, dMut
  * @see dMutexGroupMutexLockFunction
  * @see dMutexGroupMutexUnlockFunction
  */
-/* typedef int dMutexGroupMutexTryLockFunction (dThreadingImplementationID impl, dMutexGroupID mutex_group, dmutexindex_t mutex_index);*/
+typedef int dMutexGroupMutexTryLockFunction (dThreadingImplementationID impl, dMutexGroupID mutex_group, dmutexindex_t mutex_index);
 
 /**
  * @brief Unlocks a mutex in a group of mutexes.
@@ -156,10 +162,14 @@ typedef dsizeint dcallindex_t;
 typedef int dThreadedCallFunction(void *call_context, dcallindex_t instance_index, 
   dCallReleaseeID this_releasee);
 
+
+/**
+ * @brief threaded wait time
+ */
 typedef struct dxThreadedWaitTime
 {
-  time_t          wait_sec;
-  unsigned long   wait_nsec;
+  time_t          wait_sec;  /**< seconds */
+  unsigned long   wait_nsec; /**< nano seconds */
 
 } dThreadedWaitTime;
 
@@ -374,23 +384,23 @@ typedef int dThreadingImplResourcesForCallsPreallocateFunction(dThreadingImpleme
  */
 typedef struct dxThreadingFunctionsInfo
 {
-  unsigned struct_size;
+  unsigned struct_size; /**< size of dxThreadingFunctionsInfo */
   
-  dMutexGroupAllocFunction *alloc_mutex_group;
-  dMutexGroupFreeFunction *free_mutex_group;
-  dMutexGroupMutexLockFunction *lock_group_mutex;
-  dMutexGroupMutexUnlockFunction *unlock_group_mutex;
+  dMutexGroupAllocFunction *alloc_mutex_group; /**< Allocate mutex */
+  dMutexGroupFreeFunction *free_mutex_group;   /**< Free mutex */
+  dMutexGroupMutexLockFunction *lock_group_mutex; /**< Lock group mutex */
+  dMutexGroupMutexUnlockFunction *unlock_group_mutex; /**< Unlock group mutex */
 
-  dThreadedCallWaitAllocFunction *alloc_call_wait;
-  dThreadedCallWaitResetFunction *reset_call_wait;
-  dThreadedCallWaitFreeFunction *free_call_wait;
+  dThreadedCallWaitAllocFunction *alloc_call_wait; /**< Allocate call */
+  dThreadedCallWaitResetFunction *reset_call_wait; /**< Reset call */
+  dThreadedCallWaitFreeFunction *free_call_wait;   /**< Free call */
 
-  dThreadedCallPostFunction *post_call;
-  dThreadedCallDependenciesCountAlterFunction *alter_call_dependencies_count;
-  dThreadedCallWaitFunction *wait_call;
+  dThreadedCallPostFunction *post_call; /**< Post call */
+  dThreadedCallDependenciesCountAlterFunction *alter_call_dependencies_count; /**< Alter call dependencies */
+  dThreadedCallWaitFunction *wait_call; /**< Wait call */
 
-  dThreadingImplThreadCountRetrieveFunction *retrieve_thread_count;
-  dThreadingImplResourcesForCallsPreallocateFunction *preallocate_resources_for_calls; 
+  dThreadingImplThreadCountRetrieveFunction *retrieve_thread_count; /**< Retrieve thread count */
+  dThreadingImplResourcesForCallsPreallocateFunction *preallocate_resources_for_calls; /**< Preallocate resources for calls */
 
   /* 
    * Beware of Jon Watte's anger if you dare to uncomment this!

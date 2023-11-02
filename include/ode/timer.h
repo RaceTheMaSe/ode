@@ -32,9 +32,12 @@ extern "C" {
 
 /* stop watch objects */
 
+/**
+ * @brief stop watch
+ */
 typedef struct dStopwatch {
-  double time;			/* total clock count */
-  unsigned long cc[2];		/* clock count since last `start' */
+  double time;					/**< total clock count */
+  unsigned long cc[2];	/**< clock count since last `start' */
 } dStopwatch;
 
 ODE_API void dStopwatchReset (dStopwatch *);

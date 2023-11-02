@@ -144,13 +144,17 @@ enum
 };
 
 
+/**
+ * @brief World stepping parameters for multi-threading scenarios.
+ * @ingroup world
+ */
 typedef struct dWorldSteppingThreadingParameters
 {
     /* must always be defined */
     unsigned   param_set; /**< Combination of dWSTP_... flags */
-    unsigned   world_islands_iteration_max_threads;
-    unsigned   island_stepping_max_threads;
-    unsigned   lcp_solving_max_threads;
+    unsigned   world_islands_iteration_max_threads; /**< Maximum number of threads for world island stepping */
+    unsigned   island_stepping_max_threads; /**< Maximum number of threads for island stepping */
+    unsigned   lcp_solving_max_threads; /**< Maximum number of threads for LCP solver */
 
 } dWorldSteppingThreadingParameters;
 
@@ -172,7 +176,8 @@ typedef struct dWorldSteppingThreadingParameters
 * if there is a sufficient number of threads available in the thread pool assigned for the world.
 * 
 * @note
-* Note that in current implementation @fn dWorldStep suppports single threaded LCP solving only and the lcp_solving_max_threads parameter has no effect for it.
+* Note that in current implementation @fn dWorldStep 
+* supports single threaded LCP solving only and the lcp_solving_max_threads parameter has no effect for it.
 * 
 * @note
 * world_islands_iteration_max_threads is the parameter set with @fn dWorldSetStepIslandsProcessingMaxThreadCount
@@ -692,8 +697,40 @@ ODE_API dReal dWorldGetContactSurfaceLayer (dWorldID);
 
 
 /**
- * @defgroup disable Automatic Enabling and Disabling
- * @ingroup world bodies
+ * @defgroup bodies_disable Automatic Enabling and Disabling of single bodies
+ * @ingroup bodies
+ *
+ * Every body can be enabled or disabled. Enabled bodies participate in the
+ * simulation, while disabled bodies are turned off and do not get updated
+ * during a simulation step. New bodies are always created in the enabled state.
+ *
+ * A disabled body that is connected through a joint to an enabled body will be
+ * automatically re-enabled at the next simulation step.
+ *
+ * Disabled bodies do not consume CPU time, therefore to speed up the simulation
+ * bodies should be disabled when they come to rest. This can be done automatically
+ * with the auto-disable feature.
+ *
+ * If a body has its auto-disable flag turned on, it will automatically disable
+ * itself when
+ *   @li It has been idle for a given number of simulation steps.
+ *   @li It has also been idle for a given amount of simulation time.
+ *
+ * A body is considered to be idle when the magnitudes of both its
+ * linear average velocity and angular average velocity are below given thresholds.
+ * The sample size for the average defaults to one and can be disabled by setting
+ * to zero with dWorldSetAutoDisableAverageSamplesCount
+ *
+ * Thus, every body has six auto-disable parameters: an enabled flag, an idle step
+ * count, an idle time, linear/angular average velocity thresholds and the
+ * average samples count.
+ *
+ * Newly created bodies get these parameters from world.
+ */
+
+/**
+ * @defgroup world_disable Automatic Enabling and Disabling of a world
+ * @ingroup world
  *
  * Every body can be enabled or disabled. Enabled bodies participate in the
  * simulation, while disabled bodies are turned off and do not get updated
@@ -725,7 +762,7 @@ ODE_API dReal dWorldGetContactSurfaceLayer (dWorldID);
 
 /**
  * @brief Get auto disable linear average threshold for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @return the threshold
  */
 ODE_API dReal dWorldGetAutoDisableLinearThreshold (dWorldID);
@@ -733,34 +770,34 @@ ODE_API dReal dWorldGetAutoDisableLinearThreshold (dWorldID);
 /**
  * @brief Set auto disable linear average threshold for newly created bodies.
  * @param linear_average_threshold default is 0.01
- * @ingroup disable
+ * @ingroup world_disable
  */
 ODE_API void  dWorldSetAutoDisableLinearThreshold (dWorldID, dReal linear_average_threshold);
 
 /**
  * @brief Get auto disable angular average threshold for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @return the threshold
  */
 ODE_API dReal dWorldGetAutoDisableAngularThreshold (dWorldID);
 
 /**
  * @brief Set auto disable angular average threshold for newly created bodies.
- * @param linear_average_threshold default is 0.01
- * @ingroup disable
+ * @param angular_average_threshold default is 0.01
+ * @ingroup world_disable
  */
 ODE_API void dWorldSetAutoDisableAngularThreshold (dWorldID, dReal angular_average_threshold);
 
 /**
  * @brief Get auto disable sample count for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @return number of samples used
  */
 ODE_API int dWorldGetAutoDisableAverageSamplesCount (dWorldID);
 
 /**
  * @brief Set auto disable average sample count for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @param average_samples_count Default is 1, meaning only instantaneous velocity is used.
  * Set to zero to disable sampling and thus prevent any body from auto-disabling.
  */
@@ -768,50 +805,85 @@ ODE_API void dWorldSetAutoDisableAverageSamplesCount (dWorldID, unsigned int ave
 
 /**
  * @brief Get auto disable steps for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @return nr of steps
  */
 ODE_API int dWorldGetAutoDisableSteps (dWorldID);
 
 /**
  * @brief Set auto disable steps for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @param steps default is 10
  */
 ODE_API void dWorldSetAutoDisableSteps (dWorldID, int steps);
 
 /**
  * @brief Get auto disable time for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @return nr of seconds
  */
 ODE_API dReal dWorldGetAutoDisableTime (dWorldID);
 
 /**
  * @brief Set auto disable time for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @param time default is 0 seconds
  */
 ODE_API void dWorldSetAutoDisableTime (dWorldID, dReal time);
 
 /**
  * @brief Get auto disable flag for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @return 0 or 1
  */
 ODE_API int dWorldGetAutoDisableFlag (dWorldID);
 
 /**
  * @brief Set auto disable flag for newly created bodies.
- * @ingroup disable
+ * @ingroup world_disable
  * @param do_auto_disable default is false.
  */
 ODE_API void dWorldSetAutoDisableFlag (dWorldID, int do_auto_disable);
 
 
 /**
- * @defgroup damping Damping
- * @ingroup bodies world
+ * @defgroup bodies_damping Damping
+ * @ingroup bodies
+ *
+ * Damping serves two purposes: reduce simulation instability, and to allow
+ * the bodies to come to rest (and possibly auto-disabling them).
+ *
+ * Bodies are constructed using the world's current damping parameters. Setting
+ * the scales to 0 disables the damping.
+ *
+ * Here is how it is done: after every time step linear and angular
+ * velocities are tested against the corresponding thresholds. If they
+ * are above, they are multiplied by (1 - scale). So a negative scale value
+ * will actually increase the speed, and values greater than one will
+ * make the object oscillate every step; both can make the simulation unstable.
+ *
+ * To disable damping just set the damping scale to zero.
+ *
+ * You can also limit the maximum angular velocity. In contrast to the damping
+ * functions, the angular velocity is affected before the body is moved.
+ * This means that it will introduce errors in joints that are forcing the body
+ * to rotate too fast. Some bodies have naturally high angular velocities
+ * (like cars' wheels), so you may want to give them a very high (like the default,
+ * dInfinity) limit.
+ *
+ * @note The velocities are damped after the stepper function has moved the
+ * object. Otherwise the damping could introduce errors in joints. First the
+ * joint constraints are processed by the stepper (moving the body), then
+ * the damping is applied.
+ *
+ * @note The damping happens right after the moved callback is called; this way 
+ * it still possible use the exact velocities the body has acquired during the
+ * step. You can even use the callback to create your own customized damping.
+ */
+
+/**
+ * @defgroup damping_world Damping
+ * @ingroup world
  *
  * Damping serves two purposes: reduce simulation instability, and to allow
  * the bodies to come to rest (and possibly auto-disabling them).
@@ -846,7 +918,7 @@ ODE_API void dWorldSetAutoDisableFlag (dWorldID, int do_auto_disable);
 
 /**
  * @brief Get the world's linear damping threshold.
- * @ingroup damping
+ * @ingroup damping_world
  */
 ODE_API dReal dWorldGetLinearDampingThreshold (dWorldID w);
 
@@ -854,13 +926,13 @@ ODE_API dReal dWorldGetLinearDampingThreshold (dWorldID w);
  * @brief Set the world's linear damping threshold.
  * @param threshold The damping won't be applied if the linear speed is
  *        below this threshold. Default is 0.01.
- * @ingroup damping
+ * @ingroup damping_world
  */
 ODE_API void dWorldSetLinearDampingThreshold(dWorldID w, dReal threshold);
 
 /**
  * @brief Get the world's angular damping threshold.
- * @ingroup damping
+ * @ingroup damping_world
  */
 ODE_API dReal dWorldGetAngularDampingThreshold (dWorldID w);
 
@@ -868,13 +940,13 @@ ODE_API dReal dWorldGetAngularDampingThreshold (dWorldID w);
  * @brief Set the world's angular damping threshold.
  * @param threshold The damping won't be applied if the angular speed is
  *        below this threshold. Default is 0.01.
- * @ingroup damping
+ * @ingroup damping_world
  */
 ODE_API void dWorldSetAngularDampingThreshold(dWorldID w, dReal threshold);
 
 /**
  * @brief Get the world's linear damping scale.
- * @ingroup damping
+ * @ingroup damping_world
  */
 ODE_API dReal dWorldGetLinearDamping (dWorldID w);
 
@@ -882,13 +954,13 @@ ODE_API dReal dWorldGetLinearDamping (dWorldID w);
  * @brief Set the world's linear damping scale.
  * @param scale The linear damping scale that is to be applied to bodies.
  * Default is 0 (no damping). Should be in the interval [0, 1].
- * @ingroup damping
+ * @ingroup damping_world
  */
 ODE_API void dWorldSetLinearDamping (dWorldID w, dReal scale);
 
 /**
  * @brief Get the world's angular damping scale.
- * @ingroup damping
+ * @ingroup damping_world
  */
 ODE_API dReal dWorldGetAngularDamping (dWorldID w);
 
@@ -896,7 +968,7 @@ ODE_API dReal dWorldGetAngularDamping (dWorldID w);
  * @brief Set the world's angular damping scale.
  * @param scale The angular damping scale that is to be applied to bodies.
  * Default is 0 (no damping). Should be in the interval [0, 1].
- * @ingroup damping
+ * @ingroup damping_world
  */
 ODE_API void dWorldSetAngularDamping(dWorldID w, dReal scale);
 
@@ -904,7 +976,7 @@ ODE_API void dWorldSetAngularDamping(dWorldID w, dReal scale);
  * @brief Convenience function to set body linear and angular scales.
  * @param linear_scale The linear damping scale that is to be applied to bodies.
  * @param angular_scale The angular damping scale that is to be applied to bodies.
- * @ingroup damping
+ * @ingroup damping_world
  */
 ODE_API void dWorldSetDamping(dWorldID w,
                                 dReal linear_scale,
@@ -912,7 +984,7 @@ ODE_API void dWorldSetDamping(dWorldID w,
 
 /**
  * @brief Get the default maximum angular speed.
- * @ingroup damping
+ * @ingroup damping_world
  * @sa dBodyGetMaxAngularSpeed()
  */
 ODE_API dReal dWorldGetMaxAngularSpeed (dWorldID w);
@@ -920,7 +992,7 @@ ODE_API dReal dWorldGetMaxAngularSpeed (dWorldID w);
 
 /**
  * @brief Set the default maximum angular speed for new bodies.
- * @ingroup damping
+ * @ingroup damping_world
  * @sa dBodySetMaxAngularSpeed()
  */
 ODE_API void dWorldSetMaxAngularSpeed (dWorldID w, dReal max_speed);
@@ -963,42 +1035,41 @@ ODE_API void dWorldSetMaxAngularSpeed (dWorldID w, dReal max_speed);
 
 /**
  * @brief Get auto disable linear average threshold.
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @return the threshold
  */
 ODE_API dReal dBodyGetAutoDisableLinearThreshold (dBodyID);
 
 /**
  * @brief Set auto disable linear average threshold.
- * @ingroup bodies disable
- * @return the threshold
+ * @ingroup bodies_disable
  */
 ODE_API void  dBodySetAutoDisableLinearThreshold (dBodyID, dReal linear_average_threshold);
 
 /**
  * @brief Get auto disable angular average threshold.
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @return the threshold
  */
 ODE_API dReal dBodyGetAutoDisableAngularThreshold (dBodyID);
 
 /**
  * @brief Set auto disable angular average threshold.
- * @ingroup bodies disable
- * @return the threshold
+ * @param angular_average_threshold default is 0.01
+ * @ingroup bodies_disable
  */
 ODE_API void  dBodySetAutoDisableAngularThreshold (dBodyID, dReal angular_average_threshold);
 
 /**
  * @brief Get auto disable average size (samples count).
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @return the nr of steps/size.
  */
 ODE_API int dBodyGetAutoDisableAverageSamplesCount (dBodyID);
 
 /**
  * @brief Set auto disable average buffer size (average steps).
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @param average_samples_count the nr of samples to review.
  */
 ODE_API void dBodySetAutoDisableAverageSamplesCount (dBodyID, unsigned int average_samples_count);
@@ -1006,42 +1077,42 @@ ODE_API void dBodySetAutoDisableAverageSamplesCount (dBodyID, unsigned int avera
 
 /**
  * @brief Get auto steps a body must be thought of as idle to disable
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @return the nr of steps
  */
 ODE_API int dBodyGetAutoDisableSteps (dBodyID);
 
 /**
  * @brief Set auto disable steps.
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @param steps the nr of steps.
  */
 ODE_API void dBodySetAutoDisableSteps (dBodyID, int steps);
 
 /**
  * @brief Get auto disable time.
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @return nr of seconds
  */
 ODE_API dReal dBodyGetAutoDisableTime (dBodyID);
 
 /**
  * @brief Set auto disable time.
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @param time nr of seconds.
  */
 ODE_API void  dBodySetAutoDisableTime (dBodyID, dReal time);
 
 /**
  * @brief Get auto disable flag.
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @return 0 or 1
  */
 ODE_API int dBodyGetAutoDisableFlag (dBodyID);
 
 /**
  * @brief Set auto disable flag.
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  * @param do_auto_disable 0 or 1
  */
 ODE_API void dBodySetAutoDisableFlag (dBodyID, int do_auto_disable);
@@ -1050,7 +1121,7 @@ ODE_API void dBodySetAutoDisableFlag (dBodyID, int do_auto_disable);
  * @brief Set auto disable defaults.
  * @remarks
  * Set the values for the body to those set as default for the world.
- * @ingroup bodies disable
+ * @ingroup bodies_disable
  */
 ODE_API void  dBodySetAutoDisableDefaults (dBodyID);
 
@@ -1556,20 +1627,20 @@ ODE_API dGeomID dBodyGetNextGeom (dGeomID g);
 
 /**
  * @brief Resets the damping settings to the current world's settings.
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  */
 ODE_API void dBodySetDampingDefaults(dBodyID b);
 
 /**
  * @brief Get the body's linear damping scale.
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  */
 ODE_API dReal dBodyGetLinearDamping (dBodyID b);
 
 /**
  * @brief Set the body's linear damping scale.
  * @param scale The linear damping scale. Should be in the interval [0, 1].
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  * @remarks From now on the body will not use the world's linear damping
  * scale until dBodySetDampingDefaults() is called.
  * @sa dBodySetDampingDefaults()
@@ -1578,7 +1649,7 @@ ODE_API void dBodySetLinearDamping(dBodyID b, dReal scale);
 
 /**
  * @brief Get the body's angular damping scale.
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  * @remarks If the body's angular damping scale was not set, this function
  * returns the world's angular damping scale.
  */
@@ -1587,7 +1658,7 @@ ODE_API dReal dBodyGetAngularDamping (dBodyID b);
 /**
  * @brief Set the body's angular damping scale.
  * @param scale The angular damping scale. Should be in the interval [0, 1].
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  * @remarks From now on the body will not use the world's angular damping
  * scale until dBodyResetAngularDamping() is called.
  * @sa dBodyResetAngularDamping()
@@ -1598,14 +1669,14 @@ ODE_API void dBodySetAngularDamping(dBodyID b, dReal scale);
  * @brief Convenience function to set linear and angular scales at once.
  * @param linear_scale The linear damping scale. Should be in the interval [0, 1].
  * @param angular_scale The angular damping scale. Should be in the interval [0, 1].
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  * @sa dBodySetLinearDamping() dBodySetAngularDamping()
  */
 ODE_API void dBodySetDamping(dBodyID b, dReal linear_scale, dReal angular_scale);
 
 /**
  * @brief Get the body's linear damping threshold.
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  */
 ODE_API dReal dBodyGetLinearDampingThreshold (dBodyID b);
 
@@ -1613,13 +1684,13 @@ ODE_API dReal dBodyGetLinearDampingThreshold (dBodyID b);
  * @brief Set the body's linear damping threshold.
  * @param threshold The linear threshold to be used. Damping
  *      is only applied if the linear speed is above this limit.
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  */
 ODE_API void dBodySetLinearDampingThreshold(dBodyID b, dReal threshold);
 
 /**
  * @brief Get the body's angular damping threshold.
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  */
 ODE_API dReal dBodyGetAngularDampingThreshold (dBodyID b);
 
@@ -1627,20 +1698,20 @@ ODE_API dReal dBodyGetAngularDampingThreshold (dBodyID b);
  * @brief Set the body's angular damping threshold.
  * @param threshold The angular threshold to be used. Damping is
  *      only used if the angular speed is above this limit.
- * @ingroup bodies damping
+ * @ingroup bodies_damping
  */
 ODE_API void dBodySetAngularDampingThreshold(dBodyID b, dReal threshold);
 
 /**
  * @brief Get the body's maximum angular speed.
- * @ingroup damping bodies
+ * @ingroup bodies_damping
  * @sa dWorldGetMaxAngularSpeed()
  */
 ODE_API dReal dBodyGetMaxAngularSpeed (dBodyID b);
 
 /**
  * @brief Set the body's maximum angular speed.
- * @ingroup damping bodies
+ * @ingroup bodies_damping
  * @sa dWorldSetMaxAngularSpeed() dBodyResetMaxAngularSpeed()
  * The default value is dInfinity, but it's a good idea to limit
  * it at less than 500 if the body has the gyroscopic term
