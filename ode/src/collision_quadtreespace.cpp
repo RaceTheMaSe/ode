@@ -598,9 +598,12 @@ void dxQuadTreeSpace::collide2(void* UserData, dxGeom* g2, dNearCallback* Callba
         CurrentGeomBlock->Collide(g2, CurrentGeomBlock->mFirst, &dc, swap_callback);
 
         // Collide against parents
-        while ((CurrentGeomBlock = CurrentGeomBlock->mParent))
+        CurrentGeomBlock = CurrentGeomBlock->mParent;
+        while (CurrentGeomBlock)
+        {
             CurrentGeomBlock->CollideLocal(g2, UserData, Callback);
-
+            CurrentGeomBlock = CurrentGeomBlock->mParent;
+        }
     }
     else {
         DataCallback dc = {UserData, Callback};

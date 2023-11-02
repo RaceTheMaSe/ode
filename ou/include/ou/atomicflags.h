@@ -197,8 +197,14 @@ public:
 			 *	better code as compiler does not need to save variable's value for the call
 			 *	to AtomicCompareExchange in this case.
 			 */
+			bResult = !(aoFlagsOldValue & aoFlagsMask);
+			if(!bResult)
+				break;
+			bResult = AtomicCompareExchange(&m_aoFlagsValue, aoFlagsOldValue, aoFlagsOldValue | aoSingleFlag);
+			if(bResult)
+				break;
 		}
-		while ((bResult = !(aoFlagsOldValue & aoFlagsMask)) && !(bResult = AtomicCompareExchange(&m_aoFlagsValue, aoFlagsOldValue, aoFlagsOldValue | aoSingleFlag)));
+		while (true);
 		
 		return bResult;
 	}

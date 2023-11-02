@@ -154,7 +154,17 @@ struct dxGeom : public dBase {
     // calculate our new final position from our offset and body
     void computePosr();
 
-    bool checkControlValueSizeValidity(void *dataValue, int *dataSize, int iRequiresSize) { return (*dataSize == iRequiresSize && dataValue != 0) ? true : !(*dataSize = iRequiresSize); } // Here it is the intent to return true for 0 required size in any case
+    bool checkControlValueSizeValidity(void *dataValue, int *dataSize, int iRequiresSize)
+    {
+        // Here it is the intent to return true for 0 required size in any case
+        if(*dataSize == iRequiresSize && dataValue != 0)
+            return true;
+        else
+        {
+            *dataSize = iRequiresSize;
+            return !(*dataSize);
+        }
+    }
     virtual bool controlGeometry(int controlClass, int controlCode, void *dataValue, int *dataSize);
 
     virtual void computeAABB()=0;

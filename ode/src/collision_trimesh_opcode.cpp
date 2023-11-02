@@ -62,8 +62,8 @@ void TrimeshCollidersCache::initOPCODECaches()
     m_AABBTreeCollider.SetFullBoxBoxTest( true );
     // Perform full Primitive-BV tests (true) or SAT-lite tests (false)
     m_AABBTreeCollider.SetFullPrimBoxTest( true );
-    const char* msg;
-    if ((msg =m_AABBTreeCollider.ValidateSettings()))
+    const char* msg = m_AABBTreeCollider.ValidateSettings();
+    if (msg)
     {
         dDebug (d_ERR_UASSERT, msg, " (%s:%d)", __FILE__,__LINE__);
     }

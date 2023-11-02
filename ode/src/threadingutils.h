@@ -95,7 +95,8 @@ atomicptr ThrsafeExchangePointer(volatile atomicptr *papDestination, atomicptr a
 static inline 
 bool ThrsafeCompareExchange(volatile atomicord32 *paoDestination, atomicord32 aoComparand, atomicord32 aoExchange)
 {
-    return (*paoDestination == aoComparand) ? ((*paoDestination = aoExchange), true) : false;
+    if(*paoDestination == aoComparand) { *paoDestination = aoExchange; return true; }
+    else return false;
 }
 
 static inline 
@@ -147,7 +148,8 @@ atomicord32 ThrsafeExchangeAdd(volatile atomicord32 *paoDestination, atomicord32
 static inline 
 bool ThrsafeCompareExchangePointer(volatile atomicptr *papDestination, atomicptr apComparand, atomicptr apExchange)
 {
-    return (*papDestination == apComparand) ? ((*papDestination = apExchange), true) : false;
+    if (*papDestination == apComparand) { *papDestination = apExchange; return true; }
+    else return false;
 }
 
 static inline 
