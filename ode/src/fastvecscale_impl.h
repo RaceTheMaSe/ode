@@ -33,7 +33,7 @@
 template<unsigned int a_stride, unsigned int d_stride>
 void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
 {
-    dAASSERT (aStart && dStart && elementCount >= 0);
+    dAASSERT (aStart && dStart /*&& elementCount >= 0*/);
     
     const unsigned step = 4;
 
@@ -89,7 +89,7 @@ void ThreadedEquationSolverLDLT::participateScalingVector(dReal *ptrAStart, cons
 {
     dAASSERT (ptrAStart != NULL);
     dAASSERT(ptrDStart != NULL);
-    dAASSERT(elementCount >= 0);
+    //dAASSERT(elementCount >= 0);
 
     const unsigned wrapSize = 4;
     dSASSERT(block_step % wrapSize == 0);

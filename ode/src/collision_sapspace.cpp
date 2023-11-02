@@ -277,7 +277,7 @@ dxSAPSpace::dxSAPSpace( dSpaceID _space, int axisorder ) : dxSpace( _space )
 
 dxSAPSpace::~dxSAPSpace()
 {
-    CHECK_NOT_LOCKED(this);
+    ENSURE_NOT_LOCKED();
     if ( cleanup ) {
         // note that destroying each geom will call remove()
         for ( ; DirtyList.size(); dGeomDestroy( DirtyList[ 0 ] ) ) {}
@@ -302,7 +302,7 @@ dxGeom* dxSAPSpace::getGeom( int i )
 
 void dxSAPSpace::add( dxGeom* g )
 {
-    CHECK_NOT_LOCKED (this);
+    ENSURE_NOT_LOCKED();
     dAASSERT(g);
     dUASSERT(g->tome_ex == 0 && g->next_ex == 0, "geom is already in a space");
 
@@ -317,7 +317,7 @@ void dxSAPSpace::add( dxGeom* g )
 
 void dxSAPSpace::remove( dxGeom* g )
 {
-    CHECK_NOT_LOCKED(this);
+    ENSURE_NOT_LOCKED();
     dAASSERT(g);
     dUASSERT(g->parent_space == this,"object is not in this space");
 

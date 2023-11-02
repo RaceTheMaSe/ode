@@ -401,7 +401,7 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
     dAASSERT(A && p && L && d && n1 > 0 && n2 > 0 /*&& r >= 0 */&& r < n2 &&
         n1 >= n2 && nskip >= n1);
 #ifndef dNODEBUG
-    for (unsigned i = 0; i < n2; ++i) dIASSERT(p[i] >= 0 && p[i] < n1);
+    for (unsigned i = 0; i < n2; ++i) dIASSERT(/*p[i] >= 0 &&*/ p[i] < n1);
 #else
     (void)n1;
 #endif
@@ -467,7 +467,7 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
 /*extern */
 void dxRemoveRowCol(dReal *A, unsigned n, unsigned nskip, unsigned r)
 {
-    dAASSERT(A && n > 0 && nskip >= n && r >= 0 && r < n);
+    dAASSERT(A && n > 0 && nskip >= n && /*r >= 0 &&*/ r < n);
     if (r >= n - 1) return;
     if (r > 0) {
         {

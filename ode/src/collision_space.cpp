@@ -94,7 +94,7 @@ dxSpace::dxSpace (dSpaceID _space) : dxGeom (_space,0)
 
 dxSpace::~dxSpace()
 {
-    CHECK_NOT_LOCKED (this);
+    ENSURE_NOT_LOCKED();
     if (cleanup) {
         // note that destroying each geom will call remove()
         dxGeom *g,*n;
@@ -161,7 +161,7 @@ dxGeom *dxSpace::getGeom (int i)
 
 void dxSpace::add (dxGeom *geom)
 {
-    CHECK_NOT_LOCKED (this);
+    ENSURE_NOT_LOCKED();
     dAASSERT (geom);
     dUASSERT (geom->parent_space == 0 && geom->next == 0,
         "geom is already in a space");
@@ -180,7 +180,7 @@ void dxSpace::add (dxGeom *geom)
 
 void dxSpace::remove (dxGeom *geom)
 {
-    CHECK_NOT_LOCKED (this);
+    ENSURE_NOT_LOCKED();
     dAASSERT (geom);
     dUASSERT (geom->parent_space == this,"object is not in this space");
 

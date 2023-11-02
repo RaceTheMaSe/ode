@@ -185,7 +185,7 @@ enum dxRowSwapMethodSwapRCOption
 template<dxRowSwapMethodSwapRCOption row_swap_method>
 void swapRowsAndCols (unsigned i1, unsigned i2, ATYPE A, unsigned n, unsigned nskip)
 {
-    dAASSERT (A && n > 0 && i1 >= 0 && i2 >= 0 && i1 < n && i2 < n &&
+    dAASSERT (A && n > 0 && /*i1 >= 0 && i2 >= 0 &&*/ i1 < n && i2 < n &&
         nskip >= n && i1 < i2);
 #if defined(dNODEBUG)
     (void)nskip;
@@ -872,7 +872,7 @@ static
 void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A, dReal pairsbx[PBX__MAX],
     dReal *outer_w/*=NULL*/, unsigned nub, dReal pairslh[PLH__MAX], int *findex)
 {
-    dAASSERT (n > 0 && A && pairsbx && pairslh && nub >= 0 && nub < n);
+    dAASSERT (n > 0 && A && pairsbx && pairslh && /*nub >= 0 &&*/ nub < n);
 # ifndef dNODEBUG
     {
         // check restrictions on lo and hi

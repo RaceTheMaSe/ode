@@ -50,6 +50,10 @@ internal data structures and functions for collision detection.
     dUASSERT ((space) == NULL || (space)->lock_count == 0, \
         "Invalid operation for locked space")
 
+#define ENSURE_NOT_LOCKED() \
+    dUASSERT (this->lock_count == 0, \
+        "Invalid operation for locked space")
+
 
 //****************************************************************************
 // geometry object base class

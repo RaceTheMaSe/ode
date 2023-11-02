@@ -499,7 +499,7 @@ PARENTRECURSE:
 }
 
 void dxQuadTreeSpace::add(dxGeom* g){
-    CHECK_NOT_LOCKED (this);
+    ENSURE_NOT_LOCKED();
     dAASSERT(g);
     dUASSERT(g->tome_ex == 0 && g->next_ex == 0, "geom is already in a space");
 
@@ -510,7 +510,7 @@ void dxQuadTreeSpace::add(dxGeom* g){
 }
 
 void dxQuadTreeSpace::remove(dxGeom* g){
-    CHECK_NOT_LOCKED(this);
+    ENSURE_NOT_LOCKED();
     dAASSERT(g);
     dUASSERT(g->parent_space == this,"object is not in this space");
 
