@@ -51,7 +51,7 @@ static unsigned int g_uiODEInitModes = 0;
 static 
 void OPCODEAbort()
 {
-    dICHECK(!"OPCODE Library Abort");
+    dICHECKMSG(false,"OPCODE Library Abort");
 }
 
 
