@@ -358,7 +358,7 @@ dTriIndex IndexedTriangle::OppositeVertex(dTriIndex vref0, dTriIndex vref1)	cons
 	else	if(mVRef[0]==vref1 && mVRef[2]==vref0)	return mVRef[1];
 	else	if(mVRef[1]==vref0 && mVRef[2]==vref1)	return mVRef[0];
 	else	if(mVRef[1]==vref1 && mVRef[2]==vref0)	return mVRef[0];
-	return (dTriIndex)INVALID_ID;
+	return dTriIndex(-1); // NOTE: was INVALID_ID -> MSVC - cast truncates constant value with 16bit indices
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

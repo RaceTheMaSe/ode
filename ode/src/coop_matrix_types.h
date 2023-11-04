@@ -90,7 +90,7 @@ enum
 
 #define MAKE_CELLDESCRIPTOR(columnIndex, contextInstance, locked) ((cellindexint)((cellindexint)(columnIndex) * CELLDESC__COLINDEX_BASE + (contextInstance) + ((locked) ? CELLDESC_LOCK_BIT : 0)))
 #define MARK_CELLDESCRIPTOR_LOCKED(descriptor) ((cellindexint)((descriptor) | CELLDESC_LOCK_BIT))
-#define GET_CELLDESCRIPTOR_COLUMNINDEX(descriptor) ((unsigned int)((cellindexint)(descriptor) / CELLDESC__COLINDEX_BASE))
+#define GET_CELLDESCRIPTOR_COLUMNINDEX(descriptor) (static_cast<unsigned int>((cellindexint)(descriptor) / CELLDESC__COLINDEX_BASE))
 #define GET_CELLDESCRIPTOR_CONTEXTINSTANCE(descriptor) ((CellContextInstance)((descriptor) & CELLDESC_CCI_BITMASK))
 #define GET_CELLDESCRIPTOR_ISLOCKED(descriptor) (((descriptor) & CELLDESC_LOCK_BIT) != 0)
 
