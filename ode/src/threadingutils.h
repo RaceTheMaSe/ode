@@ -110,38 +110,40 @@ atomicord32 ThrsafeExchange(volatile atomicord32 *paoDestination, atomicord32 ao
 static inline
 void ThrsafeIncrementNoResult(volatile atomicord32 *paoDestination)
 {
-    ++*paoDestination;
+    *paoDestination = *paoDestination + 1;
 }
 
 static inline
 void ThrsafeDecrementNoResult(volatile atomicord32 *paoDestination)
 {
-    --*paoDestination;
+    *paoDestination = *paoDestination - 1;
 }
 
 static inline
 atomicord32 ThrsafeIncrement(volatile atomicord32 *paoDestination)
 {
-    return ++*paoDestination;
+    *paoDestination = *paoDestination + 1;
+    return *paoDestination;
 }
 
 static inline
 atomicord32 ThrsafeDecrement(volatile atomicord32 *paoDestination)
 {
-    return --*paoDestination;
+    *paoDestination = *paoDestination - 1;
+    return *paoDestination;
 }
 
 static inline
 void ThrsafeAdd(volatile atomicord32 *paoDestination, atomicord32 aoAddend)
 {
-    *paoDestination += aoAddend;
+    *paoDestination = *paoDestination + aoAddend;
 }
 
 static inline 
 atomicord32 ThrsafeExchangeAdd(volatile atomicord32 *paoDestination, atomicord32 aoAddend)
 {
     atomicord32 aoDestinationValue = *paoDestination;
-    *paoDestination += aoAddend;
+    *paoDestination = *paoDestination + aoAddend;
     return aoDestinationValue;
 }
 

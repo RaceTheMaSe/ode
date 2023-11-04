@@ -54,14 +54,12 @@ public:
 public:
     static void IncrementTargetNoRet(volatile atomicord_t *value_accumulator_ptr)
     {
-        atomicord_t temp = *value_accumulator_ptr;
-        *value_accumulator_ptr = temp + 1;
+        *value_accumulator_ptr = *value_accumulator_ptr + 1;
     }
 
     static void DecrementTargetNoRet(volatile atomicord_t *value_accumulator_ptr)
     {
-        atomicord_t temp = *value_accumulator_ptr;
-        *value_accumulator_ptr = temp - 1;
+        *value_accumulator_ptr = *value_accumulator_ptr - 1;
     }
 
     static atomicord_t UnorderedQueryTargetValue(const volatile atomicord_t *value_storage_ptr)

@@ -1260,9 +1260,10 @@ extern "C" void dTestMatrixComparison()
 
     // make first sequence
     unsigned long seed = dRandGetSeed();
-    for (i=1; i<49; i++) {
+    for (i=1; i<49;) {
         dMakeRandomMatrix (A,i,i+1,1.0);
         mc.nextMatrix (A,i,i+1,0,"A%d",i);
+        i=i+1; // in loop body because of C++20 volatile deprecation
     }
     mc.end();
 
@@ -1275,9 +1276,10 @@ extern "C" void dTestMatrixComparison()
         printf ("\tFAILED (1)\n");
     }
     else {
-        for (i=1; i<49; i++) {
+        for (i=1; i<49;) {
             dMakeRandomMatrix (A,i,i+1,1.0);
             mc.nextMatrix (A,i,i+1,0,"A%d",i);
+            i=i+1; // in loop body because of C++20 volatile deprecation
         }
         mc.end();
         printf ("\tpassed (1)\n");
@@ -1287,7 +1289,7 @@ extern "C" void dTestMatrixComparison()
     // test broken sequences (with matrix error)
     dRandSetSeed (seed);
     volatile int passcount = 0;
-    for (i=1; i<49; i++) {
+    for (i=1; i<49;) {
         if (setjmp (jump_buffer)) {
             passcount = passcount + 1;
         }
@@ -1298,6 +1300,7 @@ extern "C" void dTestMatrixComparison()
             mc.nextMatrix (A,i,i+1,0,"A%d",i);
             dSetDebugHandler (orig_debug);
         }
+        i=i+1; // in loop body because of C++20 volatile deprecation
     }
     mc.end();
     printf ("\t%s (2)\n",(passcount == 48) ? "passed" : "FAILED");
@@ -1305,7 +1308,7 @@ extern "C" void dTestMatrixComparison()
     // test broken sequences (with name error)
     dRandSetSeed (seed);
     passcount = 0;
-    for (i=1; i<49; i++) {
+    for (i=1; i<49; ) {
         if (setjmp (jump_buffer)) {
             passcount = passcount + 1;
         }
@@ -1315,6 +1318,7 @@ extern "C" void dTestMatrixComparison()
             mc.nextMatrix (A,i,i+1,0,"B%d",i);
             dSetDebugHandler (orig_debug);
         }
+        i=i+1; // in loop body because of C++20 volatile deprecation
     }
     mc.end();
     printf ("\t%s (3)\n",(passcount == 48) ? "passed" : "FAILED");
@@ -1326,9 +1330,10 @@ extern "C" void dTestMatrixComparison()
         printf ("\tFAILED (4)\n");
     }
     else {
-        for (i=1; i<49; i++) {
+        for (i=1; i<49; ) {
             dMakeRandomMatrix (A,i,i+1,1.0);
             mc.nextMatrix (A,i,i+1,0,"A%d",i);
+            i=i+1; // in loop body because of C++20 volatile deprecation
         }
         mc.end();
         printf ("\tpassed (4)\n");
