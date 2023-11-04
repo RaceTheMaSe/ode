@@ -246,7 +246,7 @@
 		int Fi = SIR(f);
 		int Fmask = (Fi>>31);
 		Fi ^= Fmask;
-		Fmask &= ~(1<<31);
+		Fmask &= ~(1u<<31);
 		Fi -= Fmask;
 		return Fi;
 	}
