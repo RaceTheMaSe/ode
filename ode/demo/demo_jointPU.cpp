@@ -332,7 +332,24 @@ case 'h' : case 'H' : case '?' :
           pu->setParam (dParamHiStop3, lLimit);
         }
         break;
-        default: {} // keep the compiler happy
+        // keep the compiler happy
+        case dJointTypeNone:
+        case dJointTypeBall:
+        case dJointTypeHinge:
+        case dJointTypeSlider:
+        case dJointTypeContact:
+        case dJointTypeUniversal:
+        case dJointTypeHinge2:
+        case dJointTypeFixed:
+        case dJointTypeNull:
+        case dJointTypeAMotor:
+        case dJointTypeLMotor:
+        case dJointTypePlane2D:
+        case dJointTypePiston:
+        case dJointTypeDBall:
+        case dJointTypeDHinge:
+        case dJointTypeTransmission:
+        {}
       }
     }
 
@@ -366,7 +383,24 @@ case 'h' : case 'H' : case '?' :
           std::cout<<"Angle2 Rate="<<pu->getAngle2Rate() <<"\n";
         }
         break;
-        default: {} // keep the compiler happy
+        // keep the compiler happy
+        case dJointTypeNone:
+        case dJointTypeBall:
+        case dJointTypeHinge:
+        case dJointTypeContact:
+        case dJointTypeUniversal:
+        case dJointTypeHinge2:
+        case dJointTypeFixed:
+        case dJointTypeNull:
+        case dJointTypeAMotor:
+        case dJointTypeLMotor:
+        case dJointTypePlane2D:
+        case dJointTypePR:
+        case dJointTypePiston:
+        case dJointTypeDBall:
+        case dJointTypeDHinge:
+        case dJointTypeTransmission:
+          {}
       }
     }
     break;

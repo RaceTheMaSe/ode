@@ -197,9 +197,14 @@ static const char *getJointName (dxJoint *j)
         case dJointTypeLMotor: return "ODE_linear_motor";
         case dJointTypePR: return "PR";
         case dJointTypePU: return "PU";
-    case dJointTypePiston: return "piston";
-        default: return "unknown";
+        case dJointTypePiston: return "piston";
+        case dJointTypePlane2D: return "plane2d";
+        case dJointTypeDBall: return "dball";
+        case dJointTypeDHinge: return "dhinge";
+        case dJointTypeTransmission: return "transmission";
+        case dJointTypeNone: return "none";
     }
+    return "unknown";
 }
 
 

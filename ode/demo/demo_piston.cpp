@@ -461,8 +461,24 @@ static void command (int cmd)
             std::cout<<"Position ="<<rj->getPosition() <<"\n";
         }
         break;
-        default:
-        {} // keep the compiler happy
+        // keep the compiler happy
+        case dJointTypeNone:
+        case dJointTypeBall:
+        case dJointTypeHinge:
+        case dJointTypeContact:
+        case dJointTypeUniversal:
+        case dJointTypeHinge2:
+        case dJointTypeFixed:
+        case dJointTypeNull:
+        case dJointTypeAMotor:
+        case dJointTypeLMotor:
+        case dJointTypePlane2D:
+        case dJointTypePR:
+        case dJointTypePU:
+        case dJointTypeDBall:
+        case dJointTypeDHinge:
+        case dJointTypeTransmission:
+        {}
         }
     }
     break;
@@ -513,8 +529,24 @@ static void simLoop (int pause)
         ( (dPistonJoint *) joint)->getAxis (ax);
         l = ( (dPistonJoint *) joint)->getPosition();
         break;
-    default:
-    {} // keep the compiler happy
+    // keep the compiler happy
+    case dJointTypeNone:
+    case dJointTypeBall:
+    case dJointTypeHinge:
+    case dJointTypeContact:
+    case dJointTypeUniversal:
+    case dJointTypeHinge2:
+    case dJointTypeFixed:
+    case dJointTypeNull:
+    case dJointTypeAMotor:
+    case dJointTypeLMotor:
+    case dJointTypePlane2D:
+    case dJointTypePR:
+    case dJointTypePU:
+    case dJointTypeDBall:
+    case dJointTypeDHinge:
+    case dJointTypeTransmission:
+        {}
     }
 
 
