@@ -114,21 +114,21 @@ typedef enum {
 
     dDA__L_MIN = dDA__MIN + (int)dMD_LINEAR * (int)dSA__MAX,
 
-    dDA_LX = dDA__L_MIN + dSA_X,
-    dDA_LY = dDA__L_MIN + dSA_Y,
-    dDA_LZ = dDA__L_MIN + dSA_Z,
+    dDA_LX = dDA__L_MIN + (int)dSA_X,
+    dDA_LY = dDA__L_MIN + (int)dSA_Y,
+    dDA_LZ = dDA__L_MIN + (int)dSA_Z,
 
-    dDA__L_MAX = dDA__L_MIN + dSA__MAX,
+    dDA__L_MAX = dDA__L_MIN + (int)dSA__MAX,
 
     dDA__A_MIN = dDA__MIN + (int)dMD_ANGULAR * (int)dSA__MAX,
 
-    dDA_AX = dDA__A_MIN + dSA_X,
-    dDA_AY = dDA__A_MIN + dSA_Y,
-    dDA_AZ = dDA__A_MIN + dSA_Z,
+    dDA_AX = dDA__A_MIN + (int)dSA_X,
+    dDA_AY = dDA__A_MIN + (int)dSA_Y,
+    dDA_AZ = dDA__A_MIN + (int)dSA_Z,
 
-    dDA__A_MAX = dDA__A_MIN + dSA__MAX,
+    dDA__A_MAX = dDA__A_MIN + (int)dSA__MAX,
 
-    dDA__MAX = dDA__MIN + (int)dMD__MAX * (int)dSA__MAX,
+    dDA__MAX = dDA__MIN + (int)dMD__MAX * (int)dSA__MAX
 } dDynamicsAxis;
 
 typedef enum {
@@ -136,11 +136,11 @@ typedef enum {
 
     dV3E__AXES_MIN = dV3E__MIN,
 
-    dV3E_X = dV3E__AXES_MIN + dSA_X,
-    dV3E_Y = dV3E__AXES_MIN + dSA_Y,
-    dV3E_Z = dV3E__AXES_MIN + dSA_Z,
+    dV3E_X = dV3E__AXES_MIN + (int)dSA_X,
+    dV3E_Y = dV3E__AXES_MIN + (int)dSA_Y,
+    dV3E_Z = dV3E__AXES_MIN + (int)dSA_Z,
 
-    dV3E__AXES_MAX = dV3E__AXES_MIN + dSA__MAX,
+    dV3E__AXES_MAX = dV3E__AXES_MIN + (int)dSA__MAX,
 
     dV3E_PAD = dV3E__AXES_MAX,
 
@@ -152,10 +152,10 @@ typedef enum {
 typedef enum {
     dV4E__MIN,
 
-    dV4E_X = dV4E__MIN + dSA_X,
-    dV4E_Y = dV4E__MIN + dSA_Y,
-    dV4E_Z = dV4E__MIN + dSA_Z,
-    dV4E_O = dV4E__MIN + dSA__MAX,
+    dV4E_X = dV4E__MIN + (int)dSA_X,
+    dV4E_Y = dV4E__MIN + (int)dSA_Y,
+    dV4E_Z = dV4E__MIN + (int)dSA_Z,
+    dV4E_O = dV4E__MIN + (int)dSA__MAX,
 
     dV4E__MAX
 } dVec4Element;
@@ -165,89 +165,89 @@ typedef enum {
 
     dM3E__X_MIN = dM3E__MIN + (int)dSA_X * (int)dV3E__MAX,
     
-    dM3E__X_AXES_MIN = dM3E__X_MIN + dV3E__AXES_MIN,
+    dM3E__X_AXES_MIN = dM3E__X_MIN + (int)dV3E__AXES_MIN,
 
-    dM3E_XX = dM3E__X_MIN + dV3E_X,
-    dM3E_XY = dM3E__X_MIN + dV3E_Y,
-    dM3E_XZ = dM3E__X_MIN + dV3E_Z,
+    dM3E_XX = dM3E__X_MIN + (int)dV3E_X,
+    dM3E_XY = dM3E__X_MIN + (int)dV3E_Y,
+    dM3E_XZ = dM3E__X_MIN + (int)dV3E_Z,
 
-    dM3E__X_AXES_MAX = dM3E__X_MIN + dV3E__AXES_MAX,
+    dM3E__X_AXES_MAX = dM3E__X_MIN + (int)dV3E__AXES_MAX,
 
-    dM3E_XPAD = dM3E__X_MIN + dV3E_PAD,
+    dM3E_XPAD = dM3E__X_MIN + (int)dV3E_PAD,
 
-    dM3E__X_MAX = dM3E__X_MIN + dV3E__MAX,
+    dM3E__X_MAX = dM3E__X_MIN + (int)dV3E__MAX,
 
     dM3E__Y_MIN = dM3E__MIN + (int)dSA_Y * (int)dV3E__MAX,
 
-    dM3E__Y_AXES_MIN = dM3E__Y_MIN + dV3E__AXES_MIN,
+    dM3E__Y_AXES_MIN = dM3E__Y_MIN + (int)dV3E__AXES_MIN,
 
-    dM3E_YX = dM3E__Y_MIN + dV3E_X,
-    dM3E_YY = dM3E__Y_MIN + dV3E_Y,
-    dM3E_YZ = dM3E__Y_MIN + dV3E_Z,
+    dM3E_YX = dM3E__Y_MIN + (int)dV3E_X,
+    dM3E_YY = dM3E__Y_MIN + (int)dV3E_Y,
+    dM3E_YZ = dM3E__Y_MIN + (int)dV3E_Z,
 
-    dM3E__Y_AXES_MAX = dM3E__Y_MIN + dV3E__AXES_MAX,
+    dM3E__Y_AXES_MAX = dM3E__Y_MIN + (int)dV3E__AXES_MAX,
 
-    dM3E_YPAD = dM3E__Y_MIN + dV3E_PAD,
+    dM3E_YPAD = dM3E__Y_MIN + (int)dV3E_PAD,
 
-    dM3E__Y_MAX = dM3E__Y_MIN + dV3E__MAX,
+    dM3E__Y_MAX = dM3E__Y_MIN + (int)dV3E__MAX,
 
     dM3E__Z_MIN = dM3E__MIN + (int)dSA_Z * (int)dV3E__MAX,
 
-    dM3E__Z_AXES_MIN = dM3E__Z_MIN + dV3E__AXES_MIN,
+    dM3E__Z_AXES_MIN = dM3E__Z_MIN + (int)dV3E__AXES_MIN,
 
-    dM3E_ZX = dM3E__Z_MIN + dV3E_X,
-    dM3E_ZY = dM3E__Z_MIN + dV3E_Y,
-    dM3E_ZZ = dM3E__Z_MIN + dV3E_Z,
+    dM3E_ZX = dM3E__Z_MIN + (int)dV3E_X,
+    dM3E_ZY = dM3E__Z_MIN + (int)dV3E_Y,
+    dM3E_ZZ = dM3E__Z_MIN + (int)dV3E_Z,
 
-    dM3E__Z_AXES_MAX = dM3E__Z_MIN + dV3E__AXES_MAX,
+    dM3E__Z_AXES_MAX = dM3E__Z_MIN + (int)dV3E__AXES_MAX,
 
-    dM3E_ZPAD = dM3E__Z_MIN + dV3E_PAD,
+    dM3E_ZPAD = dM3E__Z_MIN + (int)dV3E_PAD,
 
-    dM3E__Z_MAX = dM3E__Z_MIN + dV3E__MAX,
+    dM3E__Z_MAX = dM3E__Z_MIN + (int)dV3E__MAX,
 
-    dM3E__MAX = dM3E__MIN + (int)dSA__MAX * (int)dV3E__MAX,
+    dM3E__MAX = dM3E__MIN + (int)dSA__MAX * (int)dV3E__MAX
 } dMat3Element;
 
 typedef enum {
     dM4E__MIN,
 
-    dM4E__X_MIN = dM4E__MIN + dV4E_X * dV4E__MAX,
+    dM4E__X_MIN = dM4E__MIN + (int)dV4E_X * (int)dV4E__MAX,
 
-    dM4E_XX = dM4E__X_MIN + dV4E_X,
-    dM4E_XY = dM4E__X_MIN + dV4E_Y,
-    dM4E_XZ = dM4E__X_MIN + dV4E_Z,
-    dM4E_XO = dM4E__X_MIN + dV4E_O,
+    dM4E_XX = dM4E__X_MIN + (int)dV4E_X,
+    dM4E_XY = dM4E__X_MIN + (int)dV4E_Y,
+    dM4E_XZ = dM4E__X_MIN + (int)dV4E_Z,
+    dM4E_XO = dM4E__X_MIN + (int)dV4E_O,
 
-    dM4E__X_MAX = dM4E__X_MIN + dV4E__MAX,
+    dM4E__X_MAX = dM4E__X_MIN + (int)dV4E__MAX,
 
-    dM4E__Y_MIN = dM4E__MIN + dV4E_Y * dV4E__MAX,
+    dM4E__Y_MIN = dM4E__MIN + (int)dV4E_Y * (int)dV4E__MAX,
 
-    dM4E_YX = dM4E__Y_MIN + dV4E_X,
-    dM4E_YY = dM4E__Y_MIN + dV4E_Y,
-    dM4E_YZ = dM4E__Y_MIN + dV4E_Z,
-    dM4E_YO = dM4E__Y_MIN + dV4E_O,
+    dM4E_YX = dM4E__Y_MIN + (int)dV4E_X,
+    dM4E_YY = dM4E__Y_MIN + (int)dV4E_Y,
+    dM4E_YZ = dM4E__Y_MIN + (int)dV4E_Z,
+    dM4E_YO = dM4E__Y_MIN + (int)dV4E_O,
 
-    dM4E__Y_MAX = dM4E__Y_MIN + dV4E__MAX,
+    dM4E__Y_MAX = dM4E__Y_MIN + (int)dV4E__MAX,
 
-    dM4E__Z_MIN = dM4E__MIN + dV4E_Z * dV4E__MAX,
+    dM4E__Z_MIN = dM4E__MIN + (int)dV4E_Z * (int)dV4E__MAX,
 
-    dM4E_ZX = dM4E__Z_MIN + dV4E_X,
-    dM4E_ZY = dM4E__Z_MIN + dV4E_Y,
-    dM4E_ZZ = dM4E__Z_MIN + dV4E_Z,
-    dM4E_ZO = dM4E__Z_MIN + dV4E_O,
+    dM4E_ZX = dM4E__Z_MIN + (int)dV4E_X,
+    dM4E_ZY = dM4E__Z_MIN + (int)dV4E_Y,
+    dM4E_ZZ = dM4E__Z_MIN + (int)dV4E_Z,
+    dM4E_ZO = dM4E__Z_MIN + (int)dV4E_O,
 
-    dM4E__Z_MAX = dM4E__Z_MIN + dV4E__MAX,
+    dM4E__Z_MAX = dM4E__Z_MIN + (int)dV4E__MAX,
 
-    dM4E__O_MIN = dM4E__MIN + dV4E_O * dV4E__MAX,
+    dM4E__O_MIN = dM4E__MIN + (int)dV4E_O * (int)dV4E__MAX,
 
-    dM4E_OX = dM4E__O_MIN + dV4E_X,
-    dM4E_OY = dM4E__O_MIN + dV4E_Y,
-    dM4E_OZ = dM4E__O_MIN + dV4E_Z,
-    dM4E_OO = dM4E__O_MIN + dV4E_O,
+    dM4E_OX = dM4E__O_MIN + (int)dV4E_X,
+    dM4E_OY = dM4E__O_MIN + (int)dV4E_Y,
+    dM4E_OZ = dM4E__O_MIN + (int)dV4E_Z,
+    dM4E_OO = dM4E__O_MIN + (int)dV4E_O,
 
-    dM4E__O_MAX = dM4E__O_MIN + dV4E__MAX,
+    dM4E__O_MAX = dM4E__O_MIN + (int)dV4E__MAX,
 
-    dM4E__MAX = dM4E__MIN + dV4E__MAX * dV4E__MAX
+    dM4E__MAX = dM4E__MIN + (int)dV4E__MAX * (int)dV4E__MAX
 } dMat4Element;
 
 typedef enum {
@@ -257,11 +257,11 @@ typedef enum {
 
     dQUE__AXIS_MIN,
 
-    dQUE_I = dQUE__AXIS_MIN + dSA_X,
-    dQUE_J = dQUE__AXIS_MIN + dSA_Y,
-    dQUE_K = dQUE__AXIS_MIN + dSA_Z,
+    dQUE_I = dQUE__AXIS_MIN + (int)dSA_X,
+    dQUE_J = dQUE__AXIS_MIN + (int)dSA_Y,
+    dQUE_K = dQUE__AXIS_MIN + (int)dSA_Z,
 
-    dQUE__AXIS_MAX = dQUE__AXIS_MIN + dSA__MAX,
+    dQUE__AXIS_MAX = dQUE__AXIS_MIN + (int)dSA__MAX,
 
     dQUE__MAX = dQUE__AXIS_MAX
 } dQuatElement;

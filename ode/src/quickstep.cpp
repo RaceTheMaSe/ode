@@ -227,7 +227,7 @@ enum dxInvIRowElement
     IIE__MIN,
 
     IIE__MATRIX_MIN = IIE__MIN,
-    IIE__MATRIX_MAX = IIE__MATRIX_MIN + dM3E__MAX,
+    IIE__MATRIX_MAX = IIE__MATRIX_MIN + (int)dM3E__MAX,
 
     IIE__MAX = IIE__MATRIX_MAX
 };
@@ -252,23 +252,23 @@ enum dxJacobiVectorElement
 {
     JVE__MIN,
     
-    JVE__L_MIN = JVE__MIN + dDA__L_MIN,
+    JVE__L_MIN = JVE__MIN + (int)dDA__L_MIN,
 
-    JVE_LX = JVE__MIN + dDA_LX,
-    JVE_LY = JVE__MIN + dDA_LY,
-    JVE_LZ = JVE__MIN + dDA_LZ,
+    JVE_LX = JVE__MIN + (int)dDA_LX,
+    JVE_LY = JVE__MIN + (int)dDA_LY,
+    JVE_LZ = JVE__MIN + (int)dDA_LZ,
 
-    JVE__L_MAX = JVE__MIN + dDA__L_MAX,
+    JVE__L_MAX = JVE__MIN + (int)dDA__L_MAX,
 
-    JVE__A_MIN = JVE__MIN + dDA__A_MIN,
+    JVE__A_MIN = JVE__MIN + (int)dDA__A_MIN,
 
-    JVE_AX = JVE__MIN + dDA_AX,
-    JVE_AY = JVE__MIN + dDA_AY,
-    JVE_AZ = JVE__MIN + dDA_AZ,
+    JVE_AX = JVE__MIN + (int)dDA_AX,
+    JVE_AY = JVE__MIN + (int)dDA_AY,
+    JVE_AZ = JVE__MIN + (int)dDA_AZ,
 
-    JVE__A_MAX = JVE__MIN + dDA__A_MAX,
+    JVE__A_MAX = JVE__MIN + (int)dDA__A_MAX,
     
-    JVE__MAX = JVE__MIN + dDA__MAX,
+    JVE__MAX = JVE__MIN + (int)dDA__MAX,
 
     JVE__L_COUNT = JVE__L_MAX - JVE__L_MIN,
     JVE__A_COUNT = JVE__A_MAX - JVE__A_MIN
@@ -279,56 +279,56 @@ enum dxJacobiMatrixElement
     JME__MIN,
 
     JME__J1_MIN = JME__MIN,
-    JME__J1L_MIN = JME__J1_MIN + JVE__L_MIN,
+    JME__J1L_MIN = JME__J1_MIN + (int)JVE__L_MIN,
 
-    JME_J1LX = JME__J1_MIN + JVE_LX,
-    JME_J1LY = JME__J1_MIN + JVE_LY,
-    JME_J1LZ = JME__J1_MIN + JVE_LZ,
+    JME_J1LX = JME__J1_MIN + (int)JVE_LX,
+    JME_J1LY = JME__J1_MIN + (int)JVE_LY,
+    JME_J1LZ = JME__J1_MIN + (int)JVE_LZ,
 
-    JME__J1L_MAX = JME__J1_MIN + JVE__L_MAX,
+    JME__J1L_MAX = JME__J1_MIN + (int)JVE__L_MAX,
 
-    JME__J1A_MIN = JME__J1_MIN + JVE__A_MIN,
+    JME__J1A_MIN = JME__J1_MIN + (int)JVE__A_MIN,
 
-    JME_J1AX = JME__J1_MIN + JVE_AX,
-    JME_J1AY = JME__J1_MIN + JVE_AY,
-    JME_J1AZ = JME__J1_MIN + JVE_AZ,
+    JME_J1AX = JME__J1_MIN + (int)JVE_AX,
+    JME_J1AY = JME__J1_MIN + (int)JVE_AY,
+    JME_J1AZ = JME__J1_MIN + (int)JVE_AZ,
 
-    JME__J1A_MAX = JME__J1_MIN + JVE__A_MAX,
-    JME__J1_MAX = JME__J1_MIN + JVE__MAX,
+    JME__J1A_MAX = JME__J1_MIN + (int)JVE__A_MAX,
+    JME__J1_MAX = JME__J1_MIN + (int)JVE__MAX,
 
     JME__RHS_CFM_MIN = JME__J1_MAX,
-    JME_RHS = JME__RHS_CFM_MIN + RCE_RHS,
-    JME_CFM = JME__RHS_CFM_MIN + RCE_CFM,
-    JME__RHS_CFM_MAX = JME__RHS_CFM_MIN + RCE__RHS_CFM_MAX,
+    JME_RHS = JME__RHS_CFM_MIN + (int)RCE_RHS,
+    JME_CFM = JME__RHS_CFM_MIN + (int)RCE_CFM,
+    JME__RHS_CFM_MAX = JME__RHS_CFM_MIN + (int)RCE__RHS_CFM_MAX,
 
     JME__J2_MIN = JME__RHS_CFM_MAX,
-    JME__J2L_MIN = JME__J2_MIN + JVE__L_MIN,
+    JME__J2L_MIN = JME__J2_MIN + (int)JVE__L_MIN,
 
-    JME_J2LX = JME__J2_MIN + JVE_LX,
-    JME_J2LY = JME__J2_MIN + JVE_LY,
-    JME_J2LZ = JME__J2_MIN + JVE_LZ,
+    JME_J2LX = JME__J2_MIN + (int)JVE_LX,
+    JME_J2LY = JME__J2_MIN + (int)JVE_LY,
+    JME_J2LZ = JME__J2_MIN + (int)JVE_LZ,
 
-    JME__J2L_MAX = JME__J2_MIN + JVE__L_MAX,
+    JME__J2L_MAX = JME__J2_MIN + (int)JVE__L_MAX,
 
-    JME__J2A_MIN = JME__J2_MIN + JVE__A_MIN,
+    JME__J2A_MIN = JME__J2_MIN + (int)JVE__A_MIN,
 
-    JME_J2AX = JME__J2_MIN + JVE_AX,
-    JME_J2AY = JME__J2_MIN + JVE_AY,
-    JME_J2AZ = JME__J2_MIN + JVE_AZ,
+    JME_J2AX = JME__J2_MIN + (int)JVE_AX,
+    JME_J2AY = JME__J2_MIN + (int)JVE_AY,
+    JME_J2AZ = JME__J2_MIN + (int)JVE_AZ,
 
-    JME__J2A_MAX = JME__J2_MIN + JVE__A_MAX,
-    JME__J2_MAX = JME__J2_MIN + JVE__MAX,
+    JME__J2A_MAX = JME__J2_MIN + (int)JVE__A_MAX,
+    JME__J2_MAX = JME__J2_MIN + (int)JVE__MAX,
 
     JME__LO_HI_MIN = JME__J2_MAX,
-    JME_LO = JME__LO_HI_MIN + LHE_LO,
-    JME_HI = JME__LO_HI_MIN + LHE_HI,
-    JME__LO_HI_MAX = JME__LO_HI_MIN + LHE__LO_HI_MAX,
+    JME_LO = JME__LO_HI_MIN + (int)LHE_LO,
+    JME_HI = JME__LO_HI_MIN + (int)LHE_HI,
+    JME__LO_HI_MAX = JME__LO_HI_MIN + (int)LHE__LO_HI_MAX,
 
     JME__MAX = JME__LO_HI_MAX, // Is not that a luck to have 16 elements here? ;-)
 
     JME__J1_COUNT = JME__J1_MAX - JME__J1_MIN,
     JME__J2_COUNT = JME__J2_MAX - JME__J2_MIN,
-    JME__J_COUNT = JVE__MAX
+    JME__J_COUNT = (int)JVE__MAX
 };
 
 dSASSERT(JME__J_COUNT == JME__J1_COUNT);
@@ -389,23 +389,23 @@ enum dxInvMJTElement
     
     IMJ__1JVE_MIN = IMJ__1_MIN,
     
-    IMJ__1L_MIN = IMJ__1JVE_MIN + JVE__L_MIN,
+    IMJ__1L_MIN = IMJ__1JVE_MIN + (int)JVE__L_MIN,
 
-    IMJ_1LX = IMJ__1JVE_MIN + JVE_LX,
-    IMJ_1LY = IMJ__1JVE_MIN + JVE_LY,
-    IMJ_1LZ = IMJ__1JVE_MIN + JVE_LZ,
+    IMJ_1LX = IMJ__1JVE_MIN + (int)JVE_LX,
+    IMJ_1LY = IMJ__1JVE_MIN + (int)JVE_LY,
+    IMJ_1LZ = IMJ__1JVE_MIN + (int)JVE_LZ,
 
-    IMJ__1L_MAX = IMJ__1JVE_MIN + JVE__L_MAX,
+    IMJ__1L_MAX = IMJ__1JVE_MIN + (int)JVE__L_MAX,
 
-    IMJ__1A_MIN = IMJ__1JVE_MIN + JVE__A_MIN,
+    IMJ__1A_MIN = IMJ__1JVE_MIN + (int)JVE__A_MIN,
 
-    IMJ_1AX = IMJ__1JVE_MIN + JVE_AX,
-    IMJ_1AY = IMJ__1JVE_MIN + JVE_AY,
-    IMJ_1AZ = IMJ__1JVE_MIN + JVE_AZ,
+    IMJ_1AX = IMJ__1JVE_MIN + (int)JVE_AX,
+    IMJ_1AY = IMJ__1JVE_MIN + (int)JVE_AY,
+    IMJ_1AZ = IMJ__1JVE_MIN + (int)JVE_AZ,
 
-    IMJ__1A_MAX = IMJ__1JVE_MIN + JVE__A_MAX,
+    IMJ__1A_MAX = IMJ__1JVE_MIN + (int)JVE__A_MAX,
 
-    IMJ__1JVE_MAX = IMJ__1JVE_MIN + JVE__MAX,
+    IMJ__1JVE_MAX = IMJ__1JVE_MIN + (int)JVE__MAX,
     
     IMJ_1JVE_MAXABS,
 
@@ -415,23 +415,23 @@ enum dxInvMJTElement
 
     IMJ__2JVE_MIN = IMJ__2_MIN,
 
-    IMJ__2L_MIN = IMJ__2JVE_MIN + JVE__L_MIN,
+    IMJ__2L_MIN = IMJ__2JVE_MIN + (int)JVE__L_MIN,
 
-    IMJ_2LX = IMJ__2JVE_MIN + JVE_LX,
-    IMJ_2LY = IMJ__2JVE_MIN + JVE_LY,
-    IMJ_2LZ = IMJ__2JVE_MIN + JVE_LZ,
+    IMJ_2LX = IMJ__2JVE_MIN + (int)JVE_LX,
+    IMJ_2LY = IMJ__2JVE_MIN + (int)JVE_LY,
+    IMJ_2LZ = IMJ__2JVE_MIN + (int)JVE_LZ,
 
-    IMJ__2L_MAX = IMJ__2JVE_MIN + JVE__L_MAX,
+    IMJ__2L_MAX = IMJ__2JVE_MIN + (int)JVE__L_MAX,
 
-    IMJ__2A_MIN = IMJ__2JVE_MIN + JVE__A_MIN,
+    IMJ__2A_MIN = IMJ__2JVE_MIN + (int)JVE__A_MIN,
 
-    IMJ_2AX = IMJ__2JVE_MIN + JVE_AX,
-    IMJ_2AY = IMJ__2JVE_MIN + JVE_AY,
-    IMJ_2AZ = IMJ__2JVE_MIN + JVE_AZ,
+    IMJ_2AX = IMJ__2JVE_MIN + (int)JVE_AX,
+    IMJ_2AY = IMJ__2JVE_MIN + (int)JVE_AY,
+    IMJ_2AZ = IMJ__2JVE_MIN + (int)JVE_AZ,
 
-    IMJ__2A_MAX = IMJ__2JVE_MIN + JVE__A_MAX,
+    IMJ__2A_MAX = IMJ__2JVE_MIN + (int)JVE__A_MAX,
 
-    IMJ__2JVE_MAX = IMJ__2JVE_MIN + JVE__MAX,
+    IMJ__2JVE_MAX = IMJ__2JVE_MIN + (int)JVE__MAX,
 
     IMJ_2JVE_MAXABS,
     
@@ -447,23 +447,23 @@ enum dxContactForceElement
 
     CFE__DYNAMICS_MIN = CFE__MIN,
 
-    CFE__L_MIN = CFE__DYNAMICS_MIN + dDA__L_MIN,
+    CFE__L_MIN = CFE__DYNAMICS_MIN + (int)dDA__L_MIN,
 
-    CFE_LX = CFE__DYNAMICS_MIN + dDA_LX,
-    CFE_LY = CFE__DYNAMICS_MIN + dDA_LY,
-    CFE_LZ = CFE__DYNAMICS_MIN + dDA_LZ,
+    CFE_LX = CFE__DYNAMICS_MIN + (int)dDA_LX,
+    CFE_LY = CFE__DYNAMICS_MIN + (int)dDA_LY,
+    CFE_LZ = CFE__DYNAMICS_MIN + (int)dDA_LZ,
 
-    CFE__L_MAX = CFE__DYNAMICS_MIN + dDA__L_MAX,
+    CFE__L_MAX = CFE__DYNAMICS_MIN + (int)dDA__L_MAX,
 
-    CFE__A_MIN = CFE__DYNAMICS_MIN + dDA__A_MIN,
+    CFE__A_MIN = CFE__DYNAMICS_MIN + (int)dDA__A_MIN,
 
-    CFE_AX = CFE__DYNAMICS_MIN + dDA_AX,
-    CFE_AY = CFE__DYNAMICS_MIN + dDA_AY,
-    CFE_AZ = CFE__DYNAMICS_MIN + dDA_AZ,
+    CFE_AX = CFE__DYNAMICS_MIN + (int)dDA_AX,
+    CFE_AY = CFE__DYNAMICS_MIN + (int)dDA_AY,
+    CFE_AZ = CFE__DYNAMICS_MIN + (int)dDA_AZ,
 
-    CFE__A_MAX = CFE__DYNAMICS_MIN + dDA__A_MAX,
+    CFE__A_MAX = CFE__DYNAMICS_MIN + (int)dDA__A_MAX,
 
-    CFE__DYNAMICS_MAX = CFE__DYNAMICS_MIN + dDA__MAX,
+    CFE__DYNAMICS_MAX = CFE__DYNAMICS_MIN + (int)dDA__MAX,
 
     CFE__MAX = CFE__DYNAMICS_MAX
 };
@@ -490,23 +490,23 @@ enum dxRHSElement
 
     RHS__DYNAMICS_MIN = RHS__MIN,
 
-    RHS__L_MIN = RHS__DYNAMICS_MIN + dDA__L_MIN,
+    RHS__L_MIN = RHS__DYNAMICS_MIN + (int)dDA__L_MIN,
 
-    RHS_LX = RHS__DYNAMICS_MIN + dDA_LX,
-    RHS_LY = RHS__DYNAMICS_MIN + dDA_LY,
-    RHS_LZ = RHS__DYNAMICS_MIN + dDA_LZ,
+    RHS_LX = RHS__DYNAMICS_MIN + (int)dDA_LX,
+    RHS_LY = RHS__DYNAMICS_MIN + (int)dDA_LY,
+    RHS_LZ = RHS__DYNAMICS_MIN + (int)dDA_LZ,
 
-    RHS__L_MAX = RHS__DYNAMICS_MIN + dDA__L_MAX,
+    RHS__L_MAX = RHS__DYNAMICS_MIN + (int)dDA__L_MAX,
 
-    RHS__A_MIN = RHS__DYNAMICS_MIN + dDA__A_MIN,
+    RHS__A_MIN = RHS__DYNAMICS_MIN + (int)dDA__A_MIN,
 
-    RHS_AX = RHS__DYNAMICS_MIN + dDA_AX,
-    RHS_AY = RHS__DYNAMICS_MIN + dDA_AY,
-    RHS_AZ = RHS__DYNAMICS_MIN + dDA_AZ,
+    RHS_AX = RHS__DYNAMICS_MIN + (int)dDA_AX,
+    RHS_AY = RHS__DYNAMICS_MIN + (int)dDA_AY,
+    RHS_AZ = RHS__DYNAMICS_MIN + (int)dDA_AZ,
 
-    RHS__A_MAX = RHS__DYNAMICS_MIN + dDA__A_MAX,
+    RHS__A_MAX = RHS__DYNAMICS_MIN + (int)dDA__A_MAX,
 
-    RHS__DYNAMICS_MAX = RHS__DYNAMICS_MIN + dDA__MAX,
+    RHS__DYNAMICS_MAX = RHS__DYNAMICS_MIN + (int)dDA__MAX,
 
     RHS__MAX = RHS__DYNAMICS_MAX
 };

@@ -79,10 +79,10 @@ enum dJointBodyRelativity
 
     dJBR__BODIES_MIN,
 
-    dJBR_BODY1 = dJBR__BODIES_MIN + dJCB_FIRST_BODY,
-    dJBR_BODY2 = dJBR__BODIES_MIN + dJCB_SECOND_BODY,
+    dJBR_BODY1 = dJBR__BODIES_MIN + (int)dJCB_FIRST_BODY,
+    dJBR_BODY2 = dJBR__BODIES_MIN + (int)dJCB_SECOND_BODY,
 
-    dJBR__BODIES_MAX = dJBR__BODIES_MIN + dJCB__MAX,
+    dJBR__BODIES_MAX = dJBR__BODIES_MIN + (int)dJCB__MAX,
 
     dJBR__MAX,
 
@@ -141,22 +141,22 @@ struct dxJoint : public dObject
     enum
     {
         GI2__J_MIN,
-        GI2__JL_MIN = GI2__J_MIN + dDA__L_MIN,
+        GI2__JL_MIN = GI2__J_MIN + (int)dDA__L_MIN,
 
-        GI2_JLX = GI2__J_MIN + dDA_LX,
-        GI2_JLY = GI2__J_MIN + dDA_LY,
-        GI2_JLZ = GI2__J_MIN + dDA_LZ,
+        GI2_JLX = GI2__J_MIN + (int)dDA_LX,
+        GI2_JLY = GI2__J_MIN + (int)dDA_LY,
+        GI2_JLZ = GI2__J_MIN + (int)dDA_LZ,
 
-        GI2__JL_MAX = GI2__J_MIN + dDA__L_MAX,
+        GI2__JL_MAX = GI2__J_MIN + (int)dDA__L_MAX,
 
-        GI2__JA_MIN = GI2__J_MIN + dDA__A_MIN,
+        GI2__JA_MIN = GI2__J_MIN + (int)dDA__A_MIN,
 
-        GI2_JAX = GI2__J_MIN + dDA_AX,
-        GI2_JAY = GI2__J_MIN + dDA_AY,
-        GI2_JAZ = GI2__J_MIN + dDA_AZ,
+        GI2_JAX = GI2__J_MIN + (int)dDA_AX,
+        GI2_JAY = GI2__J_MIN + (int)dDA_AY,
+        GI2_JAZ = GI2__J_MIN + (int)dDA_AZ,
 
-        GI2__JA_MAX = GI2__J_MIN + dDA__A_MAX,
-        GI2__J_MAX = GI2__J_MIN + dDA__MAX
+        GI2__JA_MAX = GI2__J_MIN + (int)dDA__A_MAX,
+        GI2__J_MAX = GI2__J_MIN + (int)dDA__MAX
     };
 
     enum

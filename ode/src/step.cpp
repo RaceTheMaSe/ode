@@ -84,23 +84,23 @@ enum dxJacobiVectorElement
 {
     JVE__MIN,
 
-    JVE__L_MIN = JVE__MIN + dDA__L_MIN,
+    JVE__L_MIN = JVE__MIN + (int)dDA__L_MIN,
 
-    JVE_LX = JVE__L_MIN + dSA_X,
-    JVE_LY = JVE__L_MIN + dSA_Y,
-    JVE_LZ = JVE__L_MIN + dSA_Z,
+    JVE_LX = JVE__L_MIN + (int)dSA_X,
+    JVE_LY = JVE__L_MIN + (int)dSA_Y,
+    JVE_LZ = JVE__L_MIN + (int)dSA_Z,
 
-    JVE__L_MAX = JVE__L_MIN + dSA__MAX,
+    JVE__L_MAX = JVE__L_MIN + (int)dSA__MAX,
 
-    JVE__A_MIN = JVE__MIN + dDA__A_MIN,
+    JVE__A_MIN = JVE__MIN + (int)dDA__A_MIN,
 
-    JVE_AX = JVE__A_MIN + dSA_X,
-    JVE_AY = JVE__A_MIN + dSA_Y,
-    JVE_AZ = JVE__A_MIN + dSA_Z,
+    JVE_AX = JVE__A_MIN + (int)dSA_X,
+    JVE_AY = JVE__A_MIN + (int)dSA_Y,
+    JVE_AZ = JVE__A_MIN + (int)dSA_Z,
 
-    JVE__A_MAX = JVE__A_MIN + dSA__MAX,
+    JVE__A_MAX = JVE__A_MIN + (int)dSA__MAX,
 
-    JVE__MAX = JVE__MIN + dDA__MAX,
+    JVE__MAX = JVE__MIN + (int)dDA__MAX,
 
     JVE__L_COUNT = JVE__L_MAX - JVE__L_MIN,
     JVE__A_COUNT = JVE__A_MAX - JVE__A_MIN
@@ -112,22 +112,22 @@ enum dxJacobiMatrixElement
     JME__MIN,
 
     JME__J_MIN = JME__MIN,
-    JME__JL_MIN = JME__J_MIN + JVE__L_MIN,
+    JME__JL_MIN = JME__J_MIN + (int)JVE__L_MIN,
 
-    JME_JLX = JME__J_MIN + JVE_LX,
-    JME_JLY = JME__J_MIN + JVE_LY,
-    JME_JLZ = JME__J_MIN + JVE_LZ,
+    JME_JLX = JME__J_MIN + (int)JVE_LX,
+    JME_JLY = JME__J_MIN + (int)JVE_LY,
+    JME_JLZ = JME__J_MIN + (int)JVE_LZ,
 
-    JME__JL_MAX = JME__J_MIN + JVE__L_MAX,
+    JME__JL_MAX = JME__J_MIN + (int)JVE__L_MAX,
 
-    JME__JA_MIN = JME__J_MIN + JVE__A_MIN,
+    JME__JA_MIN = JME__J_MIN + (int)JVE__A_MIN,
 
-    JME_JAX = JME__J_MIN + JVE_AX,
-    JME_JAY = JME__J_MIN + JVE_AY,
-    JME_JAZ = JME__J_MIN + JVE_AZ,
+    JME_JAX = JME__J_MIN + (int)JVE_AX,
+    JME_JAY = JME__J_MIN + (int)JVE_AY,
+    JME_JAZ = JME__J_MIN + (int)JVE_AZ,
 
-    JME__JA_MAX = JME__J_MIN + JVE__A_MAX,
-    JME__J_MAX = JME__J_MIN + JVE__MAX,
+    JME__JA_MAX = JME__J_MIN + (int)JVE__A_MAX,
+    JME__J_MAX = JME__J_MIN + (int)JVE__MAX,
 
     JME__MAX = JME__J_MAX,
 
@@ -140,31 +140,31 @@ enum dxJInvMElement
 
     JIM__L_MIN = JIM__MIN + static_cast<int>(dMD_LINEAR) * static_cast<int>(dV3E__MAX),
 
-    JIM__L_AXES_MIN = JIM__L_MIN + dV3E__AXES_MIN,
+    JIM__L_AXES_MIN = JIM__L_MIN + (int)dV3E__AXES_MIN,
 
-    JIM_LX = JIM__L_MIN + dV3E_X,
-    JIM_LY = JIM__L_MIN + dV3E_Y,
-    JIM_LZ = JIM__L_MIN + dV3E_Z,
+    JIM_LX = JIM__L_MIN + (int)dV3E_X,
+    JIM_LY = JIM__L_MIN + (int)dV3E_Y,
+    JIM_LZ = JIM__L_MIN + (int)dV3E_Z,
 
-    JIM__L_AXES_MAX = JIM__L_MIN + dV3E__AXES_MAX,
+    JIM__L_AXES_MAX = JIM__L_MIN + (int)dV3E__AXES_MAX,
 
-    JIM_LPAD = JIM__L_MIN + dV3E_PAD,
+    JIM_LPAD = JIM__L_MIN + (int)dV3E_PAD,
 
-    JIM__L_MAX = JIM__L_MIN + dV3E__MAX,
+    JIM__L_MAX = JIM__L_MIN + (int)dV3E__MAX,
 
     JIM__A_MIN = JIM__MIN + static_cast<int>(dMD_ANGULAR) * static_cast<int>(dV3E__MAX),
 
-    JIM__A_AXES_MIN = JIM__A_MIN + dV3E__AXES_MIN,
+    JIM__A_AXES_MIN = JIM__A_MIN + (int)dV3E__AXES_MIN,
 
-    JIM_AX = JIM__A_MIN + dV3E_X,
-    JIM_AY = JIM__A_MIN + dV3E_Y,
-    JIM_AZ = JIM__A_MIN + dV3E_Z,
+    JIM_AX = JIM__A_MIN + (int)dV3E_X,
+    JIM_AY = JIM__A_MIN + (int)dV3E_Y,
+    JIM_AZ = JIM__A_MIN + (int)dV3E_Z,
 
-    JIM__A_AXES_MAX = JIM__A_MIN + dV3E__AXES_MAX,
+    JIM__A_AXES_MAX = JIM__A_MIN + (int)dV3E__AXES_MAX,
 
-    JIM_APAD = JIM__A_MIN + dV3E_PAD,
+    JIM_APAD = JIM__A_MIN + (int)dV3E_PAD,
 
-    JIM__A_MAX = JIM__A_MIN + dV3E__MAX,
+    JIM__A_MAX = JIM__A_MIN + (int)dV3E__MAX,
 
     JIM__MAX = JIM__MIN + static_cast<int>(dMD__MAX) * static_cast<int>(dV3E__MAX),
 };
@@ -175,23 +175,23 @@ enum dxContactForceElement
 
     CFE__DYNAMICS_MIN = CFE__MIN,
 
-    CFE__L_MIN = CFE__DYNAMICS_MIN + dDA__L_MIN,
+    CFE__L_MIN = CFE__DYNAMICS_MIN + (int)dDA__L_MIN,
 
-    CFE_LX = CFE__DYNAMICS_MIN + dDA_LX,
-    CFE_LY = CFE__DYNAMICS_MIN + dDA_LY,
-    CFE_LZ = CFE__DYNAMICS_MIN + dDA_LZ,
+    CFE_LX = CFE__DYNAMICS_MIN + (int)dDA_LX,
+    CFE_LY = CFE__DYNAMICS_MIN + (int)dDA_LY,
+    CFE_LZ = CFE__DYNAMICS_MIN + (int)dDA_LZ,
 
-    CFE__L_MAX = CFE__DYNAMICS_MIN + dDA__L_MAX,
+    CFE__L_MAX = CFE__DYNAMICS_MIN + (int)dDA__L_MAX,
 
-    CFE__A_MIN = CFE__DYNAMICS_MIN + dDA__A_MIN,
+    CFE__A_MIN = CFE__DYNAMICS_MIN + (int)dDA__A_MIN,
 
-    CFE_AX = CFE__DYNAMICS_MIN + dDA_AX,
-    CFE_AY = CFE__DYNAMICS_MIN + dDA_AY,
-    CFE_AZ = CFE__DYNAMICS_MIN + dDA_AZ,
+    CFE_AX = CFE__DYNAMICS_MIN + (int)dDA_AX,
+    CFE_AY = CFE__DYNAMICS_MIN + (int)dDA_AY,
+    CFE_AZ = CFE__DYNAMICS_MIN + (int)dDA_AZ,
 
-    CFE__A_MAX = CFE__DYNAMICS_MIN + dDA__A_MAX,
+    CFE__A_MAX = CFE__DYNAMICS_MIN + (int)dDA__A_MAX,
 
-    CFE__DYNAMICS_MAX = CFE__DYNAMICS_MIN + dDA__MAX,
+    CFE__DYNAMICS_MAX = CFE__DYNAMICS_MIN + (int)dDA__MAX,
 
     CFE__MAX = CFE__DYNAMICS_MAX
 };
