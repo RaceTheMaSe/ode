@@ -79,9 +79,9 @@
 #define dSASSERT(e)  static_assert(e, #e)
 #define dSMSGASSERT(e, message)  static_assert(e, message)
 #else
-#define d_SASSERT_INNER_TOKENPASTE(x, y) x ## y
-#define d_SASSERT_TOKENPASTE(x, y) d_SASSERT_INNER_TOKENPASTE(x, y)
-#define dSASSERT(e) typedef char dUNUSED(d_SASSERT_TOKENPASTE(d_StaticAssertionFailed_, __LINE__)[(e)?1:-1])
+#define d_SASSERT_INNER_TOKENPASTE(x, y, z) x ## y ## z
+#define d_SASSERT_TOKENPASTE(x, y, z) d_SASSERT_INNER_TOKENPASTE(x, y, z)
+#define dSASSERT(e) typedef char dUNUSED(d_SASSERT_TOKENPASTE(d_StaticAssertionFailed_, __LINE__, __COUNTER__)[(e)?1:-1])
 #define dSMSGASSERT(e, message)  dSASSERT(e)
 #endif
 
