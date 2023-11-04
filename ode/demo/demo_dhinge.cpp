@@ -31,14 +31,14 @@
 #endif
 
 
-dWorldID world;
-dSpaceID space;
-dBodyID body1;
-dBodyID body2;
-dJointID joint1, joint2;
-bool applyForce = false;
+static dWorldID world;
+static dSpaceID space;
+static dBodyID body1;
+static dBodyID body2;
+static dJointID joint1, joint2;
+static bool applyForce = false;
 
-void start()
+static void start()
 {
     world = dWorldCreate();
     dWorldSetGravity (world,0,0,-9.8);
@@ -98,7 +98,7 @@ void start()
     dsSetViewpoint (xyz,hpr);
 }
 
-void stop()
+static void stop()
 {
     dSpaceDestroy(space);
 
@@ -106,7 +106,7 @@ void stop()
 }
 
 
-void drawGeom(dGeomID g)
+static void drawGeom(dGeomID g)
 {
     int gclass = dGeomGetClass(g);
     const dReal *pos = dGeomGetPosition(g);
@@ -132,7 +132,7 @@ void drawGeom(dGeomID g)
 }
 
 
-void simLoop(int pause)
+static void simLoop(int pause)
 {
     if (!pause) {
 

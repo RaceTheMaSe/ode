@@ -72,7 +72,7 @@
 } do {} while(0)
 
 //! TO BE DOCUMENTED
-BOOL CoplanarTriTri(const Point& n, const Point& v0, const Point& v1, const Point& v2, const Point& u0, const Point& u1, const Point& u2)
+static BOOL CoplanarTriTri(const Point& n, const Point& v0, const Point& v1, const Point& v2, const Point& u0, const Point& u1, const Point& u2)
 {
 	float A[3];
 	short i0,i1;

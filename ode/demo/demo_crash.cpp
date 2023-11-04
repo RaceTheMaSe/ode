@@ -170,7 +170,7 @@ static void start()
 }
 
 
-void makeCar(dReal x, dReal y, int &bodyI, int &jointI, int &boxI, int &sphereI)
+static void makeCar(dReal x, dReal y, int &bodyI, int &jointI, int &boxI, int &sphereI)
 {
 	int i;
 	dMass mass;

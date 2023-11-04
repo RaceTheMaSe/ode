@@ -68,13 +68,13 @@ struct TestSlot {
     test_function_t *test_fn;
     int last_failed_line;
 };
-TestSlot testslot[MAX_TESTS];
+static TestSlot testslot[MAX_TESTS];
 
 
 // globals used by the test functions
-int graphical_test = 0;		// show graphical results of this test, 0=none
-int current_test;		// currently execiting test
-int draw_all_objects_called;
+static int graphical_test = 0;		// show graphical results of this test, 0=none
+static int current_test;		// currently execiting test
+static int draw_all_objects_called;
 
 
 #define MAKE_TEST(number,function) \
@@ -96,7 +96,7 @@ int draw_all_objects_called;
          dVector3 normal, dReal *depth, int *code,
          int maxc, dContactGeom *contact, int skip); */
 
-void dLineClosestApproach(const dVector3 pa, const dVector3 ua,
+static void dLineClosestApproach(const dVector3 pa, const dVector3 ua,
     const dVector3 pb, const dVector3 ub,
     dReal *alpha, dReal *beta);
 
@@ -1325,7 +1325,7 @@ int test_dBoxBox()
 //****************************************************************************
 // graphics
 
-int space_pressed = 0;
+static int space_pressed = 0;
 
 
 // start simulation - set viewpoint

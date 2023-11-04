@@ -1228,7 +1228,7 @@ pp. 199-202 */
     }                                         \
 } do {} while(0)
 
-int coplanar_tri_tri(dReal N[3],dReal V0[3],dReal V1[3],dReal V2[3],
+static int coplanar_tri_tri(dReal N[3],dReal V0[3],dReal V1[3],dReal V2[3],
                      dReal U0[3],dReal U1[3],dReal U2[3])
 {
     dReal A[3];

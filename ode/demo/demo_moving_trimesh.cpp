@@ -76,7 +76,7 @@ static const unsigned int polygons[] = //Polygons for a cube (6 squares)
   };
 //----> Convex Object
 
-int tmTriangles[] = 
+static int tmTriangles[] = 
 {
     0,2,6,
     0,6,4,
@@ -92,7 +92,7 @@ int tmTriangles[] =
     5,6,7
 };
 
-float tmVertices[] = 
+static float tmVertices[] = 
 {
     0.25f,0.25f,0.25f,  //  point 0
     -0.25f,0.25f,0.25f, //  point 1
@@ -152,8 +152,8 @@ static int random_pos = 1;	// drop objects from random position?
 
 typedef dReal dVector3R[3];
 
-dGeomID TriMesh1;
-dGeomID TriMesh2;
+static dGeomID TriMesh1;
+static dGeomID TriMesh2;
 static dTriMeshDataID TriData1, TriData2;  // reusable static trimesh data
 
 // this is called by dSpaceCollide when two objects in space are
@@ -218,7 +218,7 @@ static void start()
 }
 
 
-char locase (char c)
+static char locase (char c)
 {
   if (c >= 'A' && c <= 'Z') return c - ('a'-'A');
   else return c;
@@ -407,7 +407,7 @@ static void command (int cmd)
 
 // draw a geom
 
-void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
+static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
   if (!g) return;
   if (!pos) pos = dGeomGetPosition (g);
@@ -457,7 +457,7 @@ void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 
 
 // set previous transformation matrix for trimesh
-void setCurrentTransform(dGeomID geom)
+static void setCurrentTransform(dGeomID geom)
 {
  const dReal* Pos = dGeomGetPosition(geom);
  const dReal* Rot = dGeomGetRotation(geom);

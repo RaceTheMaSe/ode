@@ -1,6 +1,6 @@
-unsigned int prism_pointcount = 8;
-unsigned int prism_planecount = 6;
-dReal prism_points[24]={
+static unsigned int prism_pointcount = 8;
+static unsigned int prism_planecount = 6;
+static dReal prism_points[24]={
  10.0, 1.0,-1.0,
  10.0,-1.0,-1.0,
 -10.0,-1.0,-1.0,
@@ -10,7 +10,7 @@ dReal prism_points[24]={
 -10.0,-1.0, 1.0,
 -10.0, 1.0, 1.0
 };
-unsigned int prism_polygons[]={
+static unsigned int prism_polygons[]={
 4,0,1,2,3,
 4,4,7,6,5,
 4,0,4,5,1,
@@ -18,7 +18,7 @@ unsigned int prism_polygons[]={
 4,2,6,7,3,
 4,4,0,3,7,
 };
-dReal prism_planes[]={
+static dReal prism_planes[]={
 0.0,0.0,-1.0,1.0,
 0.0,0.0,1.0,1.0,
 1.0,0.0,0.0,10.0,

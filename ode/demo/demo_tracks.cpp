@@ -79,18 +79,18 @@ const dReal track_incl = 10 * M_PI/180.;
 
 
 
-dWorldID world;
-dSpaceID space;
-dJointGroupID contact_group;
-dGeomID ground;
-dGeomID ball1_geom, ball2_geom;
-dTriMeshDataID mesh_data;
-dGeomID mesh_geom;
+static dWorldID world;
+static dSpaceID space;
+static dJointGroupID contact_group;
+static dGeomID ground;
+static dGeomID ball1_geom, ball2_geom;
+static dTriMeshDataID mesh_data;
+static dGeomID mesh_geom;
 
-dBodyID ball1_body, ball2_body;
+static dBodyID ball1_body, ball2_body;
 
 const unsigned n_box_verts = 8;
-dVector3 box_verts[n_box_verts] = {
+static dVector3 box_verts[n_box_verts] = {
     {-track_len/2, -track_width/2,  track_height/2}, // 0
     { track_len/2, -track_width/2,  track_height/2}, // 1
     { track_len/2,  track_width/2,  track_height/2}, // 2
@@ -102,7 +102,7 @@ dVector3 box_verts[n_box_verts] = {
 };
 
 const unsigned n_box_faces = 12;
-dTriIndex box_faces[n_box_faces * 3] = {
+static dTriIndex box_faces[n_box_faces * 3] = {
     0, 1, 2,
     0, 2, 3,
     1, 4, 7,
@@ -121,12 +121,12 @@ dTriIndex box_faces[n_box_faces * 3] = {
 const unsigned n_track_verts = n_box_verts * 2;
 const unsigned n_track_faces = n_box_faces * 2;
 
-dVector3 track_verts[n_track_verts];
-dTriIndex track_faces[n_track_faces * 3];
+static dVector3 track_verts[n_track_verts];
+static dTriIndex track_faces[n_track_faces * 3];
 
 
 
-void resetBall(dBodyID b, unsigned idx)
+static void resetBall(dBodyID b, unsigned idx)
 {
     dBodySetPosition(b,
                      0.5*track_len*cos(track_incl) // Z
@@ -146,14 +146,14 @@ void resetBall(dBodyID b, unsigned idx)
 }
 
 
-void resetSim()
+static void resetSim()
 {
     resetBall(ball1_body, 0);
     resetBall(ball2_body, 1);
 }
 
 
-void start()
+static void start()
 {
     dAllocateODEDataForThread(dAllocateMaskAll);
 
@@ -259,7 +259,7 @@ void start()
 }
 
 
-void nearCallback(void *, dGeomID a, dGeomID b)
+static void nearCallback(void *, dGeomID a, dGeomID b)
 {
     const unsigned max_contacts = 8;
     dContact contacts[max_contacts];
@@ -366,7 +366,7 @@ void nearCallback(void *, dGeomID a, dGeomID b)
 
 
 
-void stop()
+static void stop()
 {
     dGeomDestroy(mesh_geom);
     dGeomTriMeshDataDestroy(mesh_data);
@@ -396,7 +396,7 @@ static void command (int cmd)
 }
 
 
-void drawGeom(dGeomID g)
+static void drawGeom(dGeomID g)
 {
     int gclass = dGeomGetClass(g);
     const dReal *pos = dGeomGetPosition(g);
@@ -445,7 +445,7 @@ void drawGeom(dGeomID g)
 
 
 
-void simLoop (int pause)
+static void simLoop (int pause)
 {
     if (!pause) {
 

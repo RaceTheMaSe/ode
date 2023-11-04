@@ -98,7 +98,7 @@ email: projectileman@yahoo.com
 
 
 
-int _gim_triangle_triangle_collision(
+static int _gim_triangle_triangle_collision(
 							GIM_TRIANGLE_DATA *tri1,
 							GIM_TRIANGLE_DATA *tri2,
 							GIM_TRIANGLE_CONTACT_DATA * contact_data)

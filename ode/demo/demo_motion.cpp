@@ -73,14 +73,14 @@ static int show_body = 0;
 
 static dGeomID platform, ground;
 
-dVector3 platpos = {0, 0, 0};
-int mov_type = 2;
-dReal mov_time = 0;
+static dVector3 platpos = {0, 0, 0};
+static int mov_type = 2;
+static dReal mov_time = 0;
 
 
-const dReal mov1_speed = 0.2;
+static const dReal mov1_speed = 0.2;
 
-dVector3 mov2_vel = { 0.2, 0.1, 0.25};
+static dVector3 mov2_vel = { 0.2, 0.1, 0.25};
 
 
 
@@ -234,7 +234,7 @@ static void start()
 }
 
 
-char locase (char c)
+static char locase (char c)
 {
     if (c >= 'A' && c <= 'Z') return c - ('a'-'A');
     else return c;
@@ -352,7 +352,7 @@ static void command (int cmd)
 
 // draw a geom
 
-void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
+static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
     int i;
 	

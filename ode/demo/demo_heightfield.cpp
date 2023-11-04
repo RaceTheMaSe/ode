@@ -32,10 +32,10 @@
 
 #define	DEGTORAD			0.01745329251994329577f				//!< PI / 180.0, convert degrees to radians
 
-int g_allow_trimesh;
+static int g_allow_trimesh;
 
 // Our heightfield geom
-dGeomID gheight;
+static dGeomID gheight;
 
 
 
@@ -53,7 +53,7 @@ dGeomID gheight;
 
 
 ///<---- Convex Object
-dReal planes[]= // planes for a cube
+static dReal planes[]= // planes for a cube
   {
     1.0f ,0.0f ,0.0f ,0.25f,
     0.0f ,1.0f ,0.0f ,0.25f,
@@ -70,9 +70,9 @@ dReal planes[]= // planes for a cube
     -1.0f,0.0f ,0.0f ,0.0f
     */
   };
-const unsigned int planecount=6;
+static const unsigned int planecount=6;
 
-dReal points[]= // points for a cube
+static dReal points[]= // points for a cube
   {
     0.25f,0.25f,0.25f,  //  point 0
     -0.25f,0.25f,0.25f, //  point 1
@@ -86,8 +86,8 @@ dReal points[]= // points for a cube
     0.25f,-0.25f,-0.25f,//  point 6
     -0.25f,-0.25f,-0.25f,// point 7
   };
-const unsigned int pointcount=8;
-unsigned int polygons[] = //Polygons for a cube (6 squares)
+static const unsigned int pointcount=8;
+static unsigned int polygons[] = //Polygons for a cube (6 squares)
   {
     4,0,2,6,4, // positive X
     4,1,0,4,5, // positive Y
@@ -146,14 +146,14 @@ static int write_world = 0;
 
 //============================
 
-dGeomID TriMesh1;
-dGeomID TriMesh2;
+// static dGeomID TriMesh1;
+// static dGeomID TriMesh2;
 //static dTriMeshDataID TriData1, TriData2;  // reusable static trimesh data
 
 //============================
 
 
-dReal heightfield_callback( void*, int x, int z )
+static dReal heightfield_callback( void*, int x, int z )
 {
     dReal fx = ( ((dReal)x) - ( HFIELD_WSTEP-1 )/2 ) / (dReal)( HFIELD_WSTEP-1 );
     dReal fz = ( ((dReal)z) - ( HFIELD_DSTEP-1 )/2 ) / (dReal)( HFIELD_DSTEP-1 );
@@ -235,7 +235,7 @@ static void start()
 }
 
 
-char locase(char c)
+static char locase(char c)
 {
   if (c >= 'A' && c <= 'Z') return c - ('a'-'A');
   else return c;
@@ -457,7 +457,7 @@ static void command(int cmd)
 
 // draw a geom
 
-void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
+static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
     if (!g)
         return;

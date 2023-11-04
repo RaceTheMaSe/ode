@@ -73,7 +73,7 @@ const float BODY_POSITIONS[][2] = {
     { 60.0f,  30.0f}
 };
 
-const float *HULLS[] = { HULL1, HULL2, HULL3, HULL4, HULL5, HULL6 };
+static const float *HULLS[] = { HULL1, HULL2, HULL3, HULL4, HULL5, HULL6 };
 const int HULL_SIZES[] = {
     sizeof(HULL1) / sizeof(float) / 2,
     sizeof(HULL2) / sizeof(float) / 2,
@@ -82,7 +82,7 @@ const int HULL_SIZES[] = {
     sizeof(HULL5) / sizeof(float) / 2,
     sizeof(HULL6) / sizeof(float) / 2
 };
-const float *CENTERS[] = { CENTER1, CENTER2, CENTER3, CENTER4, CENTER5, CENTER6 };
+static const float *CENTERS[] = { CENTER1, CENTER2, CENTER3, CENTER4, CENTER5, CENTER6 };
 const int HULLS_COUNT = sizeof(HULLS) / sizeof(float *);
 
 const float TRIMESH_HEIGHT = 2.0f;

@@ -64,7 +64,7 @@ static dJointID joint[NUMJ];
 
 // create the test system
 
-void createTest()
+static void createTest()
 {
   int i,j;
   if (world) dWorldDestroy (world);

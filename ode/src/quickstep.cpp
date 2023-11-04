@@ -144,7 +144,7 @@ struct IndexError;
 #define dxQUICKSTEPISLAND_STAGE6B_STEP  dMAX((PER_THREAD_PROCESSING_BLOCK_SIZE / (1 * sizeof(void *))), 1U)
 
 template<unsigned int step_size>
-inline unsigned int CalculateOptimalThreadsCount(unsigned int complexity, unsigned int max_threads)
+static inline unsigned int CalculateOptimalThreadsCount(unsigned int complexity, unsigned int max_threads)
 {
     unsigned int raw_threads = dMAX(complexity, step_size) / step_size; // Round down on division 
     unsigned int optimum = dMIN(raw_threads, max_threads);
@@ -866,7 +866,7 @@ static void dxQuickStepIsland_Stage6b(dxQuickStepperStage6CallContext *stage6Cal
 // compute iMJ = inv(M)*J'
 
 template<unsigned int step_size>
-void compute_invM_JT (volatile atomicord32 *mi_storage, dReal *iMJ, 
+static void compute_invM_JT (volatile atomicord32 *mi_storage, dReal *iMJ, 
     unsigned int m, const dReal *J, const dxJBodiesItem *jb,
     dxBody * const *body, const dReal *invI, bool dynamicIterationCountAdjustmentEnabled)
 {
@@ -1030,7 +1030,7 @@ void _multiply_invM_JT (dReal *out,
 
 // compute out = J*in.
 template<unsigned int step_size, unsigned int in_offset, unsigned int in_stride>
-void multiplyAdd_J (volatile atomicord32 *mi_storage, 
+static void multiplyAdd_J (volatile atomicord32 *mi_storage, 
     unsigned int m, dReal *J, const dxJBodiesItem *jb, const dReal *in)
 {
     unsigned int m_steps = (m + (step_size - 1)) / step_size;

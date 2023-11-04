@@ -46,6 +46,12 @@
 #define dMAX(x, y) ((x) > (y) ? (x) : (y))
 
 //****************************************************************************
+// function prototypes
+void addObjectToList (dObject *obj, dObject **first);
+static void dWorldCheck (dxWorld *w);
+extern "C" void dTestDataStructures();
+
+//****************************************************************************
 // utility
 
 
@@ -216,7 +222,7 @@ static void checkWorld (dxWorld *w)
 }
 
 
-void dWorldCheck (dxWorld *w)
+static void dWorldCheck (dxWorld *w)
 {
     checkWorld (w);
 }
@@ -1156,7 +1162,7 @@ void dBodySetGyroscopicMode(dBodyID b, int enabled)
 
 
 template<class T>
-dxJoint* createJoint(dWorldID w, dJointGroupID group)
+static dxJoint* createJoint(dWorldID w, dJointGroupID group)
 {
     dxJoint *j;
     if (group) {

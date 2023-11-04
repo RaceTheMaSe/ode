@@ -121,7 +121,7 @@ do {} while(0)
   }                                         \
 } do {} while(0)
 
-int coplanar_tri_tri(GIM_TRIANGLE_DATA *tri1,
+static int coplanar_tri_tri(GIM_TRIANGLE_DATA *tri1,
                     GIM_TRIANGLE_DATA *tri2)
 {
    short i0,i1;

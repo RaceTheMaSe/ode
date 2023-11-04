@@ -51,7 +51,7 @@ dReal planes[]= // planes for a cube, these should coincide with the face array
   };
 // const unsigned int planecount=6;
 
-dReal points[]= // points for a cube
+static dReal points[]= // points for a cube
   {
     0.25f,0.25f,0.25f,  //  point 0
     -0.25f,0.25f,0.25f, //  point 1
@@ -66,7 +66,7 @@ dReal points[]= // points for a cube
     -0.25f,-0.25f,-0.25f,// point 7 
   };
 // const unsigned int pointcount=8;
-unsigned int polygons[] = //Polygons for a cube (6 squares)
+static unsigned int polygons[] = //Polygons for a cube (6 squares)
   {
     4,0,2,6,4, // positive X
     4,1,0,4,5, // positive Y
@@ -421,7 +421,7 @@ static void command(int cmd)
 
 // draw a geom
 
-void drawGeom(dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
+static void drawGeom(dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
     int i;
 	

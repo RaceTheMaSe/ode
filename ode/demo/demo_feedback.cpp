@@ -121,7 +121,7 @@ static void command (int)
 {}
 
 
-void drawGeom (dGeomID g)
+static void drawGeom (dGeomID g)
 {
   const dReal *pos = dGeomGetPosition(g);
   const dReal *R   = dGeomGetRotation(g);

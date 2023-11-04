@@ -481,6 +481,7 @@ void IndexedTriangle::ComputePoint(const Point* verts, float u, float v, Point& 
 	// u  ^ v  = w
 	// |w| = |u||v| |sin(u,v)|
 	//**************************************
+	float Angle(const Point& u, const Point& v); // silence "no previous declaration" warning
 	float Angle(const Point& u, const Point& v)
 	{
 		float NormU = u.Magnitude();	// |u|

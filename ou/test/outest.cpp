@@ -65,7 +65,7 @@ using namespace _OU_NAMESPACE;
 typedef bool (*CFeatureTestProcedure)();
 
 
-bool TestSubsystem(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount,
+static bool TestSubsystem(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount,
 	const unsigned int uiFeatureMax, const char *const *aszFeatureNames, CFeatureTestProcedure const *afnFeatureTests)
 {
 	unsigned int nSuccessCount = 0;
@@ -96,8 +96,8 @@ bool TestSubsystem(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount,
 
 #if _OU_FEATURE_SET >= _OU_FEATURE_SET_TLS
 
-bool g_bTestTLSAPIInitialized = false;
-HTLSKEY g_htkTestTLSKey;
+static bool g_bTestTLSAPIInitialized = false;
+static HTLSKEY g_htkTestTLSKey;
 
 enum ETESTTLSVALUES
 {
@@ -107,10 +107,10 @@ enum ETESTTLSVALUES
 	TTV__MAX
 };
 
-unsigned int g_uiTestTLSDestructorCallCount = 0;
-unsigned int g_uiTestTLSDestructorSuccessCount = 0;
+static unsigned int g_uiTestTLSDestructorCallCount = 0;
+static unsigned int g_uiTestTLSDestructorSuccessCount = 0;
 
-void _OU_CONVENTION_CALLBACK TestTlsSecondValueDestructor(void *pv_Value)
+static void _OU_CONVENTION_CALLBACK TestTlsSecondValueDestructor(void *pv_Value)
 {
 	g_uiTestTLSDestructorCallCount += 1;
 
@@ -121,7 +121,7 @@ void _OU_CONVENTION_CALLBACK TestTlsSecondValueDestructor(void *pv_Value)
 }
 
 
-bool TestTls_Initialization()
+static bool TestTls_Initialization()
 {
 	bool bResult = false;
 	
@@ -148,7 +148,7 @@ bool TestTls_Initialization()
 	return bResult;
 }
 
-bool TestTls_GetSetValue()
+static bool TestTls_GetSetValue()
 {
 	bool bResult = false;
 	
@@ -221,7 +221,7 @@ bool TestTls_GetSetValue()
 	return bResult;
 }
 
-bool TestTls_UnsafeGetSetValue()
+static bool TestTls_UnsafeGetSetValue()
 {
 	bool bResult = false;
 	
@@ -288,7 +288,7 @@ bool TestTls_UnsafeGetSetValue()
 	return bResult;
 }
 
-bool TestTls_CleanupDestructor()
+static bool TestTls_CleanupDestructor()
 {
 	bool bResult = false;
 	
@@ -355,7 +355,7 @@ bool TestTls_CleanupDestructor()
 	return bResult;
 }
 
-bool TestTls_Finalization()
+static bool TestTls_Finalization()
 {
 	OU_ASSERT(g_bTestTLSAPIInitialized);
 
@@ -416,7 +416,7 @@ const char *const CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, const char 
 static const CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, const char *> g_aszTlsFeatureTestNames;
 
 
-bool TestTLS(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestTLS(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	bool bResult = TestSubsystem(nOutSuccessCount, nOutTestCount, OHF__MAX, g_aszTlsFeatureTestNames.GetStoragePointer(), g_afnTlsFeatureTestProcedures.GetStoragePointer());
 
@@ -436,7 +436,7 @@ bool TestTLS(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 
 #if _OU_FEATURE_SET >= _OU_FEATURE_SET_ATOMICS
 
-bool TestAtomic_Increment()
+static bool TestAtomic_Increment()
 {
 	bool bResult = false;
 	
@@ -464,7 +464,7 @@ bool TestAtomic_Increment()
 	return bResult;
 }
 
-bool TestAtomic_Decrement()
+static bool TestAtomic_Decrement()
 {
 	bool bResult = false;
 	
@@ -492,7 +492,7 @@ bool TestAtomic_Decrement()
 	return bResult;
 }
 
-bool TestAtomic_IncrementNoResult()
+static bool TestAtomic_IncrementNoResult()
 {
 	bool bResult = false;
 	
@@ -521,7 +521,7 @@ bool TestAtomic_IncrementNoResult()
 	return bResult;
 }
 
-bool TestAtomic_DecrementNoResult()
+static bool TestAtomic_DecrementNoResult()
 {
 	bool bResult = false;
 	
@@ -550,7 +550,7 @@ bool TestAtomic_DecrementNoResult()
 	return bResult;
 }
 
-bool TestAtomic_Exchange()
+static bool TestAtomic_Exchange()
 {
 	bool bResult = false;
 	
@@ -586,7 +586,7 @@ bool TestAtomic_Exchange()
 
 }
 
-bool TestAtomic_ExchangeAdd()
+static bool TestAtomic_ExchangeAdd()
 {
 	bool bResult = false;
 	
@@ -616,7 +616,7 @@ bool TestAtomic_ExchangeAdd()
 	return bResult;
 }
 
-bool TestAtomic_ExchangeAddNoResult()
+static bool TestAtomic_ExchangeAddNoResult()
 {
 	bool bResult = false;
 	
@@ -652,7 +652,7 @@ bool TestAtomic_ExchangeAddNoResult()
 	return bResult;
 }
 
-bool TestAtomic_CompareExchange()
+static bool TestAtomic_CompareExchange()
 {
 	bool bResult = false;
 	
@@ -694,7 +694,7 @@ bool TestAtomic_CompareExchange()
 
 const atomicord32 g_aoBitmask = (atomicord32)(OU_INT32_MIN + 1);
 
-bool TestAtomic_And()
+static bool TestAtomic_And()
 {
 	bool bResult = false;
 	
@@ -719,7 +719,7 @@ bool TestAtomic_And()
 	return bResult;
 }
 
-bool TestAtomic_Or()
+static bool TestAtomic_Or()
 {
 	bool bResult = false;
 	
@@ -744,7 +744,7 @@ bool TestAtomic_Or()
 	return bResult;
 }
 
-bool TestAtomic_Xor()
+static bool TestAtomic_Xor()
 {
 	bool bResult = false;
 	
@@ -769,7 +769,7 @@ bool TestAtomic_Xor()
 	return bResult;
 }
 
-bool TestAtomic_AndNoResult()
+static bool TestAtomic_AndNoResult()
 {
 	bool bResult = false;
 	
@@ -798,7 +798,7 @@ bool TestAtomic_AndNoResult()
 	return bResult;
 }
 
-bool TestAtomic_OrNoResult()
+static bool TestAtomic_OrNoResult()
 {
 	bool bResult = false;
 	
@@ -827,7 +827,7 @@ bool TestAtomic_OrNoResult()
 	return bResult;
 }
 
-bool TestAtomic_XorNoResult()
+static bool TestAtomic_XorNoResult()
 {
 	bool bResult = false;
 	
@@ -856,7 +856,7 @@ bool TestAtomic_XorNoResult()
 	return bResult;
 }
 
-bool TestAtomic_ExchangePointer()
+static bool TestAtomic_ExchangePointer()
 {
 	bool bResult = false;
 	
@@ -886,7 +886,7 @@ bool TestAtomic_ExchangePointer()
 	return bResult;
 }
 
-bool TestAtomic_CompareExchangePointer()
+static bool TestAtomic_CompareExchangePointer()
 {
 	bool bResult = false;
 	
@@ -1001,7 +1001,7 @@ const char *const CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX, const ch
 static const CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX, const char *> g_aszAtomicFeatureTestNames;
 
 
-bool TestAtomic(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestAtomic(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	bool bResult = false;
 	nOutSuccessCount = 0;
@@ -1049,7 +1049,7 @@ const atomicord32 g_aoTestBit32 = (atomicord32)OU_INT32_MIN;
 const atomicord32 g_aoTestAnotherBit32 = (atomicord32)((uint32ou)OU_INT32_MIN >> 1);
 
 
-bool TestAtomicFlags_Constructors()
+static bool TestAtomicFlags_Constructors()
 {
 	bool bResult = false;
 	
@@ -1088,7 +1088,7 @@ bool TestAtomicFlags_Constructors()
 	return bResult;
 }
 
-bool TestAtomicFlags_AssignFlagsAllValues()
+static bool TestAtomicFlags_AssignFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -1117,7 +1117,7 @@ bool TestAtomicFlags_AssignFlagsAllValues()
 	return bResult;
 }
 
-bool TestAtomicFlags_QueryFlagsAllValues()
+static bool TestAtomicFlags_QueryFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -1143,7 +1143,7 @@ bool TestAtomicFlags_QueryFlagsAllValues()
 	return bResult;
 }
 
-bool TestAtomicFlags_SetFlagsMaskValue()
+static bool TestAtomicFlags_SetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -1173,7 +1173,7 @@ bool TestAtomicFlags_SetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_SignalFlagsMaskValue()
+static bool TestAtomicFlags_SignalFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -1195,7 +1195,7 @@ bool TestAtomicFlags_SignalFlagsMaskValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_DropFlagsMaskValue()
+static bool TestAtomicFlags_DropFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -1217,7 +1217,7 @@ bool TestAtomicFlags_DropFlagsMaskValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_ToggleSingleFlagValue()
+static bool TestAtomicFlags_ToggleSingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -1246,7 +1246,7 @@ bool TestAtomicFlags_ToggleSingleFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_ModifySingleFlagValue()
+static bool TestAtomicFlags_ModifySingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -1282,7 +1282,7 @@ bool TestAtomicFlags_ModifySingleFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_AssignFlagsByMask()
+static bool TestAtomicFlags_AssignFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -1326,7 +1326,7 @@ bool TestAtomicFlags_AssignFlagsByMask()
 	return bResult;
 }
 
-bool TestAtomicFlags_AlterFlagsByMask()
+static bool TestAtomicFlags_AlterFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -1377,7 +1377,7 @@ bool TestAtomicFlags_AlterFlagsByMask()
 	return bResult;
 }
 
-bool TestAtomicFlags_GetFlagsMaskValue()
+static bool TestAtomicFlags_GetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -1407,7 +1407,7 @@ bool TestAtomicFlags_GetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_QueryFlagsByMask()
+static bool TestAtomicFlags_QueryFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -1437,7 +1437,7 @@ bool TestAtomicFlags_QueryFlagsByMask()
 	return bResult;
 }
 
-bool TestAtomicFlags_OnlySignalSingleFlagOutOfMask()
+static bool TestAtomicFlags_OnlySignalSingleFlagOutOfMask()
 {
 	bool bResult = false;
 	
@@ -1495,7 +1495,7 @@ bool TestAtomicFlags_OnlySignalSingleFlagOutOfMask()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumSetEnumeratedFlagValue()
+static bool TestAtomicFlags_EnumSetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -1538,7 +1538,7 @@ bool TestAtomicFlags_EnumSetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumSignalEnumeratedFlagValue()
+static bool TestAtomicFlags_EnumSignalEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -1581,7 +1581,7 @@ bool TestAtomicFlags_EnumSignalEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumDropEnumeratedFlagValue()
+static bool TestAtomicFlags_EnumDropEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -1624,7 +1624,7 @@ bool TestAtomicFlags_EnumDropEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumToggleEnumeratedFlagValue()
+static bool TestAtomicFlags_EnumToggleEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -1667,7 +1667,7 @@ bool TestAtomicFlags_EnumToggleEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumModifyEnumeratedFlagValue()
+static bool TestAtomicFlags_EnumModifyEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -1724,7 +1724,7 @@ bool TestAtomicFlags_EnumModifyEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumSignalFirstEnumeratedFlagValue()
+static bool TestAtomicFlags_EnumSignalFirstEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -1767,7 +1767,7 @@ bool TestAtomicFlags_EnumSignalFirstEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumSignalLastEnumeratedFlagValue()
+static bool TestAtomicFlags_EnumSignalLastEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -1810,7 +1810,7 @@ bool TestAtomicFlags_EnumSignalLastEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumGetEnumeratedFlagValue()
+static bool TestAtomicFlags_EnumGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -1845,7 +1845,7 @@ bool TestAtomicFlags_EnumGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumFindFirstEnumeratedFlag()
+static bool TestAtomicFlags_EnumFindFirstEnumeratedFlag()
 {
 	bool bResult = false;
 	
@@ -1872,7 +1872,7 @@ bool TestAtomicFlags_EnumFindFirstEnumeratedFlag()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumAllSignalEnumeratedFlags()
+static bool TestAtomicFlags_EnumAllSignalEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -1901,7 +1901,7 @@ bool TestAtomicFlags_EnumAllSignalEnumeratedFlags()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumAllDropEnumeratedFlags()
+static bool TestAtomicFlags_EnumAllDropEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -1930,7 +1930,7 @@ bool TestAtomicFlags_EnumAllDropEnumeratedFlags()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumAllQueryEnumeratedFlags()
+static bool TestAtomicFlags_EnumAllQueryEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -1963,7 +1963,7 @@ bool TestAtomicFlags_EnumAllQueryEnumeratedFlags()
 	return bResult;
 }
 
-bool TestAtomicFlags_EnumAnyGetEnumeratedFlagValue()
+static bool TestAtomicFlags_EnumAnyGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -1996,7 +1996,7 @@ bool TestAtomicFlags_EnumAnyGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_StoreFlagsEnumeratedValue()
+static bool TestAtomicFlags_StoreFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -2025,7 +2025,7 @@ bool TestAtomicFlags_StoreFlagsEnumeratedValue()
 	return bResult;
 }
 
-bool TestAtomicFlags_RetrieveFlagsEnumeratedValue()
+static bool TestAtomicFlags_RetrieveFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -2158,7 +2158,7 @@ const char *const CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF__MAX, con
 static const CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF__MAX, const char *> g_aszAtomicFlagsFeatureTestNames;
 
 
-bool TestAtomicFlags(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestAtomicFlags(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	bool bResult = false;
 	nOutSuccessCount = 0;
@@ -2206,7 +2206,7 @@ const uint64ou g_uiTestBit64 = (uint64ou)OU_INT64_MIN;
 const uint64ou g_uiTestAnotherBit64 = (uint64ou)((uint64ou)OU_INT64_MIN >> 1);
 
 
-bool TestSimpleFlags64_Constructors()
+static bool TestSimpleFlags64_Constructors()
 {
 	bool bResult = false;
 	
@@ -2245,7 +2245,7 @@ bool TestSimpleFlags64_Constructors()
 	return bResult;
 }
 
-bool TestSimpleFlags64_AssignFlagsAllValues()
+static bool TestSimpleFlags64_AssignFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -2274,7 +2274,7 @@ bool TestSimpleFlags64_AssignFlagsAllValues()
 	return bResult;
 }
 
-bool TestSimpleFlags64_QueryFlagsAllValues()
+static bool TestSimpleFlags64_QueryFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -2300,7 +2300,7 @@ bool TestSimpleFlags64_QueryFlagsAllValues()
 	return bResult;
 }
 
-bool TestSimpleFlags64_SetFlagsMaskValue()
+static bool TestSimpleFlags64_SetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -2330,7 +2330,7 @@ bool TestSimpleFlags64_SetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_SignalFlagsMaskValue()
+static bool TestSimpleFlags64_SignalFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -2352,7 +2352,7 @@ bool TestSimpleFlags64_SignalFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_DropFlagsMaskValue()
+static bool TestSimpleFlags64_DropFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -2374,7 +2374,7 @@ bool TestSimpleFlags64_DropFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_ToggleSingleFlagValue()
+static bool TestSimpleFlags64_ToggleSingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -2403,7 +2403,7 @@ bool TestSimpleFlags64_ToggleSingleFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_ModifySingleFlagValue()
+static bool TestSimpleFlags64_ModifySingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -2439,7 +2439,7 @@ bool TestSimpleFlags64_ModifySingleFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_AssignFlagsByMask()
+static bool TestSimpleFlags64_AssignFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -2483,7 +2483,7 @@ bool TestSimpleFlags64_AssignFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags64_AlterFlagsByMask()
+static bool TestSimpleFlags64_AlterFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -2534,7 +2534,7 @@ bool TestSimpleFlags64_AlterFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags64_GetFlagsMaskValue()
+static bool TestSimpleFlags64_GetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -2564,7 +2564,7 @@ bool TestSimpleFlags64_GetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_QueryFlagsByMask()
+static bool TestSimpleFlags64_QueryFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -2594,7 +2594,7 @@ bool TestSimpleFlags64_QueryFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags64_OnlySignalSingleFlagOutOfMask()
+static bool TestSimpleFlags64_OnlySignalSingleFlagOutOfMask()
 {
 	bool bResult = false;
 	
@@ -2652,7 +2652,7 @@ bool TestSimpleFlags64_OnlySignalSingleFlagOutOfMask()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumSetEnumeratedFlagValue()
+static bool TestSimpleFlags64_EnumSetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -2695,7 +2695,7 @@ bool TestSimpleFlags64_EnumSetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumSignalEnumeratedFlagValue()
+static bool TestSimpleFlags64_EnumSignalEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -2738,7 +2738,7 @@ bool TestSimpleFlags64_EnumSignalEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumDropEnumeratedFlagValue()
+static bool TestSimpleFlags64_EnumDropEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -2781,7 +2781,7 @@ bool TestSimpleFlags64_EnumDropEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumToggleEnumeratedFlagValue()
+static bool TestSimpleFlags64_EnumToggleEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -2824,7 +2824,7 @@ bool TestSimpleFlags64_EnumToggleEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumModifyEnumeratedFlagValue()
+static bool TestSimpleFlags64_EnumModifyEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -2881,7 +2881,7 @@ bool TestSimpleFlags64_EnumModifyEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumSignalFirstEnumeratedFlagValue()
+static bool TestSimpleFlags64_EnumSignalFirstEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -2924,7 +2924,7 @@ bool TestSimpleFlags64_EnumSignalFirstEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumSignalLastEnumeratedFlagValue()
+static bool TestSimpleFlags64_EnumSignalLastEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -2967,7 +2967,7 @@ bool TestSimpleFlags64_EnumSignalLastEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumGetEnumeratedFlagValue()
+static bool TestSimpleFlags64_EnumGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -3002,7 +3002,7 @@ bool TestSimpleFlags64_EnumGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumFindFirstEnumeratedFlag()
+static bool TestSimpleFlags64_EnumFindFirstEnumeratedFlag()
 {
 	bool bResult = false;
 	
@@ -3029,7 +3029,7 @@ bool TestSimpleFlags64_EnumFindFirstEnumeratedFlag()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumAllSignalEnumeratedFlags()
+static bool TestSimpleFlags64_EnumAllSignalEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -3058,7 +3058,7 @@ bool TestSimpleFlags64_EnumAllSignalEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumAllDropEnumeratedFlags()
+static bool TestSimpleFlags64_EnumAllDropEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -3087,7 +3087,7 @@ bool TestSimpleFlags64_EnumAllDropEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumAllQueryEnumeratedFlags()
+static bool TestSimpleFlags64_EnumAllQueryEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -3120,7 +3120,7 @@ bool TestSimpleFlags64_EnumAllQueryEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags64_EnumAnyGetEnumeratedFlagValue()
+static bool TestSimpleFlags64_EnumAnyGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -3153,7 +3153,7 @@ bool TestSimpleFlags64_EnumAnyGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_StoreFlagsEnumeratedValue()
+static bool TestSimpleFlags64_StoreFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -3182,7 +3182,7 @@ bool TestSimpleFlags64_StoreFlagsEnumeratedValue()
 	return bResult;
 }
 
-bool TestSimpleFlags64_RetrieveFlagsEnumeratedValue()
+static bool TestSimpleFlags64_RetrieveFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -3315,7 +3315,7 @@ const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, OSF64__MAX,
 static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, OSF64__MAX, const char *> g_aszSimpleFlags64FeatureTestNames;
 
 
-bool TestSimpleFlags64(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestSimpleFlags64(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF64__MAX, g_aszSimpleFlags64FeatureTestNames.GetStoragePointer(), g_afnSimpleFlags64FeatureTestProcedures.GetStoragePointer());
 }
@@ -3331,7 +3331,7 @@ const uint32ou g_uiTestBit32 = (uint32ou)OU_INT32_MIN;
 const uint32ou g_uiTestAnotherBit32 = (uint32ou)((uint32ou)OU_INT32_MIN >> 1);
 
 
-bool TestSimpleFlags32_Constructors()
+static bool TestSimpleFlags32_Constructors()
 {
 	bool bResult = false;
 	
@@ -3370,7 +3370,7 @@ bool TestSimpleFlags32_Constructors()
 	return bResult;
 }
 
-bool TestSimpleFlags32_AssignFlagsAllValues()
+static bool TestSimpleFlags32_AssignFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -3399,7 +3399,7 @@ bool TestSimpleFlags32_AssignFlagsAllValues()
 	return bResult;
 }
 
-bool TestSimpleFlags32_QueryFlagsAllValues()
+static bool TestSimpleFlags32_QueryFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -3425,7 +3425,7 @@ bool TestSimpleFlags32_QueryFlagsAllValues()
 	return bResult;
 }
 
-bool TestSimpleFlags32_SetFlagsMaskValue()
+static bool TestSimpleFlags32_SetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -3455,7 +3455,7 @@ bool TestSimpleFlags32_SetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_SignalFlagsMaskValue()
+static bool TestSimpleFlags32_SignalFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -3477,7 +3477,7 @@ bool TestSimpleFlags32_SignalFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_DropFlagsMaskValue()
+static bool TestSimpleFlags32_DropFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -3499,7 +3499,7 @@ bool TestSimpleFlags32_DropFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_ToggleSingleFlagValue()
+static bool TestSimpleFlags32_ToggleSingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -3528,7 +3528,7 @@ bool TestSimpleFlags32_ToggleSingleFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_ModifySingleFlagValue()
+static bool TestSimpleFlags32_ModifySingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -3564,7 +3564,7 @@ bool TestSimpleFlags32_ModifySingleFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_AssignFlagsByMask()
+static bool TestSimpleFlags32_AssignFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -3608,7 +3608,7 @@ bool TestSimpleFlags32_AssignFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags32_AlterFlagsByMask()
+static bool TestSimpleFlags32_AlterFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -3659,7 +3659,7 @@ bool TestSimpleFlags32_AlterFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags32_GetFlagsMaskValue()
+static bool TestSimpleFlags32_GetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -3689,7 +3689,7 @@ bool TestSimpleFlags32_GetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_QueryFlagsByMask()
+static bool TestSimpleFlags32_QueryFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -3719,7 +3719,7 @@ bool TestSimpleFlags32_QueryFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags32_OnlySignalSingleFlagOutOfMask()
+static bool TestSimpleFlags32_OnlySignalSingleFlagOutOfMask()
 {
 	bool bResult = false;
 	
@@ -3777,7 +3777,7 @@ bool TestSimpleFlags32_OnlySignalSingleFlagOutOfMask()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumSetEnumeratedFlagValue()
+static bool TestSimpleFlags32_EnumSetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -3820,7 +3820,7 @@ bool TestSimpleFlags32_EnumSetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumSignalEnumeratedFlagValue()
+static bool TestSimpleFlags32_EnumSignalEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -3863,7 +3863,7 @@ bool TestSimpleFlags32_EnumSignalEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumDropEnumeratedFlagValue()
+static bool TestSimpleFlags32_EnumDropEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -3906,7 +3906,7 @@ bool TestSimpleFlags32_EnumDropEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumToggleEnumeratedFlagValue()
+static bool TestSimpleFlags32_EnumToggleEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -3949,7 +3949,7 @@ bool TestSimpleFlags32_EnumToggleEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumModifyEnumeratedFlagValue()
+static bool TestSimpleFlags32_EnumModifyEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -4006,7 +4006,7 @@ bool TestSimpleFlags32_EnumModifyEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumSignalFirstEnumeratedFlagValue()
+static bool TestSimpleFlags32_EnumSignalFirstEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -4049,7 +4049,7 @@ bool TestSimpleFlags32_EnumSignalFirstEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumSignalLastEnumeratedFlagValue()
+static bool TestSimpleFlags32_EnumSignalLastEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -4092,7 +4092,7 @@ bool TestSimpleFlags32_EnumSignalLastEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumGetEnumeratedFlagValue()
+static bool TestSimpleFlags32_EnumGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -4127,7 +4127,7 @@ bool TestSimpleFlags32_EnumGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumFindFirstEnumeratedFlag()
+static bool TestSimpleFlags32_EnumFindFirstEnumeratedFlag()
 {
 	bool bResult = false;
 	
@@ -4154,7 +4154,7 @@ bool TestSimpleFlags32_EnumFindFirstEnumeratedFlag()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumAllSignalEnumeratedFlags()
+static bool TestSimpleFlags32_EnumAllSignalEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -4183,7 +4183,7 @@ bool TestSimpleFlags32_EnumAllSignalEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumAllDropEnumeratedFlags()
+static bool TestSimpleFlags32_EnumAllDropEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -4212,7 +4212,7 @@ bool TestSimpleFlags32_EnumAllDropEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumAllQueryEnumeratedFlags()
+static bool TestSimpleFlags32_EnumAllQueryEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -4245,7 +4245,7 @@ bool TestSimpleFlags32_EnumAllQueryEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags32_EnumAnyGetEnumeratedFlagValue()
+static bool TestSimpleFlags32_EnumAnyGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -4278,7 +4278,7 @@ bool TestSimpleFlags32_EnumAnyGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_StoreFlagsEnumeratedValue()
+static bool TestSimpleFlags32_StoreFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -4307,7 +4307,7 @@ bool TestSimpleFlags32_StoreFlagsEnumeratedValue()
 	return bResult;
 }
 
-bool TestSimpleFlags32_RetrieveFlagsEnumeratedValue()
+static bool TestSimpleFlags32_RetrieveFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -4440,7 +4440,7 @@ const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, OSF32__MAX,
 static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, OSF32__MAX, const char *> g_aszSimpleFlags32FeatureTestNames;
 
 
-bool TestSimpleFlags32(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestSimpleFlags32(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF32__MAX, g_aszSimpleFlags32FeatureTestNames.GetStoragePointer(), g_afnSimpleFlags32FeatureTestProcedures.GetStoragePointer());
 }
@@ -4456,7 +4456,7 @@ const uint16ou g_uiTestBit16 = (uint16ou)OU_INT16_MIN;
 const uint16ou g_uiTestAnotherBit16 = (uint16ou)((uint16ou)OU_INT16_MIN >> 1);
 
 
-bool TestSimpleFlags16_Constructors()
+static bool TestSimpleFlags16_Constructors()
 {
 	bool bResult = false;
 	
@@ -4495,7 +4495,7 @@ bool TestSimpleFlags16_Constructors()
 	return bResult;
 }
 
-bool TestSimpleFlags16_AssignFlagsAllValues()
+static bool TestSimpleFlags16_AssignFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -4524,7 +4524,7 @@ bool TestSimpleFlags16_AssignFlagsAllValues()
 	return bResult;
 }
 
-bool TestSimpleFlags16_QueryFlagsAllValues()
+static bool TestSimpleFlags16_QueryFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -4550,7 +4550,7 @@ bool TestSimpleFlags16_QueryFlagsAllValues()
 	return bResult;
 }
 
-bool TestSimpleFlags16_SetFlagsMaskValue()
+static bool TestSimpleFlags16_SetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -4580,7 +4580,7 @@ bool TestSimpleFlags16_SetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_SignalFlagsMaskValue()
+static bool TestSimpleFlags16_SignalFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -4602,7 +4602,7 @@ bool TestSimpleFlags16_SignalFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_DropFlagsMaskValue()
+static bool TestSimpleFlags16_DropFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -4624,7 +4624,7 @@ bool TestSimpleFlags16_DropFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_ToggleSingleFlagValue()
+static bool TestSimpleFlags16_ToggleSingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -4653,7 +4653,7 @@ bool TestSimpleFlags16_ToggleSingleFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_ModifySingleFlagValue()
+static bool TestSimpleFlags16_ModifySingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -4689,7 +4689,7 @@ bool TestSimpleFlags16_ModifySingleFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_AssignFlagsByMask()
+static bool TestSimpleFlags16_AssignFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -4733,7 +4733,7 @@ bool TestSimpleFlags16_AssignFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags16_AlterFlagsByMask()
+static bool TestSimpleFlags16_AlterFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -4784,7 +4784,7 @@ bool TestSimpleFlags16_AlterFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags16_GetFlagsMaskValue()
+static bool TestSimpleFlags16_GetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -4814,7 +4814,7 @@ bool TestSimpleFlags16_GetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_QueryFlagsByMask()
+static bool TestSimpleFlags16_QueryFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -4844,7 +4844,7 @@ bool TestSimpleFlags16_QueryFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags16_OnlySignalSingleFlagOutOfMask()
+static bool TestSimpleFlags16_OnlySignalSingleFlagOutOfMask()
 {
 	bool bResult = false;
 	
@@ -4902,7 +4902,7 @@ bool TestSimpleFlags16_OnlySignalSingleFlagOutOfMask()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumSetEnumeratedFlagValue()
+static bool TestSimpleFlags16_EnumSetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -4945,7 +4945,7 @@ bool TestSimpleFlags16_EnumSetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumSignalEnumeratedFlagValue()
+static bool TestSimpleFlags16_EnumSignalEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -4988,7 +4988,7 @@ bool TestSimpleFlags16_EnumSignalEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumDropEnumeratedFlagValue()
+static bool TestSimpleFlags16_EnumDropEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -5031,7 +5031,7 @@ bool TestSimpleFlags16_EnumDropEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumToggleEnumeratedFlagValue()
+static bool TestSimpleFlags16_EnumToggleEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -5074,7 +5074,7 @@ bool TestSimpleFlags16_EnumToggleEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumModifyEnumeratedFlagValue()
+static bool TestSimpleFlags16_EnumModifyEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -5131,7 +5131,7 @@ bool TestSimpleFlags16_EnumModifyEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumSignalFirstEnumeratedFlagValue()
+static bool TestSimpleFlags16_EnumSignalFirstEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -5174,7 +5174,7 @@ bool TestSimpleFlags16_EnumSignalFirstEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumSignalLastEnumeratedFlagValue()
+static bool TestSimpleFlags16_EnumSignalLastEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -5217,7 +5217,7 @@ bool TestSimpleFlags16_EnumSignalLastEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumGetEnumeratedFlagValue()
+static bool TestSimpleFlags16_EnumGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -5252,7 +5252,7 @@ bool TestSimpleFlags16_EnumGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumFindFirstEnumeratedFlag()
+static bool TestSimpleFlags16_EnumFindFirstEnumeratedFlag()
 {
 	bool bResult = false;
 	
@@ -5279,7 +5279,7 @@ bool TestSimpleFlags16_EnumFindFirstEnumeratedFlag()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumAllSignalEnumeratedFlags()
+static bool TestSimpleFlags16_EnumAllSignalEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -5308,7 +5308,7 @@ bool TestSimpleFlags16_EnumAllSignalEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumAllDropEnumeratedFlags()
+static bool TestSimpleFlags16_EnumAllDropEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -5337,7 +5337,7 @@ bool TestSimpleFlags16_EnumAllDropEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumAllQueryEnumeratedFlags()
+static bool TestSimpleFlags16_EnumAllQueryEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -5370,7 +5370,7 @@ bool TestSimpleFlags16_EnumAllQueryEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags16_EnumAnyGetEnumeratedFlagValue()
+static bool TestSimpleFlags16_EnumAnyGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -5403,7 +5403,7 @@ bool TestSimpleFlags16_EnumAnyGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_StoreFlagsEnumeratedValue()
+static bool TestSimpleFlags16_StoreFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -5432,7 +5432,7 @@ bool TestSimpleFlags16_StoreFlagsEnumeratedValue()
 	return bResult;
 }
 
-bool TestSimpleFlags16_RetrieveFlagsEnumeratedValue()
+static bool TestSimpleFlags16_RetrieveFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -5565,7 +5565,7 @@ const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, OSF16__MAX,
 static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, OSF16__MAX, const char *> g_aszSimpleFlags16FeatureTestNames;
 
 
-bool TestSimpleFlags16(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestSimpleFlags16(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF16__MAX, g_aszSimpleFlags16FeatureTestNames.GetStoragePointer(), g_afnSimpleFlags16FeatureTestProcedures.GetStoragePointer());
 }
@@ -5581,7 +5581,7 @@ const uint8ou g_uiTestBit8 = (uint8ou)OU_INT8_MIN;
 const uint8ou g_uiTestAnotherBit8 = (uint8ou)((uint8ou)OU_INT8_MIN >> 1);
 
 
-bool TestSimpleFlags8_Constructors()
+static bool TestSimpleFlags8_Constructors()
 {
 	bool bResult = false;
 	
@@ -5620,7 +5620,7 @@ bool TestSimpleFlags8_Constructors()
 	return bResult;
 }
 
-bool TestSimpleFlags8_AssignFlagsAllValues()
+static bool TestSimpleFlags8_AssignFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -5649,7 +5649,7 @@ bool TestSimpleFlags8_AssignFlagsAllValues()
 	return bResult;
 }
 
-bool TestSimpleFlags8_QueryFlagsAllValues()
+static bool TestSimpleFlags8_QueryFlagsAllValues()
 {
 	bool bResult = false;
 	
@@ -5675,7 +5675,7 @@ bool TestSimpleFlags8_QueryFlagsAllValues()
 	return bResult;
 }
 
-bool TestSimpleFlags8_SetFlagsMaskValue()
+static bool TestSimpleFlags8_SetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -5705,7 +5705,7 @@ bool TestSimpleFlags8_SetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_SignalFlagsMaskValue()
+static bool TestSimpleFlags8_SignalFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -5727,7 +5727,7 @@ bool TestSimpleFlags8_SignalFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_DropFlagsMaskValue()
+static bool TestSimpleFlags8_DropFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -5749,7 +5749,7 @@ bool TestSimpleFlags8_DropFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_ToggleSingleFlagValue()
+static bool TestSimpleFlags8_ToggleSingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -5778,7 +5778,7 @@ bool TestSimpleFlags8_ToggleSingleFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_ModifySingleFlagValue()
+static bool TestSimpleFlags8_ModifySingleFlagValue()
 {
 	bool bResult = false;
 	
@@ -5814,7 +5814,7 @@ bool TestSimpleFlags8_ModifySingleFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_AssignFlagsByMask()
+static bool TestSimpleFlags8_AssignFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -5858,7 +5858,7 @@ bool TestSimpleFlags8_AssignFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags8_AlterFlagsByMask()
+static bool TestSimpleFlags8_AlterFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -5909,7 +5909,7 @@ bool TestSimpleFlags8_AlterFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags8_GetFlagsMaskValue()
+static bool TestSimpleFlags8_GetFlagsMaskValue()
 {
 	bool bResult = false;
 	
@@ -5939,7 +5939,7 @@ bool TestSimpleFlags8_GetFlagsMaskValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_QueryFlagsByMask()
+static bool TestSimpleFlags8_QueryFlagsByMask()
 {
 	bool bResult = false;
 	
@@ -5969,7 +5969,7 @@ bool TestSimpleFlags8_QueryFlagsByMask()
 	return bResult;
 }
 
-bool TestSimpleFlags8_OnlySignalSingleFlagOutOfMask()
+static bool TestSimpleFlags8_OnlySignalSingleFlagOutOfMask()
 {
 	bool bResult = false;
 	
@@ -6027,7 +6027,7 @@ bool TestSimpleFlags8_OnlySignalSingleFlagOutOfMask()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumSetEnumeratedFlagValue()
+static bool TestSimpleFlags8_EnumSetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -6070,7 +6070,7 @@ bool TestSimpleFlags8_EnumSetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumSignalEnumeratedFlagValue()
+static bool TestSimpleFlags8_EnumSignalEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -6113,7 +6113,7 @@ bool TestSimpleFlags8_EnumSignalEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumDropEnumeratedFlagValue()
+static bool TestSimpleFlags8_EnumDropEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -6156,7 +6156,7 @@ bool TestSimpleFlags8_EnumDropEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumToggleEnumeratedFlagValue()
+static bool TestSimpleFlags8_EnumToggleEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -6199,7 +6199,7 @@ bool TestSimpleFlags8_EnumToggleEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumModifyEnumeratedFlagValue()
+static bool TestSimpleFlags8_EnumModifyEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -6256,7 +6256,7 @@ bool TestSimpleFlags8_EnumModifyEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumSignalFirstEnumeratedFlagValue()
+static bool TestSimpleFlags8_EnumSignalFirstEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -6299,7 +6299,7 @@ bool TestSimpleFlags8_EnumSignalFirstEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumSignalLastEnumeratedFlagValue()
+static bool TestSimpleFlags8_EnumSignalLastEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -6342,7 +6342,7 @@ bool TestSimpleFlags8_EnumSignalLastEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumGetEnumeratedFlagValue()
+static bool TestSimpleFlags8_EnumGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -6377,7 +6377,7 @@ bool TestSimpleFlags8_EnumGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumFindFirstEnumeratedFlag()
+static bool TestSimpleFlags8_EnumFindFirstEnumeratedFlag()
 {
 	bool bResult = false;
 	
@@ -6404,7 +6404,7 @@ bool TestSimpleFlags8_EnumFindFirstEnumeratedFlag()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumAllSignalEnumeratedFlags()
+static bool TestSimpleFlags8_EnumAllSignalEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -6433,7 +6433,7 @@ bool TestSimpleFlags8_EnumAllSignalEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumAllDropEnumeratedFlags()
+static bool TestSimpleFlags8_EnumAllDropEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -6462,7 +6462,7 @@ bool TestSimpleFlags8_EnumAllDropEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumAllQueryEnumeratedFlags()
+static bool TestSimpleFlags8_EnumAllQueryEnumeratedFlags()
 {
 	bool bResult = false;
 	
@@ -6495,7 +6495,7 @@ bool TestSimpleFlags8_EnumAllQueryEnumeratedFlags()
 	return bResult;
 }
 
-bool TestSimpleFlags8_EnumAnyGetEnumeratedFlagValue()
+static bool TestSimpleFlags8_EnumAnyGetEnumeratedFlagValue()
 {
 	bool bResult = false;
 	
@@ -6528,7 +6528,7 @@ bool TestSimpleFlags8_EnumAnyGetEnumeratedFlagValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_StoreFlagsEnumeratedValue()
+static bool TestSimpleFlags8_StoreFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -6557,7 +6557,7 @@ bool TestSimpleFlags8_StoreFlagsEnumeratedValue()
 	return bResult;
 }
 
-bool TestSimpleFlags8_RetrieveFlagsEnumeratedValue()
+static bool TestSimpleFlags8_RetrieveFlagsEnumeratedValue()
 {
 	bool bResult = false;
 	
@@ -6690,7 +6690,7 @@ const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OSF8__MAX, c
 static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OSF8__MAX, const char *> g_aszSimpleFlags8FeatureTestNames;
 
 
-bool TestSimpleFlags8(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestSimpleFlags8(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF8__MAX, g_aszSimpleFlags8FeatureTestNames.GetStoragePointer(), g_afnSimpleFlags8FeatureTestProcedures.GetStoragePointer());
 }
@@ -6698,7 +6698,7 @@ bool TestSimpleFlags8(unsigned int &nOutSuccessCount, unsigned int &nOutTestCoun
 
 //////////////////////////////////////////////////////////////////////////
 
-bool TestFlagsDefines_EnumFlagsMask()
+static bool TestFlagsDefines_EnumFlagsMask()
 {
 	bool bResult = false;
 	
@@ -6761,7 +6761,7 @@ bool TestFlagsDefines_EnumFlagsMask()
 	return bResult;
 }
 
-bool TestFlagsDefines_EnumFlagsStartValid()
+static bool TestFlagsDefines_EnumFlagsStartValid()
 {
 	bool bResult = false;
 	
@@ -6814,7 +6814,7 @@ bool TestFlagsDefines_EnumFlagsStartValid()
 	return bResult;
 }
 
-bool TestFlagsDefines_StoreEnumValueInMask()
+static bool TestFlagsDefines_StoreEnumValueInMask()
 {
 	bool bResult = false;
 	
@@ -6907,7 +6907,7 @@ bool TestFlagsDefines_StoreEnumValueInMask()
 	return bResult;
 }
 
-bool TestFlagsDefines_FlagIsSingle()
+static bool TestFlagsDefines_FlagIsSingle()
 {
 	bool bResult = false;
 	
@@ -6993,7 +6993,7 @@ template<>const char *const CEnumUnsortedElementArray<EOUFLAGSDEFINESFEATURE, OF
 static const CEnumUnsortedElementArray<EOUFLAGSDEFINESFEATURE, OFF__MAX, const char *> g_aszFlagsDefineFeatureTestNames;
 
 
-bool TestFlagsDefines(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestFlagsDefines(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OFF__MAX, g_aszFlagsDefineFeatureTestNames.GetStoragePointer(), g_afnFlagsDefineFeatureTestProcedures.GetStoragePointer());
 }
@@ -7065,7 +7065,7 @@ const char *const CEnumSortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, const ch
 static const CEnumSortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, const char *, 0, ConstCharPtrLess> g_aszStringSortedArray;
 
 
-bool TestEnumArrays_UnsortedArray()
+static bool TestEnumArrays_UnsortedArray()
 {
 	EENUMARRAYTESTENUM teEnumCurrent = ATE__MIN;
 	
@@ -7108,7 +7108,7 @@ bool TestEnumArrays_UnsortedArray()
 	return bResult;
 }
 
-bool TestEnumArrays_SortedArray()
+static bool TestEnumArrays_SortedArray()
 {
 	EENUMARRAYTESTENUM teEnumCurrent = ATE__MIN;
 	
@@ -7179,7 +7179,7 @@ const char *const CEnumUnsortedElementArray<EOUENUMARRAYSFEATURE, ORF__MAX, cons
 static const CEnumUnsortedElementArray<EOUENUMARRAYSFEATURE, ORF__MAX, const char *> g_aszEnumArrayFeatureTestNames;
 
 
-bool TestEnumArrays(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestEnumArrays(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, ORF__MAX, g_aszEnumArrayFeatureTestNames.GetStoragePointer(), g_afnEnumArrayFeatureTestProcedures.GetStoragePointer());
 }
@@ -7206,7 +7206,7 @@ enum ETESTTEMPLATES32
 };
 
 
-bool TestTemplates_PrefixIncrement()
+static bool TestTemplates_PrefixIncrement()
 {
 	bool bResult = false;
 
@@ -7256,7 +7256,7 @@ bool TestTemplates_PrefixIncrement()
 	return bResult;
 }
 
-bool TestTemplates_PostfixIncrement()
+static bool TestTemplates_PostfixIncrement()
 {
 	bool bResult = false;
 
@@ -7288,7 +7288,7 @@ bool TestTemplates_PostfixIncrement()
 	return bResult;
 }
 
-bool TestTemplates_PrefixDecrement()
+static bool TestTemplates_PrefixDecrement()
 {
 	bool bResult = false;
 
@@ -7338,7 +7338,7 @@ bool TestTemplates_PrefixDecrement()
 	return bResult;
 }
 
-bool TestTemplates_PostfixDecrement()
+static bool TestTemplates_PostfixDecrement()
 {
 	bool bResult = false;
 
@@ -7370,7 +7370,7 @@ bool TestTemplates_PostfixDecrement()
 	return bResult;
 }
 
-bool TestTemplates_IsEmptySz()
+static bool TestTemplates_IsEmptySz()
 {
 	bool bResult = false;
 
@@ -7429,7 +7429,7 @@ const char *const CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__MAX, const
 static const CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__MAX, const char *> g_aszTemplateFeatureTestNames;
 
 
-bool TestTemplates(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestTemplates(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OTF__MAX, g_aszTemplateFeatureTestNames.GetStoragePointer(), g_afnTemplateFeatureTestProcedures.GetStoragePointer());
 }
@@ -7439,7 +7439,7 @@ bool TestTemplates(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 
 typedef CTypeSimpleWrapper<int> CTestWrapper;
 
-bool TestTypeWrappers_Constructors()
+static bool TestTypeWrappers_Constructors()
 {
 	CTestWrapper twEmptyWrapper;
 	CTestWrapper twZeroWrapper(0);
@@ -7448,7 +7448,7 @@ bool TestTypeWrappers_Constructors()
 	return true;
 }
 
-bool TestTypeWrappers_Comparison()
+static bool TestTypeWrappers_Comparison()
 {
 	bool bResult = false;
 
@@ -7494,7 +7494,7 @@ bool TestTypeWrappers_Comparison()
 	return bResult;
 }
 
-bool TestTypeWrappers_BoolCasts()
+static bool TestTypeWrappers_BoolCasts()
 {
 	bool bResult = false;
 
@@ -7520,7 +7520,7 @@ bool TestTypeWrappers_BoolCasts()
 	return bResult;
 }
 
-bool TestTypeWrappers_Assignment()
+static bool TestTypeWrappers_Assignment()
 {
 	bool bResult = false;
 
@@ -7552,7 +7552,7 @@ bool TestTypeWrappers_Assignment()
 	return bResult;
 }
 
-bool TestTypeWrappers_DataCast()
+static bool TestTypeWrappers_DataCast()
 {
 	bool bResult = false;
 
@@ -7583,7 +7583,7 @@ bool TestTypeWrappers_DataCast()
 	return bResult;
 }
 
-bool TestTypeWrappers_DataComparison()
+static bool TestTypeWrappers_DataComparison()
 {
 	bool bResult = false;
 
@@ -7702,7 +7702,7 @@ const char *const CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF__MAX, con
 static const CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF__MAX, const char *> g_aszTypeWrapperFeatureTestNames;
 
 
-bool TestTypeWrapper(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestTypeWrapper(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OWF__MAX, g_aszTypeWrapperFeatureTestNames.GetStoragePointer(), g_afnTypeWrapperFeatureTestProcedures.GetStoragePointer());
 }
@@ -7718,10 +7718,12 @@ struct CTestCustomizations_Asserts_FailureInfo
 	unsigned int m_uiAssertionSourceLine;
 };
 
+#if !defined(NDEBUG)
 static const CTestCustomizations_Asserts_FailureInfo g_fiAssertInvalidInfo = { AFS__MAX, NULL, NULL, 0  };
+#endif
 static CTestCustomizations_Asserts_FailureInfo g_fiAssertLastInfo;
 
-void _OU_CONVENTION_CALLBACK TestCustomizations_Asserts_AssertionFailure(EASSERTIONFAILURESEVERITY fsFailureSeverity, 
+static void _OU_CONVENTION_CALLBACK TestCustomizations_Asserts_AssertionFailure(EASSERTIONFAILURESEVERITY fsFailureSeverity, 
 	const char *szAssertionExpression, const char *szAssertionFileName, unsigned int uiAssertionSourceLine)
 {
 	g_fiAssertLastInfo.m_fsFailureSeverity = fsFailureSeverity;
@@ -7731,7 +7733,7 @@ void _OU_CONVENTION_CALLBACK TestCustomizations_Asserts_AssertionFailure(EASSERT
 }
 
 
-bool TestCustomizations_Asserts()
+static bool TestCustomizations_Asserts()
 {
 	bool bResult = false;
 
@@ -7797,30 +7799,30 @@ bool TestCustomizations_Asserts()
 	return bResult;
 }
 
-void *const g_pv_MallocResult = (void *)(size_t)0x12345678;
-bool g_bMallocInvocation = false, g_bReallocInvocation = false;
-bool g_bFreeInvocation = false, g_bFreeSuccess = false;
+static void *const g_pv_MallocResult = (void *)(size_t)0x12345678;
+static bool g_bMallocInvocation = false, g_bReallocInvocation = false;
+static bool g_bFreeInvocation = false, g_bFreeSuccess = false;
 
-void *_OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Alloc(size_t nBlockSize)
+static void *_OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Alloc(size_t nBlockSize)
 {
 	g_bMallocInvocation = true;
 	return (void *)((ptrdiff_t)g_pv_MallocResult + nBlockSize);
 }
 
-void *_OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Realloc(void *pv_OldBlock, size_t nBlockNewSize)
+static void *_OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Realloc(void *pv_OldBlock, size_t nBlockNewSize)
 {
 	g_bReallocInvocation = true;
 	return (void *)((ptrdiff_t)pv_OldBlock - nBlockNewSize);
 }
 
-void _OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Free(void *pv_OldBlock)
+static void _OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Free(void *pv_OldBlock)
 {
 	g_bFreeInvocation = true;
 	g_bFreeSuccess = pv_OldBlock == g_pv_MallocResult;
 }
 
 
-bool TestCustomizations_MemMgr()
+static bool TestCustomizations_MemMgr()
 {
 	bool bResult = false;
 
@@ -7893,7 +7895,7 @@ const char *const CEnumUnsortedElementArray<EOUCUSTOMIZATIONFEATURE, OCF__MAX, c
 static const CEnumUnsortedElementArray<EOUCUSTOMIZATIONFEATURE, OCF__MAX, const char *> g_aszCustomizationFeatureTestNames;
 
 
-bool TestCustomization(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestCustomization(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OCF__MAX, g_aszCustomizationFeatureTestNames.GetStoragePointer(), g_afnCustomizationFeatureTestProcedures.GetStoragePointer());
 }
@@ -7906,7 +7908,7 @@ static const size_t g_nTestMallocBlockNextSize = 65501;
 static const uint8ou g_uiTestMallocToken = 0xAA;
 static void *g_pv_MemoryBlock = NULL;
 
-bool TestMallocs_Allocate()
+static bool TestMallocs_Allocate()
 {
 	bool bResult = false;
 
@@ -7928,7 +7930,7 @@ bool TestMallocs_Allocate()
 	return bResult;
 }
 
-bool TestMallocs_Reallocate()
+static bool TestMallocs_Reallocate()
 {
 	OU_ASSERT(g_nTestMallocBlockNextSize > g_nTestMallocBlockInitialSize);
 
@@ -7956,7 +7958,7 @@ bool TestMallocs_Reallocate()
 	return bResult;
 }
 
-bool TestMallocs_Deallocate()
+static bool TestMallocs_Deallocate()
 {
 	FreeMemoryBlock(g_pv_MemoryBlock);
 
@@ -7996,7 +7998,7 @@ const char *const CEnumUnsortedElementArray<EOUMALLOCFEATURE, OLF__MAX, const ch
 static const CEnumUnsortedElementArray<EOUMALLOCFEATURE, OLF__MAX, const char *> g_aszMallocFeatureTestNames;
 
 
-bool TestMalloc(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestMalloc(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OLF__MAX, g_aszMallocFeatureTestNames.GetStoragePointer(), g_afnMallocFeatureTestProcedures.GetStoragePointer());
 }
@@ -8004,7 +8006,7 @@ bool TestMalloc(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 
 //////////////////////////////////////////////////////////////////////////
 
-bool TestAsserts_FalseFunction(bool &bVarInvocation)
+static bool TestAsserts_FalseFunction(bool &bVarInvocation)
 {
 	bool bResult = true;
 	bVarInvocation = !bVarInvocation;
@@ -8018,7 +8020,7 @@ bool TestAsserts_FalseFunction(bool &bVarInvocation)
 	return bResult;
 }
 
-bool TestAsserts_TrueFunction(bool &bVarInvocation)
+static bool TestAsserts_TrueFunction(bool &bVarInvocation)
 {
 	bool bResult = false;
 	bVarInvocation = !bVarInvocation;
@@ -8032,7 +8034,7 @@ bool TestAsserts_TrueFunction(bool &bVarInvocation)
 	return bResult;
 }
 
-bool TestAsserts_Assert()
+static bool TestAsserts_Assert()
 {
 	bool bNDebugInvocation = false, bOrdinaryInvocation = false;
 
@@ -8049,7 +8051,7 @@ bool TestAsserts_Assert()
 	return !bNDebugInvocation && bOrdinaryInvocation;
 }
 
-bool TestAsserts_Verify()
+static bool TestAsserts_Verify()
 {
 	bool bNDebugInvocation = false, bOrdinaryInvocation = false;
 	
@@ -8070,7 +8072,7 @@ bool TestAsserts_Verify()
 	return bNDebugInvocation && bOrdinaryInvocation;
 }
 
-bool TestAsserts_Check()
+static bool TestAsserts_Check()
 {
 	bool bOrdinaryInvocation = false;
 	
@@ -8111,7 +8113,7 @@ const char *const CEnumUnsortedElementArray<EOUASSERTFEATURE, OEF__MAX, const ch
 static const CEnumUnsortedElementArray<EOUASSERTFEATURE, OEF__MAX, const char *> g_aszAssertFeatureTestNames;
 
 
-bool TestAssert(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestAssert(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OEF__MAX, g_aszAssertFeatureTestNames.GetStoragePointer(), g_afnAssertFeatureTestProcedures.GetStoragePointer());
 }
@@ -8125,7 +8127,7 @@ struct CTestIntTypes_int8
 	int8ou	m_iValue;
 };
 
-bool TestIntTypes_Int8()
+static bool TestIntTypes_Int8()
 {
 	bool bResult = false;
 	
@@ -8164,7 +8166,7 @@ struct CTestIntTypes_uint8
 	uint8ou	m_iValue;
 };
 
-bool TestIntTypes_UInt8()
+static bool TestIntTypes_UInt8()
 {
 	bool bResult = false;
 	
@@ -8203,7 +8205,7 @@ struct CTestIntTypes_int16
 	int16ou	m_iValue;
 };
 
-bool TestIntTypes_Int16()
+static bool TestIntTypes_Int16()
 {
 	bool bResult = false;
 	
@@ -8242,7 +8244,7 @@ struct CTestIntTypes_uint16
 	uint16ou	m_iValue;
 };
 
-bool TestIntTypes_UInt16()
+static bool TestIntTypes_UInt16()
 {
 	bool bResult = false;
 	
@@ -8281,7 +8283,7 @@ struct CTestIntTypes_int32
 	int32ou	m_iValue;
 };
 
-bool TestIntTypes_Int32()
+static bool TestIntTypes_Int32()
 {
 	bool bResult = false;
 	
@@ -8320,7 +8322,7 @@ struct CTestIntTypes_uint32
 	uint32ou	m_iValue;
 };
 
-bool TestIntTypes_UInt32()
+static bool TestIntTypes_UInt32()
 {
 	bool bResult = false;
 	
@@ -8359,7 +8361,7 @@ struct CTestIntTypes_int64
 	int64ou	m_iValue;
 };
 
-bool TestIntTypes_Int64()
+static bool TestIntTypes_Int64()
 {
 	bool bResult = false;
 	
@@ -8408,7 +8410,7 @@ struct CTestIntTypes_uint64
 	uint64ou	m_iValue;
 };
 
-bool TestIntTypes_UInt64()
+static bool TestIntTypes_UInt64()
 {
 	bool bResult = false;
 	
@@ -8498,7 +8500,7 @@ const char *const CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MAX, const c
 static const CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MAX, const char *> g_aszIntTypeFeatureTestNames;
 
 
-bool TestIntTypes(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestIntTypes(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OIF__MAX, g_aszIntTypeFeatureTestNames.GetStoragePointer(), g_afnIntTypeFeatureTestProcedures.GetStoragePointer());
 }
@@ -8517,7 +8519,7 @@ struct CTestMacros_OffsetStruct
 	int8ou		m_i8b;
 };
 
-bool TestMacros_OffsetOf()
+static bool TestMacros_OffsetOf()
 {
 	size_t sOffset_i8a = offsetof(CTestMacros_OffsetStruct, m_i8a);
 	size_t sOffset_i16a = offsetof(CTestMacros_OffsetStruct, m_i16a);
@@ -8539,7 +8541,7 @@ bool TestMacros_OffsetOf()
 		&& sStructSize == 24;
 }
 
-bool TestMacros_AlignedSize()
+static bool TestMacros_AlignedSize()
 {
 	return true
 		&& OU_ALIGNED_SIZE(0, sizeof(int8ou)) == 0
@@ -8564,7 +8566,7 @@ bool TestMacros_AlignedSize()
 		&& OU_ALIGNED_SIZE(sizeof(int64ou), sizeof(int64ou)) == sizeof(int64ou);
 }
 
-bool TestMacros_ArraySize()
+static bool TestMacros_ArraySize()
 {
 	static int m_ai_Array1[1];
 	static int m_aai_Array11[1][1];
@@ -8583,7 +8585,7 @@ bool TestMacros_ArraySize()
 		&& OU_ARRAY_SIZE(m_aai_Array12) == 1;
 }
 
-bool TestMacros_InIntRange()
+static bool TestMacros_InIntRange()
 {
 	char iZero = 0;
 	char iOne = 1;
@@ -8623,7 +8625,7 @@ bool TestMacros_InIntRange()
 		&& !OU_IN_INT_RANGE(uiNotZero, 1, -1);
 }
 
-bool TestMacros_InI64Range()
+static bool TestMacros_InI64Range()
 {
 	char iZero = 0;
 	char iOne = 1;
@@ -8663,7 +8665,7 @@ bool TestMacros_InI64Range()
 		&& OU_IN_I64_RANGE(uiNotZero, 1, -1);
 }
 
-bool TestMacros_InSizetRange()
+static bool TestMacros_InSizetRange()
 {
 	char iZero = 0;
 	char iOne = 1;
@@ -8743,7 +8745,7 @@ const char *const CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX, const cha
 static const CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX, const char *> g_aszMacroFeatureTestNames;
 
 
-bool TestMacros(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestMacros(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	return TestSubsystem(nOutSuccessCount, nOutTestCount, OMF__MAX, g_aszMacroFeatureTestNames.GetStoragePointer(), g_afnMacroFeatureTestProcedures.GetStoragePointer());
 }
@@ -8864,7 +8866,7 @@ static const CEnumUnsortedElementArray<int, _OU_COMPILER_VERSION__MAX - 1, const
 #define _TESTPLATFORM_DEFINITION_TEXT(Definition) #Definition
 #define TESTPLATFORM_TEFINITION_TEXT(Definition) _TESTPLATFORM_DEFINITION_TEXT(Definition)
 
-bool TestPlatform(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
+static bool TestPlatform(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
 	const char *szOSName = g_aszOSNames.Encode(_OU_TARGET_OS - 1);
 	const char *szBitsName = g_aszBitsNames.Encode(_OU_TARGET_BITS - 1);
@@ -8985,7 +8987,7 @@ const char *const CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST__MAX, const ch
 static const CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST__MAX, const char *> g_aszOUSubsystemNames;
 
 
-bool ProcessOUCoverageTests(unsigned int &nOutFailureCount)
+static bool ProcessOUCoverageTests(unsigned int &nOutFailureCount)
 {
 	unsigned int nSuccessCount = 0;
 

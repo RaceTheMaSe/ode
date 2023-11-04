@@ -30,18 +30,18 @@
 #define dsDrawSphere dsDrawSphereD
 #endif
 
-dReal theta = M_PI / 4;
-dReal ratio = 1, speed = 5, rho_1 = 1, rho_2 = 1, backlash = 0.1;
-int mode = 0;
+static dReal theta = M_PI / 4;
+static dReal ratio = 1, speed = 5, rho_1 = 1, rho_2 = 1, backlash = 0.1;
+static int mode = 0;
 
-dWorldID world;
-dSpaceID space;
-dBodyID body1, body2;
-dGeomID geom1, geom2;
-dJointID hinge1, hinge2, transmission;
-dJointFeedback feedback;
+static dWorldID world;
+static dSpaceID space;
+static dBodyID body1, body2;
+static dGeomID geom1, geom2;
+static dJointID hinge1, hinge2, transmission;
+static dJointFeedback feedback;
 
-void setup() {
+static void setup() {
     dMatrix3 R;
     
     switch (mode) {
@@ -136,7 +136,7 @@ void setup() {
     dBodySetAngularVel(body2, 0, 0, 0);
 }
 
-void start()
+static void start()
 {
     dMass mass;
     
@@ -194,14 +194,14 @@ void start()
 );
 }
 
-void stop()
+static void stop()
 {
     dSpaceDestroy(space);
 
     dWorldDestroy(world);
 }
 
-void drawGeom(dGeomID g)
+static void drawGeom(dGeomID g)
 {
     int gclass = dGeomGetClass(g);
     const dReal *pos = dGeomGetPosition(g);
@@ -231,7 +231,7 @@ void drawGeom(dGeomID g)
     }
 }
 
-void simLoop(int pause)
+static void simLoop(int pause)
 {
     if (!pause) {
 

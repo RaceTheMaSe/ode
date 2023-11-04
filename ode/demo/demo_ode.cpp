@@ -68,7 +68,7 @@ const double tol = 1e-5;
 static jmp_buf jump_buffer;
 
 
-void myMessageFunction (int num, const char *msg, va_list ap)
+static void myMessageFunction (int num, const char *msg, va_list ap)
 {
     printf ("(Message %d: ",num);
     vprintf (msg,ap);
@@ -96,7 +96,7 @@ void myMessageFunction (int num, const char *msg, va_list ap)
 
 // compare two numbers, within a threshhold, return 1 if approx equal
 
-int cmp (dReal a, dReal b)
+static int cmp (dReal a, dReal b)
 {
     return (fabs(a-b) < tol);
 }
@@ -106,7 +106,7 @@ int cmp (dReal a, dReal b)
 
 // compare a 3x3 matrix with the identity
 
-int cmpIdentityMat3 (dMatrix3 A)
+static int cmpIdentityMat3 (dMatrix3 A)
 {
     return
         (cmp(_A(0,0),1.0) && cmp(_A(0,1),0.0) && cmp(_A(0,2),0.0) &&
@@ -117,7 +117,7 @@ int cmpIdentityMat3 (dMatrix3 A)
 
 // transpose a 3x3 matrix in-line
 
-void transpose3x3 (dMatrix3 A)
+static void transpose3x3 (dMatrix3 A)
 {
     dReal tmp;
     tmp=A[4]; A[4]=A[1]; A[1]=tmp;
@@ -128,7 +128,7 @@ void transpose3x3 (dMatrix3 A)
 //****************************************************************************
 // test miscellaneous math functions
 
-void testRandomNumberGenerator()
+static void testRandomNumberGenerator()
 {
     HEADER;
     if (dTestRand()) printf ("\tpassed\n");
@@ -136,7 +136,7 @@ void testRandomNumberGenerator()
 }
 
 
-void testInfinity()
+static void testInfinity()
 {
     HEADER;
     CONST_IF (1e10 < dInfinity && -1e10 > -dInfinity && -dInfinity < dInfinity)
@@ -145,7 +145,7 @@ void testInfinity()
 }
 
 
-void testPad()
+static void testPad()
 {
     HEADER;
     char s[100];
@@ -156,7 +156,7 @@ void testPad()
 }
 
 
-void testCrossProduct()
+static void testCrossProduct()
 {
     HEADER;
 
@@ -176,7 +176,7 @@ void testCrossProduct()
 }
 
 
-void testSetZero()
+static void testSetZero()
 {
     HEADER;
     dReal a[100];
@@ -190,7 +190,7 @@ void testSetZero()
 }
 
 
-void testNormalize3()
+static void testNormalize3()
 {
     HEADER;
     int i,j,bad=0;
@@ -214,7 +214,7 @@ void testNormalize3()
 
 
 /*
-void testReorthonormalize()
+static void testReorthonormalize()
 {
 HEADER;
 dMatrix3 R,I;
@@ -226,7 +226,7 @@ printf ("\t%s\n",cmpIdentityMat3 (I) ? "passed" : "FAILED");
 */
 
 
-void testPlaneSpace()
+static void testPlaneSpace()
 {
     HEADER;
     dVector3 n,p,q;
@@ -247,7 +247,7 @@ void testPlaneSpace()
 //****************************************************************************
 // test matrix functions
 
-void testMatrixMultiply()
+static void testMatrixMultiply()
 {
     // A is 2x3, B is 3x4, B2 is B except stored columnwise, C is 2x4
     dReal A[8],B[12],A2[12],B2[16],C[8];
@@ -280,7 +280,7 @@ void testMatrixMultiply()
 }
 
 
-void testSmallMatrixMultiply()
+static void testSmallMatrixMultiply()
 {
     dMatrix3 A,B,C,A2;
     dVector3 a,a2,x;
@@ -329,7 +329,7 @@ void testSmallMatrixMultiply()
 }
 
 
-void testCholeskyFactorization()
+static void testCholeskyFactorization()
 {
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *B = (dReal *)dAlloc(matrixSize), *C = (dReal *)dAlloc(matrixSize), diff;
@@ -352,7 +352,7 @@ void testCholeskyFactorization()
 }
 
 
-void testCholeskySolve()
+static void testCholeskySolve()
 {
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize);
@@ -391,7 +391,7 @@ void testCholeskySolve()
 }
 
 
-void testInvertPDMatrix()
+static void testInvertPDMatrix()
 {
     int i,j,ok;
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
@@ -426,7 +426,7 @@ void testInvertPDMatrix()
 }
 
 
-void testIsPositiveDefinite()
+static void testIsPositiveDefinite()
 {
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *B = (dReal *)dAlloc(matrixSize);
@@ -443,7 +443,7 @@ void testIsPositiveDefinite()
 }
 
 
-void testFastLDLTFactorization()
+static void testFastLDLTFactorization()
 {
     int i,j;
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
@@ -479,7 +479,7 @@ void testFastLDLTFactorization()
 }
 
 
-void testCoopLDLTFactorization()
+static void testCoopLDLTFactorization()
 {
     unsigned i,j;
 
@@ -549,7 +549,7 @@ void testCoopLDLTFactorization()
 }
 
 
-void testSolveLDLT()
+static void testSolveLDLT()
 {
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
@@ -581,7 +581,7 @@ void testSolveLDLT()
     dFree(A, matrixSize);
 }
 
-void testCoopSolveLDLT()
+static void testCoopSolveLDLT()
 {
     const dsizeint COOP_MSIZE = MSIZE * 51, COOP_MSIZE4 = dALIGN_SIZE(COOP_MSIZE, 4);
 
@@ -650,7 +650,7 @@ void testCoopSolveLDLT()
 }
 
 
-void testLDLTAddTL()
+static void testLDLTAddTL()
 {
     int i,j;
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
@@ -697,7 +697,7 @@ void testLDLTAddTL()
 }
 
 
-void testLDLTRemove()
+static void testLDLTRemove()
 {
     int i,j,r;
     dsizeint intVectorSize = sizeof(int) * MSIZE, matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
@@ -794,7 +794,7 @@ void testLDLTRemove()
 #define NUMP 10		// number of particles
 
 
-void printMassParams (dMass *m)
+static void printMassParams (dMass *m)
 {
     printf ("mass = %.4f\n",m->mass);
     printf ("com  = (%.4f,%.4f,%.4f)\n",m->c[0],m->c[1],m->c[2]);
@@ -807,7 +807,7 @@ void printMassParams (dMass *m)
 }
 
 
-void compareMassParams (dMass *m1, dMass *m2, const char *msg)
+static void compareMassParams (dMass *m1, dMass *m2, const char *msg)
 {
     int i,j,ok = 1;
     if (!(cmp(m1->mass,m2->mass) && cmp(m1->c[0],m2->c[0]) &&
@@ -821,7 +821,7 @@ void compareMassParams (dMass *m1, dMass *m2, const char *msg)
 
 // compute the mass parameters of a particle set
 
-void computeMassParams (dMass *m, dReal q[NUMP][3], dReal pm[NUMP])
+static void computeMassParams (dMass *m, dReal q[NUMP][3], dReal pm[NUMP])
 {
     int i,j;
     dMassSetZero (m);
@@ -842,7 +842,7 @@ void computeMassParams (dMass *m, dReal q[NUMP][3], dReal pm[NUMP])
 }
 
 
-void testMassFunctions()
+static void testMassFunctions()
 {
     dMass m;
     int i,j;
@@ -942,7 +942,7 @@ void testMassFunctions()
 //****************************************************************************
 // test rotation stuff
 
-void makeRandomRotation (dMatrix3 R)
+static void makeRandomRotation (dMatrix3 R)
 {
     dReal *u1 = R, *u2=R+4, *u3=R+8;
     dMakeRandomVector (u1,3,1.0);
@@ -957,7 +957,7 @@ void makeRandomRotation (dMatrix3 R)
 }
 
 
-void testRtoQandQtoR()
+static void testRtoQandQtoR()
 {
     HEADER;
     dMatrix3 R,I,R2;
@@ -995,7 +995,7 @@ void testRtoQandQtoR()
 }
 
 
-void testQuaternionMultiply()
+static void testQuaternionMultiply()
 {
     HEADER;
     dMatrix3 RA,RB,RC,Rtest;
@@ -1038,7 +1038,7 @@ void testQuaternionMultiply()
 }
 
 
-void testRotationFunctions()
+static void testRotationFunctions()
 {
     dMatrix3 R1;
     HEADER;
@@ -1249,7 +1249,7 @@ static void myDebug (int /*num*/, const char* /*msg*/, va_list /*ap*/)
 }
 
 
-extern "C" void dTestMatrixComparison()
+static void dTestMatrixComparison()
 {
     int i;
     printf ("dTestMatrixComparison()\n");

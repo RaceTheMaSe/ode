@@ -58,7 +58,7 @@ The axisP is draw in red and the axisR is in green
 
 #define PRISMATIC_ONLY 1
 #define ROTOIDE_ONLY   2
-int flag = 0;
+static int flag = 0;
 
 
 //camera view
@@ -127,7 +127,7 @@ static void start()
 }
 
 // function to update camera position at each step.
-void update()
+static void update()
 {
 // 		const dReal *a =(dBodyGetPosition (box1_body[0]));
 // 		float dx=a[0];
@@ -286,7 +286,7 @@ static void simLoop (int pause)
 }
 
 
-void Help(char **argv)
+static void Help(char **argv)
 {
     printf("%s ", argv[0]);
     printf(" -h | --help : print this help\n");

@@ -397,7 +397,7 @@ void gim_terminate_buffer_managers(GBUFFER_MANAGER_DATA buffer_managers[])
 
 //!** Buffer operations
 
-void GET_AVALIABLE_BUFFER_ID(GBUFFER_MANAGER_DATA * buffer_manager, GUINT32 & buffer_id)
+static void GET_AVALIABLE_BUFFER_ID(GBUFFER_MANAGER_DATA * buffer_manager, GUINT32 & buffer_id)
 {
     if(buffer_manager->m_free_positions.m_size>0)\
     {
@@ -412,7 +412,7 @@ void GET_AVALIABLE_BUFFER_ID(GBUFFER_MANAGER_DATA * buffer_manager, GUINT32 & bu
     }
 }
 
-GINT32 _validate_buffer_id(GBUFFER_ID * buffer_id,GBUFFER_DATA ** ppbuffer,GBUFFER_MANAGER_DATA ** pbm_data)
+static GINT32 _validate_buffer_id(GBUFFER_ID * buffer_id,GBUFFER_DATA ** ppbuffer,GBUFFER_MANAGER_DATA ** pbm_data)
 {
     VALIDATE_BUFFER_ID_PT(buffer_id)
     *ppbuffer = pbuffer;

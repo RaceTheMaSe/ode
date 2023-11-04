@@ -333,6 +333,7 @@ Matrix4x4 &MakeMatrix(dxGeom* g, Matrix4x4 &Out)
     return MakeMatrix(position, rotation, Out);
 }
 
+extern void opcode_collider_cleanup();
 
 #endif // #if dTRIMESH_ENABLED && dTRIMESH_OPCODE
 

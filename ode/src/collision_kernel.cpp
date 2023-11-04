@@ -51,6 +51,12 @@ for geometry objects
 #endif
 
 //****************************************************************************
+// functions prototypes
+static void getBodyPosr(const dxPosR& offset_posr, const dxPosR& final_posr, dxPosR& body_posr);
+static void getWorldOffsetPosr(const dxPosR& body_posr, const dxPosR& world_posr, dxPosR& offset_posr);
+static void dGeomCreateOffset (dxGeom *g);
+
+//****************************************************************************
 // helper functions for dCollide()ing a space with another geom
 
 // this struct records the parameters passed to dCollideSpaceGeom()
@@ -412,10 +418,10 @@ void dxGeom::bodyRemove()
     }
 }
 
-inline void myswap(dReal& a, dReal& b) { dReal t=b; b=a; a=t; }
+static inline void myswap(dReal& a, dReal& b) { const dReal t=b; b=a; a=t; }
 
 
-inline void matrixInvert(const dMatrix3& inMat, dMatrix3& outMat)
+static inline void matrixInvert(const dMatrix3& inMat, dMatrix3& outMat)
 {
     memcpy(outMat, inMat, sizeof(dMatrix3));
     // swap _12 and _21

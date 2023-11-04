@@ -35,7 +35,7 @@
 #include "../../ode/src/config.h"
 #include "../../ode/src/joints/universal.h"
 
-dReal d2r(dReal degree)
+static dReal d2r(dReal degree)
 {
     return degree * (dReal)(M_PI / 180.0);
 }

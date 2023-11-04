@@ -67,7 +67,7 @@ const dVector3 ancDim = {0.2,0.2,0.5};
 const dReal    axDim[NUM_CYL_DIM] = {0.1,1.0};
 
 
-int type = dJointTypePU;
+static int type = dJointTypePU;
 
 
 const dReal VEL_INC = 0.01; // Velocity increment
@@ -215,7 +215,7 @@ static void start()
 }
 
 // function to update camera position at each step.
-void update()
+static void update()
 {
 //   static FILE *file = fopen("x:/sim/src/libode/tstsrcSF/export.dat", "w");
 
@@ -578,7 +578,7 @@ static void simLoop (int pause)
 }
 
 
-void Help (char **argv)
+static void Help (char **argv)
 {
   printf ("%s ", argv[0]);
   printf (" -h | --help   : print this help\n");

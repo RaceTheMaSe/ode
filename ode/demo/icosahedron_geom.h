@@ -3,9 +3,9 @@
    This is a description of a convex icosahedron, to test
    the convex collision detection.
 */
-unsigned int Sphere_pointcount = 42;
-unsigned int Sphere_planecount = 80;
-dReal Sphere_points[126]={
+static unsigned int Sphere_pointcount = 42;
+static unsigned int Sphere_planecount = 80;
+static dReal Sphere_points[126]={
 0.000000,0.000000,-0.300000,
 0.217080,-0.157716,-0.134164,
 -0.082915,-0.255192,-0.134164,
@@ -49,7 +49,7 @@ dReal Sphere_points[126]={
 -0.127597,0.092703,0.255196,
 0.048737,0.149999,0.255196
 };
-unsigned int Sphere_polygons[]={
+static unsigned int Sphere_polygons[]={
 3,14,12,1,
 3,12,14,13,
 3,2,13,14,
@@ -131,7 +131,7 @@ unsigned int Sphere_polygons[]={
 3,11,37,41,
 3,41,36,9,
 };
-dReal Sphere_planes[]={
+static dReal Sphere_planes[]={
 0.471317,-0.583121,-0.661687,0.283056,
 0.187594,-0.577345,-0.794658,0.280252,
 -0.038547,-0.748789,-0.661687,0.283056,

@@ -29,10 +29,11 @@
     public:                                                                \
 		Test##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {}  \
     private:                                                               \
-        virtual void RunImpl(UnitTest::TestResults& testResults_) const;   \
-    } test##Name##Instance;                                                \
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const override;   \
+    };                                                \
+		static Test##Name test##Name##Instance;\
 																		   \
-    UnitTest::ListAdder adder##Name (List, &test##Name##Instance);         \
+    static UnitTest::ListAdder adder##Name (List, &test##Name##Instance);         \
 																		   \
     void Test##Name::RunImpl(UnitTest::TestResults& testResults_) const
 
@@ -57,10 +58,11 @@
     public:                                                                          \
 	    Test##Fixture##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {} \
     private:                                                                         \
-        virtual void RunImpl(UnitTest::TestResults& testResults_) const;             \
-    } test##Fixture##Name##Instance;                                                 \
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const override;    \
+    };                                                 \
+		static Test##Fixture##Name test##Fixture##Name##Instance;\
 																					 \
-    UnitTest::ListAdder adder##Fixture##Name (List, &test##Fixture##Name##Instance); \
+    static UnitTest::ListAdder adder##Fixture##Name (List, &test##Fixture##Name##Instance); \
 																					 \
     void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_) const	 \
 	{																				 \

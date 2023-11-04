@@ -112,9 +112,9 @@ static dBodyID          body[NUM_PARTS];
 static dGeomID          geom[NUM_PARTS];
 
 // Default Positions and anchor of the 2 bodies
-dVector3 pos1;
-dVector3 pos2;
-dVector3 anchor;
+static dVector3 pos1;
+static dVector3 pos2;
+static dVector3 anchor;
 
 static dJoint *joint;
 
@@ -124,11 +124,11 @@ const dReal OBS_SIDES[3]  = {1,1,1};
 const dReal RECT_SIDES[3] = {0.3, 0.1, 0.2};
 
 
-int type = dJointTypePiston;
+static int type = dJointTypePiston;
 
 //#pragma message("tc to be changed to 0")
 
-int tc = 0; // The test case choice;
+static int tc = 0; // The test case choice;
 
 
 //collision detection
@@ -225,7 +225,7 @@ static void start()
 }
 
 
-void setPositionBodies (int val)
+static void setPositionBodies (int val)
 {
     const dVector3 POS1 = {0,0,1.5,0};
     const dVector3 POS2 = {0,0,1.5,0};
@@ -300,7 +300,7 @@ void setPositionBodies (int val)
 
 
 // function to update camera position at each step.
-void update()
+static void update()
 {
 //   static FILE *file = fopen("x:/sim/src/libode/tstsrcSF/export.dat", "w");
 
@@ -626,7 +626,7 @@ static void simLoop (int pause)
 }
 
 
-void Help (char **argv)
+static void Help (char **argv)
 {
     printf ("%s ", argv[0]);
     printf (" -h | --help   : print this help\n");

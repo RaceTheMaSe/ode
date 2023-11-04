@@ -27,7 +27,7 @@
 #include "joint_internal.h"
 
 namespace {
-    static inline dReal clamp(dReal x, dReal minX, dReal maxX)
+    inline dReal clamp(dReal x, dReal minX, dReal maxX)
     {
         return x < minX ? minX : (x > maxX ? maxX : x);
     }

@@ -233,6 +233,18 @@ void dGeomSetConvex (dGeomID g,const dReal *_planes,unsigned int _planecount,
 }
 
 //****************************************************************************
+// function prototypes
+static bool IntersectSegmentPlane(dVector3 a,
+                           dVector3 b,
+                           dVector4 p,
+                           dReal &t,
+                           dVector3 q);
+static bool CheckEdgeIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,int& curc,
+                           dContactGeom *contact, int skip);
+static int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
+                           dContactGeom *contact, int skip);
+
+//****************************************************************************
 // Helper Inlines
 //
 
@@ -280,7 +292,7 @@ bool IntersectSegmentPlane(dVector3 a,
   (closest_point=Origin1+(Direction1*t).
   \return true if there is a closest point, false if the rays are parallel.
 */
-inline bool ClosestPointInRay(const dVector3 Origin1,
+static inline bool ClosestPointInRay(const dVector3 Origin1,
                               const dVector3 Direction1,
                               const dVector3 Origin2,
                               const dVector3 Direction2,
@@ -312,7 +324,7 @@ inline bool ClosestPointInRay(const dVector3 Origin1,
   \param c2 closest point on segment 2
   \note Adapted from Christer Ericson's Real Time Collision Detection Book.
 */
-inline void ClosestPointBetweenSegments(dVector3& p1,
+static inline void ClosestPointBetweenSegments(dVector3& p1,
                                          dVector3& q1,
                                          dVector3& p2,
                                          dVector3& q2,
@@ -436,7 +448,7 @@ if (tnom < 0.0f) {
   \param d Contains the direction of the ray upon returning if planes intersect
   \return true if the planes intersect, false if parallel.
 */
-inline bool IntersectPlanes(const dVector4 p1, const dVector4 p2, dVector3 p, dVector3 d)
+static inline bool IntersectPlanes(const dVector4 p1, const dVector4 p2, dVector3 p, dVector3 d)
 {
     // Compute direction of intersection line
     dCalcVectorCross3(d,p1,p2);
@@ -494,7 +506,7 @@ inline bool IsPointInConvex(dVector3 p,
   \param out the closest point in the polygon if the point is not inside
   \return true if the point lies inside of the polygon, false if not.
 */
-inline bool IsPointInPolygon(dVector3 p,
+static inline bool IsPointInPolygon(dVector3 p,
                              const unsigned int *polygon,
                              dReal *plane,
                              dxConvex *convex,
@@ -798,7 +810,7 @@ int dCollideConvexCapsule (dxGeom *o1, dxGeom *o2,
     return 0;
 }
 
-inline void ComputeInterval(dxConvex& cvx,dVector4 axis,dReal& min,dReal& max)
+static inline void ComputeInterval(dxConvex& cvx,dVector4 axis,dReal& min,dReal& max)
 {
     /* TODO: Use Support points here */
     dVector3 point;
@@ -920,7 +932,7 @@ struct ConvexConvexSATOutput
   \param ccso [IN/OUT] Used to input as well as output the minimum depth (and further info) so far, must be set to a huge value such as dInfinity for initialization.
   \return true on collision
 */
-inline bool CheckSATConvexFaces(dxConvex& cvx1,
+static inline bool CheckSATConvexFaces(dxConvex& cvx1,
                                 dxConvex& cvx2,
                                 ConvexConvexSATOutput& ccso)
 {
@@ -966,7 +978,7 @@ inline bool CheckSATConvexFaces(dxConvex& cvx1,
   \param ccso [IN/OUT] Used to input as well as output the minimum depth (and further info) so far, must be set to a huge value such as dInfinity for initialization.
   \return true on collision
 */
-inline bool CheckSATConvexEdges(dxConvex& cvx1,
+static inline bool CheckSATConvexEdges(dxConvex& cvx1,
                                 dxConvex& cvx2,
                                 ConvexConvexSATOutput& ccso)
 {
@@ -1068,7 +1080,7 @@ inline unsigned int GetIncidentSide(ConvexConvexSATOutput& ccso)
 }
 #endif
 
-inline unsigned int GetSupportSide(dVector3& dir,dxConvex& cvx)
+static inline unsigned int GetSupportSide(dVector3& dir,dxConvex& cvx)
 {
     dVector3 dics,tmp; // Direction in convex space
     dReal SavedDot;

@@ -38,17 +38,17 @@
 #define dsDrawConvex dsDrawConvexD
 #endif
 
-bool write_world = false;
-bool show_contacts = false;
-dWorld * world;
-dBody *top1, *top2;
-dSpace *space;
-dJointGroup contactgroup;
+static bool write_world = false;
+static bool show_contacts = false;
+static dWorld * world;
+static dBody *top1, *top2;
+static dSpace *space;
+static dJointGroup contactgroup;
 
-const dReal pinradius = 0.05f;
-const dReal pinlength = 1.5f;
-const dReal topradius = 1.0f;
-const dReal toplength = 0.25f;
+static const dReal pinradius = 0.05f;
+static const dReal pinlength = 1.5f;
+static const dReal topradius = 1.0f;
+static const dReal toplength = 0.25f;
 // const dReal topmass = 1.0f;
 
 #define MAX_CONTACTS 4
@@ -98,7 +98,7 @@ static void start()
 }
 
 
-char locase (char c)
+static char locase (char c)
 {
   if (c >= 'A' && c <= 'Z') return c - ('a'-'A');
   else return c;

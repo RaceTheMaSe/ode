@@ -36,16 +36,16 @@
 
 using namespace std;
 
-dWorld *world;
-dSpace *space;
-dPlane *ground;
-dBody *kbody;
-dBox *kbox;
-dJointGroup joints;
-dCylinder *kpole;
-dBody *matraca;
-dBox *matraca_geom;
-dHingeJoint *hinge;
+static dWorld *world;
+static dSpace *space;
+static dPlane *ground;
+static dBody *kbody;
+static dBox *kbox;
+static dJointGroup joints;
+static dCylinder *kpole;
+static dBody *matraca;
+static dBox *matraca_geom;
+static dHingeJoint *hinge;
 
 struct Box {
     dBody body;
@@ -70,10 +70,10 @@ struct Box {
     }
 };
 
-set<Box*> boxes;
-set<Box*> to_remove;
+static set<Box*> boxes;
+static set<Box*> to_remove;
 
-void dropBox()
+static void dropBox()
 {
     Box *box = new Box();
     
@@ -85,13 +85,13 @@ void dropBox()
     boxes.insert(box);
 }
 
-void queueRemoval(dGeomID g)
+static void queueRemoval(dGeomID g)
 {
     Box *b = (Box*)dGeomGetData(g);
     to_remove.insert(b);
 }
 
-void removeQueued()
+static void removeQueued()
 {
     while (!to_remove.empty()) {
         Box *b = *to_remove.begin();
@@ -102,7 +102,7 @@ void removeQueued()
 }
 
 
-void nearCallback(void *, dGeomID g1, dGeomID g2)
+static void nearCallback(void *, dGeomID g1, dGeomID g2)
 {
     if (g1 == ground->id()) {
         queueRemoval(g2);
@@ -131,7 +131,7 @@ void nearCallback(void *, dGeomID g1, dGeomID g2)
 }
 
 
-void
+static void
 simLoop(int pause)
 {
     if (!pause) {
@@ -180,7 +180,7 @@ simLoop(int pause)
     for_each(boxes.begin(), boxes.end(), std::mem_fn(&Box::draw));
 }
 
-void command(int c)
+static void command(int c)
 {
     switch (c) {
         case ' ':

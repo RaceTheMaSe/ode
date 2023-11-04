@@ -1,5 +1,5 @@
 const unsigned int convexBunnyPlaneCount = 176;
-dReal convexBunnyPlanes[] =
+static dReal convexBunnyPlanes[] =
 {
 	0.986167, -0.0612533, -0.154021, 0.399481,
 	0.982735, -0.0691036, -0.171628, 0.409884,
@@ -179,7 +179,7 @@ dReal convexBunnyPlanes[] =
 	0.712378, 0.227061, 0.664049, 0.771772,
 };
 const unsigned int convexBunnyPointCount = 105;
-dReal convexBunnyPoints[] =
+static dReal convexBunnyPoints[] =
 {
 	-0.459488, -0.093017, -0.311341,
 	0.466635, -0.094416, -0.305669,
@@ -287,7 +287,7 @@ dReal convexBunnyPoints[] =
 	0.177696, 0.196424, 0.846693,
 	-0.198638, -0.302135, -0.845816,
 };
-unsigned int convexBunnyPolygons[] =
+static unsigned int convexBunnyPolygons[] =
 {
 	3, 7, 2, 0,
 	3, 2, 7, 11,

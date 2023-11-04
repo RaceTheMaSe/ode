@@ -68,21 +68,44 @@ struct LineContactSet
     int      Count;
 };
 
+//****************************************************************************
+// function prototypes
 
 // static void GetTriangleGeometryCallback(udword, VertexPointers&, udword); -- not used
 static inline void dMakeMatrix4(const dVector3 Position, const dMatrix3 Rotation, dMatrix4 &B);
 //static void dInvertMatrix4( dMatrix4& B, dMatrix4& Binv );
 //static int IntersectLineSegmentRay(dVector3, dVector3, dVector3, dVector3,  dVector3);
 static void ClipConvexPolygonAgainstPlane( const dVector3, dReal, LineContactSet& );
-
-
-///returns the penetration depth
+static void PlaneClipSegment( const dVector3  s1, const dVector3  s2, const dVector3  N, dReal C, dVector3  clipped);
+static bool BuildPlane(const dVector3 s0, const dVector3 s1, const dVector3 s2, dVector3 Normal, dReal & Dist);
+// static bool BuildEdgesDir(const dVector3 s0, const dVector3 s1,
+//                    const dVector3 t0, const dVector3 t1,
+//                    dVector3 crossdir);
+static bool BuildEdgePlane(
+                    const dVector3 s0, const dVector3 s1,
+                    const dVector3 normal,
+                    dVector3 plane_normal,
+                    dReal & plane_dist);
+static dReal IntervalPenetration(dReal &vmin1, dReal &vmax1, dReal &vmin2, dReal &vmax2);
+static void FindInterval(const dVector3 * vertices, int verticecount, dVector3 dir,dReal &vmin,dReal &vmax);
+///returns the penetration depth:
 static dReal MostDeepPoints(
                             LineContactSet & points,
                             const dVector3 plane_normal,
                             dReal plane_dist,
                             LineContactSet & deep_points);
-
+static void ClipPointsByTri(
+                     const dVector3 * points, int pointcount,
+                     const dVector3 tri[3],
+                     const dVector3 triplanenormal,
+                     dReal triplanedist,
+                     LineContactSet & clipped_points,
+                     bool triplane_clips);
+static dReal FindTriangleTriangleCollision(
+                                    const dVector3 tri1[3],
+                                    const dVector3 tri2[3],
+                                    dVector3 separating_normal,
+                                    LineContactSet & deep_points);
 static bool TriTriContacts(const dVector3 tr1[3],
                            const dVector3 tr2[3],
                            int TriIndex1, int TriIndex2,
@@ -91,6 +114,7 @@ static bool TriTriContacts(const dVector3 tr1[3],
                            dContactGeom* Contacts, int Stride,
                            int &contactcount);
 
+//****************************************************************************
 
 /* some math macros */
 #define IS_ZERO(v) (!(v)[0] && !(v)[1] && !(v)[2])

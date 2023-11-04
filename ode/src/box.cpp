@@ -270,8 +270,7 @@ done:
 // array iret (of size m). 'i0' is always the first entry in the array.
 // n must be in the range [1..8]. m must be in the range [1..n]. i0 must be
 // in the range [0..n-1].
-
-void cullPoints (int n, dReal p[], int m, int i0, int iret[])
+static void cullPoints (int n, dReal p[], int m, int i0, int iret[])
 {
     // compute the centroid of the polygon in cx,cy
     int i,j;

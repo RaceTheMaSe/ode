@@ -100,7 +100,7 @@ static dReal length (dVector3 a)
 
 // get the max difference between a 3x3 matrix and the identity
 
-dReal cmpIdentity (const dMatrix3 A)
+static dReal cmpIdentity (const dMatrix3 A)
 {
   dMatrix3 I;
   dSetZero (I,12);
@@ -113,7 +113,7 @@ dReal cmpIdentity (const dMatrix3 A)
 //****************************************************************************
 // test world construction and utilities
 
-void constructWorldForTest (dReal gravity, int bodycount,
+static void constructWorldForTest (dReal gravity, int bodycount,
  /* body 1 pos */           dReal pos1x, dReal pos1y, dReal pos1z,
  /* body 2 pos */           dReal pos2x, dReal pos2y, dReal pos2z,
  /* body 1 rotation axis */ dReal ax1x, dReal ax1y, dReal ax1z,
@@ -150,7 +150,7 @@ void constructWorldForTest (dReal gravity, int bodycount,
 
 // add an oscillating torque to body 0
 
-void addOscillatingTorque (dReal tscale)
+static void addOscillatingTorque (dReal tscale)
 {
   static dReal a=0;
   dBodyAddTorque (body[0],tscale*cos(2*a),tscale*cos(2.7183*a),
@@ -159,7 +159,7 @@ void addOscillatingTorque (dReal tscale)
 }
 
 
-void addOscillatingTorqueAbout(dReal tscale, dReal x, dReal y, dReal z)
+static void addOscillatingTorqueAbout(dReal tscale, dReal x, dReal y, dReal z)
 {
   static dReal a=0;
   dBodyAddTorque (body[0], tscale*cos(a) * x, tscale*cos(a) * y,
@@ -170,7 +170,7 @@ void addOscillatingTorqueAbout(dReal tscale, dReal x, dReal y, dReal z)
 
 // damp the rotational motion of body 0 a bit
 
-void dampRotationalMotion (dReal kd)
+static void dampRotationalMotion (dReal kd)
 {
   const dReal *w = dBodyGetAngularVel (body[0]);
   dBodyAddTorque (body[0],-kd*w[0],-kd*w[1],-kd*w[2]);
@@ -180,7 +180,7 @@ void dampRotationalMotion (dReal kd)
 // add a spring force to keep the bodies together, otherwise they may fly
 // apart with some joints.
 
-void addSpringForce (dReal ks)
+static void addSpringForce (dReal ks)
 {
   const dReal *p1 = dBodyGetPosition (body[0]);
   const dReal *p2 = dBodyGetPosition (body[1]);
@@ -191,7 +191,7 @@ void addSpringForce (dReal ks)
 
 // add an oscillating Force to body 0
 
-void addOscillatingForce (dReal fscale)
+static void addOscillatingForce (dReal fscale)
 {
   static dReal a=0;
   dBodyAddForce (body[0],fscale*cos(2*a),fscale*cos(2.7183*a),
@@ -214,7 +214,7 @@ void addOscillatingForce (dReal fscale)
 
 // setup for the given test. return 0 if there is no such test
 
-int setupTest (int n)
+static int setupTest (int n)
 {
   switch (n) {
 
@@ -511,7 +511,7 @@ int setupTest (int n)
 // that must be less than 1.
 // return a dInfinity if error is not measured for this n.
 
-dReal doStuffAndGetError (int n)
+static dReal doStuffAndGetError (int n)
 {
   switch (n) {
 
@@ -1014,7 +1014,7 @@ static void simLoop (int pause)
 //****************************************************************************
 // conduct a specific test, and report the results
 
-void doTest (int argc, char **argv, int n, int fatal_if_bad_n)
+static void doTest (int argc, char **argv, int n, int fatal_if_bad_n)
 {
   test_num = n;
   iteration = 0;

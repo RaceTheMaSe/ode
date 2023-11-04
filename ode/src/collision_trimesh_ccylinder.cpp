@@ -201,7 +201,7 @@ static const dReal fSameContactPositionEpsilon = REAL(0.0001); // 1e-4
 static const dReal fSameContactNormalEpsilon = REAL(0.0001); // 1e-4
 
 // If this two contact can be classified as "near"
-inline int _IsNearContacts(sLocalContactData& c1,sLocalContactData& c2)
+static inline int _IsNearContacts(sLocalContactData& c1,sLocalContactData& c2)
 {
     int bPosNear = 0;
     int bSameDir = 0;
@@ -229,7 +229,7 @@ inline int _IsNearContacts(sLocalContactData& c1,sLocalContactData& c2)
     return (bPosNear && bSameDir);
 }
 
-inline int _IsBetter(sLocalContactData& c1,sLocalContactData& c2)
+inline static int _IsBetter(sLocalContactData& c1,sLocalContactData& c2)
 {
     // The not better will be throw away
     // You can change the selection criteria here
@@ -447,7 +447,7 @@ BOOL sTrimeshCapsuleColliderData::_cldTestAxis(
 }
 
 // helper for less key strokes
-inline void _CalculateAxis(const dVector3& v1,
+static inline void _CalculateAxis(const dVector3& v1,
                            const dVector3& v2,
                            const dVector3& v3,
                            const dVector3& v4,

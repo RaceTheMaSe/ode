@@ -131,7 +131,7 @@ static void start()
 }
 
 
-char locase(char c)
+static char locase(char c)
 {
     if (c >= 'A' && c <= 'Z') return c - ('a'-'A');
     else return c;
@@ -308,7 +308,7 @@ static void command (int cmd)
 
 // draw a geom
 
-void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
+static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
     if (!draw_geom){
         return;

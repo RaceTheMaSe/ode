@@ -158,7 +158,7 @@ rows/columns and manipulate C.
 
 // transfer b-values to x-values
 template<bool zero_b>
-inline 
+inline static
 void transfer_b_to_x(dReal pairsbx[PBX__MAX], unsigned n)
 {
     dReal *const endbx = pairsbx + (sizeint)n * PBX__MAX;
@@ -183,6 +183,7 @@ enum dxRowSwapMethodSwapRCOption
 // be copied.
 
 template<dxRowSwapMethodSwapRCOption row_swap_method>
+static
 void swapRowsAndCols (unsigned i1, unsigned i2, ATYPE A, unsigned n, unsigned nskip)
 {
     dAASSERT (A && n > 0 && /*i1 >= 0 && i2 >= 0 &&*/ i1 < n && i2 < n &&
@@ -251,6 +252,7 @@ static void doSwapProblem_Common(unsigned i1, unsigned i2, dReal pairsbx[PBX__MA
 
 // swap two indexes in the n*n LCP problem. i1 must be <= i2.
 template<dxSwapStateSwapProblemOption state_swap_opt, dxRowSwapMethodSwapRCOption row_swap_method>
+static
 void swapProblem (unsigned i1, unsigned i2, ATYPE A, unsigned n, unsigned nskip,
     dReal pairsbx[PBX__MAX], dReal *w, dReal pairslh[PLH__MAX], unsigned *p, int *findex, bool *state)
 {
@@ -1206,6 +1208,7 @@ static sizeint EstimateTestSolveLCPMemoryReq(unsigned n)
     return res;
 }
 
+extern "C" ODE_API int dTestSolveLCP(); // prototype to silence "no previous declaration"
 extern "C" ODE_API int dTestSolveLCP()
 {
     const unsigned n = 100;

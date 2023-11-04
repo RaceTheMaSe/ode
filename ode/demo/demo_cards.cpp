@@ -68,14 +68,14 @@ static const dReal cwidth=.5, cthikness=.02, clength=1;
 const dReal Card::sides[3] = { cwidth, cthikness, clength };
 
 
-std::vector<Card*> cards;
+static std::vector<Card*> cards;
 
-int getncards(int nLevels)
+static int getncards(int nLevels)
 {
     return (3*nLevels*nLevels + nLevels) / 2;
 }
 
-void place_cards()
+static void place_cards()
 {
     ncards = getncards(levels);
     // destroy removed cards (if any)
@@ -133,7 +133,7 @@ void place_cards()
 }
 
 
-void start()
+static void start()
 {
     puts("Controls:");
     puts("   SPACE - reposition cards");
@@ -163,7 +163,7 @@ static void nearCallback (void *, dGeomID o1, dGeomID o2)
 }
 
 
-void simLoop(int pause)
+static void simLoop(int pause)
 {
     if (!pause) {
         dSpaceCollide (space, NULL, &nearCallback);
@@ -179,7 +179,7 @@ void simLoop(int pause)
     
 }
 
-void command(int c)
+static void command(int c)
 {
     switch (c) {
         case '=':
