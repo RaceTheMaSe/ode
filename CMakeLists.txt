@@ -956,7 +956,6 @@ if(ODE_WITH_TESTS)
 		tests/UnitTest++/src/CheckMacros.h
 		tests/UnitTest++/src/Checks.cpp
 		tests/UnitTest++/src/Checks.h
-		tests/UnitTest++/src/Config.h
 		tests/UnitTest++/src/DeferredTestReporter.cpp
 		tests/UnitTest++/src/DeferredTestReporter.h
 		tests/UnitTest++/src/DeferredTestResult.cpp
@@ -985,6 +984,7 @@ if(ODE_WITH_TESTS)
 		tests/UnitTest++/src/TimeConstraint.h
 		tests/UnitTest++/src/TimeHelpers.h
 		tests/UnitTest++/src/UnitTest++.h
+		tests/UnitTest++/src/UnitTestConfig++.h
 		tests/UnitTest++/src/XmlTestReporter.cpp
 		tests/UnitTest++/src/XmlTestReporter.h
 	)

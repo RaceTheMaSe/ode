@@ -32,8 +32,8 @@
 #include <UnitTest++.h>
 #include <ode/ode.h>
 
-#include "../../ode/src/config.h"
-#include "../../ode/src/joints/ball.h"
+#include "config.h"
+#include "ball.h"
 
 
 using namespace std;

@@ -33,7 +33,7 @@
 #include <ode/ode.h>
 
 #include "config.h"
-#include "../../ode/src/joints/amotor.h"
+#include "amotor.h"
 
 const dReal tol = 1e-5;
 

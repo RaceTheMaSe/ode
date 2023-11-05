@@ -1,8 +1,8 @@
-#include "../UnitTest++.h"
-#include "../TestMacros.h"
-#include "../TestList.h"
-#include "../TestResults.h"
-#include "../TestReporter.h"
+#include "UnitTest++.h"
+#include "TestMacros.h"
+#include "TestList.h"
+#include "TestResults.h"
+#include "TestReporter.h"
 #include "RecordingReporter.h"
 
 using namespace UnitTest;

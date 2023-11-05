@@ -129,7 +129,10 @@ TEST(test_collision_heightfield_ray_fail)
     }
 }
 
-#include "../ode/demo/convex_prism.h"
+#if defined(_MSC_VER) && _MSC_VER >= 1900 // tested with 2013 and 2019
+#pragma warning(disable: 4464) // relative path in include
+#endif
+#include "../demo/convex_prism.h"
 
 TEST(test_collision_ray_convex)
 {

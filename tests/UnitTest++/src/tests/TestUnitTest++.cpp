@@ -1,5 +1,5 @@
-#include "../UnitTest++.h"
-#include "../ReportAssert.h"
+#include "UnitTest++.h"
+#include "ReportAssert.h"
 
 #include <vector>
 

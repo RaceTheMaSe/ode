@@ -25,9 +25,9 @@
 
 
 #include <ode/contact.h>
-#include "../common.h"
-#include "../objects.h"
-#include "../obstack.h"
+#include "common.h"
+#include "objects.h"
+#include "obstack.h"
 
 
 // joint flags

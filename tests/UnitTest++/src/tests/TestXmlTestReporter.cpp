@@ -1,5 +1,5 @@
-#include "../UnitTest++.h"
-#include "../XmlTestReporter.h"
+#include "UnitTest++.h"
+#include "XmlTestReporter.h"
 
 #include <sstream>
 

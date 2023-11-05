@@ -1,4 +1,4 @@
-#include "../UnitTest++.h"
+#include "UnitTest++.h"
 #include "RecordingReporter.h"
 
 using namespace UnitTest;

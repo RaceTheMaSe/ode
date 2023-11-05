@@ -1,9 +1,9 @@
-#include "../UnitTest++.h"
+#include "UnitTest++.h"
 #include "RecordingReporter.h"
-#include "../ReportAssert.h"
-#include "../TestList.h"
-#include "../TimeHelpers.h"
-#include "../TimeConstraint.h"
+#include "ReportAssert.h"
+#include "TestList.h"
+#include "TimeHelpers.h"
+#include "TimeConstraint.h"
 
 using namespace UnitTest;
 

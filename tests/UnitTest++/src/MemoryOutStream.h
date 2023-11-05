@@ -1,7 +1,7 @@
 #ifndef UNITTEST_MEMORYOUTSTREAM_H
 #define UNITTEST_MEMORYOUTSTREAM_H
 
-#include "Config.h"
+#include "UnitTestConfig++.h"
 
 #ifndef UNITTEST_USE_CUSTOM_STREAMS
 

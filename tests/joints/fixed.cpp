@@ -32,8 +32,8 @@
 #include <UnitTest++.h>
 #include <ode/ode.h>
 
-#include "../../ode/src/config.h"
-#include "../../ode/src/joints/fixed.h"
+#include "config.h"
+#include "fixed.h"
 
 SUITE (TestdxJointFixed)
 {

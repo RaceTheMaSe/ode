@@ -1,4 +1,4 @@
-#include "Config.h"
+#include "UnitTestConfig++.h"
 
 #if defined UNITTEST_POSIX
     #include "Posix/TimeHelpers.h"

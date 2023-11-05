@@ -33,8 +33,8 @@
 #include <UnitTest++.h>
 #include <ode/ode.h>
 
-#include "../../ode/src/config.h"
-#include "../../ode/src/joints/slider.h"
+#include "config.h"
+#include "slider.h"
 
 SUITE (TestdxJointSlider)
 {

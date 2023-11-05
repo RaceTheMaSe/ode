@@ -1,7 +1,7 @@
 #ifndef UNITTESTCPP_H
 #define UNITTESTCPP_H
 
-#include "Config.h"
+#include "UnitTestConfig++.h"
 #include "Test.h"
 #include "TestList.h"
 #include "TestSuite.h"

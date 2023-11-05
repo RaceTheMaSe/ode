@@ -1,7 +1,7 @@
 #ifndef UNITTEST_TESTMACROS_H
 #define UNITTEST_TESTMACROS_H
 
-#include "Config.h"
+#include "UnitTestConfig++.h"
 
 #ifndef UNITTEST_POSIX
 	#define UNITTEST_THROW_SIGNALS

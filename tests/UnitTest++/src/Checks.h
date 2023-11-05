@@ -1,7 +1,7 @@
 #ifndef UNITTEST_CHECKS_H
 #define UNITTEST_CHECKS_H
 
-#include "Config.h"
+#include "UnitTestConfig++.h"
 #include "TestResults.h"
 #include "MemoryOutStream.h"
 

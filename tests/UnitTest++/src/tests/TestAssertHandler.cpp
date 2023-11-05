@@ -1,6 +1,6 @@
-#include "../UnitTest++.h"
-#include "../AssertException.h"
-#include "../ReportAssert.h"
+#include "UnitTest++.h"
+#include "AssertException.h"
+#include "ReportAssert.h"
 
 using namespace UnitTest;
 

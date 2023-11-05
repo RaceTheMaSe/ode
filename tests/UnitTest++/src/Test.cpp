@@ -1,4 +1,4 @@
-#include "Config.h"
+#include "UnitTestConfig++.h"
 #include "Test.h"
 #include "TestList.h"
 #include "TestResults.h"

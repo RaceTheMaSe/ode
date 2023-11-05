@@ -32,8 +32,8 @@
 #include <UnitTest++.h>
 #include <ode/ode.h>
 
-#include "../../ode/src/config.h"
-#include "../../ode/src/joints/hinge2.h"
+#include "config.h"
+#include "hinge2.h"
 
 
 using namespace std;

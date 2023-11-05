@@ -1,5 +1,5 @@
-#include "../UnitTest++.h"
-#include "../TimeHelpers.h"
+#include "UnitTest++.h"
+#include "TimeHelpers.h"
 
 #include "RecordingReporter.h"
 

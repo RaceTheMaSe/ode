@@ -1,6 +1,6 @@
-#include "../UnitTest++.h"
-#include "../TestReporter.h"
-#include "../TimeHelpers.h"
+#include "UnitTest++.h"
+#include "TestReporter.h"
+#include "TimeHelpers.h"
 
 using namespace UnitTest;
 

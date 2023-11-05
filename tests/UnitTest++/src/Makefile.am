@@ -9,7 +9,7 @@ check_LTLIBRARIES = libunittestpp.la
 
 libunittestpp_la_SOURCES = AssertException.cpp       AssertException.h \
                             CheckMacros.h             Checks.cpp \
-                            Checks.h                  Config.h \
+                            Checks.h                  TimeHelpers.h \
                             DeferredTestReporter.cpp  DeferredTestReporter.h \
                             DeferredTestResult.cpp    DeferredTestResult.h \
                             MemoryOutStream.cpp       MemoryOutStream.h \
@@ -23,7 +23,7 @@ libunittestpp_la_SOURCES = AssertException.cpp       AssertException.h \
                             TestResults.h             TestRunner.cpp \
                             TestRunner.h              TestSuite.h \
                             TimeConstraint.cpp        TimeConstraint.h \
-                            TimeHelpers.h             UnitTest++.h \
+                            UnitTest++.h              UnitTest++Config.h \
                             XmlTestReporter.cpp       XmlTestReporter.h
 if WIN32
 libunittestpp_la_LIBADD = $(builddir)/Win32/libhelper.la

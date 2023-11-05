@@ -1,5 +1,5 @@
-#include "../UnitTest++.h"
-#include "../DeferredTestReporter.h"
+#include "UnitTest++.h"
+#include "DeferredTestReporter.h"
 
 #include <string>
 
