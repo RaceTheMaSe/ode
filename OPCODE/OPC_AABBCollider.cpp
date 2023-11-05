@@ -533,8 +533,11 @@ void AABBCollider::_Collide(const AABBTreeNode* node)
 {
 	// Perform AABB-AABB overlap test
 	Point Center, Extents;
-	node->GetAABB()->GetCenter(Center);
-	node->GetAABB()->GetExtents(Extents);
+	if(node->GetAABB())
+	{
+		node->GetAABB()->GetCenter(Center);
+		node->GetAABB()->GetExtents(Extents);
+	}
 	if(!AABBAABBOverlap(Center, Extents))	return;
 
 	if(node->IsLeaf() || AABBContainsBox(Center, Extents))

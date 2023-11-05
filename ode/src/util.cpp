@@ -201,9 +201,11 @@ dxWorldProcessMemArena *dxWorldProcessContext::ReallocateIslandsMemArena(sizeint
 {
     dxWorldProcessMemArena *pmaExistingArena = GetIslandsMemArena();
     dxWorldProcessMemArena *pmaNewMemArena = dxWorldProcessMemArena::ReallocateMemArena(pmaExistingArena, nMemoryRequirement, pmmMemortManager, fReserveFactor, uiReserveMinimum);
+    dIASSERT(pmaNewMemArena != NULL);
     SetIslandsMemArena(pmaNewMemArena);
 
-    pmaNewMemArena->ResetState();
+    if(pmaNewMemArena)
+        pmaNewMemArena->ResetState();
 
     return pmaNewMemArena;
 }

@@ -160,7 +160,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 	if(!builder->ValidateSubdivision(mNodePrimitives, mNbPrimitives, mBV))	return true;
 
 	bool ValidSplit = true;	// Optimism...
-	udword NbPos;
+	udword NbPos=0;
 	if(builder->mSettings.mRules & SPLIT_LARGEST_AXIS)
 	{
 		// Find the largest axis to split along
@@ -311,10 +311,15 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 	// Assign children
 	AABBTreeNode* Pos = const_cast<AABBTreeNode *>(GetPos());
 	AABBTreeNode* Neg = const_cast<AABBTreeNode *>(GetNeg());
-	Pos->mNodePrimitives	= &mNodePrimitives[0];
-	Pos->mNbPrimitives		= NbPos;
-	Neg->mNodePrimitives	= &mNodePrimitives[NbPos];
-	Neg->mNbPrimitives		= mNbPrimitives - NbPos;
+	assert(Pos!=NULL && Neg!=NULL);
+	if(Pos) {
+		Pos->mNodePrimitives	= &mNodePrimitives[0];
+		Pos->mNbPrimitives		= NbPos;
+	}
+	if(Neg) {
+		Neg->mNodePrimitives	= &mNodePrimitives[NbPos];
+		Neg->mNbPrimitives		= mNbPrimitives - NbPos;
+	}
 
 	return true;
 }

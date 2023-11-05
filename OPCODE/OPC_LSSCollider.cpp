@@ -561,8 +561,11 @@ void LSSCollider::_Collide(const AABBTreeNode* node)
 {
 	// Perform LSS-AABB overlap test
 	Point Center, Extents;
-	node->GetAABB()->GetCenter(Center);
-	node->GetAABB()->GetExtents(Extents);
+	if(node->GetAABB())
+	{
+		node->GetAABB()->GetCenter(Center);
+		node->GetAABB()->GetExtents(Extents);
+	}
 	if(!LSSAABBOverlap(Center, Extents))	return;
 
 	if(node->IsLeaf() || LSSContainsBox(Center, Extents))

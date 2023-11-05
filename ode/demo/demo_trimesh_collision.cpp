@@ -220,7 +220,7 @@ static void simLoop(int pause)
         const dReal *Rot = dBodyGetRotation(bodyId[i]);
 
         // Draw TriMeshes
-        if (odeVerts)
+        if (odeVerts[i])
         {
             for (int j = 0; j < odeIndsCount[i] / 3; j++)
             {

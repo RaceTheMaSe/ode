@@ -1195,7 +1195,8 @@ dxJoint * dJointCreateContact (dWorldID w, dJointGroupID group,
     dAASSERT (w && c);
     dxJointContact *j = (dxJointContact *)
         createJoint<dxJointContact> (w,group);
-    j->contact = *c;
+    if(j && c)
+        j->contact = *c;
     return j;
 }
 

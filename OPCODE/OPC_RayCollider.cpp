@@ -609,8 +609,11 @@ void RayCollider::_SegmentStab(const AABBTreeNode* node, Container& box_indices)
 {
 	// Test the box against the segment
 	Point Center=Point(), Extents=Point();
-	node->GetAABB()->GetCenter(Center);
-	node->GetAABB()->GetExtents(Extents);
+	if(node->GetAABB())
+	{
+		node->GetAABB()->GetCenter(Center);
+		node->GetAABB()->GetExtents(Extents);
+	}
 	if(!SegmentAABBOverlap(Center, Extents))	return;
 
 	if(node->IsLeaf())
@@ -747,8 +750,11 @@ void RayCollider::_RayStab(const AABBTreeNode* node, Container& box_indices)
 {
 	// Test the box against the ray
 	Point Center, Extents;
-	node->GetAABB()->GetCenter(Center);
-	node->GetAABB()->GetExtents(Extents);
+	if(node->GetAABB())
+	{
+		node->GetAABB()->GetCenter(Center);
+		node->GetAABB()->GetExtents(Extents);
+	}
 	if(!RayAABBOverlap(Center, Extents))	return;
 
 	if(node->IsLeaf())
