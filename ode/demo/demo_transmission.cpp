@@ -142,7 +142,7 @@ void start()
 
     dWorldSetERP(world, 0.2);
 
-    space = dSimpleSpaceCreate (0);
+    space = dSimpleSpaceCreate (NULL);
     
     body1 = dBodyCreate(world);
     body2 = dBodyCreate(world);
@@ -160,13 +160,13 @@ void start()
     dMassSetCylinder(&mass, 100, 3, 0.2, 0.5);
     dBodySetMass(body2, &mass);
 
-    hinge1 = dJointCreateHinge(world, 0);
-    dJointAttach(hinge1, body1, 0);
+    hinge1 = dJointCreateHinge(world, NULL);
+    dJointAttach(hinge1, body1, NULL);
     
-    hinge2 = dJointCreateHinge(world, 0);
-    dJointAttach(hinge2, body2, 0);
+    hinge2 = dJointCreateHinge(world, NULL);
+    dJointAttach(hinge2, body2, NULL);
 
-    transmission = dJointCreateTransmission(world, 0);
+    transmission = dJointCreateTransmission(world, NULL);
     dJointAttach(transmission, body1, body2);
     dJointSetFeedback(transmission, &feedback);
 

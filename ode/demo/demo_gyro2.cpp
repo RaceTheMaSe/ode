@@ -45,7 +45,7 @@ A bunch of spheres with rolling friction.
 #endif
 
 // dynamics and collision objects
-static dWorldID world = 0;
+static dWorldID world = NULL;
 
 static const dReal dt = 1/REAL(60.0); // 60 fps
 // Water density if units are meters and kg
@@ -80,7 +80,7 @@ static void start()
 static void clear()
 {
   if (world) dWorldDestroy (world);
-  world = 0;
+  world = NULL;
 }
 
 
@@ -195,7 +195,7 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   dInitODE2(0);

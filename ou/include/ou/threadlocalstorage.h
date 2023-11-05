@@ -194,7 +194,7 @@ public: // Safe methods
 	static _OU_ALWAYSINLINE tlsvaluetype _OU_CONVENTION_API 
 	/*tlsvaluetype */GetStorageValue(const HTLSKEY &hskStorageKey, tlsindextype iValueIndex)
 	{
-		tlsvaluetype vValueData = 0;
+		tlsvaluetype vValueData = NULL;
 		
 		CTLSStorageBlock *psbStorageBlock = GetKeyStorageBlock(hskStorageKey);
 

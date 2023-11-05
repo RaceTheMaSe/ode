@@ -168,7 +168,7 @@ static void simLoop (int)
   for (i=0; i < NUM; i++) {
     for (j=0; j < NUM; j++) test_matrix[i][j] = 0;
   }
-  dSpaceCollide (space,0,&nearCallback);
+  dSpaceCollide (space,NULL,&nearCallback);
   for (i=0; i < NUM; i++) {
     for (j=i+1; j < NUM; j++) {
       if (good_matrix[i][j] && !test_matrix[i][j]) {
@@ -203,7 +203,7 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   dInitODE2(0);
@@ -212,15 +212,15 @@ int main (int argc, char **argv)
   // space = dSimpleSpaceCreate();
 
   // test the hash space:
-  // space = dHashSpaceCreate (0);
+  // space = dHashSpaceCreate (NULL);
   // dHashSpaceSetLevels (space,-10,10);
 
   // test the quadtree space
   dVector3 Center = {0, 0, 0, 0};
   dVector3 Extents = {10, 0, 10, 0};
-  space = dQuadTreeSpaceCreate(0, Center, Extents, 7);
+  space = dQuadTreeSpaceCreate(NULL, Center, Extents, 7);
 
-  for (i=0; i < NUM; i++) geom[i] = 0;
+  for (i=0; i < NUM; i++) geom[i] = NULL;
   init_test();
 
   // run simulation

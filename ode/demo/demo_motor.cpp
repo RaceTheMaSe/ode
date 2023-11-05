@@ -117,7 +117,7 @@ static void nearCallback (void *, dGeomID o1, dGeomID o2)
 static void simLoop (int pause)
 {
   if (!pause) {
-    dSpaceCollide(space,0,&nearCallback);
+    dSpaceCollide(space,NULL,&nearCallback);
     dWorldQuickStep (world,0.05);
 	dJointGroupEmpty(contactgroup);
   }
@@ -142,14 +142,14 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
   dInitODE2(0);
   contactgroup = dJointGroupCreate(0);
   world = dWorldCreate();
-  space = dSimpleSpaceCreate(0);
+  space = dSimpleSpaceCreate(NULL);
   dMass m;
   dMassSetBox (&m,1,SIDE,SIDE,SIDE);
   dMassAdjust (&m,MASS);
@@ -166,14 +166,14 @@ int main (int argc, char **argv)
   dGeomSetBody(geom[0],body[0]);
   dGeomSetBody(geom[1],body[1]);
 
-  lmotor[0] = dJointCreateLMotor (world,0);
+  lmotor[0] = dJointCreateLMotor (world,NULL);
   dJointAttach (lmotor[0],body[0],body[1]);
-  lmotor[1] = dJointCreateLMotor (world,0);
-  dJointAttach (lmotor[1],body[0],0);
-  amotor[0] = dJointCreateAMotor(world,0);
+  lmotor[1] = dJointCreateLMotor (world,NULL);
+  dJointAttach (lmotor[1],body[0],NULL);
+  amotor[0] = dJointCreateAMotor(world,NULL);
   dJointAttach(amotor[0], body[0],body[1]);
-  amotor[1] = dJointCreateAMotor(world,0);
-  dJointAttach(amotor[1], body[0], 0);
+  amotor[1] = dJointCreateAMotor(world,NULL);
+  dJointAttach(amotor[1], body[0], NULL);
   
   for (int i=0; i<2; i++) {
 	  dJointSetAMotorNumAxes(amotor[i], 3);

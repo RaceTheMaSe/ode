@@ -115,8 +115,8 @@ void solveL1Stripe_2(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
     unsigned blockStartRow = 0;
     for (bool exitLoop = false, subsequentPass = false; !exitLoop; subsequentPass = true, exitLoop = (blockStartRow += 2) == rowCount) 
     {
-        const dReal *ptrLElement;
-        dReal *ptrBElement;
+        const dReal *ptrLElement=NULL;
+        dReal *ptrBElement=NULL;
 
         /* declare variables - Z matrix */
         dReal Z11, Z12, Z21, Z22;
@@ -415,8 +415,8 @@ void solveStripeL1_1(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
     unsigned blockStartRow = 0;
     for (bool exitLoop = false, subsequentPass = false; !exitLoop; subsequentPass = true, exitLoop = (blockStartRow += 2) == rowCount) 
     {
-        const dReal *ptrLElement;
-        dReal *ptrBElement;
+        const dReal *ptrLElement=NULL;
+        dReal *ptrBElement=NULL;
 
         /* declare variables - Z matrix */
         dReal Z11, Z21;
@@ -636,7 +636,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
         dReal Z[block_step][b_rows];
         dReal Y[block_step][b_rows];
 
-        dReal *ptrBElement;
+        dReal *ptrBElement=NULL;
 
         CellContextInstance previousContextInstance;
         unsigned completedColumnBlock;
@@ -762,7 +762,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
             // Declare and assign the variables at the top to not interfere with any branching -- the compiler is going to eliminate them anyway.
             bool handleComputationTakenOver = false, rowEndReached = false;
 
-            const dReal *ptrLElement;
+            const dReal *ptrLElement=NULL;
             unsigned finalColumnBlock;
 
             if (currentBlock != 0)
@@ -1004,7 +1004,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
             bool skipToHandlingSubsequentRows = false, skiptoCopyingResult = false;
 
             /* declare variables */
-            const dReal *ptrLElement;
+            const dReal *ptrLElement=NULL;
 
             if (completedColumnBlock < currentBlock)
             {

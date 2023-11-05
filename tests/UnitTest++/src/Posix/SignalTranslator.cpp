@@ -2,7 +2,7 @@
 
 namespace UnitTest {
 
-sigjmp_buf* SignalTranslator::s_jumpTarget = 0;
+sigjmp_buf* SignalTranslator::s_jumpTarget = NULL;
 
 namespace {
 
@@ -36,11 +36,11 @@ SignalTranslator::SignalTranslator ()
 
 SignalTranslator::~SignalTranslator()
 {
-    sigaction( SIGILL , &m_old_SIGBUS_action , 0 );
-    sigaction( SIGBUS , &m_old_SIGBUS_action , 0 );
-    sigaction( SIGTRAP, &m_old_SIGTRAP_action, 0 );
-    sigaction( SIGFPE , &m_old_SIGFPE_action , 0 );
-    sigaction( SIGSEGV, &m_old_SIGSEGV_action, 0 );
+    sigaction( SIGILL , &m_old_SIGBUS_action , NULL );
+    sigaction( SIGBUS , &m_old_SIGBUS_action , NULL );
+    sigaction( SIGTRAP, &m_old_SIGTRAP_action, NULL );
+    sigaction( SIGFPE , &m_old_SIGFPE_action , NULL );
+    sigaction( SIGSEGV, &m_old_SIGSEGV_action, NULL );
 
     s_jumpTarget = m_oldJumpTarget;
 }

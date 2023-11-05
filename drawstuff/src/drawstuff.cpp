@@ -906,10 +906,10 @@ static int current_state = 0;
 // textures and shadows
 static int use_textures = 1;		// 1 if textures to be drawn
 static int use_shadows = 1;		// 1 if shadows to be drawn
-static Texture *sky_texture = 0;
-static Texture *ground_texture = 0;
-static Texture *wood_texture = 0;
-static Texture *checkered_texture = 0;
+static Texture *sky_texture = NULL;
+static Texture *ground_texture = NULL;
+static Texture *wood_texture = NULL;
+static Texture *checkered_texture = NULL;
 
 static Texture *texture[4 + 1]; // +1 since index 0 is not used
 
@@ -974,9 +974,9 @@ void dsStopGraphics()
     delete sky_texture;
     delete ground_texture;
     delete wood_texture;
-    sky_texture = 0;
-    ground_texture = 0;
-    wood_texture = 0;
+    sky_texture = NULL;
+    ground_texture = NULL;
+    wood_texture = NULL;
 }
 
 

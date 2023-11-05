@@ -840,8 +840,8 @@ void CTLSStorageInstance::FreeInstance()
 
 
 CTLSStorageInstance::CTLSStorageInstance(tlsindextype iValueCount, unsigned int uiInitializationFlags):
-	m_psaStorageList((atomicptr)0),
-	m_hskStorageKey((HTLSKEYVALUE::value_type)0),
+	m_psaStorageList(NULL),
+	m_hskStorageKey(NULL),
 	m_iValueCount(iValueCount)
 {
 	SetInitializationFlags(uiInitializationFlags);
@@ -1246,7 +1246,7 @@ void CTLSInitialization::FinalizeTLSAPI()
 	{
 		if (g_apsiStorageGlobalInstances[ikInstanceKind])
 		{
-			g_ahkvStorageGlobalKeyValues[ikInstanceKind] = 0;
+			g_ahkvStorageGlobalKeyValues[ikInstanceKind] = NULL;
 
 			FinalizeTLSAPIValidated(ikInstanceKind);
 

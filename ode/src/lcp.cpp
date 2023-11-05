@@ -1294,7 +1294,7 @@ extern "C" ODE_API int dTestSolveLCP()
             dStopwatchReset (&sw);
             dStopwatchStart (&sw);
 
-            dxSolveLCP (arena,n,A2,pairsbx,w,nub,pairslh,0);
+            dxSolveLCP (arena,n,A2,pairsbx,w,nub,pairslh,NULL);
 
             dStopwatchStop (&sw);
             double time = dStopwatchTime(&sw);

@@ -40,7 +40,7 @@ protected:
   dGeomID _id;
 
   dGeom()
-    { _id = 0; }
+    { _id = NULL; }
 public:
   ~dGeom()
     { if (_id) dGeomDestroy (_id); }
@@ -52,7 +52,7 @@ public:
 
   void destroy() {
     if (_id) dGeomDestroy (_id);
-    _id = 0;
+    _id = NULL;
   }
 
   int getClass() const
@@ -142,7 +142,7 @@ protected:
   // the default constructor is protected so that you
   // can't instance this class. you must instance one
   // of its subclasses instead.
-  dSpace () { _id = 0; }
+  dSpace () { _id = NULL; }
 
 public:
   dSpaceID id() const
@@ -179,7 +179,7 @@ class dSimpleSpace : public dSpace {
 
 public:
   dSimpleSpace ()
-    { _id = (dGeomID) dSimpleSpaceCreate (0); }
+    { _id = (dGeomID) dSimpleSpaceCreate (NULL); }
   dSimpleSpace (dSpace &space)
     { _id = (dGeomID) dSimpleSpaceCreate (space.id()); }
   dSimpleSpace (dSpaceID space)
@@ -194,7 +194,7 @@ class dHashSpace : public dSpace {
 
 public:
   dHashSpace ()
-    { _id = (dGeomID) dHashSpaceCreate (0); }
+    { _id = (dGeomID) dHashSpaceCreate (NULL); }
   dHashSpace (dSpace &space)
     { _id = (dGeomID) dHashSpaceCreate (space.id()); }
   dHashSpace (dSpaceID space)
@@ -212,7 +212,7 @@ class dQuadTreeSpace : public dSpace {
 
 public:
   dQuadTreeSpace (const dVector3 center, const dVector3 extents, int depth)
-    { _id = (dGeomID) dQuadTreeSpaceCreate (0,center,extents,depth); }
+    { _id = (dGeomID) dQuadTreeSpaceCreate (NULL,center,extents,depth); }
   dQuadTreeSpace (dSpace &space, const dVector3 center, const dVector3 extents, int depth)
     { _id = (dGeomID) dQuadTreeSpaceCreate (space.id(),center,extents,depth); }
   dQuadTreeSpace (dSpaceID space, const dVector3 center, const dVector3 extents, int depth)
@@ -228,7 +228,7 @@ class dSphere : public dGeom {
 public:
   dSphere () { }
   dSphere (dReal radius)
-    { _id = dCreateSphere (0, radius); }
+    { _id = dCreateSphere (NULL, radius); }
   dSphere (dSpace &space, dReal radius)
     { _id = dCreateSphere (space.id(), radius); }
   dSphere (dSpaceID space, dReal radius)
@@ -254,7 +254,7 @@ class dBox : public dGeom {
 public:
   dBox () { }
   dBox (dReal lx, dReal ly, dReal lz)
-    { _id = dCreateBox (0,lx,ly,lz); }
+    { _id = dCreateBox (NULL,lx,ly,lz); }
   dBox (dSpace &space, dReal lx, dReal ly, dReal lz)
     { _id = dCreateBox (space,lx,ly,lz); }
   dBox (dSpaceID space, dReal lx, dReal ly, dReal lz)
@@ -280,7 +280,7 @@ class dPlane : public dGeom {
 public:
   dPlane() { }
   dPlane (dReal a, dReal b, dReal c, dReal d)
-    { _id = dCreatePlane (0,a,b,c,d); }
+    { _id = dCreatePlane (NULL,a,b,c,d); }
   dPlane (dSpace &space, dReal a, dReal b, dReal c, dReal d)
     { _id = dCreatePlane (space.id(),a,b,c,d); }
   dPlane (dSpaceID space, dReal a, dReal b, dReal c, dReal d)
@@ -306,7 +306,7 @@ class dCapsule : public dGeom {
 public:
   dCapsule() { }
   dCapsule (dReal radius, dReal length)
-    { _id = dCreateCapsule (0,radius,length); }
+    { _id = dCreateCapsule (NULL,radius,length); }
   dCapsule (dSpace &space, dReal radius, dReal length)
     { _id = dCreateCapsule (space.id(),radius,length); }
   dCapsule (dSpaceID space, dReal radius, dReal length)
@@ -332,7 +332,7 @@ class dCylinder : public dGeom {
 public:
   dCylinder() { }
   dCylinder (dReal radius, dReal length)
-    { _id = dCreateCylinder (0,radius,length); }
+    { _id = dCreateCylinder (NULL,radius,length); }
   dCylinder (dSpace &space, dReal radius, dReal length)
     { _id = dCreateCylinder (space.id(),radius,length); }
   dCylinder (dSpaceID space, dReal radius, dReal length)
@@ -358,7 +358,7 @@ class dRay : public dGeom {
 public:
   dRay() { }
   dRay (dReal length)
-    { _id = dCreateRay (0,length); }
+    { _id = dCreateRay (NULL,length); }
   dRay (dSpace &space, dReal length)
     { _id = dCreateRay (space.id(),length); }
   dRay (dSpaceID space, dReal length)
@@ -434,7 +434,7 @@ public:
   dGeomTransform (dSpaceID space)
     { _id = dCreateGeomTransform (space); }
 
-  void create (dSpaceID space=0) {
+  void create (dSpaceID space=NULL) {
     if (_id) dGeomDestroy (_id);
     _id = dCreateGeomTransform (space);
   }

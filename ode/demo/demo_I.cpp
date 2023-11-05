@@ -63,7 +63,7 @@ typical errors for each test cycle are about 1e-5 ... 1e-4.
 
 // dynamics objects an globals
 
-static dWorldID world=0;
+static dWorldID world=NULL;
 static dBodyID anchor_body,particle[NUM],test_body;
 static dJointID particle_joint[NUM];
 static dReal torque[3];
@@ -151,7 +151,7 @@ void reset_test()
   }
 
   for (i=0; i < NUM; i++) {
-    particle_joint[i] = dJointCreateBall (world,0);
+    particle_joint[i] = dJointCreateBall (world,NULL);
     dJointAttach (particle_joint[i],anchor_body,particle[i]);
     const dReal *p = dBodyGetPosition (particle[i]);
     dJointSetBallAnchor (particle_joint[i],p[0],p[1],p[2]);
@@ -236,12 +236,12 @@ int main (int argc, char **argv)
   fn.version = DS_VERSION;
   fn.start = &start;
   fn.step = &simLoop;
-  fn.command = 0;
-  fn.stop = 0;
+  fn.command = NULL;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   dInitODE2(0);
-  dRandSetSeed (time(0));
+  dRandSetSeed (time(NULL));
   reset_test();
 
   // run simulation

@@ -255,7 +255,7 @@ void dJointSetSliderAxis ( dJointID j, dReal x, dReal y, dReal z )
     dxJointSlider* joint = ( dxJointSlider* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Slider );
-    setAxes ( joint, x, y, z, joint->axis1, 0 );
+    setAxes ( joint, x, y, z, joint->axis1, NULL );
 
     joint->computeOffset();
 
@@ -268,7 +268,7 @@ void dJointSetSliderAxisDelta ( dJointID j, dReal x, dReal y, dReal z, dReal dx,
     dxJointSlider* joint = ( dxJointSlider* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Slider );
-    setAxes ( joint, x, y, z, joint->axis1, 0 );
+    setAxes ( joint, x, y, z, joint->axis1, NULL );
 
     joint->computeOffset();
 
@@ -329,12 +329,12 @@ void dJointAddSliderForce ( dJointID j, dReal force )
     axis[1] *= force;
     axis[2] *= force;
 
-    if ( joint->node[0].body != 0 )
+    if ( joint->node[0].body != NULL )
         dBodyAddForce ( joint->node[0].body, axis[0], axis[1], axis[2] );
-    if ( joint->node[1].body != 0 )
+    if ( joint->node[1].body != NULL )
         dBodyAddForce ( joint->node[1].body, -axis[0], -axis[1], -axis[2] );
 
-    if ( joint->node[0].body != 0 && joint->node[1].body != 0 )
+    if ( joint->node[0].body != NULL && joint->node[1].body != NULL )
     {
         // linear torque decoupling:
         // we have to compensate the torque, that this slider force may generate

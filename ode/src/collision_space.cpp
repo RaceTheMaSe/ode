@@ -82,12 +82,12 @@ void dGeomMoved (dxGeom *geom)
 dxSpace::dxSpace (dSpaceID _space) : dxGeom (_space,0)
 {
     count = 0;
-    first = 0;
+    first = NULL;
     cleanup = 1;
     sublevel = 0;
     tls_kind = dSPACE_TLS_KIND_INIT_VALUE;
     current_index = 0;
-    current_geom = 0;
+    current_geom = NULL;
     lock_count = 0;
 }
 
@@ -150,7 +150,7 @@ dxGeom *dxSpace::getGeom (int i)
     else {
         dxGeom *g=first;
         for (int j=0; j<i; j++) {
-            if (g) g = g->next; else return 0;
+            if (g) g = g->next; else return NULL;
         }
         current_geom = g;
         current_index = i;
@@ -163,7 +163,7 @@ void dxSpace::add (dxGeom *geom)
 {
     ENSURE_NOT_LOCKED();
     dAASSERT (geom);
-    dUASSERT (geom->parent_space == 0 && geom->next == 0,
+    dUASSERT (geom->parent_space == NULL && geom->next == NULL,
         "geom is already in a space");
 
     // add
@@ -172,7 +172,7 @@ void dxSpace::add (dxGeom *geom)
     count++;
 
     // enumerator has been invalidated
-    current_geom = 0;
+    current_geom = NULL;
 
     dGeomMoved (this);
 }
@@ -189,12 +189,12 @@ void dxSpace::remove (dxGeom *geom)
     count--;
 
     // safeguard
-    geom->next = 0;
-    geom->tome = 0;
-    geom->parent_space = 0;
+    geom->next = NULL;
+    geom->tome = NULL;
+    geom->parent_space = NULL;
 
     // enumerator has been invalidated
-    current_geom = 0;
+    current_geom = NULL;
 
     // the bounding box of this space (and that of all the parents) may have
     // changed as a consequence of the removal.
@@ -803,17 +803,17 @@ void dSpaceCollide2 (dxGeom *g1, dxGeom *g2, void *data,
     dxSpace *s1,*s2;
 
     // see if either geom is a space
-    if (IS_SPACE(g1)) s1 = (dxSpace*) g1; else s1 = 0;
-    if (IS_SPACE(g2)) s2 = (dxSpace*) g2; else s2 = 0;
+    if (IS_SPACE(g1)) s1 = (dxSpace*) g1; else s1 = NULL;
+    if (IS_SPACE(g2)) s2 = (dxSpace*) g2; else s2 = NULL;
 
     if (s1 && s2) {
         int l1 = s1->getSublevel();
         int l2 = s2->getSublevel();
         if (l1 != l2) {
             if (l1 > l2) {
-                s2 = 0;
+                s2 = NULL;
             } else {
-                s1 = 0;
+                s1 = NULL;
             }
         }
     }

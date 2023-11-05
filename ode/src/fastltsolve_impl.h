@@ -88,8 +88,8 @@ void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned row
         /* compute all 4 x 1 block of X, from rows i..i+4-1 */
 
         /* declare variables - Z matrix, p and q vectors, etc */
-        const dReal *ptrLElement;
-        dReal *ptrBElement;
+        const dReal *ptrLElement=NULL;
+        dReal *ptrBElement=NULL;
 
         dReal Z41, Z31, Z21, Z11;
 
@@ -450,7 +450,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
         dReal Z[block_step];
         dReal Y[block_step];
 
-        dReal *ptrBElement;
+        dReal *ptrBElement=NULL;
 
         CellContextInstance previousContextInstance;
         unsigned completedRowBlock;
@@ -577,7 +577,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
             // Declare and assign the variables at the top to not interfere with any branching -- the compiler is going to eliminate them anyway.
             bool handleComputationTakenOver = false, columnEndReached = false;
             
-            const dReal *ptrLElement;
+            const dReal *ptrLElement=NULL;
             unsigned finalRowBlock;
 
             /* check if this is not the partial block of fewer rows */
@@ -1039,7 +1039,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
             bool skipToHandlingSubsequentRows = false, skiptoCopyingResult = false;
 
             /* declare variables */
-            const dReal *ptrLElement;
+            const dReal *ptrLElement=NULL;
 
             if (completedRowBlock < currentBlock)
             {

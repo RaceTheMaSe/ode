@@ -164,7 +164,7 @@ static void inspectJoints(void)
         // Low-pass filter the noisy feedback data.
         // Only after 4 consecutive timesteps with excessive load, snap.
         fprintf(stderr,"SNAP! (that was the sound of joint %d breaking)\n", i);
-        dJointAttach (hinges[i], 0, 0);
+        dJointAttach (hinges[i], NULL, NULL);
       }
     }
   }
@@ -182,7 +182,7 @@ static void simLoop (int pause)
   int nrofsteps = (int) ceilf(dt/simstep);
   for (i=0; i<nrofsteps && !pause; i++)
   {
-    dSpaceCollide (space,0,&nearCallback);
+    dSpaceCollide (space,NULL,&nearCallback);
     dWorldQuickStep (world, simstep);
     dJointGroupEmpty (contactgroup);
     inspectJoints();
@@ -223,13 +223,13 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
   dInitODE2(0);
   world = dWorldCreate();
-  space = dHashSpaceCreate (0);
+  space = dHashSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
   dWorldSetGravity (world,0,0,-9.8);
   dWorldSetQuickStepNumIterations (world, 20);
@@ -241,14 +241,14 @@ int main (int argc, char **argv)
     dBodySetPosition(segbodies[i], i - SEGMCNT/2.0, 0, 5);
     dMassSetBox (&m, 1, SEGMDIM[0], SEGMDIM[1], SEGMDIM[2]);
     dBodySetMass (segbodies[i], &m);
-    seggeoms[i] = dCreateBox (0, SEGMDIM[0], SEGMDIM[1], SEGMDIM[2]);
+    seggeoms[i] = dCreateBox (NULL, SEGMDIM[0], SEGMDIM[1], SEGMDIM[2]);
     dGeomSetBody (seggeoms[i], segbodies[i]);
     dSpaceAdd (space, seggeoms[i]);
   }
 
   for (i=0; i<SEGMCNT-1; i++)
   {
-    hinges[i] = dJointCreateHinge (world,0);
+    hinges[i] = dJointCreateHinge (world,NULL);
     dJointAttach (hinges[i], segbodies[i],segbodies[i+1]);
     dJointSetHingeAnchor (hinges[i], i + 0.5 - SEGMCNT/2.0, 0, 5);
     dJointSetHingeAxis (hinges[i], 0,1,0);
@@ -265,21 +265,21 @@ int main (int argc, char **argv)
     dMassSetBox (&m, 2.0, 2, 2, 0.6);
     dBodySetMass(stackbodies[i],&m);
 
-    stackgeoms[i] = dCreateBox(0, 2, 2, 0.6);
+    stackgeoms[i] = dCreateBox(NULL, 2, 2, 0.6);
     dGeomSetBody(stackgeoms[i], stackbodies[i]);
     dBodySetPosition(stackbodies[i], 0,0,8+2*i);
     dSpaceAdd(space, stackgeoms[i]);
   }
 
-  sliders[0] = dJointCreateSlider (world,0);
-  dJointAttach(sliders[0], segbodies[0], 0);
+  sliders[0] = dJointCreateSlider (world,NULL);
+  dJointAttach(sliders[0], segbodies[0], NULL);
   dJointSetSliderAxis (sliders[0], 1,0,0);
   dJointSetSliderParam (sliders[0],dParamFMax,  4000.0);
   dJointSetSliderParam (sliders[0],dParamLoStop,   0.0);
   dJointSetSliderParam (sliders[0],dParamHiStop,   0.2);
 
-  sliders[1] = dJointCreateSlider (world,0);
-  dJointAttach(sliders[1], segbodies[SEGMCNT-1], 0);
+  sliders[1] = dJointCreateSlider (world,NULL);
+  dJointAttach(sliders[1], segbodies[SEGMCNT-1], NULL);
   dJointSetSliderAxis (sliders[1], 1,0,0);
   dJointSetSliderParam (sliders[1],dParamFMax,  4000.0);
   dJointSetSliderParam (sliders[1],dParamLoStop,   0.0);

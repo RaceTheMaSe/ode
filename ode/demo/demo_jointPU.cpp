@@ -414,7 +414,7 @@ static void simLoop (int pause)
       nrofsteps = 1;
 
     for (int i=0; i<nrofsteps && !pause; i++) {
-      dSpaceCollide (space,0,&nearCallback);
+      dSpaceCollide (space,NULL,&nearCallback);
       dWorldStep (world, simstep);
 
       dJointGroupEmpty (contactgroup);
@@ -563,7 +563,7 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   if (argc >= 2 ) {
@@ -591,7 +591,7 @@ int main (int argc, char **argv)
   world = dWorldCreate();
   dWorldSetERP (world, 0.8);
 
-  space = dSimpleSpaceCreate (0);
+  space = dSimpleSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
   geom[GROUND] = dCreatePlane (space, 0,0,1,0);
   dGeomSetCategoryBits (geom[GROUND], catBits[GROUND]);
@@ -627,13 +627,13 @@ int main (int argc, char **argv)
 
 
   // Create the external part of the slider joint
-  geom[EXT] = dCreateBox (0, extDim[X], extDim[Y], extDim[Z]);
+  geom[EXT] = dCreateBox (NULL, extDim[X], extDim[Y], extDim[Z]);
   dGeomSetCategoryBits (geom[EXT], catBits[EXT]);
   dGeomSetCollideBits (geom[EXT],
                        catBits[ALL] & (~catBits[JOINT]) & (~catBits[W]) & (~catBits[D]) );
 
   // Create the internal part of the slider joint
-  geom[INT] = dCreateBox (0, INT_EXT_RATIO*extDim[X],
+  geom[INT] = dCreateBox (NULL, INT_EXT_RATIO*extDim[X],
                           INT_EXT_RATIO*extDim[Y],
                           INT_EXT_RATIO*extDim[Z]);
   dGeomSetCategoryBits (geom[INT], catBits[INT]);
@@ -644,7 +644,7 @@ int main (int argc, char **argv)
   dMatrix3 R;
   // Create the first axis of the universal joi9nt
   //Rotation of 90deg around y
-  geom[AXIS1] = dCreateCylinder(0, axDim[RADIUS], axDim[LENGTH]);
+  geom[AXIS1] = dCreateCylinder(NULL, axDim[RADIUS], axDim[LENGTH]);
   dRFromAxisAndAngle(R, 0,1,0, 0.5*PI);
   dGeomSetRotation(geom[AXIS1], R);
   dGeomSetCategoryBits(geom[AXIS1], catBits[AXIS1]);
@@ -653,7 +653,7 @@ int main (int argc, char **argv)
 
 
   // Create the second axis of the universal joint
-  geom[AXIS2] = dCreateCylinder(0, axDim[RADIUS], axDim[LENGTH]);
+  geom[AXIS2] = dCreateCylinder(NULL, axDim[RADIUS], axDim[LENGTH]);
   //Rotation of 90deg around y
   dRFromAxisAndAngle(R, 1,0,0, 0.5*PI);
   dGeomSetRotation(geom[AXIS2], R);
@@ -662,7 +662,7 @@ int main (int argc, char **argv)
                       catBits[ALL]  & ~catBits[JOINT] & ~catBits[W] & ~catBits[D]);
 
   // Create the anchor
-  geom[ANCHOR] = dCreateBox (0, ancDim[X], ancDim[Y], ancDim[Z]);
+  geom[ANCHOR] = dCreateBox (NULL, ancDim[X], ancDim[Y], ancDim[Z]);
   dGeomSetCategoryBits(geom[ANCHOR], catBits[ANCHOR]);
   dGeomSetCollideBits(geom[ANCHOR],
                       catBits[ALL] & (~catBits[JOINT]) & (~catBits[W]) & (~catBits[D]) );
@@ -698,12 +698,12 @@ int main (int argc, char **argv)
 
 
   // Attache the upper box to the world
-  dJointID fixed = dJointCreateFixed (world,0);
+  dJointID fixed = dJointCreateFixed (world,NULL);
   dJointAttach (fixed , NULL, body[W]);
   dJointSetFixed (fixed );
 
   if (type == dJointTypePR) {
-    dPRJoint *pr = new dPRJoint (world, 0);
+    dPRJoint *pr = new dPRJoint (world, NULL);
     pr->attach (body[W], body[D]);
     pr->setAxis1 (0, 0, -1);
     pr->setAxis2 (1, 0, 0);
@@ -712,7 +712,7 @@ int main (int argc, char **argv)
     dJointSetPRAnchor (pr->id(), 0, 0, 2.5);
   }
   else {
-    dPUJoint *pu = new dPUJoint (world, 0);
+    dPUJoint *pu = new dPUJoint (world, NULL);
     pu->attach (body[W], body[D]);
     pu->setAxis1 (1, 0, 0);
     pu->setAxis2 (0, 1, 0);

@@ -304,7 +304,7 @@ void dxSAPSpace::add( dxGeom* g )
 {
     ENSURE_NOT_LOCKED();
     dAASSERT(g);
-    dUASSERT(g->tome_ex == 0 && g->next_ex == 0, "geom is already in a space");
+    dUASSERT(g->tome_ex == NULL && g->next_ex == NULL, "geom is already in a space");
 
 
     // add to dirty list
@@ -351,8 +351,8 @@ void dxSAPSpace::remove( dxGeom* g )
         GeomList.setSize( geomSize-1 );
     }
 
-    g->tome_ex = 0;
-    dUASSERT((g->next_ex = 0, true), "Needed for an assertion check only");
+    g->tome_ex = NULL;
+    dUASSERT((g->next_ex = NULL, true), "Needed for an assertion check only");
 
     dxSpace::remove(g);
 }

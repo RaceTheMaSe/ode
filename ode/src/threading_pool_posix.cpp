@@ -462,7 +462,7 @@ void *dxThreadPoolThreadInfo::ThreadProcedure_Callback(void *thread_param)
     dxThreadPoolThreadInfo *thread_info = (dxThreadPoolThreadInfo *)thread_param;
     thread_info->ThreadProcedure();
 
-    return 0;
+    return NULL;
 }
 
 void dxThreadPoolThreadInfo::ThreadProcedure()

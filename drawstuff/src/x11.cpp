@@ -91,9 +91,9 @@ extern "C" void dsPrint (const char *msg, ...)
 // openGL window
 
 // X11 display info
-static Display *display=0;
+static Display *display=NULL;
 static int screen=0;
-static XVisualInfo *visual=0;		// best visual for openGL
+static XVisualInfo *visual=NULL;		// best visual for openGL
 static Colormap colormap=0;		// window's colormap
 static Atom wm_protocols_atom = 0;
 static Atom wm_delete_window_atom = 0;
@@ -101,7 +101,7 @@ static Atom wm_delete_window_atom = 0;
 // window and openGL
 static Window win=0;			// X11 window, 0 if not initialized
 static int width=0,height=0;		// window size
-static GLXContext glx_context=0;	// openGL rendering context
+static GLXContext glx_context=NULL;	// openGL rendering context
 static int last_key_pressed=0;		// last key pressed in the window
 static int run=1;			// 1 if simulation running
 static int pausemode=0;			// 1 if in `pause' mode
@@ -133,10 +133,10 @@ static void createMainWindow (int _width, int _height)
   win = 0;
   width = _width;
   height = _height;
-  glx_context = 0;
+  glx_context = NULL;
   last_key_pressed = 0;
 
-  if (width < 1 || height < 1) dsDebug (0,"bad window width or height");
+  if (width < 1 || height < 1) dsDebug (NULL,"bad window width or height");
 
   // create the window
   XSetWindowAttributes attributes;
@@ -150,7 +150,7 @@ static void createMainWindow (int _width, int _height)
 		       CWBackPixel | CWColormap | CWEventMask,&attributes);
 
   // associate a GLX context with the window
-  glx_context = glXCreateContext (display,visual,0,GL_TRUE);
+  glx_context = glXCreateContext (display,visual,NULL,GL_TRUE);
   if (!glx_context) dsError ("can't make an OpenGL context");
 
   // set the window title
@@ -179,9 +179,9 @@ static void destroyMainWindow()
   XDestroyWindow (display,win);
   XSync (display,0);
   XCloseDisplay(display);
-  display = 0;
+  display = NULL;
   win = 0;
-  glx_context = 0;
+  glx_context = NULL;
 }
 
 
@@ -226,7 +226,7 @@ static void handleEvent (XEvent &event, dsFunctions *fn)
 
   case KeyPress: {
     KeySym key;
-    XLookupString (&event.xkey,NULL,0,&key,0);
+    XLookupString (&event.xkey,NULL,0,&key,NULL);
     if ((event.xkey.state & ControlMask) == 0) {
       if (key >= ' ' && key <= 126 && fn->command) fn->command (key);
     }
@@ -406,7 +406,7 @@ void dsPlatformSimLoop (int window_width, int window_height, dsFunctions *fn,
 
 #if HAVE_GETTIMEOFDAY
   timeval tv;
-  gettimeofday(&tv, 0);
+  gettimeofday(&tv, NULL);
   double prev = tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
 #endif
 
@@ -421,7 +421,7 @@ void dsPlatformSimLoop (int window_width, int window_height, dsFunctions *fn,
     }
     
 #if HAVE_GETTIMEOFDAY
-    gettimeofday(&tv, 0);
+    gettimeofday(&tv, NULL);
     double curr = tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
     if (curr-prev >= 1.0/60.0)
     {
@@ -454,7 +454,7 @@ extern "C" double dsElapsedTime()
   static double prev=0.0;
   timeval tv ;
 
-  gettimeofday(&tv, 0);
+  gettimeofday(&tv, NULL);
   double curr = tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
   if (!prev)
     prev=curr;

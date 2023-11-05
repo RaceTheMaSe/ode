@@ -140,7 +140,7 @@ static void simLoop (int pause)
       }
     }
 
-    dSpaceCollide (space,0,&nearCallback);
+    dSpaceCollide (space,NULL,&nearCallback);
     dWorldStep (world,0.05);
 
     // remove all contact joints
@@ -168,14 +168,14 @@ int main (int argc, char **argv)
   fn.version = DS_VERSION;
   fn.start = &start;
   fn.step = &simLoop;
-  fn.command = 0;
-  fn.stop = 0;
+  fn.command = NULL;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
   dInitODE2(0);
   world = dWorldCreate();
-  space = dHashSpaceCreate (0);
+  space = dHashSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
   dWorldSetGravity (world,0,0,-GRAVITY);
   ground = dCreatePlane (space,0,0,1,0);

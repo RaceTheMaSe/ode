@@ -760,9 +760,9 @@ void dJointAddUniversalTorques( dJointID j, dReal torque1, dReal torque2 )
     dVector3 axis;
     joint->buildFirstBodyTorqueVector(axis, torque1, torque2);
 
-    if ( joint->node[0].body != 0 )
+    if ( joint->node[0].body != NULL )
         dBodyAddTorque( joint->node[0].body, axis[0], axis[1], axis[2] );
-    if ( joint->node[1].body != 0 )
+    if ( joint->node[1].body != NULL )
         dBodyAddTorque( joint->node[1].body, -axis[0], -axis[1], -axis[2] );
 }
 

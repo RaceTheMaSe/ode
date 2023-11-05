@@ -1084,8 +1084,8 @@ dxWorldProcessMemArena *dxWorldProcessMemArena::ReallocateMemArena (
     dxWorldProcessMemArena *arena = oldarena;
     bool allocsuccess = false;
 
-    sizeint nOldArenaSize; 
-    void *pOldArenaBuffer;
+    sizeint nOldArenaSize=0; 
+    void *pOldArenaBuffer = NULL;
 
     do {
         sizeint oldmemsize = oldarena ? oldarena->GetMemorySize() : 0;

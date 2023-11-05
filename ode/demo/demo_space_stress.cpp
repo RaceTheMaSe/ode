@@ -160,12 +160,12 @@ static void command (int cmd)
 
             // destroy the body and geoms for slot i
             dBodyDestroy (obj[i].body);
-            obj[i].body = 0;
+            obj[i].body = NULL;
 
             for (k=0; k < GPB; k++)
                 if (obj[i].geom[k]) {
                     dGeomDestroy(obj[i].geom[k]);
-                    obj[i].geom[k] = 0;
+                    obj[i].geom[k] = NULL;
                 }
         }
 
@@ -360,7 +360,7 @@ void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 static void simLoop (int pause)
 {
   dsSetColor (0,0,2);
-  dSpaceCollide (space,0,&nearCallback);
+  dSpaceCollide (space,NULL,&nearCallback);
   //if (!pause) dWorldStep (world,0.05);
   if (!pause) dWorldQuickStep (world,0.05);
   //if (!pause) dWorldStepFast (world,0.05, 1);
@@ -381,7 +381,7 @@ static void simLoop (int pause)
       else {
 	dsSetColor (1,1,0);
       }
-      drawGeom (obj[i].geom[j],0,0,show_aabb);
+      drawGeom (obj[i].geom[j],NULL,NULL,show_aabb);
     }
   }
 }
@@ -395,7 +395,7 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   dsSetSphereQuality(0);
@@ -409,23 +409,23 @@ int main (int argc, char **argv)
           dVector3 Center = {0, 0, 0, 0};
           dVector3 Extents = {WORLD_SIZE * 0.55, WORLD_SIZE * 0.55, WORLD_SIZE * 0.55, 0};
           puts(":::: Using dQuadTreeSpace");
-          space = dQuadTreeSpaceCreate (0, Center, Extents, 6);
+          space = dQuadTreeSpaceCreate (NULL, Center, Extents, 6);
       } else if (argv[i] == std::string("hash")) {
           puts(":::: Using dHashSpace");
-          space = dHashSpaceCreate (0);
+          space = dHashSpaceCreate (NULL);
       } else if (argv[i] == std::string("sap")) {
           puts(":::: Using dSweepAndPruneSpace");
-          space = dSweepAndPruneSpaceCreate (0, dSAP_AXES_XYZ);
+          space = dSweepAndPruneSpaceCreate (NULL, dSAP_AXES_XYZ);
       } else if (argv[i] == std::string("simple")) {
           puts(":::: Using dSimpleSpace");
-          space = dSimpleSpaceCreate(0);
+          space = dSimpleSpaceCreate(NULL);
       }
   }
   if (!space) {
       puts(":::: You can specify 'quad', 'hash', 'sap' or 'simple' in the");
       puts(":::: command line to specify the type of space.");
       puts(":::: Using SAP space by default.");
-      space = dSweepAndPruneSpaceCreate (0, dSAP_AXES_XYZ);
+      space = dSweepAndPruneSpaceCreate (NULL, dSAP_AXES_XYZ);
   }
 
   contactgroup = dJointGroupCreate (0);

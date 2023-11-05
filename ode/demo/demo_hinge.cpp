@@ -127,7 +127,7 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
@@ -151,7 +151,7 @@ int main (int argc, char **argv)
   dBodySetPosition (body[1],-0.5*SIDE,-0.5*SIDE,1);
   dBodySetQuaternion (body[1],q);
 
-  hinge = dJointCreateHinge (world,0);
+  hinge = dJointCreateHinge (world,NULL);
   dJointAttach (hinge,body[0],body[1]);
   dJointSetHingeAnchor (hinge,0,0,1);
   dJointSetHingeAxis (hinge,1,-1,1.41421356);

@@ -19,7 +19,7 @@ TestList& Test::GetTestList()
 
 Test::Test(char const* testName, char const* suiteName, char const* filename, int const lineNumber)
     : m_details(testName, suiteName, filename, lineNumber)
-    , next(0)
+    , next(NULL)
     , m_timeConstraintExempt(false)
 {
 }

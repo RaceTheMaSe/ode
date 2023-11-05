@@ -163,7 +163,7 @@ static void simLoop(int pause)
 
 	for (int i=0; i<nrofsteps && !pause; i++)
 	{
-		dSpaceCollide (space,0,&nearCallback);
+		dSpaceCollide (space,NULL,&nearCallback);
 		dWorldQuickStep (world, simstep);
 		dJointGroupEmpty (contactgroup);
 	}
@@ -222,13 +222,13 @@ int main (int argc, char **argv)
 	fn.start = &start;
 	fn.step = &simLoop;
 	fn.command = &command;
-	fn.stop = 0;
+	fn.stop = NULL;
 	fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
 	// create world
 	dInitODE2(0);
 	world = dWorldCreate();
-	space = dHashSpaceCreate (0);
+	space = dHashSpaceCreate (NULL);
 	dHashSpaceSetLevels(space, -3, 5);
 	dCreatePlane(space,0,0,1,0);	// Add a ground plane.
 

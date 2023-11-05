@@ -57,9 +57,9 @@ static const dReal maxRamp = M_PI/4.0f; // Needs to be less than pi/2
 static const dReal rampInc = maxRamp/RAMP_COUNT;
 
 // dynamics and collision objects
-static dWorldID world = 0;
-static dSpaceID space = 0;
-static dJointGroupID contactgroup = 0;
+static dWorldID world = NULL;
+static dSpaceID space = NULL;
+static dJointGroupID contactgroup = NULL;
 static dGeomID ground;
 
 static dReal mu = REAL(0.37); // the global mu to use
@@ -81,7 +81,7 @@ static void nearCallback (void *, dGeomID o1, dGeomID o2)
     dBodyID b1 = dGeomGetBody(o1);
     dBodyID b2 = dGeomGetBody(o2);
   
-    if (b1==0 && b2==0) return;
+    if (b1==NULL && b2==NULL) return;
 
     dContact contact[3];		
     for (int ii=0; ii<3; ii++) {
@@ -138,7 +138,7 @@ static void reset()
 
     // create world
     world = dWorldCreate();
-    space = dHashSpaceCreate (0);
+    space = dHashSpaceCreate (NULL);
     contactgroup = dJointGroupCreate (0);
     dWorldSetGravity (world,0,0,-GRAVITY);
     ground = dCreatePlane (space,0,0,1,0);
@@ -214,7 +214,7 @@ static void command (int cmd)
 static void simLoop (int pause)
 {
     if (!pause) {
-        dSpaceCollide (space,0,&nearCallback);
+        dSpaceCollide (space,NULL,&nearCallback);
         dWorldStep (world,0.017); // 60 fps
         // remove all contact joints
         dJointGroupEmpty (contactgroup);
@@ -243,7 +243,7 @@ int main (int argc, char **argv)
     fn.start = &start;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
     dInitODE2(0);

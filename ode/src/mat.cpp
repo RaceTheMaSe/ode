@@ -33,7 +33,7 @@ dMatrix::dMatrix()
 {
     n = 0;
     m = 0;
-    data = 0;
+    data = NULL;
 }
 
 
@@ -91,7 +91,7 @@ void dMatrix::operator= (const dMatrix &a)
         data = (dReal*) dAlloc (n*m*sizeof(dReal));
         memcpy (data,a.data,n*m*sizeof(dReal));
     }
-    else data = 0;
+    else data = NULL;
 }
 
 

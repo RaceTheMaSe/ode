@@ -162,7 +162,7 @@ void start()
 
     contact_group = dJointGroupCreate(0);
 
-    space = dSimpleSpaceCreate (0);
+    space = dSimpleSpaceCreate (NULL);
 
 
     // first, the ground plane
@@ -241,7 +241,7 @@ void start()
     dGeomTriMeshDataBuildSimple(mesh_data,
                                 track_verts[0], n_track_verts,
                                 track_faces, 3*n_track_faces);
-    mesh_geom = dCreateTriMesh(space, mesh_data, 0, 0, 0);
+    mesh_geom = dCreateTriMesh(space, mesh_data, NULL, NULL, NULL);
 
 
 
@@ -280,7 +280,7 @@ void nearCallback(void *, dGeomID a, dGeomID b)
     /* If we know one of the geoms is a sphere, we can base the epsilon on the
      *  sphere's radius.
      */
-    dGeomID s = 0;
+    dGeomID s = NULL;
     if ((dGeomGetClass(a) == dSphereClass && (s = a)) || 
         (dGeomGetClass(b) == dSphereClass && (s = b))) {
         epsilon = dGeomSphereGetRadius(s) * 0.3;
@@ -451,12 +451,12 @@ void simLoop (int pause)
         const unsigned nsteps = 1;
 
         for (unsigned i=0; i<nsteps; ++i) {
-            dSpaceCollide(space, 0, nearCallback);
+            dSpaceCollide(space, NULL, nearCallback);
             dWorldQuickStep(world, step);
             dJointGroupEmpty(contact_group);
         }
     } else {
-        dSpaceCollide(space, 0, nearCallback);
+        dSpaceCollide(space, NULL, nearCallback);
         dJointGroupEmpty(contact_group);
     }
     

@@ -274,7 +274,7 @@ static void simLoop (int pause)
             dsDrawBox (posAxisR, rotBox2, sizeR);
         }
 
-        dSpaceCollide (space,0,&nearCallback);
+        dSpaceCollide (space,NULL,&nearCallback);
         dWorldQuickStep (world,0.0001);
         update();
         dJointGroupEmpty (contactgroup);
@@ -309,7 +309,7 @@ int main (int argc, char **argv)
     fn.start = &start;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
     if (argc >= 2 )
@@ -342,7 +342,7 @@ int main (int argc, char **argv)
 
     // create world
     world = dWorldCreate();
-    space = dHashSpaceCreate (0);
+    space = dHashSpaceCreate (NULL);
     contactgroup = dJointGroupCreate (0);
     dWorldSetGravity (world,0,0,-10);
     ground = dCreatePlane (space,0,0,1,0);
@@ -353,14 +353,14 @@ int main (int argc, char **argv)
     dMassSetBox (&m,1,BOX1_LENGTH,BOX1_WIDTH,BOX1_HEIGHT);
     dMassAdjust (&m,Mass1);
     dBodySetMass (box1_body[0],&m);
-    box1[0] = dCreateBox (0,BOX1_LENGTH,BOX1_WIDTH,BOX1_HEIGHT);
+    box1[0] = dCreateBox (NULL,BOX1_LENGTH,BOX1_WIDTH,BOX1_HEIGHT);
     dGeomSetBody (box1[0],box1_body[0]);
 
     box2_body[0] = dBodyCreate (world);
     dMassSetBox (&m,10,BOX2_LENGTH,BOX2_WIDTH,BOX2_HEIGHT);
     dMassAdjust (&m,Mass2);
     dBodySetMass (box2_body[0],&m);
-    box2[0] = dCreateBox (0,BOX2_LENGTH,BOX2_WIDTH,BOX2_HEIGHT);
+    box2[0] = dCreateBox (NULL,BOX2_LENGTH,BOX2_WIDTH,BOX2_HEIGHT);
     dGeomSetBody (box2[0],box2_body[0]);
 
     //set the initial positions of body1 and body2
@@ -377,7 +377,7 @@ int main (int argc, char **argv)
 
 
     //set PR joint
-    joint[0] = dJointCreatePR(world,0);
+    joint[0] = dJointCreatePR(world,NULL);
     dJointAttach (joint[0],box1_body[0],box2_body[0]);
     switch (flag)
     {

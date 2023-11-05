@@ -78,7 +78,7 @@ SUITE (TestdxJointHinge2)
                             REAL(0.47123)); // 27deg
         dBodySetRotation (bId[j][1], R);
 
-        jId[j]   = dJointCreateHinge2 (wId, 0);
+        jId[j]   = dJointCreateHinge2 (wId, NULL);
         dJointAttach (jId[j], bId[j][0], bId[j][1]);
       }
     }

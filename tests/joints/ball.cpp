@@ -78,7 +78,7 @@ SUITE (TestdxJointBall)
                             REAL(0.47123)); // 27deg
         dBodySetRotation (bId[j][1], R);
 
-        jId[j]   = dJointCreateBall (wId, 0);
+        jId[j]   = dJointCreateBall (wId, NULL);
         dJointAttach (jId[j], bId[j][0], bId[j][1]);
       }
     }

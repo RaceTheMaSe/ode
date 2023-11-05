@@ -136,7 +136,7 @@ void Block::Create(const dReal MinX, const dReal MaxX, const dReal MinZ, const d
     dIASSERT(MinZ <= MaxZ);
 
     mGeomCount = 0;
-    mFirst = 0;
+    mFirst = NULL;
 
     mMinX = MinX;
     mMaxX = MaxX;
@@ -171,7 +171,7 @@ void Block::Create(const dReal MinX, const dReal MaxX, const dReal MinZ, const d
             }
         }
     }
-    else mChildren = 0;
+    else mChildren = NULL;
 }
 
 void Block::Collide(void* UserData, dNearCallback* Callback){
@@ -265,7 +265,7 @@ void Block::AddObject(dGeomID Object){
 
 void Block::DelObject(dGeomID Object){
     // Del the geom
-    dxGeom *Last, *g = mFirst;
+    dxGeom *Last=NULL, *g = mFirst;
     bool Found = false;
 
     if (g == Object){
@@ -279,6 +279,7 @@ void Block::DelObject(dGeomID Object){
 
     for (; !Found && g; Found = false){
         if (g == Object){
+            dIASSERT(Last!=NULL);
             Last->next_ex = g->next_ex;
             break;
         }
@@ -286,8 +287,8 @@ void Block::DelObject(dGeomID Object){
         g = g->next_ex;
     }
 
-    Object->tome_ex = 0;
-    dUASSERT((Object->next_ex = 0, true), "Needed for an assertion check only");
+    Object->tome_ex = NULL;
+    dUASSERT((Object->next_ex = NULL, true), "Needed for an assertion check only");
 
     // Now traverse upwards to tell that we have lost a geom
     Block* Block = this;
@@ -394,12 +395,12 @@ dxQuadTreeSpace::dxQuadTreeSpace(dSpaceID _space, const dVector3 Center, const d
     dReal MaxX = dNextAfter((Center[AXIS0] + Extents[AXIS0]), (dReal)dInfinity);
     dReal MinZ = Center[AXIS1] - Extents[AXIS1];
     dReal MaxZ = dNextAfter((Center[AXIS1] + Extents[AXIS1]), (dReal)dInfinity);
-    Blocks[0].Create(MinX, MaxX, MinZ, MaxZ, 0, Depth, TempBlocks);
+    Blocks[0].Create(MinX, MaxX, MinZ, MaxZ, NULL, Depth, TempBlocks);
 
-    CurrentBlock = 0;
+    CurrentBlock = NULL;
     CurrentChild = (int*)dAlloc((Depth + 1) * sizeof(int));
     CurrentLevel = 0;
-    CurrentObject = 0;
+    CurrentObject = NULL;
     CurrentIndex = -1;
 
     // Init AABB. We initialize to infinity because it is not illegal for an object to be outside of the tree. Its simply inserted in the root block
@@ -501,7 +502,7 @@ PARENTRECURSE:
 void dxQuadTreeSpace::add(dxGeom* g){
     ENSURE_NOT_LOCKED();
     dAASSERT(g);
-    dUASSERT(g->tome_ex == 0 && g->next_ex == 0, "geom is already in a space");
+    dUASSERT(g->tome_ex == NULL && g->next_ex == NULL, "geom is already in a space");
 
     DirtyList.push(g);
     Blocks[0].GetBlock(g->aabb)->AddObject(g);	// Add to best block

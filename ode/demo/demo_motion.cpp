@@ -419,7 +419,7 @@ static void simLoop (int pause)
     const dReal stepsize = 0.02;
 
     dsSetColor (0,0,2);
-    dSpaceCollide (space,0,&nearCallback);
+    dSpaceCollide (space,NULL,&nearCallback);
     if (!pause) {
         
         if (mov_type == 1)
@@ -455,11 +455,11 @@ static void simLoop (int pause)
             else {
                 dsSetColor (1,1,0);
             }
-            drawGeom (obj[i].geom[j],0,0,show_aabb);
+            drawGeom (obj[i].geom[j],NULL,NULL,show_aabb);
         }
     }
     dsSetColor (1,0,0);
-    drawGeom (platform,0,0,show_aabb);
+    drawGeom (platform,NULL,NULL,show_aabb);
     //usleep(5000);
 }
 
@@ -472,7 +472,7 @@ int main (int argc, char **argv)
     fn.start = &start;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
     // create world
@@ -480,14 +480,14 @@ int main (int argc, char **argv)
     world = dWorldCreate();
 
 #if 1
-    space = dHashSpaceCreate (0);
+    space = dHashSpaceCreate (NULL);
 #elif 0
     dVector3 center = {0,0,0}, extents = { 100, 100, 100};
-    space = dQuadTreeSpaceCreate(0, center, extents, 5);
+    space = dQuadTreeSpaceCreate(NULL, center, extents, 5);
 #elif 0
-    space = dSweepAndPruneSpaceCreate (0, dSAP_AXES_XYZ);
+    space = dSweepAndPruneSpaceCreate (NULL, dSAP_AXES_XYZ);
 #else
-    space = dSimpleSpaceCreate(0);
+    space = dSimpleSpaceCreate(NULL);
 #endif
 
     contactgroup = dJointGroupCreate (0);

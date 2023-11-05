@@ -150,7 +150,7 @@ simLoop(int pause)
         kbody->setLinearVel(vel);
         // end of hard-coded animation
         
-        space->collide(0, nearCallback);
+        space->collide(NULL, nearCallback);
         removeQueued();
         
         world->quickStep(timestep);
@@ -196,10 +196,10 @@ int main(int argc, char **argv)
     // setup pointers to drawstuff callback functions
     dsFunctions fn;
     fn.version = DS_VERSION;
-    fn.start = 0;
+    fn.start = NULL;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
     
     cout << endl << "*** Press SPACE to drop boxes **" << endl;

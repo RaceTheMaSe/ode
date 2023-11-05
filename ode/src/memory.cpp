@@ -26,9 +26,9 @@
 #include "config.h"
 
 
-static dAllocFunction *allocfn = 0;
-static dReallocFunction *reallocfn = 0;
-static dFreeFunction *freefn = 0;
+static dAllocFunction *allocfn = NULL;
+static dReallocFunction *reallocfn = NULL;
+static dFreeFunction *freefn = NULL;
 
 #ifdef __MINGW32__
 /* 

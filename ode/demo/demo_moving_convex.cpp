@@ -232,7 +232,7 @@ static void command( int cmd )
 			                             ( dTriIndex* )&Indices[0], IndexCount, 3 * sizeof( dTriIndex ) );
             dGeomTriMeshDataPreprocess2( new_tmdata, (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES), NULL );
 
-			dGeomID triMesh = dCreateTriMesh( 0, new_tmdata, 0, 0, 0 );
+			dGeomID triMesh = dCreateTriMesh( NULL, new_tmdata, NULL, NULL, NULL );
 
 			dMassSetTrimesh( &m, DENSITY, triMesh );
 
@@ -340,7 +340,7 @@ void drawGeom( dGeomID g, const dReal *pos, const dReal *R, int draw_aabb )
 static void simLoop( int pause )
 {
 	dsSetColor( 0,0,2 );
-	dSpaceCollide( space,0,&nearCallback );
+	dSpaceCollide( space,NULL,&nearCallback );
 
 	if ( !pause ) dWorldQuickStep( world,0.05 );
 
@@ -373,7 +373,7 @@ static void simLoop( int pause )
 					dsSetColor( 1,1,0 );
 				}
 
-				drawGeom( obj[i].geom[j],0,0,show_aabb );
+				drawGeom( obj[i].geom[j],NULL,NULL,show_aabb );
 			}
 		}
 	}
@@ -388,14 +388,14 @@ int main( int argc, char **argv )
 	fn.start = &start;
 	fn.step = &simLoop;
 	fn.command = &command;
-	fn.stop = 0;
+	fn.stop = NULL;
 	fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
 	// create world
 	dInitODE2( 0 );
 	world = dWorldCreate();
 
-	space = dSimpleSpaceCreate( 0 );
+	space = dSimpleSpaceCreate( NULL );
 	contactgroup = dJointGroupCreate( 0 );
 	dWorldSetGravity( world,0,0,-0.5 );
 	dWorldSetCFM( world,1e-5 );

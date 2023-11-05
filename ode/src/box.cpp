@@ -361,7 +361,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
 {
     const dReal fudge_factor = REAL(1.05);
     dVector3 p,pp,normalC={0,0,0};
-    const dReal *normalR = 0;
+    const dReal *normalR = NULL;
     dReal A[3],B[3],R11,R12,R13,R21,R22,R23,R31,R32,R33,
         Q11,Q12,Q13,Q21,Q22,Q23,Q31,Q32,Q33,s,s2,l,expr1_val;
     int i,j,invert_normal,code;
@@ -438,7 +438,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     s2 /= l; \
     if (s2*fudge_factor > s) { \
     s = s2; \
-    normalR = 0; \
+    normalR = NULL; \
     normalC[0] = (n1)/l; normalC[1] = (n2)/l; normalC[2] = (n3)/l; \
     invert_normal = ((expr1_val) < 0); \
     code = (cc); \

@@ -46,7 +46,7 @@ void start()
     dWorldSetDamping(world, 1e-4, 1e-5);
 //    dWorldSetERP(world, 1);
 
-    space = dSimpleSpaceCreate (0);
+    space = dSimpleSpaceCreate (NULL);
     
     body1 = dBodyCreate(world);
     body2 = dBodyCreate(world);
@@ -69,15 +69,15 @@ void start()
     dBodySetMass(body2, &mass);
 
 #if 1
-    joint1 = dJointCreateDHinge(world, 0);
-    dJointAttach(joint1, body1, 0);
+    joint1 = dJointCreateDHinge(world, NULL);
+    dJointAttach(joint1, body1, NULL);
     dJointSetDHingeAxis(joint1, 0, 1, 0);
     dJointSetDHingeAnchor1(joint1, 0, 0, 3.5);
     dJointSetDHingeAnchor2(joint1, 0, 0, 4.5);
 #endif
 
 #if 1
-    joint2 = dJointCreateDHinge(world, 0);
+    joint2 = dJointCreateDHinge(world, NULL);
     dJointAttach(joint2, body1, body2);
     dJointSetDHingeAxis(joint2, 1, 0, 0);
     dJointSetDHingeAnchor1(joint2, 0, 0, 2.5);
@@ -202,7 +202,7 @@ int main(int argc, char **argv)
     fn.version = DS_VERSION;
     fn.start = &start;
     fn.step = &simLoop;
-    fn.command = 0;
+    fn.command = NULL;
     fn.stop = stop;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
     

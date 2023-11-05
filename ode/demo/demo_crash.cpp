@@ -203,7 +203,7 @@ void makeCar(dReal x, dReal y, int &bodyI, int &jointI, int &boxI, int &sphereI)
 	
 	// front and back wheel hinges
 	for (i=0; i<4; i++) {
-		joint[jointI+i] = dJointCreateHinge2 (world,0);
+		joint[jointI+i] = dJointCreateHinge2 (world,NULL);
 		dJointAttach (joint[jointI+i],body[bodyI],body[bodyI+i+1]);
 		const dReal *a = dBodyGetPosition (body[bodyI+i+1]);
 		dJointSetHinge2Anchor (joint[jointI+i],a[0],a[1],a[2]);
@@ -220,7 +220,7 @@ void makeCar(dReal x, dReal y, int &bodyI, int &jointI, int &boxI, int &sphereI)
 	dMassSetBox (&mass,1,LENGTH,WIDTH,HEIGHT);
 	dMassAdjust (&mass,CMASS/2.0);
 	dBodySetMass (bo,&mass);
-	dJointID j = dJointCreateFixed(world, 0);
+	dJointID j = dJointCreateFixed(world, NULL);
 	dJointAttach(j, body[bodyI], bo);
 	dJointSetFixed(j);
 	//box[boxI+1] = dCreateBox(space,LENGTH,WIDTH,HEIGHT);
@@ -262,9 +262,9 @@ void setupSimulation()
 	
 	world = dWorldCreate();
 
-//	space = dHashSpaceCreate( 0 );
-//	space = dSimpleSpaceCreate( 0 );
-	space = dSweepAndPruneSpaceCreate( 0, dSAP_AXES_XYZ );
+//	space = dHashSpaceCreate( NULL );
+//	space = dSimpleSpaceCreate( NULL );
+	space = dSweepAndPruneSpaceCreate( NULL, dSAP_AXES_XYZ );
 
 	contactgroup = dJointGroupCreate (0);
 	dWorldSetGravity (world,0,0,-1.5);
@@ -523,13 +523,13 @@ static void simLoop (int pause)
 		}		
 		if (doFast)
 		{
-			dSpaceCollide (space,0,&nearCallback);
+			dSpaceCollide (space,NULL,&nearCallback);
 			dWorldQuickStep (world,0.05);
 			dJointGroupEmpty (contactgroup);
 		}
 		else
 		{
-			dSpaceCollide (space,0,&nearCallback);
+			dSpaceCollide (space,NULL,&nearCallback);
 			dWorldStep (world,0.05);
 			dJointGroupEmpty (contactgroup);
 		}
@@ -620,7 +620,7 @@ int main (int argc, char **argv)
 	fn.start = &start;
 	fn.step = &simLoop;
 	fn.command = &command;
-	fn.stop = 0;
+	fn.stop = NULL;
 	fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 	
 	dInitODE2(0);

@@ -479,13 +479,13 @@ dxHeightfield::dxHeightfield( dSpaceID space,
                              dHeightfieldDataID hfData,
                              int bPlaceable )			:
     dxGeom( space, bPlaceable ),
-    tempPlaneBuffer(0),
-    tempPlaneInstances(0),
+    tempPlaneBuffer(NULL),
+    tempPlaneInstances(NULL),
     tempPlaneBufferSize(0),
-    tempTriangleBuffer(0),
+    tempTriangleBuffer(NULL),
     tempTriangleBufferSize(0),
-    tempHeightBuffer(0),
-    tempHeightInstances(0),
+    tempHeightBuffer(NULL),
+    tempHeightInstances(NULL),
     tempHeightBufferSizeX(0),
     tempHeightBufferSizeZ(0)
 {
@@ -977,7 +977,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
                                            int flags, dContactGeom* contact, 
                                            int skip )
 {
-    dContactGeom *pContact = 0;
+    dContactGeom *pContact = NULL;
     int  x, z;
     // check if not above or inside terrain first
     // while filling a heightmap partial temporary buffer
@@ -1048,9 +1048,9 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
         }
     }
     // get All Planes that could collide against.
-    dColliderFn *geomRayNCollider=0;
-    dColliderFn *geomNPlaneCollider=0;
-    dGetDepthFn *geomNDepthGetter=0;
+    dColliderFn *geomRayNCollider=NULL;
+    dColliderFn *geomNPlaneCollider=NULL;
+    dGetDepthFn *geomNDepthGetter=NULL;
 
     // int max_collisionContact = numMaxContactsPossible; -- not used
     switch (o2->type)
@@ -1114,7 +1114,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
 
     }
 
-    dxPlane myplane(0,0,0,0,0);
+    dxPlane myplane(NULL,0,0,0,0);
     dxPlane* sliding_plane = &myplane;
     dReal triplane[4];
 
@@ -1570,7 +1570,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
     {
         dIASSERT(needFurtherPasses);
 
-        dxRay tempRay(0, 1); 
+        dxRay tempRay(NULL, 1); 
         dReal depth;
 
         // Only one contact is necessary for ray test

@@ -474,7 +474,7 @@ void dJointSetPRAxis1( dJointID j, dReal x, dReal y, dReal z )
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, PR );
 
-    setAxes( joint, x, y, z, joint->axisP1, 0 );
+    setAxes( joint, x, y, z, joint->axisP1, NULL );
 
     joint->computeInitialRelativeRotation();
 }
@@ -571,9 +571,9 @@ void dJointAddPRTorque( dJointID j, dReal torque )
     axis[1] *= torque;
     axis[2] *= torque;
 
-    if ( joint->node[0].body != 0 )
+    if ( joint->node[0].body != NULL )
         dBodyAddTorque( joint->node[0].body, axis[0], axis[1], axis[2] );
-    if ( joint->node[1].body != 0 )
+    if ( joint->node[1].body != NULL )
         dBodyAddTorque( joint->node[1].body, -axis[0], -axis[1], -axis[2] );
 }
 
@@ -600,7 +600,7 @@ dxJointPR::setRelativeValues()
 
     dVector3 axis;
     dJointGetPRAxis1(this, axis);
-    setAxes( this, axis[0], axis[1], axis[2], axisP1, 0 );
+    setAxes( this, axis[0], axis[1], axis[2], axisP1, NULL );
 
     dJointGetPRAxis2(this, axis);
     setAxes( this, axis[0], axis[1], axis[2], axisR1, axisR2 );

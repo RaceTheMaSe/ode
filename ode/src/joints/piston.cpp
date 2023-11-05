@@ -611,12 +611,12 @@ void dJointAddPistonForce ( dJointID j, dReal force )
     dScaleVector3( axis, force );
 
 
-    if ( joint->node[0].body != 0 )
+    if ( joint->node[0].body != NULL )
         dBodyAddForce ( joint->node[0].body, axis[0], axis[1], axis[2] );
-    if ( joint->node[1].body != 0 )
+    if ( joint->node[1].body != NULL )
         dBodyAddForce ( joint->node[1].body, -axis[0], -axis[1], -axis[2] );
 
-    if ( joint->node[0].body != 0 && joint->node[1].body != 0 )
+    if ( joint->node[0].body != NULL && joint->node[1].body != NULL )
     {
         // Case where we don't need ltd since center of mass of both bodies
         // pass by the anchor point '*' when travelling along the prismatic axis.

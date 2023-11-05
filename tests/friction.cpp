@@ -102,8 +102,8 @@ SUITE(JointContact)
 
         contact.geom.depth = 0;
 
-        contact.geom.g1 = 0;
-        contact.geom.g2 = 0;
+        contact.geom.g1 = NULL;
+        contact.geom.g2 = NULL;
 
         // we ask for fdir1 = +Y, so fdir2 = normal x fdir1 = -Z
         contact.fdir1[0] = 0;
@@ -120,7 +120,7 @@ SUITE(JointContact)
          */        
         contact.surface.mu = 0;
         contact.surface.mu2 = 1;
-        joint = dJointCreateContact(world, 0, &contact);
+        joint = dJointCreateContact(world, NULL, &contact);
         dJointAttach(joint, body1, body2);
         joint->getInfo1(&info1);
         CHECK_EQUAL(2, (int)info1.m);
@@ -150,7 +150,7 @@ SUITE(JointContact)
         // try again, with zero mu2
         contact.surface.mu = 1;
         contact.surface.mu2 = 0;
-        joint = dJointCreateContact(world, 0, &contact);
+        joint = dJointCreateContact(world, NULL, &contact);
         dJointAttach(joint, body1, body2);
         joint->getInfo1(&info1);
         CHECK_EQUAL(2, (int)info1.m);

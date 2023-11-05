@@ -56,7 +56,7 @@ for geometry objects
 // this struct records the parameters passed to dCollideSpaceGeom()
 
 #if dATOMICS_ENABLED 
-static volatile atomicptr s_cachedPosR = 0; // dxPosR *
+static volatile atomicptr s_cachedPosR = NULL; // dxPosR *
 #endif // dATOMICS_ENABLED
 
 static inline dxPosR* dAllocPosr()
@@ -96,7 +96,7 @@ static inline void dFreePosr(dxPosR *oldPosR)
     {
         dFree(existingPosR, sizeof(dxPosR));
 
-        s_cachedPosR = 0;
+        s_cachedPosR = NULL;
     }
 #endif
 }
@@ -147,11 +147,11 @@ static int colliders_initialized = 0;
 
 static void setCollider (int i, int j, dColliderFn *fn)
 {
-    if (colliders[i][j].fn == 0) {
+    if (colliders[i][j].fn == NULL) {
         colliders[i][j].fn = fn;
         colliders[i][j].reverse = 0;
     }
-    if (colliders[j][i].fn == 0) {
+    if (colliders[j][i].fn == NULL) {
         colliders[j][i].fn = fn;
         colliders[j][i].reverse = 1;
     }
@@ -346,25 +346,25 @@ dxGeom::dxGeom (dSpaceID _space, int is_placeable)
     type = -1;
     gflags = GEOM_DIRTY | GEOM_AABB_BAD | GEOM_ENABLED;
     if (is_placeable) gflags |= GEOM_PLACEABLE;
-    data = 0;
-    body = 0;
-    body_next = 0;
+    data = NULL;
+    body = NULL;
+    body_next = NULL;
     if (is_placeable) {
         final_posr = dAllocPosr();
         dSetZero (final_posr->pos,4);
         dRSetIdentity (final_posr->R);
     }
     else {
-        final_posr = 0;
+        final_posr = NULL;
     }
-    offset_posr = 0;
+    offset_posr = NULL;
 
     // setup space vars
-    next = 0;
-    tome = 0;
-    next_ex = 0;
-    tome_ex = 0;
-    parent_space = 0;
+    next = NULL;
+    tome = NULL;
+    next_ex = NULL;
+    tome_ex = NULL;
+    parent_space = NULL;
     dSetZero (aabb,6);
     category_bits = ~0;
     collide_bits = ~0;
@@ -407,8 +407,8 @@ void dxGeom::bodyRemove()
             last = &g->body_next;
             g = g->body_next;
         }
-        body = 0;
-        body_next = 0;
+        body = NULL;
+        body_next = NULL;
     }
 }
 
@@ -516,7 +516,7 @@ void dGeomSetBody (dxGeom *g, dxBody *b)
         if (g->body != b) {
             if (g->offset_posr) {
                 dFreePosr(g->offset_posr);
-                g->offset_posr = 0;
+                g->offset_posr = NULL;
             }
             g->final_posr = &b->posr;
             g->bodyRemove();
@@ -531,7 +531,7 @@ void dGeomSetBody (dxGeom *g, dxBody *b)
                 // if we're offset, we already have our own final position, make sure its updated
                 g->recomputePosr();
                 dFreePosr(g->offset_posr);
-                g->offset_posr = 0;
+                g->offset_posr = NULL;
             }
             else
             {
@@ -903,7 +903,7 @@ struct dxUserGeom : public dxGeom {
 };
 
 
-dxUserGeom::dxUserGeom (int class_num) : dxGeom (0,1)
+dxUserGeom::dxUserGeom (int class_num) : dxGeom (NULL,1)
 {
     type = class_num;
     int size = user_classes[type-dFirstUserClass].bytes;
@@ -1137,7 +1137,7 @@ void dGeomClearOffset(dxGeom *g)
         dIASSERT(g->body);
         // no longer need an offset posr
         dFreePosr(g->offset_posr);
-        g->offset_posr = 0;
+        g->offset_posr = NULL;
         // the geom will now share the position of the body
         dFreePosr(g->final_posr);
         g->final_posr = &g->body->posr;
@@ -1150,7 +1150,7 @@ void dGeomClearOffset(dxGeom *g)
 int dGeomIsOffset(dxGeom *g)
 {
     dAASSERT (g);
-    return ((0 != g->offset_posr) ? 1 : 0);
+    return ((NULL != g->offset_posr) ? 1 : 0);
 }
 
 static const dVector3 OFFSET_POSITION_ZERO = { 0.0f, 0.0f, 0.0f, 0.0f };

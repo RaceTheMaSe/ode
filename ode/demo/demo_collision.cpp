@@ -142,7 +142,7 @@ void draw_all_objects(dSpaceID space)
 
     // draw all contact points
     dsSetColor(0, 1, 1);
-    dSpaceCollide(space, 0, &nearCallback);
+    dSpaceCollide(space, NULL, &nearCallback);
 
     // draw all rays
     for (i = 0; i < n; i++) {
@@ -235,8 +235,8 @@ int test_sphere_point_depth()
     dMatrix3 R;
     dReal r, d;
 
-    dSimpleSpace space(0);
-    dGeomID sphere = dCreateSphere(0, 1);
+    dSimpleSpace space(NULL);
+    dGeomID sphere = dCreateSphere(NULL, 1);
     dSpaceAdd(space, sphere);
 
     // ********** make a random sphere of radius r at position p
@@ -280,8 +280,8 @@ int test_box_point_depth()
     dMatrix3 R;
     dReal ss, d;		// ss = smallest side
 
-    dSimpleSpace space(0);
-    dGeomID box = dCreateBox(0, 1, 1, 1);
+    dSimpleSpace space(NULL);
+    dGeomID box = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, box);
 
     // ********** make a random box
@@ -350,8 +350,8 @@ int test_ccylinder_point_depth()
     dMatrix3 R;
     dReal r, l, beta, x, y, d;
 
-    dSimpleSpace space(0);
-    dGeomID ccyl = dCreateCapsule(0, 1, 1);
+    dSimpleSpace space(NULL);
+    dGeomID ccyl = dCreateCapsule(NULL, 1, 1);
     dSpaceAdd(space, ccyl);
 
     // ********** make a random ccyl
@@ -437,8 +437,8 @@ int test_plane_point_depth()
     dVector3 n, p, q, a, b;	// n = plane normal
     dReal d;
 
-    dSimpleSpace space(0);
-    dGeomID plane = dCreatePlane(0, 0, 0, 1, 0);
+    dSimpleSpace space(NULL);
+    dGeomID plane = dCreatePlane(NULL, 0, 0, 1, 0);
     dSpaceAdd(space, plane);
 
     // ********** make a random plane
@@ -489,9 +489,9 @@ int test_ray_and_sphere()
     dMatrix3 R;
     dReal r, k;
 
-    dSimpleSpace space(0);
-    dGeomID ray = dCreateRay(0, 0);
-    dGeomID sphere = dCreateSphere(0, 1);
+    dSimpleSpace space(NULL);
+    dGeomID ray = dCreateRay(NULL, 0);
+    dGeomID sphere = dCreateSphere(NULL, 1);
     dSpaceAdd(space, ray);
     dSpaceAdd(space, sphere);
 
@@ -633,9 +633,9 @@ int test_ray_and_box()
     dMatrix3 R;
     dReal k;
 
-    dSimpleSpace space(0);
-    dGeomID ray = dCreateRay(0, 0);
-    dGeomID box = dCreateBox(0, 1, 1, 1);
+    dSimpleSpace space(NULL);
+    dGeomID ray = dCreateRay(NULL, 0);
+    dGeomID box = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, ray);
     dSpaceAdd(space, box);
 
@@ -762,9 +762,9 @@ int test_ray_and_ccylinder()
     dMatrix3 R;
     dReal r, l, k, x, y;
 
-    dSimpleSpace space(0);
-    dGeomID ray = dCreateRay(0, 0);
-    dGeomID ccyl = dCreateCapsule(0, 1, 1);
+    dSimpleSpace space(NULL);
+    dGeomID ray = dCreateRay(NULL, 0);
+    dGeomID ccyl = dCreateCapsule(NULL, 1, 1);
     dSpaceAdd(space, ray);
     dSpaceAdd(space, ccyl);
 
@@ -875,7 +875,7 @@ int test_ray_and_cylinder()
 {
     dVector3 a, b;
 
-    dSimpleSpace space(0);
+    dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(space, 4);
 
     // The first thing that happens is the ray is
@@ -927,9 +927,9 @@ int test_ray_and_plane()
     dMatrix3 R;
     dReal d;
 
-    dSimpleSpace space(0);
-    dGeomID ray = dCreateRay(0, 0);
-    dGeomID plane = dCreatePlane(0, 0, 0, 1, 0);
+    dSimpleSpace space(NULL);
+    dGeomID ray = dCreateRay(NULL, 0);
+    dGeomID plane = dCreatePlane(NULL, 0, 0, 1, 0);
     dSpaceAdd(space, ray);
     dSpaceAdd(space, plane);
 
@@ -1200,10 +1200,10 @@ int test_dBoxTouchesBox()
     dVector3 p1, p2, side1, side2;
     dMatrix3 R1, R2;
 
-    dSimpleSpace space(0);
-    dGeomID box1 = dCreateBox(0, 1, 1, 1);
+    dSimpleSpace space(NULL);
+    dGeomID box1 = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, box1);
-    dGeomID box2 = dCreateBox(0, 1, 1, 1);
+    dGeomID box2 = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, box2);
 
     dMakeRandomVector(p1, 3, 0.5);
@@ -1256,10 +1256,10 @@ int test_dBoxBox()
     int code;
     dContactGeom contact[48];
 
-    dSimpleSpace space(0);
-    dGeomID box1 = dCreateBox(0, 1, 1, 1);
+    dSimpleSpace space(NULL);
+    dGeomID box1 = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, box1);
-    dGeomID box2 = dCreateBox(0, 1, 1, 1);
+    dGeomID box2 = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, box2);
 
     dMakeRandomVector(p1, 3, 0.5);
@@ -1392,7 +1392,7 @@ void do_tests(int argc, char **argv)
         fn.start = &start;
         fn.step = &simLoop;
         fn.command = &command;
-        fn.stop = 0;
+        fn.stop = NULL;
         fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
         dsSetSphereQuality(3);

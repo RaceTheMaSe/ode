@@ -66,7 +66,7 @@ SUITE (TestdxJointUniversal)
             dBodySetPosition (bId2, 0, 0, 0);
 
 
-            jId   = dJointCreateUniversal (wId, 0);
+            jId   = dJointCreateUniversal (wId, NULL);
             joint = (dxJointUniversal*) jId;
 
 
@@ -127,7 +127,7 @@ SUITE (TestdxJointUniversal)
                                 REAL(0.47123)); // 27deg
             dBodySetRotation (bId2, R);
 
-            jId   = dJointCreateUniversal (wId, 0);
+            jId   = dJointCreateUniversal (wId, NULL);
             joint = (dxJointUniversal*) jId;
 
 
@@ -172,7 +172,7 @@ SUITE (TestdxJointUniversal)
             bId1 = dBodyCreate (wId);
             dBodySetPosition (bId1, 0, 0, 0);
 
-            jId   = dJointCreateUniversal (wId, 0);
+            jId   = dJointCreateUniversal (wId, NULL);
 
 
             dJointAttach (jId, bId1, NULL);
@@ -216,7 +216,7 @@ SUITE (TestdxJointUniversal)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreateUniversal (wId, 0);
+            jId   = dJointCreateUniversal (wId, NULL);
 
 
             dJointAttach (jId, NULL, bId2);
@@ -645,7 +645,7 @@ SUITE (TestdxJointUniversal)
                                     REAL(0.47123)); // 27deg
                 dBodySetRotation (bId[j][1], R);
 
-                jId[j]   = dJointCreateUniversal (wId, 0);
+                jId[j]   = dJointCreateUniversal (wId, NULL);
                 dJointAttach (jId[j], bId[j][0], bId[j][1]);
                 dJointSetUniversalParam(jId[j], dParamLoStop, 1);
                 dJointSetUniversalParam(jId[j], dParamHiStop, 2);
@@ -1250,7 +1250,7 @@ SUITE (TestdxJointUniversal)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreateUniversal (wId, 0);
+            jId   = dJointCreateUniversal (wId, NULL);
             joint = (dxJointUniversal*) jId;
 
 
@@ -1781,7 +1781,7 @@ SUITE (TestdxJointUniversal)
             bId1 = dBodyCreate (wId);
             dBodySetPosition (bId1, 0, 0, 0);
 
-            jId   = dJointCreateUniversal (wId, 0);
+            jId   = dJointCreateUniversal (wId, NULL);
             joint = (dxJointUniversal*) jId;
 
 
@@ -2016,7 +2016,7 @@ SUITE (TestdxJointUniversal)
             dBodySetPosition (bId2, 11, 22, 33);
 
 
-            jId   = dJointCreateUniversal (wId, 0);
+            jId   = dJointCreateUniversal (wId, NULL);
 
 
             dJointAttach (jId, bId1, bId2);

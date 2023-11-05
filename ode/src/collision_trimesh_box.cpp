@@ -1227,7 +1227,7 @@ static void dQueryBTLPotentialCollisionTriangles(OBBCollider &Collider,
 
     // TC results
     if (TriMesh->getDoTC(dxTriMesh::TTC_BOX)) {
-        dxTriMesh::BoxTC* BoxTC = 0;
+        dxTriMesh::BoxTC* BoxTC = NULL;
         const int iBoxCacheSize = TriMesh->m_BoxTCCache.size();
         for (int i = 0; i != iBoxCacheSize; i++){
             if (TriMesh->m_BoxTCCache[i].Geom == BoxGeom){

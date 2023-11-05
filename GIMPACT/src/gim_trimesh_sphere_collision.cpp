@@ -179,7 +179,7 @@ void gim_trimesh_sphere_collision(GIM_TRIMESH * trimesh,vec3f center,GREAL radiu
 		cresult = gim_triangle_sphere_collision(&tri_data,center,radius,&tri_contact_data);
 		if(cresult!=0)
 		{
-		    GIM_PUSH_CONTACT(dummycontacts, tri_contact_data.m_points[0],tri_contact_data.m_separating_normal ,tri_contact_data.m_penetration_depth,trimesh, 0, boxesresult[i],0);
+		    GIM_PUSH_CONTACT(dummycontacts, tri_contact_data.m_points[0],tri_contact_data.m_separating_normal ,tri_contact_data.m_penetration_depth,trimesh, NULL, boxesresult[i],0);
 		}
 	}
 	///unlocks

@@ -54,8 +54,8 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
     for (; goForLoopX4; subsequentPass = true, goForLoopX4 = (blockStartRow += 4) <= loopX4LastRow) 
     {
         /* declare variables - Z matrix, p and q vectors, etc */
-        const dReal *ptrLElement;
-        dReal *ptrBElement;
+        const dReal *ptrLElement=NULL;
+        dReal *ptrBElement=NULL;
 
         dReal Z11, Z21, Z31, Z41;
 
@@ -302,7 +302,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
     for (; !subsequentPass || blockStartRow < rowCount; subsequentPass = true, ++blockStartRow) 
     {
         /* compute all 1 x 1 block of X, from rows i..i+1-1 */
-        dReal *ptrBElement;
+        dReal *ptrBElement=NULL;
 
         dReal Z11, Z12;
 
@@ -494,7 +494,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
         dReal Z[block_step];
         dReal Y[block_step];
 
-        dReal *ptrBElement;
+        dReal *ptrBElement=NULL;
 
         CellContextInstance previousContextInstance;
         unsigned completedColumnBlock;
@@ -621,7 +621,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
             // Declare and assign the variables at the top to not interfere with any branching -- the compiler is going to eliminate them anyway.
             bool handleComputationTakenOver = false, rowEndReached = false;
 
-            const dReal *ptrLElement;
+            const dReal *ptrLElement=NULL;
             unsigned finalColumnBlock;
 
             /* check if this is not the partial block of fewer rows */
@@ -1154,7 +1154,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
             bool skipToHandlingSubsequentRows = false, skiptoCopyingResult = false;
 
             /* declare variables */
-            const dReal *ptrLElement;
+            const dReal *ptrLElement=NULL;
 
             if (completedColumnBlock < currentBlock)
             {

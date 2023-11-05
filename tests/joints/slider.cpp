@@ -50,7 +50,7 @@ SUITE (TestdxJointSlider)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 1, 0);
 
-            jId   = dJointCreateSlider (wId, 0);
+            jId   = dJointCreateSlider (wId, NULL);
             joint = (dxJointSlider*) jId;
 
 
@@ -164,7 +164,7 @@ SUITE (TestdxJointSlider)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreateSlider (wId, 0);
+            jId   = dJointCreateSlider (wId, NULL);
             joint = (dxJointSlider*) jId;
 
 
@@ -296,7 +296,7 @@ SUITE (TestdxJointSlider)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreateSlider (wId, 0);
+            jId   = dJointCreateSlider (wId, NULL);
             joint = (dxJointSlider*) jId;
 
 
@@ -425,7 +425,7 @@ SUITE (TestdxJointSlider)
             bId1 = dBodyCreate (wId);
             dBodySetPosition (bId1, 0, 0, 0);
 
-            jId   = dJointCreateSlider (wId, 0);
+            jId   = dJointCreateSlider (wId, NULL);
             joint = (dxJointSlider*) jId;
 
 
@@ -498,7 +498,7 @@ SUITE (TestdxJointSlider)
             bId1 = dBodyCreate (wId);
             dBodySetPosition (bId1, 0, 0, 0);
 
-            jId   = dJointCreateSlider (wId, 0);
+            jId   = dJointCreateSlider (wId, NULL);
             joint = (dxJointSlider*) jId;
 
 
@@ -571,7 +571,7 @@ SUITE (TestdxJointSlider)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreateSlider (wId, 0);
+            jId   = dJointCreateSlider (wId, NULL);
             joint = (dxJointSlider*) jId;
 
 
@@ -643,7 +643,7 @@ SUITE (TestdxJointSlider)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreateSlider (wId, 0);
+            jId   = dJointCreateSlider (wId, NULL);
             joint = (dxJointSlider*) jId;
 
 
@@ -1032,7 +1032,7 @@ SUITE (TestdxJointSlider)
                 dBodySetRotation (bId[j][1], R);
 
 
-                jId[j] = dJointCreateSlider (wId, 0);
+                jId[j] = dJointCreateSlider (wId, NULL);
                 dJointAttach (jId[j], bId[j][0], bId[j][1]);
             }
         }
@@ -1128,10 +1128,10 @@ SUITE (TestdxJointSlider)
             // The force will be added in the function since it is not
             // always on the same body
 
-            jId_12 = dJointCreateSlider (wId, 0);
+            jId_12 = dJointCreateSlider (wId, NULL);
             dJointAttach(jId_12, bId1_12, bId2_12);
 
-            fixed = dJointCreateFixed (wId, 0);
+            fixed = dJointCreateFixed (wId, NULL);
 
 
 
@@ -1140,7 +1140,7 @@ SUITE (TestdxJointSlider)
 
             dBodyAddForce (bId, 4, 0, 0);
 
-            jId = dJointCreateSlider (wId, 0);
+            jId = dJointCreateSlider (wId, NULL);
         }
 
         ~Fixture_dxJointSlider_Compare_Body_At_Zero_Axis_Along_X()
@@ -1178,10 +1178,10 @@ SUITE (TestdxJointSlider)
         dJointSetSliderParam(jId_12, dParamLoStop, -1);
         dJointSetSliderParam(jId_12, dParamHiStop, 0.25);
 
-        dJointAttach(fixed, 0, bId2_12);
+        dJointAttach(fixed, NULL, bId2_12);
         dJointSetFixed(fixed);
 
-        dJointAttach(jId, bId, 0);
+        dJointAttach(jId, bId, NULL);
         dJointSetSliderParam(jId, dParamLoStop, -1);
         dJointSetSliderParam(jId, dParamHiStop, 0.25);
 
@@ -1216,11 +1216,11 @@ SUITE (TestdxJointSlider)
         dJointSetSliderParam(jId_12, dParamLoStop, -1);
         dJointSetSliderParam(jId_12, dParamHiStop, 0.25);
 
-        dJointAttach(fixed, bId1_12, 0);
+        dJointAttach(fixed, bId1_12, NULL);
         dJointSetFixed(fixed);
 
 
-        dJointAttach(jId, 0, bId);
+        dJointAttach(jId, NULL, bId);
         dJointSetSliderParam(jId, dParamLoStop, -1);
         dJointSetSliderParam(jId, dParamHiStop, 0.25);
 
@@ -1258,11 +1258,11 @@ SUITE (TestdxJointSlider)
         dJointSetSliderParam(jId_12, dParamLoStop, 0);
         dJointSetSliderParam(jId_12, dParamHiStop, 0);
 
-        dJointAttach(fixed, 0, bId2_12);
+        dJointAttach(fixed, NULL, bId2_12);
         dJointSetFixed(fixed);
 
 
-        dJointAttach(jId, bId, 0);
+        dJointAttach(jId, bId, NULL);
         dJointSetSliderParam(jId, dParamLoStop, 0);
         dJointSetSliderParam(jId, dParamHiStop, 0);
 
@@ -1301,11 +1301,11 @@ SUITE (TestdxJointSlider)
         dJointSetSliderParam(jId_12, dParamLoStop, 0);
         dJointSetSliderParam(jId_12, dParamHiStop, 0);
 
-        dJointAttach(fixed, bId1_12, 0);
+        dJointAttach(fixed, bId1_12, NULL);
         dJointSetFixed(fixed);
 
 
-        dJointAttach(jId, 0, bId);
+        dJointAttach(jId, NULL, bId);
         dJointSetSliderParam(jId, dParamLoStop, 0);
         dJointSetSliderParam(jId, dParamHiStop, 0);
 

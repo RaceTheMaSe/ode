@@ -271,12 +271,12 @@ static void command(int cmd)
 
             // destroy the body and geoms for slot i
             dBodyDestroy(obj[i].body);
-            obj[i].body = 0;
+            obj[i].body = NULL;
 
             for (k=0; k < GPB; k++)
                 if (obj[i].geom[k]) {
                     dGeomDestroy(obj[i].geom[k]);
-                    obj[i].geom[k] = 0;
+                    obj[i].geom[k] = NULL;
                 }
         }
 
@@ -344,7 +344,7 @@ static void command(int cmd)
                                         &Indices[0], IndexCount, 3 * sizeof(dTriIndex));
             dGeomTriMeshDataPreprocess2(new_tmdata, (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES), NULL);
 
-            obj[i].geom[0] = dCreateTriMesh(space, new_tmdata, 0, 0, 0);
+            obj[i].geom[0] = dCreateTriMesh(space, new_tmdata, NULL, NULL, NULL);
 
             dMassSetTrimesh( &m, DENSITY, obj[i].geom[0] );
             printf("mass at %f %f %f\n", m.c[0], m.c[1], m.c[2]);
@@ -579,7 +579,7 @@ static void simLoop (int pause)
 {
     int i,j;
   
-    dSpaceCollide(space,0,&nearCallback);
+    dSpaceCollide(space,NULL,&nearCallback);
   
     if (!pause)
         dWorldQuickStep(world,0.05);
@@ -603,7 +603,7 @@ static void simLoop (int pause)
     // Draw Heightfield
     //
 
-    drawGeom(gheight, 0, 0, 0);
+    drawGeom(gheight, NULL, NULL, 0);
 
 
 
@@ -619,7 +619,7 @@ static void simLoop (int pause)
                 dsSetColor (1,1,0);
             }
 
-            drawGeom (obj[i].geom[j],0,0,show_aabb);
+            drawGeom (obj[i].geom[j],NULL,NULL,show_aabb);
         }
     }
 
@@ -639,13 +639,13 @@ int main (int argc, char **argv)
     fn.start = &start;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
     // create world
     dInitODE2(0);
     world = dWorldCreate();
-    space = dHashSpaceCreate (0);
+    space = dHashSpaceCreate (NULL);
     contactgroup = dJointGroupCreate (0);
     dWorldSetGravity(world,0,0,-0.05);
     dWorldSetCFM(world,1e-5);

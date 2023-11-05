@@ -151,7 +151,7 @@ static void simLoop (int pause)
 
   for (int i=0; i<nrofsteps && !pause; i++)
   {
-    dSpaceCollide (space,0,&nearCallback);
+    dSpaceCollide (space,NULL,&nearCallback);
     dWorldQuickStep (world, simstep);
     dJointGroupEmpty (contactgroup);
   }
@@ -206,13 +206,13 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
   dInitODE2(0);
   world = dWorldCreate();
-  space = dHashSpaceCreate (0);
+  space = dHashSpaceCreate (NULL);
 
   contactgroup = dJointGroupCreate (0);
   dWorldSetGravity (world,0,0,-9.8);
@@ -237,7 +237,7 @@ int main (int argc, char **argv)
     3 * sizeof(dTriIndex)
   );
 
-  world_mesh = dCreateTriMesh(space, Data, 0, 0, 0);
+  world_mesh = dCreateTriMesh(space, Data, NULL, NULL, NULL);
   dGeomTriMeshEnableTC(world_mesh, dSphereClass, false);
   dGeomTriMeshEnableTC(world_mesh, dBoxClass, false);
   dGeomSetPosition(world_mesh, 0, 0, 0.5);
@@ -251,7 +251,7 @@ int main (int argc, char **argv)
   sphbody = dBodyCreate (world);
   dMassSetSphere (&m,1,RADIUS);
   dBodySetMass (sphbody,&m);
-  sphgeom = dCreateSphere(0, RADIUS);
+  sphgeom = dCreateSphere(NULL, RADIUS);
   dGeomSetBody (sphgeom,sphbody);
   reset_ball();
   dSpaceAdd (space, sphgeom);

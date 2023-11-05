@@ -79,7 +79,7 @@ static void     cb_near_collision (void *, dGeomID o1, dGeomID o2)
 
 
     // exit without doing anything if the two bodies are static
-    if (b1 == 0 && b2 == 0)
+    if (b1 == NULL && b2 == NULL)
         return;
 
     // exit without doing anything if the two bodies are connected by a joint
@@ -139,7 +139,7 @@ static void     cb_sim_step (int pause)
         const int n = 10;
         for (int i = 0; i < n; i ++)
         {
-            dSpaceCollide (g_globals_ptr->coll_space_id, 0, &cb_near_collision);
+            dSpaceCollide (g_globals_ptr->coll_space_id, NULL, &cb_near_collision);
             g_globals_ptr->dyn_world.step (dReal(TIME_STEP/n));
             g_globals_ptr->coll_contacts.empty ();
         }
@@ -234,7 +234,7 @@ extern int      main
     dWorldSetCFM (g_globals_ptr->dyn_world.id (), cf_mixing);
     g_globals_ptr->dyn_world.setGravity (0, 0.0, -1.0);
 
-    g_globals_ptr->coll_space_id = dSimpleSpaceCreate (0);
+    g_globals_ptr->coll_space_id = dSimpleSpaceCreate (NULL);
 
     // dynamic bodies
     for (b = 0; b < N_BODIES; b ++)
@@ -260,8 +260,8 @@ extern int      main
         m.adjust (REAL(0.1) * g_globals_ptr->bodies_sides[b][0] * g_globals_ptr->bodies_sides[b][1]);
         g_globals_ptr->dyn_bodies[b].setMass (&m);
 
-        g_globals_ptr->plane2d_joint_ids[b] = dJointCreatePlane2D (g_globals_ptr->dyn_world.id (), 0);
-        dJointAttach (g_globals_ptr->plane2d_joint_ids[b], g_globals_ptr->dyn_bodies[b].id (), 0);
+        g_globals_ptr->plane2d_joint_ids[b] = dJointCreatePlane2D (g_globals_ptr->dyn_world.id (), NULL);
+        dJointAttach (g_globals_ptr->plane2d_joint_ids[b], g_globals_ptr->dyn_bodies[b].id (), NULL);
     }
 
     dJointSetPlane2DXParam (g_globals_ptr->plane2d_joint_ids[0], dParamFMax, 10);
@@ -289,8 +289,8 @@ extern int      main
         drawstuff_functions.version = DS_VERSION;
         drawstuff_functions.start = &cb_start;
         drawstuff_functions.step = &cb_sim_step;
-        drawstuff_functions.command = 0;
-        drawstuff_functions.stop = 0;
+        drawstuff_functions.command = NULL;
+        drawstuff_functions.stop = NULL;
         drawstuff_functions.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
         dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &drawstuff_functions);

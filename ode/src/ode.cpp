@@ -105,7 +105,7 @@ static void removeJointReferencesFromAttachedBodies (dxJoint *j)
 
 static int listHasLoops (dObject *first)
 {
-    if (first==0 || first->next==0) return 0;
+    if (first==NULL || first->next==NULL) return 0;
     dObject *a=first,*b=first->next;
     int skip=0;
     while (b) {
@@ -297,7 +297,7 @@ void dBodyDestroy (dxBody *b)
     dxGeom *next_geom = NULL;
     for (dxGeom *geom = b->geom; geom; geom = next_geom) {
         next_geom = dGeomGetBodyNext (geom);
-        dGeomSetBody (geom,0);
+        dGeomSetBody (geom,NULL);
     }
 
     // detach all neighbouring joints, then delete this body.
@@ -824,7 +824,7 @@ dJointID dBodyGetJoint (dBodyID b, int index)
     for (dxJointNode *n=b->firstjoint; n; n=n->next, i++) {
         if (i == index) return n->joint;
     }
-    return 0;
+    return NULL;
 }
 
 void dBodySetDynamic (dBodyID b)
@@ -1483,7 +1483,7 @@ dBodyID dJointGetBody (dxJoint *joint, int index)
         if (joint->flags & dJOINT_REVERSE) return joint->node[1-index].body;
         else return joint->node[index].body;
     }
-    else return 0;
+    else return NULL;
 }
 
 
@@ -1508,7 +1508,7 @@ dJointID dConnectingJoint (dBodyID in_b1, dBodyID in_b2)
 
     dBodyID b1, b2;
 
-    if (in_b1 == 0) {
+    if (in_b1 == NULL) {
         b1 = in_b2;
         b2 = in_b1;
     }
@@ -1522,7 +1522,7 @@ dJointID dConnectingJoint (dBodyID in_b1, dBodyID in_b2)
         if (n->body == b2) return n->joint;
     }
 
-    return 0;
+    return NULL;
 }
 
 
@@ -1534,7 +1534,7 @@ int dConnectingJointList (dBodyID in_b1, dBodyID in_b2, dJointID* out_list)
 
     dBodyID b1, b2;
 
-    if (in_b1 == 0) {
+    if (in_b1 == NULL) {
         b1 = in_b2;
         b2 = in_b1;
     }
@@ -2258,7 +2258,7 @@ extern "C" void dTestDataStructures()
             dBodyID b2 = body [dRand() % nb];
             if (b1 != b2) {
                 DO(printf ("creating joint, attaching to %p,%p\n",b1,b2));
-                joint[nj] = dJointCreateBall (w,0);
+                joint[nj] = dJointCreateBall (w,NULL);
                 DO(printf ("\t-->%p\n",joint[nj]));
                 checkWorld (w);
                 dJointAttach (joint[nj],b1,b2);

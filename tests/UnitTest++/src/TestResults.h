@@ -1,6 +1,7 @@
 #ifndef UNITTEST_TESTRESULTS_H
 #define UNITTEST_TESTRESULTS_H
 
+#include <cstddef>
 namespace UnitTest {
 
 class TestReporter;
@@ -9,7 +10,7 @@ class TestDetails;
 class TestResults
 {
 public:
-    explicit TestResults(TestReporter* reporter = 0);
+    explicit TestResults(TestReporter* reporter = NULL);
 
     void OnTestStart(TestDetails const& test);
     void OnTestFailure(TestDetails const& test, char const* failure);

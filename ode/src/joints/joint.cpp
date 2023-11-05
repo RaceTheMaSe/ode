@@ -47,17 +47,17 @@ dxJoint::dxJoint( dxWorld *w ) :
     dIASSERT( w );
     flags = 0;
     node[0].joint = this;
-    node[0].body = 0;
-    node[0].next = 0;
+    node[0].body = NULL;
+    node[0].next = NULL;
     node[1].joint = this;
-    node[1].body = 0;
-    node[1].next = 0;
+    node[1].body = NULL;
+    node[1].next = NULL;
     dSetZero( lambda, 6 );
 
     addObjectToList( this, ( dObject ** ) &w->firstjoint );
 
     w->nj++;
-    feedback = 0;
+    feedback = NULL;
 }
 
 dxJoint::~dxJoint()

@@ -231,12 +231,12 @@ static void command(int cmd)
 
             // destroy the body and geoms for slot i
             dBodyDestroy (obj[i].body);
-            obj[i].body = 0;
+            obj[i].body = NULL;
 
             for (k=0; k < GPB; k++)
                 if (obj[i].geom[k]) {
                     dGeomDestroy(obj[i].geom[k]);
-                    obj[i].geom[k] = 0;
+                    obj[i].geom[k] = NULL;
                 }
         }
 
@@ -507,7 +507,7 @@ void drawGeom(dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 
 static void simLoop(int pause)
 {
-    dSpaceCollide(space, 0, &nearCallback);
+    dSpaceCollide(space, NULL, &nearCallback);
 
     if (!pause)
         dWorldQuickStep(world, 0.02);
@@ -557,7 +557,7 @@ static void simLoop(int pause)
             } else {
                 dsSetColor(1,1,0);
             }
-            drawGeom(obj[i].geom[j],0,0,show_aabb);
+            drawGeom(obj[i].geom[j],NULL,NULL,show_aabb);
         }
     }
 }
@@ -571,13 +571,13 @@ int main (int argc, char **argv)
     fn.start = &start;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
     // create world
     dInitODE2(0);
     world = dWorldCreate();
-    space = dHashSpaceCreate(0);
+    space = dHashSpaceCreate(NULL);
     contactgroup = dJointGroupCreate(0);
     dWorldSetGravity(world,0,0,-GRAVITY);
     dWorldSetCFM(world,1e-5);

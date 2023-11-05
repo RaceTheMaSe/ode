@@ -53,7 +53,7 @@ SUITE (TestdxJointPiston)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreatePiston (wId, 0);
+            jId   = dJointCreatePiston (wId, NULL);
             joint = (dxJointPiston*) jId;
 
 
@@ -229,7 +229,7 @@ SUITE (TestdxJointPiston)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreatePiston (wId, 0);
+            jId   = dJointCreatePiston (wId, NULL);
             joint = (dxJointPiston*) jId;
 
 
@@ -397,7 +397,7 @@ SUITE (TestdxJointPiston)
             bId1 = dBodyCreate (wId);
             dBodySetPosition (bId1, 0, 0, 0);
 
-            jId   = dJointCreatePiston (wId, 0);
+            jId   = dJointCreatePiston (wId, NULL);
             joint = (dxJointPiston*) jId;
 
 
@@ -498,7 +498,7 @@ SUITE (TestdxJointPiston)
             bId1 = dBodyCreate (wId);
             dBodySetPosition (bId1, 0, 0, 0);
 
-            jId   = dJointCreatePiston (wId, 0);
+            jId   = dJointCreatePiston (wId, NULL);
             joint = (dxJointPiston*) jId;
 
 
@@ -607,7 +607,7 @@ SUITE (TestdxJointPiston)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreatePiston (wId, 0);
+            jId   = dJointCreatePiston (wId, NULL);
             joint = (dxJointPiston*) jId;
 
 
@@ -708,7 +708,7 @@ SUITE (TestdxJointPiston)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreatePiston (wId, 0);
+            jId   = dJointCreatePiston (wId, NULL);
             joint = (dxJointPiston*) jId;
 
 
@@ -1125,7 +1125,7 @@ SUITE (TestdxJointPiston)
                                     REAL(0.47123)); // 27deg
                 dBodySetRotation (bId[j][1], R);
 
-                jId[j] = dJointCreatePiston (wId, 0);
+                jId[j] = dJointCreatePiston (wId, NULL);
                 dJointAttach (jId[j], bId[j][0], bId[j][1]);
             }
         }
@@ -1226,10 +1226,10 @@ SUITE (TestdxJointPiston)
             // The force will be added in the function since it is not
             // always on the same body
 
-            jId_12 = dJointCreatePiston (wId, 0);
+            jId_12 = dJointCreatePiston (wId, NULL);
             dJointAttach(jId_12, bId1_12, bId2_12);
 
-            fixed = dJointCreateFixed (wId, 0);
+            fixed = dJointCreateFixed (wId, NULL);
 
 
 
@@ -1238,7 +1238,7 @@ SUITE (TestdxJointPiston)
 
             dBodyAddForce (bId, 4, 0, 0);
 
-            jId = dJointCreatePiston (wId, 0);
+            jId = dJointCreatePiston (wId, NULL);
         }
 
         ~Fixture_dxJointPiston_Compare_Body_At_Zero_Axis_Along_X()
@@ -1276,10 +1276,10 @@ SUITE (TestdxJointPiston)
         dJointSetPistonParam(jId_12, dParamLoStop, -1);
         dJointSetPistonParam(jId_12, dParamHiStop, 0.25);
 
-        dJointAttach(fixed, 0, bId2_12);
+        dJointAttach(fixed, NULL, bId2_12);
         dJointSetFixed(fixed);
 
-        dJointAttach(jId, bId, 0);
+        dJointAttach(jId, bId, NULL);
         dJointSetPistonParam(jId, dParamLoStop, -1);
         dJointSetPistonParam(jId, dParamHiStop, 0.25);
 
@@ -1321,11 +1321,11 @@ SUITE (TestdxJointPiston)
         dJointSetPistonParam(jId_12, dParamLoStop, -1);
         dJointSetPistonParam(jId_12, dParamHiStop, 0.25);
 
-        dJointAttach(fixed, bId1_12, 0);
+        dJointAttach(fixed, bId1_12, NULL);
         dJointSetFixed(fixed);
 
 
-        dJointAttach(jId, 0, bId);
+        dJointAttach(jId, NULL, bId);
         dJointSetPistonParam(jId, dParamLoStop, -1);
         dJointSetPistonParam(jId, dParamHiStop, 0.25);
 
@@ -1369,11 +1369,11 @@ SUITE (TestdxJointPiston)
         dJointSetPistonParam(jId_12, dParamLoStop, 0);
         dJointSetPistonParam(jId_12, dParamHiStop, 0);
 
-        dJointAttach(fixed, 0, bId2_12);
+        dJointAttach(fixed, NULL, bId2_12);
         dJointSetFixed(fixed);
 
 
-        dJointAttach(jId, bId, 0);
+        dJointAttach(jId, bId, NULL);
         dJointSetPistonParam(jId, dParamLoStop, 0);
         dJointSetPistonParam(jId, dParamHiStop, 0);
 
@@ -1420,11 +1420,11 @@ SUITE (TestdxJointPiston)
         dJointSetPistonParam(jId_12, dParamLoStop, 0);
         dJointSetPistonParam(jId_12, dParamHiStop, 0);
 
-        dJointAttach(fixed, bId1_12, 0);
+        dJointAttach(fixed, bId1_12, NULL);
         dJointSetFixed(fixed);
 
 
-        dJointAttach(jId, 0, bId);
+        dJointAttach(jId, NULL, bId);
         dJointSetPistonParam(jId, dParamLoStop, 0);
         dJointSetPistonParam(jId, dParamHiStop, 0);
 

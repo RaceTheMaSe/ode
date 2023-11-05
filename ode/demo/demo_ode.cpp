@@ -73,7 +73,7 @@ void myMessageFunction (int num, const char *msg, va_list ap)
     printf ("(Message %d: ",num);
     vprintf (msg,ap);
     printf (")");
-    dSetMessageHandler (0);
+    dSetMessageHandler (NULL);
     longjmp (jump_buffer,1);
 }
 
@@ -81,7 +81,7 @@ void myMessageFunction (int num, const char *msg, va_list ap)
 #define TRAP_MESSAGE(do,ifnomsg,ifmsg) \
     dSetMessageHandler (&myMessageFunction); \
     if (setjmp (jump_buffer)) { \
-        dSetMessageHandler (0); \
+        dSetMessageHandler (NULL); \
         ifmsg ; \
     } \
     else { \
@@ -89,7 +89,7 @@ void myMessageFunction (int num, const char *msg, va_list ap)
         do ; \
         ifnomsg ; \
     } \
-    dSetMessageHandler (0)
+    dSetMessageHandler (NULL)
 
 //****************************************************************************
 // utility stuff
@@ -1152,7 +1152,7 @@ dMatrixComparison::~dMatrixComparison()
 dReal dMatrixComparison::nextMatrix (dReal *A, int n, int m, int lower_tri,
                                      const char *name, ...)
 {
-    if (A==0 || n < 1 || m < 1 || name==0) dDebug (0,"bad args to nextMatrix");
+    if (A==NULL || n < 1 || m < 1 || name==NULL) dDebug (false,"bad args to nextMatrix");
     int num = n*dPAD(m);
 
     if (afterfirst==0) {

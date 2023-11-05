@@ -161,7 +161,7 @@ struct dxGeom : public dBase {
     bool checkControlValueSizeValidity(void *dataValue, int *dataSize, int iRequiresSize)
     {
         // Here it is the intent to return true for 0 required size in any case
-        if(*dataSize == iRequiresSize && dataValue != 0)
+        if(*dataSize == iRequiresSize && dataValue != NULL)
             return true;
         else
         {

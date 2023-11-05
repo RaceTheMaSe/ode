@@ -53,7 +53,7 @@ struct PrintingContext {
     void print (const char *name, unsigned x);
     void print (const char *name, dReal x);
     void print (const char *name, const dReal *x, int n=3);
-    void print (const char *name, const char *x=0);
+    void print (const char *name, const char *x=NULL);
     void printNonzero (const char *name, dReal x);
     void printNonzero (const char *name, const dReal x[3]);
 };

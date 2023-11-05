@@ -48,7 +48,7 @@ SUITE (TestdxJointAMotor)
         {
             world = dWorldCreate();
             body = dBodyCreate(world);
-            joint = dJointCreateAMotor(world, 0);
+            joint = dJointCreateAMotor(world, NULL);
         }
 
         ~FixtureBase()
@@ -66,7 +66,7 @@ SUITE (TestdxJointAMotor)
             // body only allowed to rotate around X axis
             dBodySetFiniteRotationMode(body, 1);
             dBodySetFiniteRotationAxis(body, 1, 0, 0);
-            dJointAttach(joint, body, 0);
+            dJointAttach(joint, body, NULL);
             dJointSetAMotorNumAxes(joint, 2);
             dJointSetAMotorAxis(joint, 0, 2, 0, 1, 0);
             dJointSetAMotorAxis(joint, 1, 2, 0, 0, 1);
@@ -147,7 +147,7 @@ SUITE (TestdxJointAMotor)
 
         dVector3 res;
 
-        dJointAttach(joint, body, 0);
+        dJointAttach(joint, body, NULL);
         dJointSetAMotorNumAxes(joint, 3);
         CHECK_EQUAL(3, dJointGetAMotorNumAxes(joint));
 
@@ -218,7 +218,7 @@ SUITE (TestdxJointAMotor)
         CHECK_CLOSE(1, res[2], tol);
 
         // reverse attachment to force internal reversal
-        dJointAttach(joint, 0, body);
+        dJointAttach(joint, NULL, body);
         // axes relative to world
         dJointSetAMotorAxis(joint, 0, 0, 1, 0, 0);
         dJointGetAMotorAxis(joint, 0, res);
@@ -291,7 +291,7 @@ SUITE (TestdxJointAMotor)
         FixtureXEuler()
         {
             // body only allowed to rotate around X axis
-            dJointAttach(joint, 0, body);
+            dJointAttach(joint, NULL, body);
             dJointSetAMotorMode(joint, dAMotorEuler);
             dJointSetAMotorAxis(joint, 0, 0, 1, 0, 0);
             dJointSetAMotorAxis(joint, 2, 0, 0, 0, 1);

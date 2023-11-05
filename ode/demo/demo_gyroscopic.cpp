@@ -132,7 +132,7 @@ static void command (int cmd)
 static void simLoop (int pause)
 {
     dsSetColor (0,0,2);
-    space->collide(0,&nearCallback);
+    space->collide(NULL,&nearCallback);
     if (!pause)
         //world->quickStep(0.02);
         world->step(0.02);
@@ -202,7 +202,7 @@ int main (int argc, char **argv)
     fn.start = &start;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
 
@@ -214,7 +214,7 @@ int main (int argc, char **argv)
     world->setLinearDamping(0.00001f);
     world->setAngularDamping(0.0001f);
     
-    space = new dSimpleSpace(0);
+    space = new dSimpleSpace(NULL);
 
     dPlane *floor = new dPlane(*space, 0,0,1,0);
 

@@ -49,8 +49,8 @@ void gim_merge_contacts(GDYNAMIC_ARRAY * source_contacts,
 	GIM_QUICK_SORT_ARRAY(GIM_RSORT_TOKEN , keycontacts, source_count, RSORT_TOKEN_COMPARATOR,GIM_DEF_EXCHANGE_MACRO);
 
 	// Merge contacts
-	GIM_CONTACT * pcontact = 0;
-	GIM_CONTACT * scontact = 0;
+	GIM_CONTACT * pcontact = NULL;
+	GIM_CONTACT * scontact = NULL;
 	GUINT32 key,last_key=0;
 
 	for(i=0;i<source_contacts->m_size;i++)
@@ -88,7 +88,7 @@ void gim_merge_contacts_unique(GDYNAMIC_ARRAY * source_contacts,
 	GIM_CONTACT * psource_contacts	= GIM_DYNARRAY_POINTER(GIM_CONTACT,(*source_contacts));
 
 	//add the unique contact
-	GIM_CONTACT * pcontact = 0;
+	GIM_CONTACT * pcontact = NULL;
     GIM_DYNARRAY_PUSH_EMPTY(GIM_CONTACT,(*dest_contacts));
     pcontact = GIM_DYNARRAY_POINTER_LAST(GIM_CONTACT,(*dest_contacts));
     //set the first contact

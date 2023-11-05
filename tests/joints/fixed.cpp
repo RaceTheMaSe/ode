@@ -49,7 +49,7 @@ SUITE (TestdxJointFixed)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 1, 0);
 
-            jId   = dJointCreateFixed (wId, 0);
+            jId   = dJointCreateFixed (wId, NULL);
             joint = (dxJointFixed*) jId;
 
 

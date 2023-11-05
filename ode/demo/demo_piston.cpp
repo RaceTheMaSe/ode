@@ -396,10 +396,10 @@ static void command (int cmd)
 
 
     case '8' :
-        dJointAttach(joint->id(), body[0], 0);
+        dJointAttach(joint->id(), body[0], NULL);
         break;
     case '9' :
-        dJointAttach(joint->id(), 0, body[0]);
+        dJointAttach(joint->id(), NULL, body[0]);
         break;
 
     case 'i':
@@ -528,7 +528,7 @@ static void simLoop (int pause)
 
         for (int i=0; i<nrofsteps && !pause; i++)
         {
-            dSpaceCollide (space,0,&nearCallback);
+            dSpaceCollide (space,NULL,&nearCallback);
             dWorldStep (world, simstep);
 
             dJointGroupEmpty (contactgroup);
@@ -633,7 +633,7 @@ int main (int argc, char **argv)
     fn.start = &start;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
     dVector3 offset;
@@ -685,7 +685,7 @@ int main (int argc, char **argv)
     world = dWorldCreate();
     dWorldSetERP (world, 0.8);
 
-    space = dSimpleSpaceCreate (0);
+    space = dSimpleSpaceCreate (NULL);
     contactgroup = dJointGroupCreate (0);
     geom[GROUND] = dCreatePlane (space, 0,0,1,0);
     dGeomSetCategoryBits (geom[GROUND], catBits[GROUND]);
@@ -757,7 +757,7 @@ int main (int argc, char **argv)
     if ( fixed )
     {
         // Attache external cylinder to the world
-        dJointID fixedJoint = dJointCreateFixed (world,0);
+        dJointID fixedJoint = dJointCreateFixed (world,NULL);
         dJointAttach (fixedJoint , NULL, body[BODY2]);
         dJointSetFixed (fixedJoint );
         dWorldSetGravity (world,0,0,-0.8);
@@ -775,7 +775,7 @@ int main (int argc, char **argv)
     {
     case dJointTypeSlider :
     {
-        dSliderJoint *sj = new dSliderJoint (world, 0);
+        dSliderJoint *sj = new dSliderJoint (world, NULL);
         sj->attach (body[BODY1], body[BODY2]);
         sj->setAxis (1, 0, 0);
         joint = sj;
@@ -785,7 +785,7 @@ int main (int argc, char **argv)
     case dJointTypePiston : // fall through default
     default:
     {
-        dPistonJoint *pj = new dPistonJoint (world, 0);
+        dPistonJoint *pj = new dPistonJoint (world, NULL);
         pj->attach (body[BODY1], body[BODY2]);
         pj->setAxis (1, 0, 0);
 

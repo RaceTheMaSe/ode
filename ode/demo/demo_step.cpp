@@ -57,7 +57,7 @@
 
 // dynamics and collision objects
 
-static dWorldID world=0;
+static dWorldID world=NULL;
 static dBodyID body[NUM];
 static dJointID joint[NUMJ];
 
@@ -110,7 +110,7 @@ void createTest()
     } while (linked[b1*NUM + b2] || b1==b2);
     linked[b1*NUM + b2] = 1;
     linked[b2*NUM + b1] = 1;
-    joint[i] = dJointCreateBall (world,0);
+    joint[i] = dJointCreateBall (world,NULL);
     dJointAttach (joint[i],body[b1],body[b2]);
     dJointSetBallAnchor (joint[i],dRandReal()*2-1,
 			 dRandReal()*2-1,dRandReal()*2+RADIUS);
@@ -175,12 +175,12 @@ int main (int argc, char **argv)
   fn.version = DS_VERSION;
   fn.start = &start;
   fn.step = &simLoop;
-  fn.command = 0;
-  fn.stop = 0;
+  fn.command = NULL;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   dInitODE2(0);
-  dRandSetSeed (time(0));
+  dRandSetSeed (time(NULL));
   createTest();
 
   // run simulation

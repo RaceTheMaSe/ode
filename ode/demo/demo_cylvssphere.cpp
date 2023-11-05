@@ -140,7 +140,7 @@ static void command (int cmd)
 
 static void simLoop (int pause)
 {
-  dSpaceCollide (space,0,&nearCallback);
+  dSpaceCollide (space,NULL,&nearCallback);
   if (!pause)
   {
     dWorldQuickStep (world, 0.01); // 100 Hz
@@ -184,13 +184,13 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
   dInitODE2(0);
   world = dWorldCreate();
-  space = dHashSpaceCreate (0);
+  space = dHashSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
   dWorldSetGravity (world,0,0,-9.8);
   dWorldSetQuickStepNumIterations (world, 32);
@@ -208,7 +208,7 @@ int main (int argc, char **argv)
   dBodySetQuaternion (cylbody,q);
   dMassSetCylinder (&m,1.0,3,CYLRADIUS,CYLLENGTH);
   dBodySetMass (cylbody,&m);
-  cylgeom = dCreateCylinder(0, CYLRADIUS, CYLLENGTH);
+  cylgeom = dCreateCylinder(NULL, CYLRADIUS, CYLLENGTH);
   dGeomSetBody (cylgeom,cylbody);
   dBodySetPosition (cylbody, 0, 0, 3);
   dSpaceAdd (space, cylgeom);
@@ -216,7 +216,7 @@ int main (int argc, char **argv)
   sphbody = dBodyCreate (world);
   dMassSetSphere (&m,1,SPHERERADIUS);
   dBodySetMass (sphbody,&m);
-  sphgeom = dCreateSphere(0, SPHERERADIUS);
+  sphgeom = dCreateSphere(NULL, SPHERERADIUS);
   dGeomSetBody (sphgeom,sphbody);
   dBodySetPosition (sphbody, 0, 0, 5.5);
   dSpaceAdd (space, sphgeom);

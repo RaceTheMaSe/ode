@@ -162,7 +162,7 @@ static void simLoop (int pause)
   int nrofsteps = (int) ceilf(dt/simstep);
   for (int i=0; i<nrofsteps && !pause; i++)
   {
-    dSpaceCollide (space,0,&nearCallback);
+    dSpaceCollide (space,NULL,&nearCallback);
     dWorldQuickStep (world, simstep);
     dJointGroupEmpty (contactgroup);
   }
@@ -233,13 +233,13 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
   dInitODE2(0);
   world = dWorldCreate();
-  space = dHashSpaceCreate (0);
+  space = dHashSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
   dWorldSetGravity (world,0,0,-9.8);
   dWorldSetQuickStepNumIterations (world, 12);
@@ -262,7 +262,7 @@ int main (int argc, char **argv)
     3 * sizeof(dTriIndex)
   );
 
-  world_mesh = dCreateTriMesh(space, Data, 0, 0, 0);
+  world_mesh = dCreateTriMesh(space, Data, NULL, NULL, NULL);
   dGeomSetPosition(world_mesh, 0, 0, 0.5);
   dRFromAxisAndAngle (R, 0,1,0, 0.0);
   dGeomSetRotation (world_mesh, R);
@@ -273,7 +273,7 @@ int main (int argc, char **argv)
   dMassSetBox (&m,1, BOXSZ, BOXSZ, BOXSZ);
   dMassAdjust (&m, 1);
   dBodySetMass (boxbody,&m);
-  boxgeom = dCreateBox (0, BOXSZ, BOXSZ, BOXSZ);
+  boxgeom = dCreateBox (NULL, BOXSZ, BOXSZ, BOXSZ);
   dGeomSetBody (boxgeom,boxbody);
   dSpaceAdd (space, boxgeom);
 #endif
@@ -282,7 +282,7 @@ int main (int argc, char **argv)
   dMassSetSphere (&m,1,RADIUS);
   dMassAdjust (&m,WMASS);
   dBodySetMass (cylbody,&m);
-  cylgeom = dCreateCylinder(0, RADIUS, WHEELW);
+  cylgeom = dCreateCylinder(NULL, RADIUS, WHEELW);
   dGeomSetBody (cylgeom,cylbody);
   
   #if defined(CYL_GEOM_OFFSET)

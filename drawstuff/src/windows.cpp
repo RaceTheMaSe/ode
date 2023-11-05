@@ -51,7 +51,7 @@ static void errorBox(const char *title, const char *msg, va_list ap)
 {
     char s[1000];
     vsprintf(s, msg, ap);
-    MessageBox(0, s, title, MB_OK | MB_APPLMODAL | MB_ICONEXCLAMATION);
+    MessageBox(NULL, s, title, MB_OK | MB_APPLMODAL | MB_ICONEXCLAMATION);
 }
 
 

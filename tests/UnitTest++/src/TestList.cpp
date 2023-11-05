@@ -2,20 +2,21 @@
 #include "Test.h"
 
 #include <cassert>
+#include <cstddef>
 
 namespace UnitTest {
 
 TestList::TestList() 
-    : m_head(0)
-    , m_tail(0)
+    : m_head(NULL)
+    , m_tail(NULL)
 {
 }
 
 void TestList::Add(Test* test)
 {
-    if (m_tail == 0)
+    if (m_tail == NULL)
     {
-        assert(m_head == 0);
+        assert(m_head == NULL);
         m_head = test;
         m_tail = test;
     }

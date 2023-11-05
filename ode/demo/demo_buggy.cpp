@@ -182,7 +182,7 @@ static void simLoop (int pause)
     dJointSetHinge2Param (joint[0],dParamHiStop,0.75);
     dJointSetHinge2Param (joint[0],dParamFudgeFactor,0.1);
 
-    dSpaceCollide (space,0,&nearCallback);
+    dSpaceCollide (space,NULL,&nearCallback);
     dWorldStep (world,0.05);
 
     // remove all contact joints
@@ -216,13 +216,13 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
   dInitODE2(0);
   world = dWorldCreate();
-  space = dHashSpaceCreate (0);
+  space = dHashSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
   dWorldSetGravity (world,0,0,-0.5);
   ground = dCreatePlane (space,0,0,1,0);
@@ -233,7 +233,7 @@ int main (int argc, char **argv)
   dMassSetBox (&m,1,LENGTH,WIDTH,HEIGHT);
   dMassAdjust (&m,CMASS);
   dBodySetMass (body[0],&m);
-  box[0] = dCreateBox (0,LENGTH,WIDTH,HEIGHT);
+  box[0] = dCreateBox (NULL,LENGTH,WIDTH,HEIGHT);
   dGeomSetBody (box[0],body[0]);
 
   // wheel bodies
@@ -245,7 +245,7 @@ int main (int argc, char **argv)
     dMassSetSphere (&m,1,RADIUS);
     dMassAdjust (&m,WMASS);
     dBodySetMass (body[i],&m);
-    sphere[i-1] = dCreateSphere (0,RADIUS);
+    sphere[i-1] = dCreateSphere (NULL,RADIUS);
     dGeomSetBody (sphere[i-1],body[i]);
   }
   dBodySetPosition (body[1],0.5*LENGTH,0,STARTZ-HEIGHT*0.5);
@@ -254,7 +254,7 @@ int main (int argc, char **argv)
 
   // front and back wheel hinges
   for (i=0; i<3; i++) {
-    joint[i] = dJointCreateHinge2 (world,0);
+    joint[i] = dJointCreateHinge2 (world,NULL);
     dJointAttach (joint[i],body[0],body[i+1]);
     const dReal *a = dBodyGetPosition (body[i+1]);
     dJointSetHinge2Anchor (joint[i],a[0],a[1],a[2]);

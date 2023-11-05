@@ -53,7 +53,7 @@ SUITE(JointHinge2)
             dBodySetPosition(bId2, 0, 1, 0);
 
 
-            jId = dJointCreateHinge2(wId, 0);
+            jId = dJointCreateHinge2(wId, NULL);
             joint = (dxJointHinge2*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -238,7 +238,7 @@ SUITE(JointUniversal)
             dBodySetPosition(bId2, 0, 1, 0);
 
 
-            jId = dJointCreateUniversal(wId, 0);
+            jId = dJointCreateUniversal(wId, NULL);
             joint = (dxJointUniversal*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -567,7 +567,7 @@ SUITE(JointPR)
             dBodySetPosition(bId2, 0, 1, 0);
 
 
-            jId = dJointCreatePR(wId, 0);
+            jId = dJointCreatePR(wId, NULL);
             joint = (dxJointPR*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -720,7 +720,7 @@ SUITE(JointPR)
             dBodySetPosition(bId2, 0, 1, 0);
 
 
-            jId = dJointCreatePR(wId, 0);
+            jId = dJointCreatePR(wId, NULL);
             joint = (dxJointPR*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -945,7 +945,7 @@ SUITE(JointPR)
             dBodySetPosition(bId2, 0, -1, 0);
 
 
-            jId = dJointCreatePR(wId, 0);
+            jId = dJointCreatePR(wId, NULL);
             joint = (dxJointPR*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -1132,7 +1132,7 @@ SUITE(JointPR)
             dBodySetRotation (bId2, R);
 
 
-            jId = dJointCreatePR(wId, 0);
+            jId = dJointCreatePR(wId, NULL);
             joint = (dxJointPR*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -1279,7 +1279,7 @@ SUITE(JointPU)
             dBodySetPosition(bId2, 1, 0, 0);
 
 
-            jId = dJointCreatePU(wId, 0);
+            jId = dJointCreatePU(wId, NULL);
             joint = (dxJointPU*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -1515,7 +1515,7 @@ SUITE(JointPU)
             dBodySetPosition(bId2, 1, 0, 0);
 
 
-            jId = dJointCreatePU(wId, 0);
+            jId = dJointCreatePU(wId, NULL);
             joint = (dxJointPU*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -1819,7 +1819,7 @@ SUITE(JointPU)
             dBodySetPosition(bId2, 1, 0, 0);
 
 
-            jId = dJointCreatePU(wId, 0);
+            jId = dJointCreatePU(wId, NULL);
             joint = (dxJointPU*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -2017,7 +2017,7 @@ SUITE(JointPU)
             dBodySetRotation (bId2, R);
 
 
-            jId = dJointCreatePU(wId, 0);
+            jId = dJointCreatePU(wId, NULL);
             joint = (dxJointPU*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -2172,7 +2172,7 @@ SUITE(JointPiston)
             dBodySetPosition(bId2, 3, 0, 0);
 
 
-            jId = dJointCreatePiston(wId, 0);
+            jId = dJointCreatePiston(wId, NULL);
             joint = (dxJointPiston*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -2388,7 +2388,7 @@ SUITE(JointPiston)
             dBodySetPosition(bId2, 3, 0, 0);
 
 
-            jId = dJointCreatePiston(wId, 0);
+            jId = dJointCreatePiston(wId, NULL);
             joint = (dxJointPiston*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -2665,7 +2665,7 @@ SUITE(JointPiston)
             dBodySetPosition(bId2, 1, 0, 0);
 
 
-            jId = dJointCreatePiston(wId, 0);
+            jId = dJointCreatePiston(wId, NULL);
             joint = (dxJointPiston*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -2883,7 +2883,7 @@ SUITE(JointPiston)
             dBodySetRotation (bId2, R);
 
 
-            jId = dJointCreatePiston(wId, 0);
+            jId = dJointCreatePiston(wId, NULL);
             joint = (dxJointPiston*)jId;
 
             dJointAttach(jId, bId1, bId2);
@@ -2997,7 +2997,7 @@ SUITE(JointPiston)
             dBodySetPosition(bId2, 0, 1, 0);
 
 
-            jId = dJointCreateHinge(wId, 0);
+            jId = dJointCreateHinge(wId, NULL);
 
             dJointAttach(jId, bId1, bId2);
         }
@@ -3020,7 +3020,7 @@ SUITE(JointPiston)
     {
         bool only_body1_OK = true;
         try {
-            dJointAttach(jId, bId1, 0);
+            dJointAttach(jId, bId1, NULL);
             dWorldStep (wId, 1);
         }
         catch (...) {
@@ -3030,7 +3030,7 @@ SUITE(JointPiston)
 
         bool only_body2_OK = true;
         try {
-            dJointAttach(jId, 0, bId2);
+            dJointAttach(jId, NULL, bId2);
             dWorldStep (wId, 1);
         }
         catch (...) {
@@ -3040,7 +3040,7 @@ SUITE(JointPiston)
 
         bool no_body_OK = true;
         try {
-            dJointAttach(jId, 0, 0);
+            dJointAttach(jId, NULL, NULL);
             dWorldStep (wId, 1);
         }
         catch (...) {

@@ -68,7 +68,7 @@ printf("sizeof posr = %i\n", sizeof(dxPosR));
 dxGeomTransform::dxGeomTransform (dSpaceID space) : dxGeom (space,1)
 {
     type = dGeomTransformClass;
-    obj = 0;
+    obj = NULL;
     cleanup = 0;
     infomode = 0;
     dSetZero (transform_posr.pos,4);
@@ -130,9 +130,9 @@ int dCollideTransform (dxGeom *o1, dxGeom *o2, int flags,
 
     dxGeomTransform *tr = (dxGeomTransform*) o1;
     if (!tr->obj) return 0;
-    dUASSERT (tr->obj->parent_space==0,
+    dUASSERT (tr->obj->parent_space==NULL,
         "GeomTransform encapsulated object must not be in a space");
-    dUASSERT (tr->obj->body==0,
+    dUASSERT (tr->obj->body==NULL,
         "GeomTransform encapsulated object must not be attached "
         "to a body");
 

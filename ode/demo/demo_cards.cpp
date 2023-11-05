@@ -166,7 +166,7 @@ static void nearCallback (void *, dGeomID o1, dGeomID o2)
 void simLoop(int pause)
 {
     if (!pause) {
-        dSpaceCollide (space, 0, &nearCallback);
+        dSpaceCollide (space, NULL, &nearCallback);
         dWorldQuickStep(world, 0.01);
         dJointGroupEmpty(contactgroup);
     }
@@ -208,7 +208,7 @@ int main(int argc, char **argv)
     fn.start = &start;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
     
     
@@ -216,7 +216,7 @@ int main(int argc, char **argv)
     dWorldSetGravity(world, 0, 0, -0.5);
     dWorldSetQuickStepNumIterations(world, 50); // <-- increase for more stability
     
-    space = dSimpleSpaceCreate(0);
+    space = dSimpleSpaceCreate(NULL);
     contactgroup = dJointGroupCreate(0);
     dGeomID ground = dCreatePlane(space, 0, 0, 1, 0);
     

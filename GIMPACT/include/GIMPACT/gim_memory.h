@@ -877,7 +877,7 @@ m_buffer_data will be 0, for access to the elements, you'd need to call lock_arr
 { \
     (array_data).m_buffer_id.m_buffer_id = (buffer_id).m_buffer_id; \
     (array_data).m_buffer_id.m_bm_data = (buffer_id).m_bm_data; \
-    (array_data).m_buffer_data = 0; \
+    (array_data).m_buffer_data = NULL; \
     (array_data).m_element_count = (element_count);\
     GIM_BUFFER_ARRAY_SET_STRIDE(type, array_data); \
     GIM_BUFFER_ARRAY_SET_OFFSET(array_data, offset); \

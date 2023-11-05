@@ -74,7 +74,7 @@ void gim_trimesh_create_from_arrays(GBUFFER_MANAGER_DATA buffer_managers[],
     //Create the bitset
     GIM_BITSET_CREATE_SIZED(trimesh->m_planes_cache_bitset,facecount);
     //Callback is 0
-    trimesh->m_update_callback = 0;
+    trimesh->m_update_callback = NULL;
     //set to identity
     IDENTIFY_MATRIX_4X4(trimesh->m_transform);
 }

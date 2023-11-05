@@ -310,7 +310,7 @@ static void command (int cmd)
             dGeomTriMeshDataPreprocess2(new_tmdata, (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES), NULL);
 
 
-            obj[i].geom[0] = dCreateTriMesh(space, new_tmdata, 0, 0, 0);
+            obj[i].geom[0] = dCreateTriMesh(space, new_tmdata, NULL, NULL, NULL);
 
             // remember the mesh's dTriMeshDataID on its userdata for convenience.
             dGeomSetData(obj[i].geom[0], new_tmdata);
@@ -480,7 +480,7 @@ void setCurrentTransform(dGeomID geom)
 static void simLoop (int pause)
 {
   dsSetColor (0,0,2);
-  dSpaceCollide (space,0,&nearCallback);
+  dSpaceCollide (space,NULL,&nearCallback);
 
 
 #if 1
@@ -563,7 +563,7 @@ static void simLoop (int pause)
 			  *(dMatrix4*)( obj[i].matrix_dblbuff + obj[i].last_matrix_index * 16 ) );
   
         } else {
-          drawGeom (obj[i].geom[j],0,0,show_aabb);
+          drawGeom (obj[i].geom[j],NULL,NULL,show_aabb);
         }
       }
     }
@@ -617,14 +617,14 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
   dInitODE2(0);
   world = dWorldCreate();
  
-  space = dSimpleSpaceCreate(0);
+  space = dSimpleSpaceCreate(NULL);
   contactgroup = dJointGroupCreate (0);
   dWorldSetGravity (world,0,0,-0.5);
   dWorldSetCFM (world,1e-5);
@@ -640,8 +640,8 @@ int main (int argc, char **argv)
   dGeomTriMeshDataBuildSingle(TriData2, &Vertices[0], 3 * sizeof(float), VertexCount, (dTriIndex*)&Indices[0], IndexCount, 3 * sizeof(dTriIndex));
   dGeomTriMeshDataPreprocess2(TriData2, preprocessFlags, NULL);
   
-  TriMesh1 = dCreateTriMesh(space, TriData1, 0, 0, 0);
-  TriMesh2 = dCreateTriMesh(space, TriData2, 0, 0, 0);
+  TriMesh1 = dCreateTriMesh(space, TriData1, NULL, NULL, NULL);
+  TriMesh2 = dCreateTriMesh(space, TriData2, NULL, NULL, NULL);
   dGeomSetData(TriMesh1, TriData1);
   dGeomSetData(TriMesh2, TriData2);
   

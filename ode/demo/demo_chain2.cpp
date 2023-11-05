@@ -52,7 +52,7 @@
 // dynamics and collision objects
 
 static dWorld world;
-static dSimpleSpace space (0);
+static dSimpleSpace space (NULL);
 static dBody body[NUM];
 static dBallJoint joint[NUM-1];
 static dJointGroup contactgroup;
@@ -102,7 +102,7 @@ static void simLoop (int pause)
     angle += 0.05;
     body[NUM-1].addForce (0,0,1.5*(sin(angle)+1.0));
 
-    space.collide (0,&nearCallback);
+    space.collide (NULL,&nearCallback);
     world.step (0.05);
 
     // remove all contact joints
@@ -124,8 +124,8 @@ int main (int argc, char **argv)
   fn.version = DS_VERSION;
   fn.start = &start;
   fn.step = &simLoop;
-  fn.command = 0;
-  fn.stop = 0;
+  fn.command = NULL;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world

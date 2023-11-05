@@ -64,7 +64,7 @@ public:
     void * operator new (size_t size);
     void operator delete (void *ptr, size_t size);
 
-    void constructor() { _size=0; _anum=0; _data=0; }
+    void constructor() { _size=0; _anum=0; _data=NULL; }
     // if this structure is allocated with malloc() instead of new, you can
     // call this to set it up.
 

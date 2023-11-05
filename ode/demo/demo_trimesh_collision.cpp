@@ -208,7 +208,7 @@ static void simLoop(int pause)
             dBodyAddForce(bodyId[j], pos1[0], pos1[1], pos1[2]);
         }
 
-        dSpaceCollide(space, 0, &nearCallback);
+        dSpaceCollide(space, NULL, &nearCallback);
         dWorldQuickStep(world, simstep);
         dJointGroupEmpty(contactgroup);
     }
@@ -255,13 +255,13 @@ int main(int argc, char **argv)
     fn.start = &start;
     fn.step = &simLoop;
     fn.command = &command;
-    fn.stop = 0;
+    fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
     // create world
     dInitODE2(0);
     world = dWorldCreate();
-    space = dHashSpaceCreate(0);
+    space = dHashSpaceCreate(NULL);
     dHashSpaceSetLevels(space, -3, 5);
     dCreatePlane(space, 0, 0, 1, 0);	// Add a ground plane.
 
@@ -364,7 +364,7 @@ int main(int argc, char **argv)
         dGeomTriMeshDataBuildReal(triMeshDataId[i], odeVerts[i], 3 * sizeof(float), odeVertsCount, odeInds[i], odeIndsCount[i], 3 * sizeof(dTriIndex));
         dGeomTriMeshDataPreprocess2(triMeshDataId[i], (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES), NULL);
 
-        triMeshId[i] = dCreateTriMesh(space, triMeshDataId[i], 0, 0, 0);
+        triMeshId[i] = dCreateTriMesh(space, triMeshDataId[i], NULL, NULL, NULL);
         dGeomSetBody(triMeshId[i], bodyId[i]);
     }
 

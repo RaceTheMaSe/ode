@@ -83,7 +83,7 @@ void *dObStack::alloc (sizeint num_bytes)
 
     if (last_alloc_needed) {
         Arena *new_last = (Arena *) dAlloc (dOBSTACK_ARENA_SIZE);
-        new_last->m_next = 0;
+        new_last->m_next = NULL;
         *last_ptr = new_last;
         if (m_first == NULL) {
             m_first = new_last;
@@ -128,7 +128,7 @@ void *dObStack::next (sizeint num_bytes)
 {
     // this functions like alloc, except that no new storage is ever allocated
     if (!m_current_arena) {
-        return 0;
+        return NULL;
     }
 
     m_current_ofs += num_bytes;
@@ -145,13 +145,13 @@ void *dObStack::switch_to_arena(Arena *next_arena)
 {
     m_current_arena = next_arena;
     if (!next_arena) {
-        return 0;
+        return NULL;
     }
     m_current_ofs = sizeof (Arena);
     ROUND_UP_OFFSET_TO_EFFICIENT_SIZE (next_arena, m_current_ofs);
     // Check if end of allocation has been reached
     if (m_current_ofs >= next_arena->m_used) {
-        return 0;
+        return NULL;
     }
     return ((char*) next_arena) + m_current_ofs;
 }

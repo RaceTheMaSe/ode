@@ -138,7 +138,7 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
@@ -158,7 +158,7 @@ int main (int argc, char **argv)
   dBodySetPosition (body[1],0.2,0.2,1.2);
   dBodySetQuaternion (body[1],q);
 
-  slider = dJointCreateSlider (world,0);
+  slider = dJointCreateSlider (world,NULL);
   dJointAttach (slider,body[0],body[1]);
   dJointSetSliderAxis (slider,1,1,1);
 

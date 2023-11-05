@@ -48,7 +48,7 @@ SUITE (TestdxJointDBall)
             w(dWorldCreate()),
             b1(dBodyCreate(w)),
             b2(dBodyCreate(w)),
-            j(dJointCreateDBall(w, 0))
+            j(dJointCreateDBall(w, NULL))
         {
             dJointAttach(j, b1, b2);
         }

@@ -144,7 +144,7 @@ void constructWorldForTest (dReal gravity, int bodycount,
     dQFromAxisAndAngle (q,ax2x,ax2y,ax2z,a2);
     dBodySetQuaternion (body[1],q);
   }
-  else body[1] = 0;
+  else body[1] = NULL;
 }
 
 
@@ -225,7 +225,7 @@ int setupTest (int n)
 			   0.5*SIDE,0.5*SIDE,1, -0.5*SIDE,-0.5*SIDE,1,
 			   1,1,0, 1,1,0,
 			   0.25*M_PI,0.25*M_PI);
-    joint = dJointCreateFixed (world,0);
+    joint = dJointCreateFixed (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetFixed (joint);
     return 1;
@@ -236,8 +236,8 @@ int setupTest (int n)
 			   0.5*SIDE,0.5*SIDE,1, 0,0,0,
 			   1,0,0, 1,0,0,
 			   0,0);
-    joint = dJointCreateFixed (world,0);
-    dJointAttach (joint,body[0],0);
+    joint = dJointCreateFixed (world,NULL);
+    dJointAttach (joint,body[0],NULL);
     dJointSetFixed (joint);
     return 1;
   }
@@ -247,7 +247,7 @@ int setupTest (int n)
 			   0.5*SIDE,0.5*SIDE,1, -0.5*SIDE,-0.5*SIDE,1,
 			   1,1,0, 1,1,0,
 			   0.25*M_PI,-0.25*M_PI);
-    joint = dJointCreateFixed (world,0);
+    joint = dJointCreateFixed (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetFixed (joint);
     return 1;
@@ -258,7 +258,7 @@ int setupTest (int n)
 			   0.5*SIDE,0.5*SIDE,1, 0,0,0,
 			   1,0,0, 1,0,0,
 			   0.25*M_PI,0);
-    joint = dJointCreateFixed (world,0);
+    joint = dJointCreateFixed (world,NULL);
     dJointAttach (joint,body[0],0);
     dJointSetFixed (joint);
     return 1;
@@ -270,7 +270,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
 			   0.5*SIDE,0.5*SIDE,1, -0.5*SIDE,-0.5*SIDE,1,
 			   1,1,0, 1,1,0, 0.25*M_PI,0.25*M_PI);
-    joint = dJointCreateHinge (world,0);
+    joint = dJointCreateHinge (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetHingeAnchor (joint,0,0,1);
     dJointSetHingeAxis (joint,1,-1,1.41421356);
@@ -281,7 +281,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
 			   0.5*SIDE,0.5*SIDE,1, -0.5*SIDE,-0.5*SIDE,1,
 			   1,0,0, 1,0,0, 0,0);
-    joint = dJointCreateHinge (world,0);
+    joint = dJointCreateHinge (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetHingeAnchor (joint,0,0,1);
     dJointSetHingeAxis (joint,0,0,1);
@@ -293,7 +293,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
 			   0.5*SIDE,0.5*SIDE,1, -0.5*SIDE,-0.5*SIDE,1,
 			   1,0,0, 1,0,0, 0,0);
-    joint = dJointCreateHinge (world,0);
+    joint = dJointCreateHinge (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetHingeAnchor (joint,0,0,1);
     dJointSetHingeAxis (joint,0,0,1);
@@ -309,7 +309,7 @@ int setupTest (int n)
     constructWorldForTest ((n==251) ? 0.1 : -0.1, 2,
 			   0.5*SIDE,0,1+0.5*SIDE, -0.5*SIDE,0,1-0.5*SIDE,
 			   1,0,0, 1,0,0, 0,0);
-    joint = dJointCreateHinge (world,0);
+    joint = dJointCreateHinge (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetHingeAnchor (joint,0,0,1);
     dJointSetHingeAxis (joint,0,1,0);
@@ -317,8 +317,8 @@ int setupTest (int n)
     dJointSetHingeParam (joint,dParamHiStop,0.7854);
     dJointSetHingeParam (joint,dParamBounce,0.5);
     // anchor 2nd body with a fixed joint
-    dJointID j = dJointCreateFixed (world,0);
-    dJointAttach (j,body[1],0);
+    dJointID j = dJointCreateFixed (world,NULL);
+    dJointAttach (j,body[1],NULL);
     dJointSetFixed (j);
     return 1;
   }
@@ -329,7 +329,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
 			   0,0,1, 0.2,0.2,1.2,
 			   0,0,1, -1,1,0, 0,0.25*M_PI);
-    joint = dJointCreateSlider (world,0);
+    joint = dJointCreateSlider (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetSliderAxis (joint,1,1,1);
     return 1;
@@ -339,7 +339,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
 			   0,0,1, 0,0,1.2,
 			   1,0,0, 1,0,0, 0,0);
-    joint = dJointCreateSlider (world,0);
+    joint = dJointCreateSlider (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetSliderAxis (joint,0,0,1);
     max_iterations = 50;
@@ -350,7 +350,7 @@ int setupTest (int n)
     constructWorldForTest (0, 2,
 			   0,0,1, 0,0,1.2,
 			   1,0,0, 1,0,0, 0,0);
-    joint = dJointCreateSlider (world,0);
+    joint = dJointCreateSlider (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetSliderAxis (joint,0,0,1);
     dJointSetSliderParam (joint,dParamFMax,100);
@@ -365,15 +365,15 @@ int setupTest (int n)
     constructWorldForTest ((n==351) ? 0.1 : -0.1, 2,
 			   0,0,1, 0,0,1.2,
 			   1,0,0, 1,0,0, 0,0);
-    joint = dJointCreateSlider (world,0);
+    joint = dJointCreateSlider (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetSliderAxis (joint,0,0,1);
     dJointSetSliderParam (joint,dParamLoStop,-0.5);
     dJointSetSliderParam (joint,dParamHiStop,0.5);
     dJointSetSliderParam (joint,dParamBounce,0.5);
     // anchor 2nd body with a fixed joint
-    dJointID j = dJointCreateFixed (world,0);
-    dJointAttach (j,body[1],0);
+    dJointID j = dJointCreateFixed (world,NULL);
+    dJointAttach (j,body[1],NULL);
     dJointSetFixed (j);
     return 1;
   }
@@ -385,7 +385,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
 			   0.5*SIDE,0,1, -0.5*SIDE,0,1,
 			   1,0,0, 1,0,0, 0,0);
-    joint = dJointCreateHinge2 (world,0);
+    joint = dJointCreateHinge2 (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetHinge2Anchor (joint,-0.5*SIDE,0,1);
     dJointSetHinge2Axes (joint, zunit, xunit);
@@ -398,7 +398,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
 			   0.5*SIDE,0,1, -0.5*SIDE,0,1,
 			   1,0,0, 1,0,0, 0,0);
-    joint = dJointCreateHinge2 (world,0);
+    joint = dJointCreateHinge2 (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetHinge2Anchor (joint,-0.5*SIDE,0,1);
     dJointSetHinge2Axes (joint, zunit, xunit);
@@ -416,7 +416,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
 			   -SIDE*0.5,0,1, SIDE*0.5,0,1,
 			   0,0,1, 0,0,1, 0,0);
-    joint = dJointCreateAMotor (world,0);
+    joint = dJointCreateAMotor (world,NULL);
     dJointAttach (joint,body[0],body[1]);
 
     dJointSetAMotorNumAxes (joint,3);
@@ -434,7 +434,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
  			   0.5*SIDE,0.5*SIDE,1, -0.5*SIDE,-0.5*SIDE,1,
  			   1,1,0, 1,1,0, 0.25*M_PI,0.25*M_PI);
-    joint = dJointCreateUniversal (world,0);
+    joint = dJointCreateUniversal (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetUniversalAnchor (joint,0,0,1);
     dJointSetUniversalAxis1 (joint, 1, -1, 1.41421356);
@@ -453,7 +453,7 @@ int setupTest (int n)
     constructWorldForTest (0,2,
  			   0.5*SIDE,0.5*SIDE,1, -0.5*SIDE,-0.5*SIDE,1,
  			   1,0,0, 1,0,0, 0,0);
-    joint = dJointCreateUniversal (world,0);
+    joint = dJointCreateUniversal (world,NULL);
     dJointAttach (joint,body[0],body[1]);
     dJointSetUniversalAnchor (joint,0,0,1);
     dJointSetUniversalAxis1 (joint,0,0,1);
@@ -470,7 +470,7 @@ int setupTest (int n)
                            1.0, 0.0, 1.0,
                            1,0,0, 1,0,0,
                            0, 0);
-    joint = dJointCreatePR (world, 0);
+    joint = dJointCreatePR (world, NULL);
     dJointAttach (joint, body[0], body[1]);
     dJointSetPRAnchor (joint,-0.5, 0.0, 1.0);
     dJointSetPRAxis1 (joint, 0, 1, 0);
@@ -488,7 +488,7 @@ int setupTest (int n)
                            1.0, 0.0, 1.0,
                            1,0,0, 1,0,0,
                            0, 0);
-    joint = dJointCreatePR (world, 0);
+    joint = dJointCreatePR (world, NULL);
     dJointAttach (joint, body[0], body[1]);
     dJointSetPRAnchor (joint,-0.5, 0.0, 1.0);
     dJointSetPRAxis1 (joint, 0, 1, 0);
@@ -1025,8 +1025,8 @@ void doTest (int argc, char **argv, int n, int fatal_if_bad_n)
   fn.version = DS_VERSION;
   fn.start = &start;
   fn.step = &simLoop;
-  fn.command = 0;
-  fn.stop = 0;
+  fn.command = NULL;
+  fn.stop = NULL;
   if (cmd_path_to_textures)
     fn.path_to_textures = cmd_path_to_textures;
   else
@@ -1040,9 +1040,9 @@ void doTest (int argc, char **argv, int n, int fatal_if_bad_n)
     for (int i=0; i < max_iterations; i++) simLoop (0);
   }
   dWorldDestroy (world);
-  body[0] = 0;
-  body[1] = 0;
-  joint = 0;
+  body[0] = NULL;
+  body[1] = NULL;
+  joint = NULL;
 
   // print results
   printf ("test %d: ",n);

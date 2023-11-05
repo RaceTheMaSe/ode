@@ -201,7 +201,7 @@ int	sCylinderTrimeshColliderData::_ProcessLocalContacts(dContactGeom *contact,
 #endif		
 
     int iContact = 0;
-    dContactGeom* Contact = 0;
+    dContactGeom* Contact = NULL;
 
     int nFinalContact = 0;
 
@@ -998,7 +998,7 @@ static void dQueryCTLPotentialCollisionTriangles(OBBCollider &Collider,
     // TC results
     if (Trimesh->getDoTC(dxTriMesh::TTC_BOX)) 
     {
-        dxTriMesh::BoxTC* BoxTC = 0;
+        dxTriMesh::BoxTC* BoxTC = NULL;
         const int iBoxCacheSize = Trimesh->m_BoxTCCache.size();
         for (int i = 0; i != iBoxCacheSize; i++)
         {

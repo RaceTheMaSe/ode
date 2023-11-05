@@ -39,8 +39,8 @@ void gim_aabbset_alloc(GIM_AABB_SET * aabbset, GUINT32 count)
 
     if(count<GIM_MIN_SORTED_BIPARTITE_PRUNING_BOXES)
     {
-        aabbset->m_maxcoords = 0;
-        aabbset->m_sorted_mincoords = 0;
+        aabbset->m_maxcoords = NULL;
+        aabbset->m_sorted_mincoords = NULL;
     }
     else
     {
@@ -61,9 +61,9 @@ void gim_aabbset_destroy(GIM_AABB_SET * aabbset)
         gim_free(aabbset->m_maxcoords,0);
         gim_free(aabbset->m_sorted_mincoords,0);
     }
-    aabbset->m_boxes = 0;
-    aabbset->m_sorted_mincoords = 0;
-    aabbset->m_maxcoords = 0;
+    aabbset->m_boxes = NULL;
+    aabbset->m_sorted_mincoords = NULL;
+    aabbset->m_maxcoords = NULL;
 }
 
 void gim_aabbset_calc_global_bound(GIM_AABB_SET * aabbset)
@@ -95,7 +95,7 @@ void gim_aabbset_calc_global_bound(GIM_AABB_SET * aabbset)
 */
 void gim_aabbset_sort(GIM_AABB_SET * aabbset, char calc_global_bound)
 {
-    if(aabbset->m_sorted_mincoords == 0)
+    if(aabbset->m_sorted_mincoords == NULL)
     {//allocate
         aabbset->m_maxcoords = (GUINT32 *)gim_alloc(sizeof(GUINT32)*aabbset->m_count );
         aabbset->m_sorted_mincoords = (GIM_RSORT_TOKEN *)gim_alloc(sizeof(GIM_RSORT_TOKEN)*aabbset->m_count);
@@ -462,7 +462,7 @@ void gim_aabbset_self_intersections(GIM_AABB_SET * aabbset, GDYNAMIC_ARRAY * col
 */
 void gim_aabbset_bipartite_intersections(GIM_AABB_SET * aabbset1, GIM_AABB_SET * aabbset2, GDYNAMIC_ARRAY * collision_pairs)
 {
-    if(aabbset1->m_sorted_mincoords == 0||aabbset2->m_sorted_mincoords == 0)
+    if(aabbset1->m_sorted_mincoords == NULL||aabbset2->m_sorted_mincoords == NULL)
     {//Brute force approach
         gim_aabbset_bipartite_intersections_brute_force(aabbset1,aabbset2,collision_pairs);
     }

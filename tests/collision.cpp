@@ -50,9 +50,9 @@ TEST(test_collision_trimesh_sphere_exact)
                                     indices,
                                     IndexCount,
                                     3 * sizeof(dTriIndex));
-        dGeomID trimesh = dCreateTriMesh(0, data, 0, 0, 0);
+        dGeomID trimesh = dCreateTriMesh(NULL, data, NULL, NULL, NULL);
         const dReal radius = 4;
-        dGeomID sphere = dCreateSphere(0, radius);
+        dGeomID sphere = dCreateSphere(NULL, radius);
         dContactGeom cg[4];
         int nc;
         dVector3 trinormal = { 0, 0, -1 };
@@ -111,10 +111,10 @@ TEST(test_collision_heightfield_ray_fail)
         unsigned char dataBuffer[16+1] = "1234567890123456";
         dGeomHeightfieldDataBuildByte(heightfieldData, dataBuffer, 0, 4, 4, 4, 4, 1, 0, 0, 0);
         dGeomHeightfieldDataSetBounds(heightfieldData, '0', '9');
-	    dGeomID height = dCreateHeightfield(0, heightfieldData, 1);
+	    dGeomID height = dCreateHeightfield(NULL, heightfieldData, 1);
 
         // Create ray outside bounds
-        dGeomID ray = dCreateRay(0, 20);
+        dGeomID ray = dCreateRay(NULL, 20);
         dGeomRaySet(ray, 5, 10, 1, 0, -1, 0);
         dContact contactBuf[10];
 
@@ -140,7 +140,7 @@ TEST(test_collision_ray_convex)
 		dContact contact;
 
         // Create convex
-	    dGeomID convex = dCreateConvex(0, 
+	    dGeomID convex = dCreateConvex(NULL, 
             prism_planes, 
             prism_planecount, 
             prism_points, 
@@ -149,7 +149,7 @@ TEST(test_collision_ray_convex)
         dGeomSetPosition(convex,0,0,0);
 
         // Create ray
-        dGeomID ray = dCreateRay(0, 20);
+        dGeomID ray = dCreateRay(NULL, 20);
 
         dGeomRaySet(ray, 0, -10, 0, 0, 1, 0);
 

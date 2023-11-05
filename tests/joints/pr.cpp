@@ -53,7 +53,7 @@ SUITE (TestdxJointPR)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreatePR (wId, 0);
+            jId   = dJointCreatePR (wId, NULL);
             joint = (dxJointPR*) jId;
 
 
@@ -232,7 +232,7 @@ SUITE (TestdxJointPR)
             bId1 = dBodyCreate (wId);
             dBodySetPosition (bId1, 0, 0, 0);
 
-            jId   = dJointCreatePR (wId, 0);
+            jId   = dJointCreatePR (wId, NULL);
             joint = (dxJointPR*) jId;
 
 
@@ -333,7 +333,7 @@ SUITE (TestdxJointPR)
             bId1 = dBodyCreate (wId);
             dBodySetPosition (bId1, 0, 0, 0);
 
-            jId   = dJointCreatePR (wId, 0);
+            jId   = dJointCreatePR (wId, NULL);
             joint = (dxJointPR*) jId;
 
 
@@ -443,14 +443,14 @@ SUITE (TestdxJointPR)
             // The force will be added in the function since it is not
             // always on the same body
 
-            jId_12 = dJointCreatePR (wId, 0);
+            jId_12 = dJointCreatePR (wId, NULL);
             dJointAttach(jId_12, bId1_12, bId2_12);
 
-            fixed = dJointCreateFixed (wId, 0);
+            fixed = dJointCreateFixed (wId, NULL);
 
 
 
-            jId = dJointCreatePR (wId, 0);
+            jId = dJointCreatePR (wId, NULL);
 
             bId = dBodyCreate (wId);
             dBodySetPosition (bId, 0, 0, 0);
@@ -493,10 +493,10 @@ SUITE (TestdxJointPR)
 
         dJointAttach(jId_12, bId1_12, bId2_12);
 
-        dJointAttach(fixed, 0, bId2_12);
+        dJointAttach(fixed, NULL, bId2_12);
         dJointSetFixed(fixed);
 
-        dJointAttach(jId, bId, 0);
+        dJointAttach(jId, bId, NULL);
 
         CHECK_CLOSE(dJointGetPRPositionRate(jId_12), dJointGetPRPositionRate(jId), 1e-2);
 
@@ -514,10 +514,10 @@ SUITE (TestdxJointPR)
 
         dJointAttach(jId_12, bId1_12, bId2_12);
 
-        dJointAttach(fixed, bId1_12, 0);
+        dJointAttach(fixed, bId1_12, NULL);
         dJointSetFixed(fixed);
 
-        dJointAttach(jId, 0, bId);
+        dJointAttach(jId, NULL, bId);
 
         CHECK_CLOSE(dJointGetPRPositionRate(jId_12), dJointGetPRPositionRate(jId), 1e-2);
         CHECK_CLOSE(dJointGetPRAngleRate(jId_12), dJointGetPRAngleRate(jId), 1e-2);
@@ -541,7 +541,7 @@ SUITE (TestdxJointPR)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreatePR (wId, 0);
+            jId   = dJointCreatePR (wId, NULL);
             joint = (dxJointPR*) jId;
 
 
@@ -642,7 +642,7 @@ SUITE (TestdxJointPR)
             bId2 = dBodyCreate (wId);
             dBodySetPosition (bId2, 0, 0, 0);
 
-            jId   = dJointCreatePR (wId, 0);
+            jId   = dJointCreatePR (wId, NULL);
             joint = (dxJointPR*) jId;
 
 
@@ -769,7 +769,7 @@ SUITE (TestdxJointPR)
                                 REAL(0.47123)); // 27deg
             dBodySetRotation (bId2, R);
 
-            jId   = dJointCreatePR (wId, 0);
+            jId   = dJointCreatePR (wId, NULL);
             joint = (dxJointPR*) jId;
 
 
@@ -868,7 +868,7 @@ SUITE (TestdxJointPR)
                 dBodySetRotation (bId[j][1], R);
 
 
-                jId[j]   = dJointCreatePR (wId, 0);
+                jId[j]   = dJointCreatePR (wId, NULL);
                 dJointAttach (jId[j], bId[j][0], bId[j][1]);
             }
         }
@@ -967,10 +967,10 @@ SUITE (TestdxJointPR)
         dJointSetPRParam(jId_12, dParamLoStop, -1);
         dJointSetPRParam(jId_12, dParamHiStop, 0.25);
 
-        dJointAttach(fixed, 0, bId2_12);
+        dJointAttach(fixed, NULL, bId2_12);
         dJointSetFixed(fixed);
 
-        dJointAttach(jId, bId, 0);
+        dJointAttach(jId, bId, NULL);
         dJointSetPRParam(jId, dParamLoStop, -1);
         dJointSetPRParam(jId, dParamHiStop, 0.25);
 
@@ -1015,11 +1015,11 @@ SUITE (TestdxJointPR)
         dJointSetPRParam(jId_12, dParamLoStop, -1);
         dJointSetPRParam(jId_12, dParamHiStop, 0.25);
 
-        dJointAttach(fixed, bId1_12, 0);
+        dJointAttach(fixed, bId1_12, NULL);
         dJointSetFixed(fixed);
 
 
-        dJointAttach(jId, 0, bId);
+        dJointAttach(jId, NULL, bId);
         dJointSetPRParam(jId, dParamLoStop, -1);
         dJointSetPRParam(jId, dParamHiStop, 0.25);
 
@@ -1066,11 +1066,11 @@ SUITE (TestdxJointPR)
         dJointSetPRParam(jId_12, dParamLoStop, 0);
         dJointSetPRParam(jId_12, dParamHiStop, 0);
 
-        dJointAttach(fixed, 0, bId2_12);
+        dJointAttach(fixed, NULL, bId2_12);
         dJointSetFixed(fixed);
 
 
-        dJointAttach(jId, bId, 0);
+        dJointAttach(jId, bId, NULL);
         dJointSetPRParam(jId, dParamLoStop, 0);
         dJointSetPRParam(jId, dParamHiStop, 0);
 
@@ -1121,11 +1121,11 @@ SUITE (TestdxJointPR)
         dJointSetPRParam(jId_12, dParamLoStop, 0);
         dJointSetPRParam(jId_12, dParamHiStop, 0);
 
-        dJointAttach(fixed, bId1_12, 0);
+        dJointAttach(fixed, bId1_12, NULL);
         dJointSetFixed(fixed);
 
 
-        dJointAttach(jId, 0, bId);
+        dJointAttach(jId, NULL, bId);
         dJointSetPRParam(jId, dParamLoStop, 0);
         dJointSetPRParam(jId, dParamHiStop, 0);
 

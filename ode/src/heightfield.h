@@ -138,7 +138,7 @@ class HeightFieldPlane
 {
 public:
     HeightFieldPlane():
-        trianglelist(0),
+        trianglelist(NULL),
         trianglelistReservedSize(0),
         trianglelistCurrentSize(0)
     {

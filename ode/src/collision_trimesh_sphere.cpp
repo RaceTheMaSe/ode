@@ -278,7 +278,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
 
     // TC results
     if (TriMesh->getDoTC(dxTriMesh::TTC_SPHERE)) {
-        dxTriMesh::SphereTC* sphereTC = 0;
+        dxTriMesh::SphereTC* sphereTC = NULL;
         const int sphereCacheSize = TriMesh->m_SphereTCCache.size();
         for (int i = 0; i != sphereCacheSize; i++){
             if (TriMesh->m_SphereTCCache[i].Geom == SphereGeom){

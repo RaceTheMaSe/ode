@@ -436,7 +436,7 @@ void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 static void simLoop (int pause)
 {
   dsSetColor (0,0,2);
-  dSpaceCollide (space,0,&nearCallback);
+  dSpaceCollide (space,NULL,&nearCallback);
   if (!pause) dWorldStep (world,0.05);
   //if (!pause) dWorldStepFast (world,0.05, 1);
 
@@ -456,7 +456,7 @@ static void simLoop (int pause)
       else {
 	dsSetColor (1,1,0);
       }
-      drawGeom (obj[i].geom[j],0,0,show_aabb);
+      drawGeom (obj[i].geom[j],NULL,NULL,show_aabb);
     }
   }
 
@@ -504,14 +504,14 @@ int main (int argc, char **argv)
   fn.start = &start;
   fn.step = &simLoop;
   fn.command = &command;
-  fn.stop = 0;
+  fn.stop = NULL;
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // create world
   dInitODE2(0);
   world = dWorldCreate();
 
-  space = dSimpleSpaceCreate(0);
+  space = dSimpleSpaceCreate(NULL);
   contactgroup = dJointGroupCreate (0);
   dWorldSetGravity (world,0,0,-0.5);
   dWorldSetCFM (world,1e-5);
@@ -564,7 +564,7 @@ int main (int argc, char **argv)
   dGeomTriMeshDataBuildSingle(Data, Vertices[0], 3 * sizeof(float), VertexCount, &Indices[0], IndexCount, 3 * sizeof(dTriIndex));
   dGeomTriMeshDataPreprocess2(Data, (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES), NULL);
 
-  TriMesh = dCreateTriMesh(space, Data, 0, 0, 0);
+  TriMesh = dCreateTriMesh(space, Data, NULL, NULL, NULL);
 
   //dGeomSetPosition(TriMesh, 0, 0, 1.0);
   

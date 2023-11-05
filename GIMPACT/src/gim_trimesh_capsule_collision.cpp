@@ -73,7 +73,7 @@ void gim_closest_point_triangle_segment(GIM_TRIANGLE_DATA * triangle, vec3f s1,v
 
             if(out_edge==0)//Point over face
             {
-                GIM_PUSH_CONTACT((*contacts),closest_points[0] ,triangle->m_planes.m_planes[0] ,dis,0, 0, 0,0);
+                GIM_PUSH_CONTACT((*contacts),closest_points[0] ,triangle->m_planes.m_planes[0] ,dis,NULL, NULL, 0,0);
                 return;
             }
         }
@@ -86,7 +86,7 @@ void gim_closest_point_triangle_segment(GIM_TRIANGLE_DATA * triangle, vec3f s1,v
 
             if(out_edge==0)//Point over face
             {
-                GIM_PUSH_CONTACT((*contacts),closest_points[0] ,triangle->m_planes.m_planes[0] ,dis,0, 0, 0,0);
+                GIM_PUSH_CONTACT((*contacts),closest_points[0] ,triangle->m_planes.m_planes[0] ,dis,NULL, NULL, 0,0);
                 return;
             }
         }
@@ -126,8 +126,8 @@ void gim_closest_point_triangle_segment(GIM_TRIANGLE_DATA * triangle, vec3f s1,v
         if(out_edge>2) // Over triangle
         {
             dis = DISTANCE_PLANE_POINT(triangle->m_planes.m_planes[0],closest_points[0]);
-            GIM_PUSH_CONTACT((*contacts),closest_points[0] ,triangle->m_planes.m_planes[0] ,dis,0, 0, 0,0);
-            GIM_PUSH_CONTACT((*contacts),closest_points[1] ,triangle->m_planes.m_planes[0] ,dis,0, 0, 0,0);
+            GIM_PUSH_CONTACT((*contacts),closest_points[0] ,triangle->m_planes.m_planes[0] ,dis,NULL, NULL, 0,0);
+            GIM_PUSH_CONTACT((*contacts),closest_points[1] ,triangle->m_planes.m_planes[0] ,dis,NULL, NULL, 0,0);
             return;
         }
     }
@@ -154,14 +154,14 @@ void gim_closest_point_triangle_segment(GIM_TRIANGLE_DATA * triangle, vec3f s1,v
     if(IS_ZERO(dis))
     {
         //Set face plane
-        GIM_PUSH_CONTACT((*contacts),closest_points[0] ,triangle->m_planes.m_planes[0] ,0.0f,0, 0, 0,0);
+        GIM_PUSH_CONTACT((*contacts),closest_points[0] ,triangle->m_planes.m_planes[0] ,0.0f,NULL, NULL, 0,0);
 
     }
     else
     {
         GIM_SQRT(dis,dis);
         VEC_SCALE(closest_points[1],(1.0f/dis),closest_points[1]);//normal
-        GIM_PUSH_CONTACT((*contacts),closest_points[0] ,closest_points[1],dis,0, 0, 0,0);
+        GIM_PUSH_CONTACT((*contacts),closest_points[0] ,closest_points[1],dis,NULL, NULL, 0,0);
     }
 }
 

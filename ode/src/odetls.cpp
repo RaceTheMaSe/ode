@@ -47,7 +47,7 @@ using _OU_NAMESPACE::CTLSInitialization;
 //////////////////////////////////////////////////////////////////////////
 // Class static fields
 
-HTLSKEY COdeTls::m_ahtkStorageKeys[OTK__MAX] = { 0 };
+HTLSKEY COdeTls::m_ahtkStorageKeys[OTK__MAX] = { NULL };
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,7 @@ void COdeTls::Finalize(EODETLSKIND tkTLSKind)
 {
     CTLSInitialization::FinalizeTLSAPI();
 
-    m_ahtkStorageKeys[tkTLSKind] = 0;
+    m_ahtkStorageKeys[tkTLSKind] = NULL;
 }
 
 
