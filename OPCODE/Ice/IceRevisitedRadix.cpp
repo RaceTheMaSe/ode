@@ -220,7 +220,7 @@ inline_ void RadixSort::CheckResize(udword nb)
 	udword CurSize = CURRENT_SIZE;
 	if(nb!=CurSize)
 	{
-		if(nb>CurSize)	Resize(nb);
+		if (nb>CurSize || mRanks==NULL || mRanks2==NULL) Resize(nb);
 		mCurrentSize = nb;
 		INVALIDATE_RANKS;
 	}

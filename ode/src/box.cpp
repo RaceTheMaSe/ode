@@ -133,7 +133,7 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
     dReal dist[6];
 
     bool outside = false;
-    dReal lastOuterOffset;
+    dReal lastOuterOffset = 0;
     unsigned int sideIndex;
 
     for (sideIndex = 0; sideIndex != 3; ++sideIndex) {
@@ -213,7 +213,7 @@ static int intersectRectQuad (dReal h[2], dReal p[8], dReal ret[16])
 {
     // q (and r) contain nq (and nr) coordinate points for the current (and
     // chopped) polygons
-    int nq=4,nr;
+    int nq=4,nr=0;
     dReal buffer[16];
     dReal *q = p;
     dReal *r = ret;

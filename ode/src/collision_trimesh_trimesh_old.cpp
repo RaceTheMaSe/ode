@@ -223,7 +223,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
 
 
                     int IsCoplanar = 0;
-                    dReal IsectPt1[3], IsectPt2[3];
+                    dReal IsectPt1[3]={}, IsectPt2[3]={};
 
                     // Sometimes OPCODE makes mistakes, so we look at the return
                     //  value for TriTriIntersectWithIsectLine.  A retcode of "0"

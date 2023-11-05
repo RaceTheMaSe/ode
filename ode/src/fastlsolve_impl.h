@@ -496,9 +496,9 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
 
         dReal *ptrBElement=NULL;
 
-        CellContextInstance previousContextInstance;
-        unsigned completedColumnBlock;
-        bool partialBlock;
+        CellContextInstance previousContextInstance=CellContextInstance();
+        unsigned completedColumnBlock=0;
+        bool partialBlock=false;
 
         for (cellindexint testDescriptor = blockProgressDescriptors[currentBlock]; ; )
         {
@@ -568,7 +568,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
                     break;
                 }
 
-                cellindexint verificativeDescriptor;
+                cellindexint verificativeDescriptor=cellindexint();
                 bool verificationFailure = false;
 
                 completedColumnBlock = GET_CELLDESCRIPTOR_COLUMNINDEX(testDescriptor);
@@ -622,7 +622,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
             bool handleComputationTakenOver = false, rowEndReached = false;
 
             const dReal *ptrLElement=NULL;
-            unsigned finalColumnBlock;
+            unsigned finalColumnBlock=0;
 
             /* check if this is not the partial block of fewer rows */
             if (currentBlock != lastBlock || loopX1RowCount == 0)

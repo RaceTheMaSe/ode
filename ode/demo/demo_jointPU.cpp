@@ -432,13 +432,13 @@ static void simLoop (int pause)
 
     drawBox (geom[EXT], 0,1,0);
 
-    dVector3 anchorPos;
+    dVector3 anchorPos = {};
 
 
 
     dReal ang1 = 0;
     dReal ang2 = 0;
-    dVector3 axisP, axisR1, axisR2;
+    dVector3 axisP = {}, axisR1, axisR2;
 
     if ( dJointTypePU == type ) {
       dPUJoint *pu = dynamic_cast<dPUJoint *> (joint);

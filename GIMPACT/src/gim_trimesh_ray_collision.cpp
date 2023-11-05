@@ -54,7 +54,7 @@ int gim_trimesh_ray_collision(GIM_TRIMESH * trimesh,vec3f origin,vec3f dir, GREA
 	GUINT32 * boxesresult = GIM_DYNARRAY_POINTER(GUINT32,collision_result);
 	GIM_TRIANGLE_DATA  tridata;
 	vec3f pout;
-	GREAL tparam,u,v;
+	GREAL tparam=GREAL(0),u=GREAL(0),v=GREAL(0);
 	char does_intersect;
 
 	gim_trimesh_locks_work_data(trimesh);
@@ -115,7 +115,7 @@ int gim_trimesh_ray_closest_collision(GIM_TRIMESH * trimesh,vec3f origin,vec3f d
 	GUINT32 * boxesresult = GIM_DYNARRAY_POINTER(GUINT32,collision_result);
 	GIM_TRIANGLE_DATA  tridata;
 	vec3f pout;
-	GREAL tparam,u,v;
+	GREAL tparam=GREAL(0),u=GREAL(0),v=GREAL(0);
 	char does_intersect;
 	contact->tparam = tmax + 0.1f;
 

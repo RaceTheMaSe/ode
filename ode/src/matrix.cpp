@@ -110,7 +110,7 @@ int dxFactorCholesky(dReal *A, unsigned n, void *tmpBuf/*[n]*/)
     bool failure = false;
     
     dReal *alloctedBuf = NULL;
-    sizeint allocatedSize;
+    sizeint allocatedSize=0;
 
     const unsigned nskip = dPAD (n);
     
@@ -165,7 +165,7 @@ void dxSolveCholesky(const dReal *L, dReal *b, unsigned n, void *tmpBuf/*[n]*/)
     dAASSERT (n > 0 && L && b);
 
     dReal *alloctedBuf = NULL;
-    sizeint allocatedSize;
+    sizeint allocatedSize=0;
 
     const unsigned nskip = dPAD (n);
 
@@ -214,7 +214,7 @@ int dxInvertPDMatrix(const dReal *A, dReal *Ainv, unsigned n, void *tmpBuf/*[nsk
     bool success = false;
 
     dReal *alloctedBuf = NULL;
-    sizeint allocatedSize;
+    sizeint allocatedSize=0;
 
     sizeint choleskyFactorSize = dxEstimateFactorCholeskyTmpbufSize(n);
     sizeint choleskySolveSize = dxEstimateSolveCholeskyTmpbufSize(n);
@@ -264,7 +264,7 @@ int dxIsPositiveDefinite(const dReal *A, unsigned n, void *tmpBuf/*[nskip*(n+1)]
     dAASSERT (n > 0 && A);
 
     dReal *alloctedBuf = NULL;
-    sizeint allocatedSize;
+    sizeint allocatedSize=0;
 
     sizeint choleskyFactorSize = dxEstimateFactorCholeskyTmpbufSize(n);
     dIASSERT(choleskyFactorSize % sizeof(dReal) == 0);
@@ -299,7 +299,7 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
     if (n < 2) return;
 
     dReal *alloctedBuf = NULL;
-    sizeint allocatedSize;
+    sizeint allocatedSize=0;
 
     dReal *W1 = (dReal *)tmpBuf;
     if (tmpBuf == NULL) {
@@ -411,7 +411,7 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
     }
 
     dReal *alloctedBuf = NULL;
-    sizeint allocatedSize;
+    sizeint allocatedSize=0;
 
     sizeint LDLTAddTLSize = dxEstimateLDLTAddTLTmpbufSize(nskip);
     dIASSERT(LDLTAddTLSize % sizeof(dReal) == 0);

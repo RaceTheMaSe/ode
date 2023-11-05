@@ -608,7 +608,7 @@ void RayCollider::_SegmentStab(const AABBQuantizedNoLeafNode* node)
 void RayCollider::_SegmentStab(const AABBTreeNode* node, Container& box_indices)
 {
 	// Test the box against the segment
-	Point Center, Extents;
+	Point Center=Point(), Extents=Point();
 	node->GetAABB()->GetCenter(Center);
 	node->GetAABB()->GetExtents(Extents);
 	if(!SegmentAABBOverlap(Center, Extents))	return;

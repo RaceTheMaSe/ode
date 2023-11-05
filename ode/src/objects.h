@@ -257,7 +257,7 @@ public:
 
     unsigned calculateIslandIterationMaxThreadCount(unsigned *ptrOut_activeThreadCount = NULL) const
     {
-        unsigned activeThreadCount, *ptrActiveThreadCountToUse = ptrOut_activeThreadCount != NULL ? &activeThreadCount : NULL;
+        unsigned activeThreadCount=0, *ptrActiveThreadCountToUse = ptrOut_activeThreadCount != NULL ? &activeThreadCount : NULL;
         unsigned limitedCount = calculateThreadingLimitedThreadCount(islands_max_threads, false, ptrActiveThreadCountToUse);
         if (ptrOut_activeThreadCount != NULL) {
             *ptrOut_activeThreadCount = dMACRO_MAX(activeThreadCount, 1U);

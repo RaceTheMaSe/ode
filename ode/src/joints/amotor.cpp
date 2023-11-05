@@ -545,7 +545,7 @@ dReal dxJointAMotor::calculateAngleRate(unsigned anum) const
     dAASSERT(dIN_RANGE(anum, dSA__MIN, dSA__MAX));
     dAASSERT(this->node[0].body != NULL); // Don't call for angle rate before the joint is set up
 
-    dVector3 axis;
+    dVector3 axis = {};
     getAxisValue(axis, anum);
 
     // NOTE!
@@ -568,7 +568,7 @@ void dxJointAMotor::addTorques(dReal torque1, dReal torque2, dReal torque3)
     unsigned num = getNumAxes();
     dAASSERT(dIN_RANGE(num, dSA__MIN, dSA__MAX + 1));
 
-    dVector3 sum;
+    dVector3 sum = {};
     dVector3 torqueVector;
     dVector3 axes[dSA__MAX];
 

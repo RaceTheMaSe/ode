@@ -782,7 +782,7 @@ IFaceAngleStorageView *dxGeomTriMeshGetFaceAngleView(dxGeom *triMeshGeom)
 /*extern */
 void dGeomTriMeshDataGetBuffer(dTriMeshDataID g, unsigned char **buf, int *bufLen)
 {
-    sizeint dataSizeStorage;
+    sizeint dataSizeStorage=0;
     void *dataPointer = dGeomTriMeshDataGet2(g, dTRIMESHDATA_USE_FLAGS, (bufLen != NULL ? &dataSizeStorage : NULL));
 
     if (bufLen != NULL)

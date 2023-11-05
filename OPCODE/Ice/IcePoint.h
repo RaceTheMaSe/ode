@@ -27,7 +27,7 @@
 		public:
 
 		//! Empty constructor
-		inline_					Point()														{}
+		inline_					Point() : x(), y(), z()														{}
 		//! Constructor from a single float
 //		inline_					Point(float val) : x(val), y(val), z(val)					{}
 // Removed since it introduced the nasty "Point T = *Matrix4x4.GetTrans();" bug.......

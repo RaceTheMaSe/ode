@@ -1571,7 +1571,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
         dIASSERT(needFurtherPasses);
 
         dxRay tempRay(NULL, 1); 
-        dReal depth;
+        dReal depth = dReal(0);
 
         // Only one contact is necessary for ray test
         int rayTestFlags = (flags & ~NUMC_MASK) | 1;

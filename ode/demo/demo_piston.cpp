@@ -499,7 +499,7 @@ static void drawBox (dGeomID id, int R, int G, int B)
 static void simLoop (int pause)
 {
     const dReal *rot;
-    dVector3 ax;
+    dVector3 ax = {};
     dReal l=0;
 
     switch (joint->getType() )

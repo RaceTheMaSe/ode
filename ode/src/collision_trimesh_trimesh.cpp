@@ -247,10 +247,10 @@ void RemoveArbitraryContactFromNode(const CONTACT_KEY *contactkey, CONTACT_KEY_H
 {
     dIASSERT(node->m_keycount > 0);
 
-    int keyindex, lastkeyindex = node->m_keycount - 1;
+    int keyindex = 0, lastkeyindex = node->m_keycount - 1;
 
     // Do not check the last contact
-    for (keyindex = 0; keyindex < lastkeyindex; keyindex++)
+    for (; keyindex < lastkeyindex; keyindex++)
     {
         if (node->m_keyarray[keyindex].m_contact == contactkey->m_contact)
         {
@@ -271,10 +271,10 @@ void UpdateArbitraryContactInNode(const CONTACT_KEY *contactkey, CONTACT_KEY_HAS
 {
     dIASSERT(node->m_keycount > 0);
 
-    int keyindex, lastkeyindex = node->m_keycount - 1;
+    int keyindex = 0, lastkeyindex = node->m_keycount - 1;
 
     // Do not check the last contact
-    for (keyindex = 0; keyindex < lastkeyindex; keyindex++)
+    for (; keyindex < lastkeyindex; keyindex++)
     {
         if (node->m_keyarray[keyindex].m_contact == contactkey->m_contact)
         {
@@ -1033,6 +1033,7 @@ dReal FindTriangleTriangleCollision(
     // It is necessary to initialize the count because both conditional statements 
     // might be skipped leading to uninitialized count being used for memcpy in if(mostdir==0)
     deep_points1.Count = 0;
+    deep_points2.Count = 0;
 
     ////find interval face1
 
@@ -1257,7 +1258,7 @@ bool TriTriContacts(const dVector3 tr1[3],
 {
 
 
-    dVector4 normal;
+    dVector4 normal = {};
     dReal depth;
     ///Test Tri Vs Tri
     //	dContactGeom* pcontact;
