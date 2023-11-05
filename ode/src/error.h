@@ -71,7 +71,9 @@
 
 #ifdef __GNUC__
 #define dUNUSED(Name) Name __attribute__((unused))
-#else // not __GNUC__
+#elif defined(_MSC_VER)
+#define dUNUSED(Name)
+#else
 #define dUNUSED(Name) Name
 #endif
 
@@ -79,9 +81,14 @@
 #define dSASSERT(e)  static_assert(e, #e)
 #define dSMSGASSERT(e, message)  static_assert(e, message)
 #else
+#ifdef __GNUC__
+#define dUNUSED_IN_ASSERT(Name) Name __attribute__((unused))
+#else
+#define dUNUSED_IN_ASSERT(Name) Name
+#endif
 #define d_SASSERT_INNER_TOKENPASTE(x, y, z) x ## y ## z
 #define d_SASSERT_TOKENPASTE(x, y, z) d_SASSERT_INNER_TOKENPASTE(x, y, z)
-#define dSASSERT(e) typedef char dUNUSED(d_SASSERT_TOKENPASTE(d_StaticAssertionFailed_, __LINE__, __COUNTER__)[(e)?1:-1])
+#define dSASSERT(e) typedef char dUNUSED_IN_ASSERT(d_SASSERT_TOKENPASTE(d_StaticAssertionFailed_, __LINE__, __COUNTER__)[(e)?1:-1])
 #define dSMSGASSERT(e, message)  dSASSERT(e)
 #endif
 

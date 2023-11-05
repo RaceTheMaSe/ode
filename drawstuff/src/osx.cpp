@@ -150,7 +150,7 @@ int osxGetModifierMask()
     return glutGetModifiers() & ~GLUT_ACTIVE_SHIFT;
 }
 
-void osxKeyEventHandler( unsigned char key, int x, int y )
+void osxKeyEventHandler( unsigned char key, int /*x*/, int /*y*/ )
 {
     unsigned char uppercase;
     if (key >= 'a' && key <= 'z')
