@@ -109,7 +109,7 @@ int dxFactorCholesky(dReal *A, unsigned n, void *tmpBuf/*[n]*/)
     dAASSERT (n > 0 && A);
     bool failure = false;
     
-    dReal *alloctedBuf = NULL;
+    dReal *allocatedBuf = NULL;
     sizeint allocatedSize=0;
 
     const unsigned nskip = dPAD (n);
@@ -117,8 +117,8 @@ int dxFactorCholesky(dReal *A, unsigned n, void *tmpBuf/*[n]*/)
     dReal *recip = (dReal *)tmpBuf;
     if (tmpBuf == NULL) {
         allocatedSize = n * sizeof(dReal);
-        alloctedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
-        recip = alloctedBuf != NULL ? alloctedBuf : (dReal*)ALLOCA(allocatedSize);
+        allocatedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
+        recip = allocatedBuf != NULL ? allocatedBuf : (dReal*)ALLOCA(allocatedSize);
     }
 
     dReal *aa = A;
@@ -151,8 +151,8 @@ int dxFactorCholesky(dReal *A, unsigned n, void *tmpBuf/*[n]*/)
         }
     }
     
-    if (alloctedBuf != NULL) {
-        dFree(alloctedBuf, allocatedSize);
+    if (allocatedBuf != NULL) {
+        dFree(allocatedBuf, allocatedSize);
     }
 
     return failure ? 0 : 1;
@@ -164,7 +164,7 @@ void dxSolveCholesky(const dReal *L, dReal *b, unsigned n, void *tmpBuf/*[n]*/)
 {
     dAASSERT (n > 0 && L && b);
 
-    dReal *alloctedBuf = NULL;
+    dReal *allocatedBuf = NULL;
     sizeint allocatedSize=0;
 
     const unsigned nskip = dPAD (n);
@@ -172,8 +172,8 @@ void dxSolveCholesky(const dReal *L, dReal *b, unsigned n, void *tmpBuf/*[n]*/)
     dReal *y = (dReal *)tmpBuf;
     if (tmpBuf == NULL) {
         allocatedSize = n * sizeof(dReal);
-        alloctedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
-        y = alloctedBuf != NULL ? alloctedBuf : (dReal*)ALLOCA(allocatedSize);
+        allocatedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
+        y = allocatedBuf != NULL ? allocatedBuf : (dReal*)ALLOCA(allocatedSize);
     }
 
     {
@@ -201,8 +201,8 @@ void dxSolveCholesky(const dReal *L, dReal *b, unsigned n, void *tmpBuf/*[n]*/)
         }
     }
 
-    if (alloctedBuf != NULL) {
-        dFree(alloctedBuf, allocatedSize);
+    if (allocatedBuf != NULL) {
+        dFree(allocatedBuf, allocatedSize);
     }
 }
 
@@ -213,7 +213,7 @@ int dxInvertPDMatrix(const dReal *A, dReal *Ainv, unsigned n, void *tmpBuf/*[nsk
     dAASSERT (n > 0 && A && Ainv);
     bool success = false;
 
-    dReal *alloctedBuf = NULL;
+    dReal *allocatedBuf = NULL;
     sizeint allocatedSize=0;
 
     sizeint choleskyFactorSize = dxEstimateFactorCholeskyTmpbufSize(n);
@@ -227,8 +227,8 @@ int dxInvertPDMatrix(const dReal *A, dReal *Ainv, unsigned n, void *tmpBuf/*[nsk
     dReal *tmp = (dReal *)tmpBuf;
     if (tmpBuf == NULL) {
         allocatedSize = choleskyMaxSize + (nskip + nskip_mul_n) * sizeof(dReal);
-        alloctedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
-        tmp = alloctedBuf != NULL ? alloctedBuf : (dReal*)ALLOCA(allocatedSize);
+        allocatedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
+        tmp = allocatedBuf != NULL ? allocatedBuf : (dReal*)ALLOCA(allocatedSize);
     }
 
     dReal *X = (dReal *)((char *)tmp + choleskyMaxSize);
@@ -250,8 +250,8 @@ int dxInvertPDMatrix(const dReal *A, dReal *Ainv, unsigned n, void *tmpBuf/*[nsk
         success = true;
     }
 
-    if (alloctedBuf != NULL) {
-        dFree(alloctedBuf, allocatedSize);
+    if (allocatedBuf != NULL) {
+        dFree(allocatedBuf, allocatedSize);
     }
 
     return success ? 1 : 0;
@@ -263,7 +263,7 @@ int dxIsPositiveDefinite(const dReal *A, unsigned n, void *tmpBuf/*[nskip*(n+1)]
 {
     dAASSERT (n > 0 && A);
 
-    dReal *alloctedBuf = NULL;
+    dReal *allocatedBuf = NULL;
     sizeint allocatedSize=0;
 
     sizeint choleskyFactorSize = dxEstimateFactorCholeskyTmpbufSize(n);
@@ -275,16 +275,16 @@ int dxIsPositiveDefinite(const dReal *A, unsigned n, void *tmpBuf/*[nskip*(n+1)]
     dReal *tmp = (dReal *)tmpBuf;
     if (tmpBuf == NULL) {
         allocatedSize = choleskyFactorSize + nskip_mul_n * sizeof(dReal);
-        alloctedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
-        tmp = alloctedBuf != NULL ? alloctedBuf : (dReal*)ALLOCA(allocatedSize);
+        allocatedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
+        tmp = allocatedBuf != NULL ? allocatedBuf : (dReal*)ALLOCA(allocatedSize);
     }
 
     dReal *Acopy = (dReal *)((char *)tmp + choleskyFactorSize);
     memcpy(Acopy, A, nskip_mul_n * sizeof(dReal));
     int factorResult = dxFactorCholesky (Acopy, n, tmp);
 
-    if (alloctedBuf != NULL) {
-        dFree(alloctedBuf, allocatedSize);
+    if (allocatedBuf != NULL) {
+        dFree(allocatedBuf, allocatedSize);
     }
 
     return factorResult;
@@ -298,14 +298,14 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
 
     if (n < 2) return;
 
-    dReal *alloctedBuf = NULL;
+    dReal *allocatedBuf = NULL;
     sizeint allocatedSize=0;
 
     dReal *W1 = (dReal *)tmpBuf;
     if (tmpBuf == NULL) {
         allocatedSize = nskip * (2 * sizeof(dReal));
-        alloctedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
-        W1 = alloctedBuf != NULL ? alloctedBuf : (dReal*)ALLOCA(allocatedSize);
+        allocatedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
+        W1 = allocatedBuf != NULL ? allocatedBuf : (dReal*)ALLOCA(allocatedSize);
     }
 
     dReal *W2 = W1 + nskip;
@@ -376,8 +376,8 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
         }
     }
 
-    if (alloctedBuf != NULL) {
-        dFree(alloctedBuf, allocatedSize);
+    if (allocatedBuf != NULL) {
+        dFree(allocatedBuf, allocatedSize);
     }
 }
 
@@ -410,7 +410,7 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
         return;		// deleting the last row/col is easy
     }
 
-    dReal *alloctedBuf = NULL;
+    dReal *allocatedBuf = NULL;
     sizeint allocatedSize=0;
 
     sizeint LDLTAddTLSize = dxEstimateLDLTAddTLTmpbufSize(nskip);
@@ -419,8 +419,8 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
     dReal *tmp = (dReal *)tmpBuf;
     if (tmpBuf == NULL) {
         allocatedSize = LDLTAddTLSize + n2 * sizeof(dReal);
-        alloctedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
-        tmp = alloctedBuf != NULL ? alloctedBuf : (dReal*)ALLOCA(allocatedSize);
+        allocatedBuf = allocatedSize > STACK_ALLOC_MAX ? (dReal *)dAlloc(allocatedSize) : NULL;
+        tmp = allocatedBuf != NULL ? allocatedBuf : (dReal*)ALLOCA(allocatedSize);
     }
     
     if (r == 0) {
@@ -458,8 +458,8 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
     dxRemoveRowCol (L, n2, nskip, r);
     if (r < (n2 - 1)) memmove (d + r, d + r + 1, (n2 - r - 1) * sizeof(dReal));
 
-    if (alloctedBuf != NULL) {
-        dFree(alloctedBuf, allocatedSize);
+    if (allocatedBuf != NULL) {
+        dFree(allocatedBuf, allocatedSize);
     }
 }
 

@@ -83,7 +83,7 @@ private:
     union
     {
         dmutexindex_t     m_mutex_count;
-        unsigned long     m_reserved_for_allignment[2];
+        unsigned long     m_reserved_for_alignment[2];
 
     } m_un;
 
