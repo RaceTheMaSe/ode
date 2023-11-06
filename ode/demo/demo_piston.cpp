@@ -451,13 +451,13 @@ static void command (int cmd)
         {
         case dJointTypeSlider :
         {
-            dSliderJoint *sj = reinterpret_cast<dSliderJoint *> (joint);
+            dSliderJoint *sj = static_cast<dSliderJoint *> (joint);
             std::cout<<"Position ="<<sj->getPosition() <<"\n";
         }
         break;
         case dJointTypePiston :
         {
-            dPistonJoint *rj = reinterpret_cast<dPistonJoint *> (joint);
+            dPistonJoint *rj = static_cast<dPistonJoint *> (joint);
             std::cout<<"Position ="<<rj->getPosition() <<"\n";
         }
         break;

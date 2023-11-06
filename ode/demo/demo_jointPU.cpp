@@ -315,7 +315,7 @@ case 'h' : case 'H' : case '?' :
 
       switch (joint->getType() ) {
         case dJointTypePR : {
-          dPRJoint *pr = reinterpret_cast<dPRJoint *> (joint);
+          dPRJoint *pr = static_cast<dPRJoint *> (joint);
           pr->setParam (dParamLoStop, -lLimit);
           pr->setParam (dParamHiStop, -lLimit);
           pr->setParam (dParamLoStop2, aLimit);
@@ -323,7 +323,7 @@ case 'h' : case 'H' : case '?' :
         }
         break;
         case dJointTypePU : {
-          dPUJoint *pu = reinterpret_cast<dPUJoint *> (joint);
+          dPUJoint *pu = static_cast<dPUJoint *> (joint);
           pu->setParam (dParamLoStop1, -aLimit);
           pu->setParam (dParamHiStop1, aLimit);
           pu->setParam (dParamLoStop2, -aLimit);
@@ -369,12 +369,12 @@ case 'h' : case 'H' : case '?' :
   case 'p' :case 'P' : {
       switch (joint->getType() ) {
         case dJointTypeSlider : {
-          dSliderJoint *sj = reinterpret_cast<dSliderJoint *> (joint);
+          const dSliderJoint *sj = static_cast<dSliderJoint *> (joint);
           std::cout<<"Position ="<<sj->getPosition() <<"\n";
         }
         break;
         case dJointTypePU : {
-          dPUJoint *pu = reinterpret_cast<dPUJoint *> (joint);
+          const dPUJoint *pu = static_cast<dPUJoint *> (joint);
           std::cout<<"Position ="<<pu->getPosition() <<"\n";
           std::cout<<"Position Rate="<<pu->getPositionRate() <<"\n";
           std::cout<<"Angle1 ="<<pu->getAngle1() <<"\n";
@@ -478,7 +478,7 @@ static void simLoop (int pause)
     dVector3 axisP = {}, axisR1, axisR2;
 
     if ( dJointTypePU == type ) {
-      dPUJoint *pu = dynamic_cast<dPUJoint *> (joint);
+      dPUJoint *pu = static_cast<dPUJoint *> (joint);
       ang1 = pu->getAngle1();
       ang2 = pu->getAngle2();
       pu->getAxis1 (axisR1);
@@ -488,7 +488,7 @@ static void simLoop (int pause)
       dJointGetPUAnchor (pu->id(), anchorPos);
     }
     else if ( dJointTypePR == type ) {
-      dPRJoint *pr = dynamic_cast<dPRJoint *> (joint);
+      dPRJoint *pr = static_cast<dPRJoint *> (joint);
       pr->getAxis1 (axisP);
       pr->getAxis2 (axisR1);
 
@@ -528,7 +528,7 @@ static void simLoop (int pause)
     }
 
     if ( dJointTypePU == type && geom[AXIS2] ) {
-      //dPUJoint *pu = dynamic_cast<dPUJoint *> (joint);
+      //dPUJoint *pu = static_cast<dPUJoint *> (joint);
 
       dQuaternion q, qAng, qq, qq1;
       dGeomGetQuaternion (geom[AXIS2], q);
