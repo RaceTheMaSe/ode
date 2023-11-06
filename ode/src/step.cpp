@@ -69,7 +69,7 @@ enum dxRHSCFMElement
     RLE_LAMBDA = RCE_CFM,
 
     RCE__RHS_CFM_MAX = dxJoint::GI2__RHS_CFM_MAX,
-    RLE__RHS_LAMBDA_MAX = RCE__RHS_CFM_MAX,
+    RLE__RHS_LAMBDA_MAX = RCE__RHS_CFM_MAX
 };
 
 enum dxLoHiElement
@@ -77,7 +77,7 @@ enum dxLoHiElement
     LHE_LO = dxJoint::GI2_LO,
     LHE_HI = dxJoint::GI2_HI,
 
-    LHE__LO_HI_MAX = dxJoint::GI2__LO_HI_MAX,
+    LHE__LO_HI_MAX = dxJoint::GI2__LO_HI_MAX
 };
 
 enum dxJacobiVectorElement
@@ -103,7 +103,7 @@ enum dxJacobiVectorElement
     JVE__MAX = JVE__MIN + dDA__MAX,
 
     JVE__L_COUNT = JVE__L_MAX - JVE__L_MIN,
-    JVE__A_COUNT = JVE__A_MAX - JVE__A_MIN,
+    JVE__A_COUNT = JVE__A_MAX - JVE__A_MIN
 };
 
 
@@ -131,7 +131,7 @@ enum dxJacobiMatrixElement
 
     JME__MAX = JME__J_MAX,
 
-    JME__J_COUNT = JME__J_MAX - JME__J_MIN,
+    JME__J_COUNT = JME__J_MAX - JME__J_MIN
 };
 
 enum dxJInvMElement
@@ -193,7 +193,7 @@ enum dxContactForceElement
 
     CFE__DYNAMICS_MAX = CFE__DYNAMICS_MIN + dDA__MAX,
 
-    CFE__MAX = CFE__DYNAMICS_MAX,
+    CFE__MAX = CFE__DYNAMICS_MAX
 };
 
 

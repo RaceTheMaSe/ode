@@ -47,7 +47,7 @@ enum
 {
     dsMOTIONMODE_LBUTTONDOWN = 0x00000001,
     dsMOTIONMODE_MBUTTONDOWN = 0x00000002,
-    dsMOTIONMODE_RBUTTONDOWN = 0x00000004,
+    dsMOTIONMODE_RBUTTONDOWN = 0x00000004
 };
 void dsMotion (int mode, int deltax, int deltay);
 

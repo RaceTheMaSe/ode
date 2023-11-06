@@ -93,13 +93,13 @@ private:
 	{
 		TSB_RESERVEDPOINTER_HOSTARRAY,
 			
-		TSB_RESERVEDPOINTER__MAX,
+		TSB_RESERVEDPOINTER__MAX
 	};
 
 public:
 	enum
 	{
-		TSB_LARGEST_ALIGNMENT = sizeof(void *) > sizeof(tlsvaluetype) ? sizeof(void *) : sizeof(tlsvaluetype),
+		TSB_LARGEST_ALIGNMENT = sizeof(void *) > sizeof(tlsvaluetype) ? sizeof(void *) : sizeof(tlsvaluetype)
 	};
 	
 public:
@@ -270,7 +270,7 @@ class CTLSInitialization
 public:
 	enum EINITIALIZATIONFLAGS
 	{
-		SIF_MANUAL_CLEANUP_ON_THREAD_EXIT	= 0x00000001,
+		SIF_MANUAL_CLEANUP_ON_THREAD_EXIT	= 0x00000001
 	};
 
 public:

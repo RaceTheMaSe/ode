@@ -72,7 +72,7 @@ enum FaceAngleStorageMethod
 
     ASM__MAX,
 
-    ASM__INVALID = ASM__MAX,
+    ASM__INVALID = ASM__MAX
 };
 
 enum FaceAngleDomain
@@ -93,7 +93,7 @@ enum FaceAngleDomain
 
     FAD__BYTEPOS_STORED_MAX,
 
-    EAD__MAX = FAD__BYTEPOS_STORED_MAX,
+    EAD__MAX = FAD__BYTEPOS_STORED_MAX
 };
 
 class IFaceAngleStorageControl
@@ -193,7 +193,7 @@ public:
         CUF__USE_VERTICES_MAX = CUF__USE_VERTICES_MIN << dMTV__MAX,
         CUF__USE_ALL_VERTICES = CUF_USE_FIRST_VERTEX | CUF_USE_SECOND_VERTEX | CUF_USE_THIRD_VERTEX,
 
-        CUF__USE_ALL_COMPONENTS = CUF__USE_ALL_VERTICES | CUF__USE_ALL_EDGES,
+        CUF__USE_ALL_COMPONENTS = CUF__USE_ALL_VERTICES | CUF__USE_ALL_EDGES
     };
 
     // Make sure that the flags match the values declared in public interface
@@ -238,7 +238,7 @@ protected:
         enum
         {
             AVF_VERTEX_USED             = 0x01,
-            AVF_VERTEX_HAS_CONCAVE_EDGE = 0x02,
+            AVF_VERTEX_HAS_CONCAVE_EDGE = 0x02
         };
 
     public:
@@ -333,7 +333,7 @@ public:
         TTC_BOX,
         TTC_CAPSULE,
 
-        TTC__MAX,
+        TTC__MAX
     };
 
 public:

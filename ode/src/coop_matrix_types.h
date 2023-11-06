@@ -49,7 +49,7 @@
 
 enum
 {
-    COOP_THREAD_DATA_ALIGNMENT_SIZE      = 64, // Typical size of a cache line
+    COOP_THREAD_DATA_ALIGNMENT_SIZE      = 64 // Typical size of a cache line
 };
 
 
@@ -66,7 +66,7 @@ enum CellContextInstance
     CCI__MAX,
     CCI__LOG2_OF_MAX = 1,
 
-    CCI__DEFAULT = CCI__MIN,
+    CCI__DEFAULT = CCI__MIN
 };
 dSASSERT(1 << CCI__LOG2_OF_MAX >= CCI__MAX);
 
@@ -85,7 +85,7 @@ enum
     CELLDESC_CCI_BITMASK    = (1 << CCI__LOG2_OF_MAX) - 1,
     CELLDESC_LOCK_BIT       = 1 << CCI__LOG2_OF_MAX,
     CELLDESC__HELPER_BITS   = CELLDESC_CCI_BITMASK | CELLDESC_LOCK_BIT,
-    CELLDESC__COLINDEX_BASE = CELLDESC__HELPER_BITS + 1,
+    CELLDESC__COLINDEX_BASE = CELLDESC__HELPER_BITS + 1
 };
 
 #define MAKE_CELLDESCRIPTOR(columnIndex, contextInstance, locked) ((cellindexint)((cellindexint)(columnIndex) * CELLDESC__COLINDEX_BASE + (contextInstance) + ((locked) ? CELLDESC_LOCK_BIT : 0)))
@@ -101,7 +101,7 @@ enum BlockProcessingState
 {
     BPS_COMPETING_FOR_A_BLOCK = -1,
     BPS_NO_BLOCKS_PROCESSED,
-    BPS_SOME_BLOCKS_PROCESSED,
+    BPS_SOME_BLOCKS_PROCESSED
 };
 
 

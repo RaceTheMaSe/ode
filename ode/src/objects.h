@@ -114,7 +114,7 @@ enum dxMarginalDeltaKind {
     MDK_EXTRA_ITERATIONS_REQUIREMENT_DELTA = MDK__MIN,
     MDK_PREMATURE_EXIT_DELTA,
 
-    MDK__MAX,
+    MDK__MAX
 };
 
 // quick-step parameters

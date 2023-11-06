@@ -97,7 +97,7 @@ typedef enum {
     dSA_Y,
     dSA_Z,
 
-    dSA__MAX,
+    dSA__MAX
 } dSpaceAxis;
 
 typedef enum {
@@ -106,7 +106,7 @@ typedef enum {
     dMD_LINEAR = dMD__MIN,
     dMD_ANGULAR,
 
-    dMD__MAX,
+    dMD__MAX
 } dMotionDynamics;
 
 typedef enum {
@@ -146,7 +146,7 @@ typedef enum {
 
     dV3E__MAX,
 
-    dV3E__AXES_COUNT = dV3E__AXES_MAX - dV3E__AXES_MIN,
+    dV3E__AXES_COUNT = dV3E__AXES_MAX - dV3E__AXES_MIN
 } dVec3Element;
 
 typedef enum {
@@ -157,7 +157,7 @@ typedef enum {
     dV4E_Z = dV4E__MIN + dSA_Z,
     dV4E_O = dV4E__MIN + dSA__MAX,
 
-    dV4E__MAX,
+    dV4E__MAX
 } dVec4Element;
 
 typedef enum {
@@ -247,7 +247,7 @@ typedef enum {
 
     dM4E__O_MAX = dM4E__O_MIN + dV4E__MAX,
 
-    dM4E__MAX = dM4E__MIN + dV4E__MAX * dV4E__MAX,
+    dM4E__MAX = dM4E__MIN + dV4E__MAX * dV4E__MAX
 } dMat4Element;
 
 typedef enum {
@@ -263,7 +263,7 @@ typedef enum {
 
     dQUE__AXIS_MAX = dQUE__AXIS_MIN + dSA__MAX,
 
-    dQUE__MAX = dQUE__AXIS_MAX,
+    dQUE__MAX = dQUE__AXIS_MAX
 } dQuatElement;
 
 /* these types are mainly just used in headers */
@@ -399,7 +399,7 @@ typedef enum {
   dJointTypePiston,
   dJointTypeDBall,
   dJointTypeDHinge,
-  dJointTypeTransmission,
+  dJointTypeTransmission
 } dJointType;
 
 

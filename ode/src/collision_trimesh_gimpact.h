@@ -233,7 +233,7 @@ public:
     enum
     {
         VERTEXINSTANCE_STRIDE = sizeof(vec3f),
-        TRIANGLEINDEX_STRIDE = sizeof(GUINT32) * dMTV__MAX,
+        TRIANGLEINDEX_STRIDE = sizeof(GUINT32) * dMTV__MAX
     };
 
     void assignMeshData(dxTriMeshData *Data);

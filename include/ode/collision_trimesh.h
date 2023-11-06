@@ -53,7 +53,7 @@ typedef enum
     dMTV_SECOND,
     dMTV_THIRD,
 
-    dMTV__MAX,
+    dMTV__MAX
 
 } dMeshTriangleVertex;
 
@@ -75,11 +75,12 @@ enum
     dTRIMESHDATA_FACE_NORMALS = dTRIMESHDATA__MIN,
     dTRIMESHDATA_USE_FLAGS,
 
-    dTRIMESHDATA__MAX,
-
 #ifndef TRIMESH_FACE_NORMALS // Define this name during the header inclusion if you need it for something else
+    dTRIMESHDATA__MAX,
     // Included for backward compatibility -- please use the corrected name above. Sorry.
-    TRIMESH_FACE_NORMALS = dTRIMESHDATA_FACE_NORMALS,
+    TRIMESH_FACE_NORMALS = dTRIMESHDATA_FACE_NORMALS
+#else
+    dTRIMESHDATA__MAX
 #endif
 };
 
@@ -93,7 +94,7 @@ enum
     dMESHDATAUSE_EDGE3      = 0x04,
     dMESHDATAUSE_VERTEX1    = 0x08,
     dMESHDATAUSE_VERTEX2    = 0x10,
-    dMESHDATAUSE_VERTEX3    = 0x20,
+    dMESHDATAUSE_VERTEX3    = 0x20
 };
 
 /*
@@ -160,7 +161,7 @@ enum
     dTRIDATAPREPROCESS_BUILD_CONCAVE_EDGES = dTRIDATAPREPROCESS_BUILD__MIN, // Used to optimize OPCODE trimesh-capsule collisions; allocates 1 byte per triangle; no extra data associated
     dTRIDATAPREPROCESS_BUILD_FACE_ANGLES,   // Used to aid trimesh-convex collisions; memory requirements depend on extra data
     
-    dTRIDATAPREPROCESS_BUILD__MAX,
+    dTRIDATAPREPROCESS_BUILD__MAX
 };
 
 /*
@@ -176,7 +177,7 @@ enum
 
     dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MAX,
 
-    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__DEFAULT = dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_BYTE_POSITIVE, // The default value assumed if the extra data is not provided
+    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__DEFAULT = dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_BYTE_POSITIVE // The default value assumed if the extra data is not provided
 };
 
 

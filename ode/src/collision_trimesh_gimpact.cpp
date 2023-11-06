@@ -61,7 +61,7 @@ struct TrimeshDataVertexIndexAccessor_GIMPACT
 {
     enum
     {
-        TRIANGLEINDEX_STRIDE = dxTriMesh::TRIANGLEINDEX_STRIDE,
+        TRIANGLEINDEX_STRIDE = dxTriMesh::TRIANGLEINDEX_STRIDE
     };
 
     explicit TrimeshDataVertexIndexAccessor_GIMPACT(dxTriMeshData *meshData):
@@ -87,7 +87,7 @@ struct TrimeshDataTrianglePointAccessor_GIMPACT
     enum
     {
         VERTEXINSTANCE_STRIDE = dxTriMesh::VERTEXINSTANCE_STRIDE,
-        TRIANGLEINDEX_STRIDE = dxTriMesh::TRIANGLEINDEX_STRIDE,
+        TRIANGLEINDEX_STRIDE = dxTriMesh::TRIANGLEINDEX_STRIDE
     };
 
     TrimeshDataTrianglePointAccessor_GIMPACT(dxTriMeshData *meshData):

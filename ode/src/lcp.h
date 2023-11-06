@@ -59,7 +59,7 @@ enum dxLCPBXElement
     PBX_B = PBX__MIN,
     PBX_X,
 
-    PBX__MAX,
+    PBX__MAX
 };
 
 enum dxLCPLHElement
@@ -69,7 +69,7 @@ enum dxLCPLHElement
     PLH_LO = PLH__MIN,
     PLH_HI,
 
-    PLH__MAX,
+    PLH__MAX
 };
 
 void dxSolveLCP (dxWorldProcessMemArena *memarena, 

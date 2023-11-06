@@ -57,7 +57,7 @@ public:
 
     enum
     {
-        STOCK_CALLWAIT_REQUIRED = 0x00000001,
+        STOCK_CALLWAIT_REQUIRED = 0x00000001
     };
 
     void mergeAnotherDescriptorIn(const dxResourceRequirementDescriptor &anotherDescriptor)
@@ -89,7 +89,7 @@ public:
 private:
     enum
     {
-        FL_STOCK_CALLWAIT_REQUIRED  = STOCK_CALLWAIT_REQUIRED,
+        FL_STOCK_CALLWAIT_REQUIRED  = STOCK_CALLWAIT_REQUIRED
     };
 
     bool getStockCallWaitRequiredFlag() const { return m_featureRequirements.GetFlagsMaskValue(FL_STOCK_CALLWAIT_REQUIRED); }

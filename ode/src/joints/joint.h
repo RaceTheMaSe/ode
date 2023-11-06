@@ -57,7 +57,7 @@ enum dJointConnectedBody
     dJCB_FIRST_BODY = dJCB__MIN,
     dJCB_SECOND_BODY,
 
-    dJCB__MAX,
+    dJCB__MAX
 
 };
 
@@ -87,7 +87,7 @@ enum dJointBodyRelativity
     dJBR__MAX,
 
     dJBR__DEFAULT = dJBR_GLOBAL,
-    dJBR__BODIES_COUNT = dJBR__BODIES_MAX - dJBR__BODIES_MIN,
+    dJBR__BODIES_COUNT = dJBR__BODIES_MAX - dJBR__BODIES_MIN
 
 };
 
@@ -156,21 +156,21 @@ struct dxJoint : public dObject
         GI2_JAZ = GI2__J_MIN + dDA_AZ,
 
         GI2__JA_MAX = GI2__J_MIN + dDA__A_MAX,
-        GI2__J_MAX = GI2__J_MIN + dDA__MAX,
+        GI2__J_MAX = GI2__J_MIN + dDA__MAX
     };
 
     enum
     {
         GI2_RHS,
         GI2_CFM,
-        GI2__RHS_CFM_MAX,
+        GI2__RHS_CFM_MAX
     };
 
     enum
     {
         GI2_LO,
         GI2_HI,
-        GI2__LO_HI_MAX,
+        GI2__LO_HI_MAX
     };
 
     // info returned by getSureMaxInfo function. 
@@ -305,7 +305,7 @@ struct dxJointLimitMotor
         GI2_RHS = dxJoint::GI2_RHS,
         GI2_CFM = dxJoint::GI2_CFM,
         GI2_LO = dxJoint::GI2_LO,
-        GI2_HI = dxJoint::GI2_HI,
+        GI2_HI = dxJoint::GI2_HI
     };
 
     bool addLimot( dxJoint *joint, dReal fps, 

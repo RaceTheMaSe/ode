@@ -142,7 +142,7 @@ public:
     {
         dxTHREAD_COMMAND_EXIT,
         dxTHREAD_COMMAND_NOOP,
-        dxTHREAD_COMMAND_SERVE_IMPLEMENTATION,
+        dxTHREAD_COMMAND_SERVE_IMPLEMENTATION
     };
 
     struct dxServeImplementationParams

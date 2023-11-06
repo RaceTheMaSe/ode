@@ -173,7 +173,7 @@ void transfer_b_to_x(dReal pairsbx[PBX__MAX], unsigned n)
 enum dxRowSwapMethodSwapRCOption
 {
     SRCO_FAST_ROW_SWAP,
-    SRCO_ELEMENTWISE_ROW_SWAP,
+    SRCO_ELEMENTWISE_ROW_SWAP
 };
 
 // swap row/column i1 with i2 in the n*n matrix A. the leading dimension of
@@ -243,7 +243,7 @@ void swapRowsAndCols (unsigned i1, unsigned i2, ATYPE A, unsigned n, unsigned ns
 enum dxSwapStateSwapProblemOption
 {
     SPO_SWAP_STATE,
-    SPO_DONT_SWAP_STATE,
+    SPO_DONT_SWAP_STATE
 };
 
 

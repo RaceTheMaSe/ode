@@ -139,7 +139,7 @@ enum
 {
     dWSTP_WorldIslandsIterationMaxThreads = 0x001,      /**< Thread count limit for parallel island iteration */
     dWSTP_IslandSteppingMaxThreads = 0x002,      /**< Thread count limit for stepping each individual island being iterated */
-    dWSTP_LCPSolvingMaxThreads = 0x004,      /**< Thread count limit for solving QuickStep/Step LCP */
+    dWSTP_LCPSolvingMaxThreads = 0x004      /**< Thread count limit for solving QuickStep/Step LCP */
 };
 
 

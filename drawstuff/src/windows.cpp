@@ -314,7 +314,7 @@ struct MainWindowParameters
     {
         MBS_LBUTTONDOWN = dsMOTIONMODE_LBUTTONDOWN,
         MBS_MBUTTONDOWN = dsMOTIONMODE_MBUTTONDOWN,
-        MBS_RBUTTONDOWN = dsMOTIONMODE_RBUTTONDOWN,
+        MBS_RBUTTONDOWN = dsMOTIONMODE_RBUTTONDOWN
     };
 
     unsigned m_mouseButtonStates;
@@ -335,7 +335,7 @@ enum EMAINWINDOWWINDOWEXTRA
     MWE__WINDOW_PARAM_PTR_END = MWE_WINDOW_PARAM_PTR + sizeof(LONG_PTR), // MainWindowParameters *
 
     _MWE__MAX,
-    MWE__MAX = _MWE__MAX - 1,
+    MWE__MAX = _MWE__MAX - 1
 };
 dSASSERT(sizeof(LONG_PTR) >= sizeof(RenderingThreadParams *));
 dSASSERT(sizeof(LONG_PTR) >= sizeof(MainWindowParameters *));

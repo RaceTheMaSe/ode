@@ -91,7 +91,7 @@ enum dxRandomReorderStage
 
     RRS_REORDERING = RRS__MIN,
 
-    RRS__MAX,
+    RRS__MAX
 };
 
 
@@ -229,7 +229,7 @@ enum dxInvIRowElement
     IIE__MATRIX_MIN = IIE__MIN,
     IIE__MATRIX_MAX = IIE__MATRIX_MIN + dM3E__MAX,
 
-    IIE__MAX = IIE__MATRIX_MAX,
+    IIE__MAX = IIE__MATRIX_MAX
 };
 
 enum dxRHSCFMElement
@@ -237,7 +237,7 @@ enum dxRHSCFMElement
     RCE_RHS = dxJoint::GI2_RHS,
     RCE_CFM = dxJoint::GI2_CFM,
 
-    RCE__RHS_CFM_MAX = dxJoint::GI2__RHS_CFM_MAX,
+    RCE__RHS_CFM_MAX = dxJoint::GI2__RHS_CFM_MAX
 };
 
 enum dxLoHiElement
@@ -245,7 +245,7 @@ enum dxLoHiElement
     LHE_LO = dxJoint::GI2_LO,
     LHE_HI = dxJoint::GI2_HI,
 
-    LHE__LO_HI_MAX = dxJoint::GI2__LO_HI_MAX,
+    LHE__LO_HI_MAX = dxJoint::GI2__LO_HI_MAX
 };
 
 enum dxJacobiVectorElement
@@ -271,7 +271,7 @@ enum dxJacobiVectorElement
     JVE__MAX = JVE__MIN + dDA__MAX,
 
     JVE__L_COUNT = JVE__L_MAX - JVE__L_MIN,
-    JVE__A_COUNT = JVE__A_MAX - JVE__A_MIN,
+    JVE__A_COUNT = JVE__A_MAX - JVE__A_MIN
 };
 
 enum dxJacobiMatrixElement
@@ -328,7 +328,7 @@ enum dxJacobiMatrixElement
 
     JME__J1_COUNT = JME__J1_MAX - JME__J1_MIN,
     JME__J2_COUNT = JME__J2_MAX - JME__J2_MIN,
-    JME__J_COUNT = JVE__MAX,
+    JME__J_COUNT = JVE__MAX
 };
 
 dSASSERT(JME__J_COUNT == JME__J1_COUNT);
@@ -378,7 +378,7 @@ enum dxJacobiCopyElement
 
     JCE__J1_COUNT = JCE__J1_MAX - JCE__J1_MIN,
     JCE__J2_COUNT = JCE__J2_MAX - JCE__J2_MIN,
-    JCE__JMAX_COUNT = dMAX(JCE__J1_COUNT, JCE__J2_COUNT),
+    JCE__JMAX_COUNT = dMAX(JCE__J1_COUNT, JCE__J2_COUNT)
 };
 
 enum dxInvMJTElement
@@ -437,7 +437,7 @@ enum dxInvMJTElement
     
     IMJ__2_MAX,
 
-    IMJ__MAX = IMJ__2_MAX,
+    IMJ__MAX = IMJ__2_MAX
 };
 
 
@@ -465,7 +465,7 @@ enum dxContactForceElement
 
     CFE__DYNAMICS_MAX = CFE__DYNAMICS_MIN + dDA__MAX,
 
-    CFE__MAX = CFE__DYNAMICS_MAX,
+    CFE__MAX = CFE__DYNAMICS_MAX
 };
 
 enum dxForceAdjustmentElement
@@ -475,7 +475,7 @@ enum dxForceAdjustmentElement
     FAE_NEGATIVE = FAE__MIN,
     FAE_POSITIVE,
 
-    FAE__MAX,
+    FAE__MAX
 };
 
 #define ENCODE_SIGNUM_AS_FORCE_ADJUSTMENT_ELEMENT(positive) ((dxForceAdjustmentElement)(int)(positive))
@@ -508,7 +508,7 @@ enum dxRHSElement
 
     RHS__DYNAMICS_MAX = RHS__DYNAMICS_MIN + dDA__MAX,
 
-    RHS__MAX = RHS__DYNAMICS_MAX,
+    RHS__MAX = RHS__DYNAMICS_MAX
 };
 
 

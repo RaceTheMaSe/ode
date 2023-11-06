@@ -132,7 +132,7 @@ dxJointContact::getInfo2(dReal worldFPS, dReal worldERP,
     {
         ROW_NORMAL,
 
-        ROW__OPTIONAL_MIN,
+        ROW__OPTIONAL_MIN
     };
 
     const int surface_mode = contact.surface.mode;

@@ -47,7 +47,7 @@ enum EdgeStorageSignInclusion
     SSI_SIGNED_STORED = SSI__MIN,
     SSI_POSITIVE_STORED,
 
-    SSI__MAX,
+    SSI__MAX
 };
 
 template<typename TStorageType, EdgeStorageSignInclusion t_SignInclusion>
@@ -60,7 +60,7 @@ public:
     typedef typename _make_signed<TStorageType>::type storage_type;
     enum
     {
-        STORAGE_TYPE_MAX = (typename _make_unsigned<TStorageType>::type)(~(typename _make_unsigned<TStorageType>::type)0) >> 1,
+        STORAGE_TYPE_MAX = (typename _make_unsigned<TStorageType>::type)(~(typename _make_unsigned<TStorageType>::type)0) >> 1
     };
 
     static bool areNegativeAnglesCoded()
@@ -102,7 +102,7 @@ public:
     enum
     {
         STORAGE_TYPE_MIN = 0,
-        STORAGE_TYPE_MAX = (storage_type)(~(storage_type)0),
+        STORAGE_TYPE_MAX = (storage_type)(~(storage_type)0)
     };
 
     static bool areNegativeAnglesCoded()

@@ -71,7 +71,7 @@ public:
 public:
     enum
     {
-        ALLOCATION_DEFAULT_ALIGNMENT = COOP_THREAD_DATA_ALIGNMENT_SIZE,
+        ALLOCATION_DEFAULT_ALIGNMENT = COOP_THREAD_DATA_ALIGNMENT_SIZE
     };
 
 private:
@@ -91,7 +91,7 @@ private:
         FFL1S_REGULAR_A_ROWS    = FSL1S_BLOCK_SIZE,
         FFL1S_FINAL_A_ROWS      = 1,
         FFL1S_REGULAR_BLOCK_SIZE = 16,  // A suitable by magnitude number being a power of 2 and (naturally) not being divisible by 6
-        FFL1S_FINAL_BLOCK_SIZE  = 32, // A suitable by magnitude number being a power of 2 and (naturally) not being divisible by 6
+        FFL1S_FINAL_BLOCK_SIZE  = 32 // A suitable by magnitude number being a power of 2 and (naturally) not being divisible by 6
     };
 
     static unsigned restrictFactoringLDLTAllowedThreadCount(
@@ -451,7 +451,7 @@ private:
         SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM = 8,
 
         SL1S_B_STRIDE   = 1,
-        SL1S_BLOCK_SIZE = 4,
+        SL1S_BLOCK_SIZE = 4
     };
 
     static unsigned restrictSolvingL1StraightAllowedThreadCount(
@@ -587,7 +587,7 @@ private:
         SL1T_COOPERATIVE_BLOCK_COUNT_MINIMUM = SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM,
 
         SL1T_B_STRIDE   = SL1S_B_STRIDE,
-        SL1T_BLOCK_SIZE = 4,
+        SL1T_BLOCK_SIZE = 4
     };
 
     static unsigned restrictSolvingL1TransposedAllowedThreadCount(
@@ -722,7 +722,7 @@ private:
         SV_D_STRIDE = 1,
 
         SV_BLOCK_SIZE = 128,
-        SV_COOPERATIVE_BLOCK_COUNT_MINIMUM = 3,
+        SV_COOPERATIVE_BLOCK_COUNT_MINIMUM = 3
     };
 
     static unsigned restrictScalingVectorAllowedThreadCount(
@@ -787,13 +787,13 @@ private:
         SLDLTS_SCALING_VECTOR,
         SLDLTS_SOLVING_TRANSPOSED,
 
-        SLDLTS__MAX,
+        SLDLTS__MAX
     };
 
     enum
     {
         SLDLT_B_STRIDE          = SL1S_B_STRIDE,
-        SLDLT_D_STRIDE          = FLDLT_D_STRIDE,
+        SLDLT_D_STRIDE          = FLDLT_D_STRIDE
     };
 
     static unsigned restrictSolvingLDLTAllowedThreadCount(
