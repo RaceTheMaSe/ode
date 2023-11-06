@@ -317,12 +317,12 @@ private:
         static void initializePrecalculatedZs(dReal (&Z)[block_step][b_rows])
         {
             Z[0][0] = 0;
-            if (b_rows >= 2)
+            CONST_IF (b_rows >= 2)
             {
                 Z[0][1] = 0;
             }
             Z[1][0] = 0;
-            if (b_rows >= 2)
+            CONST_IF (b_rows >= 2)
             {
                 Z[1][1] = 0;
             }
@@ -337,12 +337,12 @@ private:
             dSASSERT(b_rows <= dARRAY_SIZE(m_c[0]));
 
             Z[0][0] = m_c[0][0];
-            if (b_rows >= 2)
+            CONST_IF (b_rows >= 2)
             {
                 Z[0][1] = m_c[0][1];
             }
             Z[1][0] = m_c[1][0];
-            if (b_rows >= 2)
+            CONST_IF (b_rows >= 2)
             {
                 Z[1][1] = m_c[1][1];
             }
@@ -357,12 +357,12 @@ private:
             dSASSERT(b_rows <= dARRAY_SIZE(m_c[0]));
 
             m_c[0][0] = Z[0][0];
-            if (b_rows >= 2)
+            CONST_IF (b_rows >= 2)
             {
                 m_c[0][1] = Z[0][1];
             }
             m_c[1][0] = Z[1][0];
-            if (b_rows >= 2)
+            CONST_IF (b_rows >= 2)
             {
                 m_c[1][1] = Z[1][1];
             }
@@ -392,7 +392,7 @@ private:
             const FactorizationFactorizeL1StripeThreadContext &partialSumContext)
         {
             m_sameZ[0] = sameZ[0] + partialSumContext.m_sameZ[0];
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 m_sameZ[1] = sameZ[1] + partialSumContext.m_sameZ[1];
                 m_mixedZ[0] = mixedZ[0] + partialSumContext.m_mixedZ[0];
@@ -403,7 +403,7 @@ private:
         void assignDataAlone(const dReal (&sameZ)[a_rows], const dReal (&mixedZ)[dMACRO_MAX(a_rows - 1, 1)])
         {
             m_sameZ[0] = sameZ[0];
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 m_sameZ[1] = sameZ[1];
                 m_mixedZ[0] = mixedZ[0];
@@ -414,12 +414,12 @@ private:
         void retrieveData(dReal (&out_sameZ)[a_rows], dReal (&out_mixedZ)[dMACRO_MAX(a_rows - 1, 1)]) const
         {
             out_sameZ[0] = m_sameZ[0];
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 out_sameZ[1] = m_sameZ[1];
                 out_mixedZ[0] = m_mixedZ[0];
             }
-            dAASSERT(a_rows >= 1 && a_rows <= 2);
+            dSASSERT(a_rows >= 1 && a_rows <= 2);
         }
 
         dReal m_sameZ[FFL1S_REGULAR_A_ROWS];

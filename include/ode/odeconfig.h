@@ -231,6 +231,16 @@ typedef unsigned long     duint64;
   #define _ode_fmaxf(x, y) fmaxf(x, y)
 #endif // #if !defined(_MSC_VER) || _MSC_VER >= 1700
 
+#if defined(__cplusplus) && __cplusplus >= 201703L
+    #define CONST_IF(expr) if constexpr(expr)
+#else
+    // MSVC only warns if the condition is in the if statement
+    #define TOKENPASTE(x,y) x ## y
+    #define CONST_IF_IMPL(expr,count) const bool TOKENPASTE(condition_, count) = expr; \
+      if(TOKENPASTE(condition_,count))
+    #define CONST_IF(expr) CONST_IF_IMPL(expr,__COUNTER__)
+#endif
+
 #ifndef ANNOTATE_FALLTHROUGH
   #if defined(__cplusplus) && __cplusplus >= 201703L
     #define ANNOTATE_FALLTHROUGH [[fallthrough]];

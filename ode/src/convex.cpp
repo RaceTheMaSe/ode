@@ -590,7 +590,7 @@ int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
 #define LTEQ_ZERO	0x10000000
 #define GTEQ_ZERO	0x20000000
 #define BOTH_SIGNS	(LTEQ_ZERO | GTEQ_ZERO)
-    dIASSERT((BOTH_SIGNS & NUMC_MASK) == 0); // used in conditional operator later
+    dSASSERT((BOTH_SIGNS & NUMC_MASK) == 0); // used in conditional operator later
 
     unsigned int totalsign = 0;
     for(unsigned int i=0;i<Convex->pointcount;++i)

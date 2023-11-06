@@ -190,7 +190,7 @@ void UpdateContactKey(CONTACT_KEY & key, dContactGeom * contact)
 static inline 
 unsigned int MakeContactIndex(unsigned int key)
 {
-    dIASSERT(CONTACTS_HASHSIZE == 256);
+    dSASSERT(CONTACTS_HASHSIZE == 256);
 
     unsigned int index = key ^ (key >> 16);
     index = (index ^ (index >> 8)) & 0xFF;

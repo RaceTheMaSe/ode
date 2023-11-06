@@ -2485,7 +2485,7 @@ int dxQuickStepIsland_Stage4LCP_IterationStart_Callback(void *_stage4CallContext
             world->PostThreadedCall(NULL, &stage4LCP_ConstraintsReorderingSyncReleasee, reorderThreads, nextReleasee,
                 NULL, &dxQuickStepIsland_Stage4LCP_ConstraintsReorderingSync_Callback, stage4CallContext, 0, "QuickStepIsland Stage4LCP_ConstraintsReordering Sync");
 
-            if (reorderThreads > 1) {
+            CONST_IF (reorderThreads > 1) {
                 world->PostThreadedCallsGroup(NULL, reorderThreads - 1, stage4LCP_ConstraintsReorderingSyncReleasee, &dxQuickStepIsland_Stage4LCP_ConstraintsReordering_Callback, stage4CallContext, "QuickStepIsland Stage4LCP_ConstraintsReordering");
             }
             dxQuickStepIsland_Stage4LCP_ConstraintsReordering(stage4CallContext);

@@ -203,7 +203,7 @@ void swapRowsAndCols (unsigned i1, unsigned i2, ATYPE A, unsigned n, unsigned ns
     A_i1[i1] = A_i2[i1];
     A_i2[i1] = A_i2[i2];
     // swap rows, by swapping row pointers
-    if (row_swap_method == SRCO_FAST_ROW_SWAP) {
+    CONST_IF (row_swap_method == SRCO_FAST_ROW_SWAP) {
         A[i1] = A_i2;
         A[i2] = A_i1;
     }
@@ -257,7 +257,7 @@ void swapProblem (unsigned i1, unsigned i2, ATYPE A, unsigned n, unsigned nskip,
     dIASSERT (n>0 && i1 < n && i2 < n && nskip >= n && i1 <= i2);
     dIASSERT(i1 != i2);
 
-    if (state_swap_opt == SPO_SWAP_STATE) {
+    CONST_IF (state_swap_opt == SPO_SWAP_STATE) {
         dxSwap(state[i1], state[i2]);
     }
 

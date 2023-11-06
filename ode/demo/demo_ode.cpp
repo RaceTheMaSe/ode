@@ -139,7 +139,7 @@ void testRandomNumberGenerator()
 void testInfinity()
 {
     HEADER;
-    if (1e10 < dInfinity && -1e10 > -dInfinity && -dInfinity < dInfinity)
+    CONST_IF (1e10 < dInfinity && -1e10 > -dInfinity && -dInfinity < dInfinity)
         printf ("\tpassed\n");
     else printf ("\tFAILED\n");
 }

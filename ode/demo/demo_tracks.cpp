@@ -281,8 +281,8 @@ void nearCallback(void *, dGeomID a, dGeomID b)
      *  sphere's radius.
      */
     dGeomID s = NULL;
-    if ((dGeomGetClass(a) == dSphereClass && (s = a)) || 
-        (dGeomGetClass(b) == dSphereClass && (s = b))) {
+    if ((dGeomGetClass(a) == dSphereClass && (s = a) != NULL) || 
+        (dGeomGetClass(b) == dSphereClass && (s = b) != NULL)) {
         epsilon = dGeomSphereGetRadius(s) * 0.3;
     }
 

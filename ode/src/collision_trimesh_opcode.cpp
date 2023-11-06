@@ -451,7 +451,7 @@ bool dxTriMesh::controlGeometry_SetMergeSphereContacts(int dataValue)
     }
     else 
     {
-        dAASSERT(false && "Invalid contact merge control value");
+        dUVERIFY(false,"Invalid contact merge control value");
         return false;
     }
 
@@ -470,7 +470,7 @@ bool dxTriMesh::controlGeometry_GetMergeSphereContacts(int &returnValue)
         returnValue = dGeomColliderMergeContactsValue_Full;
     }
     else {
-        dIASSERT(false && "Internal error: unexpected contact merge option field value");
+        dUVERIFY(false,"Internal error: unexpected contact merge option field value");
         return false;
     }
 

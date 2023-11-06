@@ -467,7 +467,7 @@ void dxGeom::computePosr()
 
 bool dxGeom::controlGeometry(int /*controlClass*/, int /*controlCode*/, void * /*dataValue*/, int *dataSize)
 {
-    dAASSERT(false && "Control class/code is not supported for current geom");
+    dUASSERT(false,"Control class/code is not supported for current geom");
 
     *dataSize = 0;
     return false;

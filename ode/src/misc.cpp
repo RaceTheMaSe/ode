@@ -84,7 +84,7 @@ int dRandInt (int n)
     duint32 r = (duint32)raw_r;
     
     duint32 un = n;
-    dIASSERT(sizeof(n) == sizeof(un));
+    dSASSERT(sizeof(n) == sizeof(un));
 
     // note: probably more aggressive than it needs to be -- might be
     //       able to get away without one or two of the innermost branches.

@@ -785,14 +785,14 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                     p[0] = ptrLElement[0];
                     q[0] = ptrBElement[0];
                     Z[0][0] += p[0] * q[0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         q[1] = ptrBElement[rowSkip];
                         Z[0][1] += p[0] * q[1];
                     }
                     p[1] = ptrLElement[rowSkip];
                     Z[1][0] += p[1] * q[0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         Z[1][1] += p[1] * q[1];
                     }
@@ -801,14 +801,14 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                     p[0] = ptrLElement[1];
                     q[0] = ptrBElement[1];
                     Z[0][0] += p[0] * q[0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         q[1] = ptrBElement[1 + rowSkip];
                         Z[0][1] += p[0] * q[1];
                     }
                     p[1] = ptrLElement[1 + rowSkip];
                     Z[1][0] += p[1] * q[0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         Z[1][1] += p[1] * q[1];
                     }
@@ -822,14 +822,14 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                         p[0] = ptrLElement[2];
                         q[0] = ptrBElement[2];
                         Z[0][0] += p[0] * q[0];
-                        if (b_rows >= 2)
+                        CONST_IF (b_rows >= 2)
                         {
                             q[1] = ptrBElement[2 + rowSkip];
                             Z[0][1] += p[0] * q[1];
                         }
                         p[1] = ptrLElement[2 + rowSkip];
                         Z[1][0] += p[1] * q[0];
-                        if (b_rows >= 2)
+                        CONST_IF (b_rows >= 2)
                         {
                             Z[1][1] += p[1] * q[1];
                         }
@@ -838,14 +838,14 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                         p[0] = ptrLElement[3];
                         q[0] = ptrBElement[3];
                         Z[0][0] += p[0] * q[0];
-                        if (b_rows >= 2)
+                        CONST_IF (b_rows >= 2)
                         {
                             q[1] = ptrBElement[3 + rowSkip];
                             Z[0][1] += p[0] * q[1];
                         }
                         p[1] = ptrLElement[3 + rowSkip];
                         Z[1][0] += p[1] * q[0];
-                        if (b_rows >= 2)
+                        CONST_IF (b_rows >= 2)
                         {
                             Z[1][1] += p[1] * q[1];
                         }
@@ -907,7 +907,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                 {
                     /* finish computing the X(i) block */
                     Y[0][0] = ptrBElement[0] - Z[0][0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         Y[0][1] = ptrBElement[rowSkip] - Z[0][1];
                     }
@@ -915,7 +915,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                     dReal p2 = ptrLElement[rowSkip];
 
                     Y[1][0] = ptrBElement[1] - Z[1][0] - p2 * Y[0][0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         Y[1][1] = ptrBElement[1 + rowSkip] - Z[1][1] - p2 * Y[0][1];
                     }
@@ -1028,14 +1028,14 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                     p[0] = ptrLElement[0];
                     q[0] = ptrBElement[0];
                     Z[0][0] += p[0] * q[0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         q[1] = ptrBElement[rowSkip];
                         Z[0][1] += p[0] * q[1];
                     }
                     p[1] = ptrLElement[rowSkip];
                     Z[1][0] += p[1] * q[0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         Z[1][1] += p[1] * q[1];
                     }
@@ -1044,14 +1044,14 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                     p[0] = ptrLElement[1];
                     q[0] = ptrBElement[1];
                     Z[0][0] += p[0] * q[0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         q[1] = ptrBElement[1 + rowSkip];
                         Z[0][1] += p[0] * q[1];
                     }
                     p[1] = ptrLElement[1 + rowSkip];
                     Z[1][0] += p[1] * q[0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         Z[1][1] += p[1] * q[1];
                     }
@@ -1123,7 +1123,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                 {
                     /* finish computing the X(i) block */
                     Y[0][0] = ptrBElement[0] - Z[0][0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         Y[0][1] = ptrBElement[rowSkip] - Z[0][1];
                     }
@@ -1131,7 +1131,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                     dReal p2 = ptrLElement[rowSkip];
 
                     Y[1][0] = ptrBElement[1] - Z[1][0] - p2 * Y[0][0];
-                    if (b_rows >= 2)
+                    CONST_IF (b_rows >= 2)
                     {
                         Y[1][1] = ptrBElement[1 + rowSkip] - Z[1][1] - p2 * Y[0][1];
                     }
@@ -1197,7 +1197,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                 // Assign the computation results to their places in the matrix
                 ptrBElement[0] = Y[0][0];
                 ptrBElement[1] = Y[1][0];
-                if (b_rows >= 2)
+                CONST_IF (b_rows >= 2)
                 {
                     ptrBElement[rowSkip] = Y[0][1];
                     ptrBElement[1 + rowSkip] = Y[1][1];
@@ -1306,46 +1306,46 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
             dReal p1, q1, p2, q2, dd;
 
             p1 = ptrAElement[0];
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 p2 = ptrAElement[rowSkip];
             }
             dd = ptrDElement[0 * d_stride];
             q1 = p1 * dd;
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 q2 = p2 * dd;
             }
             ptrAElement[0] = q1;
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 ptrAElement[rowSkip] = q2;
             }
             sameZ[0] += p1 * q1;
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 sameZ[1] += p2 * q2;
                 mixedZ[0] += p2 * q1;
             }
 
             p1 = ptrAElement[1];
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 p2 = ptrAElement[1 + rowSkip];
             }
             dd = ptrDElement[1 * d_stride];
             q1 = p1 * dd;
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 q2 = p2 * dd;
             }
             ptrAElement[1] = q1;
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 ptrAElement[1 + rowSkip] = q2;
             }
             sameZ[0] += p1 * q1;
-            if (a_rows >= 2)
+            CONST_IF (a_rows >= 2)
             {
                 sameZ[1] += p2 * q2;
                 mixedZ[0] += p2 * q1;
@@ -1359,92 +1359,92 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
                 ptrDElement += 6 * d_stride;
 
                 p1 = ptrAElement[-4];
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     p2 = ptrAElement[-4 + rowSkip];
                 }
                 dd = ptrDElement[-4 * (int)d_stride];
                 q1 = p1 * dd;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     q2 = p2 * dd;
                 }
                 ptrAElement[-4] = q1;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     ptrAElement[-4 + rowSkip] = q2;
                 }
                 sameZ[0] += p1 * q1;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     sameZ[1] += p2 * q2;
                     mixedZ[0] += p2 * q1;
                 }
 
                 p1 = ptrAElement[-3];
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     p2 = ptrAElement[-3 + rowSkip];
                 }
                 dd = ptrDElement[-3 * (int)d_stride];
                 q1 = p1 * dd;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     q2 = p2 * dd;
                 }
                 ptrAElement[-3] = q1;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     ptrAElement[-3 + rowSkip] = q2;
                 }
                 sameZ[0] += p1 * q1;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     sameZ[1] += p2 * q2;
                     mixedZ[0] += p2 * q1;
                 }
 
                 p1 = ptrAElement[-2];
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     p2 = ptrAElement[-2 + rowSkip];
                 }
                 dd = ptrDElement[-2 * (int)d_stride];
                 q1 = p1 * dd;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     q2 = p2 * dd;
                 }
                 ptrAElement[-2] = q1;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     ptrAElement[-2 + rowSkip] = q2;
                 }
                 sameZ[0] += p1 * q1;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     sameZ[1] += p2 * q2;
                     mixedZ[0] += p2 * q1;
                 }
 
                 p1 = ptrAElement[-1];
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     p2 = ptrAElement[-1 + rowSkip];
                 }
                 dd = ptrDElement[-1 * (int)d_stride];
                 q1 = p1 * dd;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     q2 = p2 * dd;
                 }
                 ptrAElement[-1] = q1;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     ptrAElement[-1 + rowSkip] = q2;
                 }
                 sameZ[0] += p1 * q1;
-                if (a_rows >= 2)
+                CONST_IF (a_rows >= 2)
                 {
                     sameZ[1] += p2 * q2;
                     mixedZ[0] += p2 * q1;
@@ -1501,7 +1501,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
         dReal Y11, Y21, Y22;
         
         Y11 = ptrAElement[0] - sameZ[0];
-        if (a_rows >= 2)
+        CONST_IF (a_rows >= 2)
         {
             Y21 = ptrAElement[rowSkip] - mixedZ[0];
             Y22 = ptrAElement[1 + rowSkip] - sameZ[1];
@@ -1514,7 +1514,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
         ptrDElement[0 * d_stride] = dd;
         dIASSERT(ptrDElement == d + (sizeint)factorizationRow * d_stride);
 
-        if (a_rows >= 2)
+        CONST_IF (a_rows >= 2)
         {
             /* factorize row 2 */
             dReal q2 = Y21 * dd;
