@@ -612,35 +612,35 @@ target_include_directories(
 )
 
 if(ODE_16BIT_INDICES)
-	target_compile_definitions(ODE PRIVATE -DdTRIMESH_16BIT_INDICES)
+	target_compile_definitions(ODE PUBLIC -DdTRIMESH_16BIT_INDICES)
 endif()
 
 if(NOT ODE_NO_BUILTIN_THREADING_IMPL)
-	target_compile_definitions(ODE PRIVATE -DdBUILTIN_THREADING_IMPL_ENABLED)
+	target_compile_definitions(ODE PUBLIC -DdBUILTIN_THREADING_IMPL_ENABLED)
 endif()
 
 if(ODE_NO_THREADING_INTF)
-	target_compile_definitions(ODE PRIVATE -DdTHREADING_INTF_DISABLED)
+	target_compile_definitions(ODE PUBLIC -DdTHREADING_INTF_DISABLED)
 endif()
 
 if(ODE_WITH_GIMPACT)
-	target_compile_definitions(ODE PRIVATE -DdTRIMESH_ENABLED -DdTRIMESH_GIMPACT)
-	target_include_directories(ODE PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/GIMPACT/include>)
+	target_compile_definitions(ODE PUBLIC -DdTRIMESH_ENABLED -DdTRIMESH_GIMPACT)
+	target_include_directories(ODE PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/GIMPACT/include>)
 endif()
 
 if(ODE_WITH_LIBCCD)
 	if(ODE_WITH_LIBCCD_SYSTEM)
 		find_package(ccd REQUIRED)
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_ENABLED -DdLIBCCD_SYSTEM)
+		target_compile_definitions(ODE PUBLIC -DdLIBCCD_ENABLED -DdLIBCCD_SYSTEM)
 		target_include_directories(
 			ODE
 			PRIVATE
 			$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libccd/src/custom>
 		)
 		if(TARGET ccd::ccd)
-			target_link_libraries(ODE PRIVATE ccd::ccd)
+			target_link_libraries(ODE PUBLIC ccd::ccd)
 		else()
-			target_link_libraries(ODE PRIVATE ccd)
+			target_link_libraries(ODE PUBLIC ccd)
 		endif()
 	else()
 		target_compile_definitions(ODE PRIVATE -DdLIBCCD_ENABLED -DdLIBCCD_INTERNAL)
@@ -653,57 +653,57 @@ if(ODE_WITH_LIBCCD)
 	endif()
 	
 	if(ODE_WITH_LIBCCD_BOX_CYL)
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_BOX_CYL)
+		target_compile_definitions(ODE PUBLIC -DdLIBCCD_BOX_CYL)
 	endif()
 	
 	if(ODE_WITH_LIBCCD_CAP_CYL)
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_CAP_CYL)
+		target_compile_definitions(ODE PUBLIC -DdLIBCCD_CAP_CYL)
 	endif()
 	
 	if(ODE_WITH_LIBCCD_CYL_CYL)
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_CYL_CYL)
+		target_compile_definitions(ODE PUBLIC -DdLIBCCD_CYL_CYL)
 	endif()
 	
 	if(ODE_WITH_LIBCCD_CONVEX_BOX)
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_CONVEX_BOX)
+		target_compile_definitions(ODE PUBLIC -DdLIBCCD_CONVEX_BOX)
 	endif()
 	
 	if(ODE_WITH_LIBCCD_CONVEX_CAP)
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_CONVEX_CAP)
+		target_compile_definitions(ODE PUBLIC -DdLIBCCD_CONVEX_CAP)
 	endif()
 	
 	if(ODE_WITH_LIBCCD_CONVEX_CONVEX)
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_CONVEX_CONVEX)
+		target_compile_definitions(ODE PUBLIC -DdLIBCCD_CONVEX_CONVEX)
 	endif()
 	
 	if(ODE_WITH_LIBCCD_CONVEX_CYL)
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_CONVEX_CYL)
+		target_compile_definitions(ODE PUBLIC -DdLIBCCD_CONVEX_CYL)
 	endif()
 	
 	if(ODE_WITH_LIBCCD_CONVEX_SPHERE)
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_CONVEX_SPHERE)
+		target_compile_definitions(ODE PUBLIC -DdLIBCCD_CONVEX_SPHERE)
 	endif()
 endif()
 
 if(ODE_WITH_OPCODE)
-	target_compile_definitions(ODE PRIVATE -DdTRIMESH_ENABLED -DdTRIMESH_OPCODE)
+	target_compile_definitions(ODE PUBLIC -DdTRIMESH_ENABLED -DdTRIMESH_OPCODE)
 	
 	if(ODE_OLD_TRIMESH)
-		target_compile_definitions(ODE PRIVATE -DdTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
+		target_compile_definitions(ODE PUBLIC -DdTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
 	endif()
 	
 	target_include_directories(
 		ODE
-		PRIVATE
+		PUBLIC
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/OPCODE>
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/OPCODE/Ice>
 	)
 endif()
 
 if(ODE_WITH_OU)
-	target_compile_definitions(ODE PRIVATE -DdATOMICS_ENABLED -DdTLS_ENABLED)
+	target_compile_definitions(ODE PUBLIC -DdATOMICS_ENABLED -DdTLS_ENABLED)
 elseif(NOT ODE_NO_THREADING_INTF)
-	target_compile_definitions(ODE PRIVATE -DdATOMICS_ENABLED)
+	target_compile_definitions(ODE PUBLIC -DdATOMICS_ENABLED)
 endif()
 
 if(ODE_WITH_OU OR NOT ODE_NO_THREADING_INTF)
@@ -1016,7 +1016,9 @@ install(
 )
 
 configure_file(cmake/cmake_uninstall.cmake.in cmake_uninstall.cmake @ONLY)
-add_custom_target(uninstall ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+if(PROJECT_IS_TOP_LEVEL)
+	add_custom_target(uninstall ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+endif()
 
 # clang-format and clang-tidy targets (operate on git-modified files only)
 find_program(CLANG_FORMAT clang-format)
