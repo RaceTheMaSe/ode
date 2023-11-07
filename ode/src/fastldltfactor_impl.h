@@ -34,6 +34,10 @@
 #include "error.h"
 #include "common.h"
 
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning (disable: 4789) // NOTE: false positive
+#endif
 
 static void solveL1Stripe_2 (const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip);
 template<unsigned int d_stride>
@@ -1526,5 +1530,8 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
     }
 }
 
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 #endif // #ifndef _ODE_FASTLDLT_IMPL_H_
