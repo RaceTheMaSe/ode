@@ -45,7 +45,7 @@
 //****************************************************************************
 // function prototypes
 void addObjectToList (dObject *obj, dObject **first);
-extern "C" void dTestDataStructures();
+extern "C" ODE_API void dTestDataStructures();
 
 //****************************************************************************
 // utility
@@ -2226,8 +2226,9 @@ dReal dWorldGetContactSurfaceLayer (dWorldID w)
 
 #define DO(x)
 
+#define LOOP_ITERATIONS 100000
 
-extern "C" void dTestDataStructures()
+extern "C" ODE_API void dTestDataStructures()
 {
     int i;
     DO(printf ("testDynamicsStuff()\n"));
@@ -2244,7 +2245,7 @@ extern "C" void dTestDataStructures()
     dWorldID w = dWorldCreate();
     checkWorld (w);
 
-    for (;;) {
+    for (i=0;i<LOOP_ITERATIONS;i++) {
         if (nb < NUM && dRandReal() > 0.5) {
             DO(printf ("creating body\n"));
             body[nb] = dBodyCreate (w);

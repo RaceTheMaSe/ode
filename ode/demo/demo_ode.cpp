@@ -1376,7 +1376,7 @@ int main()
     testRotationFunctions();
     dTestMatrixComparison();
     dTestSolveLCP();
-    // dTestDataStructures();
+    dTestDataStructures();
     dCloseODE();
     return 0;
 }

@@ -1297,7 +1297,7 @@ void dWorldImpulseToForce (dWorldID w, dReal stepsize,
 #define DO(x)
 
 
-extern "C" void dTestDataStructures()
+extern "C" ODE_API void dTestDataStructures()
 {
   int i;
   DO(printf ("testDynamicsStuff()\n"));
