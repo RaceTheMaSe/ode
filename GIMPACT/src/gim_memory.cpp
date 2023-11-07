@@ -119,7 +119,13 @@ gim_free_function  *gim_get_free_handler ()
 }
 
 
-void * gim_alloc(size_t size)
+#if defined(__GNUC__)
+#define ODE_MALLOC __attribute__((malloc))
+#else
+#define ODE_MALLOC
+#endif
+
+void * ODE_MALLOC gim_alloc(size_t size)
 {
   void * ptr;
 /*
