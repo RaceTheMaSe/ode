@@ -88,6 +88,8 @@ set(ODE_WIN32_STATIC_LIB_POSTFIX_MINSIZEREL "s" CACHE STRING "The postfix to use
 set(ODE_WIN32_STATIC_LIB_POSTFIX_RELEASE "s" CACHE STRING "The postfix to use when building the library as a static .lib on Windows in RELEASE.")
 set(ODE_WIN32_STATIC_LIB_POSTFIX_RELWITHDEBINFO "s" CACHE STRING "The postfix to use when building the library as a static .lib on Windows in RELWITHDEBINFO.")
 
+option(ODE_DOCUMENTATION "Build doxygen documentation" OFF)
+
 cmake_push_check_state(RESET)
 
 if(ODE_WITH_DEMOS)
@@ -1171,6 +1173,50 @@ else()
 endif()
 
 include(CPack)
+
+if(ODE_DOCUMENTATION)
+	find_package(Doxygen)
+	if (DOXYGEN_FOUND)
+		set(top_srcdir   ${CMAKE_CURRENT_SOURCE_DIR})
+		set(top_builddir ${CMAKE_CURRENT_BINARY_DIR})
+		set(DOXYFILE_IN  ${CMAKE_CURRENT_SOURCE_DIR}/ode/doc/Doxyfile.in)
+		set(DOXYFILE     ${CMAKE_CURRENT_BINARY_DIR}/ode/doc/Doxyfile)
+		configure_file(${DOXYFILE_IN} ${DOXYFILE} @ONLY)
+		file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc)
+		if(CMAKE_VERSION VERSION_GREATER 3.8)
+			file(GLOB ALL_DOCUMENTED_FILES include/ode/*.h)
+			file(GLOB BUILT_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/include/ode/*)
+			list(APPEND ALL_DOCUMENTED_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ode/doc/main.dox)
+			list(APPEND ALL_DOCUMENTED_FILES ${BUILT_HEADERS})
+            doxygen_add_docs(
+                ${PROJECT_NAME}Documentation
+                ${ALL_DOCUMENTED_FILES}
+                USE_STAMP_FILE
+				WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc
+                COMMENT "Building Doxygen documention"
+                CONFIG_FILE ${DOXYFILE}
+            )
+			set(DOCUMENTATION_ZIP doxygen.zip)
+			set(DOCUMENTATION_ZIP_TARGET ${CMAKE_CURRENT_BINARY_DIR}/${DOCUMENTATION_ZIP})
+			set(DOCUMENTATION_ZIP_COMMAND ${CMAKE_COMMAND} -E tar cf ${DOCUMENTATION_ZIP} --format=zip "${CMAKE_CURRENT_BINARY_DIR}/doc")
+        	add_custom_command(
+				OUTPUT ${DOCUMENTATION_ZIP_TARGET}
+				COMMAND ${DOCUMENTATION_ZIP_COMMAND}
+				COMMENT "Creating zip of documentation"
+				DEPENDS ${PROJECT_NAME}Documentation
+			)
+			add_custom_target(${PROJECT_NAME}_doc_zip ALL DEPENDS ${DOCUMENTATION_ZIP_TARGET} ${PROJECT_NAME})
+			install(FILES ${DOCUMENTATION_ZIP_TARGET} DESTINATION share/ode COMPONENT documentation)
+		else()
+			# not automatically built with 'make install'! fails silently by copying an empty directory if not built
+			add_custom_target(doc ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
+				WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc
+				COMPONENT documentation
+				COMMENT "Building Doxygen documentation" VERBATIM) 
+			install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc DESTINATION share/ode COMPONENT documentation)
+		endif()
+	endif()
+endif()
 
 MACRO(ENABLE_ANALYZER_OPTION OPTION_NAME)
 	target_compile_options(${PROJECT_NAME} PRIVATE ${OPTION_NAME})
