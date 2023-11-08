@@ -2,7 +2,7 @@
 #define GIM_CONTACT_H_INCLUDED
 
 /*! \file gim_contact.h
-\author Francisco Le�n
+\author Francisco León
 */
 /*
 -----------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 #define GIMPACT_H_INCLUDED
 
 /*! \file gimpact.h
-\author Francisco Le�n
+\author Francisco León
 */
 /*
 -----------------------------------------------------------------------------

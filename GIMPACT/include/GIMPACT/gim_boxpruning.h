@@ -2,7 +2,7 @@
 #define GIM_BOXPRUNING_H_INCLUDED
 
 /*! \file gim_boxpruning.h
-\author Francisco Le�n
+\author Francisco León
 */
 /*
 -----------------------------------------------------------------------------

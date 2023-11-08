@@ -2,7 +2,7 @@
 #define GIM_VECTOR_H_INCLUDED
 
 /*! \file gim_geometry.h
-\author Francisco Le�n
+\author Francisco León
 */
 /*
 -----------------------------------------------------------------------------

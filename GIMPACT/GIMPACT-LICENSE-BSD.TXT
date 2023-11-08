@@ -1,6 +1,6 @@
 GIMPACT : Geometric tools for VR.
 
-Copyright  (c) 2006 , Francisco León.
+Copyright  (c) 2006 , Francisco LeÃ³n.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,

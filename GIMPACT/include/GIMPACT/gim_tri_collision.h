@@ -2,7 +2,7 @@
 #define GIM_TRI_COLLISION_H_INCLUDED
 
 /*! \file gim_tri_collision.h
-\author Francisco Le�n N�jera
+\author Francisco León Nájera
 */
 /*
 -----------------------------------------------------------------------------
