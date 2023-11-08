@@ -316,23 +316,20 @@ ODE_API void dWorldCleanupWorkingMemory(dWorldID w);
  * @struct dWorldStepReserveInfo
  * @brief Memory reservation policy descriptor structure for world stepping functions.
  *
- * @c struct_size should be assigned the size of the structure.
- *
- * @c reserve_factor is a quotient that is multiplied by required memory size
- *  to allocate extra reserve whenever reallocation is needed.
- *
- * @c reserve_minimum is a minimum size that is checked against whenever reallocation 
- * is needed to allocate expected working memory minimum at once without extra 
- * reallocations as number of bodies/joints grows.
- *
  * @ingroup world
  * @see dWorldSetStepMemoryReservationPolicy
  */
 typedef struct
 {
-  unsigned struct_size;
-  float reserve_factor; /* Use float as precision does not matter here*/
+  unsigned struct_size; /**< should be assigned the size of the structure */
+  /* Use float as precision does not matter here: */ 
+  float reserve_factor; 
+  /**< is a quotient that is multiplied by required memory size
+       to allocate extra reserve whenever reallocation is needed */
   unsigned reserve_minimum;
+  /**< is a minimum size that is checked against whenever reallocation
+       is needed to allocate expected working memory minimum at once
+       without extra reallocations as number of bodies/joints grows */
 
 } dWorldStepReserveInfo;
 
@@ -370,25 +367,18 @@ ODE_API int dWorldSetStepMemoryReservationPolicy(dWorldID w, const dWorldStepRes
 * This structure is intended to define the functions of memory manager to be used
 * with world stepping functions.
 *
-* @c struct_size should be assigned the size of the structure
-*
-* @c alloc_block is a function to allocate memory block of given size.
-*
-* @c shrink_block is a function to shrink existing memory block to a smaller size.
-* It must preserve the contents of block head while shrinking. The new block size
-* is guaranteed to be always less than the existing one.
-*
-* @c free_block is a function to delete existing memory block.
-*
 * @ingroup init
 * @see dWorldSetStepMemoryManager
 */
 typedef struct 
 {
-  unsigned struct_size;
-  void *(*alloc_block)(dsizeint block_size);
+  unsigned struct_size; /**< should be assigned the size of the structure */
+  void *(*alloc_block)(dsizeint block_size); /**< is a function to allocate memory block of given size */
   void *(*shrink_block)(void *block_pointer, dsizeint block_current_size, dsizeint block_smaller_size);
-  void (*free_block)(void *block_pointer, dsizeint block_current_size);
+  /**< is a function to shrink existing memory block to a smaller size.
+       It must preserve the contents of block head while shrinking.
+       The new block size is guaranteed to be always less than the existing one */
+  void (*free_block)(void *block_pointer, dsizeint block_current_size); /**< is a function to delete existing memory block */
 
 } dWorldStepMemoryFunctionsInfo;
 
