@@ -4,6 +4,10 @@ project(ODE)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
+if(NOT CMAKE_BUILD_TYPE)
+	set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "" FORCE)
+endif()
+
 include(CheckFunctionExists)
 include(CheckIncludeFiles)
 include(CMakeDependentOption)
@@ -565,7 +569,7 @@ target_compile_definitions(
 	-D_OU_NAMESPACE=${_OU_NAMESPACE}
 	-D_OU_FEATURE_SET=${_OU_FEATURE_SET}
 	-D_OU_TARGET_OS=${_OU_TARGET_OS}
-	$<$<NOT:$<CONFIG:Debug>>:dNODEBUG>
+	$<$<NOT:$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>>:dNODEBUG>
 	-DdOU_ENABLED
 )
 
