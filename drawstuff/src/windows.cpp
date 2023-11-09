@@ -692,6 +692,7 @@ HWND getConsoleHwnd()
 static
 void allocateConsole()
 {
+    FreeConsole();
     if (!AllocConsole()) {
         dsError("AllocConsole() failed");
     }
