@@ -101,8 +101,6 @@ enum dxRandomReorderStage
 struct IndexError;
 
 
-#define dMIN(A,B)  ((A)>(B) ? (B) : (A))
-#define dMAX(A,B)  ((B)>(A) ? (B) : (A))
 #define dRESTRICT_STEP(step_size, limit) ((step_size) > 1U ? dMIN((step_size), (limit)) : (step_size))
 
 

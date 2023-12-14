@@ -44,9 +44,6 @@ dContactGeom::g1 and dContactGeom::g2.
 #endif
 
 
-#define dMAX(A,B)  ((A)>(B) ? (A) : (B))
-
-
 // flat cylinder public API
 
 dxCylinder::dxCylinder (dSpaceID space, dReal _radius, dReal _length) :

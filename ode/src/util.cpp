@@ -29,11 +29,6 @@
 
 #include <new>
 
-
-#define dMIN(A,B)  ((A)>(B) ? (B) : (A))
-#define dMAX(A,B)  ((B)>(A) ? (B) : (A))
-
-
 //****************************************************************************
 // Malloc based world stepping memory manager
 

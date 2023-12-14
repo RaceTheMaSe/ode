@@ -113,7 +113,7 @@ void ThreadedEquationSolverLDLT::doEstimateCooperativeFactoringLDLTResourceRequi
     unsigned blockFactorizingMaximumThreads = deriveScalingAndFactorizingL1StripeThreadCount(factorizingMaximalBlockCount, allowedThreadCount);
     unsigned simultaneousCallCount = 1 // Final synchronization point
         + 2 // intermediate synchronization points
-        + dMACRO_MAX(blockSolvingMaximumThreads, blockFactorizingMaximumThreads);
+        + dMAX(blockSolvingMaximumThreads, blockFactorizingMaximumThreads);
 
     FactorizationSolvingL1StripeMemoryEstimates solvingMemoryEstimates;
     FactorizationScalingAndFactorizingL1StripeMemoryEstimates scalingAndFactorizingEstimates;

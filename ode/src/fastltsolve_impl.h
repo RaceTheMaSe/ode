@@ -592,7 +592,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                     ? adjustedLastBElement - (sizeint)(completedRowBlock * block_step) * b_stride 
                     : lastBElement;
 
-                finalRowBlock = dMACRO_MIN(currentBlock, completedBlocks);
+                finalRowBlock = dMIN(currentBlock, completedBlocks);
                 dIASSERT(finalRowBlock != completedRowBlock || finalRowBlock == 0);
 
                 unsigned rowCounter = finalRowBlock - completedRowBlock;
@@ -684,7 +684,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                             // ...continue if so.
                             unsigned rowCompletedSoFar = finalRowBlock;
-                            finalRowBlock = dMACRO_MIN(currentBlock, completedBlocks);
+                            finalRowBlock = dMIN(currentBlock, completedBlocks);
                             rowCounter = finalRowBlock - rowCompletedSoFar;
                         }
                         while (false);
@@ -894,7 +894,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                             // ...continue if so.
                             unsigned rowCompletedSoFar = finalRowBlock;
-                            finalRowBlock = dMACRO_MIN(currentBlock, completedBlocks);
+                            finalRowBlock = dMIN(currentBlock, completedBlocks);
                             rowCounter = finalRowBlock - rowCompletedSoFar;
                         }
                     }

@@ -776,7 +776,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                 ptrBElement = B + completedColumnBlock * block_step;
 
                 /* the inner loop that computes outer products and adds them to Z */
-                finalColumnBlock = dMACRO_MIN(currentBlock, completedBlocks);
+                finalColumnBlock = dMIN(currentBlock, completedBlocks);
                 dIASSERT(completedColumnBlock != finalColumnBlock/* || currentBlock == 0*/);
 
                 // The iteration starts with even number and decreases it by 2. So, it must end in zero
@@ -888,7 +888,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
 
                             // ...continue if so.
                             unsigned columnCompletedSoFar = finalColumnBlock;
-                            finalColumnBlock = dMACRO_MIN(currentBlock, completedBlocks);
+                            finalColumnBlock = dMIN(currentBlock, completedBlocks);
                             columnCounter = finalColumnBlock - columnCompletedSoFar;
                         }
                     }
@@ -1289,7 +1289,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
 
     /* scale the elements in a 2 x i block at A(i,0), and also */
     /* compute Z = the outer product matrix that we'll need. */
-    dReal sameZ[a_rows] = { REAL(0.0), }, mixedZ[dMACRO_MAX(a_rows - 1, 1)] = { REAL(0.0), };
+    dReal sameZ[a_rows] = { REAL(0.0), }, mixedZ[dMAX(a_rows - 1, 1)] = { REAL(0.0), };
     bool doneAnything = false;
 
     const unsigned blockSize = deriveScalingAndFactorizingL1StripeBlockSize(a_rows);

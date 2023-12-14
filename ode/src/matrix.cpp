@@ -213,7 +213,7 @@ int dxInvertPDMatrix(const dReal *A, dReal *Ainv, unsigned n, void *tmpBuf/*[nsk
 
     sizeint choleskyFactorSize = dxEstimateFactorCholeskyTmpbufSize(n);
     sizeint choleskySolveSize = dxEstimateSolveCholeskyTmpbufSize(n);
-    sizeint choleskyMaxSize = dMACRO_MAX(choleskyFactorSize, choleskySolveSize);
+    sizeint choleskyMaxSize = dMAX(choleskyFactorSize, choleskySolveSize);
     dIASSERT(choleskyMaxSize % sizeof(dReal) == 0);
 
     const unsigned nskip = dPAD (n);

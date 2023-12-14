@@ -51,9 +51,6 @@
 #define EOK   0
 #endif
 
-#define dMIN(A,B)  ((A)>(B) ? (B) : (A))
-
-
 #endif // #if dBUILTIN_THREADING_IMPL_ENABLED
 
 

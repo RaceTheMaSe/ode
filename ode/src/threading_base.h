@@ -91,7 +91,7 @@ public:
         unsigned adjustedActiveThreads = countCallerAsExtraThread && activeThreadCount != UINT_MAX ? activeThreadCount + 1 : activeThreadCount;
         return limitValue == dTHREADING_THREAD_COUNT_UNLIMITED 
             ? adjustedActiveThreads 
-            : dMACRO_MIN(limitValue, adjustedActiveThreads);
+            : dMIN(limitValue, adjustedActiveThreads);
     }
 
 public:

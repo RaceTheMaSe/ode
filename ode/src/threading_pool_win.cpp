@@ -46,9 +46,6 @@
 #include <process.h>
 #include <new>
 
-#define dMIN(A,B)  ((A)>(B) ? (B) : (A))
-
-
 #endif // #if dBUILTIN_THREADING_IMPL_ENABLED
 
 

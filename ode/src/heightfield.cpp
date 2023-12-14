@@ -45,10 +45,6 @@
 #include "collision_trimesh_colliders.h"
 #endif // dTRIMESH_ENABLED
 
-#define dMIN(A,B)  ((A)>(B) ? (B) : (A))
-#define dMAX(A,B)  ((A)>(B) ? (A) : (B))
-
-
 // Three-way MIN and MAX
 #define dMIN3(A,B,C)	( (A)<(B) ? dMIN((A),(C)) : dMIN((B),(C)) )
 #define dMAX3(A,B,C)	( (A)>(B) ? dMAX((A),(C)) : dMAX((B),(C)) )
@@ -926,7 +922,7 @@ typedef dReal dGetDepthFn( dGeomID g, dReal x, dReal y, dReal z );
     pContact->pos[2],	\
     pContact->normal[0],	\
     pContact->normal[1],	\
-    pContact->normal[2]);
+    pContact->normal[2])
 
 static inline bool DescendingTriangleSort(const HeightFieldTriangle * const A, const HeightFieldTriangle * const B)
 {

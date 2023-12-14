@@ -126,7 +126,7 @@ private:
         dIASSERT(allowedThreadCount >= 1);
 
         unsigned maximumCount = blockCount / 2;
-        return maximumCount >= allowedThreadCount ? allowedThreadCount : dMACRO_MAX(maximumCount, 1U);
+        return maximumCount >= allowedThreadCount ? allowedThreadCount : dMAX(maximumCount, 1U);
     }
 
     static sizeint estimateCooperativelySolvingL1Stripe_XMemoryRequirement(unsigned blockCount, 
@@ -189,7 +189,7 @@ private:
         dIASSERT(blockCount != 0);
         dIASSERT(allowedThreadCount >= 1);
 
-        return dMACRO_MIN(blockCount, allowedThreadCount);
+        return dMIN(blockCount, allowedThreadCount);
     }
 
     struct FactorizationFactorizeL1StripeContext;
@@ -388,7 +388,7 @@ private:
     struct FactorizationFactorizeL1StripeThreadContext
     {
         template<unsigned int a_rows>
-        void assignDataSum(const dReal (&sameZ)[a_rows], const dReal (&mixedZ)[dMACRO_MAX(a_rows - 1, 1)], 
+        void assignDataSum(const dReal (&sameZ)[a_rows], const dReal (&mixedZ)[dMAX(a_rows - 1, 1)], 
             const FactorizationFactorizeL1StripeThreadContext &partialSumContext)
         {
             m_sameZ[0] = sameZ[0] + partialSumContext.m_sameZ[0];
@@ -400,7 +400,7 @@ private:
         }
 
         template<unsigned int a_rows>
-        void assignDataAlone(const dReal (&sameZ)[a_rows], const dReal (&mixedZ)[dMACRO_MAX(a_rows - 1, 1)])
+        void assignDataAlone(const dReal (&sameZ)[a_rows], const dReal (&mixedZ)[dMAX(a_rows - 1, 1)])
         {
             m_sameZ[0] = sameZ[0];
             CONST_IF (a_rows >= 2)
@@ -411,7 +411,7 @@ private:
         }
 
         template<unsigned int a_rows>
-        void retrieveData(dReal (&out_sameZ)[a_rows], dReal (&out_mixedZ)[dMACRO_MAX(a_rows - 1, 1)]) const
+        void retrieveData(dReal (&out_sameZ)[a_rows], dReal (&out_mixedZ)[dMAX(a_rows - 1, 1)]) const
         {
             out_sameZ[0] = m_sameZ[0];
             CONST_IF (a_rows >= 2)
@@ -423,7 +423,7 @@ private:
         }
 
         dReal m_sameZ[FFL1S_REGULAR_A_ROWS];
-        dReal m_mixedZ[dMACRO_MAX(FFL1S_REGULAR_A_ROWS - 1, 1)];
+        dReal m_mixedZ[dMAX(FFL1S_REGULAR_A_ROWS - 1, 1)];
         dReal m_reserved[1]; // [5]; // for alignment
     };
 
@@ -485,7 +485,7 @@ private:
         dIASSERT(allowedThreadCount >= 1);
 
         unsigned maximumCount = 1 + blockCount / SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM;
-        return maximumCount >= allowedThreadCount ? allowedThreadCount : dMACRO_MAX(maximumCount, 1U);
+        return maximumCount >= allowedThreadCount ? allowedThreadCount : dMAX(maximumCount, 1U);
     }
 
     template<unsigned int block_step>
@@ -743,7 +743,7 @@ private:
         dIASSERT(allowedThreadCount >= 1);
 
         unsigned maximumCount = lastBlockIndex;
-        return maximumCount >= allowedThreadCount ? allowedThreadCount : dMACRO_MAX(maximumCount, 1U);
+        return maximumCount >= allowedThreadCount ? allowedThreadCount : dMAX(maximumCount, 1U);
     }
 
     static void initializeCooperativelyScaleVectorMemoryStructures(atomicord32 &out_blockCompletionProgress)

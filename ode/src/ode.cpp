@@ -40,8 +40,6 @@
 #include "util.h"
 #include "odetls.h"
 
-#define dMAX(x, y) ((x) > (y) ? (x) : (y))
-
 //****************************************************************************
 // function prototypes
 void addObjectToList (dObject *obj, dObject **first);

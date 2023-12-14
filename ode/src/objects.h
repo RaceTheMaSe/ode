@@ -261,21 +261,21 @@ public:
         unsigned activeThreadCount=0, *ptrActiveThreadCountToUse = ptrOut_activeThreadCount != NULL ? &activeThreadCount : NULL;
         unsigned limitedCount = calculateThreadingLimitedThreadCount(islands_max_threads, false, ptrActiveThreadCountToUse);
         if (ptrOut_activeThreadCount != NULL) {
-            *ptrOut_activeThreadCount = dMACRO_MAX(activeThreadCount, 1U);
+            *ptrOut_activeThreadCount = dMAX(activeThreadCount, 1U);
         }
-        return dMACRO_MAX(limitedCount, 1U);
+        return dMAX(limitedCount, 1U);
     }
 
     unsigned calculatePerIslandSteppingMaxThreadCount() const
     {
         unsigned limitedCount = calculateThreadingLimitedThreadCount(stepping_max_threads, false);
-        return dMACRO_MAX(limitedCount, 1U);
+        return dMAX(limitedCount, 1U);
     }
 
     unsigned calculatePerIslandSolvingMaxThreadCount() const
     {
         unsigned limitedCount = calculateThreadingLimitedThreadCount(solving_max_threads, false);
-        return dMACRO_MAX(limitedCount, 1U);
+        return dMAX(limitedCount, 1U);
     }
 
     dxWorldProcessContext *unsafeGetWorldProcessingContext() const;

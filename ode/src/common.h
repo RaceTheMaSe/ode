@@ -55,11 +55,11 @@
 
 
 /*
- *	Macros for minimum and maximum (to be surly the macros
+ *	Macros for minimum and maximum
  */
 
-#define dMACRO_MAX(a, b) ((a) > (b) ? (a) : (b))
-#define dMACRO_MIN(a, b) ((a) < (b) ? (a) : (b))
+#define dMAX(a, b) ((a) > (b) ? (a) : (b))
+#define dMIN(a, b) ((a) < (b) ? (a) : (b))
 
 
 /*
@@ -96,8 +96,8 @@
 #endif // #ifndef dSINGLE
 
 
-#define dMaxIntExact dMACRO_MIN(dMaxExact, (dReal)INT_MAX)
-#define dMinIntExact dMACRO_MAX(dMinExact, (dReal)INT_MIN)
+#define dMaxIntExact dMIN(dMaxExact, (dReal)INT_MAX)
+#define dMinIntExact dMAX(dMinExact, (dReal)INT_MIN)
 
 /*
  *	Alignment related helpers
@@ -137,7 +137,7 @@
 
 #define dDERIVE_SIZE_UNION_PADDING_ELEMENTS(DataSize, ElementType) (((DataSize) + sizeof(ElementType) - 1) / sizeof(ElementType))
 #define dDERIVE_TYPE_UNION_PADDING_ELEMENTS(DataType, ElementType) dDERIVE_SIZE_UNION_PADDING_ELEMENTS(sizeof(DataType), ElementType)
-#define dDERIVE_SIZE_EXTRA_PADDING_ELEMENTS(DataSize, AlignmentSize, ElementType) (((dALIGN_SIZE(DataSize, dMACRO_MAX(AlignmentSize, sizeof(ElementType))) - (DataSize)) / sizeof(ElementType))
+#define dDERIVE_SIZE_EXTRA_PADDING_ELEMENTS(DataSize, AlignmentSize, ElementType) (((dALIGN_SIZE(DataSize, dMAX(AlignmentSize, sizeof(ElementType))) - (DataSize)) / sizeof(ElementType))
 
 
 
@@ -370,12 +370,12 @@ value_type dxClamp(const value_type &value, const lo_type &lo, const hi_type &hi
 // inline 
 // bool dxInRange(tvalueint viValue, tminint miMin, tmaxint miMax)
 // {
-//     return (typename _sized_unsigned<dMACRO_MAX(sizeof(tvalueint), sizeof(tminint))>::type)(viValue - miMin) < (typename _sized_unsigned<dMACRO_MAX(sizeof(tmaxint), sizeof(tminint))>::type)(miMax - miMin);
+//     return (typename _sized_unsigned<dMAX(sizeof(tvalueint), sizeof(tminint))>::type)(viValue - miMin) < (typename _sized_unsigned<dMAX(sizeof(tmaxint), sizeof(tminint))>::type)(miMax - miMin);
 // }
 // #define dIN_RANGE(aval, amin, amax) dxInRange(aval, amin, amax)
 
-#define dIN_RANGE(aval, amin, amax) ((_sized_unsigned<dMACRO_MAX(sizeof(aval), sizeof(amin))>::type)((_sized_unsigned<dMACRO_MAX(sizeof(aval), sizeof(amin))>::type)(aval) - (_sized_unsigned<dMACRO_MAX(sizeof(aval), sizeof(amin))>::type)(amin)) < (_sized_unsigned<dMACRO_MAX(sizeof(amax), sizeof(amin))>::type)((_sized_unsigned<dMACRO_MAX(sizeof(amax), sizeof(amin))>::type)(amax) - (_sized_unsigned<dMACRO_MAX(sizeof(amax), sizeof(amin))>::type)(amin)))
-#define dTMPL_IN_RANGE(aval, amin, amax) ((typename _sized_unsigned<dMACRO_MAX(sizeof(aval), sizeof(amin))>::type)((typename _sized_unsigned<dMACRO_MAX(sizeof(aval), sizeof(amin))>::type)(aval) - (typename _sized_unsigned<dMACRO_MAX(sizeof(aval), sizeof(amin))>::type)(amin)) < (typename _sized_unsigned<dMACRO_MAX(sizeof(amax), sizeof(amin))>::type)((typename _sized_unsigned<dMACRO_MAX(sizeof(amax), sizeof(amin))>::type)(amax) - (typename _sized_unsigned<dMACRO_MAX(sizeof(amax), sizeof(amin))>::type)(amin)))
+#define dIN_RANGE(aval, amin, amax) ((_sized_unsigned<dMAX(sizeof(aval), sizeof(amin))>::type)((_sized_unsigned<dMAX(sizeof(aval), sizeof(amin))>::type)(aval) - (_sized_unsigned<dMAX(sizeof(aval), sizeof(amin))>::type)(amin)) < (_sized_unsigned<dMAX(sizeof(amax), sizeof(amin))>::type)((_sized_unsigned<dMAX(sizeof(amax), sizeof(amin))>::type)(amax) - (_sized_unsigned<dMAX(sizeof(amax), sizeof(amin))>::type)(amin)))
+#define dTMPL_IN_RANGE(aval, amin, amax) ((typename _sized_unsigned<dMAX(sizeof(aval), sizeof(amin))>::type)((typename _sized_unsigned<dMAX(sizeof(aval), sizeof(amin))>::type)(aval) - (typename _sized_unsigned<dMAX(sizeof(aval), sizeof(amin))>::type)(amin)) < (typename _sized_unsigned<dMAX(sizeof(amax), sizeof(amin))>::type)((typename _sized_unsigned<dMAX(sizeof(amax), sizeof(amin))>::type)(amax) - (typename _sized_unsigned<dMAX(sizeof(amax), sizeof(amin))>::type)(amin)))
 #define dCLAMP(aval, alo, ahi) dxClamp(aval, alo, ahi)
 #define dARRAY_SIZE(aarr) (sizeof(aarr) / sizeof((aarr)[0]))
 #define dSTATIC_ARRAY_SIZE(aclass, aarr) dARRAY_SIZE(((aclass *)sizeof(void *))->aarr)

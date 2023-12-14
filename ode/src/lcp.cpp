@@ -147,10 +147,6 @@ rows/columns and manipulate C.
 
 //***************************************************************************
 
-#define dMIN(A,B)  ((A)>(B) ? (B) : (A))
-#define dMAX(A,B)  ((B)>(A) ? (B) : (A))
-
-
 #define LMATRIX_ALIGNMENT       dMAX(64, EFFICIENT_ALIGNMENT)
 
 //***************************************************************************

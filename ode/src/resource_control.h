@@ -69,9 +69,9 @@ public:
     void mergeAnotherDescriptorIn(sizeint memorySizeRequirement/*=0*/, unsigned memoryAlignmentRequirement,
         unsigned simultaneousCallRequirement/*=0*/, unsigned featureRequirement/*=0*/)
     {
-        m_memorySizeRequirement = dMACRO_MAX(m_memorySizeRequirement, memorySizeRequirement);
-        m_memoryAlignmentRequirement = dMACRO_MAX(m_memoryAlignmentRequirement, memoryAlignmentRequirement);
-        m_simultaneousCallRequirement = dMACRO_MAX(m_simultaneousCallRequirement, simultaneousCallRequirement);
+        m_memorySizeRequirement = dMAX(m_memorySizeRequirement, memorySizeRequirement);
+        m_memoryAlignmentRequirement = dMAX(m_memoryAlignmentRequirement, memoryAlignmentRequirement);
+        m_simultaneousCallRequirement = dMAX(m_simultaneousCallRequirement, simultaneousCallRequirement);
         mergeFeatureFlags(featureRequirement);
     }
 
