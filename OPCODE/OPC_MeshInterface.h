@@ -269,9 +269,9 @@
 	#ifdef OPC_USE_STRIDE
 						udword				mTriStride;			//!< Possible triangle stride in bytes [Opcode 1.3]
 						udword				mVertexStride;		//!< Possible vertex stride in bytes [Opcode 1.3]
-				typedef	void (MeshInterface:: *TriangleFetchProc)(VertexPointers& vp, udword index, ConversionArea vc) const;
+				typedef	void (MeshInterface::*TriangleFetchProc)(VertexPointers& vp, udword index, ConversionArea vc) const;
 						TriangleFetchProc	mFetchTriangle;
-				typedef	void (MeshInterface:: *ExTriangleFetchProc)(VertexPointersEx& vpe, udword index, ConversionArea vc) const;
+				typedef	void (MeshInterface::*ExTriangleFetchProc)(VertexPointersEx& vpe, udword index, ConversionArea vc) const;
 						ExTriangleFetchProc	mFetchExTriangle;
 	#endif
 						const	IndexedTriangle*	mTris;				//!< Array of indexed triangles
