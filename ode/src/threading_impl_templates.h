@@ -433,6 +433,7 @@ struct dxICallWait;
 class dxIThreadingImplementation
 {
 public:
+    virtual ~dxIThreadingImplementation() {}
     virtual void FreeInstance() = 0;
 
 public:

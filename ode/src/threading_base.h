@@ -42,6 +42,7 @@ struct dxIThreadingDefaultImplProvider
 {
 public:
     virtual const dxThreadingFunctionsInfo *retrieveThreadingDefaultImpl(dThreadingImplementationID &out_defaultImpl) = 0;
+    virtual ~dxIThreadingDefaultImplProvider() {}
 };
 
 

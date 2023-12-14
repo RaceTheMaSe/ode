@@ -99,6 +99,7 @@ enum FaceAngleDomain
 class IFaceAngleStorageControl
 {
 public:
+    virtual ~IFaceAngleStorageControl() {}
     virtual void disposeStorage() = 0;
 
     virtual bool areNegativeAnglesStored() const = 0;
@@ -110,6 +111,7 @@ public:
 class IFaceAngleStorageView
 {
 public:
+    virtual ~IFaceAngleStorageView() {}
     virtual FaceAngleDomain retrieveFacesAngleFromStorage(dReal &out_AngleValue, unsigned triangleIndex, dMeshTriangleVertex vertexIndex) = 0;
 };
 
