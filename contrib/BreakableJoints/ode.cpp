@@ -341,11 +341,6 @@ static void checkWorld (dxWorld *w)
 }
 
 
-void dWorldCheck (dxWorld *w)
-{
-  checkWorld (w);
-}
-
 //****************************************************************************
 // body
 

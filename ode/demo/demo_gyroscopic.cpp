@@ -32,10 +32,8 @@
 
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
-#define dsDrawSphere dsDrawSphereD
 #define dsDrawCylinder dsDrawCylinderD
 #define dsDrawCapsule dsDrawCapsuleD
-#define dsDrawConvex dsDrawConvexD
 #endif
 
 static bool write_world = false;

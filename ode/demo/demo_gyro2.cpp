@@ -39,9 +39,6 @@ A bunch of spheres with rolling friction.
 // select correct drawing functions
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
-#define dsDrawSphere dsDrawSphereD
-#define dsDrawCylinder dsDrawCylinderD
-#define dsDrawCapsule dsDrawCapsuleD
 #endif
 
 // dynamics and collision objects

@@ -47,7 +47,7 @@
 #define GPB 3			// maximum number of geometries per body
 #define MAX_CONTACTS 4		// maximum number of contact points per body
 #define WORLD_SIZE 20
-#define WORLD_HEIGHT 20
+// #define WORLD_HEIGHT 20
 
 
 // dynamics and collision objects

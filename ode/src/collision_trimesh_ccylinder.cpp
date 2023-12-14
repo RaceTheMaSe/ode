@@ -87,21 +87,6 @@
 #define SET(a,b) dCopyVector3(a, b)
 
 
-// dMatrix3
-// a=b
-#define SETM(a,b) dCopyMatrix4x4(a, b)
-
-
-// dVector3
-// r=a+b
-#define ADD(a,b,r) dAddVectors3(r, a, b)
-
-
-// dMatrix3, int, dVector3
-// v=column a from m
-#define GETCOL(m,a,v) dGetMatrixColumn3(v, m, a)
-
-
 // dVector4, dVector3
 // distance between plane p and point v
 #define POINTDISTANCE(p,v) dPointPlaneDistance(v, p)

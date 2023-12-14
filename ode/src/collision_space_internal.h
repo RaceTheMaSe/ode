@@ -29,8 +29,7 @@ stuff common to all spaces
 #ifndef _ODE_COLLISION_SPACE_INTERNAL_H_
 #define _ODE_COLLISION_SPACE_INTERNAL_H_
 
-#define ALLOCA(x) dALLOCA16(x)
-
+#include "collision_kernel.h"
 
 // collide two geoms together. for the hash table space, this is
 // called if the two AABBs inhabit the same hash table cells.

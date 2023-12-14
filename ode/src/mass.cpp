@@ -31,10 +31,9 @@
 
 #if dTRIMESH_ENABLED
 #include "collision_trimesh_internal.h"
-#endif // dTRIMESH_ENABLED
-
 #define	SQR(x)			((x)*(x))						//!< Returns x square
 #define	CUBE(x)			((x)*(x)*(x))					//!< Returns x cube
+#endif // dTRIMESH_ENABLED
 
 #define _I(i,j) I[(i)*4+(j)]
 

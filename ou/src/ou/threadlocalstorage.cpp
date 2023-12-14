@@ -41,7 +41,7 @@
 #include <errno.h>
 #include <new>
 
-#if !defined(EOK)
+#if !defined(EOK) && _OU_TARGET_OS != _OU_TARGET_OS_WINDOWS
 
 #define EOK		0
 

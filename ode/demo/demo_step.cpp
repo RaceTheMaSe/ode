@@ -38,10 +38,7 @@
 // select correct drawing functions
 
 #ifdef dDOUBLE
-#define dsDrawBox dsDrawBoxD
 #define dsDrawSphere dsDrawSphereD
-#define dsDrawCylinder dsDrawCylinderD
-#define dsDrawCapsule dsDrawCapsuleD
 #endif
 
 
@@ -49,9 +46,9 @@
 
 #define NUM 10			// number of bodies
 #define NUMJ 9			// number of joints
-#define SIDE (0.2)		// side length of a box
-#define MASS (1.0)		// mass of a box
-#define RADIUS (0.1732f)	// sphere radius
+// #define SIDE REAL(0.2)		// side length of a box
+// #define MASS REAL(1.0)		// mass of a box
+#define RADIUS REAL(0.1732)	// sphere radius
 
 
 

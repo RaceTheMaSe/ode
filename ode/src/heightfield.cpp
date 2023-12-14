@@ -916,6 +916,7 @@ dHeightfieldDataID dGeomHeightfieldGetHeightfieldData( dGeomID g )
 typedef dReal dGetDepthFn( dGeomID g, dReal x, dReal y, dReal z );
 
 
+#if 0
 #define DMESS(A)	\
     dMessage(0,"Contact Plane (%d %d %d) %.5e %.5e (%.5e %.5e %.5e)(%.5e %.5e %.5e)).",	\
     x,z,(A),	\
@@ -932,6 +933,7 @@ static inline bool DescendingTriangleSort(const HeightFieldTriangle * const A, c
 {
     return ((A->maxAAAB - B->maxAAAB) > dEpsilon);
 }
+#endif
 static inline bool DescendingPlaneSort(const HeightFieldPlane * const A, const HeightFieldPlane * const B)
 {
     return ((A->maxAAAB - B->maxAAAB) > dEpsilon);
@@ -961,6 +963,7 @@ void dxHeightfield::sortPlanes(const sizeint numPlanes)
     while (has_swapped);
 }
 
+#ifdef _HEIGHTFIELDEDGECOLLIDING
 static inline dReal DistancePointToLine(const dVector3 &_point,
                                         const dVector3 &_pt0,
                                         const dVector3 &_Edge,
@@ -975,6 +978,7 @@ static inline dReal DistancePointToLine(const dVector3 &_point,
     dVector3Subtract(v, s, v);
     return dVector3Length(v);
 }
+#endif
 
 
 

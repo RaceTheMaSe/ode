@@ -71,7 +71,7 @@
 #endif
 
 // constants to convert degrees to radians and the reverse
-#define RAD_TO_DEG (180.0/M_PI)
+// #define RAD_TO_DEG (180.0/M_PI)
 #define DEG_TO_RAD (M_PI/180.0)
 
 // light vector. LIGHTZ is implicitly 1

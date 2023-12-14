@@ -34,9 +34,6 @@
 
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
-#define dsDrawSphere dsDrawSphereD
-#define dsDrawCylinder dsDrawCylinderD
-#define dsDrawCapsule dsDrawCapsuleD
 #endif
 
 
@@ -45,7 +42,7 @@
 #define NUM 10			// number of boxes
 #define SIDE (0.2)		// side length of a box
 #define MASS (1.0)		// mass of a box
-#define RADIUS (0.1732f)	// sphere radius
+//#define RADIUS (0.1732f)	// sphere radius
 
 //using namespace ode;
 

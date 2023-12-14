@@ -40,7 +40,6 @@
 #define dsDrawSphere dsDrawSphereD
 #define dsDrawCylinder dsDrawCylinderD
 #define dsDrawCapsule dsDrawCapsuleD
-#define dsDrawConvex dsDrawConvexD
 #endif
 
 
@@ -50,7 +49,6 @@
 #define DENSITY (5.0)		// density of all objects
 #define GPB 3			// maximum number of geometries per body
 #define MAX_CONTACTS 8		// maximum number of contact points per body
-#define USE_GEOM_OFFSET 1
 
 // dynamics and collision objects
 

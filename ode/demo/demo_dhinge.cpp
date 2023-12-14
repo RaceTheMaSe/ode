@@ -25,7 +25,6 @@
 #include "texturepath.h"
 
 #ifdef dDOUBLE
-#define dsDrawSphere dsDrawSphereD
 #define dsDrawBox dsDrawBoxD
 #define dsDrawLine dsDrawLineD
 #endif

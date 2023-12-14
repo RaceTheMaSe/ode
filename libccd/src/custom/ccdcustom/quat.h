@@ -30,7 +30,7 @@ extern "C" {
 _ccd_inline void ccdQuatRotVec2(ccd_vec3_t *d, const ccd_vec3_t *s, const ccd_quat_t *q);
 
 
-_ccd_inline void ccdQuatRotVec2(ccd_vec3_t *d, const ccd_vec3_t *s, const ccd_quat_t *q)
+_ccd_inline void UNUSED_FUNCTION ccdQuatRotVec2(ccd_vec3_t *d, const ccd_vec3_t *s, const ccd_quat_t *q)
 {
 #ifndef dLIBCCD_USE_SYSTEM
     // original version: 31 mul + 21 add

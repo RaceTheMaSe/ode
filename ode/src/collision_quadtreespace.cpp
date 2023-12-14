@@ -32,12 +32,13 @@
 
 #include "collision_space_internal.h"
 
+//#define DRAWBLOCKS
 
 #define AXIS0 0
 #define AXIS1 1
+#if defined(DRAWBLOCKS)
 #define UP 2
-
-//#define DRAWBLOCKS
+#endif
 
 const int SPLITAXIS = 2;
 const int SPLITS = SPLITAXIS * SPLITAXIS;

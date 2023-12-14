@@ -202,7 +202,7 @@ ccd_real_t ccdVec3PointTriDist2(const ccd_vec3_t *P,
 
 
 /**** INLINES ****/
-_ccd_inline int ccdSign(ccd_real_t val)
+_ccd_inline UNUSED_FUNCTION int ccdSign(ccd_real_t val)
 {
     if (ccdIsZero(val)){
         return 0;
@@ -251,7 +251,7 @@ _ccd_inline ccd_real_t ccdVec3Z(const ccd_vec3_t *v)
     return v->v[2];
 }
 
-_ccd_inline int ccdVec3Eq(const ccd_vec3_t *a, const ccd_vec3_t *b)
+_ccd_inline UNUSED_FUNCTION int ccdVec3Eq(const ccd_vec3_t *a, const ccd_vec3_t *b)
 {
     return ccdEq(ccdVec3X(a), ccdVec3X(b))
             && ccdEq(ccdVec3Y(a), ccdVec3Y(b))
@@ -263,14 +263,14 @@ _ccd_inline ccd_real_t ccdVec3Len2(const ccd_vec3_t *v)
     return ccdVec3Dot(v, v);
 }
 
-_ccd_inline ccd_real_t ccdVec3Dist2(const ccd_vec3_t *a, const ccd_vec3_t *b)
+_ccd_inline UNUSED_FUNCTION ccd_real_t ccdVec3Dist2(const ccd_vec3_t *a, const ccd_vec3_t *b)
 {
     ccd_vec3_t ab;
     ccdVec3Sub2(&ab, a, b);
     return ccdVec3Len2(&ab);
 }
 
-_ccd_inline void ccdVec3Set(ccd_vec3_t *v, ccd_real_t x, ccd_real_t y, ccd_real_t z)
+_ccd_inline UNUSED_FUNCTION void ccdVec3Set(ccd_vec3_t *v, ccd_real_t x, ccd_real_t y, ccd_real_t z)
 {
     v->v[0] = x;
     v->v[1] = y;
@@ -282,7 +282,7 @@ _ccd_inline void ccdVec3Copy(ccd_vec3_t *v, const ccd_vec3_t *w)
     *v = *w;
 }
 
-_ccd_inline void ccdVec3Sub(ccd_vec3_t *v, const ccd_vec3_t *w)
+_ccd_inline UNUSED_FUNCTION void ccdVec3Sub(ccd_vec3_t *v, const ccd_vec3_t *w)
 {
     v->v[0] -= w->v[0];
     v->v[1] -= w->v[1];
@@ -296,7 +296,7 @@ _ccd_inline void ccdVec3Sub2(ccd_vec3_t *d, const ccd_vec3_t *v, const ccd_vec3_
     d->v[2] = v->v[2] - w->v[2];
 }
 
-_ccd_inline void ccdVec3Add(ccd_vec3_t *v, const ccd_vec3_t *w)
+_ccd_inline UNUSED_FUNCTION void ccdVec3Add(ccd_vec3_t *v, const ccd_vec3_t *w)
 {
     v->v[0] += w->v[0];
     v->v[1] += w->v[1];
@@ -310,7 +310,7 @@ _ccd_inline void ccdVec3Scale(ccd_vec3_t *d, ccd_real_t k)
     d->v[2] *= k;
 }
 
-_ccd_inline void ccdVec3Normalize(ccd_vec3_t *d)
+_ccd_inline UNUSED_FUNCTION void ccdVec3Normalize(ccd_vec3_t *d)
 {
     ccd_real_t k = CCD_ONE / CCD_SQRT(ccdVec3Len2(d));
     ccdVec3Scale(d, k);
@@ -326,7 +326,7 @@ _ccd_inline ccd_real_t ccdVec3Dot(const ccd_vec3_t *a, const ccd_vec3_t *b)
     return dot;
 }
 
-_ccd_inline void ccdVec3Cross(ccd_vec3_t *d, const ccd_vec3_t *a, const ccd_vec3_t *b)
+_ccd_inline UNUSED_FUNCTION void ccdVec3Cross(ccd_vec3_t *d, const ccd_vec3_t *a, const ccd_vec3_t *b)
 {
     d->v[0] = (a->v[1] * b->v[2]) - (a->v[2] * b->v[1]);
     d->v[1] = (a->v[2] * b->v[0]) - (a->v[0] * b->v[2]);

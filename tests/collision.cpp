@@ -14,6 +14,7 @@ TEST(test_collision_trimesh_sphere_exact)
      * Although GIMPACT is algorithmically able to handle this extreme case,
      * the numerical approximation used for the square root produces inexact results.
      */
+    CHECK(true); // unused testResults_
     return;
     #else
 
@@ -125,7 +126,7 @@ TEST(test_collision_heightfield_ray_fail)
         dGeomDestroy(ray);
         dGeomHeightfieldDataDestroy(heightfieldData);
 
-        CHECK(dataBuffer[0] == '1'); // added for unused testResults_ warning - remove if necessary as its not part of this testcase
+        CHECK(true); // unused testResults_
     }
 }
 

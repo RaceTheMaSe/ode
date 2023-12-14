@@ -8006,6 +8006,7 @@ static bool TestMalloc(unsigned int &nOutSuccessCount, unsigned int &nOutTestCou
 
 //////////////////////////////////////////////////////////////////////////
 
+#if defined(NDEBUG)
 static bool TestAsserts_FalseFunction(bool &bVarInvocation)
 {
 	bool bResult = true;
@@ -8019,6 +8020,7 @@ static bool TestAsserts_FalseFunction(bool &bVarInvocation)
 
 	return bResult;
 }
+#endif
 
 static bool TestAsserts_TrueFunction(bool &bVarInvocation)
 {

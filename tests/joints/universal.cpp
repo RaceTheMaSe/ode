@@ -39,10 +39,10 @@ static dReal d2r(dReal degree)
 {
     return degree * (dReal)(M_PI / 180.0);
 }
-dReal r2d(dReal degree)
-{
-    return degree * (dReal)(180.0/M_PI);
-}
+// static dReal r2d(dReal degree)
+// {
+//     return degree * (dReal)(180.0/M_PI);
+// }
 
 SUITE (TestdxJointUniversal)
 {

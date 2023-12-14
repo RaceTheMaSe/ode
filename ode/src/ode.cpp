@@ -40,15 +40,11 @@
 #include "util.h"
 #include "odetls.h"
 
-// misc defines
-#define ALLOCA dALLOCA16
-
 #define dMAX(x, y) ((x) > (y) ? (x) : (y))
 
 //****************************************************************************
 // function prototypes
 void addObjectToList (dObject *obj, dObject **first);
-static void dWorldCheck (dxWorld *w);
 extern "C" void dTestDataStructures();
 
 //****************************************************************************
@@ -221,11 +217,6 @@ static void checkWorld (dxWorld *w)
     }
 }
 
-
-static void dWorldCheck (dxWorld *w)
-{
-    checkWorld (w);
-}
 
 //****************************************************************************
 // body

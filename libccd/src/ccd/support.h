@@ -45,7 +45,7 @@ void __ccdSupport(const void *obj1, const void *obj2,
 
 
 /**** INLINES ****/
-_ccd_inline void ccdSupportCopy(ccd_support_t *d, const ccd_support_t *s)
+_ccd_inline UNUSED_FUNCTION void ccdSupportCopy(ccd_support_t *d, const ccd_support_t *s)
 {
     *d = *s;
 }

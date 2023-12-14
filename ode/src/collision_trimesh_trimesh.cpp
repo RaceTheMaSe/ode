@@ -51,12 +51,6 @@
 // New Implementation
 #if !dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER
 
-#define SMALL_ELT           REAL(2.5e-4)
-#define EXPANDED_ELT_THRESH REAL(1.0e-3)
-#define DISTANCE_EPSILON    REAL(1.0e-8)
-#define VELOCITY_EPSILON    REAL(1.0e-5)
-#define TINY_PENETRATION    REAL(5.0e-6)
-
 struct LineContactSet
 {
     enum
@@ -72,7 +66,7 @@ struct LineContactSet
 // function prototypes
 
 // static void GetTriangleGeometryCallback(udword, VertexPointers&, udword); -- not used
-static inline void dMakeMatrix4(const dVector3 Position, const dMatrix3 Rotation, dMatrix4 &B);
+// static inline void dMakeMatrix4(const dVector3 Position, const dMatrix3 Rotation, dMatrix4 &B);
 //static void dInvertMatrix4( dMatrix4& B, dMatrix4& Binv );
 //static int IntersectLineSegmentRay(dVector3, dVector3, dVector3, dVector3,  dVector3);
 static void ClipConvexPolygonAgainstPlane( const dVector3, dReal, LineContactSet& );
@@ -117,8 +111,6 @@ static bool TriTriContacts(const dVector3 tr1[3],
 //****************************************************************************
 
 /* some math macros */
-#define IS_ZERO(v) (!(v)[0] && !(v)[1] && !(v)[2])
-
 #define CROSS(dest,v1,v2) dCalcVectorCross3(dest, v1, v2)
 
 #define DOT(v1,v2) dCalcVectorDot3(v1, v2)
@@ -131,15 +123,11 @@ static bool TriTriContacts(const dVector3 tr1[3],
 
 #define SET(dest,src) dCopyVector3(dest, src)
 
-#define SMULT(p,q,s) dCopyScaledVector3(p, q, s)
-
 #define COMBO(combo,p,t,q) dAddVectorScaledVector3(combo, p, q, t)
 
 #define LENGTH(x) dCalcVectorLength3(x)
 
-#define DEPTH(d, p, q, n) d = dCalcPointDepth3(q, p, n)
-
-
+#if 0
 static inline 
 void SwapNormals(dVector3 *&pen_v, dVector3 *&col_v, dVector3* v1, dVector3* v2,
             dVector3 *&pen_elt, dVector3 *elt_f1, dVector3 *elt_f2,
@@ -158,6 +146,7 @@ void SwapNormals(dVector3 *&pen_v, dVector3 *&col_v, dVector3* v1, dVector3* v2,
         SET(n, n2);
     }
 }
+#endif
 
 ///////////////////////MECHANISM FOR AVOID CONTACT REDUNDANCE///////////////////////////////
 ////* Written by Francisco León (http://gimpact.sourceforge.net) *///
@@ -620,6 +609,8 @@ GetTriangleGeometryCallback(udword triangleindex, VertexPointers& triangle, udwo
 //
 //
 //
+
+#if 0
 #define B11   B[0]
 #define B12   B[1]
 #define B13   B[2]
@@ -664,7 +655,6 @@ void dMakeMatrix4(const dVector3 Position, const dMatrix3 Rotation, dMatrix4 &B)
     B14 = 0.0;         B24 = 0.0;         B34 = 0.0;            B44 = 1.0;
 }
 
-#if 0
 static void
 dInvertMatrix4( dMatrix4& B, dMatrix4& Binv )
 {

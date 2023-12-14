@@ -176,7 +176,7 @@ void ccdPtDumpSVT2(ccd_pt_t *pt, FILE *);
 
 
 /**** INLINES ****/
-_ccd_inline ccd_pt_vertex_t *ccdPtAddVertexCoords(ccd_pt_t *pt,
+_ccd_inline UNUSED_FUNCTION ccd_pt_vertex_t *ccdPtAddVertexCoords(ccd_pt_t *pt,
                                                   ccd_real_t x, ccd_real_t y, ccd_real_t z)
 {
     ccd_support_t s;
@@ -184,7 +184,7 @@ _ccd_inline ccd_pt_vertex_t *ccdPtAddVertexCoords(ccd_pt_t *pt,
     return ccdPtAddVertex(pt, &s);
 }
 
-_ccd_inline int ccdPtDelVertex(ccd_pt_t *pt, ccd_pt_vertex_t *v)
+_ccd_inline UNUSED_FUNCTION int ccdPtDelVertex(ccd_pt_t *pt, ccd_pt_vertex_t *v)
 {
     // test if any edge is connected to this vertex
     if (!ccdListEmpty(&v->edges))
@@ -248,7 +248,7 @@ _ccd_inline int ccdPtDelFace(ccd_pt_t *pt, ccd_pt_face_t *f)
     return 0;
 }
 
-_ccd_inline void ccdPtFaceVec3(const ccd_pt_face_t *face,
+_ccd_inline UNUSED_FUNCTION void ccdPtFaceVec3(const ccd_pt_face_t *face,
                                ccd_vec3_t **a,
                                ccd_vec3_t **b,
                                ccd_vec3_t **c)
@@ -264,10 +264,10 @@ _ccd_inline void ccdPtFaceVec3(const ccd_pt_face_t *face,
     }
 }
 
-_ccd_inline void ccdPtFaceVertices(const ccd_pt_face_t *face,
+_ccd_inline UNUSED_FUNCTION void ccdPtFaceVertices(const ccd_pt_face_t *face,
                                    ccd_pt_vertex_t **a,
                                    ccd_pt_vertex_t **b,
-                                   ccd_pt_vertex_t **c)
+                                   ccd_pt_vertex_t **c) 
 {
     *a = face->edge[0]->vertex[0];
     *b = face->edge[0]->vertex[1];
@@ -280,7 +280,7 @@ _ccd_inline void ccdPtFaceVertices(const ccd_pt_face_t *face,
     }
 }
 
-_ccd_inline void ccdPtFaceEdges(const ccd_pt_face_t *f,
+_ccd_inline UNUSED_FUNCTION void ccdPtFaceEdges(const ccd_pt_face_t *f,
                                 ccd_pt_edge_t **a,
                                 ccd_pt_edge_t **b,
                                 ccd_pt_edge_t **c)
@@ -290,7 +290,7 @@ _ccd_inline void ccdPtFaceEdges(const ccd_pt_face_t *f,
     *c = f->edge[2];
 }
 
-_ccd_inline void ccdPtEdgeVec3(const ccd_pt_edge_t *e,
+_ccd_inline UNUSED_FUNCTION void ccdPtEdgeVec3(const ccd_pt_edge_t *e,
                                ccd_vec3_t **a,
                                ccd_vec3_t **b)
 {
@@ -298,7 +298,7 @@ _ccd_inline void ccdPtEdgeVec3(const ccd_pt_edge_t *e,
     *b = &e->vertex[1]->v.v;
 }
 
-_ccd_inline void ccdPtEdgeVertices(const ccd_pt_edge_t *e,
+_ccd_inline UNUSED_FUNCTION void ccdPtEdgeVertices(const ccd_pt_edge_t *e,
                                    ccd_pt_vertex_t **a,
                                    ccd_pt_vertex_t **b)
 {
@@ -306,7 +306,7 @@ _ccd_inline void ccdPtEdgeVertices(const ccd_pt_edge_t *e,
     *b = e->vertex[1];
 }
 
-_ccd_inline void ccdPtEdgeFaces(const ccd_pt_edge_t *e,
+_ccd_inline UNUSED_FUNCTION void ccdPtEdgeFaces(const ccd_pt_edge_t *e,
                                 ccd_pt_face_t **f1,
                                 ccd_pt_face_t **f2)
 {

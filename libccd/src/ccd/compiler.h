@@ -57,5 +57,11 @@
 # pragma warning(disable:981)
 #endif /* __ICC */
 
+#ifdef __GNUC__
+#define UNUSED_FUNCTION __attribute__((unused))
+#else
+#define UNUSED_FUNCTION
+#endif
+
 #endif /* __CCD_COMPILER_H__ */
 

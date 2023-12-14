@@ -113,7 +113,7 @@ _ccd_inline int ccdQuatNormalize(ccd_quat_t *q)
     return 1;
 }
 
-_ccd_inline void ccdQuatSetAngleAxis(ccd_quat_t *q,
+_ccd_inline void UNUSED_FUNCTION ccdQuatSetAngleAxis(ccd_quat_t *q,
                                      ccd_real_t angle, const ccd_vec3_t *axis)
 {
     ccd_real_t a, x, y, z, n, s;
@@ -148,7 +148,7 @@ _ccd_inline void ccdQuatScale(ccd_quat_t *q, ccd_real_t k)
         q->q[i] *= k;
 }
 
-_ccd_inline void ccdQuatMul(ccd_quat_t *q, const ccd_quat_t *q2)
+_ccd_inline UNUSED_FUNCTION void ccdQuatMul(ccd_quat_t *q, const ccd_quat_t *q2)
 {
     ccd_quat_t a;
     ccdQuatCopy(&a, q);

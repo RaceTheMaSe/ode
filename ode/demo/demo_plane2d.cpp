@@ -37,8 +37,8 @@
 # define        STAGE_SIZE      8.0  // in m
 
 # define        TIME_STEP       0.01
-# define        K_SPRING        10.0
-# define        K_DAMP          10.0
+//# define        K_SPRING        10.0
+//# define        K_DAMP          10.0
 
 //using namespace ode;
 

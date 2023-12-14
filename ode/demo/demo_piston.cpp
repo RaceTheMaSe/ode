@@ -96,7 +96,7 @@ const int catBits[NUM_PARTS+1] =
 };
 
 #define Mass1 10
-#define Mass2 8
+// #define Mass2 8
 
 
 //camera view

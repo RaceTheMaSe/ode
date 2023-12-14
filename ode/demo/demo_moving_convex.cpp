@@ -37,8 +37,6 @@
 #define dsDrawSphere dsDrawSphereD
 #define dsDrawCylinder dsDrawCylinderD
 #define dsDrawCapsule dsDrawCapsuleD
-#define dsDrawLine dsDrawLineD
-#define dsDrawTriangle dsDrawTriangleD
 #define dsDrawConvex dsDrawConvexD
 #endif
 

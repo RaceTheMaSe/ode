@@ -56,9 +56,6 @@ slide.
 
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
-#define dsDrawSphere dsDrawSphereD
-#define dsDrawCylinder dsDrawCylinderD
-#define dsDrawCapsule dsDrawCapsuleD
 #endif
 
 

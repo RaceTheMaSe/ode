@@ -50,7 +50,6 @@
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
 #define dsDrawCylinder dsDrawCylinderD
-#define dsDrawCapsule dsDrawCapsuleD
 #endif
 
 enum IDX_CYL_DIM
@@ -114,7 +113,7 @@ const int catBits[LAST_INDEX_CNT] =
   };
 
 #define Mass1 10
-#define Mass2 8
+// #define Mass2 8
 
 
 //camera view

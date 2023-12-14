@@ -38,7 +38,6 @@
 #define dsDrawBox dsDrawBoxD
 #define dsDrawSphere dsDrawSphereD
 #define dsDrawCylinder dsDrawCylinderD
-#define dsDrawCapsule dsDrawCapsuleD
 #endif
 
 
@@ -53,7 +52,7 @@
 #define WMASS 1			// wheel mass
 #define COMOFFSET -5		// center of mass offset
 #define WALLMASS 1		// wall box mass
-#define BALLMASS 1		// ball mass
+//#define BALLMASS 1		// ball mass
 #define FMAX 25			// car engine fmax
 #define ROWS 1			// rows of cars
 #define COLS 1			// columns of cars

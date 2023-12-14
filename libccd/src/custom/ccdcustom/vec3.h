@@ -56,7 +56,7 @@ _ccd_inline void ccdVec3AddScaled(ccd_vec3_t *d, const ccd_vec3_t *v, const ccd_
 _ccd_inline int ccdVec3SafeNormalize(ccd_vec3_t *d);
 
 
-_ccd_inline void ccdVec3Add2(ccd_vec3_t *d, const ccd_vec3_t *v, const ccd_vec3_t *w)
+_ccd_inline UNUSED_FUNCTION void ccdVec3Add2(ccd_vec3_t *d, const ccd_vec3_t *v, const ccd_vec3_t *w)
 {
 #ifndef dLIBCCD_USE_SYSTEM
     d->v[0] = v->v[0] + w->v[0];
@@ -68,7 +68,7 @@ _ccd_inline void ccdVec3Add2(ccd_vec3_t *d, const ccd_vec3_t *v, const ccd_vec3_
 #endif
 }
 
-_ccd_inline void ccdVec3CopyScaled(ccd_vec3_t *d, const ccd_vec3_t *s, ccd_real_t k)
+_ccd_inline UNUSED_FUNCTION void ccdVec3CopyScaled(ccd_vec3_t *d, const ccd_vec3_t *s, ccd_real_t k)
 {
 #ifndef dLIBCCD_USE_SYSTEM
     d->v[0] = s->v[0] * k;
@@ -80,7 +80,7 @@ _ccd_inline void ccdVec3CopyScaled(ccd_vec3_t *d, const ccd_vec3_t *s, ccd_real_
 #endif
 }
 
-_ccd_inline void ccdVec3AddScaled(ccd_vec3_t *d, const ccd_vec3_t *v, const ccd_vec3_t *s, ccd_real_t k)
+_ccd_inline UNUSED_FUNCTION void ccdVec3AddScaled(ccd_vec3_t *d, const ccd_vec3_t *v, const ccd_vec3_t *s, ccd_real_t k)
 {
 #ifndef dLIBCCD_USE_SYSTEM
     d->v[0] = v->v[0] + s->v[0] * k;

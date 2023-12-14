@@ -1118,55 +1118,6 @@ dInvertMatrix4( dMatrix4& B, dMatrix4& Binv )
 #define EPSILON REAL(0.000001)
 
 
-/* sort so that a<=b */
-#define SORT(a,b)       \
-    if(a>b)    \
-    {          \
-        dReal c; \
-        c=a;     \
-        a=b;     \
-        b=c;     \
-    } do {} while(0)
-
-#define ISECT(VV0,VV1,VV2,D0,D1,D2,isect0,isect1) \
-    isect0=VV0+(VV1-VV0)*D0/(D0-D1);    \
-    isect1=VV0+(VV2-VV0)*D0/(D0-D2)
-
-
-#define COMPUTE_INTERVALS(VV0,VV1,VV2,D0,D1,D2,D0D1,D0D2,isect0,isect1) \
-    if(D0D1>0.0f)                                         \
-    {                                                     \
-        /* here we know that D0D2<=0.0 */                   \
-        /* that is D0, D1 are on the same side, D2 on the other or on the plane */ \
-        ISECT(VV2,VV0,VV1,D2,D0,D1,isect0,isect1);          \
-    }                                                     \
-    else if(D0D2>0.0f)                                    \
-    {                                                     \
-        /* here we know that d0d1<=0.0 */                   \
-        ISECT(VV1,VV0,VV2,D1,D0,D2,isect0,isect1);          \
-    }                                                     \
-    else if(D1*D2>0.0f || D0!=0.0f)                       \
-    {                                                     \
-        /* here we know that d0d1<=0.0 or that D0!=0.0 */   \
-        ISECT(VV0,VV1,VV2,D0,D1,D2,isect0,isect1);          \
-    }                                                     \
-    else if(D1!=0.0f)                                     \
-    {                                                     \
-        ISECT(VV1,VV0,VV2,D1,D0,D2,isect0,isect1);          \
-    }                                                     \
-    else if(D2!=0.0f)                                     \
-    {                                                     \
-        ISECT(VV2,VV0,VV1,D2,D0,D1,isect0,isect1);          \
-    }                                                     \
-    else                                                  \
-    {                                                     \
-        /* triangles are coplanar */                        \
-        return coplanar_tri_tri(N1,V0,V1,V2,U0,U1,U2);      \
-    }                                                     \
-    do {} while(0)
-
-
-
 /* this edge to edge test is based on Franlin Antonio's gem:
 "Faster Line Segment Intersection", in Graphics Gems III,
 pp. 199-202 */ 
@@ -1279,42 +1230,6 @@ static int coplanar_tri_tri(dReal N[3],dReal V0[3],dReal V1[3],dReal V2[3],
 
 
 
-#define NEWCOMPUTE_INTERVALS(VV0,VV1,VV2,D0,D1,D2,D0D1,D0D2,A,B,C,X0,X1) \
-{ \
-    if(D0D1>0.0f) \
-    { \
-        /* here we know that D0D2<=0.0 */ \
-        /* that is D0, D1 are on the same side, D2 on the other or on the plane */ \
-        A=VV2; B=(VV0-VV2)*D2; C=(VV1-VV2)*D2; X0=D2-D0; X1=D2-D1; \
-    } \
-    else if(D0D2>0.0f)\
-    { \
-        /* here we know that d0d1<=0.0 */ \
-        A=VV1; B=(VV0-VV1)*D1; C=(VV2-VV1)*D1; X0=D1-D0; X1=D1-D2; \
-    } \
-    else if(D1*D2>0.0f || D0!=0.0f) \
-    { \
-        /* here we know that d0d1<=0.0 or that D0!=0.0 */ \
-        A=VV0; B=(VV1-VV0)*D0; C=(VV2-VV0)*D0; X0=D0-D1; X1=D0-D2; \
-    } \
-    else if(D1!=0.0f) \
-    { \
-        A=VV1; B=(VV0-VV1)*D1; C=(VV2-VV1)*D1; X0=D1-D0; X1=D1-D2; \
-    } \
-    else if(D2!=0.0f) \
-    { \
-        A=VV2; B=(VV0-VV2)*D2; C=(VV1-VV2)*D2; X0=D2-D0; X1=D2-D1; \
-    } \
-    else \
-    { \
-        /* triangles are coplanar */ \
-        return coplanar_tri_tri(N1,V0,V1,V2,U0,U1,U2); \
-    } \
-} do{} while(0)
-
-
-
-
 /* sort so that a<=b */
 #define SORT2(a,b,smallest)       \
     if(a>b)       \
@@ -1395,41 +1310,6 @@ inline int compute_intervals_isectline(dReal VERT0[3],dReal VERT1[3],dReal VERT2
     }
     return 0;
 }
-
-#define COMPUTE_INTERVALS_ISECTLINE(VERT0,VERT1,VERT2,VV0,VV1,VV2,D0,D1,D2,D0D1,D0D2,isect0,isect1,isectpoint0,isectpoint1) \
-    if(D0D1>0.0f)                                         \
-    {                                                     \
-        /* here we know that D0D2<=0.0 */                   \
-        /* that is D0, D1 are on the same side, D2 on the other or on the plane */ \
-        isect2(VERT2,VERT0,VERT1,VV2,VV0,VV1,D2,D0,D1,&isect0,&isect1,isectpoint0,isectpoint1);          \
-    }                                                     
-#if 0
-    else if(D0D2>0.0f)                                    \
-    {                                                     \
-    /* here we know that d0d1<=0.0 */                   \
-    isect2(VERT1,VERT0,VERT2,VV1,VV0,VV2,D1,D0,D2,&isect0,&isect1,isectpoint0,isectpoint1);          \
-    }                                                     \
-    else if(D1*D2>0.0f || D0!=0.0f)                       \
-    {                                                     \
-    /* here we know that d0d1<=0.0 or that D0!=0.0 */   \
-    isect2(VERT0,VERT1,VERT2,VV0,VV1,VV2,D0,D1,D2,&isect0,&isect1,isectpoint0,isectpoint1);          \
-    }                                                     \
-    else if(D1!=0.0f)                                     \
-    {                                                     \
-    isect2(VERT1,VERT0,VERT2,VV1,VV0,VV2,D1,D0,D2,&isect0,&isect1,isectpoint0,isectpoint1);          \
-    }                                                     \
-    else if(D2!=0.0f)                                     \
-    {                                                     \
-    isect2(VERT2,VERT0,VERT1,VV2,VV0,VV1,D2,D0,D1,&isect0,&isect1,isectpoint0,isectpoint1);          \
-    }                                                     \
-    else                                                  \
-    {                                                     \
-    /* triangles are coplanar */                        \
-    coplanar=1;                                         \
-    return coplanar_tri_tri(N1,V0,V1,V2,U0,U1,U2);      \
-    }
-#endif
-
 
 
 static int TriTriIntersectWithIsectLine(dReal V0[3],dReal V1[3],dReal V2[3],

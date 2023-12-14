@@ -30,8 +30,7 @@
 //****************************************************************************
 // matrix sizes
 
-#define dALIGN_SIZE(buf_size, alignment) (((buf_size) + ((alignment) - 1)) & (int)(~((alignment) - 1))) // Casting the mask to int ensures sign-extension to larger integer sizes
-#define dALIGN_PTR(buf_ptr, alignment) ((void *)(((duintptr)(buf_ptr) + ((alignment) - 1)) & (int)(~((alignment) - 1)))) // Casting the mask to int ensures sign-extension to larger integer sizes
+#define dALIGN_SIZE(buf_size, alignment) (((buf_size) + (alignment - 1)) & (int)(~(alignment - 1))) // Casting the mask to int ensures sign-extension to larger integer sizes
 
 #define MSIZE 21
 #define MSIZE4 dALIGN_SIZE(MSIZE, 4)	// MSIZE rounded up to 4
@@ -793,7 +792,7 @@ static void testLDLTRemove()
 
 #define NUMP 10		// number of particles
 
-
+#if 0
 static void printMassParams (dMass *m)
 {
     printf ("mass = %.4f\n",m->mass);
@@ -805,7 +804,7 @@ static void printMassParams (dMass *m)
         m->_I(1,0),m->_I(1,1),m->_I(1,2),
         m->_I(2,0),m->_I(2,1),m->_I(2,2));
 }
-
+#endif
 
 static void compareMassParams (dMass *m1, dMass *m2, const char *msg)
 {

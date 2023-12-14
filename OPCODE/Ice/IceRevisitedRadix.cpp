@@ -58,14 +58,6 @@ using namespace IceCore;
 #define CURRENT_SIZE		(mCurrentSize&0x7fffffff)
 #define INVALID_RANKS		(mCurrentSize&0x80000000)
 
-#define CHECK_RESIZE(n)																		\
-	if(n!=mPreviousSize)																	\
-	{																						\
-				if(n>mCurrentSize)	Resize(n);												\
-		else						ResetRanks();											\
-		mPreviousSize = n;																	\
-	}
-
 #define CREATE_HISTOGRAMS(type, buffer)														\
 	/* Clear counters/histograms */															\
 	ZeroMemory(mHistogram, 256*4*sizeof(udword));											\

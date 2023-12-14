@@ -76,6 +76,7 @@ static const unsigned int polygons[] = //Polygons for a cube (6 squares)
   };
 //----> Convex Object
 
+#if 0
 static int tmTriangles[] = 
 {
     0,2,6,
@@ -106,6 +107,7 @@ static float tmVertices[] =
     0.25f,-0.25f,-0.25f,//  point 6
     -0.25f,-0.25f,-0.25f,// point 7
 };
+#endif
 
 // select correct drawing functions
 
@@ -114,7 +116,6 @@ static float tmVertices[] =
 #define dsDrawSphere dsDrawSphereD
 #define dsDrawCylinder dsDrawCylinderD
 #define dsDrawCapsule dsDrawCapsuleD
-#define dsDrawLine dsDrawLineD
 #define dsDrawTriangle dsDrawTriangleD
 #define dsDrawConvex dsDrawConvexD
 #endif

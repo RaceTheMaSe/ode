@@ -111,18 +111,18 @@ _ccd_inline void ccdListDel(ccd_list_t *item);
 /// INLINES:
 ///
 
-_ccd_inline void ccdListInit(ccd_list_t *l)
+_ccd_inline UNUSED_FUNCTION void ccdListInit(ccd_list_t *l)
 {
     l->next = l;
     l->prev = l;
 }
 
-_ccd_inline ccd_list_t *ccdListNext(ccd_list_t *l)
+_ccd_inline UNUSED_FUNCTION ccd_list_t *ccdListNext(ccd_list_t *l)
 {
     return l->next;
 }
 
-_ccd_inline ccd_list_t *ccdListPrev(ccd_list_t *l)
+_ccd_inline UNUSED_FUNCTION ccd_list_t *ccdListPrev(ccd_list_t *l)
 {
     return l->prev;
 }
@@ -132,7 +132,7 @@ _ccd_inline int ccdListEmpty(const ccd_list_t *head)
     return head->next == head;
 }
 
-_ccd_inline void ccdListAppend(ccd_list_t *l, ccd_list_t *newccd)
+_ccd_inline UNUSED_FUNCTION void ccdListAppend(ccd_list_t *l, ccd_list_t *newccd)
 {
     newccd->prev = l->prev;
     newccd->next = l;

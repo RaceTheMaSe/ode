@@ -31,6 +31,7 @@
 #include "icosahedron_geom.h"
 
 
+#if 0
 ///<---- Convex Object
 dReal planes[]= // planes for a cube, these should coincide with the face array
   {
@@ -76,6 +77,7 @@ static unsigned int polygons[] = //Polygons for a cube (6 squares)
     4,5,4,6,7, // negative Z
   };
 //----> Convex Object
+#endif
 
 // select correct drawing functions
 
