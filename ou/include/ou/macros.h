@@ -34,7 +34,7 @@
 //////////////////////////////////////////////////////////////////////////
 // offsetof macro redefinition for QNX (to avoid compiler warning)
 
-#if _OU_TARGET_OS == _OU_TARGET_OS_QNX
+#if defined(_OU_TARGET_OS_QNX) && _OU_TARGET_OS == _OU_TARGET_OS_QNX
 
 
 #undef offsetof

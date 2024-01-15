@@ -40,7 +40,7 @@
  *   DEBUGMSG just prints out a message
  */
 
-#  if defined(__STDC__) && __STDC_VERSION__ >= 199901L
+#  if defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 #    define __FUNCTION__ __func__
 #  endif
 #ifndef dNODEBUG
@@ -77,7 +77,7 @@
 #define dUNUSED(Name) Name
 #endif
 
-#if __cplusplus >= 201103L 
+#if defined(__cplusplus) && __cplusplus >= 201103L 
 #define dSASSERT(e)  static_assert(e, #e)
 #define dSMSGASSERT(e, message)  static_assert(e, message)
 #else
