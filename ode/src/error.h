@@ -94,14 +94,14 @@
 
 #  ifdef __GNUC__
 #    define dICHECK(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(int *)NULL = 0; } } do {} while(0)
+      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
 #    define dICHECKMSG(a,msg) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a, #msg "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(int *)NULL = 0; } } do {} while(0)
+      "assertion \"" #a, #msg "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
 #  else // not __GNUC__
 #    define dICHECK(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); *(int *)NULL = 0; } } do {} while(0)
+      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
 #    define dICHECKMSG(a,msg) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a, #msg "\" failed in %s:%u",__FILE__,__LINE__); *(int *)NULL = 0; } } do {} while(0)
+      "assertion \"" #a, #msg "\" failed in %s:%u",__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
 #  endif
 
 // Argument assert is a special case of user assert
