@@ -169,7 +169,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
                 const dReal *pTriangleExternalNormal = externalNormals + currEdge[0].m_triIdx * dSA__MAX;
                 dAssignVector3(triangleNormal, pTriangleExternalNormal[dSA_X], pTriangleExternalNormal[dSA_Y], pTriangleExternalNormal[dSA_Z]);
                 // normalLengthSuqare = REAL(1.0);
-                dUASSERT(dFabs(dCalcVectorLengthSquare3(triangleNormal) - REAL(1.0)) < REAL(0.25) * kConcaveThreshold * kConcaveThreshold, "Mesh triangle normals must be normalized");
+                dUASSERT(dFabs(dCalcVectorLengthSquare3(triangleNormal) - REAL(1.0)) < (dReal)(0.25 * (double)kConcaveThreshold * (double)kConcaveThreshold), "Mesh triangle normals must be normalized");
 
                 lengthSquareProduct = secondOppositeSegmentLengthSquare/* * normalLengthSuqare*/;
             }
@@ -181,7 +181,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
             // the check against zero is performed first and then the dot product is squared and compared against the threshold multiplied by lengths' squares
             // OD: Originally, there was dot > -kConcaveThresh check, but this does not seem to be a good idea
             // as it can mark all edges on potentially large (nearly) flat surfaces concave.
-            if (normalSegmentDot > REAL(0.0) && normalSegmentDot * normalSegmentDot >= kConcaveThreshold * kConcaveThreshold * lengthSquareProduct)
+            if (normalSegmentDot > REAL(0.0) && normalSegmentDot * normalSegmentDot >= (dReal)((double)kConcaveThreshold * (double)kConcaveThreshold * (double)lengthSquareProduct))
             {
                 if (faceAngles != NULL)
                 {
