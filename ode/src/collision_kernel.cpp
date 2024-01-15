@@ -1256,5 +1256,3 @@ void dGeomGetOffsetQuaternion (dxGeom *g, dQuaternion result)
         result[0] = 1;
     }
 }
-
-
