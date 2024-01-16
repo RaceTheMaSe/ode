@@ -926,8 +926,14 @@ double dsElapsedTime()
 // JPerkins: if running as a DLL, grab my module handle at load time so
 // I can find the accelerators table later
 
+#ifdef __GNUC__
+#define MAYBE_UNUSED __attribute__((unused))
+#else
+#define MAYBE_UNUSED
+#endif
+
 /*extern */
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID /*lpReserved*/)
+BOOL WINAPI MAYBE_UNUSED DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID /*lpReserved*/)
 {
     switch (fdwReason)
     {
