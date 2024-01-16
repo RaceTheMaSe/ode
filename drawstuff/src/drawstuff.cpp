@@ -923,7 +923,7 @@ void dsStartGraphics(int /*width*/, int /*height*/, dsFunctions *fn)
 
     const char *prefix = DEFAULT_PATH_TO_TEXTURES;
     if (fn->version >= 2 && fn->path_to_textures) prefix = fn->path_to_textures;
-    char *s = (char*)alloca(strlen(prefix) + 20);
+    char *s = (char*)malloc(strlen(prefix) + 20);
 
     strcpy(s, prefix);
     strcat(s, "/sky.ppm");
@@ -940,6 +940,8 @@ void dsStartGraphics(int /*width*/, int /*height*/, dsFunctions *fn)
     strcpy(s, prefix);
     strcat(s, "/checkered.ppm");
     texture[DS_CHECKERED] = checkered_texture = new Texture(s);
+    
+    free(s);
 }
 
 #else // macintosh
