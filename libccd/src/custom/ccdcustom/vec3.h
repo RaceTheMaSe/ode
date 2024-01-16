@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_CUSTOM_VEC3_H__
-#define __CCD_CUSTOM_VEC3_H__
+#ifndef CCD_CUSTOM_VEC3_H
+#define CCD_CUSTOM_VEC3_H
 
 #include <ccd/compiler.h>
 #include <ccd/vec3.h>
@@ -113,4 +113,4 @@ _ccd_inline int ccdVec3SafeNormalize(ccd_vec3_t *d)
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_CUSTOM_VEC3_H__ */
+#endif /* CCD_CUSTOM_VEC3_H */

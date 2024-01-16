@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_AABBTREE_H__
-#define __OPC_AABBTREE_H__
+#ifndef OPC_AABBTREE_H
+#define OPC_AABBTREE_H
 
 #ifdef OPC_NO_NEG_VANILLA_TREE
 	//! TO BE DOCUMENTED
@@ -134,4 +134,4 @@
 				udword				mTotalNbNodes;		//!< Number of nodes in the tree.
 	};
 
-#endif // __OPC_AABBTREE_H__
+#endif // OPC_AABBTREE_H

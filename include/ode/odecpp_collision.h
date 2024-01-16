@@ -23,8 +23,8 @@
 /* C++ interface for new collision API */
 
 
-#ifndef _ODE_ODECPP_COLLISION_H_
-#define _ODE_ODECPP_COLLISION_H_
+#ifndef ODE_ODECPP_COLLISION_H
+#define ODE_ODECPP_COLLISION_H
 #ifdef __cplusplus
 
 #include <ode/ode.h>

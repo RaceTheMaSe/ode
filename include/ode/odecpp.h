@@ -23,8 +23,8 @@
 /* C++ interface for non-collision stuff */
 
 
-#ifndef _ODE_ODECPP_H_
-#define _ODE_ODECPP_H_
+#ifndef ODE_ODECPP_H
+#define ODE_ODECPP_H
 #ifdef __cplusplus
 #include <ode/odeconfig.h>
 #include <ode/common.h>
@@ -1327,7 +1327,7 @@ typedef dLMotorJointTemplate<dODECPP_JOINT_TEMPLATE_BASE, dODECPP_WORLD_TEMPLATE
 
 
 #endif // __cplusplus
-#endif // _ODE_ODECPP_H_
+#endif // ODE_ODECPP_H
 
 // Local variables:
 // mode:c++

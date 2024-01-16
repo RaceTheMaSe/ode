@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_LIST_H__
-#define __CCD_LIST_H__
+#ifndef CCD_LIST_H
+#define CCD_LIST_H
 
 #include <string.h>
 #include <ccd/compiler.h>
@@ -152,4 +152,4 @@ _ccd_inline void ccdListDel(ccd_list_t *item)
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_LIST_H__ */
+#endif /* CCD_LIST_H */

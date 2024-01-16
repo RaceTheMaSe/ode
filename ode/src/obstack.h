@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_OBSTACK_H_
-#define _ODE_OBSTACK_H_
+#ifndef ODE_OBSTACK_H
+#define ODE_OBSTACK_H
 
 #include "objects.h" 
 

@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_OPTIMIZEDTREE_H__
-#define __OPC_OPTIMIZEDTREE_H__
+#ifndef OPC_OPTIMIZEDTREE_H
+#define OPC_OPTIMIZEDTREE_H
 #include "OPC_Compile.h"
 
 	//! Common interface for a node of an implicit tree
@@ -204,4 +204,4 @@
 						IceMaths::Point				mExtentsCoeff;
 	};
 
-#endif // __OPC_OPTIMIZEDTREE_H__
+#endif // OPC_OPTIMIZEDTREE_H

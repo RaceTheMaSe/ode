@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_TIMER_H_
-#define _ODE_TIMER_H_
+#ifndef ODE_TIMER_H
+#define ODE_TIMER_H
 
 #include <ode/odeconfig.h>
 

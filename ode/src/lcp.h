@@ -47,8 +47,8 @@ to be implemented. the first `nub' variables are assumed to have findex < 0.
 */
 
 
-#ifndef _ODE_LCP_H_
-#define _ODE_LCP_H_
+#ifndef ODE_LCP_H
+#define ODE_LCP_H
 
 class dxWorldProcessMemArena;
 

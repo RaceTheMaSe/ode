@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEBOUNDINGSPHERE_H__
-#define __ICEBOUNDINGSPHERE_H__
+#ifndef ICEBOUNDINGSPHERE_H
+#define ICEBOUNDINGSPHERE_H
 
 	enum BSphereMethod
 	{
@@ -139,4 +139,4 @@
 				float			mRadius;		//!< Sphere radius
 	};
 
-#endif // __ICEBOUNDINGSPHERE_H__
+#endif // ICEBOUNDINGSPHERE_H

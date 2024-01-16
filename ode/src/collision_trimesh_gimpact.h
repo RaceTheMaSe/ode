@@ -26,8 +26,8 @@
 // TriMesh storage classes refactoring and face angle computation code by Oleh Derevenko (C) 2016-2025
 
 
-#ifndef _ODE_COLLISION_TRIMESH_GIMPACT_H_
-#define _ODE_COLLISION_TRIMESH_GIMPACT_H_
+#ifndef ODE_COLLISION_TRIMESH_GIMPACT_H
+#define ODE_COLLISION_TRIMESH_GIMPACT_H
 
 
 #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
@@ -271,4 +271,4 @@ void MakeMatrix(dxGeom *g, mat4f m)
 
 #endif // #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
 
-#endif	//_ODE_COLLISION_TRIMESH_GIMPACT_H_
+#endif	//ODE_COLLISION_TRIMESH_GIMPACT_H

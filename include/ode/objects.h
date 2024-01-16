@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_OBJECTS_H_
-#define _ODE_OBJECTS_H_
+#ifndef ODE_OBJECTS_H
+#define ODE_OBJECTS_H
 
 #include <ode/common.h>
 #include <ode/mass.h>

@@ -38,8 +38,8 @@ The user is able to click+drag in the main window to move the camera:
 */
 
 
-#ifndef __DRAWSTUFF_H__
-#define __DRAWSTUFF_H__
+#ifndef DRAWSTUFF_H
+#define DRAWSTUFF_H
 
 /* Define a DLL export symbol for those platforms that need it */
 #if defined(ODE_PLATFORM_WINDOWS)

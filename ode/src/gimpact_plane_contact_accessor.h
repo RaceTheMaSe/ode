@@ -21,8 +21,8 @@
  *************************************************************************/
 
 
-#ifndef _ODE_GIMPACT_PLANE_CONTACT_ACCESSOR_H_
-#define _ODE_GIMPACT_PLANE_CONTACT_ACCESSOR_H_
+#ifndef ODE_GIMPACT_PLANE_CONTACT_ACCESSOR_H
+#define ODE_GIMPACT_PLANE_CONTACT_ACCESSOR_H
 
 
 struct dxPlaneContactAccessor
@@ -59,4 +59,4 @@ struct dxPlaneContactAccessor
 };
 
 
-#endif	//_ODE_GIMPACT_PLANE_CONTACT_ACCESSOR_H_
+#endif	//ODE_GIMPACT_PLANE_CONTACT_ACCESSOR_H

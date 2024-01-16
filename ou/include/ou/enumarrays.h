@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_ENUMARRAYS_H_INCLUDED
-#define __OU_ENUMARRAYS_H_INCLUDED
+#ifndef OU_ENUMARRAYS_H_INCLUDED
+#define OU_ENUMARRAYS_H_INCLUDED
 
 
 #include <ou/assert.h>
@@ -250,4 +250,4 @@ private:
 END_NAMESPACE_OU
 
 
-#endif // #ifndef __OU_ENUMARRAYS_H_INCLUDED
+#endif // #ifndef OU_ENUMARRAYS_H_INCLUDED

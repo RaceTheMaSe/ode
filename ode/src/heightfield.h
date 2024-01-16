@@ -25,8 +25,8 @@
 // Based on Terrain & Cone contrib by:
 //  Benoit CHAPEROT 2003-2004 http://www.jstarlab.com
 
-#ifndef _DHEIGHTFIELD_H_
-#define _DHEIGHTFIELD_H_
+#ifndef DHEIGHTFIELD_H
+#define DHEIGHTFIELD_H
 //------------------------------------------------------------------------------
 
 #include <ode/common.h>
@@ -242,4 +242,4 @@ struct dxHeightfield : public dxGeom
 
 
 //------------------------------------------------------------------------------
-#endif //_DHEIGHTFIELD_H_
+#endif //DHEIGHTFIELD_H

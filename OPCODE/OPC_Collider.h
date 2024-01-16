@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_COLLIDER_H__
-#define __OPC_COLLIDER_H__
+#ifndef OPC_COLLIDER_H
+#define OPC_COLLIDER_H
 
 	enum CollisionFlag
 	{
@@ -173,4 +173,4 @@
 		virtual inline_		void			InitQueryBase()		{ mFlags &= (udword)~OPC_TEMPORAL_CONTACT;	}
 	};
 
-#endif // __OPC_COLLIDER_H__
+#endif // OPC_COLLIDER_H

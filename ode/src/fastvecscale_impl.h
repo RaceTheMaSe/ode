@@ -25,8 +25,8 @@
  * Improvements and cooperative implementation copyright (c) 2017-2025 Oleh Derevenko, odar@eleks.com (change all "a" to "e")  
  */
 
-#ifndef _ODE_FASTVECSCALE_IMPL_H_
-#define _ODE_FASTVECSCALE_IMPL_H_
+#ifndef ODE_FASTVECSCALE_IMPL_H
+#define ODE_FASTVECSCALE_IMPL_H
 
 template<unsigned int a_stride, unsigned int d_stride>
 void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)

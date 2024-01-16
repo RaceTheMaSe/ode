@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_NAMESPACE_H_INCLUDED
-#define __OU_NAMESPACE_H_INCLUDED
+#ifndef OU_NAMESPACE_H_INCLUDED
+#define OU_NAMESPACE_H_INCLUDED
 
 
 #ifndef _OU_NAMESPACE
@@ -40,4 +40,4 @@
 #define END_NAMESPACE_OU } /* namespace _OU_NAMESPACE */
 
 
-#endif // #ifndef __OU_NAMESPACE_H_INCLUDED
+#endif // #ifndef OU_NAMESPACE_H_INCLUDED

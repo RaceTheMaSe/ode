@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_VEC3_H__
-#define __CCD_VEC3_H__
+#ifndef CCD_VEC3_H
+#define CCD_VEC3_H
 
 #include <math.h>
 #include <float.h>
@@ -349,4 +349,4 @@ _ccd_inline UNUSED_FUNCTION void ccdVec3Cross(ccd_vec3_t *d, const ccd_vec3_t *a
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_VEC3_H__ */
+#endif /* CCD_VEC3_H */

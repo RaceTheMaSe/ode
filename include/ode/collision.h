@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_COLLISION_H_
-#define _ODE_COLLISION_H_
+#ifndef ODE_COLLISION_H
+#define ODE_COLLISION_H
 
 #include <ode/common.h>
 #include <ode/collision_space.h>

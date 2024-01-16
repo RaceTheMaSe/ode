@@ -26,8 +26,8 @@ the standard ODE geometry primitives.
 
 */
 
-#ifndef _ODE_COLLISION_STD_H_
-#define _ODE_COLLISION_STD_H_
+#ifndef ODE_COLLISION_STD_H
+#define ODE_COLLISION_STD_H
 
 #include <ode/common.h>
 #include "collision_kernel.h"

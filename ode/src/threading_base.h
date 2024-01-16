@@ -30,8 +30,8 @@
  */
 
 
-#ifndef _ODE_THREADING_BASE_H_
-#define _ODE_THREADING_BASE_H_
+#ifndef ODE_THREADING_BASE_H
+#define ODE_THREADING_BASE_H
 
 
 #include "common_impl.h"
@@ -295,4 +295,4 @@ private:
     bool                              m_mutex_locked;
 };
 
-#endif // #ifndef _ODE_THREADING_BASE_H_
+#endif // #ifndef ODE_THREADING_BASE_H

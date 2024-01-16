@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_FEATURES_H_INCLUDED
-#define __OU_FEATURES_H_INCLUDED
+#ifndef OU_FEATURES_H_INCLUDED
+#define OU_FEATURES_H_INCLUDED
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -48,4 +48,4 @@
 #endif // #if !defined(_OU_FEATURE_SET)
 
 
-#endif // #ifndef __OU_FEATURES_H_INCLUDED
+#endif // #ifndef OU_FEATURES_H_INCLUDED

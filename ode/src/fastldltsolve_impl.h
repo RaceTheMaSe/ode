@@ -22,8 +22,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_MATRIX_IMPL_H_
-#define _ODE_MATRIX_IMPL_H_
+#ifndef ODE_MATRIX_IMPL_H
+#define ODE_MATRIX_IMPL_H
 
 
 #include "fastlsolve_impl.h"

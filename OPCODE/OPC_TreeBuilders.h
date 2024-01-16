@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_TREEBUILDERS_H__
-#define __OPC_TREEBUILDERS_H__
+#ifndef OPC_TREEBUILDERS_H
+#define OPC_TREEBUILDERS_H
 #include "OPC_Compile.h"
 
 	//! Tree splitting rules
@@ -178,4 +178,4 @@
 		const				MeshInterface*			mIMesh;			//!< Shortcut to an app-controlled mesh interface
 	};
 
-#endif // __OPC_TREEBUILDERS_H__
+#endif // OPC_TREEBUILDERS_H

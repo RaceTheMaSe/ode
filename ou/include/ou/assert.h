@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_ASSERT_H_INCLUDED
-#define __OU_ASSERT_H_INCLUDED
+#ifndef OU_ASSERT_H_INCLUDED
+#define OU_ASSERT_H_INCLUDED
 
 
 /**
@@ -185,4 +185,4 @@
 #endif // #if !defined(NDEBUG)
 
 
-#endif // #ifndef __OU_ASSERT_H_INCLUDED
+#endif // #ifndef OU_ASSERT_H_INCLUDED

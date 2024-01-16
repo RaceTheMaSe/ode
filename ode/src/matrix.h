@@ -25,8 +25,8 @@
  * (inlined private versions)
  */
 
-#ifndef _ODE__PRIVATE_MATRIX_H_
-#define _ODE__PRIVATE_MATRIX_H_
+#ifndef ODE_PRIVATE_MATRIX_H
+#define ODE_PRIVATE_MATRIX_H
 
 
 #include <ode/matrix.h>
@@ -173,4 +173,4 @@ ODE_PURE_INLINE sizeint dxEstimateLDLTRemoveTmpbufSize(unsigned n2, unsigned nsk
 #define dEstimateLDLTRemoveTmpbufSize(n2, nskip) dxEstimateLDLTRemoveTmpbufSize(n2, nskip)
 
 
-#endif // #ifndef _ODE__PRIVATE_MATRIX_H_
+#endif // #ifndef ODE_PRIVATE_MATRIX_H

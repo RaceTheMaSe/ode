@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICECONTAINER_H__
-#define __ICECONTAINER_H__
+#ifndef ICECONTAINER_H
+#define ICECONTAINER_H
 
 //	#define CONTAINER_STATS
 
@@ -241,4 +241,4 @@
 				udword			mGrowthFactor;		//!< Resize: new number of entries = old number * mGrowthFactor
 	};
 
-#endif // __ICECONTAINER_H__
+#endif // ICECONTAINER_H

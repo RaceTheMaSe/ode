@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_SIMPLEX_H__
-#define __CCD_SIMPLEX_H__
+#ifndef CCD_SIMPLEX_H
+#define CCD_SIMPLEX_H
 
 #include <ccd/support.h>
 #include <ccd/compiler.h>
@@ -101,4 +101,4 @@ _ccd_inline UNUSED_FUNCTION void ccdSimplexSwap(ccd_simplex_t *s, size_t pos1, s
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_SIMPLEX_H__ */
+#endif /* CCD_SIMPLEX_H */

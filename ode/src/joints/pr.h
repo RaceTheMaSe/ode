@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_JOINT_PR_H_
-#define _ODE_JOINT_PR_H_
+#ifndef ODE_JOINT_PR_H
+#define ODE_JOINT_PR_H
 
 #include "joint.h"
 

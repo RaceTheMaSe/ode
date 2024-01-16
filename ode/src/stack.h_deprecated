@@ -43,8 +43,8 @@ just like alloca():
 */
 
 
-#ifndef _ODE_STACK_H_
-#define _ODE_STACK_H_
+#ifndef ODE_STACK_H
+#define ODE_STACK_H
 
 
 #ifdef WIN32

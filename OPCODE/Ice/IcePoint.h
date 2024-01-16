@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEPOINT_H__
-#define __ICEPOINT_H__
+#ifndef ICEPOINT_H
+#define ICEPOINT_H
 
 	// Forward declarations
 	class HPoint;
@@ -531,4 +531,4 @@
 	FUNCTION ICEMATHS_API void Normalize1(Point& a);
 	FUNCTION ICEMATHS_API void Normalize2(Point& a);
 
-#endif //__ICEPOINT_H__
+#endif //ICEPOINT_H

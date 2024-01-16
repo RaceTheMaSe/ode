@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICERADIXSORT_H__
-#define __ICERADIXSORT_H__
+#ifndef ICERADIXSORT_H
+#define ICERADIXSORT_H
 
 	//! Allocate histograms & offsets locally
 	#define RADIX_LOCAL_RAM
@@ -62,4 +62,4 @@
 				bool			Resize(udword nb);
 	};
 
-#endif // __ICERADIXSORT_H__
+#endif // ICERADIXSORT_H

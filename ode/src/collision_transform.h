@@ -26,8 +26,8 @@ geom transform
 
 */
 
-#ifndef _ODE_COLLISION_TRANSFORM_H_
-#define _ODE_COLLISION_TRANSFORM_H_
+#ifndef ODE_COLLISION_TRANSFORM_H
+#define ODE_COLLISION_TRANSFORM_H
 
 #include <ode/common.h>
 #include "collision_kernel.h"

@@ -19,8 +19,8 @@
  * Some support() functions for some convex shapes.
  */
 
-#ifndef __CCD_SUPPORT_H__
-#define __CCD_SUPPORT_H__
+#ifndef CCD_SUPPORT_H
+#define CCD_SUPPORT_H
 
 #include <ccd/quat.h>
 
@@ -99,4 +99,4 @@ void ccdObjCenter(const void *obj, ccd_vec3_t *center);
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_SUPPORT_H__ */
+#endif /* CCD_SUPPORT_H */

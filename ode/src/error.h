@@ -22,8 +22,8 @@
 
 /* Library private error handling functions and macros */
 
-#ifndef _ODE__PRIVATE_ERROR_H_
-#define _ODE__PRIVATE_ERROR_H_
+#ifndef ODE_PRIVATE_ERROR_H
+#define ODE_PRIVATE_ERROR_H
 
 #include <ode/error.h>
 #include <ode/common.h>

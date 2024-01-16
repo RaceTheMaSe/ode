@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_SUPPORT_H__
-#define __CCD_SUPPORT_H__
+#ifndef CCD_SUPPORT_H
+#define CCD_SUPPORT_H
 
 #include <ccd/compiler.h>
 #include <ccd/vec3.h>
@@ -54,4 +54,4 @@ _ccd_inline UNUSED_FUNCTION void ccdSupportCopy(ccd_support_t *d, const ccd_supp
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_SUPPORT_H__ */
+#endif /* CCD_SUPPORT_H */

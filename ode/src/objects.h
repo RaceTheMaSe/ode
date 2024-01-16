@@ -23,8 +23,8 @@
  // object, body, and world structures.
 
 
-#ifndef _ODE__PRIVATE_OBJECTS_H_
-#define _ODE__PRIVATE_OBJECTS_H_
+#ifndef ODE_PRIVATE_OBJECTS_H
+#define ODE_PRIVATE_OBJECTS_H
 
 
 #include <ode/common.h>
@@ -306,4 +306,4 @@ public:
 };
 
 
-#endif // #ifndef _ODE__PRIVATE_OBJECTS_H_
+#endif // #ifndef ODE_PRIVATE_OBJECTS_H

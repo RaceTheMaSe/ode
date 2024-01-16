@@ -28,8 +28,8 @@
  */
 
 
-#ifndef _ODE_FASTLTSOLVE_IMPL_H_
-#define _ODE_FASTLTSOLVE_IMPL_H_
+#ifndef ODE_FASTLTSOLVE_IMPL_H
+#define ODE_FASTLTSOLVE_IMPL_H
 
 
 /* solve L^T * x=b, with b containing 1 right hand side.

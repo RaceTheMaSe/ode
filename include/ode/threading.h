@@ -29,8 +29,8 @@
  */
 
 
-#ifndef _ODE_THREADING_H_
-#define _ODE_THREADING_H_
+#ifndef ODE_THREADING_H
+#define ODE_THREADING_H
 
 #include <ode/odeconfig.h>
 /* Include <time.h> since time_t is used and it is not available by default in some OSes */
@@ -419,4 +419,4 @@ typedef struct dxThreadingFunctionsInfo
 }
 #endif
 
-#endif /* #ifndef _ODE_THREADING_H_ */
+#endif /* #ifndef ODE_THREADING_H */

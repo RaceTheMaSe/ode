@@ -30,8 +30,8 @@
  */
 
 
-#ifndef _ODE__PRIVATE_DEFAULT_THREADING_H_
-#define _ODE__PRIVATE_DEFAULT_THREADING_H_
+#ifndef ODE_PRIVATE_DEFAULT_THREADING_H
+#define ODE_PRIVATE_DEFAULT_THREADING_H
 
 
 #include <ode/threading.h>
@@ -52,4 +52,4 @@ private:
 };
 
 
-#endif // #ifndef _ODE__PRIVATE_DEFAULT_THREADING_H_
+#endif // #ifndef ODE_PRIVATE_DEFAULT_THREADING_H

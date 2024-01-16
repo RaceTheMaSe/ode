@@ -32,8 +32,8 @@ ODE interface to OU library functions.
 */
 
 
-#ifndef _ODE_ODEOU_H_
-#define _ODE_ODEOU_H_
+#ifndef ODE_ODEOU_H
+#define ODE_ODEOU_H
 
 
 #if defined(dOU_ENABLED)
@@ -106,4 +106,4 @@ typedef void *atomicptr;
 
 
 
-#endif // _ODE_ODEOU_H_
+#endif // ODE_ODEOU_H

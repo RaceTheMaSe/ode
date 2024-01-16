@@ -105,7 +105,7 @@ bool AABBTreeCollider::Collide(BVTCache& cache, const IceMaths::Matrix4x4* world
 
 	*/
 
-#ifdef __MESHMERIZER_H__
+#ifdef MESHMERIZER_H
 	// Handle hulls
 	if(cache.HullTest)
 	{
@@ -165,7 +165,7 @@ bool AABBTreeCollider::Collide(BVTCache& cache, const IceMaths::Matrix4x4* world
 
 	// Here, hulls collide
 	cache.HullTest = false;
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
 
 	// Checkings
 	if(!Setup(cache.Model0->GetMeshInterface(), cache.Model1->GetMeshInterface()))	return false;
@@ -203,7 +203,7 @@ bool AABBTreeCollider::Collide(BVTCache& cache, const IceMaths::Matrix4x4* world
 		}
 	}
 
-#ifdef __MESHMERIZER_H__
+#ifdef MESHMERIZER_H
 	if(Status)
 	{
 		// Reset counter as long as overlap occurs

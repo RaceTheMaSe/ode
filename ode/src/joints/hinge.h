@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_JOINT_HINGE_H_
-#define _ODE_JOINT_HINGE_H_
+#ifndef ODE_JOINT_HINGE_H
+#define ODE_JOINT_HINGE_H
 
 #include "joint.h"
 

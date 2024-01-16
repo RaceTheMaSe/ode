@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_MATRIX_COOP_H_
-#define _ODE_MATRIX_COOP_H_
+#ifndef ODE_MATRIX_COOP_H
+#define ODE_MATRIX_COOP_H
 
 
 #include <ode/common.h>
@@ -288,4 +288,4 @@ ODE_API void dCooperativelyScaleVector(dResourceContainerID resources, unsigned 
 #endif
 
 
-#endif /* #ifndef _ODE_MATRIX_COOP_H_ */
+#endif /* #ifndef ODE_MATRIX_COOP_H */

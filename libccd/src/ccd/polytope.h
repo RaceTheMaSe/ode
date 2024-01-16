@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_POLYTOPE_H__
-#define __CCD_POLYTOPE_H__
+#ifndef CCD_POLYTOPE_H
+#define CCD_POLYTOPE_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -319,4 +319,4 @@ _ccd_inline UNUSED_FUNCTION void ccdPtEdgeFaces(const ccd_pt_edge_t *e,
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_POLYTOPE_H__ */
+#endif /* CCD_POLYTOPE_H */

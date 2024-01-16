@@ -22,8 +22,8 @@
 
 /* miscellaneous math functions. these are mostly useful for testing */
 
-#ifndef _ODE_MISC_H_
-#define _ODE_MISC_H_
+#ifndef ODE_MISC_H
+#define ODE_MISC_H
 
 #include <ode/common.h>
 

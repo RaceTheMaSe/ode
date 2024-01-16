@@ -22,8 +22,8 @@
 
 /* this comes from the `reuse' library. copy any changes back to the source */
 
-#ifndef _ODE_ERROR_H_
-#define _ODE_ERROR_H_
+#ifndef ODE_ERROR_H
+#define ODE_ERROR_H
 
 #include <ode/odeconfig.h>
 

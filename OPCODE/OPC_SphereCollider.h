@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_SPHERECOLLIDER_H__
-#define __OPC_SPHERECOLLIDER_H__
+#ifndef OPC_SPHERECOLLIDER_H
+#define OPC_SPHERECOLLIDER_H
 #include "OPC_Compile.h"
 
 	struct OPCODE_API SphereCache : VolumeCache
@@ -94,4 +94,4 @@
 							IceCore::Container		mTouchedBoxes;
 	};
 
-#endif // __OPC_SPHERECOLLIDER_H__
+#endif // OPC_SPHERECOLLIDER_H

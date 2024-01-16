@@ -32,8 +32,8 @@ ODE Thread Local Storage access stub interface.
 */
 
 
-#ifndef _ODE_ODETLS_H_
-#define _ODE_ODETLS_H_
+#ifndef ODE_ODETLS_H
+#define ODE_ODETLS_H
 
 
 #include "odeou.h"
@@ -124,4 +124,4 @@ private:
 #endif // dTLS_ENABLED
 
 
-#endif // _ODE_ODETLS_H_
+#endif // ODE_ODETLS_H

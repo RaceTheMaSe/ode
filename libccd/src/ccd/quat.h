@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_QUAT_H__
-#define __CCD_QUAT_H__
+#ifndef CCD_QUAT_H
+#define CCD_QUAT_H
 
 #include <ccd/compiler.h>
 #include <ccd/vec3.h>
@@ -228,4 +228,4 @@ _ccd_inline void ccdQuatRotVec(ccd_vec3_t *v, const ccd_quat_t *q)
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_QUAT_H__ */
+#endif /* CCD_QUAT_H */

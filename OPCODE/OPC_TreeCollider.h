@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_TREECOLLIDER_H__
-#define __OPC_TREECOLLIDER_H__
+#ifndef OPC_TREECOLLIDER_H
+#define OPC_TREECOLLIDER_H
 #include "OPC_Compile.h"
 
 	//! This structure holds cached information used by the algorithm.
@@ -42,31 +42,31 @@
 								Model1			= null;
 								id0				= 0;
 								id1				= 1;
-#ifdef __MESHMERIZER_H__		// Collision hulls only supported within ICE !
+#ifdef MESHMERIZER_H		// Collision hulls only supported within ICE !
 								HullTest		= true;
 								SepVector.pid	= 0;
 								SepVector.qid	= 0;
 								SepVector.SV	= Point(1.0f, 0.0f, 0.0f);
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
 							}
 
-#ifdef __MESHMERIZER_H__		// Collision hulls only supported within ICE !
+#ifdef MESHMERIZER_H		// Collision hulls only supported within ICE !
 	  inline_ void ResetCountDown()
 	  {
 	    CountDown		= 50;
 	  }
 #else
 	  void	ResetCountDown(){}
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
 
 		const Model*		Model0;	//!< Model for first object
 		const Model*		Model1;	//!< Model for second object
 
-#ifdef __MESHMERIZER_H__	// Collision hulls only supported within ICE !
+#ifdef MESHMERIZER_H	// Collision hulls only supported within ICE !
 		SVCache				SepVector;
 		udword				CountDown;
 		bool				HullTest;
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
 	};
 
 	class OPCODE_API AABBTreeCollider : public Collider
@@ -244,4 +244,4 @@
 											}
 	};
 
-#endif // __OPC_TREECOLLIDER_H__
+#endif // OPC_TREECOLLIDER_H

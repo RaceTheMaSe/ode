@@ -25,8 +25,8 @@
  * Copyright (c) 2017-2025 Oleh Derevenko, odar@eleks.com (change all "a" to "e")
  */
 
-#ifndef _ODE__PRIVATE_RESOURCE_CONTRIOL_H_
-#define _ODE__PRIVATE_RESOURCE_CONTRIOL_H_
+#ifndef ODE_PRIVATE_RESOURCE_CONTRIOL_H
+#define ODE_PRIVATE_RESOURCE_CONTRIOL_H
 
 
 #include "objects.h"
@@ -143,4 +143,4 @@ dxRequiredResourceContainer *decodeResourceContainerID(dResourceContainerID reso
 }
 
 
-#endif // #ifndef _ODE__PRIVATE_RESOURCE_CONTRIOL_H_
+#endif // #ifndef ODE_PRIVATE_RESOURCE_CONTRIOL_H

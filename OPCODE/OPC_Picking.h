@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_PICKING_H__
-#define __OPC_PICKING_H__
+#ifndef OPC_PICKING_H
+#define OPC_PICKING_H
 
 #ifdef OPC_RAYHIT_CALLBACK
 
@@ -42,4 +42,4 @@
 						float min_dist, float max_dist, const Point& view_point, CullModeCallback callback, void* user_data);
 #endif
 
-#endif //__OPC_PICKING_H__
+#endif //OPC_PICKING_H

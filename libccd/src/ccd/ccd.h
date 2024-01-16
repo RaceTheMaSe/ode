@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_H__
-#define __CCD_H__
+#ifndef CCD_H
+#define CCD_H
 
 #include <ccd/precision.h>
 
@@ -145,4 +145,4 @@ int ccdMPRPenetration(const void *obj1, const void *obj2, const ccd_t *ccd,
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_H__ */
+#endif /* CCD_H */

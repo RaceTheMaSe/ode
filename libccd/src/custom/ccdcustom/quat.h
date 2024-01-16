@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_CUSTOM_QUAT_H__
-#define __CCD_CUSTOM_QUAT_H__
+#ifndef CCD_CUSTOM_QUAT_H
+#define CCD_CUSTOM_QUAT_H
 
 #include <ccd/quat.h>
 
@@ -66,4 +66,4 @@ _ccd_inline void UNUSED_FUNCTION ccdQuatRotVec2(ccd_vec3_t *d, const ccd_vec3_t 
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_QUAT_H__ */
+#endif /* CCD_QUAT_H */

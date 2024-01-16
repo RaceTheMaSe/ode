@@ -1,6 +1,6 @@
 //Benoit CHAPEROT 2003-2004 www.jstarlab.com
-#ifndef _ODE_COLLISION_STD_INTERNAL_H_
-#define _ODE_COLLISION_STD_INTERNAL_H_
+#ifndef ODE_COLLISION_STD_INTERNAL_H
+#define ODE_COLLISION_STD_INTERNAL_H
 
 #include <ode/common.h>
 #include "collision_kernel.h"
@@ -97,4 +97,4 @@ struct dxTerrainZ : public dxGeom {
 #define MAX(a,b)	((a>b)?a:b)
 #endif
 
-#endif //_ODE_COLLISION_STD_INTERNAL_H_
+#endif //ODE_COLLISION_STD_INTERNAL_H

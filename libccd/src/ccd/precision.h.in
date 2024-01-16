@@ -1,5 +1,5 @@
-#ifndef __CCD_PRECISION_H__
-#define __CCD_PRECISION_H__
+#ifndef CCD_PRECISION_H
+#define CCD_PRECISION_H
 
 /* define either CCD_SINGLE or CCD_DOUBLE */
 

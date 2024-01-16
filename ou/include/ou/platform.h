@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_PLATFORM_H_INCLUDED
-#define __OU_PLATFORM_H_INCLUDED
+#ifndef OU_PLATFORM_H_INCLUDED
+#define OU_PLATFORM_H_INCLUDED
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -395,4 +395,4 @@
 #endif // #if !defined(__OU_INLINES_DEFINED)
 
 
-#endif // #ifndef __OU_PLATFORM_H_INCLUDED
+#endif // #ifndef OU_PLATFORM_H_INCLUDED

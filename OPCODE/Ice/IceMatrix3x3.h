@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEMATRIX3X3_H__
-#define __ICEMATRIX3X3_H__
+#ifndef ICEMATRIX3X3_H
+#define ICEMATRIX3X3_H
 
 	// Forward declarations
 	class Quat;
@@ -496,5 +496,5 @@ void FromQuatL2(const Quat &q, float l2);
 				float			m[3][3];
 	};
 
-#endif // __ICEMATRIX3X3_H__
+#endif // ICEMATRIX3X3_H
 

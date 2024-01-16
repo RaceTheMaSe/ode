@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_UTIL_H_
-#define _ODE_UTIL_H_
+#ifndef ODE_UTIL_H
+#define ODE_UTIL_H
 
 #include "objects.h"
 #include "common_impl.h"

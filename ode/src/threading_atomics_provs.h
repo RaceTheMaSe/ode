@@ -33,8 +33,8 @@
  */
 
 
-#ifndef _ODE_THREADING_ATOMICS_PROVS_H_
-#define _ODE_THREADING_ATOMICS_PROVS_H_
+#ifndef ODE_THREADING_ATOMICS_PROVS_H
+#define ODE_THREADING_ATOMICS_PROVS_H
 
 
 #include <ode/odeconfig.h>
@@ -224,4 +224,4 @@ inline sizeint dxOUAtomicsProvider::AddValueToTarget<2 * sizeof(dxOUAtomicsProvi
 #endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
-#endif // #ifndef _ODE_THREADING_ATOMICS_PROVS_H_
+#endif // #ifndef ODE_THREADING_ATOMICS_PROVS_H

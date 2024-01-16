@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_ATOMICFLAGS_H_INCLUDED
-#define __OU_ATOMICFLAGS_H_INCLUDED
+#ifndef OU_ATOMICFLAGS_H_INCLUDED
+#define OU_ATOMICFLAGS_H_INCLUDED
 
 
 #include <ou/flagsdefines.h>
@@ -382,4 +382,4 @@ private:
 END_NAMESPACE_OU
 
 
-#endif // #ifndef __OU_ATOMICFLAGS_H_INCLUDED
+#endif // #ifndef OU_ATOMICFLAGS_H_INCLUDED

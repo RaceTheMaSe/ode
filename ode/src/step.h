@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_STEP_H_
-#define _ODE_STEP_H_
+#ifndef ODE_STEP_H
+#define ODE_STEP_H
 
 #include <ode/common.h>
 

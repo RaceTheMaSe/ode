@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_COMMON_H_
-#define _ODE_COMMON_H_
+#ifndef ODE_COMMON_H
+#define ODE_COMMON_H
 
 #include <ode/odeconfig.h>
 #include <ode/error.h>

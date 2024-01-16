@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_JOINT_H_
-#define _ODE_JOINT_H_
+#ifndef ODE_JOINT_H
+#define ODE_JOINT_H
 
 
 #include "objects.h"

@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_JOINT_PLANE2D_H_
-#define _ODE_JOINT_PLANE2D_H_
+#ifndef ODE_JOINT_PLANE2D_H
+#define ODE_JOINT_PLANE2D_H
 
 #include "joint.h"
 

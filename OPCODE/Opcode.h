@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPCODE_H__
-#define __OPCODE_H__
+#ifndef OPCODE_H
+#define OPCODE_H
 
 // stddef.h and stdarg.h must be included before Opcode headers 
 // as they latermay not compile being not able to find types in std::
@@ -123,4 +123,4 @@
 		FUNCTION OPCODE_API bool CloseOpcode();
 	}
 
-#endif // __OPCODE_H__
+#endif // OPCODE_H

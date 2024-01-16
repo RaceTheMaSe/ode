@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_CUSTOMIZATION_H_INCLUDED
-#define __OU_CUSTOMIZATION_H_INCLUDED
+#ifndef OU_CUSTOMIZATION_H_INCLUDED
+#define OU_CUSTOMIZATION_H_INCLUDED
 
 
 #include <ou/namespace.h>
@@ -146,4 +146,4 @@ private:
 END_NAMESPACE_OU
 
 
-#endif // #ifndef __OU_CUSTOMIZATION_H_INCLUDED
+#endif // #ifndef OU_CUSTOMIZATION_H_INCLUDED

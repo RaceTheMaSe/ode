@@ -22,8 +22,8 @@
 
 /* this comes from the `reuse' library. copy any changes back to the source */
 
-#ifndef _ODE_MEMORY_H_
-#define _ODE_MEMORY_H_
+#ifndef ODE_MEMORY_H
+#define ODE_MEMORY_H
 
 #include <ode/odeconfig.h>
 

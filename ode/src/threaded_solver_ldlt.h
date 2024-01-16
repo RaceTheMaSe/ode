@@ -27,8 +27,8 @@
 
 
 
-#ifndef _ODE_THREADED_SOLVER_LDLT_H_
-#define _ODE_THREADED_SOLVER_LDLT_H_
+#ifndef ODE_THREADED_SOLVER_LDLT_H
+#define ODE_THREADED_SOLVER_LDLT_H
 
 
 #include "coop_matrix_types.h"

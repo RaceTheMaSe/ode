@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_THREADINGUTILS_H_
-#define _ODE_THREADINGUTILS_H_
+#ifndef ODE_THREADINGUTILS_H
+#define ODE_THREADINGUTILS_H
 
 
 #include "odeou.h"
@@ -206,4 +206,4 @@ sizeint ThrsafeIncrementSizeUpToLimit(volatile sizeint *storagePointer, sizeint 
 
 
 
-#endif // _ODE_THREADINGUTILS_H_
+#endif // ODE_THREADINGUTILS_H

@@ -20,8 +20,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _CU_H_
-#define _CU_H_
+#ifndef CU_H
+#define CU_H
 
 #ifdef CU_ENABLE_TIMER
 # include <time.h>

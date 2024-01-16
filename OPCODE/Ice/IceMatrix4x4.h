@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEMATRIX4X4_H__
-#define __ICEMATRIX4X4_H__
+#ifndef ICEMATRIX4X4_H
+#define ICEMATRIX4X4_H
 
 	// Forward declarations
 	class PRS;
@@ -455,5 +455,5 @@
 	ICEMATHS_API void InvertPRMatrix(Matrix4x4& dest, const Matrix4x4& src);
 
  
-#endif // __ICEMATRIX4X4_H__
+#endif // ICEMATRIX4X4_H
 

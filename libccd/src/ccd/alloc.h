@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_ALLOC_H__
-#define __CCD_ALLOC_H__
+#ifndef CCD_ALLOC_H
+#define CCD_ALLOC_H
 
 #include <stdlib.h>
 
@@ -49,4 +49,4 @@ void *ccdRealloc(void *ptr, size_t size);
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* __CCD_ALLOC_H__ */
+#endif /* CCD_ALLOC_H */

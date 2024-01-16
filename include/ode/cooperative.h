@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_COOPERATIVE_H_
-#define _ODE_COOPERATIVE_H_
+#ifndef ODE_COOPERATIVE_H
+#define ODE_COOPERATIVE_H
 
 
 #include <ode/common.h>
@@ -226,4 +226,4 @@ ODE_API void dResourceContainerDestroy(dResourceContainerID resources);
 #endif
 
 
-#endif /* #ifndef _ODE_COOPERATIVE_H_ */
+#endif /* #ifndef ODE_COOPERATIVE_H */

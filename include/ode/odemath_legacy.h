@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_ODEMATH_LEGACY_H_
-#define _ODE_ODEMATH_LEGACY_H_
+#ifndef ODE_ODEMATH_LEGACY_H
+#define ODE_ODEMATH_LEGACY_H
 
 
 /*
@@ -159,4 +159,4 @@ it is not equivalent to A*=B.
  */
 
 
-#endif /* #ifndef _ODE_ODEMATH_LEGACY_H_ */
+#endif /* #ifndef ODE_ODEMATH_LEGACY_H */

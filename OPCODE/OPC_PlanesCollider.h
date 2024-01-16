@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_PLANESCOLLIDER_H__
-#define __OPC_PLANESCOLLIDER_H__
+#ifndef OPC_PLANESCOLLIDER_H
+#define OPC_PLANESCOLLIDER_H
 #include "OPC_Compile.h"
 
 	struct OPCODE_API PlanesCache : VolumeCache
@@ -120,4 +120,4 @@
 							IceCore::Container		mTouchedBoxes;
 	};
 
-#endif // __OPC_PLANESCOLLIDER_H__
+#endif // OPC_PLANESCOLLIDER_H

@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_ODECONFIG_H_
-#define _ODE_ODECONFIG_H_
+#ifndef ODE_ODECONFIG_H
+#define ODE_ODECONFIG_H
 
 /* Pull in the standard headers */
 #include <stddef.h>

@@ -21,8 +21,8 @@
  *************************************************************************/
 
 
-#ifndef _ODE_JOINT_INTERNAL_H_
-#define _ODE_JOINT_INTERNAL_H_
+#ifndef ODE_JOINT_INTERNAL_H
+#define ODE_JOINT_INTERNAL_H
 
 
 #include <ode/rotation.h>

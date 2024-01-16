@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICERANDOM_H__
-#define __ICERANDOM_H__
+#ifndef ICERANDOM_H
+#define ICERANDOM_H
 
 	FUNCTION ICECORE_API	void	SRand(udword seed);
 	FUNCTION ICECORE_API	udword	Rand();
@@ -38,5 +38,5 @@
 				udword		mRnd;
 	};
 
-#endif // __ICERANDOM_H__
+#endif // ICERANDOM_H
 

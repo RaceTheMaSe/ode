@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_INTTYPES_H_INCLUDED
-#define __OU_INTTYPES_H_INCLUDED
+#ifndef OU_INTTYPES_H_INCLUDED
+#define OU_INTTYPES_H_INCLUDED
 
 
 #include <ou/namespace.h>
@@ -133,4 +133,4 @@ typedef ::__ou_global_uint64 uint64ou;
 END_NAMESPACE_OU
 
 
-#endif // #ifndef __OU_INTTYPES_H_INCLUDED
+#endif // #ifndef OU_INTTYPES_H_INCLUDED

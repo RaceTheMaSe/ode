@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_ROTATION_H_
-#define _ODE_ROTATION_H_
+#ifndef ODE_ROTATION_H
+#define ODE_ROTATION_H
 
 #include <ode/common.h>
 #include <ode/compatibility.h>

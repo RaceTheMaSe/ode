@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_SIMPLEFLAGS_H_INCLUDED
-#define __OU_SIMPLEFLAGS_H_INCLUDED
+#ifndef OU_SIMPLEFLAGS_H_INCLUDED
+#define OU_SIMPLEFLAGS_H_INCLUDED
 
 
 #include <ou/flagsdefines.h>
@@ -344,4 +344,4 @@ typedef CSimpleFlagsTemplate<uint32ou> CSimpleFlags;
 END_NAMESPACE_OU
 
 
-#endif // #ifndef __OU_SIMPLEFLAGS_H_INCLUDED
+#endif // #ifndef OU_SIMPLEFLAGS_H_INCLUDED

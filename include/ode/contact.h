@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_CONTACT_H_
-#define _ODE_CONTACT_H_
+#ifndef ODE_CONTACT_H
+#define ODE_CONTACT_H
 
 #include <ode/common.h>
 

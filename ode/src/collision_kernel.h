@@ -26,8 +26,8 @@ internal data structures and functions for collision detection.
 
 */
 
-#ifndef _ODE_COLLISION_KERNEL_H_
-#define _ODE_COLLISION_KERNEL_H_
+#ifndef ODE_COLLISION_KERNEL_H
+#define ODE_COLLISION_KERNEL_H
 
 #include <ode/common.h>
 #include <ode/contact.h>

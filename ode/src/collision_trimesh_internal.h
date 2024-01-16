@@ -26,8 +26,8 @@
 // TriMesh storage classes refactoring and face angle computation code by Oleh Derevenko (C) 2016-2025
 
 
-#ifndef _ODE_COLLISION_TRIMESH_INTERNAL_H_
-#define _ODE_COLLISION_TRIMESH_INTERNAL_H_
+#ifndef ODE_COLLISION_TRIMESH_INTERNAL_H
+#define ODE_COLLISION_TRIMESH_INTERNAL_H
 
 
 //****************************************************************************
@@ -391,4 +391,4 @@ IFaceAngleStorageView *dxGeomTriMeshGetFaceAngleView(dxGeom *triMeshGeom);
 #include "collision_trimesh_opcode.h"
 
 
-#endif	//_ODE_COLLISION_TRIMESH_INTERNAL_H_
+#endif	//ODE_COLLISION_TRIMESH_INTERNAL_H

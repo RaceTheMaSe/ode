@@ -33,8 +33,8 @@
  */
 
 
-#ifndef _ODE_THREADING_FAKE_SYNC_H_
-#define _ODE_THREADING_FAKE_SYNC_H_
+#ifndef ODE_THREADING_FAKE_SYNC_H
+#define ODE_THREADING_FAKE_SYNC_H
 
 
 #include <ode/odeconfig.h>
@@ -125,4 +125,4 @@ public:
 };
 
 
-#endif // #ifndef _ODE_THREADING_FAKE_SYNC_H_
+#endif // #ifndef ODE_THREADING_FAKE_SYNC_H

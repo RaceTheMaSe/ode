@@ -36,8 +36,8 @@
  */
 
 
-#ifndef _ODE_ARRAY_H_
-#define _ODE_ARRAY_H_
+#ifndef ODE_ARRAY_H
+#define ODE_ARRAY_H
 
 #include <ode/odeconfig.h>
 

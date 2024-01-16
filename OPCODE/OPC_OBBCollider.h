@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_OBBCOLLIDER_H__
-#define __OPC_OBBCOLLIDER_H__
+#ifndef OPC_OBBCOLLIDER_H
+#define OPC_OBBCOLLIDER_H
 #include "OPC_Compile.h"
 
 	struct OPCODE_API OBBCache : VolumeCache
@@ -140,4 +140,4 @@
 							IceCore::Container		mTouchedBoxes;
 	};
 
-#endif // __OPC_OBBCOLLIDER_H__
+#endif // OPC_OBBCOLLIDER_H

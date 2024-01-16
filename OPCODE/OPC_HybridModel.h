@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_HYBRIDMODEL_H__
-#define __OPC_HYBRIDMODEL_H__
+#ifndef OPC_HYBRIDMODEL_H
+#define OPC_HYBRIDMODEL_H
 #include "OPC_Compile.h"
 
 	//! Leaf descriptor
@@ -104,4 +104,4 @@
 							void					Release();
 	};
 
-#endif // __OPC_HYBRIDMODEL_H__
+#endif // OPC_HYBRIDMODEL_H

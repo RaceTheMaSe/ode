@@ -29,8 +29,8 @@
  */
 
 
-#ifndef _ODE_THREADING_IMPL_POSIX_H_
-#define _ODE_THREADING_IMPL_POSIX_H_
+#ifndef ODE_THREADING_IMPL_POSIX_H
+#define ODE_THREADING_IMPL_POSIX_H
 
 
 #include <ode/common.h>
@@ -524,4 +524,4 @@ typedef dxtemplateThreadingImplementation<dxMultiThreadedJobListContainer, dxMul
 #endif // #if !defined(_WIN32)
 
 
-#endif // #ifndef _ODE_THREADING_IMPL_POSIX_H_
+#endif // #ifndef ODE_THREADING_IMPL_POSIX_H

@@ -21,8 +21,8 @@
  *************************************************************************/
 
 
-#ifndef _ODE_GIMPACT_GIM_CONTACT_ACCESSOR_H_
-#define _ODE_GIMPACT_GIM_CONTACT_ACCESSOR_H_
+#ifndef ODE_GIMPACT_GIM_CONTACT_ACCESSOR_H
+#define ODE_GIMPACT_GIM_CONTACT_ACCESSOR_H
 
 
 struct dxGIMCContactAccessor
@@ -59,4 +59,4 @@ struct dxGIMCContactAccessor
 };
 
 
-#endif	//_ODE_GIMPACT_GIM_CONTACT_ACCESSOR_H_
+#endif	//ODE_GIMPACT_GIM_CONTACT_ACCESSOR_H

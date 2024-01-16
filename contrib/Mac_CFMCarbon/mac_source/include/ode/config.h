@@ -1,7 +1,7 @@
 /* This file has been manually hacked together for the Mac CFM Carbon build - Frank. */
 
-#ifndef _ODE_CONFIG_H_
-#define _ODE_CONFIG_H_
+#ifndef ODE_CONFIG_H
+#define ODE_CONFIG_H
 
 /* standard system headers */
 #include <stdio.h>

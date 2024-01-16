@@ -23,8 +23,8 @@
 // matrix class. this is mostly for convenience in the testing code, it is
 // not optimized at all. correctness is of much more importance here.
 
-#ifndef _ODE_MAT_H_
-#define _ODE_MAT_H_
+#ifndef ODE_MAT_H
+#define ODE_MAT_H
 
 #include <ode/common.h>
 

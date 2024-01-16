@@ -26,8 +26,8 @@
 // TriMesh storage classes refactoring and face angle computation code by Oleh Derevenko (C) 2016-2025
 
 
-#ifndef _ODE_COLLISION_TRIMESH_OPCODE_H_
-#define _ODE_COLLISION_TRIMESH_OPCODE_H_
+#ifndef ODE_COLLISION_TRIMESH_OPCODE_H
+#define ODE_COLLISION_TRIMESH_OPCODE_H
 
 
 #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE)
@@ -329,4 +329,4 @@ extern void opcode_collider_cleanup();
 #endif // #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE)
 
 
-#endif	//_ODE_COLLISION_TRIMESH_OPCODE_H_
+#endif	//ODE_COLLISION_TRIMESH_OPCODE_H

@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEPAIRS_H__
-#define __ICEPAIRS_H__
+#ifndef ICEPAIRS_H
+#define ICEPAIRS_H
 
 	//! A generic couple structure
 	struct ICECORE_API Pair
@@ -42,4 +42,4 @@
 		inline_	void			AddPair(udword id0, udword id1)	{ Add(id0).Add(id1);						}
 	};
 
-#endif // __ICEPAIRS_H__
+#endif // ICEPAIRS_H

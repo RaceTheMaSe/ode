@@ -23,8 +23,8 @@
 // TriMesh base template method implementations by Oleh Derevenko (C) 2016-2025
 
 
-#ifndef _ODE_COLLISION_TRIMESH_INTERNAL_IMPL_H_
-#define _ODE_COLLISION_TRIMESH_INTERNAL_IMPL_H_
+#ifndef ODE_COLLISION_TRIMESH_INTERNAL_IMPL_H
+#define ODE_COLLISION_TRIMESH_INTERNAL_IMPL_H
 
 
 #include "collision_trimesh_internal.h"
@@ -460,4 +460,4 @@ dReal dxTriDataBase::calculateEdgeAngleValidated(unsigned firstVertexStartIndex,
 #endif // #if defined(dTRIMESH_ENABLED)
 
 
-#endif // #ifndef _ODE_COLLISION_TRIMESH_INTERNAL_IMPL_H_
+#endif // #ifndef ODE_COLLISION_TRIMESH_INTERNAL_IMPL_H

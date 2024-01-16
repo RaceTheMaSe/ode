@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICETRIANGLE_H__
-#define __ICETRIANGLE_H__
+#ifndef ICETRIANGLE_H
+#define ICETRIANGLE_H
 
 	// Forward declarations
 	class Moment;
@@ -65,4 +65,4 @@
 				void			Inflate(float fat_coeff, bool constant_border);
 	};
 
-#endif // __ICETRIANGLE_H__
+#endif // ICETRIANGLE_H

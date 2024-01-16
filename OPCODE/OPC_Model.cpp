@@ -101,9 +101,9 @@ using namespace Opcode;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Model::Model()
 {
-#ifdef __MESHMERIZER_H__	// Collision hulls only supported within ICE !
+#ifdef MESHMERIZER_H	// Collision hulls only supported within ICE !
 	mHull	= null;
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,9 +124,9 @@ Model::~Model()
 void Model::Release()
 {
 	ReleaseBase();
-#ifdef __MESHMERIZER_H__	// Collision hulls only supported within ICE !
+#ifdef MESHMERIZER_H	// Collision hulls only supported within ICE !
 	DELETESINGLE(mHull);
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -187,7 +187,7 @@ bool Model::Build(const OPCODECREATE& create)
 	// 3-3) Delete generic tree if needed
 	if(!create.mKeepOriginal)	DELETESINGLE(mSource);
 
-#ifdef __MESHMERIZER_H__
+#ifdef MESHMERIZER_H
 	// 4) Convex hull
 	if(create.mCollisionHull)
 	{
@@ -204,7 +204,7 @@ bool Model::Build(const OPCODECREATE& create)
 		CHC.WordFaces		= false;
 		mHull->Compute(CHC);
 	}
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
 
 	return true;
 }

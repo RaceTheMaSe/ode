@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEFPU_H__
-#define __ICEFPU_H__
+#ifndef ICEFPU_H
+#define ICEFPU_H
 
 	#define	SIGN_BITMASK			0x80000000
 
@@ -279,4 +279,4 @@
 	FUNCTION ICECORE_API int		intFloor(const float& f);
 	FUNCTION ICECORE_API int		intCeil(const float& f);
 
-#endif // __ICEFPU_H__
+#endif // ICEFPU_H

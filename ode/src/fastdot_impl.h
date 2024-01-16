@@ -22,8 +22,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_FASTDOT_IMPL_H_
-#define _ODE_FASTDOT_IMPL_H_
+#ifndef ODE_FASTDOT_IMPL_H
+#define ODE_FASTDOT_IMPL_H
 
 
 template<unsigned b_stride>

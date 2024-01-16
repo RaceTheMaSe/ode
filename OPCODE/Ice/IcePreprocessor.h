@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEPREPROCESSOR_H__
-#define __ICEPREPROCESSOR_H__
+#ifndef ICEPREPROCESSOR_H
+#define ICEPREPROCESSOR_H
 
 	// Check platform
 	#if defined( _WIN32 ) || defined( WIN32 )
@@ -120,4 +120,4 @@
 		#pragma intrinsic(labs)
 	#endif
 
-#endif // __ICEPREPROCESSOR_H__
+#endif // ICEPREPROCESSOR_H

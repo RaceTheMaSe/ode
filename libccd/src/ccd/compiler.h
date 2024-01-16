@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_COMPILER_H__
-#define __CCD_COMPILER_H__
+#ifndef CCD_COMPILER_H
+#define CCD_COMPILER_H
 
 #include <stddef.h>
 
@@ -67,5 +67,5 @@
 #define UNUSED_FUNCTION
 #endif
 
-#endif /* __CCD_COMPILER_H__ */
+#endif /* CCD_COMPILER_H */
 

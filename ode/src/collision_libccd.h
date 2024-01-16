@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _LIBCCD_COLLISION_H_
-#define _LIBCCD_COLLISION_H_
+#ifndef LIBCCD_COLLISION_H
+#define LIBCCD_COLLISION_H
 
 int dCollideCylinderCylinder(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip);
 
@@ -41,4 +41,4 @@ int dCollideConvexConvexCCD(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *con
 
 unsigned dCollideConvexTrimeshTrianglesCCD(dxGeom *o1, dxGeom *o2, const int *indices, unsigned numIndices, int flags, dContactGeom *contacts, int skip);
 
-#endif /* _LIBCCD_COLLISION_H_ */
+#endif /* LIBCCD_COLLISION_H */

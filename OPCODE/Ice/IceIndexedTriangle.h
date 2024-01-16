@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEINDEXEDTRIANGLE_H__
-#define __ICEINDEXEDTRIANGLE_H__
+#ifndef ICEINDEXEDTRIANGLE_H
+#define ICEINDEXEDTRIANGLE_H
 
 	// Forward declarations
 	typedef int CubeIndex;
@@ -75,4 +75,4 @@
 				CubeIndex		ComputeCubeIndex(const Point* verts)								const;
 	};
 
-#endif // __ICEINDEXEDTRIANGLE_H__
+#endif // ICEINDEXEDTRIANGLE_H

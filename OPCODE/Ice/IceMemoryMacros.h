@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEMEMORYMACROS_H__
-#define __ICEMEMORYMACROS_H__
+#ifndef ICEMEMORYMACROS_H
+#define ICEMEMORYMACROS_H
 
 #undef ZeroMemory
 #undef CopyMemory
@@ -77,10 +77,10 @@
 	#define SAFE_RELEASE(x)		if (x) { (x)->Release();		(x) = null; } do {} while(0)	//!< Safe D3D-style release
 	#define SAFE_DESTRUCT(x)	if (x) { (x)->SelfDestruct();	(x) = null; } do {} while(0)	//!< Safe ICE-style release
 
-#ifdef __ICEERROR_H__
+#ifdef ICEERROR_H
 	#define CHECKALLOC(x)		if(!x) return SetIceError("Out of memory.", EC_OUT_OF_MEMORY)	//!< Standard alloc checking. HANDLE WITH CARE.
 #else
 	#define CHECKALLOC(x)		if(!(x)) return false
 #endif
 
-#endif // __ICEMEMORYMACROS_H__
+#endif // ICEMEMORYMACROS_H

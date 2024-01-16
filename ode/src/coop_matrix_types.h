@@ -24,8 +24,8 @@
 // Copyright (C) 2017-2025 Oleh Derevenko (odar@eleks.com - change all "a" to "e")
 
 
-#ifndef _ODE_COOP_MATRIX_TYPES_H_
-#define _ODE_COOP_MATRIX_TYPES_H_
+#ifndef ODE_COOP_MATRIX_TYPES_H
+#define ODE_COOP_MATRIX_TYPES_H
 
 
 
@@ -166,4 +166,4 @@ public:
 };
 
 
-#endif // #ifndef _ODE_COOP_MATRIX_TYPES_H_
+#endif // #ifndef ODE_COOP_MATRIX_TYPES_H

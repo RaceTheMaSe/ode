@@ -31,8 +31,8 @@
  * performance because some data has to be copied.
  */
 
-#ifndef _ODE_COLLISION_TRIMESH_H_
-#define _ODE_COLLISION_TRIMESH_H_
+#ifndef ODE_COLLISION_TRIMESH_H
+#define ODE_COLLISION_TRIMESH_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -313,5 +313,5 @@ ODE_API void dGeomTriMeshDataUpdate(dTriMeshDataID g);
 }
 #endif
 
-#endif	/* _ODE_COLLISION_TRIMESH_H_ */
+#endif	/* ODE_COLLISION_TRIMESH_H */
 

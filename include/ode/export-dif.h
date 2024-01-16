@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_EXPORT_DIF_
-#define _ODE_EXPORT_DIF_
+#ifndef ODE_EXPORT_DIF
+#define ODE_EXPORT_DIF
 
 #include <ode/common.h>
 

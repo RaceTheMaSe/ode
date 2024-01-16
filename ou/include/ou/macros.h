@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_MACROS_H_INCLUDED
-#define __OU_MACROS_H_INCLUDED
+#ifndef OU_MACROS_H_INCLUDED
+#define OU_MACROS_H_INCLUDED
 
 
 #include <cstddef>
@@ -76,4 +76,4 @@
 #define OU_IN_SIZET_RANGE(Value, Min, Max) ((size_t)((size_t)(Value) - (size_t)(Min)) < (size_t)((size_t)(Max) - (size_t)(Min)))
 
 
-#endif // #ifndef __OU_MACROS_H_INCLUDED
+#endif // #ifndef OU_MACROS_H_INCLUDED

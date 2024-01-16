@@ -26,8 +26,8 @@ stuff common to all spaces
 
 */
 
-#ifndef _ODE_COLLISION_SPACE_INTERNAL_H_
-#define _ODE_COLLISION_SPACE_INTERNAL_H_
+#ifndef ODE_COLLISION_SPACE_INTERNAL_H
+#define ODE_COLLISION_SPACE_INTERNAL_H
 
 #include "collision_kernel.h"
 

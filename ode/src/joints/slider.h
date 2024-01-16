@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_JOINT_SLIDER_H_
-#define _ODE_JOINT_SLIDER_H_
+#ifndef ODE_JOINT_SLIDER_H
+#define ODE_JOINT_SLIDER_H
 
 #include "joint.h"
 

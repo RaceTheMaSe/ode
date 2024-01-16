@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_QUICK_STEP_H_
-#define _ODE_QUICK_STEP_H_
+#ifndef ODE_QUICK_STEP_H
+#define ODE_QUICK_STEP_H
 
 #include <ode/common.h>
 

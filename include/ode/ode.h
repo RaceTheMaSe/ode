@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_ODE_H_
-#define _ODE_ODE_H_
+#ifndef ODEODE_H
+#define ODEODE_H
 
 /* include *everything* here */
 

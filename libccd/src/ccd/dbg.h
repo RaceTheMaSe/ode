@@ -15,8 +15,8 @@
  *  See the License for more information.
  */
 
-#ifndef __CCD_DBG_H__
-#define __CCD_DBG_H__
+#ifndef CCD_DBG_H
+#define CCD_DBG_H
 
 /**
  * Some macros which can be used for printing debug info to stderr if macro
@@ -85,4 +85,4 @@ _ccd_inline UNUSED_FUNCTION void DBG(const char* format, ...) { (void)format; }
 # define DBG_VEC3(v, prefix)
 #endif
 
-#endif /* __CCD_DBG_H__ */
+#endif /* CCD_DBG_H */

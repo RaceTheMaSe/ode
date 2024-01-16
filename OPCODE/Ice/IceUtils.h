@@ -9,8 +9,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __ICEUTILS_H__
-#define __ICEUTILS_H__
+#ifndef ICEUTILS_H
+#define ICEUTILS_H
 
 //	#define START_RUNONCE	{ static bool __RunOnce__ = false;	if(!__RunOnce__){ -- not thread safe
 //	#define END_RUNONCE		__RunOnce__ = true;}} -- not thread safe
@@ -256,4 +256,4 @@
 		Compute2DCoords(u, v, i - (w * nbu_nbv), nbu);
 	}
 
-#endif // __ICEUTILS_H__
+#endif // ICEUTILS_H

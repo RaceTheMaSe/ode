@@ -30,8 +30,8 @@
  */
 
 
-#ifndef _ODE_THREADING_IMPL_TEMPLATES_H_
-#define _ODE_THREADING_IMPL_TEMPLATES_H_
+#ifndef ODE_THREADING_IMPL_TEMPLATES_H
+#define ODE_THREADING_IMPL_TEMPLATES_H
 
 
 #include <ode/common.h>
@@ -1420,4 +1420,4 @@ void dxtemplateThreadingImplementation<tJobListContainer, tJobListHandler>::Clea
 }
 
 
-#endif // #ifndef _ODE_THREADING_IMPL_TEMPLATES_H_
+#endif // #ifndef ODE_THREADING_IMPL_TEMPLATES_H

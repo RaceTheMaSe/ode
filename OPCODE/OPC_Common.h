@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_COMMON_H__
-#define __OPC_COMMON_H__
+#ifndef OPC_COMMON_H
+#define OPC_COMMON_H
 
 // [GOTTFRIED]: Just a small change for readability.
 #ifdef OPC_CPU_COMPARE
@@ -98,4 +98,4 @@
 		dest.z = trans.z + source.x * rot.m[0][2] + source.y * rot.m[1][2] + source.z * rot.m[2][2];
 	}
 
-#endif //__OPC_COMMON_H__
+#endif //OPC_COMMON_H

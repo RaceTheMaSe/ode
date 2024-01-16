@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_COMPATIBILITY_H_
-#define _ODE_COMPATIBILITY_H_
+#ifndef ODE_COMPATIBILITY_H
+#define ODE_COMPATIBILITY_H
 
 /*
  * ODE's backward compatibility system ensures that as ODE's API

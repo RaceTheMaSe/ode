@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_ATOMIC_H_INCLUDED
-#define __OU_ATOMIC_H_INCLUDED
+#ifndef OU_ATOMIC_H_INCLUDED
+#define OU_ATOMIC_H_INCLUDED
 
 
 /**
@@ -1895,4 +1895,4 @@ END_NAMESPACE_OU
 
 #endif // #if _OU_FEATURE_SET >= _OU_FEATURE_SET_ATOMICS
 
-#endif // #ifndef __OU_ATOMIC_H_INCLUDED
+#endif // #ifndef OU_ATOMIC_H_INCLUDED

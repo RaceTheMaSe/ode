@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_TYPEWRAPPER_H_INCLUDED
-#define __OU_TYPEWRAPPER_H_INCLUDED
+#ifndef OU_TYPEWRAPPER_H_INCLUDED
+#define OU_TYPEWRAPPER_H_INCLUDED
 
 
 #include <ou/platform.h>
@@ -110,4 +110,4 @@ _OU_INLINE bool _OU_CONVENTION_API operator >=(const ContainedType &ctLeftValue,
 END_NAMESPACE_OU
 
 
-#endif // #ifndef __OU_TYPEWRAPPER_H_INCLUDED
+#endif // #ifndef OU_TYPEWRAPPER_H_INCLUDED

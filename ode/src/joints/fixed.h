@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_JOINT_FIXED_H_
-#define _ODE_JOINT_FIXED_H_
+#ifndef ODE_JOINT_FIXED_H
+#define ODE_JOINT_FIXED_H
 
 #include "joint.h"
 

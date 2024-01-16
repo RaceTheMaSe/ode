@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_TYPEDEFS_H_
-#define _ODE_TYPEDEFS_H_
+#ifndef ODE_TYPEDEFS_H
+#define ODE_TYPEDEFS_H
 
 #include <ode/odeconfig.h>
 

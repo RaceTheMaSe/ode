@@ -27,8 +27,8 @@
  * LDLT cooperative factorization code of ThreadedEquationSolverLDLT copyright (c) 2017-2025 Oleh Derevenko, odar@eleks.com (change all "a" to "e")  
  */
 
-#ifndef _ODE_FASTLDLT_IMPL_H_
-#define _ODE_FASTLDLT_IMPL_H_
+#ifndef ODE_FASTLDLT_IMPL_H
+#define ODE_FASTLDLT_IMPL_H
 
 
 #include "error.h"
@@ -1534,4 +1534,4 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
 #pragma warning(pop)
 #endif
 
-#endif // #ifndef _ODE_FASTLDLT_IMPL_H_
+#endif // #ifndef ODE_FASTLDLT_IMPL_H

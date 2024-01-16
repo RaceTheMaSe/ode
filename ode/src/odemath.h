@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE__PRIVATE_ODEMATH_H_
-#define _ODE__PRIVATE_ODEMATH_H_
+#ifndef ODE_PRIVATE_ODEMATH_H
+#define ODE_PRIVATE_ODEMATH_H
 
 #include <ode/odemath.h>
 #include "error.h"

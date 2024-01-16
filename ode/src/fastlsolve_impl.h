@@ -27,8 +27,8 @@
  * L1Straight cooperative solving code of ThreadedEquationSolverLDLT copyright (c) 2017-2025 Oleh Derevenko, odar@eleks.com (change all "a" to "e")  
  */
 
-#ifndef _ODE_FASTLSOLVE_IMPL_H_
-#define _ODE_FASTLSOLVE_IMPL_H_
+#ifndef ODE_FASTLSOLVE_IMPL_H
+#define ODE_FASTLSOLVE_IMPL_H
 
 
 /* solve L*X=B, with B containing 1 right hand sides.

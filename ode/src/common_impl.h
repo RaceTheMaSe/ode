@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_PRIVATE_COMMON_H_
-#define _ODE_PRIVATE_COMMON_H_
+#ifndef ODE_PRIVATE_COMMON_H
+#define ODE_PRIVATE_COMMON_H
 
 
 #include "typedefs.h"

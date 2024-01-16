@@ -30,8 +30,8 @@
  */
 
 
-#ifndef _ODE__PRIVATE_SIMPLE_COOPERATIVE_H_
-#define _ODE__PRIVATE_SIMPLE_COOPERATIVE_H_
+#ifndef ODE_PRIVATE_SIMPLE_COOPERATIVE_H
+#define ODE_PRIVATE_SIMPLE_COOPERATIVE_H
 
 
 #include "objects.h"
@@ -70,4 +70,4 @@ dxSimpleCooperative *decodeCooperativeID(dCooperativeID cooperative)
 }
 
 
-#endif // #ifndef _ODE__PRIVATE_SIMPLE_COOPERATIVE_H_
+#endif // #ifndef ODE_PRIVATE_SIMPLE_COOPERATIVE_H

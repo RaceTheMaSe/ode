@@ -21,8 +21,8 @@
  *************************************************************************/
 
 
-#ifndef _ODE_GIMPACT_CONTACT_EXPORT_HELPER_H_
-#define _ODE_GIMPACT_CONTACT_EXPORT_HELPER_H_
+#ifndef ODE_GIMPACT_CONTACT_EXPORT_HELPER_H
+#define ODE_GIMPACT_CONTACT_EXPORT_HELPER_H
 
 
 #include "collision_kernel.h"
@@ -174,4 +174,4 @@ dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dxGImpactContactA
 }
 
 
-#endif	//_ODE_GIMPACT_CONTACT_EXPORT_HELPER_H_
+#endif	//ODE_GIMPACT_CONTACT_EXPORT_HELPER_H

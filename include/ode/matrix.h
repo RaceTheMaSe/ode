@@ -22,8 +22,8 @@
 
 /* optimized and unoptimized vector and matrix functions */
 
-#ifndef _ODE_MATRIX_H_
-#define _ODE_MATRIX_H_
+#ifndef ODE_MATRIX_H
+#define ODE_MATRIX_H
 
 #include <ode/common.h>
 

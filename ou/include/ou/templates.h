@@ -24,8 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef __OU_TEMPLATES_H_INCLUDED
-#define __OU_TEMPLATES_H_INCLUDED
+#ifndef OU_TEMPLATES_H_INCLUDED
+#define OU_TEMPLATES_H_INCLUDED
 
 
 #include <ou/macros.h>
@@ -87,4 +87,4 @@ _OU_INLINE bool _OU_CONVENTION_API IsEmptySz(const ValueType *szLine)
 END_NAMESPACE_OU
 
 
-#endif // #ifndef __OU_TEMPLATES_H_INCLUDED
+#endif // #ifndef OU_TEMPLATES_H_INCLUDED

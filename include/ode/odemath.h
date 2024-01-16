@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_ODEMATH_H_
-#define _ODE_ODEMATH_H_
+#ifndef ODE_ODEMATH_H
+#define ODE_ODEMATH_H
 
 #include <ode/common.h>
 

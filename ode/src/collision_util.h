@@ -26,8 +26,8 @@ some useful collision utility stuff.
 
 */
 
-#ifndef _ODE_COLLISION_UTIL_H_
-#define _ODE_COLLISION_UTIL_H_
+#ifndef ODE_COLLISION_UTIL_H
+#define ODE_COLLISION_UTIL_H
 
 #include <ode/common.h>
 #include <ode/contact.h>

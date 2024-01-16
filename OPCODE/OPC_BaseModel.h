@@ -17,8 +17,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include Guard
-#ifndef __OPC_BASEMODEL_H__
-#define __OPC_BASEMODEL_H__
+#ifndef OPC_BASEMODEL_H
+#define OPC_BASEMODEL_H
 
 	//! Model creation structure
 	struct OPCODE_API OPCODECREATE
@@ -29,9 +29,9 @@
             mSettings(SPLIT_SPLATTER_POINTS | SPLIT_GEOM_CENTER),
             mNoLeaf(true),
             mQuantized(true),
-#ifdef __MESHMERIZER_H__
+#ifdef MESHMERIZER_H
             mCollisionHull(false),
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
             mKeepOriginal(false),
             mCanRemap(false)
         {
@@ -42,9 +42,9 @@
             mSettings(Settings),
             mNoLeaf(NoLeaf),
             mQuantized(Quantized),
-#ifdef __MESHMERIZER_H__
+#ifdef MESHMERIZER_H
             mCollisionHull(false),
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
             mKeepOriginal(false),
             mCanRemap(false)
         {
@@ -54,9 +54,9 @@
 		BuildSettings			mSettings;		//!< Builder's settings
 		bool					mNoLeaf;		//!< true => discard leaf nodes (else use a normal tree)
 		bool					mQuantized;		//!< true => quantize the tree (else use a normal tree)
-#ifdef __MESHMERIZER_H__
+#ifdef MESHMERIZER_H
 		bool					mCollisionHull;	//!< true => use convex hull + GJK
-#endif // __MESHMERIZER_H__
+#endif // MESHMERIZER_H
 		bool					mKeepOriginal;	//!< true => keep a copy of the original tree (debug purpose)
 		bool					mCanRemap;		//!< true => allows OPCODE to reorganize client arrays
 
@@ -196,4 +196,4 @@
 						bool				CreateTree(bool no_leaf, bool quantized);
 	};
 
-#endif //__OPC_BASEMODEL_H__
+#endif //OPC_BASEMODEL_H

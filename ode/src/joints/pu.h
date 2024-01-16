@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_JOINT_PU_H_
-#define _ODE_JOINT_PU_H_
+#ifndef ODE_JOINT_PU_H
+#define ODE_JOINT_PU_H
 
 #include "universal.h"
 

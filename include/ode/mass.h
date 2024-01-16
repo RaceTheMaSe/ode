@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#ifndef _ODE_MASS_H_
-#define _ODE_MASS_H_
+#ifndef ODE_MASS_H
+#define ODE_MASS_H
 
 #include <ode/common.h>
 
