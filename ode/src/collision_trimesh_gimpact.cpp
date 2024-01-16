@@ -320,7 +320,7 @@ void *geomTriMeshDataGet(dTriMeshDataID g, int dataId, sizeint *pOutDataSize)
                 *pOutDataSize = data->calculateNormalsMemoryRequirement();
             }
 
-            result = (void *)data->retrieveNormals();
+            result = (void *)const_cast<dReal*>(data->retrieveNormals());
             break;
         }
 

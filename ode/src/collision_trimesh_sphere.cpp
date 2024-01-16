@@ -560,7 +560,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
     dIASSERT ((Flags & NUMC_MASK) >= 1);
 
     dxTriMesh* TriMesh = (dxTriMesh*)g1;
-    dVector3& Position = *(dVector3*)dGeomGetPosition(SphereGeom);
+    const dVector3& Position = *(const dVector3*)dGeomGetPosition(SphereGeom);
     dReal Radius = dGeomSphereGetRadius(SphereGeom);
     //Create contact list
     GDYNAMIC_ARRAY trimeshcontacts;

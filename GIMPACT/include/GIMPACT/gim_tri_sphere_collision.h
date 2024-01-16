@@ -44,7 +44,7 @@ email: projectileman@yahoo.com
 */
 int gim_triangle_sphere_collision(
 							GIM_TRIANGLE_DATA *tri,
-							vec3f center, GREAL radius,
+							const vec3f center, GREAL radius,
 							GIM_TRIANGLE_CONTACT_DATA * contact_data);
 
 //! @}

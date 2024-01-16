@@ -2446,10 +2446,10 @@ const char* dGetConfiguration (void)
 int dCheckConfiguration( const char* extension )
 {
     const char *start;
-    char *where, *terminator;
+    const char *where, *terminator;
 
     /* Feature names should not have spaces. */
-    where = (char*)strchr(extension, ' ');
+    where = strchr(extension, ' ');
     if ( where || *extension == '\0')
         return 1;
 
@@ -2461,7 +2461,7 @@ int dCheckConfiguration( const char* extension )
     start = config;
     for (  ; ;  )
     {
-        where = (char*)strstr((const char *) start, extension);
+        where = strstr((const char *) start, extension);
         if (!where)
             break;
 

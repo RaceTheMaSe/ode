@@ -280,24 +280,24 @@ bool MeshInterface::SetStrides(udword tri_stride, udword vertex_stride)
 #ifdef OPC_USE_STRIDE
 void MeshInterface::FetchTriangleFromSingles(VertexPointers& vp, udword index, ConversionArea /*vc*/) const
 {	
-	const IndexedTriangle* T = (const IndexedTriangle*)(((ubyte*)mTris) + index * mTriStride);
+	const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 
 	const Point* Verts = GetVerts();
 	udword VertexStride = GetVertexStride();
-	vp.Vertex[0] = (const Point*)(((ubyte*)Verts) + T->mVRef[0] * VertexStride);
-	vp.Vertex[1] = (const Point*)(((ubyte*)Verts) + T->mVRef[1] * VertexStride);
-	vp.Vertex[2] = (const Point*)(((ubyte*)Verts) + T->mVRef[2] * VertexStride);
+	vp.Vertex[0] = (const Point*)(((const ubyte*)Verts) + T->mVRef[0] * VertexStride);
+	vp.Vertex[1] = (const Point*)(((const ubyte*)Verts) + T->mVRef[1] * VertexStride);
+	vp.Vertex[2] = (const Point*)(((const ubyte*)Verts) + T->mVRef[2] * VertexStride);
 }
 
 void MeshInterface::FetchTriangleFromDoubles(VertexPointers& vp, udword index, ConversionArea vc) const
 {
-	const IndexedTriangle* T = (const IndexedTriangle*)(((ubyte*)mTris) + index * mTriStride);
+	const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 	
 	const Point* Verts = GetVerts();
 	udword VertexStride = GetVertexStride();
 
 	for (int i = 0; i < 3; i++){
-		const double* v = (const double*)(((ubyte*)Verts) + T->mVRef[i] * VertexStride);
+		const double* v = (const double*)(((const ubyte*)Verts) + T->mVRef[i] * VertexStride);
 
 		vc[i].x = (float)v[0];
 		vc[i].y = (float)v[1];
@@ -308,27 +308,27 @@ void MeshInterface::FetchTriangleFromDoubles(VertexPointers& vp, udword index, C
 
 void MeshInterface::FetchExTriangleFromSingles(VertexPointersEx& vpe, udword index, ConversionArea /*vc*/) const
 {	
-	const IndexedTriangle* T = (const IndexedTriangle*)(((ubyte*)mTris) + index * mTriStride);
+	const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 
 	const Point* Verts = GetVerts();
 	udword VertexStride = GetVertexStride();
 
 	dTriIndex VertIndex0 = T->mVRef[0];
 	vpe.Index[0] = VertIndex0;
-	vpe.vp.Vertex[0] = (const Point*)(((ubyte*)Verts) + VertIndex0 * VertexStride);
+	vpe.vp.Vertex[0] = (const Point*)(((const ubyte*)Verts) + VertIndex0 * VertexStride);
 
 	dTriIndex VertIndex1 = T->mVRef[1];
 	vpe.Index[1] = VertIndex1;
-	vpe.vp.Vertex[1] = (const Point*)(((ubyte*)Verts) + VertIndex1 * VertexStride);
+	vpe.vp.Vertex[1] = (const Point*)(((const ubyte*)Verts) + VertIndex1 * VertexStride);
 
 	dTriIndex VertIndex2 = T->mVRef[2];
 	vpe.Index[2] = VertIndex2;
-	vpe.vp.Vertex[2] = (const Point*)(((ubyte*)Verts) + VertIndex2 * VertexStride);
+	vpe.vp.Vertex[2] = (const Point*)(((const ubyte*)Verts) + VertIndex2 * VertexStride);
 }
 
 void MeshInterface::FetchExTriangleFromDoubles(VertexPointersEx& vpe, udword index, ConversionArea vc) const
 {
-	const IndexedTriangle* T = (const IndexedTriangle*)(((ubyte*)mTris) + index * mTriStride);
+	const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 
 	const Point* Verts = GetVerts();
 	udword VertexStride = GetVertexStride();
@@ -337,7 +337,7 @@ void MeshInterface::FetchExTriangleFromDoubles(VertexPointersEx& vpe, udword ind
 		dTriIndex VertIndex = T->mVRef[i];
 		vpe.Index[i] = VertIndex;
 
-		const double* v = (const double*)(((ubyte*)Verts) + VertIndex * VertexStride);
+		const double* v = (const double*)(((const ubyte*)Verts) + VertIndex * VertexStride);
 		vc[i].x = (float)v[0];
 		vc[i].y = (float)v[1];
 		vc[i].z = (float)v[2];
@@ -356,7 +356,7 @@ void MeshInterface::FetchExTriangleFromDoubles(VertexPointersEx& vpe, udword ind
  *	\return		true if success
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool MeshInterface::RemapClient(udword nb_indices, const dTriIndex* permutation) const
+bool MeshInterface::RemapClient(udword nb_indices, const dTriIndex* permutation)
 {
 	// Checkings
 	if(!nb_indices || !permutation)	return false;
@@ -377,13 +377,13 @@ bool MeshInterface::RemapClient(udword nb_indices, const dTriIndex* permutation)
 
 	for(udword i=0;i<mNbTris;i++)
 	{
-		const IndexedTriangle* T = (const IndexedTriangle*)(((ubyte*)mTris) + i * Stride);
+		const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + i * Stride);
 		Tmp[i] = *T;
 	}
 
 	for(udword i=0;i<mNbTris;i++)
 	{
-		IndexedTriangle* T = (IndexedTriangle*)(((ubyte*)mTris) + i * Stride);
+		IndexedTriangle* T = (IndexedTriangle*)const_cast<ubyte*>((((const ubyte*)mTris) + i * Stride));
 		*T = Tmp[permutation[i]];
 	}
 

@@ -162,8 +162,8 @@ private:
 	inline void AssignSingleBlockHostArray(CTLSStorageBlock *psbStorageBlock);
 	
 private:
-	inline CTLSStorageBlock *GetStorageBlockPointer(unsigned int nBlockIndex, tlsindextype iValueCount) const;
-	inline unsigned int GetStorageBlockIndex(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount) const;
+	inline CTLSStorageBlock *GetStorageBlockPointer(unsigned int nBlockIndex, tlsindextype iValueCount);
+	inline unsigned int GetStorageBlockIndex(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
 	inline static void ZeroStorageBlockMemory(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
 
 private:
@@ -715,7 +715,7 @@ void CTLSStorageArray::AssignSingleBlockHostArray(CTLSStorageBlock *psbStorageBl
 }
 
 
-CTLSStorageBlock *CTLSStorageArray::GetStorageBlockPointer(unsigned int nBlockIndex, tlsindextype iValueCount) const
+CTLSStorageBlock *CTLSStorageArray::GetStorageBlockPointer(unsigned int nBlockIndex, tlsindextype iValueCount)
 {
 	OU_ASSERT(OU_IN_INT_RANGE(nBlockIndex, 0, TLS_ARRAY_ELEMENT__MAX));
 
@@ -727,13 +727,13 @@ CTLSStorageBlock *CTLSStorageArray::GetStorageBlockPointer(unsigned int nBlockIn
 	return psbStorageBlock;
 }
 
-unsigned int CTLSStorageArray::GetStorageBlockIndex(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount) const
+unsigned int CTLSStorageArray::GetStorageBlockIndex(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount)
 {
 	const size_t nHeaderSize = CTLSStorageArray::GetHeaderSize();
 	const size_t nBlockSize = CTLSStorageBlock::GetRequiredSize(iValueCount);
 	const size_t nBlockZeroOffset = CTLSStorageBlock::GetZeroOffset(iValueCount);
 
-	unsigned int uiBlockIndex = (unsigned int)((((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((int8ou *)this)) / nBlockSize);
+	unsigned int uiBlockIndex = (unsigned int)((((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((const int8ou *)this)) / nBlockSize);
 	OU_ASSERT((((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((int8ou *)this)) % nBlockSize == 0);
 	OU_ASSERT(OU_IN_INT_RANGE(uiBlockIndex, 0, TLS_ARRAY_ELEMENT__MAX));
 

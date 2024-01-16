@@ -178,7 +178,7 @@ private:
     *	@param	geoms	[in] geoms of boxes.
     *	@param	pairs	[out] array of overlapping pairs.
     */
-    void BoxPruning( int count, const dxGeom** geoms, dArray< Pair >& pairs );
+    void BoxPruning( int count, dxGeom** geoms, dArray< Pair >& pairs );
 
 
     //--------------------------------------------------------------------------
@@ -458,7 +458,7 @@ void dxSAPSpace::collide( void *userData, dNearCallback *callback )
     if ( tmp_geom_count > 0 )
     {
         // Generate a list of overlapping boxes
-        BoxPruning( tmp_geom_count, (const dxGeom**)TmpGeomList.data(), overlapBoxes );
+        BoxPruning( tmp_geom_count, (dxGeom**)TmpGeomList.data(), overlapBoxes );
     }
 
     // collide overlapping
@@ -518,7 +518,7 @@ void dxSAPSpace::collide2( void *userData, dxGeom *geom, dNearCallback *callback
 }
 
 
-void dxSAPSpace::BoxPruning( int numBoxes, const dxGeom** geoms, dArray< Pair >& pairs )
+void dxSAPSpace::BoxPruning( int numBoxes, dxGeom** geoms, dArray< Pair >& pairs )
 {
     // Size the poslist (+1 for infinity end cap)
     poslist.setSize( numBoxes );

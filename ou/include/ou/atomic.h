@@ -417,15 +417,6 @@ typedef PVOID atomicptr;
 #define __ou_cmpxchg_target_t PVOID *
 
 
-#elif _OU_COMPILER == _OU_COMPILER_GCC
-
-#define __ou_intlck_value_t LONG
-#define __ou_intlck_target_t LPLONG
-#define __ou_xchgadd_target_t LPLONG
-#define __ou_cmpxchg_value_t LONG
-#define __ou_cmpxchg_target_t LPLONG
-
-
 #else // other compilers
 
 #define __ou_intlck_value_t LONG
@@ -443,32 +434,32 @@ typedef PVOID atomicptr;
 static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API 
 /*atomicord32 */AtomicIncrement(volatile atomicord32 *paoDestination)
 {
-	return ::InterlockedIncrement((__ou_intlck_target_t)paoDestination);
+	return ::InterlockedIncrement((__ou_intlck_target_t)const_cast<atomicord32*>(paoDestination));
 }
 
 static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API 
 /*atomicord32 */AtomicDecrement(volatile atomicord32 *paoDestination)
 {
-	return ::InterlockedDecrement((__ou_intlck_target_t)paoDestination);
+	return ::InterlockedDecrement((__ou_intlck_target_t)const_cast<atomicord32*>(paoDestination));
 }
 
 
 static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API 
 /*atomicord32 */AtomicExchange(volatile atomicord32 *paoDestination, atomicord32 aoExchange)
 {
-	return ::InterlockedExchange((__ou_intlck_target_t)paoDestination, aoExchange);
+	return ::InterlockedExchange((__ou_intlck_target_t)const_cast<atomicord32*>(paoDestination), aoExchange);
 }
 
 static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API 
 /*atomicord32 */AtomicExchangeAdd(volatile atomicord32 *paoDestination, atomicord32 aoAddend)
 {
-	return ::InterlockedExchangeAdd((__ou_xchgadd_target_t)paoDestination, aoAddend);
+	return ::InterlockedExchangeAdd((__ou_xchgadd_target_t)const_cast<atomicord32*>(paoDestination), aoAddend);
 }
 
 static _OU_ALWAYSINLINE bool _OU_CONVENTION_API 
 /*bool */AtomicCompareExchange(volatile atomicord32 *paoDestination, atomicord32 aoComparand, atomicord32 aoExchange)
 {
-	return (aoComparand == (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)paoDestination, (__ou_cmpxchg_value_t)aoExchange, (__ou_cmpxchg_value_t)aoComparand));
+	return (aoComparand == (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)aoExchange, (__ou_cmpxchg_value_t)aoComparand));
 }
 
 
@@ -481,7 +472,7 @@ static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API
 	
     while (true)
 	{
-        atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)paoDestination, (__ou_cmpxchg_value_t)(aoOldValue & aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
+        atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)(aoOldValue & aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
 
 		if (aoNewValue == aoOldValue)
 		{
@@ -501,7 +492,7 @@ static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API
 	
     while (true)
 	{
-        atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)paoDestination, (__ou_cmpxchg_value_t)(aoOldValue | aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
+        atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)(aoOldValue | aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
 		
 		if (aoNewValue == aoOldValue)
 		{
@@ -521,7 +512,7 @@ static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API
 	
     while (true)
 	{
-        atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)paoDestination, (__ou_cmpxchg_value_t)(aoOldValue ^ aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
+        atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)(aoOldValue ^ aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
 		
 		if (aoNewValue == aoOldValue)
 		{
@@ -1825,7 +1816,7 @@ static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API
 static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API 
 /*atomicord32 */AtomicLoad(const volatile atomicord32 *paoSource)
 {
-	return AtomicExchangeAdd((volatile atomicord32 *)paoSource, 0);
+	return AtomicExchangeAdd(const_cast<atomicord32*>(paoSource), 0);
 }
 
 
@@ -1865,7 +1856,7 @@ static _OU_ALWAYSINLINE atomicptr _OU_CONVENTION_API
 {
     atomicptr apResultValue = UnorderedAtomicLoadPointer(papSource);
 
-    if (!AtomicCompareExchangePointer((volatile atomicptr *)papSource, apResultValue, apResultValue))
+    if (!AtomicCompareExchangePointer(const_cast<atomicptr*>(papSource), apResultValue, apResultValue))
     {
         apResultValue = UnorderedAtomicLoadPointer(papSource);
     }
@@ -1903,6 +1894,5 @@ END_NAMESPACE_OU
 
 
 #endif // #if _OU_FEATURE_SET >= _OU_FEATURE_SET_ATOMICS
-
 
 #endif // #ifndef __OU_ATOMIC_H_INCLUDED

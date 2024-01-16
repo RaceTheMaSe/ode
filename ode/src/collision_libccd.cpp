@@ -1068,7 +1068,7 @@ void setObjPosToTriangleCenter(ccd_triangle_t *t)
 static 
 void ccdSupportTriangle(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v)
 {
-    const ccd_triangle_t* o = (ccd_triangle_t *) obj;
+    const ccd_triangle_t* o = (const ccd_triangle_t *) obj;
     ccd_real_t maxdot, dot;
     maxdot = -CCD_REAL_MAX;
     for (unsigned i = 0; i != 3; i++) {

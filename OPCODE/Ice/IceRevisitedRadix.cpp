@@ -63,8 +63,8 @@ using namespace IceCore;
 	ZeroMemory(mHistogram, 256*4*sizeof(udword));											\
 																							\
 	/* Prepare to count */																	\
-	ubyte* p = (ubyte*)input;																\
-	ubyte* pe = &p[nb*4];																	\
+	const ubyte* p = (const ubyte*)input;																\
+	const ubyte* pe = &p[nb*4];																	\
 	udword* h0= &mHistogram[0];		/* Histogram for first pass (LSB)	*/					\
 	udword* h1= &mHistogram[256];	/* Histogram for second pass		*/					\
 	udword* h2= &mHistogram[512];	/* Histogram for third pass			*/					\
@@ -75,7 +75,7 @@ using namespace IceCore;
 	if(INVALID_RANKS)																		\
 	{																						\
 		/* Prepare for temporal coherence */												\
-		type* Running = (type*)buffer;														\
+		const type* Running = (const type*)buffer;														\
 		type PrevVal = *Running;															\
 																							\
 		while(p!=pe)																		\
@@ -150,7 +150,7 @@ using namespace IceCore;
 	/* for words and O(n) for bytes. Running time for floats depends on actual values... */	\
 																							\
 	/* Get first byte */																	\
-	ubyte UniqueVal = *(((ubyte*)input)+pass);												\
+	const ubyte UniqueVal = *(((const ubyte*)input)+pass);												\
 																							\
 	/* Check that byte's counter */															\
 	if(CurCount[UniqueVal]==nb)	PerformPass=false
@@ -303,7 +303,7 @@ RadixSort& RadixSort::Sort(const udword* input, udword nb, RadixHint hint)
 			}
 
 			// Perform Radix Sort
-			ubyte* InputBytes	= (ubyte*)input;
+			const ubyte* InputBytes	= (const ubyte*)input;
 			InputBytes += j;
 			if(INVALID_RANKS)
 			{
@@ -348,7 +348,7 @@ RadixSort& RadixSort::Sort(const float* input2, udword nb)
 	// Stats
 	mTotalCalls++;
 
-	udword* input = (udword*)input2;
+	const udword* input = (const udword*)input2;
 
 	// Resize lists if needed
 	CheckResize(nb);
@@ -396,7 +396,7 @@ RadixSort& RadixSort::Sort(const float* input2, udword nb)
 				for(udword i=1;i<256;i++)		mLink[i] = mLink[i-1] + CurCount[i-1];
 
 				// Perform Radix Sort
-				ubyte* InputBytes = (ubyte*)input;
+				const ubyte* InputBytes = (const ubyte*)input;
 				InputBytes += j;
 				if(INVALID_RANKS)
 				{

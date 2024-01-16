@@ -30,7 +30,7 @@ email: projectileman@yahoo.com
 
 int gim_triangle_sphere_collision(
 							GIM_TRIANGLE_DATA *tri,
-							vec3f center, GREAL radius,
+							const vec3f center, GREAL radius,
 							GIM_TRIANGLE_CONTACT_DATA * contact_data)
 {
     contact_data->m_point_count = 0;
@@ -138,7 +138,7 @@ In each contact
 \param radius sphere radius
 \param contacts A GIM_CONTACT array. Must be initialized
 */
-void gim_trimesh_sphere_collision(GIM_TRIMESH * trimesh,vec3f center,GREAL radius, GDYNAMIC_ARRAY * contacts)
+void gim_trimesh_sphere_collision(GIM_TRIMESH * trimesh,const vec3f center,GREAL radius, GDYNAMIC_ARRAY * contacts)
 {
     contacts->m_size = 0;
 

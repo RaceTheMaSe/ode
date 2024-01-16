@@ -257,7 +257,7 @@ static GPTR _shared_buffer_alloc_function(GUINT32 /*size*/,int /*usage*/)
 
 static GPTR _shared_buffer_alloc_data_function(const void * pdata,GUINT32 /*size*/,int /*usage*/)
 {
-    return (GPTR)pdata;
+    return (GPTR)const_cast<void*>(pdata);
 }
 
 #if 0

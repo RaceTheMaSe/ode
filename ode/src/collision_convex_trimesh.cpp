@@ -85,8 +85,8 @@ int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* cont
     if (collider.Collide(cache, convexOOB, trimesh->retrieveMeshBVTreeRef(), null, &meshTransformation)) {
         int triCount = collider.GetNbTouchedPrimitives();
         if (triCount > 0) {
-            int* triangles = (int*)collider.GetTouchedPrimitives();
-            contactcount = dCollideConvexTrimeshTrianglesCCD(o1, o2, triangles, triCount, flags, contacts, skip);
+            const int* triangles = (const int*)collider.GetTouchedPrimitives();
+            contactcount = (int)dCollideConvexTrimeshTrianglesCCD(o1, o2, triangles, triCount, flags, contacts, skip);
         }
     }
 

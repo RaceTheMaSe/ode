@@ -92,7 +92,8 @@ public:
     dArray (const dArray<T> &x) { constructor(); equals (x); }
     ~dArray () { _freeAll(sizeof(T)); }
     void setSize (int newsize) { _setSize (newsize,sizeof(T)); }
-    T *data() const { return (T*) _data; }
+    T *data() { return (T*) _data; }
+    const T *data() const { return (const T*) _data; }
     T & operator[] (int i) const { return ((T*)_data)[i]; }
     void operator = (const dArray<T> &x) { equals (x); }
 

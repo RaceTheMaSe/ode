@@ -28,10 +28,17 @@
 #include <ou/platform.h>
 
 #if _OU_COMPILER == _OU_COMPILER_MSVC
-
-#pragma warning(disable:4786)
-
-
+#pragma warning(disable:4310) // cast truncates constant value
+#pragma warning(disable: 4127) // conditional expression is constant
+#endif
+#if _OU_COMPILER == _OU_COMPILER_GCC
+#pragma GCC diagnostic ignored "-Wshift-negative-value" // shifting a negative signed value is undefined
+#pragma GCC diagnostic ignored "-Wshift-overflow"
+#pragma GCC diagnostic ignored "-Wcast-qual"
+#endif
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wunreachable-code-break" // 'break' will never be executed
+#pragma clang diagnostic ignored "-Wpedantic" // cast between pointer-to-function and pointer-to-object is an extension
 #endif
 
 #if _OU_FEATURE_SET >= _OU_FEATURE_SET_TLS

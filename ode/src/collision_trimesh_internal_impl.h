@@ -38,11 +38,11 @@ template<typename tcoordfloat, typename tindexint>
 void dxTriDataBase::retrieveTriangleVertexPoints(dVector3 out_Points[dMTV__MAX], unsigned triangleIndex,
     const tcoordfloat *vertexInstances, int vertexStride, const tindexint *triangleVertexIndices, int triangleStride)
 {
-    const tindexint *triangleIndicesOfInterest = (const tindexint *)((uint8 *)triangleVertexIndices + (sizeint)triangleIndex * triangleStride);
+    const tindexint *triangleIndicesOfInterest = (const tindexint *)((const uint8 *)triangleVertexIndices + (sizeint)triangleIndex * triangleStride);
     for (unsigned trianglePoint = dMTV__MIN; trianglePoint != dMTV__MAX; ++trianglePoint)
     {
         unsigned vertexIndex = triangleIndicesOfInterest[trianglePoint];
-        tcoordfloat *pointVertex = (tcoordfloat *)((uint8 *)vertexInstances + (sizeint)vertexIndex * vertexStride);
+        const tcoordfloat *pointVertex = (const tcoordfloat *)((const uint8 *)vertexInstances + (sizeint)vertexIndex * vertexStride);
         dAssignVector3(out_Points[trianglePoint], (dReal)pointVertex[dSA_X], (dReal)pointVertex[dSA_Y], (dReal)pointVertex[dSA_Z]);
         dSASSERT(dSA_X == 0);
         dSASSERT(dSA_Y == 1);

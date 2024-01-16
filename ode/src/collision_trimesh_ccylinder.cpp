@@ -1115,9 +1115,9 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
     dVector3   vCapsuleAxis;
     dReal      vCapsuleRadius;
     dReal      fCapsuleSize;
-    dMatrix3* pRot = (dMatrix3*) dGeomGetRotation(gCylinder);
+    const dMatrix3* pRot = (const dMatrix3*) dGeomGetRotation(gCylinder);
     memcpy(mCapsuleRotation,pRot,sizeof(dMatrix3));
-    dVector3* pDst = (dVector3*)dGeomGetPosition(gCylinder);
+    const dVector3* pDst = (const dVector3*)dGeomGetPosition(gCylinder);
     memcpy(vCapsulePosition,pDst,sizeof(dVector3));
     //Axis
     vCapsuleAxis[0] = mCapsuleRotation[0*4 + nCAPSULE_AXIS];

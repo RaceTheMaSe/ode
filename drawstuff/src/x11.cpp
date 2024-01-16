@@ -155,7 +155,7 @@ static void createMainWindow (int _width, int _height)
 
   // set the window title
   XTextProperty window_name;
-  window_name.value = (unsigned char *) "Simulation";
+  window_name.value = (unsigned char *) const_cast<char*>("Simulation");
   window_name.encoding = XA_STRING;
   window_name.format = 8;
   window_name.nitems = strlen((char *) window_name.value);

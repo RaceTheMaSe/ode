@@ -68,7 +68,7 @@
 		inline_			float				GetSize()		const	{ return mAABB.mExtents.SquareMagnitude();	}
 		inline_			udword				GetRadius()		const
 											{
-												udword* Bits = (udword*)&mAABB.mExtents.x;
+												const udword* Bits = (const udword*)&mAABB.mExtents.x;
 												udword Max = Bits[0];
 												if(Bits[1]>Max)	Max = Bits[1];
 												if(Bits[2]>Max)	Max = Bits[2];

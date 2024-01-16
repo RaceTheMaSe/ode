@@ -174,10 +174,10 @@ void dxHeightfieldData::ComputeHeightBounds()
 {
     int i;
     dReal h;
-    unsigned char *data_byte;
-    short *data_short;
-    float *data_float;
-    double *data_double;
+    const unsigned char *data_byte;
+    const short *data_short;
+    const float *data_float;
+    const double *data_double;
 
     switch ( m_nGetHeightMode )
     {
@@ -189,7 +189,7 @@ void dxHeightfieldData::ComputeHeightBounds()
 
         // byte
     case 1:
-        data_byte = (unsigned char*)m_pHeightData;
+        data_byte = (const unsigned char*)m_pHeightData;
         m_fMinHeight = dInfinity;
         m_fMaxHeight = -dInfinity;
 
@@ -204,7 +204,7 @@ void dxHeightfieldData::ComputeHeightBounds()
 
         // short
     case 2:
-        data_short = (short*)m_pHeightData;
+        data_short = (const short*)m_pHeightData;
         m_fMinHeight = dInfinity;
         m_fMaxHeight = -dInfinity;
 
@@ -219,7 +219,7 @@ void dxHeightfieldData::ComputeHeightBounds()
 
         // float
     case 3:
-        data_float = (float*)m_pHeightData;
+        data_float = (const float*)m_pHeightData;
         m_fMinHeight = dInfinity;
         m_fMaxHeight = -dInfinity;
 
@@ -234,7 +234,7 @@ void dxHeightfieldData::ComputeHeightBounds()
 
         // double
     case 4:
-        data_double = (double*)m_pHeightData;
+        data_double = (const double*)m_pHeightData;
         m_fMinHeight = dInfinity;
         m_fMaxHeight = -dInfinity;
 
@@ -327,10 +327,10 @@ bool dxHeightfieldData::IsOnHeightfield2 ( const HeightFieldVertex * const CellC
 dReal dxHeightfieldData::GetHeight( int x, int z )
 {
     dReal h=0;
-    unsigned char *data_byte;
-    short *data_short;
-    float *data_float;
-    double *data_double;
+    const unsigned char *data_byte;
+    const short *data_short;
+    const float *data_float;
+    const double *data_double;
 
     if ( m_bWrapMode == 0 )
     {
@@ -359,25 +359,25 @@ dReal dxHeightfieldData::GetHeight( int x, int z )
 
         // byte
     case 1:
-        data_byte = (unsigned char*)m_pHeightData;
+        data_byte = (const unsigned char*)m_pHeightData;
         h = data_byte[x+(z * m_nWidthSamples)];
         break;
 
         // short
     case 2:
-        data_short = (short*)m_pHeightData;
+        data_short = (const short*)m_pHeightData;
         h = data_short[x+(z * m_nWidthSamples)];
         break;
 
         // float
     case 3:
-        data_float = (float*)m_pHeightData;
+        data_float = (const float*)m_pHeightData;
         h = data_float[x+(z * m_nWidthSamples)];
         break;
 
         // double
     case 4:
-        data_double = (double*)m_pHeightData;
+        data_double = (const double*)m_pHeightData;
         h = (dReal)( data_double[x+(z * m_nWidthSamples)] );
         break;
     
@@ -428,10 +428,10 @@ dReal dxHeightfieldData::GetHeight( dReal x, dReal z )
 // dxHeightfieldData destructor
 dxHeightfieldData::~dxHeightfieldData()
 {
-    unsigned char *data_byte;
-    short *data_short;
-    float *data_float;
-    double *data_double;
+    const unsigned char *data_byte;
+    const short *data_short;
+    const float *data_float;
+    const double *data_double;
 
     if ( m_bCopyHeightData )
     {
@@ -446,28 +446,28 @@ dxHeightfieldData::~dxHeightfieldData()
             // byte
         case 1:
             dIASSERT( m_pHeightData );
-            data_byte = (unsigned char*)m_pHeightData;
+            data_byte = (const unsigned char*)m_pHeightData;
             delete [] data_byte;
             break;
 
             // short
         case 2:
             dIASSERT( m_pHeightData );
-            data_short = (short*)m_pHeightData;
+            data_short = (const short*)m_pHeightData;
             delete [] data_short;
             break;
 
             // float
         case 3:
             dIASSERT( m_pHeightData );
-            data_float = (float*)m_pHeightData;
+            data_float = (const float*)m_pHeightData;
             delete [] data_float;
             break;
 
             // double
         case 4:
             dIASSERT( m_pHeightData );
-            data_double = (double*)m_pHeightData;
+            data_double = (const double*)m_pHeightData;
             delete [] data_double;
             break;
     
@@ -726,7 +726,6 @@ void dGeomHeightfieldDataBuildCallback( dHeightfieldDataID d,
     d->m_fMaxHeight = dInfinity;
 }
 
-
 void dGeomHeightfieldDataBuildByte( dHeightfieldDataID d,
                                    const unsigned char *pHeightData, int bCopyHeightData,
                                    dReal width, dReal depth, int widthSamples, int depthSamples,
@@ -754,7 +753,7 @@ void dGeomHeightfieldDataBuildByte( dHeightfieldDataID d,
         dIASSERT( d->m_pHeightData );
 
         // Copy data.
-        memcpy( (void*)d->m_pHeightData, pHeightData,
+        memcpy( const_cast<void*>(d->m_pHeightData), pHeightData,
             sizeof( unsigned char ) * d->m_nWidthSamples * d->m_nDepthSamples );
     }
 
@@ -790,7 +789,7 @@ void dGeomHeightfieldDataBuildShort( dHeightfieldDataID d,
         dIASSERT( d->m_pHeightData );
 
         // Copy data.
-        memcpy( (void*)d->m_pHeightData, pHeightData,
+        memcpy( const_cast<void*>(d->m_pHeightData), pHeightData,
             sizeof( short ) * d->m_nWidthSamples * d->m_nDepthSamples );
     }
 
@@ -826,7 +825,7 @@ void dGeomHeightfieldDataBuildSingle( dHeightfieldDataID d,
         dIASSERT( d->m_pHeightData );
 
         // Copy data.
-        memcpy( (void*)d->m_pHeightData, pHeightData,
+        memcpy( const_cast<void*>(d->m_pHeightData), pHeightData,
             sizeof( float ) * d->m_nWidthSamples * d->m_nDepthSamples );
     }
 
@@ -861,7 +860,7 @@ void dGeomHeightfieldDataBuildDouble( dHeightfieldDataID d,
         dIASSERT( d->m_pHeightData );
 
         // Copy data.
-        memcpy( (void*)d->m_pHeightData, pHeightData,
+        memcpy( const_cast<void*>(d->m_pHeightData), pHeightData,
             sizeof( double ) * d->m_nWidthSamples * d->m_nDepthSamples );
     }
 

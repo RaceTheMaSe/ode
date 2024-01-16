@@ -388,7 +388,7 @@ In each contact
 \param radius sphere radius
 \param contacts A GIM_CONTACT array. Must be initialized
 */
-void gim_trimesh_sphere_collision(GIM_TRIMESH * trimesh,vec3f center,GREAL radius, GDYNAMIC_ARRAY * contacts);
+void gim_trimesh_sphere_collision(GIM_TRIMESH * trimesh,const vec3f center,GREAL radius, GDYNAMIC_ARRAY * contacts);
 
 
 //! Trimesh Capsule collision

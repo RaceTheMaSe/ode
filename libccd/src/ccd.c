@@ -121,9 +121,9 @@ int ccdGJKSeparate(const void *obj1, const void *obj2, const ccd_t *ccd,
 
 static int penEPAPosCmp(const void *a, const void *b)
 {
-    ccd_pt_vertex_t *v1, *v2;
-    v1 = *(ccd_pt_vertex_t **)a;
-    v2 = *(ccd_pt_vertex_t **)b;
+    const ccd_pt_vertex_t *v1, *v2;
+    v1 = (const ccd_pt_vertex_t *)a;
+    v2 = (const ccd_pt_vertex_t *)b;
 
     if (ccdEq(v1->dist, v2->dist)){
         return 0;
@@ -937,14 +937,14 @@ static int nextSupport(const void *obj1, const void *obj2, const ccd_t *ccd,
     __ccdSupport(obj1, obj2, &el->witness, ccd, out);
 
     if (el->type == CCD_PT_EDGE){
-        // fetch end points of edge
-        ccdPtEdgeVec3((ccd_pt_edge_t *)el, &a, &b);
+        /* fetch end points of edge */
+        ccdPtEdgeVec3((const ccd_pt_edge_t *)el, &a, &b);
 
         // get distance from segment
         dist = ccdVec3PointSegmentDist2(&out->v, a, b, NULL);
-    }else{ // el->type == CCD_PT_FACE
-        // fetch vertices of triangle face
-        ccdPtFaceVec3((ccd_pt_face_t *)el, &a, &b, &c);
+    }else{ /* el->type == CCD_PT_FACE */
+        /* fetch vertices of triangle face */
+        ccdPtFaceVec3((const ccd_pt_face_t *)el, &a, &b, &c);
 
         // check if new point can significantly expand polytope
         dist = ccdVec3PointTriDist2(&out->v, a, b, c, NULL);
