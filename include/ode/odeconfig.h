@@ -231,5 +231,20 @@ typedef unsigned long     duint64;
   #define _ode_fmaxf(x, y) fmaxf(x, y)
 #endif // #if !defined(_MSC_VER) || _MSC_VER >= 1700
 
+#ifndef ANNOTATE_FALLTHROUGH
+#if defined(__cplusplus) && __cplusplus >= 201703L
+    #define ANNOTATE_FALLTHROUGH [[fallthrough]];
+#elif defined(__GNUC__) && (__GNUC__ >= 7 || defined(__clang__))
+    // GCC7+ or Clang, although it incorrectly accepts this also in older than C++17 modes, which may make this fail in newer versions
+    #define ANNOTATE_FALLTHROUGH __attribute__ ((fallthrough));
+#else
+    #if defined(__clang__) && defined(__cplusplus) && __cplusplus >= 201103L
+        #define ANNOTATE_FALLTHROUGH [[clang::fallthrough]];
+    #else
+        /* annotate with a comment, but not through a macro */
+        #define ANNOTATE_FALLTHROUGH
+    #endif
+#endif
+#endif
 
 #endif

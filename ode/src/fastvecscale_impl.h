@@ -28,8 +28,6 @@
 #ifndef _ODE_FASTVECSCALE_IMPL_H_
 #define _ODE_FASTVECSCALE_IMPL_H_
 
-
-
 template<unsigned int a_stride, unsigned int d_stride>
 void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
 {
@@ -61,7 +59,7 @@ void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
             ptrA[2 * a_stride] = a2 * d2;
             // break; -- proceed to case 2
         }
-
+        ANNOTATE_FALLTHROUGH
         case 2:
         {
             dReal a1 = ptrA[1 * a_stride];
@@ -69,7 +67,7 @@ void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
             ptrA[1 * a_stride] = a1 * d1;
             // break; -- proceed to case 1
         }
-
+        ANNOTATE_FALLTHROUGH
         case 1:
         {
             dReal a0 = ptrA[0];
@@ -148,7 +146,7 @@ void ThreadedEquationSolverLDLT::participateScalingVector(dReal *ptrAStart, cons
                 ptrAElement[2 * a_stride] = a2 * d2;
                 // break; -- proceed to case 2
             }
-
+            ANNOTATE_FALLTHROUGH
             case 2:
             {
                 dReal a1 = ptrAElement[1 * a_stride];
@@ -156,7 +154,7 @@ void ThreadedEquationSolverLDLT::participateScalingVector(dReal *ptrAStart, cons
                 ptrAElement[1 * a_stride] = a1 * d1;
                 // break; -- proceed to case 1
             }
-
+            ANNOTATE_FALLTHROUGH
             case 1:
             {
                 dReal a0 = ptrAElement[0];

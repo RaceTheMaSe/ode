@@ -212,6 +212,7 @@ static void osxMouseEventHandler(int button, int state, int x, int y)
     switch( state ){
         case GLUT_DOWN:
 			buttonDown = true;
+            ANNOTATE_FALLTHROUGH
         case GLUT_UP:
             if( button == GLUT_LEFT_BUTTON ){
                 int modifierMask = osxGetModifierMask();
