@@ -68,7 +68,7 @@ const double tol = 1e-5;
 static jmp_buf jump_buffer;
 
 
-static void myMessageFunction (int num, const char *msg, va_list ap)
+static ODE_NORETURN_VOID myMessageFunction (int num, const char *msg, va_list ap)
 {
     printf ("(Message %d: ",num);
     vprintf (msg,ap);
@@ -1240,7 +1240,7 @@ void dMatrixComparison::dump()
 
 // static jmp_buf jump_buffer;
 
-static void myDebug (int /*num*/, const char* /*msg*/, va_list /*ap*/)
+static ODE_NORETURN_VOID myDebug (int /*num*/, const char* /*msg*/, va_list /*ap*/)
 {
     // printf ("(Error %d: ",num);
     // vprintf (msg,ap);

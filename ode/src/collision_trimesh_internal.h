@@ -119,6 +119,9 @@ struct dxTriDataBase:
     public dxTriDataBase_Parent
 {
 public:
+#if !defined(dTRIMESH_ENABLED)
+ODE_NORETURN
+#endif
     dxTriDataBase():
         dxTriDataBase_Parent(),
         m_vertices(NULL),
@@ -134,6 +137,7 @@ public:
     {
 #if !dTRIMESH_ENABLED
         dUASSERT(false, "dTRIMESH_ENABLED is not defined. Trimesh geoms will not work");
+        abort();
 #endif
     }
 

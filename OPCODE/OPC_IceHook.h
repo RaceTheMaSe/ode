@@ -39,7 +39,7 @@
 #pragma clang diagnostic ignored "-Wheader-hygiene" // using namespace directive in global context in header
 #endif
 
-	extern void OPCODE_NORETURN	IceAbort();
+	extern OPCODE_NORETURN_VOID IceAbort();
 
 	#include "Ice/IcePreprocessor.h"
 

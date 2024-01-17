@@ -2,7 +2,7 @@
 
 namespace UnitTest {
 
-void ReportAssert(char const* description, char const* filename, int const lineNumber)
+NORETURN_VOID ReportAssert(char const* description, char const* filename, int const lineNumber)
 {
     throw AssertException(description, filename, lineNumber);
 }

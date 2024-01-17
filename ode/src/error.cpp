@@ -83,7 +83,7 @@ static void printMessage (int num, const char *msg1, const char *msg2,
 
 #ifndef WIN32
 
-extern "C" void dError (int num, const char *msg, ...)
+extern "C" ODE_NORETURN_VOID dError (int num, const char *msg, ...)
 {
     va_list ap;
     va_start (ap,msg);
@@ -94,7 +94,7 @@ extern "C" void dError (int num, const char *msg, ...)
 }
 
 
-extern "C" void dDebug (int num, const char *msg, ...)
+extern "C" ODE_NORETURN_VOID dDebug (int num, const char *msg, ...)
 {
     va_list ap;
     va_start (ap,msg);
@@ -132,7 +132,7 @@ extern "C" void dMessage (int num, const char *msg, ...)
 #include "windows.h"
 
 
-extern "C" void dError (int num, const char *msg, ...)
+extern "C" ODE_NORETURN_VOID dError (int num, const char *msg, ...)
 {
     va_list ap;
     va_start (ap,msg);
@@ -149,7 +149,7 @@ extern "C" void dError (int num, const char *msg, ...)
 }
 
 
-extern "C" void dDebug (int num, const char *msg, ...)
+extern "C" ODE_NORETURN_VOID dDebug (int num, const char *msg, ...)
 {
     va_list ap;
     va_start (ap,msg);

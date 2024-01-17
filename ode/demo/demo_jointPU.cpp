@@ -578,7 +578,7 @@ static void simLoop (int pause)
 }
 
 
-static void Help (char **argv)
+static ODE_NORETURN_VOID Help (char **argv)
 {
   printf ("%s ", argv[0]);
   printf (" -h | --help   : print this help\n");

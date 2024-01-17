@@ -118,7 +118,7 @@ public:
 
 public:
     void RegisterToLull() { /* Do nothing */ }
-    void WaitForLullAlarm() { dICHECK(false); } // Fake lull can't be waited
+    ODE_NORETURN_VOID WaitForLullAlarm() { dICHECK(false); } // Fake lull can't be waited
     void UnregisterFromLull() { /* Do nothing */ }
 
     void SignalLullAlarmIfAnyRegistrants() { /* Do nothing */ }

@@ -426,6 +426,10 @@ dxQuadTreeSpace::~dxQuadTreeSpace(){
     dFree(CurrentChild, (Depth + 1) * sizeof(int));
 }
 
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn" // stub of a virtual function and not marked noreturn
+#endif
 dxGeom* dxQuadTreeSpace::getGeom(int Index){
     dUASSERT(Index >= 0 && Index < count, "index out of range");
 #if defined(dNODEBUG)
@@ -497,7 +501,14 @@ PARENTRECURSE:
         getGeom(i);
     }
 */
+
+#if !defined(ODE_NORETURN_ACTIVE)
+    return NULL;
+#endif
 }
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 void dxQuadTreeSpace::add(dxGeom* g){
     ENSURE_NOT_LOCKED();

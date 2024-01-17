@@ -49,7 +49,7 @@ static unsigned int g_uiODEInitModes = 0;
 #if dTRIMESH_ENABLED && dTRIMESH_OPCODE
 
 static 
-void OPCODEAbort()
+ODE_NORETURN_VOID OPCODEAbort()
 {
     dICHECKMSG(false,"OPCODE Library Abort");
 }

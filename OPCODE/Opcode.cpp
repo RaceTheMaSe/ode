@@ -71,7 +71,7 @@ void ModuleDetach()
 #endif
 
 /*extern */
-void OPCODE_NORETURN IceAbort()
+OPCODE_NORETURN_VOID IceAbort()
 {
 	if (g_fnAbortHandler != NULL)
 	{

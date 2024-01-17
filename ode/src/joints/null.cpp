@@ -50,7 +50,7 @@ dxJointNull::getInfo1( dxJoint::Info1 *info )
 }
 
 
-void
+ODE_NORETURN_VOID
 dxJointNull::getInfo2( dReal /*worldFPS*/, dReal /*worldERP*/, 
     int /*rowskip*/, dReal * /* J1 */, dReal * /* J2 */,
     int /*pairskip*/, dReal * /* pairRhsCfm*/, dReal * /* pairLoHi */, 

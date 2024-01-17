@@ -471,6 +471,10 @@ void dxGeom::computePosr()
     dMultiply0_333 (final_posr->R,body->posr.R,offset_posr->R);
 }
 
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn" // stub of a virtual function and not marked noreturn
+#endif
 bool dxGeom::controlGeometry(int /*controlClass*/, int /*controlCode*/, void * /*dataValue*/, int *dataSize)
 {
     dUASSERT(false,"Control class/code is not supported for current geom");
@@ -478,6 +482,9 @@ bool dxGeom::controlGeometry(int /*controlClass*/, int /*controlCode*/, void * /
     *dataSize = 0;
     return false;
 }
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 //****************************************************************************
 // misc

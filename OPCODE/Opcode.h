@@ -48,11 +48,11 @@
 #endif
 
 #if defined(__GNUC__)
-#define OPCODE_NORETURN __attribute__((noreturn))
+#define OPCODE_NORETURN_VOID void __attribute__((noreturn))
 #elif defined(_MSC_VER)
-#define OPCODE_NORETURN __declspec(noreturn)
+#define OPCODE_NORETURN_VOID __declspec(noreturn) void
 #else // #if !defined(_MSC_VER)
-#define OPCODE_NORETURN
+#define OPCODE_NORETURN_VOID
 #endif // #if !defined(__GNUC__)
 
 

@@ -72,12 +72,27 @@
 #endif
 
 #if defined(__GNUC__)
-#define ODE_NORETURN __attribute__((noreturn))
+  #define ODE_NORETURN_VOID void __attribute__((noreturn))
+  #define ODE_NORETURN __attribute__((noreturn))
+  #if defined(dNODEBUG)
+    #define ODE_NORETURN_CONSTRUCTOR_DBG
+  #else
+    #define ODE_NORETURN_CONSTRUCTOR_DBG __attribute__((noreturn))
+  #endif
 #elif defined(_MSC_VER)
-#define ODE_NORETURN __declspec(noreturn)
+  #define ODE_NORETURN_VOID __declspec(noreturn) void
+  #define ODE_NORETURN __declspec(noreturn)
+  #define ODE_NORETURN_ACTIVE /* for 'unreachable code' */
+  #if defined(dNODEBUG)
+    #define ODE_NORETURN_CONSTRUCTOR_DBG
+  #else
+    #define ODE_NORETURN_CONSTRUCTOR_DBG __declspec(noreturn)
+  #endif
 #else // #if !defined(_MSC_VER)
-#define ODE_NORETURN
-#endif // #if !defined(__GNUC__)
+  #define ODE_NORETURN_VOID void
+  #define ODE_NORETURN_CONSTRUCTOR_DBG 
+  #define ODE_NORETURN
+#endif // #if !defined(_MSC_VER)
 
 
 /* Well-defined common data types...need to be defined for 64 bit systems */

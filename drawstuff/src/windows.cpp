@@ -64,7 +64,7 @@ static void dsWarning(const char *msg, ...)
 }
 
 
-extern "C" void dsError(const char *msg, ...)
+extern "C" ODE_NORETURN_VOID dsError(const char *msg, ...)
 {
     va_list ap;
     va_start(ap, msg);
@@ -74,7 +74,7 @@ extern "C" void dsError(const char *msg, ...)
 }
 
 
-extern "C" void dsDebug(const char *msg, ...)
+extern "C" ODE_NORETURN_VOID dsDebug(const char *msg, ...)
 {
     va_list ap;
     va_start(ap, msg);

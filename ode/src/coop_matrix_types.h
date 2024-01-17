@@ -33,7 +33,6 @@
 #include "common.h"
 #include "error.h"
 
-
 #ifndef dCOOPERATIVE_ENABLED
 
 #if dATOMICS_ENABLED && !dTHREADING_INTF_DISABLED
@@ -45,6 +44,14 @@
 
 
 #endif // #ifndef dCOOPERATIVE_ENABLED
+
+/* release builds assert is empty, so it returns */
+#if dCOOPERATIVE_ENABLED || defined(dNODEBUG)
+#define dCOOPERATIVE_RETURN void
+#else
+#include <ode/error.h>
+#define dCOOPERATIVE_RETURN ODE_NORETURN_VOID
+#endif
 
 
 enum
@@ -138,7 +145,7 @@ public:
 #endif // #if dCOOPERATIVE_ENABLED
     }
 
-    static void AtomicStoreCellindexint(volatile cellindexint *destination, cellindexint value)
+    static dCOOPERATIVE_RETURN AtomicStoreCellindexint(volatile cellindexint *destination, cellindexint value)
     {
 #if dCOOPERATIVE_ENABLED
         ::AtomicStorePointer((volatile atomicptr *)destination, (atomicptr)value);
@@ -148,7 +155,7 @@ public:
 #endif // #if dCOOPERATIVE_ENABLED
     }
 
-    static void AtomicReadReorderBarrier()
+    static dCOOPERATIVE_RETURN AtomicReadReorderBarrier()
     {
 #if dCOOPERATIVE_ENABLED
         ::AtomicReadReorderBarrier();

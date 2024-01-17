@@ -1,4 +1,5 @@
 #include "SignalTranslator.h"
+#include "UnitTestConfig++.h"
 
 namespace UnitTest {
 
@@ -6,7 +7,7 @@ sigjmp_buf* SignalTranslator::s_jumpTarget = NULL;
 
 namespace {
 
-void SignalHandler (int sig)
+NORETURN_VOID SignalHandler (int sig)
 {
     siglongjmp(*SignalTranslator::s_jumpTarget, sig );
 }

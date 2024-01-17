@@ -22,4 +22,12 @@
 // uncomment this line to use the custom MemoryOutStream (no deps on std::ostringstream).
 //#define UNITTEST_USE_CUSTOM_STREAMS
 
+#if defined(__GNUC__)
+  #define NORETURN_VOID void __attribute__((noreturn))
+#elif defined(_MSC_VER)
+  #define NORETURN_VOID __declspec(noreturn) void
+#else
+  #define NORETURN_VOID void
+#endif
+
 #endif

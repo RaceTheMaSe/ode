@@ -60,7 +60,7 @@ END_NAMESPACE_OU
 static const CEnumUnsortedElementArray<EASSERTIONFAILURESEVERITY, AFS__MAX, const char *> g_aszAssertionFailureSeverityNames;
 
 
-static void _OU_CONVENTION_CALLBACK ForwardOUAssertionFailure(EASSERTIONFAILURESEVERITY fsFailureSeverity, 
+static ODE_NORETURN_VOID _OU_CONVENTION_CALLBACK ForwardOUAssertionFailure(EASSERTIONFAILURESEVERITY fsFailureSeverity, 
                                                               const char *szAssertionExpression, const char *szAssertionFileName, unsigned int uiAssertionSourceLine)
 {
     dDebug(d_ERR_IASSERT, "Assertion failure in OU Library. Kind: %s, expression: \"%s\", file: \"%s\", line: %u",

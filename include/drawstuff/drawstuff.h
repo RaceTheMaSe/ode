@@ -60,7 +60,7 @@ extern "C" {
 
 
 #include <drawstuff/version.h>
-
+#include <ode/odeconfig.h>
 
 /* texture numbers */
   enum DS_TEXTURE_NUMBER
@@ -141,7 +141,7 @@ DS_API void dsSimulationLoop (int argc, char **argv,
  * This function displays an error message then exit.
  * @param msg format strin, like printf, without the newline character.
  */
-DS_API void dsError (const char *msg, ...);
+DS_API ODE_NORETURN_VOID dsError (const char *msg, ...);
 
 /**
  * @brief exit with error message and core dump.
@@ -149,7 +149,7 @@ DS_API void dsError (const char *msg, ...);
  * this functions tries to dump core or start the debugger.
  * @param msg format strin, like printf, without the newline character.
  */
-DS_API void dsDebug (const char *msg, ...);
+DS_API ODE_NORETURN_VOID dsDebug (const char *msg, ...);
 
 /**
  * @brief print log message
