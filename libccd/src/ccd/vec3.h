@@ -44,7 +44,14 @@ static __inline double fmin(double x, double y) { return __min(x, y); }
 static __inline double fmax(double x, double y) { return __max(x, y); }
 static __inline float fminf(float x, float y) { return __min(x, y); }
 static __inline float fmaxf(float x, float y) { return __max(x, y); }
-
+#else
+#if !defined(_MSC_VER)
+    #if defined(CCD_SINGLE)
+        float fminf(float x, float y);
+    #else
+        double fmin(double x, double y);
+    #endif
+#endif
 #endif /* #if defined(_MSC_VER) */
 
 
