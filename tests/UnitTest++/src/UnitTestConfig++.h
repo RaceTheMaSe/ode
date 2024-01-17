@@ -32,8 +32,10 @@
 
 #if defined(__cplusplus) && __cplusplus >= 201103L
 #define OVERRIDE override
+#define NOEXCEPT noexcept
 #else
 #define OVERRIDE
+#define NOEXCEPT throw()
 #endif
 
 #endif

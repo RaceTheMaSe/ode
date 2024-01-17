@@ -2,7 +2,7 @@
 #define UNITTEST_ASSERTEXCEPTION_H
 
 #include <exception>
-
+#include "UnitTestConfig++.h"
 
 namespace UnitTest {
 
@@ -10,9 +10,9 @@ class AssertException : public std::exception
 {
 public:
     AssertException(char const* description, char const* filename, int lineNumber);
-    virtual ~AssertException() throw();
+    virtual ~AssertException() NOEXCEPT OVERRIDE;
 
-    virtual char const* what() const throw();
+    virtual char const* what() const NOEXCEPT OVERRIDE;
 
     char const* Filename() const;
     int LineNumber() const;
