@@ -252,13 +252,13 @@ public:
         dZeroMatrix4(m_last_trans);
     }
 
-    ~dxTriMesh();
+    ~dxTriMesh() ODE_OVERRIDE;
 
     void clearTCCache();
 
-    bool controlGeometry(int controlClass, int controlCode, void *dataValue, int *dataSize);
+    bool controlGeometry(int controlClass, int controlCode, void *dataValue, int *dataSize) ODE_OVERRIDE;
 
-    virtual void computeAABB();
+    virtual void computeAABB() ODE_OVERRIDE;
 
 public:
     dxTriMeshData *retrieveMeshData() const { return getMeshData(); }

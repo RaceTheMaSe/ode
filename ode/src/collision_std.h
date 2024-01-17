@@ -102,42 +102,42 @@ int dCollideHeightfield( dxGeom *o1, dxGeom *o2,
 struct dxSphere : public dxGeom {
     dReal radius;		// sphere radius
     dxSphere (dSpaceID space, dReal _radius);
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
 };
 
 
 struct dxBox : public dxGeom {
     dVector3 side;	// side lengths (x,y,z)
     dxBox (dSpaceID space, dReal lx, dReal ly, dReal lz);
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
 };
 
 
 struct dxCapsule : public dxGeom {
     dReal radius,lz;	// radius, length along z axis
     dxCapsule (dSpaceID space, dReal _radius, dReal _length);
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
 };
 
 
 struct dxCylinder : public dxGeom {
     dReal radius,lz;        // radius, length along z axis
     dxCylinder (dSpaceID space, dReal _radius, dReal _length);
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
 };
 
 
 struct dxPlane : public dxGeom {
     dReal p[4];
     dxPlane (dSpaceID space, dReal a, dReal b, dReal c, dReal d);
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
 };
 
 
 struct dxRay : public dxGeom {
     dReal length;
     dxRay (dSpaceID space, dReal _length);
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
 };
 
 struct dxConvex : public dxGeom 
@@ -157,11 +157,11 @@ struct dxConvex : public dxGeom
         const dReal *points,
         unsigned int pointcount,
         const unsigned int *polygons);
-    ~dxConvex()
+    ~dxConvex() ODE_OVERRIDE
     {
         if((edgecount!=0)&&(edges!=NULL)) delete[] edges;
     }
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
     struct edge
     {
         unsigned int first;

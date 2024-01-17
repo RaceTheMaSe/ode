@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_RAYCOLLIDER_H__
 #define __OPC_RAYCOLLIDER_H__
+#include "OPC_Compile.h"
 
 	class OPCODE_API CollisionFace
 	{
@@ -65,7 +66,7 @@
 		public:
 		// Constructor / Destructor
 											RayCollider();
-		virtual								~RayCollider();
+		virtual								~RayCollider() OPCODE_OVERRIDE;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -173,7 +174,7 @@
 		 *	\return		null if everything is ok, else a string describing the problem
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override(Collider)	const char*		ValidateSettings();
+		override(Collider)	const char*		ValidateSettings() OPCODE_OVERRIDE;
 
 		protected:
 		// Ray in local space

@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_OBBCOLLIDER_H__
 #define __OPC_OBBCOLLIDER_H__
+#include "OPC_Compile.h"
 
 	struct OPCODE_API OBBCache : VolumeCache
 	{
@@ -40,7 +41,7 @@
 		public:
 		// Constructor / Destructor
 											OBBCollider();
-		virtual								~OBBCollider();
+		virtual								~OBBCollider() OPCODE_OVERRIDE;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -78,7 +79,7 @@
 		 *	\return		null if everything is ok, else a string describing the problem
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override(Collider)	const char*		ValidateSettings();
+		override(Collider)	const char*		ValidateSettings() OPCODE_OVERRIDE;
 
 		protected:
 		// Precomputed data
@@ -132,7 +133,7 @@
 		public:
 		// Constructor / Destructor
 											HybridOBBCollider();
-		virtual								~HybridOBBCollider();
+		virtual								~HybridOBBCollider() OPCODE_OVERRIDE;
 
 							bool			Collide(OBBCache& cache, const OBB& box, const HybridModel& model, const Matrix4x4* worldb=null, const Matrix4x4* worldm=null);
 		protected:

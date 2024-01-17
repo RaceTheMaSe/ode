@@ -152,7 +152,7 @@ protected:
     FaceAnglesWrapper(unsigned triangleCount) { setAllocatedTriangleCount(triangleCount); }
 
 public:
-    virtual ~FaceAnglesWrapper();
+    virtual ~FaceAnglesWrapper() ODE_OVERRIDE;
 
     static IFaceAngleStorageControl *allocateInstance(unsigned triangleCount, IFaceAngleStorageView *&out_storageView);
 
@@ -190,14 +190,14 @@ private:
     }
 
 private: // IFaceAngleStorageControl
-    virtual void disposeStorage();
+    virtual void disposeStorage() ODE_OVERRIDE;
 
-    virtual bool areNegativeAnglesStored() const;
+    virtual bool areNegativeAnglesStored() const ODE_OVERRIDE;
 
-    virtual void assignFacesAngleIntoStorage(unsigned triangleIndex, dMeshTriangleVertex vertexIndex, dReal dAngleValue);
+    virtual void assignFacesAngleIntoStorage(unsigned triangleIndex, dMeshTriangleVertex vertexIndex, dReal dAngleValue) ODE_OVERRIDE;
 
 private: // IFaceAngleStorageView
-    virtual FaceAngleDomain retrieveFacesAngleFromStorage(dReal &out_angleValue, unsigned triangleIndex, dMeshTriangleVertex vertexIndex);
+    virtual FaceAngleDomain retrieveFacesAngleFromStorage(dReal &out_angleValue, unsigned triangleIndex, dMeshTriangleVertex vertexIndex) ODE_OVERRIDE;
 
 public:
     void setFaceAngle(unsigned triangleIndex, dMeshTriangleVertex vertexIndex, dReal dAngleValue)

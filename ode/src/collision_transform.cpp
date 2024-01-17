@@ -51,8 +51,8 @@ struct dxGeomTransform : public dxGeom {
     dxPosR transform_posr;
 
     dxGeomTransform (dSpaceID space);
-    ~dxGeomTransform();
-    void computeAABB();
+    ~dxGeomTransform() ODE_OVERRIDE;
+    void computeAABB() ODE_OVERRIDE;
     void computeFinalTx();
 };
 /*

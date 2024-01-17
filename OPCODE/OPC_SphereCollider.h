@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_SPHERECOLLIDER_H__
 #define __OPC_SPHERECOLLIDER_H__
+#include "OPC_Compile.h"
 
 	struct OPCODE_API SphereCache : VolumeCache
 	{
@@ -37,7 +38,7 @@
 		public:
 		// Constructor / Destructor
 											SphereCollider();
-		virtual								~SphereCollider();
+		virtual								~SphereCollider() OPCODE_OVERRIDE;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -86,7 +87,7 @@
 		public:
 		// Constructor / Destructor
 											HybridSphereCollider();
-		virtual								~HybridSphereCollider();
+		virtual								~HybridSphereCollider() OPCODE_OVERRIDE;
 
 							bool			Collide(SphereCache& cache, const Sphere& sphere, const HybridModel& model, const Matrix4x4* worlds=null, const Matrix4x4* worldm=null);
 		protected:

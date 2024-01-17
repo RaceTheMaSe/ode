@@ -136,17 +136,17 @@ struct dxSAPSpace : public dxSpace
 {
     // Constructor / Destructor
     dxSAPSpace( dSpaceID _space, int sortaxis );
-    ~dxSAPSpace();
+    ~dxSAPSpace() ODE_OVERRIDE;
 
     // dxSpace
-    virtual dxGeom* getGeom(int i);
-    virtual void add(dxGeom* g);
-    virtual void remove(dxGeom* g);
-    virtual void dirty(dxGeom* g);
-    virtual void computeAABB();
-    virtual void cleanGeoms();
-    virtual void collide( void *data, dNearCallback *callback );
-    virtual void collide2( void *data, dxGeom *geom, dNearCallback *callback );
+    virtual dxGeom* getGeom(int i) ODE_OVERRIDE;
+    virtual void add(dxGeom* g) ODE_OVERRIDE;
+    virtual void remove(dxGeom* g) ODE_OVERRIDE;
+    virtual void dirty(dxGeom* g) ODE_OVERRIDE;
+    virtual void computeAABB() ODE_OVERRIDE;
+    virtual void cleanGeoms() ODE_OVERRIDE;
+    virtual void collide( void *data, dNearCallback *callback ) ODE_OVERRIDE;
+    virtual void collide2( void *data, dxGeom *geom, dNearCallback *callback ) ODE_OVERRIDE;
 
 private:
 

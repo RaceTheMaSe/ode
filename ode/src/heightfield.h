@@ -199,9 +199,9 @@ struct dxHeightfield : public dxGeom
     dxHeightfieldData* m_p_data;
 
     dxHeightfield( dSpaceID space, dHeightfieldDataID data, int bPlaceable );
-    ~dxHeightfield();
+    ~dxHeightfield() ODE_OVERRIDE;
 
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
 
     int dCollideHeightfieldZone( const int minX, const int maxX, const int minZ, const int maxZ,  
         dxGeom *o2, const int numMaxContacts,

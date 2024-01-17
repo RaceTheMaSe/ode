@@ -199,7 +199,7 @@ struct dxJoint : public dObject
 
 
     dxJoint( dxWorld *w );
-    virtual ~dxJoint();
+    virtual ~dxJoint() ODE_OVERRIDE;
 
     bool GetIsJointReverse() const { return (this->flags & dJOINT_REVERSE) != 0; }
 

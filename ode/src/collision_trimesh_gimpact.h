@@ -201,11 +201,11 @@ public:
         assignMeshData(Data);
     }
 
-    ~dxTriMesh();
+    ~dxTriMesh() ODE_OVERRIDE;
 
     void clearTCCache() { /* do nothing */ }
 
-    virtual void computeAABB();
+    virtual void computeAABB() ODE_OVERRIDE;
 
 public:
     dxTriMeshData *retrieveMeshData() const { return getMeshData(); }

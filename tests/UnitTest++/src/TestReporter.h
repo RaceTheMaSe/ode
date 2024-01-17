@@ -1,6 +1,8 @@
 #ifndef UNITTEST_TESTREPORTER_H
 #define UNITTEST_TESTREPORTER_H
 
+#include "UnitTestConfig++.h"
+
 namespace UnitTest {
 
 class TestDetails;

@@ -256,9 +256,9 @@ struct dxSpace : public dxGeom {
     int lock_count;
 
     dxSpace (dSpaceID _space);
-    ~dxSpace();
+    ~dxSpace() ODE_OVERRIDE;
 
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
 
     void setCleanup (int mode) { cleanup = (mode != 0); }
     int getCleanup() const { return cleanup; }

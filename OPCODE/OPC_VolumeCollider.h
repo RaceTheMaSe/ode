@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_VOLUMECOLLIDER_H__
 #define __OPC_VOLUMECOLLIDER_H__
+#include "OPC_Compile.h"
 
 	struct OPCODE_API VolumeCache
 	{
@@ -34,7 +35,7 @@
 		public:
 		// Constructor / Destructor
 											VolumeCollider();
-		virtual								~VolumeCollider() = 0;
+		virtual								~VolumeCollider() OPCODE_OVERRIDE = 0;
 
 		// Collision report
 
@@ -86,7 +87,7 @@
 		 *	\return		null if everything is ok, else a string describing the problem
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override(Collider)	const char*		ValidateSettings();
+		override(Collider)	const char*		ValidateSettings() OPCODE_OVERRIDE;
 
 		protected:
 		// Touched primitives
@@ -109,7 +110,7 @@
 		 *	Initializes a query
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override(Collider) inline_	void	InitQuery()
+		override(Collider) inline_	void	InitQuery() OPCODE_OVERRIDE
 											{
 												// Reset stats & contact status
 												mNbVolumeBVTests	= 0;

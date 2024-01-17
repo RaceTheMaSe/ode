@@ -29,7 +29,7 @@
     public:                                                                \
 		Test##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {}  \
     private:                                                               \
-        virtual void RunImpl(UnitTest::TestResults& testResults_) const override;   \
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const OVERRIDE;   \
     };                                                \
 		static Test##Name test##Name##Instance;\
 																		   \
@@ -58,7 +58,7 @@
     public:                                                                          \
 	    Test##Fixture##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {} \
     private:                                                                         \
-        virtual void RunImpl(UnitTest::TestResults& testResults_) const override;    \
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const OVERRIDE;    \
     };                                                 \
 		static Test##Fixture##Name test##Fixture##Name##Instance;\
 																					 \

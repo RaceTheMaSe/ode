@@ -346,19 +346,19 @@ struct dxQuadTreeSpace : public dxSpace{
     dArray<dxGeom*> DirtyList;
 
     dxQuadTreeSpace(dSpaceID _space, const dVector3 Center, const dVector3 Extents, int Depth);
-    ~dxQuadTreeSpace();
+    ~dxQuadTreeSpace() ODE_OVERRIDE;
 
-    dxGeom* getGeom(int i);
+    dxGeom* getGeom(int i) ODE_OVERRIDE;
 
-    void add(dxGeom* g);
-    void remove(dxGeom* g);
-    void dirty(dxGeom* g);
+    void add(dxGeom* g) ODE_OVERRIDE;
+    void remove(dxGeom* g) ODE_OVERRIDE;
+    void dirty(dxGeom* g) ODE_OVERRIDE;
 
-    void computeAABB();
+    void computeAABB() ODE_OVERRIDE;
 
-    void cleanGeoms();
-    void collide(void* UserData, dNearCallback* Callback);
-    void collide2(void* UserData, dxGeom* g1, dNearCallback* Callback);
+    void cleanGeoms() ODE_OVERRIDE;
+    void collide(void* UserData, dNearCallback* Callback) ODE_OVERRIDE;
+    void collide2(void* UserData, dxGeom* g1, dNearCallback* Callback) ODE_OVERRIDE;
 
     // Temp data
     Block* CurrentBlock;	// Only used while enumerating

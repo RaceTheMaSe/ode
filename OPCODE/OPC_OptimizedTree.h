@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_OPTIMIZEDTREE_H__
 #define __OPC_OPTIMIZEDTREE_H__
+#include "OPC_Compile.h"
 
 	//! Common interface for a node of an implicit tree
 	#define IMPLEMENT_IMPLICIT_NODE(base_class, volume)														\
@@ -114,17 +115,17 @@
 		public:																										\
 		/* Constructor / Destructor */																				\
 													base_class();													\
-		virtual										~base_class();													\
+		virtual										~base_class() OPCODE_OVERRIDE;													\
 		/* Builds from a standard tree */																			\
-		override(AABBOptimizedTree)	bool			Build(AABBTree* tree);											\
+		override(AABBOptimizedTree)	bool			Build(AABBTree* tree) OPCODE_OVERRIDE;											\
 		/* Refits the tree */																						\
-		override(AABBOptimizedTree)	bool			Refit(const MeshInterface* mesh_interface);						\
+		override(AABBOptimizedTree)	bool			Refit(const MeshInterface* mesh_interface) OPCODE_OVERRIDE;						\
 		/* Walks the tree */																						\
-		override(AABBOptimizedTree)	bool			Walk(GenericWalkingCallback callback, void* user_data) const;	\
+		override(AABBOptimizedTree)	bool			Walk(GenericWalkingCallback callback, void* user_data) const OPCODE_OVERRIDE;	\
 		/* Data access */																							\
 		inline_						const node*		GetNodes()		const	{ return mNodes;					}	\
 		/* Stats */																									\
-		override(AABBOptimizedTree)	udword			GetUsedBytes()	const	{ return mNbNodes*sizeof(node);		}	\
+		override(AABBOptimizedTree)	udword			GetUsedBytes()	const	OPCODE_OVERRIDE	{ return mNbNodes*sizeof(node);		}	\
 		private:																									\
 									node*			mNodes;
 

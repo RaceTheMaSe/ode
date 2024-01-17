@@ -251,7 +251,7 @@ struct dxBody : public dObject {
 struct dxWorld : public dBase, public dxThreadingBase, private dxIThreadingDefaultImplProvider {
 public:
     dxWorld();
-    virtual ~dxWorld(); // Compilers issue warnings if a class with virtual methods does not have a virtual destructor :(
+    virtual ~dxWorld() ODE_OVERRIDE;
 
     void assignThreadingImpl(const dxThreadingFunctionsInfo *functions_info, dThreadingImplementationID threading_impl);
 
@@ -280,7 +280,7 @@ public:
     dxWorldProcessContext *unsafeGetWorldProcessingContext() const;
 
 private: // dxIThreadingDefaultImplProvider
-    virtual const dxThreadingFunctionsInfo *retrieveThreadingDefaultImpl(dThreadingImplementationID &out_defaultImpl);
+    virtual const dxThreadingFunctionsInfo *retrieveThreadingDefaultImpl(dThreadingImplementationID &out_defaultImpl) ODE_OVERRIDE;
 
 public:
     dxBody *firstbody;		// body linked list

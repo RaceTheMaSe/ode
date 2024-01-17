@@ -94,6 +94,12 @@
   #define ODE_NORETURN
 #endif // #if !defined(_MSC_VER)
 
+/* C++98 compatibility */
+#if defined(__cplusplus) && __cplusplus >= 201103L
+#define ODE_OVERRIDE override
+#else
+#define ODE_OVERRIDE
+#endif
 
 /* Well-defined common data types...need to be defined for 64 bit systems */
 #if defined(__aarch64__) || defined(__alpha__) || defined(__ppc64__) \

@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_AABBCOLLIDER_H__
 #define __OPC_AABBCOLLIDER_H__
+#include "OPC_Compile.h"
 
 	struct OPCODE_API AABBCache : VolumeCache
 	{
@@ -39,7 +40,7 @@
 		public:
 		// Constructor / Destructor
 											AABBCollider();
-		virtual								~AABBCollider();
+		virtual								~AABBCollider() OPCODE_OVERRIDE;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -87,7 +88,7 @@
 		public:
 		// Constructor / Destructor
 											HybridAABBCollider();
-		virtual								~HybridAABBCollider();
+		virtual								~HybridAABBCollider() OPCODE_OVERRIDE;
 
 							bool			Collide(AABBCache& cache, const CollisionAABB& box, const HybridModel& model);
 		protected:

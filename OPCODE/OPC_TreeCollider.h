@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_TREECOLLIDER_H__
 #define __OPC_TREECOLLIDER_H__
+#include "OPC_Compile.h"
 
 	//! This structure holds cached information used by the algorithm.
 	//! Two model pointers and two colliding primitives are cached. Model pointers are assigned
@@ -73,7 +74,7 @@
 		public:
 		// Constructor / Destructor
 											AABBTreeCollider();
-		virtual								~AABBTreeCollider();
+		virtual								~AABBTreeCollider() OPCODE_OVERRIDE;
 		// Generic collision query
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +178,7 @@
 		 *	\return		null if everything is ok, else a string describing the problem
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override(Collider)	const char*		ValidateSettings();
+		override(Collider)	const char*		ValidateSettings() OPCODE_OVERRIDE;
 
 		protected:
 		// Colliding pairs

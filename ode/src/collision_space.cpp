@@ -213,9 +213,9 @@ void dxSpace::dirty (dxGeom *geom)
 
 struct dxSimpleSpace : public dxSpace {
     dxSimpleSpace (dSpaceID _space);
-    void cleanGeoms();
-    void collide (void *data, dNearCallback *callback);
-    void collide2 (void *data, dxGeom *geom, dNearCallback *callback);
+    void cleanGeoms() ODE_OVERRIDE;
+    void collide (void *data, dNearCallback *callback) ODE_OVERRIDE;
+    void collide2 (void *data, dxGeom *geom, dNearCallback *callback) ODE_OVERRIDE;
 };
 
 
@@ -371,9 +371,9 @@ struct dxHashSpace : public dxSpace {
     dxHashSpace (dSpaceID _space);
     void setLevels (int minlevel, int maxlevel);
     void getLevels (int *minlevel, int *maxlevel);
-    void cleanGeoms();
-    void collide (void *data, dNearCallback *callback);
-    void collide2 (void *data, dxGeom *geom, dNearCallback *callback);
+    void cleanGeoms() ODE_OVERRIDE;
+    void collide (void *data, dNearCallback *callback) ODE_OVERRIDE;
+    void collide2 (void *data, dxGeom *geom, dNearCallback *callback) ODE_OVERRIDE;
 };
 
 

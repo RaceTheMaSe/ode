@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_TREEBUILDERS_H__
 #define __OPC_TREEBUILDERS_H__
+#include "OPC_Compile.h"
 
 	//! Tree splitting rules
 	enum SplittingRules
@@ -136,12 +137,12 @@
 		//! Constructor
 													AABBTreeOfVerticesBuilder() : mVertexArray(null)	{}
 		//! Destructor
-		virtual										~AABBTreeOfVerticesBuilder()						{}
+		virtual										~AABBTreeOfVerticesBuilder() OPCODE_OVERRIDE						{}
 
-		override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const;
-		override(AABBTreeBuilder)	float			GetSplittingValue(udword index, udword axis)									const;
-		override(AABBTreeBuilder)	Point			GetSplittingValues(udword index) const;
-		override(AABBTreeBuilder)	float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const AABB& global_box, udword axis)	const;
+		override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const OPCODE_OVERRIDE;
+		override(AABBTreeBuilder)	float			GetSplittingValue(udword index, udword axis)									const OPCODE_OVERRIDE;
+		override(AABBTreeBuilder)	Point			GetSplittingValues(udword index) const OPCODE_OVERRIDE;
+		override(AABBTreeBuilder)	float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const AABB& global_box, udword axis)	const OPCODE_OVERRIDE;
 
 		const						Point*			mVertexArray;		//!< Shortcut to an app-controlled array of vertices.
 	};
@@ -152,11 +153,11 @@
 		//! Constructor
 													AABBTreeOfAABBsBuilder() : mAABBArray(null)	{}
 		//! Destructor
-		virtual										~AABBTreeOfAABBsBuilder()					{}
+		virtual										~AABBTreeOfAABBsBuilder() OPCODE_OVERRIDE					{}
 
-		override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const;
-		override(AABBTreeBuilder)	float			GetSplittingValue(udword index, udword axis)									const;
-		override(AABBTreeBuilder)	Point			GetSplittingValues(udword index) const;
+		override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const OPCODE_OVERRIDE;
+		override(AABBTreeBuilder)	float			GetSplittingValue(udword index, udword axis)									const OPCODE_OVERRIDE;
+		override(AABBTreeBuilder)	Point			GetSplittingValues(udword index) const OPCODE_OVERRIDE;
 
 		const						AABB*			mAABBArray;			//!< Shortcut to an app-controlled array of AABBs.
 	};
@@ -167,12 +168,12 @@
 		//! Constructor
 													AABBTreeOfTrianglesBuilder() : mIMesh(null)										{}
 		//! Destructor
-		virtual										~AABBTreeOfTrianglesBuilder()													{}
+		virtual										~AABBTreeOfTrianglesBuilder() OPCODE_OVERRIDE													{}
 
-		override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const;
-		override(AABBTreeBuilder)	float			GetSplittingValue(udword index, udword axis)									const;
-		override(AABBTreeBuilder)	float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const AABB& global_box, udword axis)	const;
-		override(AABBTreeBuilder)	Point			GetSplittingValues(udword index) const;
+		override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const OPCODE_OVERRIDE;
+		override(AABBTreeBuilder)	float			GetSplittingValue(udword index, udword axis)									const OPCODE_OVERRIDE;
+		override(AABBTreeBuilder)	float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const AABB& global_box, udword axis)	const OPCODE_OVERRIDE;
+		override(AABBTreeBuilder)	Point			GetSplittingValues(udword index) const OPCODE_OVERRIDE;
 
 		const				MeshInterface*			mIMesh;			//!< Shortcut to an app-controlled mesh interface
 	};

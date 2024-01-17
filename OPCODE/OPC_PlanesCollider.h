@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_PLANESCOLLIDER_H__
 #define __OPC_PLANESCOLLIDER_H__
+#include "OPC_Compile.h"
 
 	struct OPCODE_API PlanesCache : VolumeCache
 	{
@@ -32,7 +33,7 @@
 		public:
 		// Constructor / Destructor
 											PlanesCollider();
-		virtual								~PlanesCollider();
+		virtual								~PlanesCollider() OPCODE_OVERRIDE;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -82,7 +83,7 @@
 		 *	\return		null if everything is ok, else a string describing the problem
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override(Collider)	const char*		ValidateSettings();
+		override(Collider)	const char*		ValidateSettings() OPCODE_OVERRIDE;
 
 		protected:
 		// Planes in model space
@@ -112,7 +113,7 @@
 		public:
 		// Constructor / Destructor
 											HybridPlanesCollider();
-		virtual								~HybridPlanesCollider();
+		virtual								~HybridPlanesCollider() OPCODE_OVERRIDE;
 
 							bool			Collide(PlanesCache& cache, const Plane* planes, udword nb_planes, const HybridModel& model, const Matrix4x4* worldm=null);
 		protected:

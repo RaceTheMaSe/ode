@@ -13,7 +13,7 @@ class XmlTestReporter : public DeferredTestReporter
 public:
     explicit XmlTestReporter(std::ostream& ostream);
 
-    virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed);
+    virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed) OVERRIDE;
 
 private:
     XmlTestReporter(XmlTestReporter const&);

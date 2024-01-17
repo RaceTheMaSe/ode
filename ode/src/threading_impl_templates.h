@@ -479,7 +479,7 @@ public:
     {
     }
 
-    virtual ~dxtemplateThreadingImplementation()
+    virtual ~dxtemplateThreadingImplementation() ODE_OVERRIDE
     {
         DoFinalizeObject();
     }
@@ -491,39 +491,39 @@ private:
     void DoFinalizeObject() { /* Do nothing */ }
 
 protected:
-    virtual void FreeInstance();
+    virtual void FreeInstance() ODE_OVERRIDE;
 
 private:
     typedef dxtemplateMutexGroup<typename tJobListContainer::dxThreadMutex> dxMutexGroup;
     typedef typename tJobListHandler::dxCallWait dxCallWait;
 
 protected:
-    virtual dIMutexGroup *AllocMutexGroup(dmutexindex_t Mutex_count);
-    virtual void FreeMutexGroup(dIMutexGroup *mutex_group);
-    virtual void LockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index);
-    // virtual bool TryLockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index);
-    virtual void UnlockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index);
+    virtual dIMutexGroup *AllocMutexGroup(dmutexindex_t Mutex_count) ODE_OVERRIDE;
+    virtual void FreeMutexGroup(dIMutexGroup *mutex_group) ODE_OVERRIDE;
+    virtual void LockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) ODE_OVERRIDE;
+    // virtual bool TryLockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) ODE_OVERRIDE;
+    virtual void UnlockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) ODE_OVERRIDE;
 
 protected:
-    virtual dxICallWait *AllocACallWait();
-    virtual void ResetACallWait(dxICallWait *call_wait);
-    virtual void FreeACallWait(dxICallWait *call_wait);
+    virtual dxICallWait *AllocACallWait() ODE_OVERRIDE;
+    virtual void ResetACallWait(dxICallWait *call_wait) ODE_OVERRIDE;
+    virtual void FreeACallWait(dxICallWait *call_wait) ODE_OVERRIDE;
 
 protected:
-    virtual bool PreallocateJobInfos(ddependencycount_t max_simultaneous_calls_estimate);
+    virtual bool PreallocateJobInfos(ddependencycount_t max_simultaneous_calls_estimate) ODE_OVERRIDE;
     virtual void ScheduleNewJob(int *fault_accumulator_ptr/*=NULL*/, 
         dCallReleaseeID *out_post_releasee_ptr/*=NULL*/, ddependencycount_t dependencies_count, dCallReleaseeID dependent_releasee/*=NULL*/, 
         dxICallWait *call_wait/*=NULL*/, 
-        dThreadedCallFunction *call_func, void *call_context, dcallindex_t instance_index);
-    virtual void AlterJobDependenciesCount(dCallReleaseeID target_releasee, ddependencychange_t dependencies_count_change);
+        dThreadedCallFunction *call_func, void *call_context, dcallindex_t instance_index) ODE_OVERRIDE;
+    virtual void AlterJobDependenciesCount(dCallReleaseeID target_releasee, ddependencychange_t dependencies_count_change) ODE_OVERRIDE;
     virtual void WaitJobCompletion(int *out_wait_status_ptr/*=NULL*/, 
-        dxICallWait *call_wait, const dThreadedWaitTime *timeout_time_ptr/*=NULL*/);
+        dxICallWait *call_wait, const dThreadedWaitTime *timeout_time_ptr/*=NULL*/) ODE_OVERRIDE;
 
 protected:
-    virtual unsigned RetrieveActiveThreadCount();
-    virtual void StickToJobsProcessing(dxThreadReadyToServeCallback *readiness_callback/*=NULL*/, void *callback_context/*=NULL*/);
-    virtual void ShutdownProcessing();
-    virtual void CleanupForRestart();
+    virtual unsigned RetrieveActiveThreadCount() ODE_OVERRIDE;
+    virtual void StickToJobsProcessing(dxThreadReadyToServeCallback *readiness_callback/*=NULL*/, void *callback_context/*=NULL*/) ODE_OVERRIDE;
+    virtual void ShutdownProcessing() ODE_OVERRIDE;
+    virtual void CleanupForRestart() ODE_OVERRIDE;
 
 private:
     tJobListContainer     m_list_container;

@@ -30,4 +30,10 @@
   #define NORETURN_VOID void
 #endif
 
+#if defined(__cplusplus) && __cplusplus >= 201103L
+#define OVERRIDE override
+#else
+#define OVERRIDE
+#endif
+
 #endif

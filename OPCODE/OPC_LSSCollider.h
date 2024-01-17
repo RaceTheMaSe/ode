@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_LSSCOLLIDER_H__
 #define __OPC_LSSCOLLIDER_H__
+#include "OPC_Compile.h"
 
 	struct OPCODE_API LSSCache : VolumeCache
 	{
@@ -41,7 +42,7 @@
 		public:
 		// Constructor / Destructor
 											LSSCollider();
-		virtual								~LSSCollider();
+		virtual								~LSSCollider() OPCODE_OVERRIDE;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -89,7 +90,7 @@
 		public:
 		// Constructor / Destructor
 											HybridLSSCollider();
-		virtual								~HybridLSSCollider();
+		virtual								~HybridLSSCollider() OPCODE_OVERRIDE;
 
 							bool			Collide(LSSCache& cache, const LSS& lss, const HybridModel& model, const Matrix4x4* worldl=null, const Matrix4x4* worldm=null);
 		protected:
