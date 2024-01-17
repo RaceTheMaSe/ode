@@ -10,6 +10,13 @@ AssertException::AssertException(char const* description, char const* filename, 
     std::strcpy(m_filename, filename);
 }
 
+AssertException::AssertException(const AssertException& other) NOEXCEPT
+{
+    std::strcpy(m_description, other.m_description);
+    std::strcpy(m_filename, other.m_filename);
+    m_lineNumber = other.m_lineNumber;
+}
+
 AssertException::~AssertException() NOEXCEPT
 {
 }

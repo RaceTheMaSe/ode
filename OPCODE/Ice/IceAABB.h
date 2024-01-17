@@ -270,7 +270,7 @@
 		//! Constructor
 		inline_						AABB()	{}
 		//! Destructor
-		inline_						~AABB()	{}
+		// inline_						~AABB()	{}
 
 		//! Type-independent methods
 									AABB_COMMON_METHODS

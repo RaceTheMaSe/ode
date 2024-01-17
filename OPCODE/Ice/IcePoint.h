@@ -38,8 +38,10 @@
 		inline_					Point(const float f[3]) : x(f[X]), y(f[Y]), z(f[Z])		{}
 		//! Copy constructor
 		inline_					Point(const Point& p) : x(p.x), y(p.y), z(p.z)				{}
+		//! Copy assignment
+		inline_					Point& operator=(const Point& p) { x=p.x; y=p.y; z=p.z; return *this; }
 		//! Destructor
-		inline_					~Point()													{}
+		// inline_					~Point()													{}
 
 		//! Clears the vector
 		inline_	Point&			Zero()									{ x =			y =			z = 0.0f;			return *this;	}

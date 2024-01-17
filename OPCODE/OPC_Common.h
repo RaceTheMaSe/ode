@@ -35,7 +35,7 @@
 		//! Constructor
 		inline_				CollisionAABB(const AABB& b)		{ b.GetCenter(mCenter);	b.GetExtents(mExtents);	}
 		//! Destructor
-		inline_				~CollisionAABB()					{}
+		// inline_				~CollisionAABB()					{}
 
 		//! Get min point of the box
 		inline_	void		GetMin(Point& min)		const		{ min = mCenter - mExtents;					}

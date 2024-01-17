@@ -24,7 +24,7 @@
 	struct OPCODE_API SphereCache : VolumeCache
 	{
 					SphereCache() : Center(0.0f,0.0f,0.0f), FatRadius2(0.0f), FatCoeff(1.1f)	{}
-					~SphereCache()																{}
+					// ~SphereCache()																{}
 
 		// Cached faces signature
 		Point		Center;		//!< Sphere used when performing the query resulting in cached faces

@@ -1,4 +1,10 @@
 
+ Changes in ODE integrated variant as of January 2024:
+ - adjustments to compile with current compilers and C++ standards
+ - renamed override to OPC_override due to compiler name clash complaints
+ - added copy assignments operators
+ - removed ANSI-compliant "for" loops macro
+
  OPCODE distribution 1.3 (june 2003)
  -----------------------
 

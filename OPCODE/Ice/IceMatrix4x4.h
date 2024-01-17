@@ -39,8 +39,10 @@
 									}
 		//! Copy constructor
 		inline_						Matrix4x4(const Matrix4x4& mat)				{ CopyMemory(m, &mat.m, 16*sizeof(float));	}
+		//! Copy assignment
+		inline_						Matrix4x4& operator=(const Matrix4x4& mat)				{ CopyMemory(m, &mat.m, 16*(udword)sizeof(float)); return *this;	}
 		//! Destructor.
-		inline_						~Matrix4x4()								{}
+		// inline_						~Matrix4x4()								{}
 
 		//! Assign values (rotation only)
 		template<typename trotationfloat>

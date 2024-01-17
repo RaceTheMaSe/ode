@@ -25,7 +25,7 @@
 		//! Constructor from a Point
 		inline_				HPoint(const Point& p, float ww=0.0f) : Point(p), w(ww)							{}
 		//! Destructor
-		inline_				~HPoint()																		{}
+		// inline_				~HPoint()																		{}
 
 		//! Clear the point
 		inline_	HPoint&		Zero()											{ x =			y =			z =			w = 0.0f;		return *this;	}

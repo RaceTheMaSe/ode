@@ -31,8 +31,10 @@
 								}
 		//! Copy constructor
 		inline_					Matrix3x3(const Matrix3x3& mat)				{ CopyMemory(m, &mat.m, 9*sizeof(float));	}
+		//! Copy assignment
+		inline_					Matrix3x3& operator=(const Matrix3x3& mat)				{ CopyMemory(m, &mat.m, 9*(udword)sizeof(float));	 return *this; }
 		//! Destructor
-		inline_					~Matrix3x3()								{}
+		// inline_					~Matrix3x3()								{}
 
 		//! Assign values
 		template<typename trotationfloat>

@@ -27,7 +27,7 @@
 		//! Constructor
 		inline_				CollisionFace()			{}
 		//! Destructor
-		inline_				~CollisionFace()		{}
+		// inline_				~CollisionFace()		{}
 
 				udword		mFaceID;				//!< Index of touched face
 				float		mDistance;				//!< Distance from collider to hitpoint
@@ -40,7 +40,7 @@
 		//! Constructor
 										CollisionFaces()						{}
 		//! Destructor
-										~CollisionFaces()						{}
+										// ~CollisionFaces()						{}
 
 		inline_	udword					GetNbFaces()					const	{ return GetNbEntries()>>2;						}
 		inline_	const CollisionFace*	GetFaces()						const	{ return (const CollisionFace*)GetEntries();	}
@@ -174,7 +174,7 @@
 		 *	\return		null if everything is ok, else a string describing the problem
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override(Collider)	const char*		ValidateSettings() OPCODE_OVERRIDE;
+		OPC_override(Collider)	const char*		ValidateSettings() OPCODE_OVERRIDE;
 
 		protected:
 		// Ray in local space

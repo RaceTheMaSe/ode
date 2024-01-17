@@ -34,15 +34,6 @@
 
 
 //////////////////////////////////////////////////////////////////////////
-// dxResourceRequirementDescriptor();
-
-dxResourceRequirementDescriptor::~dxResourceRequirementDescriptor()
-{
-    // Do nothing
-}
-
-
-//////////////////////////////////////////////////////////////////////////
 // dxRequiredResourceContainer
 
 dxRequiredResourceContainer::~dxRequiredResourceContainer()

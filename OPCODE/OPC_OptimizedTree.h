@@ -117,15 +117,15 @@
 													base_class();													\
 		virtual										~base_class() OPCODE_OVERRIDE;													\
 		/* Builds from a standard tree */																			\
-		override(AABBOptimizedTree)	bool			Build(AABBTree* tree) OPCODE_OVERRIDE;											\
+		OPC_override(AABBOptimizedTree)	bool			Build(AABBTree* tree) OPCODE_OVERRIDE;											\
 		/* Refits the tree */																						\
-		override(AABBOptimizedTree)	bool			Refit(const MeshInterface* mesh_interface) OPCODE_OVERRIDE;						\
+		OPC_override(AABBOptimizedTree)	bool			Refit(const MeshInterface* mesh_interface) OPCODE_OVERRIDE;						\
 		/* Walks the tree */																						\
-		override(AABBOptimizedTree)	bool			Walk(GenericWalkingCallback callback, void* user_data) const OPCODE_OVERRIDE;	\
+		OPC_override(AABBOptimizedTree)	bool			Walk(GenericWalkingCallback callback, void* user_data) const OPCODE_OVERRIDE;	\
 		/* Data access */																							\
 		inline_						const node*		GetNodes()		const	{ return mNodes;					}	\
 		/* Stats */																									\
-		override(AABBOptimizedTree)	udword			GetUsedBytes()	const	OPCODE_OVERRIDE	{ return mNbNodes*sizeof(node);		}	\
+		OPC_override(AABBOptimizedTree)	udword			GetUsedBytes()	const	OPCODE_OVERRIDE	{ return mNbNodes*sizeof(node);		}	\
 		private:																									\
 									node*			mNodes;
 

@@ -24,7 +24,7 @@
 	struct OPCODE_API VolumeCache
 	{
 							VolumeCache() : Model(null)		{}
-							~VolumeCache()					{}
+							// ~VolumeCache()					{}
 
 		Container			TouchedPrimitives;	//!< Indices of touched primitives
 		const BaseModel*	Model;				//!< Owner
@@ -87,7 +87,7 @@
 		 *	\return		null if everything is ok, else a string describing the problem
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override(Collider)	const char*		ValidateSettings() OPCODE_OVERRIDE;
+		OPC_override(Collider)	const char*		ValidateSettings() OPCODE_OVERRIDE;
 
 		protected:
 		// Touched primitives
@@ -110,7 +110,7 @@
 		 *	Initializes a query
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override(Collider) inline_	void	InitQuery() OPCODE_OVERRIDE
+		OPC_override(Collider) inline_	void	InitQuery() OPCODE_OVERRIDE
 											{
 												// Reset stats & contact status
 												mNbVolumeBVTests	= 0;

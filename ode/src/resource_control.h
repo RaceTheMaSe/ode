@@ -53,8 +53,6 @@ public:
     {
     }
 
-    ~dxResourceRequirementDescriptor();
-
     enum
     {
         STOCK_CALLWAIT_REQUIRED = 0x00000001
