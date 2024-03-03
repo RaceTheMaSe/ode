@@ -1,6 +1,8 @@
 #include "SignalTranslator.h"
 #include "UnitTestConfig++.h"
 
+#include <cstddef>
+
 namespace UnitTest {
 
 sigjmp_buf* SignalTranslator::s_jumpTarget = NULL;

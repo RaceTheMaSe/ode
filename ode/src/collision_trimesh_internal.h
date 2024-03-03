@@ -40,6 +40,7 @@
 #include <ode/collision_trimesh.h>
 
 #if dTLS_ENABLED
+#include "ou/namespace.h"
 #include "odetls.h"
 #endif
 

@@ -28,6 +28,8 @@ this also shows you how to use geom groups.
 */
 
 
+#include "common.h"
+#include "objects.h"
 #include <stdlib.h>
 
 #include <ode/ode.h>
