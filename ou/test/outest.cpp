@@ -187,14 +187,14 @@ static bool TestTls_GetSetValue()
 
 		vtFirstValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE);
 
-		if ((void *)vtFirstValue != &TestTls_GetSetValue)
+		if ((bool (*)())vtFirstValue != &TestTls_GetSetValue)
 		{
 			break;
 		}
 
 		vtSecondValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE);
 
-		if ((void *)vtSecondValue != &TestTlsSecondValueDestructor)
+		if ((void (*)(void*))vtSecondValue != &TestTlsSecondValueDestructor)
 		{
 			break;
 		}
@@ -236,14 +236,14 @@ static bool TestTls_UnsafeGetSetValue()
 	{
 		tlsvaluetype vtFirstValue = CThreadLocalStorage::UnsafeGetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE);
 		
-		if ((void *)vtFirstValue != &TestTls_GetSetValue)
+		if ((bool (*)())vtFirstValue != &TestTls_GetSetValue)
 		{
 			break;
 		}
 		
 		tlsvaluetype vtSecondValue = CThreadLocalStorage::UnsafeGetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE);
 		
-		if ((void *)vtSecondValue != &TestTlsSecondValueDestructor)
+		if ((void (*)(void*))vtSecondValue != &TestTlsSecondValueDestructor)
 		{
 			break;
 		}
