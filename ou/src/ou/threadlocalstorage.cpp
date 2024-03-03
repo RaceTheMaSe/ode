@@ -380,7 +380,7 @@ CTLSStorageArray *CTLSStorageArray::AllocateInstance(tlsindextype iValueCount)
 	
 	if (psaNewInstance)
 	{
-		memset(psaNewInstance, 0, nRequiredSize);
+		memset((void*)psaNewInstance, 0, nRequiredSize);
 		new((CTLSStorageArray *)psaNewInstance) CTLSStorageArray();
 
 		psaNewInstance->AssignAllBlocksHostArray(iValueCount);
