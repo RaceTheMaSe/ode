@@ -94,7 +94,11 @@ if ENABLE_OU
 AM_CPPFLAGS += -I$(top_srcdir)/ou/include
 libode_la_LIBADD += $(top_builddir)/ou/src/ou/libou.la
 libode_la_SOURCES +=    odetls.cpp odetls.h \
-                        odeou.cpp odeou.h
+                        odeou.cpp odeou.h \
+                        $(top_builddir)/ou/src/ou/atomic.cpp \
+                        $(top_builddir)/ou/src/ou/customization.cpp \
+	                $(top_builddir)/ou/src/ou/malloc.cpp \
+	                $(top_builddir)/ou/src/ou/threadlocalstorage.cpp
 
 endif
 

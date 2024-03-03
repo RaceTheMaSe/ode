@@ -1002,6 +1002,27 @@ if(ODE_WITH_TESTS)
 	
 	enable_testing()
 	add_test(tests ${CMAKE_CURRENT_BINARY_DIR}/tests)
+
+	if(ODE_WITH_OU)
+		add_executable(outest 
+		ou/test/outest.cpp
+		ou/src/ou/threadlocalstorage.cpp
+		ou/src/ou/customization.cpp
+		ou/src/ou/malloc.cpp 
+		${CMAKE_CURRENT_BINARY_DIR}/include/ode/precision.h)
+		if(APPLE)
+			target_compile_definitions(outest PRIVATE -DMAC_OS_X_VERSION=${MAC_OS_X_VERSION})
+		endif()
+		target_include_directories(outest PUBLIC 
+			ou/include
+			include
+			ode/src
+			${CMAKE_CURRENT_BINARY_DIR}/include
+			${CMAKE_CURRENT_BINARY_DIR}/ode/src
+		)
+		APPLY_COMPILER_OPTIONS_TO_TARGET(outest)
+		add_test(outest ${CMAKE_CURRENT_BINARY_DIR}/outest)
+	endif()
 endif()
 
 include(CMakePackageConfigHelpers)
