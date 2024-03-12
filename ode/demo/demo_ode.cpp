@@ -1344,7 +1344,6 @@ static void dTestMatrixComparison()
 
 // internal unit tests
 extern "C" void dTestDataStructures();
-extern "C" void dTestMatrixComparison();
 extern "C" int dTestSolveLCP();
 
 
