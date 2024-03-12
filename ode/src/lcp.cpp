@@ -897,6 +897,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
 
     // for i in N, state[i] is 0 if x(i)==lo(i) or 1 if x(i)==hi(i)
     bool *state = memarena->AllocateArray<bool> (n);
+    memset(state,0,n*sizeof(bool)); // sanitizer complains for uninit reads returning other values than 0 or 1
 
     // create LCP object. note that tmp is set to delta_w to save space, this
     // optimization relies on knowledge of how tmp is used, so be careful!
