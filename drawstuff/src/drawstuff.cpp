@@ -1275,6 +1275,8 @@ void setupDrawingMode()
     }
 }
 
+static GLfloat s_params[4] = { ground_scale,0,0,ground_ofsx };
+static GLfloat t_params[4] = { 0,ground_scale,0,ground_ofsy };
 
 static
 void setShadowDrawingMode()
@@ -1289,8 +1291,6 @@ void setShadowDrawingMode()
         glEnable(GL_TEXTURE_GEN_T);
         glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
         glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-        static GLfloat s_params[4] = { ground_scale,0,0,ground_ofsx };
-        static GLfloat t_params[4] = { 0,ground_scale,0,ground_ofsy };
         glTexGenfv(GL_S, GL_EYE_PLANE, s_params);
         glTexGenfv(GL_T, GL_EYE_PLANE, t_params);
     }
