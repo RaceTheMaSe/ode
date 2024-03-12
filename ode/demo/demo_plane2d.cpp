@@ -267,17 +267,17 @@ extern int      main
 
 
     // collision geoms and joints
-    dCreatePlane (g_globals_ptr->coll_space_id,  1, 0, 0, 0);
-    dCreatePlane (g_globals_ptr->coll_space_id, -1, 0, 0, -STAGE_SIZE);
-    dCreatePlane (g_globals_ptr->coll_space_id,  0,  1, 0, 0);
-    dCreatePlane (g_globals_ptr->coll_space_id,  0, -1, 0, -STAGE_SIZE);
+    dGeomID p0 = dCreatePlane (g_globals_ptr->coll_space_id,  1, 0, 0, 0);
+    dGeomID p1 = dCreatePlane (g_globals_ptr->coll_space_id, -1, 0, 0, -STAGE_SIZE);
+    dGeomID p2 = dCreatePlane (g_globals_ptr->coll_space_id,  0,  1, 0, 0);
+    dGeomID p3 = dCreatePlane (g_globals_ptr->coll_space_id,  0, -1, 0, -STAGE_SIZE);
 
+    dGeomID coll_box_ids[N_BODIES];
     for (b = 0; b < N_BODIES; b ++)
     {
-        dGeomID coll_box_id;
-        coll_box_id = dCreateBox (g_globals_ptr->coll_space_id,
+        coll_box_ids[b] = dCreateBox (g_globals_ptr->coll_space_id,
             g_globals_ptr->bodies_sides[b][0], g_globals_ptr->bodies_sides[b][1], g_globals_ptr->bodies_sides[b][2]);
-        dGeomSetBody (coll_box_id, g_globals_ptr->dyn_bodies[b].id ());
+        dGeomSetBody (coll_box_ids[b], g_globals_ptr->dyn_bodies[b].id ());
     }
 
     g_globals_ptr->coll_contacts.create ();
@@ -293,6 +293,15 @@ extern int      main
 
         dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &drawstuff_functions);
     }
+    
+    for (b = 0; b < N_BODIES; b ++)
+        if(coll_box_ids[b])
+            dGeomDestroy(coll_box_ids[b]);
+    dGeomDestroy(p0);
+    dGeomDestroy(p1);
+    dGeomDestroy(p2);
+    dGeomDestroy(p3);
+    dSpaceDestroy(g_globals_ptr->coll_space_id);
 
     delete g_globals_ptr;
     g_globals_ptr = NULL;

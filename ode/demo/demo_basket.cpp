@@ -261,6 +261,8 @@ int main (int argc, char **argv)
   // run simulation
   dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &fn);
 
+  dGeomTriMeshDataDestroy(Data);
+
   // Causes segm violation? Why?
   // (because dWorldDestroy() destroys body connected to geom; must call first!)
   dGeomDestroy(sphgeom);

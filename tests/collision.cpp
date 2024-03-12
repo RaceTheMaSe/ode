@@ -58,6 +58,7 @@ TEST(test_collision_trimesh_sphere_exact)
         int nc;
         dVector3 trinormal = { 0, 0, -1 };
 
+        // FIXME: next three tests fails with OPCODE float
         // Test case: sphere touches the diagonal edge
         dGeomSetPosition(sphere, 0,0,radius);
         nc = dCollide(trimesh, sphere, 4, &cg[0], sizeof cg[0]);
@@ -94,6 +95,10 @@ TEST(test_collision_trimesh_sphere_exact)
             CHECK_EQUAL(0, cg[i].depth);
             CHECK_ARRAY_EQUAL(rtrinormal, cg[i].normal, 3);
         }
+
+        dGeomDestroy(trimesh);
+        dGeomDestroy(sphere);
+        dGeomTriMeshDataDestroy(data);
     }
     #endif // dTRIMESH_GIMPACT
 }

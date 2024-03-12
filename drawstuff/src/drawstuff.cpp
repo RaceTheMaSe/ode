@@ -976,9 +976,11 @@ void dsStopGraphics()
     delete sky_texture;
     delete ground_texture;
     delete wood_texture;
+    delete checkered_texture;
     sky_texture = NULL;
     ground_texture = NULL;
     wood_texture = NULL;
+    checkered_texture = NULL;
 }
 
 
