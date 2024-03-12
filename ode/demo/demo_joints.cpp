@@ -1073,7 +1073,7 @@ int main (int argc, char **argv)
   for (i=1; i<argc; i++) {
     if ( argv[i][0]=='-' && argv[i][1]=='i' && argv[i][2]==0) cmd_interactive = 1;
     else if ( argv[i][0]=='-' && argv[i][1]=='g' && argv[i][2]==0) cmd_graphics = 0;
-    else if ( argv[i][0]=='-' && argv[i][1]=='e' && argv[i][2]==0) cmd_graphics = 0;
+    else if ( argv[i][0]=='-' && argv[i][1]=='e' && argv[i][2]==0) cmd_occasional_error = 0;
     else if ( argv[i][0]=='-' && argv[i][1]=='n' && isdigit(argv[i][2]) ) {
       char *endptr;
       long int n = strtol (&(argv[i][2]),&endptr,10);
