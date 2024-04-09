@@ -11,6 +11,9 @@
 
 namespace UnitTest {
 
+#if defined(_MSC_VER)
+#pragma warning(disable: 4640) // construction of local static object is not thread-safe
+#endif
 TestList& Test::GetTestList()
 {
     static TestList s_list;
