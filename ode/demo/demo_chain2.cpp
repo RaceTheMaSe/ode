@@ -48,12 +48,12 @@
 
 // dynamics and collision objects
 
-static dWorld world;
-static dSimpleSpace space (NULL);
-static dBody body[NUM];
-static dBallJoint joint[NUM-1];
-static dJointGroup contactgroup;
-static dBox box[NUM];
+static dWorld* world = NULL;
+static dSimpleSpace* space = NULL;
+static dBody* body[NUM];
+static dBallJoint* joint[NUM-1];
+static dJointGroup* contactgroup;
+static dBox* box[NUM];
 
 
 // this is called by space.collide when two objects in space are
@@ -72,7 +72,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
   contact.surface.mode = 0;
   contact.surface.mu = dInfinity;
   if (dCollide (o1,o2,1,&contact.geom,sizeof(dContactGeom))) {
-    dJointID c = dJointCreateContact (world.id(),contactgroup.id(),&contact);
+    dJointID c = dJointCreateContact (world->id(),contactgroup->id(),&contact);
     dJointAttach (c,b1,b2);
   }
 }
@@ -97,20 +97,20 @@ static void simLoop (int pause)
   if (!pause) {
     static double angle = 0;
     angle += 0.05;
-    body[NUM-1].addForce (0,0,1.5*(sin(angle)+1.0));
+    body[NUM-1]->addForce (0,0,1.5*(sin(angle)+1.0));
 
-    space.collide (NULL,&nearCallback);
-    world.step (0.05);
+    space->collide (NULL,&nearCallback);
+    world->step (0.05);
 
     // remove all contact joints
-    contactgroup.empty();
+    contactgroup->empty();
   }
 
   dReal sides[3] = {SIDE,SIDE,SIDE};
   dsSetColor (1,1,0);
   dsSetTexture (DS_WOOD);
   for (int i=0; i<NUM; i++)
-    dsDrawBox (body[i].getPosition(),body[i].getRotation(),sides);
+    dsDrawBox (body[i]->getPosition(),body[i]->getRotation(),sides);
 }
 
 
@@ -129,34 +129,62 @@ int main (int argc, char **argv)
   dInitODE2(0);
 
   int i;
-  contactgroup.create ();
-  world.setGravity (0,0,-0.5);
-  dWorldSetCFM (world.id(),1e-5);
-  dPlane plane (space,0,0,1,0);
-
-  for (i=0; i<NUM; i++) {
-    body[i].create (world);
-    dReal k = i*SIDE;
-    body[i].setPosition (k,k,k+0.4);
-    dMass m;
-    m.setBox (1,SIDE,SIDE,SIDE);
-    m.adjust (MASS);
-    body[i].setMass (&m);
-    body[i].setData ((void*)(dsizeint)i);
-
-    box[i].create (space,SIDE,SIDE,SIDE);
-    box[i].setBody (body[i]);
+  
+  // allocate resources
+  world = new dWorld();
+  space = new dSimpleSpace (NULL);
+  for(i=0;i<NUM;++i)
+  {
+    body[i] = new dBody();
+    if(i!=NUM-1)
+      joint[i] = new dBallJoint();
+    box[i] = new dBox();
   }
-  for (i=0; i<(NUM-1); i++) {
-    joint[i].create (world);
-    joint[i].attach (body[i],body[i+1]);
-    dReal k = (i+0.5)*SIDE;
-    joint[i].setAnchor (k,k,k+0.4);
+  contactgroup = new dJointGroup();
+
+  contactgroup->create ();
+  world->setGravity (0,0,-0.5);
+  dWorldSetCFM (world->id(),1e-5);
+  {
+    dPlane plane (*space,0,0,1,0);
+
+    for (i=0; i<NUM; i++) {
+      body[i]->create (*world);
+      dReal k = i*SIDE;
+      body[i]->setPosition (k,k,(k+0.4));
+      dMass m;
+      m.setBox (1,SIDE,SIDE,SIDE);
+      m.adjust (MASS);
+      body[i]->setMass (&m);
+      body[i]->setData ((void*)(dsizeint)i);
+
+      box[i]->create (*space,SIDE,SIDE,SIDE);
+      box[i]->setBody (*body[i]);
+    }
+    for (i=0; i<(NUM-1); i++) {
+      joint[i]->create (*world);
+      joint[i]->attach (*body[i],*body[i+1]);
+      dReal k = (i+0.5)*SIDE;
+      joint[i]->setAnchor (k,k,k+0.4);
+    }
+
+    // run simulation
+    dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &fn);
   }
 
-  // run simulation
-  dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &fn);
-
+  // cleanup resources
+  for(i=0;i<NUM;++i)
+  {
+    if(i!=NUM-1)
+      delete joint[i];
+    delete box[i];
+  }
+  for(i=0;i<NUM;++i)
+    delete body[i];
+  delete contactgroup;
+  delete space;
+  delete world;
+  
   dCloseODE();
   return 0;
 }
