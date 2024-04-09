@@ -143,6 +143,10 @@ public:
     }
 };
 
+IFaceAngleStorageControl::~IFaceAngleStorageControl() {}
+IFaceAngleStorageView::~IFaceAngleStorageView() {}
+dxMeshBase::~dxMeshBase() {}
+
 template<class TStorageCodec>
 class FaceAnglesWrapper:
     public IFaceAngleStorageControl,

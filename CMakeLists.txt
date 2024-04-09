@@ -276,6 +276,8 @@ set(
 	ode/src/obstack.cpp
 	ode/src/obstack.h
 	ode/src/ode.cpp
+	ode/src/odecpp.cpp
+	ode/src/odecpp_collision.cpp
 	ode/src/odeinit.cpp
 	ode/src/odemath.cpp
 	ode/src/odemath.h

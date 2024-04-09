@@ -99,7 +99,7 @@ enum FaceAngleDomain
 class IFaceAngleStorageControl
 {
 public:
-    virtual ~IFaceAngleStorageControl() {}
+    virtual ~IFaceAngleStorageControl();
     virtual void disposeStorage() = 0;
 
     virtual bool areNegativeAnglesStored() const = 0;
@@ -111,7 +111,7 @@ public:
 class IFaceAngleStorageView
 {
 public:
-    virtual ~IFaceAngleStorageView() {}
+    virtual ~IFaceAngleStorageView();
     virtual FaceAngleDomain retrieveFacesAngleFromStorage(dReal &out_AngleValue, unsigned triangleIndex, dMeshTriangleVertex vertexIndex) = 0;
 };
 
@@ -324,6 +324,8 @@ public:
         std::fill(m_DoTCs, m_DoTCs + dARRAY_SIZE(m_DoTCs), doTCs);
         type = dTriMeshClass;
     }
+
+    ~dxMeshBase() ODE_OVERRIDE;
 
     bool invokeCallback(dxGeom *Object, int TriIndex)
     {

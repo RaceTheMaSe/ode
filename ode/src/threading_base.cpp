@@ -35,6 +35,7 @@
 #include "error.h"
 #include "threading_base.h"
 
+dxIThreadingDefaultImplProvider::~dxIThreadingDefaultImplProvider() {}
 
 dxThreadingBase::~dxThreadingBase()
 {

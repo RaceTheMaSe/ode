@@ -303,6 +303,8 @@ int PreallocateResourcesForThreadedCalls(dThreadingImplementationID impl, ddepen
     return ((dxIThreadingImplementation *)impl)->PreallocateJobInfos(max_simultaneous_calls_estimate);
 }
 
+dxIThreadingImplementation::~dxIThreadingImplementation() {}
+
 #if defined(_MSC_VER)
 #pragma warning(pop)
 #endif

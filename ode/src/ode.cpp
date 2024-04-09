@@ -227,6 +227,8 @@ dObject(w)
 
 }
 
+dxBody::~dxBody() {}
+
 
 dxWorld* dBodyGetWorld (dxBody * b)
 {

@@ -26,14 +26,14 @@
 #ifndef _ODE_ODECPP_H_
 #define _ODE_ODECPP_H_
 #ifdef __cplusplus
-
-
-
+#include <ode/odeconfig.h>
+#include <ode/common.h>
+#include <ode/objects.h>
 
 //namespace ode {
 
 
-class dWorldSimpleIDContainer {
+class ODE_API dWorldSimpleIDContainer {
 protected:
 	dWorldID _id;
 
@@ -48,9 +48,9 @@ protected:
 	}
 };
 
-class dWorldDynamicIDContainer: public dWorldSimpleIDContainer {
+class ODE_API dWorldDynamicIDContainer: public dWorldSimpleIDContainer {
 protected:
-	virtual ~dWorldDynamicIDContainer() {}
+	virtual ~dWorldDynamicIDContainer();
 };
 
 template <class dWorldTemplateBase>
@@ -159,24 +159,19 @@ public:
 };
 
 
-class dBodySimpleIDContainer {
+class ODE_API dBodySimpleIDContainer {
 protected:
 	dBodyID _id;
 
 	dBodySimpleIDContainer(): _id(NULL) {}
-	~dBodySimpleIDContainer() { destroy(); }
+	virtual ~dBodySimpleIDContainer() { destroy(); }
 
-	void destroy() { 
-		if (_id) {
-			dBodyDestroy(_id); 
-			_id = NULL;
-		}
-	}
+	virtual void destroy();
 };
 
-class dBodyDynamicIDContainer: public dBodySimpleIDContainer {
+class ODE_API dBodyDynamicIDContainer: public dBodySimpleIDContainer {
 protected:
-	virtual ~dBodyDynamicIDContainer() {}
+	virtual ~dBodyDynamicIDContainer() ODE_OVERRIDE;
 };
 
 template <class dBodyTemplateBase, class dWorldTemplateBase>
@@ -433,24 +428,19 @@ public:
 };
 
 
-class dJointGroupSimpleIDContainer {
+class ODE_API dJointGroupSimpleIDContainer {
 protected:
 	dJointGroupID _id;
 
 	dJointGroupSimpleIDContainer(): _id(NULL) {}
-	~dJointGroupSimpleIDContainer() { destroy(); }
+	virtual ~dJointGroupSimpleIDContainer() { destroy(); }
 
-	void destroy() { 
-		if (_id) {
-			dJointGroupDestroy(_id); 
-			_id = NULL;
-		}
-	}
+	virtual void destroy();
 };
 
-class dJointGroupDynamicIDContainer: public dJointGroupSimpleIDContainer {
+class ODE_API dJointGroupDynamicIDContainer: public dJointGroupSimpleIDContainer {
 protected:
-	virtual ~dJointGroupDynamicIDContainer() {}
+	virtual ~dJointGroupDynamicIDContainer() ODE_OVERRIDE;
 };
 
 template <class dJointGroupTemplateBase>
@@ -486,24 +476,19 @@ public:
 };
 
 
-class dJointSimpleIDContainer {
+class ODE_API dJointSimpleIDContainer {
 protected:
 	dJointID _id;
 
 	dJointSimpleIDContainer(): _id(NULL) {}
-	~dJointSimpleIDContainer() { destroy(); }
+	virtual ~dJointSimpleIDContainer() { destroy(); }
 
-	void destroy() { 
-		if (_id) {
-			dJointDestroy (_id); 
-			_id = NULL;
-		}
-	}
+	virtual void destroy();
 };
 
-class dJointDynamicIDContainer: public dJointSimpleIDContainer {
+class ODE_API dJointDynamicIDContainer: public dJointSimpleIDContainer {
 protected:
-	virtual ~dJointDynamicIDContainer() {}
+	virtual ~dJointDynamicIDContainer() ODE_OVERRIDE;
 };
 
 template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplateBase>
@@ -935,7 +920,6 @@ public:
 };
 
 
-
 template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplateBase>
 class dPUJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase>
 {
@@ -1019,9 +1003,6 @@ public:
 };
 
 
-
-
-
 template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplateBase>
 class dPistonJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase>
 {
@@ -1083,7 +1064,6 @@ public:
   void addForce (dReal force)
   { dJointAddPistonForce (get_id(), force); }
 };
-
 
 
 template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplateBase>
@@ -1346,8 +1326,8 @@ typedef dAMotorJointTemplate<dODECPP_JOINT_TEMPLATE_BASE, dODECPP_WORLD_TEMPLATE
 typedef dLMotorJointTemplate<dODECPP_JOINT_TEMPLATE_BASE, dODECPP_WORLD_TEMPLATE_BASE, dODECPP_BODY_TEMPLATE_BASE> dLMotorJoint;
 
 
-#endif
-#endif
+#endif // __cplusplus
+#endif // _ODE_ODECPP_H_
 
 // Local variables:
 // mode:c++

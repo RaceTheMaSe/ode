@@ -220,6 +220,7 @@ struct dxPosR {
 
 struct dxBody : public dObject {
     dxBody(dxWorld *w);
+    ~dxBody() ODE_OVERRIDE;
 
     dxJointNode *firstjoint;	// list of attached joints
     unsigned flags;			// some dxBodyFlagXXX flags

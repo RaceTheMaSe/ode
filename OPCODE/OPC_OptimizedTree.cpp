@@ -75,6 +75,9 @@ using namespace Opcode;
 //! - false to see the effects of quantization errors (faster, but wrong results in some cases)
 static const bool gFixQuantized = true;
 
+// at least one virtual function in source for weak-vtable
+AABBOptimizedTree::~AABBOptimizedTree() {}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  *	Builds an implicit tree from a standard one. An implicit tree is a complete tree (2*N-1 nodes) whose negative

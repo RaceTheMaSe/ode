@@ -56,6 +56,8 @@ libode_la_SOURCES =     nextafterf.c \
                         objects.cpp objects.h \
                         obstack.cpp obstack.h \
                         ode.cpp \
+                        odecpp.cpp \
+                        odecpp_collision.cpp \
                         odeinit.cpp \
                         odemath.cpp odemath.h \
                         odeou.h \

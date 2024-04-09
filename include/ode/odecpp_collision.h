@@ -27,11 +27,12 @@
 #define _ODE_ODECPP_COLLISION_H_
 #ifdef __cplusplus
 
+#include <ode/ode.h>
 //#include <ode/error.h>
 
 //namespace ode {
 
-class dGeom {
+class ODE_API dGeom {
   // intentionally undefined, don't use these
   dGeom (dGeom &);
   void operator= (dGeom &);
@@ -42,12 +43,11 @@ protected:
   dGeom()
     { _id = NULL; }
 public:
-  ~dGeom()
-    { if (_id) dGeomDestroy (_id); }
+  virtual ~dGeom();
 
   dGeomID id() const
     { return _id; }
-  operator dGeomID() const
+  explicit operator dGeomID() const
     { return _id; }
 
   void destroy() {
@@ -133,7 +133,7 @@ public:
 };
 
 
-class dSpace : public dGeom {
+class ODE_API dSpace : public dGeom {
   // intentionally undefined, don't use these
   dSpace (dSpace &);
   void operator= (dSpace &);
@@ -145,34 +145,35 @@ protected:
   dSpace () { _id = NULL; }
 
 public:
+  ~dSpace() ODE_OVERRIDE;
   dSpaceID id() const
     { return (dSpaceID) _id; }
-  operator dSpaceID() const
+  explicit operator dSpaceID() const
     { return (dSpaceID) _id; }
 
-  void setCleanup (int mode)
+  void setCleanup (int mode) const
     { dSpaceSetCleanup (id(), mode); }
-  int getCleanup()
+  int getCleanup() const
     { return dSpaceGetCleanup (id()); }
 
-  void add (dGeomID x)
+  void add (dGeomID x) const
     { dSpaceAdd (id(), x); }
-  void remove (dGeomID x)
+  void remove (dGeomID x) const
     { dSpaceRemove (id(), x); }
-  int query (dGeomID x)
+  int query (dGeomID x) const
     { return dSpaceQuery (id(),x); }
 
-  int getNumGeoms()
+  int getNumGeoms() const
     { return dSpaceGetNumGeoms (id()); }
-  dGeomID getGeom (int i)
+  dGeomID getGeom (int i) const
     { return dSpaceGetGeom (id(),i); }
 
-  void collide (void *data, dNearCallback *callback)
+  void collide (void *data, dNearCallback *callback) const
     { dSpaceCollide (id(),data,callback); }
 };
 
 
-class dSimpleSpace : public dSpace {
+class ODE_API dSimpleSpace : public dSpace {
   // intentionally undefined, don't use these
   dSimpleSpace (dSimpleSpace &);
   void operator= (dSimpleSpace &);
@@ -184,10 +185,11 @@ public:
     { _id = (dGeomID) dSimpleSpaceCreate (space.id()); }
   dSimpleSpace (dSpaceID space)
     { _id = (dGeomID) dSimpleSpaceCreate (space); }
+  ~dSimpleSpace() ODE_OVERRIDE;
 };
 
 
-class dHashSpace : public dSpace {
+class ODE_API dHashSpace : public dSpace {
   // intentionally undefined, don't use these
   dHashSpace (dHashSpace &);
   void operator= (dHashSpace &);
@@ -199,13 +201,14 @@ public:
     { _id = (dGeomID) dHashSpaceCreate (space.id()); }
   dHashSpace (dSpaceID space)
     { _id = (dGeomID) dHashSpaceCreate (space); }
+  ~dHashSpace() ODE_OVERRIDE;
 
   void setLevels (int minlevel, int maxlevel)
     { dHashSpaceSetLevels (id(),minlevel,maxlevel); }
 };
 
 
-class dQuadTreeSpace : public dSpace {
+class ODE_API dQuadTreeSpace : public dSpace {
   // intentionally undefined, don't use these
   dQuadTreeSpace (dQuadTreeSpace &);
   void operator= (dQuadTreeSpace &);
@@ -217,10 +220,11 @@ public:
     { _id = (dGeomID) dQuadTreeSpaceCreate (space.id(),center,extents,depth); }
   dQuadTreeSpace (dSpaceID space, const dVector3 center, const dVector3 extents, int depth)
     { _id = (dGeomID) dQuadTreeSpaceCreate (space,center,extents,depth); }
+  ~dQuadTreeSpace() ODE_OVERRIDE;
 };
 
 
-class dSphere : public dGeom {
+class ODE_API dSphere : public dGeom {
   // intentionally undefined, don't use these
   dSphere (dSphere &);
   void operator= (dSphere &);
@@ -233,6 +237,7 @@ public:
     { _id = dCreateSphere (space.id(), radius); }
   dSphere (dSpaceID space, dReal radius)
     { _id = dCreateSphere (space, radius); }
+  ~dSphere() ODE_OVERRIDE;
 
   void create (dSpaceID space, dReal radius) {
     if (_id) dGeomDestroy (_id);
@@ -246,7 +251,7 @@ public:
 };
 
 
-class dBox : public dGeom {
+class ODE_API dBox : public dGeom {
   // intentionally undefined, don't use these
   dBox (dBox &);
   void operator= (dBox &);
@@ -256,9 +261,10 @@ public:
   dBox (dReal lx, dReal ly, dReal lz)
     { _id = dCreateBox (NULL,lx,ly,lz); }
   dBox (dSpace &space, dReal lx, dReal ly, dReal lz)
-    { _id = dCreateBox (space,lx,ly,lz); }
+    { _id = dCreateBox (space.id(),lx,ly,lz); }
   dBox (dSpaceID space, dReal lx, dReal ly, dReal lz)
     { _id = dCreateBox (space,lx,ly,lz); }
+  ~dBox() ODE_OVERRIDE;
 
   void create (dSpaceID space, dReal lx, dReal ly, dReal lz) {
     if (_id) dGeomDestroy (_id);
@@ -272,7 +278,7 @@ public:
 };
 
 
-class dPlane : public dGeom {
+class ODE_API dPlane : public dGeom {
   // intentionally undefined, don't use these
   dPlane (dPlane &);
   void operator= (dPlane &);
@@ -285,6 +291,7 @@ public:
     { _id = dCreatePlane (space.id(),a,b,c,d); }
   dPlane (dSpaceID space, dReal a, dReal b, dReal c, dReal d)
     { _id = dCreatePlane (space,a,b,c,d); }
+  ~dPlane() ODE_OVERRIDE;
 
   void create (dSpaceID space, dReal a, dReal b, dReal c, dReal d) {
     if (_id) dGeomDestroy (_id);
@@ -298,7 +305,7 @@ public:
 };
 
 
-class dCapsule : public dGeom {
+class ODE_API dCapsule : public dGeom {
   // intentionally undefined, don't use these
   dCapsule (dCapsule &);
   void operator= (dCapsule &);
@@ -311,6 +318,7 @@ public:
     { _id = dCreateCapsule (space.id(),radius,length); }
   dCapsule (dSpaceID space, dReal radius, dReal length)
     { _id = dCreateCapsule (space,radius,length); }
+  ~dCapsule() ODE_OVERRIDE;
 
   void create (dSpaceID space, dReal radius, dReal length) {
     if (_id) dGeomDestroy (_id);
@@ -324,7 +332,7 @@ public:
 };
 
 
-class dCylinder : public dGeom {
+class ODE_API dCylinder : public dGeom {
   // intentionally undefined, don't use these
   dCylinder (dCylinder &);
   void operator= (dCylinder &);
@@ -337,6 +345,7 @@ public:
     { _id = dCreateCylinder (space.id(),radius,length); }
   dCylinder (dSpaceID space, dReal radius, dReal length)
     { _id = dCreateCylinder (space,radius,length); }
+  ~dCylinder() ODE_OVERRIDE;
 
   void create (dSpaceID space, dReal radius, dReal length) {
     if (_id) dGeomDestroy (_id);
@@ -350,7 +359,7 @@ public:
 };
 
 
-class dRay : public dGeom {
+class ODE_API dRay : public dGeom {
   // intentionally undefined, don't use these
   dRay (dRay &);
   void operator= (dRay &);
@@ -363,6 +372,7 @@ public:
     { _id = dCreateRay (space.id(),length); }
   dRay (dSpaceID space, dReal length)
     { _id = dCreateRay (space,length); }
+  ~dRay() ODE_OVERRIDE;
 
   void create (dSpaceID space, dReal length) {
     if (_id) dGeomDestroy (_id);
@@ -433,6 +443,7 @@ public:
     { _id = dCreateGeomTransform (space.id()); }
   dGeomTransform (dSpaceID space)
     { _id = dCreateGeomTransform (space); }
+  ~dGeomTransform() ODE_OVERRIDE;
 
   void create (dSpaceID space=NULL) {
     if (_id) dGeomDestroy (_id);
@@ -464,4 +475,5 @@ public:
 //}
 
 #endif
+
 #endif

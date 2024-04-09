@@ -11,6 +11,7 @@ char const* MemoryOutStream::GetText() const
     return m_text.c_str();
 }
 
+MemoryOutStream::~MemoryOutStream() {}
 
 }
 

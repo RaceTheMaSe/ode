@@ -153,4 +153,3 @@ const dxThreadingFunctionsInfo *dxWorld::retrieveThreadingDefaultImpl(dThreading
     out_defaultImpl = DefaultThreadingHolder::getDefaultThreadingImpl();
     return DefaultThreadingHolder::getDefaultThreadingFunctions();
 }
-
