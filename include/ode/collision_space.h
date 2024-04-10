@@ -152,6 +152,7 @@ ODE_API int dSpaceQuery (dSpaceID, dGeomID);
 ODE_API void dSpaceClean (dSpaceID);
 ODE_API int dSpaceGetNumGeoms (dSpaceID);
 ODE_API dGeomID dSpaceGetGeom (dSpaceID, int i);
+ODE_API int dSpaceLockCount(dSpaceID);
 
 /**
  * @brief Given a space, this returns its class.

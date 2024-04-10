@@ -784,6 +784,12 @@ void dSpaceCollide (dxSpace *space, void *data, dNearCallback *callback)
 }
 
 
+int dSpaceLockCount(dSpaceID space)
+{
+    return space->lock_count;
+}
+
+
 struct DataCallback {
     void *data;
     dNearCallback *callback;

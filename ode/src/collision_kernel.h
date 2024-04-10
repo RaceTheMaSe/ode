@@ -35,7 +35,10 @@ internal data structures and functions for collision detection.
 #include "objects.h"
 #include "odetls.h"
 #include "common.h"
-
+/* atomics from C++11, __cplusplus macro can be explicitly enabled in MSVC since 2017 with /Zc:__cplusplus, C++11 from MSVC 2013 */
+#if defined(__cplusplus) && __cplusplus >= 201103L || (defined(_MSC_VER) && _MSC_VER >= 1800 && _MSC_VER < 1910)
+#include <atomic>
+#endif
 
 //****************************************************************************
 // constants and macros
@@ -253,7 +256,11 @@ struct dxSpace : public dxGeom {
     // internal data structures, e.g. in collide() and collide2(). operations
     // that modify the contents of the space are not permitted when the space
     // is locked.
+#if defined(__cplusplus) && __cplusplus >= 201103L || (defined(_MSC_VER) && _MSC_VER >= 1800 && _MSC_VER < 1910)
+    std::atomic<int> lock_count; // NOTE: simple looking change, large impact - a whole group effort that implemented std::atomic! this fixes (?) sync issues
+#else
     int lock_count;
+#endif
 
     dxSpace (dSpaceID _space);
     ~dxSpace() ODE_OVERRIDE;
