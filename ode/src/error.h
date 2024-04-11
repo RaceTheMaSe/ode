@@ -77,7 +77,7 @@
 #define dUNUSED(Name) Name
 #endif
 
-#if defined(__cplusplus) && __cplusplus >= 201103L 
+#if defined(__cpp_static_assert)
 #define dSASSERT(e)  static_assert(e, #e)
 #define dSMSGASSERT(e, message)  static_assert(e, message)
 #else
