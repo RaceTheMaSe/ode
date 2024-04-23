@@ -67,3 +67,7 @@ xcode
 
 # ignore folder created during compilation
 /lib/
+
+# ignore build folders
+build-*
+tools/cpBuild/*
