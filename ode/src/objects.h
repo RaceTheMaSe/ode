@@ -249,7 +249,7 @@ struct dxBody : public dObject {
 };
 
 
-struct dxWorld : public dBase, public dxThreadingBase, private dxIThreadingDefaultImplProvider {
+struct dxWorld : public dBase, private dxIThreadingDefaultImplProvider, public dxThreadingBase {
 public:
     dxWorld();
     virtual ~dxWorld() ODE_OVERRIDE;
