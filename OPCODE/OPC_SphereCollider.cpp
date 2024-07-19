@@ -179,7 +179,7 @@ bool SphereCollider::Collide(SphereCache& cache, const Sphere& sphere, const Mod
 BOOL SphereCollider::InitQuery(SphereCache& cache, const Sphere& sphere, const Matrix4x4* worlds, const Matrix4x4* worldm)
 {
 	// 1) Call the base method
-	VolumeCollider::InitQuery();
+	VolumeCollider::InitQueryBase();
 
 	// 2) Compute sphere in model space:
 	// - Precompute R^2
@@ -693,7 +693,7 @@ bool HybridSphereCollider::Collide(SphereCache& cache, const Sphere& sphere, con
 	if(GetContactStatus())
 	{
 		// Reset contact status, since it currently only reflects collisions with leaf boxes
-		Collider::InitQuery();
+		Collider::InitQueryBase();
 
 		// Change dest container so that we can use built-in overlap tests and get collided primitives
 		cache.TouchedPrimitives.Reset();

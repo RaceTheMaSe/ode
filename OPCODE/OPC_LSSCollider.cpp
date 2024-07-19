@@ -163,7 +163,7 @@ bool LSSCollider::Collide(LSSCache& cache, const LSS& lss, const Model& model, c
 BOOL LSSCollider::InitQuery(LSSCache& cache, const LSS& lss, const Matrix4x4* worldl, const Matrix4x4* worldm)
 {
 	// 1) Call the base method
-	VolumeCollider::InitQuery();
+	VolumeCollider::InitQueryBase();
 
 	// 2) Compute LSS in model space:
 	// - Precompute R^2
@@ -680,7 +680,7 @@ bool HybridLSSCollider::Collide(LSSCache& cache, const LSS& lss, const HybridMod
 	if(GetContactStatus())
 	{
 		// Reset contact status, since it currently only reflects collisions with leaf boxes
-		Collider::InitQuery();
+		Collider::InitQueryBase();
 
 		// Change dest container so that we can use built-in overlap tests and get collided primitives
 		cache.TouchedPrimitives.Reset();

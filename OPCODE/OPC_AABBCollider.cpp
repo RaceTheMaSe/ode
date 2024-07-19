@@ -156,7 +156,7 @@ bool AABBCollider::Collide(AABBCache& cache, const CollisionAABB& box, const Mod
 BOOL AABBCollider::InitQuery(AABBCache& cache, const CollisionAABB& box)
 {
 	// 1) Call the base method
-	VolumeCollider::InitQuery();
+	VolumeCollider::InitQueryBase();
 
 	// 2) Keep track of the query box
 	mBox = box;
@@ -650,7 +650,7 @@ bool HybridAABBCollider::Collide(AABBCache& cache, const CollisionAABB& box, con
 	if(GetContactStatus())
 	{
 		// Reset contact status, since it currently only reflects collisions with leaf boxes
-		Collider::InitQuery();
+		Collider::InitQueryBase();
 
 		// Change dest container so that we can use built-in overlap tests and get collided primitives
 		cache.TouchedPrimitives.Reset();

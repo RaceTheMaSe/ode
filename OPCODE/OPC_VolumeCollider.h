@@ -110,12 +110,12 @@
 		 *	Initializes a query
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		OPC_override(Collider) inline_	void	InitQuery() OPCODE_OVERRIDE
+		OPC_override(Collider) inline_	void	InitQueryBase() OPCODE_OVERRIDE
 											{
 												// Reset stats & contact status
 												mNbVolumeBVTests	= 0;
 												mNbVolumePrimTests	= 0;
-												Collider::InitQuery();
+												Collider::InitQueryBase();
 											}
 
 		inline_				BOOL			IsCacheValid(VolumeCache& cache)

@@ -177,7 +177,7 @@ bool PlanesCollider::Collide(PlanesCache& cache, const Plane* planes, udword nb_
 BOOL PlanesCollider::InitQuery(PlanesCache& cache, const Plane* planes, udword nb_planes, const Matrix4x4* worldm)
 {
 	// 1) Call the base method
-	VolumeCollider::InitQuery();
+	VolumeCollider::InitQueryBase();
 
 	// 2) Compute planes in model space
 	if(nb_planes>mNbPlanes)
@@ -603,7 +603,7 @@ bool HybridPlanesCollider::Collide(PlanesCache& cache, const Plane* planes, udwo
 	if(GetContactStatus())
 	{
 		// Reset contact status, since it currently only reflects collisions with leaf boxes
-		Collider::InitQuery();
+		Collider::InitQueryBase();
 
 		// Change dest container so that we can use built-in overlap tests and get collided primitives
 		cache.TouchedPrimitives.Reset();

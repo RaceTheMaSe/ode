@@ -338,7 +338,7 @@ bool RayCollider::Collide(const Ray& world_ray, const Model& model, const Matrix
 BOOL RayCollider::InitQuery(const Ray& world_ray, const Matrix4x4* world, udword* face_id)
 {
 	// Reset stats & contact status
-	Collider::InitQuery();
+	Collider::InitQueryBase();
 	mNbRayBVTests		= 0;
 	mNbRayPrimTests		= 0;
 	mNbIntersections	= 0;

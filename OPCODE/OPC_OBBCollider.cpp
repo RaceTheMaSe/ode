@@ -177,7 +177,7 @@ bool OBBCollider::Collide(OBBCache& cache, const OBB& box, const Model& model, c
 BOOL OBBCollider::InitQuery(OBBCache& cache, const OBB& box, const Matrix4x4* worldb, const Matrix4x4* worldm)
 {
 	// 1) Call the base method
-	VolumeCollider::InitQuery();
+	VolumeCollider::InitQueryBase();
 
 	// 2) Compute obb in world space
 	mBoxExtents = box.mExtents;
@@ -718,7 +718,7 @@ bool HybridOBBCollider::Collide(OBBCache& cache, const OBB& box, const HybridMod
 	if(GetContactStatus())
 	{
 		// Reset contact status, since it currently only reflects collisions with leaf boxes
-		Collider::InitQuery();
+		Collider::InitQueryBase();
 
 		// Change dest container so that we can use built-in overlap tests and get collided primitives
 		cache.TouchedPrimitives.Reset();
