@@ -481,6 +481,25 @@ const dMeshTriangleVertex CEnumUnsortedElementArray<unsigned, dxTriDataBase::CUF
 END_NAMESPACE_OU
 /*extern */const CEnumUnsortedElementArray<unsigned, dxTriDataBase::CUF__USE_VERTICES_LAST / dxTriDataBase::CUF__USE_VERTICES_MIN, dMeshTriangleVertex, 0x161225E9> g_VertFlagEdgeStartIndices;
 
+dMeshTriangleVertex dxTriDataBase::EdgeRecord::getOppositeVertexIndex() const
+{
+     extern const CEnumUnsortedElementArray<unsigned, dxTriDataBase::CUF__USE_VERTICES_LAST / dxTriDataBase::CUF__USE_VERTICES_MIN, dMeshTriangleVertex, 0x161116DC> g_VertFlagOppositeIndices;
+
+    dMeshTriangleVertex oppositeIndex = g_VertFlagOppositeIndices.Encode(((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1);
+    dIASSERT(dIN_RANGE(oppositeIndex, dMTV__MIN, dMTV__MAX));
+
+    return oppositeIndex;
+}
+
+dMeshTriangleVertex dxTriDataBase::EdgeRecord::getEdgeStartVertexIndex() const
+{
+    extern const CEnumUnsortedElementArray<unsigned, dxTriDataBase::CUF__USE_VERTICES_LAST / dxTriDataBase::CUF__USE_VERTICES_MIN, dMeshTriangleVertex, 0x161225E9> g_VertFlagEdgeStartIndices;
+
+    dMeshTriangleVertex startIndex = g_VertFlagEdgeStartIndices.Encode(((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1);
+    dIASSERT(dIN_RANGE(startIndex, dMTV__MIN, dMTV__MAX));
+
+    return startIndex;
+}
 
 //////////////////////////////////////////////////////////////////////////
 
