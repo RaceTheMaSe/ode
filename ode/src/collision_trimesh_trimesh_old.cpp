@@ -33,16 +33,16 @@
 #include "odemath.h"
 
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 #include "collision_util.h"
 #include "collision_trimesh_internal.h"
 
 
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
 
 // Classic Implementation
-#if dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER
+#if defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
 
 #define SMALL_ELT           REAL(2.5e-4)
 #define EXPANDED_ELT_THRESH REAL(1.0e-3)

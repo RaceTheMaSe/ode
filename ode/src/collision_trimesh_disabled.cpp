@@ -25,7 +25,7 @@
 #include "matrix.h"
 
 
-#if !dTRIMESH_ENABLED
+#if !defined(dTRIMESH_ENABLED)
 
 #include "collision_util.h"
 #include "collision_trimesh_internal.h"

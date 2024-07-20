@@ -40,7 +40,7 @@
 #include "threading_impl_templates.h"
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 #include <new>
 #include <pthread.h>
@@ -51,10 +51,10 @@
 #define EOK   0
 #endif
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 struct dxEventObject
 {
@@ -370,10 +370,10 @@ bool dxThreadPoolThreadInfo::InitializeThreadAttributes(pthread_attr_t *thread_a
 
         int set_result;
         if ((set_result = pthread_attr_setdetachstate(thread_attr, PTHREAD_CREATE_JOINABLE)) != EOK
-#if (HAVE_PTHREAD_ATTR_SETINHERITSCHED)
+#if defined(HAVE_PTHREAD_ATTR_SETINHERITSCHED) && HAVE_PTHREAD_ATTR_SETINHERITSCHED
             || (set_result = pthread_attr_setinheritsched(thread_attr, PTHREAD_INHERIT_SCHED)) != EOK
 #endif
-#if (HAVE_PTHREAD_ATTR_SETSTACKLAZY)
+#if defined(HAVE_PTHREAD_ATTR_SETSTACKLAZY) && HAVE_PTHREAD_ATTR_SETSTACKLAZY
             || (set_result = pthread_attr_setstacklazy(thread_attr, PTHREAD_STACK_NOTLAZY)) != EOK
 #endif
             || (stack_size != 0 && (set_result = pthread_attr_setstacksize(thread_attr, stack_size)) != EOK))
@@ -411,7 +411,7 @@ bool dxThreadPoolThreadInfo::WaitInitStatus()
 
     int error_code = (int)(sizeint)m_command_param;
 
-    bool init_status = error_code == EOK ? true : ((errno = error_code), false);
+    bool init_status = error_code == EOK ? true : (static_cast<void>((errno = error_code)), false);
     return init_status;
 }
 
@@ -749,7 +749,7 @@ void dxThreadingThreadPool::WaitIdleState()
 }
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 /*extern */dThreadingThreadPoolID dThreadingAllocateThreadPool(unsigned thread_count, 
@@ -757,7 +757,7 @@ void dxThreadingThreadPool::WaitIdleState()
 {
     dAASSERT(thread_count != 0);
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dxThreadingThreadPool *thread_pool = new dxThreadingThreadPool();
     if (thread_pool != NULL)
     {
@@ -777,40 +777,40 @@ void dxThreadingThreadPool::WaitIdleState()
     (void)stack_size; // unused
     (void)ode_data_allocate_flags; // unused
     (void)thread_count; // unused
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
     return (dThreadingThreadPoolID)thread_pool;
 }
 
 /*extern */void dThreadingThreadPoolServeMultiThreadedImplementation(dThreadingThreadPoolID pool, dThreadingImplementationID impl)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     thread_pool->ServeThreadingImplementation(impl);
 #else
     (void)pool; // unused
     (void)impl; // unused
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 }
 
 /*extern */void dThreadingThreadPoolWaitIdleState(dThreadingThreadPoolID pool)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     thread_pool->WaitIdleState();
 #else
     (void)pool; // unused
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 }
 
 /*extern */void dThreadingFreeThreadPool(dThreadingThreadPoolID pool)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     delete thread_pool;
 #else
     (void)pool; // unused
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 }
 
 

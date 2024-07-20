@@ -4,7 +4,7 @@ using System.Security;
 
 namespace Ode.NET
 {
-#if dDOUBLE
+#if defined(dDOUBLE)
 	using dReal = System.Double;
 #else
 	using dReal = System.Single;
@@ -16,7 +16,7 @@ namespace Ode.NET
 
 		#region Flags and Enumerations
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
         [CLSCompliant(false)]
         [Flags]
         public enum AllocateODEDataFlags : uint
@@ -324,7 +324,7 @@ namespace Ode.NET
 
 		#endregion
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
         [CLSCompliant(false)]
         [DllImport("ode", EntryPoint = "dAllocateODEDataForThread"), SuppressUnmanagedCodeSecurity]
         public static extern int AllocateODEDataForThread(uint ODEInitFlags);
@@ -408,7 +408,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dBodyGetAutoDisableTime"), SuppressUnmanagedCodeSecurity]
 		public static extern dReal BodyGetAutoDisableTime(IntPtr body);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dBodyGetAngularVel"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Vector3* BodyGetAngularVelUnsafe(IntPtr body);
@@ -427,7 +427,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dBodyGetFiniteRotationAxis"), SuppressUnmanagedCodeSecurity]
 		public static extern void BodyGetFiniteRotationAxis(IntPtr body, out Vector3 result);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dBodyGetForce"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Vector3* BodyGetForceUnsafe(IntPtr body);
@@ -446,7 +446,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dBodyGetJoint"), SuppressUnmanagedCodeSecurity]
 		public static extern IntPtr BodyGetJoint(IntPtr body, int index);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dBodyGetLinearVel"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Vector3* BodyGetLinearVelUnsafe(IntPtr body);
@@ -465,7 +465,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dBodyGetPointVel"), SuppressUnmanagedCodeSecurity]
 		public static extern void BodyGetPointVel(IntPtr body, dReal px, dReal py, dReal pz, out Vector3 result);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dBodyGetPosition"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Vector3* BodyGetPositionUnsafe(IntPtr body);
@@ -478,7 +478,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dBodyGetPosRelPoint"), SuppressUnmanagedCodeSecurity]
 		public static extern void BodyGetPosRelPoint(IntPtr body, dReal px, dReal py, dReal pz, out Vector3 result);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dBodyGetQuaternion"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Quaternion* BodyGetQuaternionUnsafe(IntPtr body);
@@ -494,7 +494,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dBodyGetRelPointVel"), SuppressUnmanagedCodeSecurity]
 		public static extern void BodyGetRelPointVel(IntPtr body, dReal px, dReal py, dReal pz, out Vector3 result);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dBodyGetRotation"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Matrix3* BodyGetRotationUnsafe(IntPtr body);
@@ -504,7 +504,7 @@ namespace Ode.NET
 		}
 #endif
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dBodyGetTorque"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Vector3* BodyGetTorqueUnsafe(IntPtr body);
@@ -792,7 +792,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dGeomGetData"), SuppressUnmanagedCodeSecurity]
 		public static extern IntPtr GeomGetData(IntPtr geom);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dGeomGetOffsetPosition"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Vector3* GeomGetOffsetPositionUnsafe(IntPtr geom);
@@ -802,7 +802,7 @@ namespace Ode.NET
 		}
 #endif
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dGeomGetOffsetRotation"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Matrix3* GeomGetOffsetRotationUnsafe(IntPtr geom);
@@ -812,7 +812,7 @@ namespace Ode.NET
 		}
 #endif
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dGeomGetPosition"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Vector3* GeomGetPositionUnsafe(IntPtr geom);
@@ -828,7 +828,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dGeomGetQuaternion"), SuppressUnmanagedCodeSecurity]
 		public static extern void GeomCopyQuaternion(IntPtr geom, out dReal X);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dGeomGetRotation"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Matrix3* GeomGetRotationUnsafe(IntPtr geom);
@@ -1141,7 +1141,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dGeomTriMeshGetData"), SuppressUnmanagedCodeSecurity]
 		public static extern IntPtr GeomTriMeshGetData(IntPtr g);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dGeomTriMeshGetLastTransform"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static Matrix4* GeomTriMeshGetLastTransformUnsafe(IntPtr geom);
@@ -1202,7 +1202,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dInitODE"), SuppressUnmanagedCodeSecurity]
 		public static extern void InitODE();
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
         [CLSCompliant(false)]
         [DllImport("ode", EntryPoint = "dInitODE2"), SuppressUnmanagedCodeSecurity]
         public static extern int InitODE2(uint ODEInitFlags);
@@ -1306,7 +1306,7 @@ namespace Ode.NET
 		[DllImport("ode", EntryPoint = "dJointGetData"), SuppressUnmanagedCodeSecurity]
 		public static extern IntPtr JointGetData(IntPtr j);
 
-#if !dNO_UNSAFE_CODE
+#if !defined(dNO_UNSAFE_CODE)
 		[CLSCompliant(false)]
 		[DllImport("ode", EntryPoint = "dJointGetFeedback"), SuppressUnmanagedCodeSecurity]
 		public extern unsafe static JointFeedback* JointGetFeedbackUnsafe(IntPtr j);

@@ -30,7 +30,7 @@
 #include "collision_trimesh_internal.h"
 
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 
 template<typename tcoordfloat, typename tindexint>
@@ -457,7 +457,7 @@ dReal dxTriDataBase::calculateEdgeAngleValidated(unsigned firstVertexStartIndex,
 }
 
 
-#endif // #if dTRIMESH_ENABLED
+#endif // #if defined(dTRIMESH_ENABLED)
 
 
 #endif // #ifndef _ODE_COLLISION_TRIMESH_INTERNAL_IMPL_H_

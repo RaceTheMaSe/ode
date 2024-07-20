@@ -110,7 +110,7 @@ static bool testAndPrepareDiscContactForAngle(dReal angle, dReal radius, dReal l
 // Adds a contact between 2 cylinders
 static int addCylCylContact(dxGeom *o1, dxGeom *o2, ccd_vec3_t* axis, dContactGeom *contacts, ccd_vec3_t* p, dReal normaldir, dReal depth, int j, int flags, int skip);
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 static unsigned addTrianglePerturbedContacts(dxGeom *o1, dxGeom *o2, IFaceAngleStorageView *meshFaceAngleView, 
     const int *indices, unsigned numIndices, int flags, dContactGeom *contacts, int skip,
@@ -735,7 +735,7 @@ int addCylCylContact(dxGeom *o1, dxGeom *o2, ccd_vec3_t* axis, dContactGeom *con
 }
 
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 // const static float CONTACT_DEPTH_EPSILON = 0.0001f;
 const static float CONTACT_POS_EPSILON = 0.0001f;

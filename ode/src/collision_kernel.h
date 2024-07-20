@@ -233,9 +233,17 @@ struct dxGeom : public dBase {
 // their AABBs may not be valid. the two types are distinguished by the
 // GEOM_DIRTY flag. all dirty geoms come *before* all clean geoms in the list.
 
-#if dTLS_ENABLED
-#define dSPACE_TLS_KIND_INIT_VALUE OTK__DEFAULT
-#define dSPACE_TLS_KIND_MANUAL_VALUE OTK_MANUALCLEANUP
+#if defined(dTLS_ENABLED)
+#if defined(OTK__DEFAULT)
+    #define dSPACE_TLS_KIND_INIT_VALUE OTK__DEFAULT
+#else
+    #define dSPACE_TLS_KIND_INIT_VALUE 0
+#endif
+#if defined(OTK_MANUALCLEANUP)
+    #define dSPACE_TLS_KIND_MANUAL_VALUE OTK_MANUALCLEANUP
+#else
+    #define dSPACE_TLS_KIND_MANUAL_VALUE 0
+#endif
 #else
 #define dSPACE_TLS_KIND_INIT_VALUE 0
 #define dSPACE_TLS_KIND_MANUAL_VALUE 0

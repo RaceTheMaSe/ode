@@ -65,8 +65,8 @@ typedef double dReal;
 #endif
 
 /* Detect if we've got both trimesh engines enabled. */
-#if dTRIMESH_ENABLED
-#if dTRIMESH_OPCODE && dTRIMESH_GIMPACT
+#if defined(dTRIMESH_ENABLED)
+#if defined(dTRIMESH_OPCODE) && defined(dTRIMESH_GIMPACT)
 #error You can only #define dTRIMESH_OPCODE or dTRIMESH_GIMPACT, not both.
 #endif
 #endif /* dTRIMESH_ENABLED */
@@ -75,8 +75,8 @@ typedef double dReal;
  * Define a type for indices, either 16 or 32 bit, based on build option
  * TODO: Currently GIMPACT only supports 32 bit indices.
  */
-#if dTRIMESH_16BIT_INDICES
-#if dTRIMESH_GIMPACT
+#if defined(dTRIMESH_16BIT_INDICES)
+#if defined(dTRIMESH_GIMPACT)
 typedef duint32 dTriIndex;
 #else /* dTRIMESH_GIMPACT */
 typedef duint16 dTriIndex;

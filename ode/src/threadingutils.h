@@ -27,7 +27,7 @@
 #include "odeou.h"
 
 
-#if !dTHREADING_INTF_DISABLED
+#if !defined(dTHREADING_INTF_DISABLED)
 
 static inline 
 bool ThrsafeCompareExchange(volatile atomicord32 *paoDestination, atomicord32 aoComparand, atomicord32 aoExchange)
@@ -90,7 +90,7 @@ atomicptr ThrsafeExchangePointer(volatile atomicptr *papDestination, atomicptr a
 }
 
 
-#else // #if dTHREADING_INTF_DISABLED
+#else // #if defined(THREADING_INTF_DISABLED)
 
 static inline 
 bool ThrsafeCompareExchange(volatile atomicord32 *paoDestination, atomicord32 aoComparand, atomicord32 aoExchange)
@@ -163,7 +163,7 @@ atomicptr ThrsafeExchangePointer(volatile atomicptr *papDestination, atomicptr a
 }
 
 
-#endif // #if dTHREADING_INTF_DISABLED
+#endif // #if defined(THREADING_INTF_DISABLED)
 
 
 static inline 

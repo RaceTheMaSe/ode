@@ -39,7 +39,7 @@ ODE interface to OU library implementation.
 
 
 
-#if dOU_ENABLED
+#if defined(dOU_ENABLED)
 
 
 using _OU_NAMESPACE::EASSERTIONFAILURESEVERITY;

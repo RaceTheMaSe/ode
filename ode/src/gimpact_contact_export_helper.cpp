@@ -24,7 +24,7 @@
 #include "config.h"
 
 
-#if dTRIMESH_ENABLED && dTRIMESH_GIMPACT
+#if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
 
 #include "gimpact_contact_export_helper.h"
 #include "error.h"
@@ -91,5 +91,5 @@ dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dReal *pdepths, u
 }
 
 
-#endif // #if dTRIMESH_ENABLED && dTRIMESH_GIMPACT
+#endif // #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
 

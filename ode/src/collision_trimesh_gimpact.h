@@ -30,7 +30,7 @@
 #define _ODE_COLLISION_TRIMESH_GIMPACT_H_
 
 
-#if dTRIMESH_ENABLED && dTRIMESH_GIMPACT
+#if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
 
 
 //****************************************************************************
@@ -273,6 +273,6 @@ void MakeMatrix(dxGeom *g, mat4f m)
 }
 
 
-#endif // #if dTRIMESH_ENABLED && dTRIMESH_GIMPACT
+#endif // #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
 
 #endif	//_ODE_COLLISION_TRIMESH_GIMPACT_H_

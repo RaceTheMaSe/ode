@@ -38,7 +38,7 @@ ODE Thread Local Storage access stub implementation.
 #include "collision_trimesh_internal.h"
 
 
-#if dTLS_ENABLED
+#if defined(dTLS_ENABLED)
 
 
 using _OU_NAMESPACE::CTLSInitialization;
@@ -131,7 +131,7 @@ void COdeTls::DestroyTrimeshCollidersCache(EODETLSKIND tkTLSKind)
 
 void COdeTls::FreeTrimeshCollidersCache(TrimeshCollidersCache *pccCacheInstance)
 {
-#if dTRIMESH_ENABLED 
+#if defined(dTRIMESH_ENABLED )
     delete pccCacheInstance;
 #else
     dIASSERT(pccCacheInstance == NULL); // The cache is not being allocated if the library is configured without trimeshes
@@ -150,5 +150,5 @@ void COdeTls::FreeTrimeshCollidersCache_Callback(tlsvaluetype vValueData)
 }
 
 
-#endif // #if dTLS_ENABLED
+#endif // #if defined(dTLS_ENABLED)
 

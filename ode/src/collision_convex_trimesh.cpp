@@ -37,12 +37,12 @@ typedef struct _sLocalContactData
 }sLocalContactData;
 
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 #include "collision_util.h"
 #include "collision_std.h"
 #include "collision_trimesh_internal.h"
-#if dLIBCCD_ENABLED
+#if defined(dLIBCCD_ENABLED)
 #include "collision_libccd.h"
 #endif
 
@@ -57,9 +57,9 @@ int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* cont
     (void)o1; (void)o2; (void)flags; (void)skip;
 #endif
 
-#if dLIBCCD_ENABLED
+#if defined(dLIBCCD_ENABLED)
 
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
     const dVector3 &meshPosition = *(const dVector3 *)dGeomGetPosition(o2);
     // Find convex OBB in trimesh coordinates
     Point convexAABBMin(o1->aabb[0] - meshPosition[0], o1->aabb[2] - meshPosition[1], o1->aabb[4] - meshPosition[2]);

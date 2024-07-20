@@ -44,7 +44,7 @@
 #include "threading_atomics_provs.h"
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 #include <pthread.h>
 #include <time.h>
@@ -189,14 +189,14 @@ bool dxCondvarWakeup::DoInitializeObject()
 
         condattr_initialized = true;
 
-#if HAVE_PTHREAD_CONDATTR_SETCLOCK
+#ifdef HAVE_PTHREAD_CONDATTR_SETCLOCK
         int condattr_clock_result = pthread_condattr_setclock(&cond_condattr, CLOCK_MONOTONIC);
         if (condattr_clock_result != EOK)
         {
             errno = condattr_clock_result;
             break;
         }
-#endif // #if HAVE_PTHREAD_CONDATTR_SETCLOCK
+#endif // #ifdef HAVE_PTHREAD_CONDATTR_SETCLOCK
 
         int cond_result = pthread_cond_init(&m_wakeup_cond, &cond_condattr);
         if (cond_result != EOK)
@@ -497,7 +497,7 @@ void dxMutexMutex::UnlockMutex()
 }
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 /************************************************************************/
@@ -509,7 +509,7 @@ typedef dxtemplateJobListSelfHandler<dxSelfWakeup, dxSelfThreadedJobListContaine
 typedef dxtemplateThreadingImplementation<dxSelfThreadedJobListContainer, dxSelfThreadedJobListHandler> dxSelfThreadedThreading;
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 /************************************************************************/
 /* Multi-threaded job list definition                                   */
@@ -520,7 +520,7 @@ typedef dxtemplateJobListThreadedHandler<dxCondvarWakeup, dxMultiThreadedJobList
 typedef dxtemplateThreadingImplementation<dxMultiThreadedJobListContainer, dxMultiThreadedJobListHandler> dxMultiThreadedThreading;
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 #endif // #if !defined(_WIN32)

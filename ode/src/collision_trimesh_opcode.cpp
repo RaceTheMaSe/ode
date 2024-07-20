@@ -30,7 +30,7 @@
 #include "odemath.h"
 
 
-#if dTRIMESH_ENABLED && dTRIMESH_OPCODE
+#if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE)
 
 #include "collision_util.h"
 #include "collision_trimesh_opcode.h"
@@ -760,7 +760,7 @@ const dReal *dGeomTriMeshGetLastTransform(dGeomID g)
 /*extern */
 void opcode_collider_cleanup()
 {
-#if !dTLS_ENABLED
+#if !defined(dTLS_ENABLED)
 
     // Clear TC caches
     TrimeshCollidersCache *pccColliderCache = GetTrimeshCollidersCache(0);

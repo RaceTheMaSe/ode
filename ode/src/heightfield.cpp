@@ -41,7 +41,7 @@
 
 
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 #include "collision_trimesh_colliders.h"
 #endif // dTRIMESH_ENABLED
 
@@ -1103,7 +1103,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
         //max_collisionContact    = 3;
         break;
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
     case dTriMeshClass:
         geomRayNCollider		= dCollideRayTrimesh;

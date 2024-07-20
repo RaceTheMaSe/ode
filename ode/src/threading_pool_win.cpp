@@ -40,16 +40,16 @@
 #include "threading_impl_templates.h"
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 #include <windows.h>
 #include <process.h>
 #include <new>
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 #define THREAD_STACK_MAX  ((sizeint)(UINT_MAX - 1)) // The absolute maximum would be UINT_MAX but let it be a little bit less to avoid "Comparison is always false" warnings. ;)
 
@@ -613,7 +613,7 @@ void dxThreadingThreadPool::WaitIdleState()
 }
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 /*extern */dThreadingThreadPoolID dThreadingAllocateThreadPool(unsigned thread_count, 
@@ -621,7 +621,7 @@ void dxThreadingThreadPool::WaitIdleState()
 {
     dAASSERT(thread_count != 0);
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dxThreadingThreadPool *thread_pool = new dxThreadingThreadPool();
     if (thread_pool != NULL)
     {
@@ -641,40 +641,40 @@ void dxThreadingThreadPool::WaitIdleState()
     (void)thread_count;
     (void)stack_size;
     (void)ode_data_allocate_flags;
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
     return (dThreadingThreadPoolID)thread_pool;
 }
 
 /*extern */void dThreadingThreadPoolServeMultiThreadedImplementation(dThreadingThreadPoolID pool, dThreadingImplementationID impl)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     thread_pool->ServeThreadingImplementation(impl);
 #else
     (void)pool;
     (void)impl;
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 }
 
 /*extern */void dThreadingThreadPoolWaitIdleState(dThreadingThreadPoolID pool)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     thread_pool->WaitIdleState();
 #else
     (void)pool;
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 }
 
 /*extern */void dThreadingFreeThreadPool(dThreadingThreadPoolID pool)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     delete thread_pool;
 #else
     (void)pool;
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 }
 
 

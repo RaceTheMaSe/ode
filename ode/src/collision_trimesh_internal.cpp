@@ -798,7 +798,7 @@ IFaceAngleStorageView *dxGeomTriMeshGetFaceAngleView(dxGeom *triMeshGeom)
 }
 
 
-#endif // #if dTRIMESH_ENABLED
+#endif // #if defined(dTRIMESH_ENABLED)
 
 
 //////////////////////////////////////////////////////////////////////////

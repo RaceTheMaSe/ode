@@ -29,7 +29,7 @@
 // Local dependencies
 #include "collision_kernel.h"
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 #include "collision_trimesh_internal.h"
 #define	SQR(x)			((x)*(x))						//!< Returns x square
 #define	CUBE(x)			((x)*(x)*(x))					//!< Returns x cube
@@ -237,7 +237,7 @@ void dMassSetTrimesh( dMass *m, dReal density, dGeomID g )
 
     dMassSetZero (m);
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
     dxTriMesh *TriMesh = static_cast<dxTriMesh *>(g);
     unsigned int triangles = TriMesh->getMeshTriangleCount();

@@ -30,7 +30,7 @@
 #include "util.h"
 
 
-#if dTRIMESH_ENABLED && dTRIMESH_GIMPACT
+#if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
 
 #include "collision_util.h"
 #include "collision_trimesh_gimpact.h"
@@ -426,5 +426,5 @@ const dReal *dGeomTriMeshGetLastTransform(dGeomID g)
 }
 
 
-#endif // #if dTRIMESH_ENABLED && dTRIMESH_GIMPACT
+#endif // #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
 

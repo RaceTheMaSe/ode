@@ -39,7 +39,7 @@ ODE Thread Local Storage access stub interface.
 #include "odeou.h"
 
 
-#if dTLS_ENABLED
+#if defined(dTLS_ENABLED)
 
 
 using _OU_NAMESPACE::tlsvaluetype;

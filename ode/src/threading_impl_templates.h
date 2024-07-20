@@ -120,7 +120,7 @@ private:
 };
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 template<class tThreadWakeup, class tAtomicsProvider, const bool tatomic_test_required>
 class dxtemplateThreadedLull
@@ -157,7 +157,7 @@ private:
 };
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 struct dxThreadedJobInfo:
@@ -308,7 +308,7 @@ private:
 typedef void (dxThreadReadyToServeCallback)(void *callback_context);
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 template<class tThreadWakeup, class tJobListContainer>
 class dxtemplateJobListThreadedHandler
@@ -384,7 +384,7 @@ private:
 };
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 template<class tThreadWakeup, class tJobListContainer>
@@ -995,7 +995,7 @@ bool dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Do
 }
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 /************************************************************************/
 /* Implementation of dxtemplateJobListThreadedHandler                   */
@@ -1184,7 +1184,7 @@ void dxtemplateJobListThreadedHandler<tThreadWakeup, tJobListContainer>::Registe
 }
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 /************************************************************************/

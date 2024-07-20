@@ -136,15 +136,15 @@ inline sizeint dxFakeAtomicsProvider::AddValueToTarget<2 * sizeof(dxFakeAtomicsP
 }
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 /************************************************************************/
 /* dxOUAtomicsProvider class implementation                             */
 /************************************************************************/
 
-#if !dOU_ENABLED
+#if !defined(dOU_ENABLED)
 #error OU library must be enabled for this to compile
-#elif !dATOMICS_ENABLED
+#elif !defined(dATOMICS_ENABLED)
 #error OU Atomics must be enabled for this to compile
 #endif
 #include "odeou.h"
@@ -223,7 +223,7 @@ inline sizeint dxOUAtomicsProvider::AddValueToTarget<2 * sizeof(dxOUAtomicsProvi
 }
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 #endif // #ifndef _ODE_THREADING_ATOMICS_PROVS_H_

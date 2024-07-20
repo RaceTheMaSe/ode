@@ -38,7 +38,7 @@
 
 #if defined(_WIN32)
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 #if !defined(_WIN32_WINNT)
 #define _WIN32_WINNT 0x0400
@@ -46,7 +46,7 @@
 #include <windows.h>
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 #include "threading_impl_templates.h"
@@ -54,7 +54,7 @@
 #include "threading_atomics_provs.h"
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 /************************************************************************/
 /* dxEventWakeup class implementation                                   */
@@ -241,7 +241,7 @@ private:
 };
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 /************************************************************************/
@@ -253,7 +253,7 @@ typedef dxtemplateJobListSelfHandler<dxSelfWakeup, dxSelfThreadedJobListContaine
 typedef dxtemplateThreadingImplementation<dxSelfThreadedJobListContainer, dxSelfThreadedJobListHandler> dxSelfThreadedThreading;
 
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 /************************************************************************/
 /* Multi-threaded job list definition                                   */
@@ -264,7 +264,7 @@ typedef dxtemplateJobListThreadedHandler<dxEventWakeup, dxMultiThreadedJobListCo
 typedef dxtemplateThreadingImplementation<dxMultiThreadedJobListContainer, dxMultiThreadedJobListHandler> dxMultiThreadedThreading;
 
 
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
 
 #endif // #if defined(_WIN32)

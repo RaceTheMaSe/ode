@@ -37,7 +37,7 @@
 #include "collision_util.h"
 #include "collision_trimesh_internal.h"
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 
 // largest number, double or float
@@ -1196,7 +1196,7 @@ bool sTrimeshBoxColliderData::_cldTestOneTriangle(const dVector3 &v0, const dVec
 
 
 // OPCODE version of box to mesh collider
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
 static void dQueryBTLPotentialCollisionTriangles(OBBCollider &Collider, 
                                                  const sTrimeshBoxColliderData &cData, dxTriMesh *TriMesh, dxGeom *BoxGeom,
                                                  OBBCache &BoxCache)
@@ -1312,7 +1312,7 @@ int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, 
 #endif
 
 // GIMPACT version of box to mesh collider
-#if dTRIMESH_GIMPACT
+#if defined(dTRIMESH_GIMPACT)
 int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, int Stride)
 {
     dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));

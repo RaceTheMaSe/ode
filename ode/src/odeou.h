@@ -36,7 +36,7 @@ ODE interface to OU library functions.
 #define _ODE_ODEOU_H_
 
 
-#if dOU_ENABLED
+#if defined(dOU_ENABLED)
 
 #include <ou/assert.h>
 #include <ou/enumarrays.h>
@@ -46,12 +46,12 @@ ODE interface to OU library functions.
 #include <ou/simpleflags.h>
 #include <ou/customization.h>
 
-#if dATOMICS_ENABLED
+#if defined(dATOMICS_ENABLED)
 #include <ou/atomic.h>
 #include <ou/atomicflags.h>
 #endif
 
-#if dTLS_ENABLED
+#if defined(dTLS_ENABLED)
 #include <ou/threadlocalstorage.h>
 #endif
 
@@ -59,7 +59,7 @@ ODE interface to OU library functions.
 using _OU_NAMESPACE::CEnumUnsortedElementArray;
 using _OU_NAMESPACE::CEnumSortedElementArray;
 
-#if dATOMICS_ENABLED
+#if defined(dATOMICS_ENABLED)
 using _OU_NAMESPACE::atomicord32;
 using _OU_NAMESPACE::atomicptr;
 using _OU_NAMESPACE::InitializeAtomicAPI;
@@ -86,7 +86,7 @@ public:
     static bool DoOUCustomizations();
     static void UndoOUCustomizations();
 
-#if dATOMICS_ENABLED
+#if defined(dATOMICS_ENABLED)
     static bool InitializeAtomics() { return InitializeAtomicAPI(); }
     static void FinalizeAtomics() { FinalizeAtomicAPI(); }
 #endif
@@ -96,7 +96,7 @@ public:
 #endif 
 
 
-#if !dOU_ENABLED || !dATOMICS_ENABLED
+#if !defined(dOU_ENABLED) || !defined(dATOMICS_ENABLED)
 
 typedef unsigned int atomicord32;
 typedef void *atomicptr;

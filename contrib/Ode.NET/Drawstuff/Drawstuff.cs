@@ -4,7 +4,7 @@ using Ode.NET;
 
 namespace Drawstuff.NET
 {
-#if dDOUBLE
+#if defined(dDOUBLE)
 	using dReal = System.Double;
 #else
 	using dReal = System.Single;

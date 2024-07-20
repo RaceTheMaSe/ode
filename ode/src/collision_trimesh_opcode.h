@@ -30,7 +30,7 @@
 #define _ODE_COLLISION_TRIMESH_OPCODE_H_
 
 
-#if dTRIMESH_ENABLED && dTRIMESH_OPCODE
+#if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE)
 
 //****************************************************************************
 // dxTriMesh class
@@ -55,7 +55,7 @@ using namespace Opcode;
 #endif
 
 
-#if !dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER
+#if !defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
 
 // New trimesh collider hash table types
 enum
@@ -147,7 +147,7 @@ struct TrimeshCollidersCache
     // Collider caches
     BVTCache ColCache;
 
-#if !dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER
+#if !defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
     CONTACT_KEY_HASH_TABLE m_hashcontactset;
 #endif
 
@@ -335,7 +335,7 @@ Matrix4x4 &MakeMatrix(dxGeom* g, Matrix4x4 &Out)
 
 extern void opcode_collider_cleanup();
 
-#endif // #if dTRIMESH_ENABLED && dTRIMESH_OPCODE
+#endif // #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE)
 
 
 #endif	//_ODE_COLLISION_TRIMESH_OPCODE_H_

@@ -79,7 +79,7 @@ unsigned ThreadedEquationSolverLDLT::restrictFactoringLDLTAllowedThreadCount(
 {
     unsigned limitedThreadCount = 1;
 
-#if dCOOPERATIVE_ENABLED
+#if defined(dCOOPERATIVE_ENABLED)
     const unsigned int solvingBlockStep = FSL1S_BLOCK_SIZE; // Required by the implementation
     unsigned solvingMaximalBlockCount = deriveSolvingL1StripeBlockCount(rowCount, solvingBlockStep);
     dIASSERT(deriveSolvingL1StripeThreadCount(FLDLT_COOPERATIVE_BLOCK_COUNT_MINIMUM - 1, 2) > 1);
@@ -90,7 +90,7 @@ unsigned ThreadedEquationSolverLDLT::restrictFactoringLDLTAllowedThreadCount(
     }
 #else
     (void)threading; (void)allowedThreadCount; (void)rowCount;
-#endif // #if dCOOPERATIVE_ENABLED
+#endif // #if defined(dCOOPERATIVE_ENABLED)
 
     return limitedThreadCount;
 }

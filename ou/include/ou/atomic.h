@@ -1279,7 +1279,7 @@ static _OU_ALWAYSINLINE void _OU_CONVENTION_API
 #endif // Otherwise the x86 assembler implementation must be engaged explicitly
 
 
-#if _OU_ATOMIC_USE_X86_ASSEMBLER || (__OU_ATOMIC_X86_ASSEMBLER_USE_AUTOENABLED && !defined(_OU_ATOMIC_USE_X86_ASSEMBLER))
+#if defined(_OU_ATOMIC_USE_X86_ASSEMBLER) || (__OU_ATOMIC_X86_ASSEMBLER_USE_AUTOENABLED && !defined(_OU_ATOMIC_USE_X86_ASSEMBLER))
 
 typedef uint32ou atomicord32;
 typedef void *atomicptr;

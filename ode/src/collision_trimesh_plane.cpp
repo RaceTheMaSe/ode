@@ -28,14 +28,14 @@
 #include "matrix.h"
 #include "odemath.h"
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 #include "collision_util.h"
 #include "collision_std.h"
 #include "collision_trimesh_internal.h"
 
 
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
 
 int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contacts, int skip )
 {
@@ -172,7 +172,7 @@ int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* conta
 #endif // dTRIMESH_OPCODE
 
 
-#if dTRIMESH_GIMPACT
+#if defined(dTRIMESH_GIMPACT)
 
 #include "gimpact_contact_export_helper.h"
 #include "gimpact_plane_contact_accessor.h"

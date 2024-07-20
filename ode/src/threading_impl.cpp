@@ -111,7 +111,7 @@ dThreadingImplementationID dThreadingAllocateSelfThreadedImplementation()
 /*extern */
 dThreadingImplementationID dThreadingAllocateMultiThreadedImplementation()
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dxMultiThreadedThreading *threading = new dxMultiThreadedThreading();
 
     if (threading != NULL && !threading->InitializeObject())
@@ -121,7 +121,7 @@ dThreadingImplementationID dThreadingAllocateMultiThreadedImplementation()
     }
 #else
     dxIThreadingImplementation *threading = NULL;
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
     dxIThreadingImplementation *impl = threading;
     return (dThreadingImplementationID)impl;
@@ -130,16 +130,16 @@ dThreadingImplementationID dThreadingAllocateMultiThreadedImplementation()
 /*extern */
 const dThreadingFunctionsInfo *dThreadingImplementationGetFunctions(dThreadingImplementationID impl)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dAASSERT(impl != NULL);
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     (void)impl; // maybe unused
 
     const dThreadingFunctionsInfo *functions = NULL;
 
-#if !dBUILTIN_THREADING_IMPL_ENABLED
+#if !defined(dBUILTIN_THREADING_IMPL_ENABLED)
     if (impl != NULL)
-#endif // #if !dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if !defined(dBUILTIN_THREADING_IMPL_ENABLED)
     {
         functions = &g_builtin_threading_functions;
     }
@@ -150,13 +150,13 @@ const dThreadingFunctionsInfo *dThreadingImplementationGetFunctions(dThreadingIm
 /*extern */
 void dThreadingImplementationShutdownProcessing(dThreadingImplementationID impl)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dAASSERT(impl != NULL);
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
-#if !dBUILTIN_THREADING_IMPL_ENABLED
+#if !defined(dBUILTIN_THREADING_IMPL_ENABLED)
     if (impl != NULL)
-#endif // #if !dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if !defined(dBUILTIN_THREADING_IMPL_ENABLED)
     {
         ((dxIThreadingImplementation *)impl)->ShutdownProcessing();
     }
@@ -165,13 +165,13 @@ void dThreadingImplementationShutdownProcessing(dThreadingImplementationID impl)
 /*extern */
 void dThreadingImplementationCleanupForRestart(dThreadingImplementationID impl)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dAASSERT(impl != NULL);
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
-#if !dBUILTIN_THREADING_IMPL_ENABLED
+#if !defined(dBUILTIN_THREADING_IMPL_ENABLED)
     if (impl != NULL)
-#endif // #if !dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if !defined(dBUILTIN_THREADING_IMPL_ENABLED)
     {
         ((dxIThreadingImplementation *)impl)->CleanupForRestart();
     }
@@ -190,13 +190,13 @@ void dThreadingImplementationCleanupForRestart(dThreadingImplementationID impl)
 void dExternalThreadingServeMultiThreadedImplementation(dThreadingImplementationID impl, 
     dThreadReadyToServeCallback *readiness_callback/*=NULL*/, void *callback_context/*=NULL*/)
 {
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
     dAASSERT(impl != NULL);
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
-#if !dBUILTIN_THREADING_IMPL_ENABLED
+#if !defined(dBUILTIN_THREADING_IMPL_ENABLED)
     if (impl != NULL)
-#endif // #if !dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if !defined(dBUILTIN_THREADING_IMPL_ENABLED)
     {
         ((dxIThreadingImplementation *)impl)->StickToJobsProcessing(readiness_callback, callback_context);
     }

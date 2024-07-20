@@ -1841,7 +1841,7 @@ void dxQuickStepIsland_Stage3(dxQuickStepperStage3CallContext *stage3CallContext
 
         atomicord32 *bi_links_or_mi_levels = NULL;
         atomicord32 *mi_links = NULL;
-#if !dTHREADING_INTF_DISABLED
+#if !defined(dTHREADING_INTF_DISABLED)
         bi_links_or_mi_levels = memarena->AllocateArray<atomicord32>(dMAX(nb, m));
         mi_links = memarena->AllocateArray<atomicord32>(2 * ((sizeint)m + 1));
 #else
@@ -3543,7 +3543,7 @@ sizeint dxEstimateQuickStepMemoryRequirements (dxBody * const *body,
 #if CONSTRAINTS_REORDERING_METHOD == REORDERING_METHOD__BY_ERROR
                     sub3_res1 += dEFFICIENT_SIZE(sizeof(dReal) * m); // for last_lambda
 #endif
-#if !dTHREADING_INTF_DISABLED
+#if !defined(dTHREADING_INTF_DISABLED)
                     sub3_res1 += dEFFICIENT_SIZE(sizeof(atomicord32) * dMAX(nb, m)); // for bi_links_or_mi_levels
                     sub3_res1 += dEFFICIENT_SIZE(sizeof(atomicord32) * 2 * ((sizeint)m + 1)); // for mi_links
 #endif

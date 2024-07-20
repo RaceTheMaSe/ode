@@ -34,12 +34,12 @@
 #endif
 
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 #include "collision_trimesh_internal.h"
 
 
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
 
 // Ripped from Opcode 1.1.
 static bool GetContactData(const dVector3& Center, dReal Radius, const dVector3 Origin, const dVector3 Edge0, const dVector3 Edge1, dReal& Dist, dReal& u, dReal& v){
@@ -546,7 +546,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
 #endif // dTRIMESH_OPCODE
 
 
-#if dTRIMESH_GIMPACT
+#if defined(dTRIMESH_GIMPACT)
 
 #include "gimpact_contact_export_helper.h"
 #include "gimpact_gim_contact_accessor.h"

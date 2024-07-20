@@ -78,7 +78,7 @@ unsigned ThreadedEquationSolverLDLT::restrictSolvingL1StraightAllowedThreadCount
 {
     unsigned limitedThreadCount = 1;
 
-#if dCOOPERATIVE_ENABLED
+#if defined(dCOOPERATIVE_ENABLED)
     const unsigned int blockStep = SL1S_BLOCK_SIZE; // Required by the implementation
     unsigned solvingBlockCount = deriveSolvingL1StraightBlockCount(rowCount, blockStep);
     dIASSERT(deriveSolvingL1StraightThreadCount(SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM, 2) > 1);
@@ -89,7 +89,7 @@ unsigned ThreadedEquationSolverLDLT::restrictSolvingL1StraightAllowedThreadCount
     }
 #else
     (void)threading; (void)allowedThreadCount; (void)rowCount;
-#endif // #if dCOOPERATIVE_ENABLED
+#endif // #if defined(dCOOPERATIVE_ENABLED)
 
     return limitedThreadCount;
 }

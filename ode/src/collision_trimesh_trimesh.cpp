@@ -34,22 +34,22 @@
 #include "odemath.h"
 
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 #include "collision_util.h"
 #include "collision_trimesh_internal.h"
 
 
-#if !dTLS_ENABLED
+#if !defined(dTLS_ENABLED)
 // Have collider cache instance unconditionally of OPCODE or GIMPACT selection
 /*extern */TrimeshCollidersCache g_ccTrimeshCollidersCache;
 #endif
 
 
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
 
 // New Implementation
-#if !dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER
+#if !defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
 
 struct LineContactSet
 {
@@ -1324,7 +1324,7 @@ bool TriTriContacts(const dVector3 tr1[3],
 
 //////////////////////////////////////////////////////////////////////////
 
-#if dTRIMESH_GIMPACT
+#if defined(dTRIMESH_GIMPACT)
 
 #include "gimpact_contact_export_helper.h"
 #include "gimpact_gim_contact_accessor.h"

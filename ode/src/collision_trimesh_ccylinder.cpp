@@ -60,10 +60,10 @@
 #include "util.h"
 
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 // OPCODE version
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
 
 // largest number, double or float
 #if defined(dSINGLE)
@@ -1108,7 +1108,7 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
 
 
 // GIMPACT version
-#if dTRIMESH_GIMPACT
+#if defined(dTRIMESH_GIMPACT)
 
 #include "gimpact_contact_export_helper.h"
 #include "gimpact_gim_contact_accessor.h"

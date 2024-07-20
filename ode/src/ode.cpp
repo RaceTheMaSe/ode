@@ -1857,7 +1857,7 @@ void dWorldSetStepThreadingImplementation(dWorldID w,
     dUASSERT (w,"bad world argument");
     dUASSERT (!functions_info || functions_info->struct_size >= sizeof(*functions_info), "Bad threading functions info");
 
-#if dTHREADING_INTF_DISABLED
+#if defined(dTHREADING_INTF_DISABLED)
     (void)w; (void)functions_info; (void)threading_impl;
     dUASSERT(functions_info == NULL && threading_impl == NULL, "Threading interface is not available");
 #else
@@ -2343,25 +2343,25 @@ static const char ode_configuration[] = "ODE "
 REGISTER_EXTENSION( ODE_EXT_no_debug )
 #endif // dNODEBUG
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 REGISTER_EXTENSION( ODE_EXT_trimesh )
 
 // tri-mesh extensions
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
 REGISTER_EXTENSION( ODE_EXT_opcode )
 
 // opcode extensions
-#if dTRIMESH_16BIT_INDICES
+#if defined(dTRIMESH_16BIT_INDICES)
 REGISTER_EXTENSION( ODE_OPC_16bit_indices )
 #endif
 
-#if !dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER
+#if !defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
 REGISTER_EXTENSION( ODE_OPC_new_collider )
 #endif
 
 #endif // dTRIMESH_OPCODE
 
-#if dTRIMESH_GIMPACT
+#if defined(dTRIMESH_GIMPACT)
 REGISTER_EXTENSION( ODE_EXT_gimpact )
 
 // gimpact extensions
@@ -2370,61 +2370,61 @@ REGISTER_EXTENSION( ODE_EXT_gimpact )
 #endif // dTRIMESH_ENABLED
 
 // libccd use
-#if dLIBCCD_ENABLED
+#if defined(dLIBCCD_ENABLED)
 REGISTER_EXTENSION(ODE_EXT_libccd)
 
-#if dLIBCCD_INTERNAL
+#if defined(dLIBCCD_INTERNAL)
 REGISTER_EXTENSION(ODE_CCD_IMPL_internal)
 #endif
 
 // NOTE: Colliding geometry contractions are ordered lexicographically
-#if dLIBCCD_BOX_CYL
+#if defined(dLIBCCD_BOX_CYL)
 REGISTER_EXTENSION(ODE_CCD_COLL_box_cyl)
 #endif
 
-#if dLIBCCD_CYL_CYL
+#if defined(dLIBCCD_CYL_CYL)
 REGISTER_EXTENSION(ODE_CCD_COLL_cyl_cyl)
 #endif
 
-#if dLIBCCD_CAP_CYL
+#if defined(dLIBCCD_CAP_CYL)
 REGISTER_EXTENSION(ODE_CCD_COLL_cap_cyl)
 #endif
 
-#if dLIBCCD_CONVEX_BOX
+#if defined(dLIBCCD_CONVEX_BOX)
 REGISTER_EXTENSION(ODE_CCD_COLL_box_conv)
 #endif
 
-#if dLIBCCD_CONVEX_CAP
+#if defined(dLIBCCD_CONVEX_CAP)
 REGISTER_EXTENSION(ODE_CCD_COLL_cap_conv)
 #endif
 
-#if dLIBCCD_CONVEX_CYL
+#if defined(dLIBCCD_CONVEX_CYL)
 REGISTER_EXTENSION(ODE_CCD_COLL_conv_cyl)
 #endif
 
-#if dLIBCCD_CONVEX_SPHERE
+#if defined(dLIBCCD_CONVEX_SPHERE)
 REGISTER_EXTENSION(ODE_CCD_COLL_conv_sph)
 #endif
 
-#if dLIBCCD_CONVEX_CONVEX
+#if defined(dLIBCCD_CONVEX_CONVEX)
 REGISTER_EXTENSION(ODE_CCD_COLL_conv_conv)
 #endif
 // NOTE: Colliding geometry contractions are ordered lexicographically
 
 #endif // dLIBCCD_ENABLED
 
-#if dTLS_ENABLED
+#if defined(dTLS_ENABLED)
 REGISTER_EXTENSION( ODE_EXT_mt_collisions )
 #endif // dTLS_ENABLED
 
-#if !dTHREADING_INTF_DISABLED
+#if !defined(dTHREADING_INTF_DISABLED)
 REGISTER_EXTENSION( ODE_EXT_threading )
 
-#if dBUILTIN_THREADING_IMPL_ENABLED
+#if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 REGISTER_EXTENSION( ODE_THR_builtin_impl )
-#endif // #if dBUILTIN_THREADING_IMPL_ENABLED
+#endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
-#endif // #if !dTHREADING_INTF_DISABLED
+#endif // #if !defined(dTHREADING_INTF_DISABLED)
 
 REGISTER_EXTENSION(ODE_EXT_inelastic_collisions)
 

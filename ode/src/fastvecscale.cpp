@@ -77,7 +77,7 @@ unsigned ThreadedEquationSolverLDLT::restrictScalingVectorAllowedThreadCount(
 {
     unsigned limitedThreadCount = 1;
 
-#if dCOOPERATIVE_ENABLED
+#if defined(dCOOPERATIVE_ENABLED)
     const unsigned int blockStep = SV_BLOCK_SIZE; // Required by the implementation
     unsigned scalingBlockCount = deriveScalingVectorBlockCount(elementCount, blockStep);
     dIASSERT(deriveScalingVectorThreadCount(SV_COOPERATIVE_BLOCK_COUNT_MINIMUM - 1, 2) > 1);
@@ -88,7 +88,7 @@ unsigned ThreadedEquationSolverLDLT::restrictScalingVectorAllowedThreadCount(
     }
 #else
     (void)threading; (void)allowedThreadCount; (void)elementCount;
-#endif // #if dCOOPERATIVE_ENABLED
+#endif // #if defined(dCOOPERATIVE_ENABLED)
 
     return limitedThreadCount;
 }

@@ -35,18 +35,18 @@
 
 #ifndef dCOOPERATIVE_ENABLED
 
-#if dATOMICS_ENABLED && !dTHREADING_INTF_DISABLED
+#if defined(dATOMICS_ENABLED) && !defined(dTHREADING_INTF_DISABLED)
 
 #define dCOOPERATIVE_ENABLED 1
 
 
-#endif // #if dATOMICS_ENABLED && !dTHREADING_INTF_DISABLED
+#endif // #if defined(ATOMICS_ENABLED) && !defined(dTHREADING_INTF_DISABLED)
 
 
 #endif // #ifndef dCOOPERATIVE_ENABLED
 
 /* release builds assert is empty, so it returns */
-#if dCOOPERATIVE_ENABLED || defined(dNODEBUG)
+#if defined(dCOOPERATIVE_ENABLED) || defined(dNODEBUG)
 #define dCOOPERATIVE_RETURN void
 #else
 #include <ode/error.h>
@@ -117,51 +117,51 @@ class CooperativeAtomics
 public:
     static atomicord32 AtomicDecrementUint32(volatile atomicord32 *paoDestination)
     {
-#if dCOOPERATIVE_ENABLED
+#if defined(dCOOPERATIVE_ENABLED)
         return ::AtomicDecrement(paoDestination);
 #else
         (void)paoDestination;
         dIASSERT(false); return 0; // The function is not supposed to be called in this case
-#endif // #if dCOOPERATIVE_ENABLED
+#endif // #if defined(dCOOPERATIVE_ENABLED)
     }
 
     static bool AtomicCompareExchangeUint32(volatile atomicord32 *paoDestination, atomicord32 aoComparand, atomicord32 aoExchange)
     {
-#if dCOOPERATIVE_ENABLED
+#if defined(dCOOPERATIVE_ENABLED)
         return ::AtomicCompareExchange(paoDestination, aoComparand, aoExchange);
 #else
         (void)paoDestination; (void)aoComparand; (void)aoExchange;
         dIASSERT(false); return false; // The function is not supposed to be called in this case
-#endif // #if dCOOPERATIVE_ENABLED
+#endif // #if defined(dCOOPERATIVE_ENABLED)
     }
 
     static bool AtomicCompareExchangeCellindexint(volatile cellindexint *destination, cellindexint comparand, cellindexint exchange)
     {
-#if dCOOPERATIVE_ENABLED
+#if defined(dCOOPERATIVE_ENABLED)
         return ::AtomicCompareExchangePointer((volatile atomicptr *)destination, (atomicptr)comparand, (atomicptr)exchange);
 #else
         (void)destination; (void)comparand; (void)exchange;
         dIASSERT(false); return false; // The function is not supposed to be called in this case
-#endif // #if dCOOPERATIVE_ENABLED
+#endif // #if defined(dCOOPERATIVE_ENABLED)
     }
 
     static dCOOPERATIVE_RETURN AtomicStoreCellindexint(volatile cellindexint *destination, cellindexint value)
     {
-#if dCOOPERATIVE_ENABLED
+#if defined(dCOOPERATIVE_ENABLED)
         ::AtomicStorePointer((volatile atomicptr *)destination, (atomicptr)value);
 #else
         (void)destination; (void)value;
         dIASSERT(false); // The function is not supposed to be called in this case
-#endif // #if dCOOPERATIVE_ENABLED
+#endif // #if defined(dCOOPERATIVE_ENABLED)
     }
 
     static dCOOPERATIVE_RETURN AtomicReadReorderBarrier()
     {
-#if dCOOPERATIVE_ENABLED
+#if defined(dCOOPERATIVE_ENABLED)
         ::AtomicReadReorderBarrier();
 #else
         dIASSERT(false); // The function is not supposed to be called in this case
-#endif // #if dCOOPERATIVE_ENABLED
+#endif // #if defined(dCOOPERATIVE_ENABLED)
     }
 };
 

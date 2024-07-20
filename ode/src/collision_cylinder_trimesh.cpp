@@ -36,7 +36,7 @@
 #include "collision_trimesh_colliders.h"
 #include "util.h"
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 #define MAX_REAL	dInfinity
 static const int	nCYLINDER_AXIS				= 2;
@@ -967,7 +967,7 @@ int sCylinderTrimeshColliderData::TestCollisionForSingleTriangle(int ctContacts0
 }
 
 // OPCODE version of cylinder to mesh collider
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
 static void dQueryCTLPotentialCollisionTriangles(OBBCollider &Collider, 
                                                  sCylinderTrimeshColliderData &cData, dxGeom *Cylinder, dxTriMesh *Trimesh,
                                                  OBBCache &BoxCache)
@@ -1098,7 +1098,7 @@ int dCollideCylinderTrimesh(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *con
 #endif
 
 // GIMPACT version of cylinder to mesh collider
-#if dTRIMESH_GIMPACT
+#if defined(dTRIMESH_GIMPACT)
 int dCollideCylinderTrimesh(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip)
 {
     dIASSERT( skip >= (int)sizeof( dContactGeom ) );

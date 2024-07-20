@@ -61,7 +61,7 @@ static void dGeomCreateOffset (dxGeom *g);
 
 // this struct records the parameters passed to dCollideSpaceGeom()
 
-#if dATOMICS_ENABLED 
+#if defined(dATOMICS_ENABLED )
 static volatile atomicptr s_cachedPosR = NULL; // dxPosR *
 #endif // dATOMICS_ENABLED
 
@@ -69,7 +69,7 @@ static inline dxPosR* dAllocPosr()
 {
     dxPosR *retPosR;
 
-#if dATOMICS_ENABLED
+#if defined(dATOMICS_ENABLED)
     retPosR = (dxPosR *)AtomicExchangePointer(&s_cachedPosR, NULL);
 
     if (!retPosR)
@@ -83,7 +83,7 @@ static inline dxPosR* dAllocPosr()
 
 static inline void dFreePosr(dxPosR *oldPosR)
 {
-#if dATOMICS_ENABLED
+#if defined(dATOMICS_ENABLED)
     if (!AtomicCompareExchangePointer(&s_cachedPosR, NULL, (atomicptr)oldPosR))
 #endif
     {
@@ -93,7 +93,7 @@ static inline void dFreePosr(dxPosR *oldPosR)
 
 /*extern */void dClearPosrCache(void)
 {
-#if dATOMICS_ENABLED
+#if defined(dATOMICS_ENABLED)
     // No threads should be accessing ODE at this time already,
     // hence variable may be read directly.
     dxPosR *existingPosR = (dxPosR *)s_cachedPosR;
@@ -199,7 +199,7 @@ static void setAllColliders (int i, dColliderFn *fn)
     setCollider (dRayClass,dCapsuleClass,&dCollideRayCapsule);
     setCollider (dRayClass,dPlaneClass,&dCollideRayPlane);
     setCollider (dRayClass,dCylinderClass,&dCollideRayCylinder);
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
     setCollider (dTriMeshClass,dSphereClass,&dCollideSTL);
     setCollider (dTriMeshClass,dBoxClass,&dCollideBTL);
     setCollider (dTriMeshClass,dRayClass,&dCollideRTL);
@@ -265,7 +265,7 @@ static void setAllColliders (int i, dColliderFn *fn)
     setCollider (dHeightfieldClass,dCapsuleClass,&dCollideHeightfield);
     setCollider (dHeightfieldClass,dCylinderClass,&dCollideHeightfield);
     setCollider (dHeightfieldClass,dConvexClass,&dCollideHeightfield);
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
     setCollider (dHeightfieldClass,dTriMeshClass,&dCollideHeightfield);
 #endif
     ///<-- dHeightfield Collision

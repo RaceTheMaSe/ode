@@ -28,12 +28,12 @@
 #include "matrix.h"
 #include "odemath.h"
 
-#if dTRIMESH_ENABLED
+#if defined(dTRIMESH_ENABLED)
 
 #include "collision_util.h"
 #include "collision_trimesh_internal.h"
 
-#if dTRIMESH_OPCODE
+#if defined(dTRIMESH_OPCODE)
 int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, int Stride){
     dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));
     dIASSERT (g1->type == dTriMeshClass);
@@ -151,7 +151,7 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
 }
 #endif // dTRIMESH_OPCODE
 
-#if dTRIMESH_GIMPACT
+#if defined(dTRIMESH_GIMPACT)
 int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, int Stride)
 {
     dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));

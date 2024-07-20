@@ -35,12 +35,12 @@ static volatile duint32 seed = 0;
 unsigned long dRand()
 {
     duint32 origSeed, newSeed;
-#if !dTHREADING_INTF_DISABLED
+#if !defined(dTHREADING_INTF_DISABLED)
     do {
 #endif
         origSeed = seed;
         newSeed = ((duint32)1664525 * origSeed + (duint32)1013904223) & (duint32)0xffffffff;
-#if dTHREADING_INTF_DISABLED
+#if defined(dTHREADING_INTF_DISABLED)
         seed = newSeed;
 #else
     } while (!AtomicCompareExchange((volatile atomicord32 *)&seed, origSeed, newSeed));

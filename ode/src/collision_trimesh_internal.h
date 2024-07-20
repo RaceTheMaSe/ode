@@ -39,7 +39,7 @@
 #include "collision_util.h"
 #include <ode/collision_trimesh.h>
 
-#if dTLS_ENABLED
+#if defined(dTLS_ENABLED)
 #include "ou/namespace.h"
 #include "odetls.h"
 #endif
@@ -52,7 +52,7 @@ struct dxTriMeshData;
 static inline 
 TrimeshCollidersCache *GetTrimeshCollidersCache(unsigned uiTLSKind)
 {
-#if dTLS_ENABLED
+#if defined(dTLS_ENABLED)
     EODETLSKIND tkTLSKind = (EODETLSKIND)uiTLSKind;
     return COdeTls::GetTrimeshCollidersCache(tkTLSKind);
 #else // dTLS_ENABLED
@@ -138,7 +138,7 @@ ODE_NORETURN
         m_faceAngles(NULL),
         m_faceAngleView(NULL)
     {
-#if !dTRIMESH_ENABLED
+#if !defined(dTRIMESH_ENABLED)
         dUASSERT(false, "dTRIMESH_ENABLED is not defined. Trimesh geoms will not work");
         abort();
 #endif
