@@ -15,11 +15,7 @@
 #define __ICEINDEXEDTRIANGLE_H__
 
 	// Forward declarations
-#ifdef _MSC_VER
-	enum CubeIndex;
-#else
 	typedef int CubeIndex;
-#endif
 
 	// An indexed triangle class.
 	class ICEMATHS_API IndexedTriangle
