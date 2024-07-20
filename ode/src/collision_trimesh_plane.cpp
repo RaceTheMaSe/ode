@@ -61,9 +61,9 @@ int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* conta
     // For all triangles.
     //
 
-    VertexPointersEx VPE;
-    VertexPointers &VP = VPE.vp;
-    ConversionArea VC;
+    Opcode::VertexPointersEx VPE;
+    Opcode::VertexPointers &VP = VPE.vp;
+    Opcode::ConversionArea VC;
     dReal alpha;
     dVector3 vertex;
 

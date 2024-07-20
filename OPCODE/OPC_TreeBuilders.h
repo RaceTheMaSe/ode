@@ -67,7 +67,7 @@
 		 *	\return		true if success
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		virtual						bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const	= 0;
+		virtual						bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, IceMaths::AABB& global_box)	const	= 0;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -78,7 +78,7 @@
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		virtual						float			GetSplittingValue(udword index, udword axis)	const	= 0;
-		virtual						Point			GetSplittingValues(udword index)		const	= 0;
+		virtual						IceMaths::Point			GetSplittingValues(udword index)		const	= 0;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -90,7 +90,7 @@
 		 *	\return		splitting value
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		virtual						float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const AABB& global_box, udword axis)	const
+		virtual						float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const IceMaths::AABB& global_box, udword axis)	const
 													{
 														(void)primitives; (void)nb_prims; // keep for documentation
 														// Default split value = middle of the axis (using only the box)
@@ -106,7 +106,7 @@
 		 *	\return		TRUE if the node should be subdivised
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		virtual						BOOL			ValidateSubdivision(const dTriIndex* primitives, udword nb_prims, const AABB& global_box)
+		virtual						BOOL			ValidateSubdivision(const dTriIndex* primitives, udword nb_prims, const IceMaths::AABB& global_box)
 													{
 														(void)primitives; (void)global_box; // keep for documentation
 														// Check the user-defined limit
@@ -139,12 +139,12 @@
 		//! Destructor
 		virtual										~AABBTreeOfVerticesBuilder() OPCODE_OVERRIDE						{}
 
-		OPC_override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const OPCODE_OVERRIDE;
+		OPC_override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, IceMaths::AABB& global_box)	const OPCODE_OVERRIDE;
 		OPC_override(AABBTreeBuilder)	float			GetSplittingValue(udword index, udword axis)									const OPCODE_OVERRIDE;
-		OPC_override(AABBTreeBuilder)	Point			GetSplittingValues(udword index) const OPCODE_OVERRIDE;
-		OPC_override(AABBTreeBuilder)	float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const AABB& global_box, udword axis)	const OPCODE_OVERRIDE;
+		OPC_override(AABBTreeBuilder)	IceMaths::Point			GetSplittingValues(udword index) const OPCODE_OVERRIDE;
+		OPC_override(AABBTreeBuilder)	float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const IceMaths::AABB& global_box, udword axis)	const OPCODE_OVERRIDE;
 
-		const						Point*			mVertexArray;		//!< Shortcut to an app-controlled array of vertices.
+		const						IceMaths::Point*			mVertexArray;		//!< Shortcut to an app-controlled array of vertices.
 	};
 
 	class OPCODE_API AABBTreeOfAABBsBuilder : public AABBTreeBuilder
@@ -155,11 +155,11 @@
 		//! Destructor
 		virtual										~AABBTreeOfAABBsBuilder() OPCODE_OVERRIDE					{}
 
-		OPC_override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const OPCODE_OVERRIDE;
+		OPC_override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, IceMaths::AABB& global_box)	const OPCODE_OVERRIDE;
 		OPC_override(AABBTreeBuilder)	float			GetSplittingValue(udword index, udword axis)									const OPCODE_OVERRIDE;
-		OPC_override(AABBTreeBuilder)	Point			GetSplittingValues(udword index) const OPCODE_OVERRIDE;
+		OPC_override(AABBTreeBuilder)	IceMaths::Point			GetSplittingValues(udword index) const OPCODE_OVERRIDE;
 
-		const						AABB*			mAABBArray;			//!< Shortcut to an app-controlled array of AABBs.
+		const						IceMaths::AABB*			mAABBArray;			//!< Shortcut to an app-controlled array of AABBs.
 	};
 
 	class OPCODE_API AABBTreeOfTrianglesBuilder : public AABBTreeBuilder
@@ -170,10 +170,10 @@
 		//! Destructor
 		virtual										~AABBTreeOfTrianglesBuilder() OPCODE_OVERRIDE													{}
 
-		OPC_override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, AABB& global_box)	const OPCODE_OVERRIDE;
+		OPC_override(AABBTreeBuilder)	bool			ComputeGlobalBox(const dTriIndex* primitives, udword nb_prims, IceMaths::AABB& global_box)	const OPCODE_OVERRIDE;
 		OPC_override(AABBTreeBuilder)	float			GetSplittingValue(udword index, udword axis)									const OPCODE_OVERRIDE;
-		OPC_override(AABBTreeBuilder)	float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const AABB& global_box, udword axis)	const OPCODE_OVERRIDE;
-		OPC_override(AABBTreeBuilder)	Point			GetSplittingValues(udword index) const OPCODE_OVERRIDE;
+		OPC_override(AABBTreeBuilder)	float			GetSplittingValue(const dTriIndex* primitives, udword nb_prims, const IceMaths::AABB& global_box, udword axis)	const OPCODE_OVERRIDE;
+		OPC_override(AABBTreeBuilder)	IceMaths::Point			GetSplittingValues(udword index) const OPCODE_OVERRIDE;
 
 		const				MeshInterface*			mIMesh;			//!< Shortcut to an app-controlled mesh interface
 	};

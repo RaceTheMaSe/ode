@@ -26,7 +26,7 @@
 							VolumeCache() : Model(null)		{}
 							// ~VolumeCache()					{}
 
-		Container			TouchedPrimitives;	//!< Indices of touched primitives
+		IceCore::Container			TouchedPrimitives;	//!< Indices of touched primitives
 		const BaseModel*	Model;				//!< Owner
 	};
 
@@ -91,11 +91,11 @@
 
 		protected:
 		// Touched primitives
-							Container*		mTouchedPrimitives;	//!< List of touched primitives
+							IceCore::Container*		mTouchedPrimitives;	//!< List of touched primitives
 
 		// Dequantization coeffs
-							Point			mCenterCoeff;
-							Point			mExtentsCoeff;
+							IceMaths::Point			mCenterCoeff;
+							IceMaths::Point			mExtentsCoeff;
 		// Stats
 							udword			mNbVolumeBVTests;	//!< Number of Volume-BV tests
 							udword			mNbVolumePrimTests;	//!< Number of Volume-Primitive tests

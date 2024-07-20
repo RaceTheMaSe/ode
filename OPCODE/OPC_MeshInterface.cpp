@@ -135,8 +135,8 @@ MeshInterface::MeshInterface() :
 	mObjExCallback	(null),
 #else
 	#ifdef OPC_USE_STRIDE
-	mTriStride		(sizeof(IndexedTriangle)),
-	mVertexStride	(sizeof(Point)),
+	mTriStride		(sizeof(IceMaths::IndexedTriangle)),
+	mVertexStride	(sizeof(IceMaths::Point)),
 	mFetchTriangle	(&MeshInterface::FetchTriangleFromSingles),
 	mFetchExTriangle	(&MeshInterface::FetchExTriangleFromSingles),
 	#endif
@@ -247,7 +247,7 @@ bool MeshInterface::SetExCallback(RequestExCallback callback, void* user_data)
  *	\return		true if success
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool MeshInterface::SetPointers(const IndexedTriangle* tris, const Point* verts)
+bool MeshInterface::SetPointers(const IceMaths::IndexedTriangle* tris, const IceMaths::Point* verts)
 {
 	if(!tris || !verts)	return SetIceError("MeshInterface::SetPointers: pointer is null", null);
 
@@ -266,8 +266,8 @@ bool MeshInterface::SetPointers(const IndexedTriangle* tris, const Point* verts)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 bool MeshInterface::SetStrides(udword tri_stride, udword vertex_stride)
 {
-	if(tri_stride<sizeof(IndexedTriangle))	return SetIceError("MeshInterface::SetStrides: invalid triangle stride", null);
-	if(vertex_stride<sizeof(Point))			return SetIceError("MeshInterface::SetStrides: invalid vertex stride", null);
+	if(tri_stride<sizeof(IceMaths::IndexedTriangle))	return SetIceError("MeshInterface::SetStrides: invalid triangle stride", null);
+	if(vertex_stride<sizeof(IceMaths::Point))			return SetIceError("MeshInterface::SetStrides: invalid vertex stride", null);
 
 	mTriStride		= tri_stride;
 	mVertexStride	= vertex_stride;
@@ -280,20 +280,20 @@ bool MeshInterface::SetStrides(udword tri_stride, udword vertex_stride)
 #ifdef OPC_USE_STRIDE
 void MeshInterface::FetchTriangleFromSingles(VertexPointers& vp, udword index, ConversionArea /*vc*/) const
 {	
-	const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
+	const IceMaths::IndexedTriangle* T = (const IceMaths::IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 
-	const Point* Verts = GetVerts();
+	const IceMaths::Point* Verts = GetVerts();
 	udword VertexStride = GetVertexStride();
-	vp.Vertex[0] = (const Point*)(((const ubyte*)Verts) + T->mVRef[0] * VertexStride);
-	vp.Vertex[1] = (const Point*)(((const ubyte*)Verts) + T->mVRef[1] * VertexStride);
-	vp.Vertex[2] = (const Point*)(((const ubyte*)Verts) + T->mVRef[2] * VertexStride);
+	vp.Vertex[0] = (const IceMaths::Point*)(((const ubyte*)Verts) + T->mVRef[0] * VertexStride);
+	vp.Vertex[1] = (const IceMaths::Point*)(((const ubyte*)Verts) + T->mVRef[1] * VertexStride);
+	vp.Vertex[2] = (const IceMaths::Point*)(((const ubyte*)Verts) + T->mVRef[2] * VertexStride);
 }
 
 void MeshInterface::FetchTriangleFromDoubles(VertexPointers& vp, udword index, ConversionArea vc) const
 {
-	const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
+	const IceMaths::IndexedTriangle* T = (const IceMaths::IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 	
-	const Point* Verts = GetVerts();
+	const IceMaths::Point* Verts = GetVerts();
 	udword VertexStride = GetVertexStride();
 
 	for (int i = 0; i < 3; i++){
@@ -308,29 +308,29 @@ void MeshInterface::FetchTriangleFromDoubles(VertexPointers& vp, udword index, C
 
 void MeshInterface::FetchExTriangleFromSingles(VertexPointersEx& vpe, udword index, ConversionArea /*vc*/) const
 {	
-	const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
+	const IceMaths::IndexedTriangle* T = (const IceMaths::IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 
-	const Point* Verts = GetVerts();
+	const IceMaths::Point* Verts = GetVerts();
 	udword VertexStride = GetVertexStride();
 
 	dTriIndex VertIndex0 = T->mVRef[0];
 	vpe.Index[0] = VertIndex0;
-	vpe.vp.Vertex[0] = (const Point*)(((const ubyte*)Verts) + VertIndex0 * VertexStride);
+	vpe.vp.Vertex[0] = (const IceMaths::Point*)(((const ubyte*)Verts) + VertIndex0 * VertexStride);
 
 	dTriIndex VertIndex1 = T->mVRef[1];
 	vpe.Index[1] = VertIndex1;
-	vpe.vp.Vertex[1] = (const Point*)(((const ubyte*)Verts) + VertIndex1 * VertexStride);
+	vpe.vp.Vertex[1] = (const IceMaths::Point*)(((const ubyte*)Verts) + VertIndex1 * VertexStride);
 
 	dTriIndex VertIndex2 = T->mVRef[2];
 	vpe.Index[2] = VertIndex2;
-	vpe.vp.Vertex[2] = (const Point*)(((const ubyte*)Verts) + VertIndex2 * VertexStride);
+	vpe.vp.Vertex[2] = (const IceMaths::Point*)(((const ubyte*)Verts) + VertIndex2 * VertexStride);
 }
 
 void MeshInterface::FetchExTriangleFromDoubles(VertexPointersEx& vpe, udword index, ConversionArea vc) const
 {
-	const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
+	const IceMaths::IndexedTriangle* T = (const IceMaths::IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 
-	const Point* Verts = GetVerts();
+	const IceMaths::Point* Verts = GetVerts();
 	udword VertexStride = GetVertexStride();
 
 	for (int i = 0; i < 3; i++){
@@ -366,7 +366,7 @@ bool MeshInterface::RemapClient(udword nb_indices, const dTriIndex* permutation)
 	// We can't really do that using callbacks
 	return false;
 #else
-	IndexedTriangle* Tmp = new IndexedTriangle[mNbTris];
+	IceMaths::IndexedTriangle* Tmp = new IceMaths::IndexedTriangle[mNbTris];
 	CHECKALLOC(Tmp);
 
 	#ifdef OPC_USE_STRIDE
@@ -377,13 +377,13 @@ bool MeshInterface::RemapClient(udword nb_indices, const dTriIndex* permutation)
 
 	for(udword i=0;i<mNbTris;i++)
 	{
-		const IndexedTriangle* T = (const IndexedTriangle*)(((const ubyte*)mTris) + i * Stride);
+		const IceMaths::IndexedTriangle* T = (const IceMaths::IndexedTriangle*)(((const ubyte*)mTris) + i * Stride);
 		Tmp[i] = *T;
 	}
 
 	for(udword i=0;i<mNbTris;i++)
 	{
-		IndexedTriangle* T = (IndexedTriangle*)const_cast<ubyte*>((((const ubyte*)mTris) + i * Stride));
+		IceMaths::IndexedTriangle* T = (IceMaths::IndexedTriangle*)const_cast<ubyte*>((((const ubyte*)mTris) + i * Stride));
 		*T = Tmp[permutation[i]];
 	}
 

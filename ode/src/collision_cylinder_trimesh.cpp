@@ -968,11 +968,11 @@ int sCylinderTrimeshColliderData::TestCollisionForSingleTriangle(int ctContacts0
 
 // OPCODE version of cylinder to mesh collider
 #if defined(dTRIMESH_OPCODE)
-static void dQueryCTLPotentialCollisionTriangles(OBBCollider &Collider, 
+static void dQueryCTLPotentialCollisionTriangles(Opcode::OBBCollider &Collider, 
                                                  sCylinderTrimeshColliderData &cData, dxGeom *Cylinder, dxTriMesh *Trimesh,
-                                                 OBBCache &BoxCache)
+                                                 Opcode::OBBCache &BoxCache)
 {
-    Matrix4x4 MeshMatrix;
+    IceMaths::Matrix4x4 MeshMatrix;
     const dVector3 vZeroVector3 = { REAL(0.0), };
     MakeMatrix(vZeroVector3, cData.m_mTrimeshRot, MeshMatrix);
 
@@ -984,7 +984,7 @@ static void dQueryCTLPotentialCollisionTriangles(OBBCollider &Collider,
 
     const dReal fCylinderRadius = cData.m_fCylinderRadius, fCylinderHalfAxis = cData.m_fCylinderSize * REAL(0.5);
 
-    OBB obbCylinder;
+    IceMaths::OBB obbCylinder;
     obbCylinder.mCenter.Set(vCylinderOffsetPos[0], vCylinderOffsetPos[1], vCylinderOffsetPos[2]);
     obbCylinder.mExtents.Set(
         0 == nCYLINDER_AXIS ? fCylinderHalfAxis : fCylinderRadius,
@@ -1047,7 +1047,7 @@ int dCollideCylinderTrimesh(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *con
     const unsigned uiTLSKind = Trimesh->getParentSpaceTLSKind();
     dIASSERT(uiTLSKind == Cylinder->getParentSpaceTLSKind()); // The colliding spaces must use matching cleanup method
     TrimeshCollidersCache *pccColliderCache = GetTrimeshCollidersCache(uiTLSKind);
-    OBBCollider& Collider = pccColliderCache->m_OBBCollider;
+    Opcode::OBBCollider& Collider = pccColliderCache->m_OBBCollider;
 
     dQueryCTLPotentialCollisionTriangles(Collider, cData, Cylinder, Trimesh, pccColliderCache->m_DefaultBoxCache);
 

@@ -58,9 +58,9 @@ using namespace IceMaths;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Point& Point::PositiveUnitRandomVector()
 {
-	x = UnitRandomFloat();
-	y = UnitRandomFloat();
-	z = UnitRandomFloat();
+	x = IceCore::UnitRandomFloat();
+	y = IceCore::UnitRandomFloat();
+	z = IceCore::UnitRandomFloat();
 	Normalize();
 	return *this;
 }
@@ -73,9 +73,9 @@ Point& Point::PositiveUnitRandomVector()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Point& Point::UnitRandomVector()
 {
-	x = UnitRandomFloat() - 0.5f;
-	y = UnitRandomFloat() - 0.5f;
-	z = UnitRandomFloat() - 0.5f;
+	x = IceCore::UnitRandomFloat() - 0.5f;
+	y = IceCore::UnitRandomFloat() - 0.5f;
+	z = IceCore::UnitRandomFloat() - 0.5f;
 	Normalize();
 	return *this;
 }

@@ -39,8 +39,8 @@
 	{
 		public:
 		// Constructor / Destructor
-											AABBCollider();
-		virtual								~AABBCollider() OPCODE_OVERRIDE;
+												AABBCollider();
+		virtual									~AABBCollider() OPCODE_OVERRIDE;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -56,43 +56,43 @@
 		 *	\warning	SCALE NOT SUPPORTED. The matrices must contain rotation & translation parts only.
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-							bool			Collide(AABBCache& cache, const CollisionAABB& box, const Model& model);
+							bool				Collide(AABBCache& cache, const CollisionAABB& box, const Model& model);
 		//
-							bool			Collide(AABBCache& cache, const CollisionAABB& box, const AABBTree* tree);
+							bool				Collide(AABBCache& cache, const CollisionAABB& box, const AABBTree* tree);
 		protected:
-							CollisionAABB	mBox;			//!< Query box in (center, extents) form
-							Point			mMin;			//!< Query box min point
-							Point			mMax;			//!< Query box max point
+							CollisionAABB		mBox;			//!< Query box in (center, extents) form
+							IceMaths::Point		mMin;			//!< Query box min point
+							IceMaths::Point		mMax;			//!< Query box max point
 		// Leaf description
-							Point			mLeafVerts[3];	//!< Triangle vertices
+							IceMaths::Point		mLeafVerts[3];	//!< Triangle vertices
 		// Internal methods
-							void			_Collide(const AABBCollisionNode* node);
-							void			_Collide(const AABBNoLeafNode* node);
-							void			_Collide(const AABBQuantizedNode* node);
-							void			_Collide(const AABBQuantizedNoLeafNode* node);
-							void			_Collide(const AABBTreeNode* node);
-							void			_CollideNoPrimitiveTest(const AABBCollisionNode* node);
-							void			_CollideNoPrimitiveTest(const AABBNoLeafNode* node);
-							void			_CollideNoPrimitiveTest(const AABBQuantizedNode* node);
-							void			_CollideNoPrimitiveTest(const AABBQuantizedNoLeafNode* node);
+							void				_Collide(const AABBCollisionNode* node);
+							void				_Collide(const AABBNoLeafNode* node);
+							void				_Collide(const AABBQuantizedNode* node);
+							void				_Collide(const AABBQuantizedNoLeafNode* node);
+							void				_Collide(const AABBTreeNode* node);
+							void				_CollideNoPrimitiveTest(const AABBCollisionNode* node);
+							void				_CollideNoPrimitiveTest(const AABBNoLeafNode* node);
+							void				_CollideNoPrimitiveTest(const AABBQuantizedNode* node);
+							void				_CollideNoPrimitiveTest(const AABBQuantizedNoLeafNode* node);
 			// Overlap tests
-		inline_				BOOL			AABBContainsBox(const Point& bc, const Point& be);
-		inline_				BOOL			AABBAABBOverlap(const Point& b, const Point& Pb);
-		inline_				BOOL			TriBoxOverlap();
+		inline_				BOOL				AABBContainsBox(const IceMaths::Point& bc, const IceMaths::Point& be);
+		inline_				BOOL				AABBAABBOverlap(const IceMaths::Point& b, const IceMaths::Point& Pb);
+		inline_				BOOL				TriBoxOverlap();
 			// Init methods
-							BOOL			InitQuery(AABBCache& cache, const CollisionAABB& box);
+							BOOL				InitQuery(AABBCache& cache, const CollisionAABB& box);
 	};
 
 	class OPCODE_API HybridAABBCollider : public AABBCollider
 	{
 		public:
 		// Constructor / Destructor
-											HybridAABBCollider();
-		virtual								~HybridAABBCollider() OPCODE_OVERRIDE;
+												HybridAABBCollider();
+		virtual									~HybridAABBCollider() OPCODE_OVERRIDE;
 
-							bool			Collide(AABBCache& cache, const CollisionAABB& box, const HybridModel& model);
+							bool				Collide(AABBCache& cache, const CollisionAABB& box, const HybridModel& model);
 		protected:
-							Container		mTouchedBoxes;
+							IceCore::Container	mTouchedBoxes;
 	};
 
 #endif // __OPC_AABBCOLLIDER_H__

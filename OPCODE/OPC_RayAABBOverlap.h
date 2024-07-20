@@ -12,7 +12,7 @@
  *	\return		true on overlap
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-inline_ BOOL RayCollider::SegmentAABBOverlap(const Point& center, const Point& extents)
+inline_ BOOL RayCollider::SegmentAABBOverlap(const IceMaths::Point& center, const IceMaths::Point& extents)
 {
 	// Stats
 	mNbRayBVTests++;
@@ -37,7 +37,7 @@ inline_ BOOL RayCollider::SegmentAABBOverlap(const Point& center, const Point& e
  *	\return		true on overlap
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-inline_ BOOL RayCollider::RayAABBOverlap(const Point& center, const Point& extents)
+inline_ BOOL RayCollider::RayAABBOverlap(const IceMaths::Point& center, const IceMaths::Point& extents)
 {
 	// Stats
 	mNbRayBVTests++;

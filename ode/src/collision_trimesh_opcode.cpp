@@ -96,8 +96,8 @@ dxTriMeshData::~dxTriMeshData()
     }
 }
 
-void dxTriMeshData::buildData(const Point *Vertices, int VertexStide, unsigned VertexCount,
-    const IndexedTriangle *Indices, unsigned IndexCount, int TriStride,
+void dxTriMeshData::buildData(const IceMaths::Point *Vertices, int VertexStide, unsigned VertexCount,
+    const IceMaths::IndexedTriangle *Indices, unsigned IndexCount, int TriStride,
     const dReal *in_Normals,
     bool Single)
 {
@@ -116,9 +116,9 @@ void dxTriMeshData::buildData(const Point *Vertices, int VertexStide, unsigned V
     // used in ODE, why?
     //Settings.mRules = SPLIT_BEST_AXIS;
     // best compromise?
-    BuildSettings Settings(SPLIT_BEST_AXIS | SPLIT_SPLATTER_POINTS | SPLIT_GEOM_CENTER);
+    Opcode::BuildSettings Settings(Opcode::SPLIT_BEST_AXIS | Opcode::SPLIT_SPLATTER_POINTS | Opcode::SPLIT_GEOM_CENTER);
 
-    OPCODECREATE TreeBuilder(&m_Mesh, Settings, true, false);
+    Opcode::OPCODECREATE TreeBuilder(&m_Mesh, Settings, true, false);
 
     m_BVTree.Build(TreeBuilder);
 
@@ -153,7 +153,7 @@ void dxTriMeshData::templateCalculateDataAABB(dVector3 &AABBMax, dVector3 &AABBM
 {
     dIASSERT(isSingle() == (sizeof(treal) == sizeof(float)));
 
-    const Point *vertices = retrieveVertexInstances();
+    const IceMaths::Point *vertices = retrieveVertexInstances();
     const int vertexStide = retrieveVertexStride();
     const unsigned vertexCount = retrieveVertexCount();
 
@@ -203,7 +203,7 @@ bool dxTriMeshData::preprocessData(bool buildUseFlags/*=false*/, FaceAngleStorag
 
 struct TrimeshDataVertexIndexAccessor_OPCODE
 {
-    TrimeshDataVertexIndexAccessor_OPCODE(const IndexedTriangle *triIndicesBegin, unsigned triStride):
+    TrimeshDataVertexIndexAccessor_OPCODE(const IceMaths::IndexedTriangle *triIndicesBegin, unsigned triStride):
         m_TriIndicesBegin(triIndicesBegin),
         m_TriStride(triStride)
     {
@@ -211,10 +211,10 @@ struct TrimeshDataVertexIndexAccessor_OPCODE
 
     void getTriangleVertexIndices(unsigned out_VertexIndices[dMTV__MAX], unsigned triangleIdx) const
     {
-        const IndexedTriangle *triIndicesBegin = m_TriIndicesBegin;
+        const IceMaths::IndexedTriangle *triIndicesBegin = m_TriIndicesBegin;
         const unsigned triStride = m_TriStride;
 
-        const IndexedTriangle *triIndicesOfInterest = (const IndexedTriangle *)((const uint8 *)triIndicesBegin + triangleIdx * (sizeint)triStride);
+        const IceMaths::IndexedTriangle *triIndicesOfInterest = (const IceMaths::IndexedTriangle *)((const uint8 *)triIndicesBegin + triangleIdx * (sizeint)triStride);
         std::copy(triIndicesOfInterest->mVRef, triIndicesOfInterest->mVRef + dMTV__MAX, out_VertexIndices);
         dSASSERT(dMTV__MAX == dARRAY_SIZE(triIndicesOfInterest->mVRef));
         dSASSERT(dMTV_FIRST == 0);
@@ -224,21 +224,21 @@ struct TrimeshDataVertexIndexAccessor_OPCODE
     }
 
 
-    const IndexedTriangle   *m_TriIndicesBegin;
+    const IceMaths::IndexedTriangle   *m_TriIndicesBegin;
     unsigned                m_TriStride;
 };
 
 struct TrimeshDataTrianglePointAccessor_OPCODE
 {
-    TrimeshDataTrianglePointAccessor_OPCODE(const MeshInterface &mesh):
+    TrimeshDataTrianglePointAccessor_OPCODE(const Opcode::MeshInterface &mesh):
         m_Mesh(mesh)
     {
     }
 
     void getTriangleVertexPoints(dVector3 out_Points[dMTV__MAX], unsigned triangleIndex) const
     {
-        VertexPointers vpTriangle;
-        ConversionArea vc;
+        Opcode::VertexPointers vpTriangle;
+        Opcode::ConversionArea vc;
         m_Mesh.GetTriangle(vpTriangle, triangleIndex, vc);
 
         for (unsigned pointIndex = 0; pointIndex != 3; ++pointIndex)
@@ -251,7 +251,7 @@ struct TrimeshDataTrianglePointAccessor_OPCODE
         dSASSERT(dMTV__MAX == 3);
     }
 
-    const MeshInterface     &m_Mesh;
+    const Opcode::MeshInterface     &m_Mesh;
 };
 
 bool dxTriMeshData::meaningfulPreprocessData(bool buildUseFlags/*=false*/, FaceAngleStorageMethod faceAndgesRequirement/*=ASM__INVALID*/)
@@ -316,7 +316,7 @@ bool dxTriMeshData::meaningfulPreprocessData(bool buildUseFlags/*=false*/, FaceA
             memset(useFlags, 0, flagsMemoryRequired);
         }
 
-        const IndexedTriangle *triIndicesBegin = m_Mesh.GetTris();
+        const IceMaths::IndexedTriangle *triIndicesBegin = m_Mesh.GetTris();
         unsigned triStride = m_Mesh.GetTriStride();
         TrimeshDataVertexIndexAccessor_OPCODE indexAccessor(triIndicesBegin, triStride);
         meaningfulPreprocess_SetupEdgeRecords(edges, numEdges, indexAccessor);
@@ -525,8 +525,8 @@ void dxTriMesh::fetchMeshTriangle(dVector3 *const pout_triangle[3], unsigned ind
 {
     dIASSERT(dIN_RANGE(index, 0, getMeshTriangleCount()));
 
-    VertexPointers VP = {};
-    ConversionArea VC = {};
+    Opcode::VertexPointers VP = {};
+    Opcode::ConversionArea VC = {};
     VP.Vertex[0] = new IceMaths::Point();
     VP.Vertex[1] = new IceMaths::Point();
     VP.Vertex[2] = new IceMaths::Point();
@@ -559,8 +559,8 @@ void dxTriMesh::fetchMeshTriangle(dVector3 out_triangle[3], unsigned index, cons
 {
     dIASSERT(dIN_RANGE(index, 0, getMeshTriangleCount()));
 
-    VertexPointers VP;
-    ConversionArea VC;
+    Opcode::VertexPointers VP;
+    Opcode::ConversionArea VC;
 
     const dxTriMeshData *meshData = getMeshData();
     meshData->m_Mesh.GetTriangle(VP, index, VC);
@@ -698,8 +698,8 @@ void dGeomTriMeshDataBuildSingle1(dTriMeshDataID g,
     dUASSERT(g, "The argument is not a trimesh data");
 
     dxTriMeshData *data = g;
-    data->buildData((const Point *)Vertices, VertexStride, VertexCount, 
-        (const IndexedTriangle *)Indices, IndexCount, TriStride, 
+    data->buildData((const IceMaths::Point *)Vertices, VertexStride, VertexCount, 
+        (const IceMaths::IndexedTriangle *)Indices, IndexCount, TriStride, 
         (const dReal *)Normals, 
         true);
 }
@@ -712,8 +712,8 @@ void dGeomTriMeshDataBuildDouble1(dTriMeshDataID g,
 {
     dUASSERT(g, "The argument is not a trimesh data");
 
-    g->buildData((const Point *)Vertices, VertexStride, VertexCount, 
-        (const IndexedTriangle *)Indices, IndexCount, TriStride, 
+    g->buildData((const IceMaths::Point *)Vertices, VertexStride, VertexCount, 
+        (const IceMaths::IndexedTriangle *)Indices, IndexCount, TriStride, 
         (const dReal *)Normals, 
         false);
 }

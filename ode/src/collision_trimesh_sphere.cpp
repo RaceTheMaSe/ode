@@ -255,12 +255,12 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
     const unsigned uiTLSKind = TriMesh->getParentSpaceTLSKind();
     dIASSERT(uiTLSKind == SphereGeom->getParentSpaceTLSKind()); // The colliding spaces must use matching cleanup method
     TrimeshCollidersCache *pccColliderCache = GetTrimeshCollidersCache(uiTLSKind);
-    SphereCollider& Collider = pccColliderCache->m_SphereCollider;
+    Opcode::SphereCollider& Collider = pccColliderCache->m_SphereCollider;
 
     const dVector3& TLPosition = *(const dVector3*)dGeomGetPosition(TriMesh);
     const dMatrix3& TLRotation = *(const dMatrix3*)dGeomGetRotation(TriMesh);
 
-    Matrix4x4 MeshMatrix;
+    IceMaths::Matrix4x4 MeshMatrix;
     const dVector3 ZeroVector3 = { REAL(0.0), };
     MakeMatrix(ZeroVector3, TLRotation, MeshMatrix);
 
@@ -271,7 +271,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
     dSubtractVectors3(OffsetPosition, Position, TLPosition);
 
     // Sphere
-    Sphere Sphere;
+    IceMaths::Sphere Sphere;
     Sphere.mCenter.Set(OffsetPosition[0], OffsetPosition[1], OffsetPosition[2]);
     Sphere.mRadius = Radius;
 

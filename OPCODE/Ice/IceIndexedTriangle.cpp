@@ -31,7 +31,7 @@ using namespace IceMaths;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void IndexedTriangle::Flip()
 {
-	Swap(mVRef[1], mVRef[2]);
+	IceCore::Swap(mVRef[1], mVRef[2]);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,9 +164,9 @@ void IndexedTriangle::RandomPoint(const Point* verts, Point& random)	const
 	if(!verts)	return;
 
 	// Random barycentric coords
-	float Alpha	= UnitRandomFloat();
-	float Beta	= UnitRandomFloat();
-	float Gamma	= UnitRandomFloat();
+	float Alpha	= IceCore::UnitRandomFloat();
+	float Beta	= IceCore::UnitRandomFloat();
+	float Gamma	= IceCore::UnitRandomFloat();
 	float OneOverTotal = 1.0f / (Alpha + Beta + Gamma);
 	Alpha	*= OneOverTotal;
 	Beta	*= OneOverTotal;

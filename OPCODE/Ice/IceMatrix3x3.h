@@ -291,9 +291,9 @@
 		//! Transpose the matrix.
 				void			Transpose()
 								{
-									TSwap(m[1][0], m[0][1]);
-									TSwap(m[2][0], m[0][2]);
-									TSwap(m[2][1], m[1][2]);
+									IceCore::TSwap(m[1][0], m[0][1]);
+									IceCore::TSwap(m[2][0], m[0][2]);
+									IceCore::TSwap(m[2][1], m[1][2]);
 								}
 
 		//! this = Transpose(a)

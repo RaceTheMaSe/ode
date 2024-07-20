@@ -11,12 +11,12 @@
  *	\return		TRUE if boxes overlap planes
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-inline_ BOOL PlanesCollider::PlanesAABBOverlap(const Point& center, const Point& extents, udword& out_clip_mask, udword in_clip_mask)
+inline_ BOOL PlanesCollider::PlanesAABBOverlap(const IceMaths::Point& center, const IceMaths::Point& extents, udword& out_clip_mask, udword in_clip_mask)
 {
 	// Stats
 	mNbVolumeBVTests++;
 
-	const Plane* p = mPlanes;
+	const IceMaths::Plane* p = mPlanes;
 
 	// Evaluate through all active frustum planes. We determine the relation 
 	// between the AABB and a plane by using the concept of "near" and "far"

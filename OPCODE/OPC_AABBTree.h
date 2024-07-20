@@ -28,7 +28,7 @@
 									base_class();																		\
 									~base_class();																		\
 		/* Data access */																								\
-		inline_	const volume*		Get##volume()	const	{ return &mBV;							}					\
+		inline_	const IceMaths::volume*		Get##volume()	const	{ return &mBV;							}					\
 		/* Clear the last bit */																						\
 		inline_	const base_class*	GetPos()		const	{ return (const base_class*)(mPos&~1);	}					\
 		inline_	const base_class*	GetNeg()		const	{ const base_class* P = GetPos(); return P ? P+1 : null;}	\
@@ -42,7 +42,7 @@
 		/* Tree-independent data */																						\
 		/* Following data always belong to the BV-tree, regardless of what the tree actually contains.*/				\
 		/* Whatever happens we need the two children and the enclosing volume.*/										\
-				volume				mBV;		/* Global bounding-volume enclosing all the node-related primitives */	\
+				IceMaths::volume				mBV;		/* Global bounding-volume enclosing all the node-related primitives */	\
 				size_t				mPos;		/* "Positive" & "Negative" children */
 #else
 	//! TO BE DOCUMENTED
@@ -52,7 +52,7 @@
 									base_class();																		\
 									~base_class();																		\
 		/* Data access */																								\
-		inline_	const volume*		Get##volume()	const	{ return &mBV;							}					\
+		inline_	const IceMaths::volume*		Get##volume()	const	{ return &mBV;							}					\
 		/* Clear the last bit */																						\
 		inline_	const base_class*	GetPos()		const	{ return (const base_class*)(mPos&~1);	}					\
 		inline_	const base_class*	GetNeg()		const	{ return (const base_class*)(mNeg&~1);	}					\
@@ -67,7 +67,7 @@
 		/* Tree-independent data */																						\
 		/* Following data always belong to the BV-tree, regardless of what the tree actually contains.*/				\
 		/* Whatever happens we need the two children and the enclosing volume.*/										\
-				volume				mBV;		/* Global bounding-volume enclosing all the node-related primitives */	\
+				IceMaths::volume				mBV;		/* Global bounding-volume enclosing all the node-related primitives */	\
 				size_t				mPos;		/* "Positive" child */													\
 				size_t				mNeg;		/* "Negative" child */
 #endif

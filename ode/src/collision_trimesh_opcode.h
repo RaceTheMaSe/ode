@@ -45,14 +45,6 @@
 
 #define BAN_OPCODE_AUTOLINK
 #include "Opcode.h"
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wheader-hygiene" // using namespace directive in global context in header
-#endif
-using namespace Opcode;
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
 
 
 #if !defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
@@ -145,7 +137,7 @@ struct TrimeshCollidersCache
     void clearOPCODECaches();
 
     // Collider caches
-    BVTCache ColCache;
+    Opcode::BVTCache ColCache;
 
 #if !defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
     CONTACT_KEY_HASH_TABLE m_hashcontactset;
@@ -155,18 +147,18 @@ struct TrimeshCollidersCache
     /* -- not used -- also uncomment in InitOPCODECaches()
     PlanesCollider _PlanesCollider; -- not used 
     */
-    SphereCollider m_SphereCollider;
-    OBBCollider m_OBBCollider;
-    RayCollider m_RayCollider;
-    AABBTreeCollider m_AABBTreeCollider;
+    Opcode::SphereCollider m_SphereCollider;
+    Opcode::OBBCollider m_OBBCollider;
+    Opcode::RayCollider m_RayCollider;
+    Opcode::AABBTreeCollider m_AABBTreeCollider;
     /* -- not used -- also uncomment in InitOPCODECaches()
     LSSCollider _LSSCollider;
     */
     // Trimesh caches
-    CollisionFaces m_Faces;
-    SphereCache m_DefaultSphereCache;
-    OBBCache m_DefaultBoxCache;
-    LSSCache m_DefaultCapsuleCache;
+    Opcode::CollisionFaces m_Faces;
+    Opcode::SphereCache m_DefaultSphereCache;
+    Opcode::OBBCache m_DefaultBoxCache;
+    Opcode::LSSCache m_DefaultCapsuleCache;
 
     // Trimesh-plane collision vertex use cache
     VertexUseCache m_VertexUses;
@@ -187,8 +179,8 @@ public:
 
     ~dxTriMeshData();
 
-    void buildData(const Point *Vertices, int VertexStide, unsigned VertexCount,
-        const IndexedTriangle *Indices, unsigned IndexCount, int TriStride,
+    void buildData(const IceMaths::Point *Vertices, int VertexStide, unsigned VertexCount,
+        const IceMaths::IndexedTriangle *Indices, unsigned IndexCount, int TriStride,
         const dReal *in_Normals,
         bool Single);
 
@@ -209,7 +201,7 @@ public:
     void updateData();
 
 public:
-    const Point *retrieveVertexInstances() const { return (const Point *)dxTriMeshData_Parent::retrieveVertexInstances(); }
+    const IceMaths::Point *retrieveVertexInstances() const { return (const IceMaths::Point *)dxTriMeshData_Parent::retrieveVertexInstances(); }
 
 public:
     void assignNormals(const dReal *normals) { dxTriMeshData_Parent::assignNormals(normals); }
@@ -223,8 +215,8 @@ public:
     sizeint calculateUseFlagsMemoryRequirement() const { return m_Mesh.GetNbTriangles() * sizeof(m_InternalUseFlags[0]); }
 
 public:
-    Model m_BVTree;
-    MeshInterface m_Mesh;
+    Opcode::Model m_BVTree;
+    Opcode::MeshInterface m_Mesh;
 
     /* aabb in model space */
     dVector3 m_AABBCenter;
@@ -263,7 +255,7 @@ public:
 public:
     dxTriMeshData *retrieveMeshData() const { return getMeshData(); }
     const dReal *retrieveMeshNormals() const { return getMeshData()->retrieveNormals(); }
-    Model &retrieveMeshBVTreeRef() const { return getMeshData()->m_BVTree; }
+    Opcode::Model &retrieveMeshBVTreeRef() const { return getMeshData()->m_BVTree; }
     const uint8 *retrieveMeshSmartUseFlags() const { return getMeshData()->smartRetrieveUseFlags(); }
 
     unsigned getMeshTriangleCount() const { return getMeshData()->m_Mesh.GetNbTriangles(); }
@@ -291,15 +283,15 @@ private:
 public:
     // Some constants
     // Temporal coherence
-    struct SphereTC : public SphereCache{
+    struct SphereTC : public Opcode::SphereCache{
         dxGeom* Geom;
     };
 
-    struct BoxTC : public OBBCache{
+    struct BoxTC : public Opcode::OBBCache{
         dxGeom* Geom;
     };
 
-    struct CapsuleTC : public LSSCache{
+    struct CapsuleTC : public Opcode::LSSCache{
         dxGeom* Geom;
     };
 
@@ -316,7 +308,7 @@ public:
 
 
 static inline 
-Matrix4x4 &MakeMatrix(const dVector3 Position, const dMatrix3 Rotation, Matrix4x4 &Out)
+IceMaths::Matrix4x4 &MakeMatrix(const dVector3 Position, const dMatrix3 Rotation, IceMaths::Matrix4x4 &Out)
 {
     return Out.Set(
         Rotation[0], Rotation[4], Rotation[8], 0.0f,
@@ -326,7 +318,7 @@ Matrix4x4 &MakeMatrix(const dVector3 Position, const dMatrix3 Rotation, Matrix4x
 }
 
 static inline 
-Matrix4x4 &MakeMatrix(dxGeom* g, Matrix4x4 &Out)
+IceMaths::Matrix4x4 &MakeMatrix(dxGeom* g, IceMaths::Matrix4x4 &Out)
 {
     const dVector3 &position = g->buildUpdatedPosition();
     const dMatrix3 &rotation = g->buildUpdatedRotation();

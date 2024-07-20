@@ -46,6 +46,11 @@ typedef struct _sLocalContactData
 #include "collision_libccd.h"
 #endif
 
+#if defined(dTRIMESH_OPCODE)
+using namespace Opcode;
+using namespace IceMaths;
+#endif
+
 int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contacts, int skip )
 {
     int contactcount = 0;

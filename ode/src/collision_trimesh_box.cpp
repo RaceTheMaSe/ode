@@ -1197,15 +1197,15 @@ bool sTrimeshBoxColliderData::_cldTestOneTriangle(const dVector3 &v0, const dVec
 
 // OPCODE version of box to mesh collider
 #if defined(dTRIMESH_OPCODE)
-static void dQueryBTLPotentialCollisionTriangles(OBBCollider &Collider, 
+static void dQueryBTLPotentialCollisionTriangles(Opcode::OBBCollider &Collider, 
                                                  const sTrimeshBoxColliderData &cData, dxTriMesh *TriMesh, dxGeom *BoxGeom,
-                                                 OBBCache &BoxCache)
+                                                 Opcode::OBBCache &BoxCache)
 {
     // get destination hull position and orientation
     const dMatrix3& mRotMesh=*(const dMatrix3*)dGeomGetRotation(TriMesh);
     const dVector3& vPosMesh=*(const dVector3*)dGeomGetPosition(TriMesh);
 
-    Matrix4x4 MeshMatrix;
+    IceMaths::Matrix4x4 MeshMatrix;
     const dVector3 vZeroVector3 = { REAL(0.0), };
     MakeMatrix(vZeroVector3, mRotMesh, MeshMatrix);
 
@@ -1217,7 +1217,7 @@ static void dQueryBTLPotentialCollisionTriangles(OBBCollider &Collider,
     dSubtractVectors3(vOffsetPosBox, vPosBox, vPosMesh);
 
     // Make OBB
-    OBB Box;
+    IceMaths::OBB Box;
     Box.mCenter.Set(vOffsetPosBox[0], vOffsetPosBox[1], vOffsetPosBox[2]);
     Box.mExtents.Set(cData.m_vBoxHalfSize[0], cData.m_vBoxHalfSize[1], cData.m_vBoxHalfSize[2]);
     Box.mRot.Set(
@@ -1267,7 +1267,7 @@ int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, 
     const unsigned uiTLSKind = TriMesh->getParentSpaceTLSKind();
     dIASSERT(uiTLSKind == BoxGeom->getParentSpaceTLSKind()); // The colliding spaces must use matching cleanup method
     TrimeshCollidersCache *pccColliderCache = GetTrimeshCollidersCache(uiTLSKind);
-    OBBCollider& Collider = pccColliderCache->m_OBBCollider;
+    Opcode::OBBCollider& Collider = pccColliderCache->m_OBBCollider;
 
     dQueryBTLPotentialCollisionTriangles(Collider, cData, TriMesh, BoxGeom,
         pccColliderCache->m_DefaultBoxCache);

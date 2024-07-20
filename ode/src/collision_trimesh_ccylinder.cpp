@@ -971,11 +971,11 @@ int sTrimeshCapsuleColliderData::TestCollisionForSingleTriangle(int ctContacts0,
 }
 
 
-static void dQueryCCTLPotentialCollisionTriangles(OBBCollider &Collider, 
+static void dQueryCCTLPotentialCollisionTriangles(Opcode::OBBCollider &Collider, 
                                                   const sTrimeshCapsuleColliderData &cData, dxTriMesh *TriMesh, dxGeom *Capsule,
-                                                  OBBCache &BoxCache)
+                                                  Opcode::OBBCache &BoxCache)
 {
-    Matrix4x4 MeshMatrix;
+    IceMaths::Matrix4x4 MeshMatrix;
     const dVector3 vZeroVector3 = { REAL(0.0), };
     MakeMatrix(vZeroVector3, cData.m_mTriMeshRot, MeshMatrix);
 
@@ -987,7 +987,7 @@ static void dQueryCCTLPotentialCollisionTriangles(OBBCollider &Collider,
 
     const dReal fCapsuleRadius = cData.m_vCapsuleRadius, fCapsuleHalfAxis = cData.m_fCapsuleSize * REAL(0.5);
 
-    OBB obbCapsule;
+    IceMaths::OBB obbCapsule;
     obbCapsule.mCenter.Set(vCapsuleOffsetPos[0], vCapsuleOffsetPos[1], vCapsuleOffsetPos[2]);
     obbCapsule.mExtents.Set(
         0 == nCAPSULE_AXIS ? fCapsuleHalfAxis : fCapsuleRadius,
@@ -1046,7 +1046,7 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
     const unsigned uiTLSKind = TriMesh->getParentSpaceTLSKind();
     dIASSERT(uiTLSKind == Capsule->getParentSpaceTLSKind()); // The colliding spaces must use matching cleanup method
     TrimeshCollidersCache *pccColliderCache = GetTrimeshCollidersCache(uiTLSKind);
-    OBBCollider& Collider = pccColliderCache->m_OBBCollider;
+    Opcode::OBBCollider& Collider = pccColliderCache->m_OBBCollider;
 
     // Will it be better to use LSS here? -> confirm Pierre.
     dQueryCCTLPotentialCollisionTriangles(Collider, cData, 

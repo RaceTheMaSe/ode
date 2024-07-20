@@ -27,7 +27,7 @@
 	//! coherence. That is, in case temporal coherence is enabled, those two primitives are
 	//! tested for overlap before everything else. If they still collide, we're done before
 	//! even entering the recursive collision code.
-	struct OPCODE_API BVTCache : Pair
+	struct OPCODE_API BVTCache : IceCore::Pair
 	{
 		//! Constructor
 		inline_				BVTCache()
@@ -91,13 +91,13 @@
 		 *	\warning	SCALE NOT SUPPORTED. The matrices must contain rotation & translation parts only.
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-							bool			Collide(BVTCache& cache, const Matrix4x4* world0=null, const Matrix4x4* world1=null);
+							bool			Collide(BVTCache& cache, const IceMaths::Matrix4x4* world0=null, const IceMaths::Matrix4x4* world1=null);
 
 		// Collision queries
-							bool			Collide(const AABBCollisionTree* tree0, const AABBCollisionTree* tree1,				const Matrix4x4* world0=null, const Matrix4x4* world1=null, Pair* cache=null);
-							bool			Collide(const AABBNoLeafTree* tree0, const AABBNoLeafTree* tree1,					const Matrix4x4* world0=null, const Matrix4x4* world1=null, Pair* cache=null);
-							bool			Collide(const AABBQuantizedTree* tree0, const AABBQuantizedTree* tree1,				const Matrix4x4* world0=null, const Matrix4x4* world1=null, Pair* cache=null);
-							bool			Collide(const AABBQuantizedNoLeafTree* tree0, const AABBQuantizedNoLeafTree* tree1,	const Matrix4x4* world0=null, const Matrix4x4* world1=null, Pair* cache=null);
+							bool			Collide(const AABBCollisionTree* tree0, const AABBCollisionTree* tree1,				const IceMaths::Matrix4x4* world0=null, const IceMaths::Matrix4x4* world1=null, IceCore::Pair* cache=null);
+							bool			Collide(const AABBNoLeafTree* tree0, const AABBNoLeafTree* tree1,					const IceMaths::Matrix4x4* world0=null, const IceMaths::Matrix4x4* world1=null, IceCore::Pair* cache=null);
+							bool			Collide(const AABBQuantizedTree* tree0, const AABBQuantizedTree* tree1,				const IceMaths::Matrix4x4* world0=null, const IceMaths::Matrix4x4* world1=null, IceCore::Pair* cache=null);
+							bool			Collide(const AABBQuantizedNoLeafTree* tree0, const AABBQuantizedNoLeafTree* tree1,	const IceMaths::Matrix4x4* world0=null, const IceMaths::Matrix4x4* world1=null, IceCore::Pair* cache=null);
 		// Settings
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -170,7 +170,7 @@
 		 *	\return		the list of colliding pairs (triangle indices)
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline_				const Pair*		GetPairs()						const	{ return (const Pair*)mPairs.GetEntries();		}
+		inline_				const IceCore::Pair*		GetPairs()						const	{ return (const IceCore::Pair*)mPairs.GetEntries();		}
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -182,7 +182,7 @@
 
 		protected:
 		// Colliding pairs
-							Container		mPairs;				//!< Pairs of colliding primitives
+							IceCore::Container		mPairs;				//!< Pairs of colliding primitives
 		// User mesh interfaces
 					const	MeshInterface*	mIMesh0;			//!< User-defined mesh interface for object0
 					const	MeshInterface*	mIMesh1;			//!< User-defined mesh interface for object1
@@ -191,18 +191,18 @@
 							udword			mNbPrimPrimTests;	//!< Number of Primitive-Primitive tests
 							udword			mNbBVPrimTests;		//!< Number of BV-Primitive tests
 		// Precomputed data
-							Matrix3x3		mAR;				//!< Absolute rotation matrix
-							Matrix3x3		mR0to1;				//!< Rotation from object0 to object1
-							Matrix3x3		mR1to0;				//!< Rotation from object1 to object0
-							Point			mT0to1;				//!< Translation from object0 to object1
-							Point			mT1to0;				//!< Translation from object1 to object0
+							IceMaths::Matrix3x3		mAR;				//!< Absolute rotation matrix
+							IceMaths::Matrix3x3		mR0to1;				//!< Rotation from object0 to object1
+							IceMaths::Matrix3x3		mR1to0;				//!< Rotation from object1 to object0
+							IceMaths::Point			mT0to1;				//!< Translation from object0 to object1
+							IceMaths::Point			mT1to0;				//!< Translation from object1 to object0
 		// Dequantization coeffs
-							Point			mCenterCoeff0;
-							Point			mExtentsCoeff0;
-							Point			mCenterCoeff1;
-							Point			mExtentsCoeff1;
+							IceMaths::Point			mCenterCoeff0;
+							IceMaths::Point			mExtentsCoeff0;
+							IceMaths::Point			mCenterCoeff1;
+							IceMaths::Point			mExtentsCoeff1;
 		// Leaf description
-							Point			mLeafVerts[3];		//!< Triangle vertices
+							IceMaths::Point			mLeafVerts[3];		//!< Triangle vertices
 							udword			mLeafIndex;			//!< Triangle index
 		// Settings
 							bool			mFullBoxBoxTest;	//!< Perform full BV-BV tests (true) or SAT-lite tests (false)
@@ -212,7 +212,7 @@
 			// Standard AABB trees
 							void			_Collide(const AABBCollisionNode* b0, const AABBCollisionNode* b1);
 			// Quantized AABB trees
-							void			_Collide(const AABBQuantizedNode* b0, const AABBQuantizedNode* b1, const Point& a, const Point& Pa, const Point& b, const Point& Pb);
+							void			_Collide(const AABBQuantizedNode* b0, const AABBQuantizedNode* b1, const IceMaths::Point& a, const IceMaths::Point& Pa, const IceMaths::Point& b, const IceMaths::Point& Pb);
 			// No-leaf AABB trees
 							void			_CollideTriBox(const AABBNoLeafNode* b);
 							void			_CollideBoxTri(const AABBNoLeafNode* b);
@@ -226,12 +226,12 @@
 			inline_			void			PrimTestTriIndex(udword id1);
 			inline_			void			PrimTestIndexTri(udword id0);
 
-			inline_			BOOL			BoxBoxOverlap(const Point& ea, const Point& ca, const Point& eb, const Point& cb);
-			inline_			BOOL			TriBoxOverlap(const Point& center, const Point& extents);
-			inline_			BOOL			TriTriOverlap(const Point& V0, const Point& V1, const Point& V2, const Point& U0, const Point& U1, const Point& U2);
+			inline_			BOOL			BoxBoxOverlap(const IceMaths::Point& ea, const IceMaths::Point& ca, const IceMaths::Point& eb, const IceMaths::Point& cb);
+			inline_			BOOL			TriBoxOverlap(const IceMaths::Point& center, const IceMaths::Point& extents);
+			inline_			BOOL			TriTriOverlap(const IceMaths::Point& V0, const IceMaths::Point& V1, const IceMaths::Point& V2, const IceMaths::Point& U0, const IceMaths::Point& U1, const IceMaths::Point& U2);
 			// Init methods
-							void			InitQuery(const Matrix4x4* world0=null, const Matrix4x4* world1=null);
-							bool			CheckTemporalCoherence(Pair* cache);
+							void			InitQuery(const IceMaths::Matrix4x4* world0=null, const IceMaths::Matrix4x4* world1=null);
+							bool			CheckTemporalCoherence(IceCore::Pair* cache);
 
 		inline_				BOOL			Setup(const MeshInterface* mi0, const MeshInterface* mi1)
 											{

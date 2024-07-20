@@ -160,15 +160,15 @@
 		inline_	const Point&		GetExtents()	const	{ return mExtents;	}
 		inline_	const Matrix3x3&	GetRot()		const	{ return mRot;		}
 
-		inline_	void				GetRotatedExtents(Matrix3x3& extents)	const
+		inline_	void				GetRotatedExtents(IceMaths::Matrix3x3& extents)	const
 									{
 										extents = mRot;
 										extents.Scale(mExtents);
 									}
 
-				Point				mCenter;		//!< B for Box
-				Point				mExtents;		//!< B for Bounding
-				Matrix3x3			mRot;			//!< O for Oriented
+				IceMaths::Point				mCenter;		//!< B for Box
+				IceMaths::Point				mExtents;		//!< B for Bounding
+				IceMaths::Matrix3x3			mRot;			//!< O for Oriented
 
 				// Orientation is stored in row-major format,
 				// i.e. rows = eigen vectors of the covariance matrix

@@ -155,14 +155,14 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
     const unsigned uiTLSKind = TriMesh1->getParentSpaceTLSKind();
     dIASSERT(uiTLSKind == TriMesh2->getParentSpaceTLSKind()); // The colliding spaces must use matching cleanup method
     TrimeshCollidersCache *pccColliderCache = GetTrimeshCollidersCache(uiTLSKind);
-    AABBTreeCollider& Collider = pccColliderCache->m_AABBTreeCollider;
-    BVTCache &ColCache = pccColliderCache->ColCache;
+    Opcode::AABBTreeCollider& Collider = pccColliderCache->m_AABBTreeCollider;
+    Opcode::BVTCache &ColCache = pccColliderCache->ColCache;
 
     ColCache.Model0 = &TriMesh1->retrieveMeshBVTreeRef();
     ColCache.Model1 = &TriMesh2->retrieveMeshBVTreeRef();
 
     // Collision query
-    Matrix4x4 amatrix, bmatrix;
+    IceMaths::Matrix4x4 amatrix, bmatrix;
     dVector3 TLOffsetPosition1 = { REAL(0.0), };
     dVector3 TLOffsetPosition2;
     dSubtractVectors3(TLOffsetPosition2, TLPosition2, TLPosition1);
@@ -182,7 +182,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
         if ( Collider.GetContactStatus() ) {
             // Number of colliding pairs and list of pairs
             int TriCount = Collider.GetNbPairs();
-            const Pair* CollidingPairs = Collider.GetPairs();
+            const IceCore::Pair* CollidingPairs = Collider.GetPairs();
 
             if (TriCount > 0) {
                 // step through the pairs, adding contacts

@@ -34,11 +34,6 @@
 	#define	SetIceError(a,b)	false
 	#define	EC_OUTOFMEMORY	"Out of memory"
 
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wheader-hygiene" // using namespace directive in global context in header
-#endif
-
 	extern OPCODE_NORETURN_VOID IceAbort();
 
 	#include "Ice/IcePreprocessor.h"
@@ -58,8 +53,8 @@
 		#include "Ice/IceRevisitedRadix.h"
 		#include "Ice/IceRandom.h"
 	}
-	using namespace IceCore;
 
+	#include "ode/common.h" // move out or it gets namespaces IceMaths::
 	#define ICEMATHS_API	OPCODE_API
 	namespace IceMaths
 	{
@@ -79,10 +74,7 @@
 		#include "Ice/IceSegment.h"
 		#include "Ice/IceLSS.h"
 	}
-	using namespace IceMaths;
 
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
+
 
 #endif // __OPC_ICEHOOK_H__

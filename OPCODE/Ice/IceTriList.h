@@ -12,7 +12,7 @@
 #ifndef __ICETRILIST_H__
 #define __ICETRILIST_H__
 
-	class ICEMATHS_API TriList : public Container
+	class ICEMATHS_API TriList : public IceCore::Container
 	{
 		public:
 		// Constructor / Destructor
@@ -37,7 +37,7 @@
 								}
 	};
 
-	class ICEMATHS_API TriangleList : public Container
+	class ICEMATHS_API TriangleList : public IceCore::Container
 	{
 		public:
 		// Constructor / Destructor
