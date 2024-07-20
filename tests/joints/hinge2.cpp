@@ -36,8 +36,6 @@
 #include "hinge2.h"
 
 
-using namespace std;
-
 SUITE (TestdxJointHinge2)
 {
   // The 2 bodies are positioned at (-1, -2, -3) and (11, 22, 33)

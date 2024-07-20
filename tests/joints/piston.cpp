@@ -1150,8 +1150,6 @@ SUITE (TestdxJointPiston)
     TEST_FIXTURE (dxJointPiston_Test_Initialization,
                   test_Piston_Initialization)
     {
-        using namespace std;
-
         dVector3 axis;
         dJointGetPistonAxis(jId[1], axis);
         dJointSetPistonAxis(jId[1], axis[0], axis[1], axis[2]);

@@ -40,8 +40,6 @@
 //# define        K_SPRING        10.0
 //# define        K_DAMP          10.0
 
-//using namespace ode;
-
 struct GlobalVars
 {
     dWorld   dyn_world;

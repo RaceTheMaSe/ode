@@ -893,8 +893,6 @@ SUITE (TestdxJointPR)
     TEST_FIXTURE (dxJointPR_Test_Initialization,
                   test_PR_Initialization)
     {
-        using namespace std;
-
         dVector3 axis;
         dJointGetPRAxis1(jId[1], axis);
         dJointSetPRAxis1(jId[1], axis[0], axis[1], axis[2]);

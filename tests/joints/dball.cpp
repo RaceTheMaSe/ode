@@ -35,8 +35,6 @@
 #include "config.h"
 
 
-using namespace std;
-
 SUITE (TestdxJointDBall)
 {
     struct SimpleFixture {

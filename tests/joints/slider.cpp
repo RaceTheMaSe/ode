@@ -1057,8 +1057,6 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (dxJointSlider_Test_Initialization,
                   test_Slider_Initialization)
     {
-        using namespace std;
-
         dVector3 axis;
         dJointGetSliderAxis(jId[1], axis);
         dJointSetSliderAxis(jId[1], axis[0], axis[1], axis[2]);

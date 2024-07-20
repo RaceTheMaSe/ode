@@ -34,8 +34,6 @@
 #endif
 
 
-using namespace std;
-
 static dWorld *world;
 static dSpace *space;
 static dPlane *ground;
@@ -70,8 +68,8 @@ struct Box {
     }
 };
 
-static set<Box*> boxes;
-static set<Box*> to_remove;
+static std::set<Box*> boxes;
+static std::set<Box*> to_remove;
 
 static void dropBox()
 {
@@ -208,7 +206,7 @@ int main(int argc, char **argv)
     fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
     
-    cout << endl << "*** Press SPACE to drop boxes **" << endl;
+    std::cout << std::endl << "*** Press SPACE to drop boxes **" << std::endl;
     
     space = new dSimpleSpace();
     ground = new dPlane(*space, 0, 0, 1, 0);

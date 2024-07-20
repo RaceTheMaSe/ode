@@ -847,8 +847,6 @@ SUITE (TestdxJointHinge)
   // will behave the same as a default Hinge joint
   TEST_FIXTURE (dxJointHinge_Test_Initialization,
                 test_Hinge_Initialization) {
-    using namespace std;
-
     dVector3 axis;
     dJointGetHingeAxis(jId[1], axis);
     dJointSetHingeAxis(jId[1], axis[0], axis[1], axis[2]);

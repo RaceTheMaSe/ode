@@ -673,8 +673,6 @@ SUITE (TestdxJointUniversal)
     TEST_FIXTURE (dxJointUniversal_Test_Initialization,
                   test_Universal_Initialization)
     {
-        using namespace std;
-
         dVector3 axis;
         dJointGetUniversalAxis1(jId[1], axis);
         dJointSetUniversalAxis1(jId[1], axis[0], axis[1], axis[2]);

@@ -36,8 +36,6 @@
 #include "ball.h"
 
 
-using namespace std;
-
 SUITE (TestdxJointBall)
 {
   // The 2 bodies are positioned at (-1, -2, -3) and (11, 22, 33)
