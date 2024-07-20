@@ -53,7 +53,7 @@
 int dCollideCylinderSphere(dxGeom* Cylinder, dxGeom* Sphere, 
                            int flags, dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (Cylinder->type == dCylinderClass);
     dIASSERT (Sphere->type == dSphereClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);

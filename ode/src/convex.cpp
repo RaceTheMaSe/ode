@@ -588,7 +588,7 @@ static inline bool IsPointInPolygon(dVector3 p,
 int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
                          dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dConvexClass);
     dIASSERT (o2->type == dPlaneClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -648,7 +648,7 @@ int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideSphereConvex (dxGeom *o1, dxGeom *o2, int flags,
                           dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dSphereClass);
     dIASSERT (o2->type == dConvexClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -779,7 +779,7 @@ int dCollideSphereConvex (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideConvexBox (dxGeom *o1, dxGeom *o2, int flags,
                        dContactGeom * /*contact*/, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dConvexClass);
     dIASSERT (o2->type == dBoxClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -796,7 +796,7 @@ int dCollideConvexBox (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideConvexCapsule (dxGeom *o1, dxGeom *o2,
                            int flags, dContactGeom * /*contact*/, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dConvexClass);
     dIASSERT (o2->type == dCapsuleClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -1414,7 +1414,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
 int dCollideConvexConvex (dxGeom *o1, dxGeom *o2, int flags,
                           dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dConvexClass);
     dIASSERT (o2->type == dConvexClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -1428,7 +1428,7 @@ int dCollideConvexConvex (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideRayConvex (dxGeom *o1, dxGeom *o2, int flags,
                        dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT( o1->type == dRayClass );
     dIASSERT( o2->type == dConvexClass );
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -1491,7 +1491,7 @@ int dCollideRayConvex (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideRayConvex(dxGeom *o1, dxGeom *o2,
                       int flags, dContactGeom *contact, int skip)
 {
-    dIASSERT(skip >= (int)sizeof(dContactGeom));
+    dIASSERT(skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT(o1->type == dRayClass);
     dIASSERT(o2->type == dConvexClass);
     dIASSERT((flags & NUMC_MASK) >= 1);

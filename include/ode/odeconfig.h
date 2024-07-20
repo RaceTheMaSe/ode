@@ -173,6 +173,7 @@ typedef unsigned long     duint64;
 
 #endif
 
+#define MACHINE_ALIGNED(stride) ((int)stride % (int)sizeof(uintptr) == 0)
 
 /* Define the dInfinity macro */
 #ifdef INFINITY

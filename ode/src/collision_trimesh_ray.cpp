@@ -35,7 +35,7 @@
 
 #if dTRIMESH_OPCODE
 int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, int Stride){
-    dIASSERT (Stride >= (int)sizeof(dContactGeom));
+    dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));
     dIASSERT (g1->type == dTriMeshClass);
     dIASSERT (RayGeom->type == dRayClass);
     dIASSERT ((Flags & NUMC_MASK) >= 1);
@@ -154,7 +154,7 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
 #if dTRIMESH_GIMPACT
 int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, int Stride)
 {
-    dIASSERT (Stride >= (int)sizeof(dContactGeom));
+    dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));
     dIASSERT (g1->type == dTriMeshClass);
     dIASSERT (RayGeom->type == dRayClass);
     dIASSERT ((Flags & NUMC_MASK) >= 1);

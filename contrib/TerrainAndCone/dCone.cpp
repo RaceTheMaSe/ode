@@ -320,7 +320,7 @@ int FindIntersectionConeRay(dReal r,dReal h,
 int dCollideConePlane (dxGeom *o1, dxGeom *o2, int flags,
 						 dContactGeom *contact, int skip)
 {
-	dIASSERT (skip >= (int)sizeof(dContactGeom));
+	dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
 	dIASSERT (o1->type == dConeClass);
 	dIASSERT (o2->type == dPlaneClass);
 	dxCone *cone = (dxCone*) o1;
@@ -393,7 +393,7 @@ int dCollideConePlane (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideRayCone (dxGeom *o1, dxGeom *o2, int flags,
 						 dContactGeom *contact, int skip)
 {
-	dIASSERT (skip >= (int)sizeof(dContactGeom));
+	dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
 	dIASSERT (o1->type == dRayClass);
 	dIASSERT (o2->type == dConeClass);
 	dxRay *ray = (dxRay*) o1;
@@ -442,7 +442,7 @@ int dCollideRayCone (dxGeom *o1, dxGeom *o2, int flags,
 
 int dCollideConeSphere(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip)
 {
-	dIASSERT (skip >= (int)sizeof(dContactGeom));
+	dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
 	dIASSERT (o1->type == dConeClass);
 	dIASSERT (o2->type == dSphereClass);
 	dxCone		*cone = (dxCone*) o1;
@@ -456,7 +456,7 @@ int dCollideConeSphere(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact,
 
 int dCollideConeBox(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip)
 {
-	dIASSERT (skip >= (int)sizeof(dContactGeom));
+	dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
 	dIASSERT (o1->type == dConeClass);
 	dIASSERT (o2->type == dBoxClass);
 	dxCone		*cone = (dxCone*) o1;
@@ -470,7 +470,7 @@ int dCollideConeBox(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, in
 
 int dCollideCCylinderCone(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip)
 {
-	dIASSERT (skip >= (int)sizeof(dContactGeom));
+	dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
 	dIASSERT (o1->type == dCCylinderClass);
 	dIASSERT (o2->type == dConeClass);
 	dxCone		*cone = (dxCone*) o2;
@@ -486,7 +486,7 @@ extern int dCollideSTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact,
 
 int dCollideTriMeshCone(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip)
 {
-	dIASSERT (skip >= (int)sizeof(dContactGeom));
+	dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
 	dIASSERT (o1->type == dTriMeshClass);
 	dIASSERT (o2->type == dConeClass);
 	dxCone		*cone = (dxCone*) o2;

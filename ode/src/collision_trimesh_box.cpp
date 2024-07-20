@@ -1254,7 +1254,7 @@ static void dQueryBTLPotentialCollisionTriangles(OBBCollider &Collider,
 }
 
 int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, int Stride){
-    dIASSERT (Stride >= (int)sizeof(dContactGeom));
+    dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));
     dIASSERT (g1->type == dTriMeshClass);
     dIASSERT (BoxGeom->type == dBoxClass);
     dIASSERT ((Flags & NUMC_MASK) >= 1);
@@ -1315,7 +1315,7 @@ int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, 
 #if dTRIMESH_GIMPACT
 int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, int Stride)
 {
-    dIASSERT (Stride >= (int)sizeof(dContactGeom));
+    dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));
     dIASSERT (g1->type == dTriMeshClass);
     dIASSERT (BoxGeom->type == dBoxClass);
     dIASSERT ((Flags & NUMC_MASK) >= 1);

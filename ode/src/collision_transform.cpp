@@ -125,7 +125,7 @@ void dxGeomTransform::computeFinalTx()
 int dCollideTransform (dxGeom *o1, dxGeom *o2, int flags,
                        dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dGeomTransformClass);
 
     dxGeomTransform *tr = (dxGeomTransform*) o1;

@@ -267,7 +267,7 @@ static int ray_sphere_helper (dxRay *ray, dVector3 sphere_pos, dReal radius,
 int dCollideRaySphere (dxGeom *o1, dxGeom *o2, int flags,
                        dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dRayClass);
     dIASSERT (o2->type == dSphereClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -288,7 +288,7 @@ int dCollideRaySphere (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideRayBox (dxGeom *o1, dxGeom *o2, int flags,
                     dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dRayClass);
     dIASSERT (o2->type == dBoxClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -390,7 +390,7 @@ int dCollideRayBox (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideRayCapsule (dxGeom *o1, dxGeom *o2,
                         int flags, dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dRayClass);
     dIASSERT (o2->type == dCapsuleClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -515,7 +515,7 @@ int dCollideRayCapsule (dxGeom *o1, dxGeom *o2,
 int dCollideRayPlane (dxGeom *o1, dxGeom *o2, int flags,
                       dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dRayClass);
     dIASSERT (o2->type == dPlaneClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);

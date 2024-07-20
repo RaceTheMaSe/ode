@@ -1738,7 +1738,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
 
 int dCollideHeightfield( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contact, int skip )
 {
-    dIASSERT( skip >= (int)sizeof(dContactGeom) );
+    dIASSERT( skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip) );
     dIASSERT( o1->type == dHeightfieldClass );
     dIASSERT((flags & NUMC_MASK) >= 1);
 

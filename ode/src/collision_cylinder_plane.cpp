@@ -42,7 +42,7 @@
 
 int dCollideCylinderPlane(dxGeom *Cylinder, dxGeom *Plane, int flags, dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (Cylinder->type == dCylinderClass);
     dIASSERT (Plane->type == dPlaneClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);

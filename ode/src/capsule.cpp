@@ -130,7 +130,7 @@ dReal dGeomCapsulePointDepth (dGeomID g, dReal x, dReal y, dReal z)
 int dCollideCapsuleSphere (dxGeom *o1, dxGeom *o2, int flags,
                            dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dCapsuleClass);
     dIASSERT (o2->type == dSphereClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -167,7 +167,7 @@ int dCollideCapsuleSphere (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideCapsuleBox (dxGeom *o1, dxGeom *o2, int flags,
                         dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dCapsuleClass);
     dIASSERT (o2->type == dBoxClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -241,7 +241,7 @@ int dCollideCapsuleBox (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideCapsuleCapsule (dxGeom *o1, dxGeom *o2,
                             int flags, dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dCapsuleClass);
     dIASSERT (o2->type == dCapsuleClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -359,7 +359,7 @@ int dCollideCapsuleCapsule (dxGeom *o1, dxGeom *o2,
 int dCollideCapsulePlane (dxGeom *o1, dxGeom *o2, int flags,
                           dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dCapsuleClass);
     dIASSERT (o2->type == dPlaneClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);

@@ -110,7 +110,7 @@ dReal dGeomSpherePointDepth (dGeomID g, dReal x, dReal y, dReal z)
 int dCollideSphereSphere (dxGeom *o1, dxGeom *o2, int flags,
                           dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dSphereClass);
     dIASSERT (o2->type == dSphereClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -134,7 +134,7 @@ int dCollideSphereSphere (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideSphereBox (dxGeom *o1, dxGeom *o2, int flags,
                        dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dSphereClass);
     dIASSERT (o2->type == dBoxClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -228,7 +228,7 @@ int dCollideSphereBox (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideSpherePlane (dxGeom *o1, dxGeom *o2, int flags,
                          dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dSphereClass);
     dIASSERT (o2->type == dPlaneClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);

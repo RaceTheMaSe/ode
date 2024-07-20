@@ -133,7 +133,7 @@ SwapNormals(dVector3 *&pen_v, dVector3 *&col_v, dVector3* v1, dVector3* v2,
 int 
 dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Stride)
 {
-    dIASSERT (Stride >= (int)sizeof(dContactGeom));
+    dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));
     dIASSERT (g1->type == dTriMeshClass);
     dIASSERT (g2->type == dTriMeshClass);
     dIASSERT ((Flags & NUMC_MASK) >= 1);

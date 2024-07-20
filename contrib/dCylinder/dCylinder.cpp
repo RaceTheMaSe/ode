@@ -939,7 +939,7 @@ int dCollideCylS (dxGeom *o1, dxGeom *o2, int flags,
 {
  
 
-  dIASSERT (skip >= (int)sizeof(dContactGeom));
+  dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
   dIASSERT (dGeomGetClass(o2) == dSphereClass);
   dIASSERT (dGeomGetClass(o1) == dCylinderClassUser);
   const dReal* p1=dGeomGetPosition(o1);
@@ -1126,7 +1126,7 @@ int dCollideCylPlane
 	(
 	dxGeom *o1, dxGeom *o2, int flags,
 			  dContactGeom *contact, int skip){
-  dIASSERT (skip >= (int)sizeof(dContactGeom));
+  dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
   dIASSERT (dGeomGetClass(o1) == dCylinderClassUser);
   dIASSERT (dGeomGetClass(o2) == dPlaneClass);
   contact->g1 = const_cast<dxGeom*> (o1);
@@ -1237,7 +1237,7 @@ if(dFabs(Q2)>M_SQRT1_2){
 
 int dCollideCylRay(dxGeom *o1, dxGeom *o2, int flags,
 		   dContactGeom *contact, int skip) {
-  dIASSERT (skip >= (int)sizeof(dContactGeom));
+  dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
   dIASSERT (dGeomGetClass(o1) == dCylinderClassUser);
   dIASSERT (dGeomGetClass(o2) == dRayClass);
   contact->g1 = const_cast<dxGeom*> (o1);

@@ -84,7 +84,7 @@ int dCollideCB (const dxGeom *o1, const dxGeom *o2, int flags,
 {
   int i;
 
-  dIASSERT (skip >= (int)sizeof(dContactGeom));
+  dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
   dIASSERT (o1->_class->num == dCCylinderClass);
   dIASSERT (o2->_class->num == dBoxClass);
   contact->g1 = const_cast<dxGeom*> (o1);
@@ -307,7 +307,7 @@ int dCollideCCylinderCCylinder (dxGeom *o1, dxGeom *o2,
   int i;
   const dReal tolerance = REAL(1e-5);
 
-  dIASSERT (skip >= (int)sizeof(dContactGeom));
+  dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
   dIASSERT (o1->type == dCCylinderClass);
   dIASSERT (o2->type == dCCylinderClass);
   dxCCylinder *cyl1 = (dxCCylinder*) o1;

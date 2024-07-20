@@ -495,7 +495,7 @@ dContactGeom *  PushNewContact( dxGeom* g1, dxGeom* g2, int TriIndex1, int TriIn
 /*extern */
 int dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Stride)
 {
-    dIASSERT (Stride >= (int)sizeof(dContactGeom));
+    dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));
     dIASSERT (g1->type == dTriMeshClass);
     dIASSERT (g2->type == dTriMeshClass);
     dIASSERT ((Flags & NUMC_MASK) >= 1);
@@ -1337,7 +1337,7 @@ bool TriTriContacts(const dVector3 tr1[3],
 /*extern */
 int dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Stride)
 {
-    dIASSERT (Stride >= (int)sizeof(dContactGeom));
+    dIASSERT (Stride >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(Stride));
     dIASSERT (g1->type == dTriMeshClass);
     dIASSERT (g2->type == dTriMeshClass);
     dIASSERT ((Flags & NUMC_MASK) >= 1);

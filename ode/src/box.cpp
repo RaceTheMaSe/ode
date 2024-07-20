@@ -740,7 +740,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
 int dCollideBoxBox (dxGeom *o1, dxGeom *o2, int flags,
                     dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dBoxClass);
     dIASSERT (o2->type == dBoxClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
@@ -768,7 +768,7 @@ int dCollideBoxBox (dxGeom *o1, dxGeom *o2, int flags,
 int dCollideBoxPlaneOld(dxGeom *o1, dxGeom *o2,
                         int flags, dContactGeom *contact, int skip)
 {
-    dIASSERT (skip >= (int)sizeof(dContactGeom));
+    dIASSERT (skip >= (int)sizeof(dContactGeom) && MACHINE_ALIGNED(skip));
     dIASSERT (o1->type == dBoxClass);
     dIASSERT (o2->type == dPlaneClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
