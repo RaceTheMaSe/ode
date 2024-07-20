@@ -38,6 +38,9 @@
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning (disable: 4789) // NOTE: false positive
+#  if _MSC_VER < 1900 // up to 2013
+#    pragma warning (disable: 4309) // 'static_cast' : truncation of constant value
+#  endif
 #endif
 
 #if defined(__GNUC__)

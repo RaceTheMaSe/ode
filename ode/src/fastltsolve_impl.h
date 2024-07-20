@@ -35,6 +35,11 @@
 #include "common_impl.h"
 #include "threaded_solver_ldlt.h"
 
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning (disable: 4309) // 'static_cast' : truncation of constant value
+#endif
+
 
 /* solve L^T * x=b, with b containing 1 right hand side.
  * L is an n*n lower triangular matrix with ones on the diagonal.
@@ -1440,5 +1445,8 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
     }
 }
 
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 #endif

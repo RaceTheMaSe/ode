@@ -33,6 +33,11 @@
 #include "common_impl.h"
 #include "threaded_solver_ldlt.h"
 
+#if defined(_MSC_VER) && _MSC_VER < 1900 // up to 2013
+#pragma warning(push)
+#pragma warning (disable: 4309) // 'static_cast' : truncation of constant value
+#endif
+
 #if defined(__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsign-conversion" //  negative array indices
@@ -1615,6 +1620,10 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
 
 #if defined(__GNUC__)
 #pragma GCC diagnostic pop
+#endif
+
+#if defined(_MSC_VER) && _MSC_VER < 1900 // up to 2013
+#pragma warning(pop)
 #endif
 
 #endif
