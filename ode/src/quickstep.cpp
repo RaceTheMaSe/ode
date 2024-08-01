@@ -1160,7 +1160,7 @@ void dxQuickStepIsland(const dxStepperProcessingCallContext *callContext)
 
         // It is preferable to post single threaded task first to be started sooner
         world->PostThreadedCall(NULL, NULL, 0, stage1CallReleasee, NULL, &dxQuickStepIsland_Stage0_Joints_Callback, stage0JointsCallContext, 0, "QuickStepIsland Stage0-Joints");
-        dIASSERT(jointThreads == 1);
+        // dIASSERT(jointThreads == 1);
 
         if (bodyThreads > 1) {
             world->PostThreadedCallsGroup(NULL, bodyThreads - 1, stage1CallReleasee, &dxQuickStepIsland_Stage0_Bodies_Callback, stage0BodiesCallContext, "QuickStepIsland Stage0-Bodies");

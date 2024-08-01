@@ -252,8 +252,10 @@ static void printContact (PrintingContext &c, dxJoint *j)
     //    geoms that are attached to bodies.
     c.print ("mu",ct->contact.surface.mu);
     if (mode & dContactMu2) c.print ("mu2",ct->contact.surface.mu2);
-    if (mode & dContactBounce) c.print ("bounce",ct->contact.surface.bounce);
-    if (mode & dContactBounce) c.print ("bounce_vel",ct->contact.surface.bounce_vel);
+    if (mode & dContactBounce) {
+        c.print ("bounce",ct->contact.surface.bounce);
+        c.print ("bounce_vel",ct->contact.surface.bounce_vel);
+    }
     if (mode & dContactSoftERP) c.print ("soft_ERP",ct->contact.surface.soft_erp);
     if (mode & dContactSoftCFM) c.print ("soft_CFM",ct->contact.surface.soft_cfm);
     if (mode & dContactMotion1) c.print ("motion1",ct->contact.surface.motion1);

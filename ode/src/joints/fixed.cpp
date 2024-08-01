@@ -109,7 +109,6 @@ void dJointSetFixed ( dJointID j )
     dxJointFixed* joint = ( dxJointFixed* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Fixed );
-    int i;
 
     // This code is taken from dJointSetSliderAxis(), we should really put the
     // common code in its own function.
@@ -119,7 +118,7 @@ void dJointSetFixed ( dJointID j )
         if ( joint->node[1].body )
         {
             dReal ofs[4];
-            for ( i = 0; i < 4; i++ )
+            for (int i = 0; i < 4; i++ )
                 ofs[i] = joint->node[0].body->posr.pos[i] - joint->node[1].body->posr.pos[i];
             dMultiply1_331 ( joint->offset, joint->node[0].body->posr.R, ofs );
         }

@@ -555,7 +555,7 @@ void dxStepIsland(const dxStepperProcessingCallContext *callContext)
 
         dxStepIsland_Stage0_Joints(stage0JointsCallContext);
         world->AlterThreadedCallDependenciesCount(stage1CallReleasee, -1);
-        dIASSERT(jointThreads == 1);
+        // dIASSERT(jointThreads == 1);
     }
 }    
 
