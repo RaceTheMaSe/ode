@@ -81,7 +81,7 @@ static void *_OU_CONVENTION_CALLBACK ForwardOUMemoryRealloc(void *pv_ExistingBlo
 
 static void _OU_CONVENTION_CALLBACK ForwardOUMemoryFree(void *pv_ExistingBlock)
 {
-    return dFree(pv_ExistingBlock, 0);
+    dFree(pv_ExistingBlock, 0);
 }
 
 

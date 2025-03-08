@@ -57,7 +57,7 @@ void dNormalize4(dVector4 a)
 
 void dPlaneSpace(const dVector3 n, dVector3 p, dVector3 q)
 {
-    return dxPlaneSpace(n, p, q);
+    dxPlaneSpace(n, p, q);
 }
 
 int dOrthogonalizeR(dMatrix3 m)
