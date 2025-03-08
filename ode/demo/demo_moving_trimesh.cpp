@@ -160,7 +160,7 @@ static dTriMeshDataID TriData1, TriData2;  // reusable static trimesh data
 // this is called by dSpaceCollide when two objects in space are
 // potentially colliding.
 
-static void nearCallback (void *, dGeomID o1, dGeomID o2)
+static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
   int i;
   // if (o1->body && o2->body) return;

@@ -104,7 +104,7 @@ static void dLineClosestApproach(const dVector3 pa, const dVector3 ua,
 // draw all objects in a space, and draw all the collision contact points
 
 static 
-void nearCallback(void *, dGeomID o1, dGeomID o2)
+void nearCallback(void * /*data*/, dGeomID o1, dGeomID o2)
 {
     int i, j, n;
     const int N = 100;
@@ -1353,7 +1353,7 @@ void command(int cmd)
 // simulation loop
 
 static 
-void simLoop(int)
+void simLoop(int /*pause*/)
 {
     do {
         draw_all_objects_called = 0;

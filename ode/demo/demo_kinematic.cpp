@@ -102,7 +102,7 @@ static void removeQueued()
 }
 
 
-static void nearCallback(void *, dGeomID g1, dGeomID g2)
+static void nearCallback(void * /*data*/, dGeomID g1, dGeomID g2)
 {
     if (g1 == ground->id()) {
         queueRemoval(g2);

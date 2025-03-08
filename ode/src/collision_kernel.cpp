@@ -394,7 +394,7 @@ unsigned dxGeom::getParentSpaceTLSKind() const
     return parent_space ? parent_space->tls_kind : dSPACE_TLS_KIND_INIT_VALUE;
 }
 
-int dxGeom::AABBTest (dxGeom *, dReal [6])
+int dxGeom::AABBTest (dxGeom * /*g*/, dReal /*box*/[6])
 {
     return 1;
 }

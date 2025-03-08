@@ -168,7 +168,7 @@ static void contactplat_2(dContact &contact)
 
 
 
-static void nearCallback (void *, dGeomID o1, dGeomID o2)
+static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
     dMatrix3 RI;
     static const dReal ss[3] = {0.02,0.02,0.02};

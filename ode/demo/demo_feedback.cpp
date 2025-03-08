@@ -117,7 +117,7 @@ static void start()
 
 // called when a key pressed
 
-static void command (int)
+static void command (int /*cmd*/)
 {}
 
 

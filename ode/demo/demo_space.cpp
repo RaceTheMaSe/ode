@@ -119,7 +119,7 @@ static void init_test()
 // this is called by dSpaceCollide when two objects in space are
 // potentially colliding.
 
-static void nearCallback (void *, dGeomID o1, dGeomID o2)
+static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
   dsizeint i,j;
   i = (dsizeint) dGeomGetData (o1);
@@ -158,7 +158,7 @@ static void command (int cmd)
 
 // simulation loop
 
-static void simLoop (int)
+static void simLoop (int /*pause*/)
 {
   int i,j;
 

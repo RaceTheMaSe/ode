@@ -259,7 +259,7 @@ static void start()
 }
 
 
-static void nearCallback(void *, dGeomID a, dGeomID b)
+static void nearCallback(void * /*data*/, dGeomID a, dGeomID b)
 {
     const unsigned max_contacts = 8;
     dContact contacts[max_contacts];

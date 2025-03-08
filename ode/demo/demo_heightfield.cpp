@@ -153,7 +153,7 @@ static int write_world = 0;
 //============================
 
 
-static dReal heightfield_callback( void*, int x, int z )
+static dReal heightfield_callback( void* /*data*/, int x, int z )
 {
     dReal fx = ( ((dReal)x) - ( HFIELD_WSTEP-1 )/2 ) / (dReal)( HFIELD_WSTEP-1 );
     dReal fz = ( ((dReal)z) - ( HFIELD_DSTEP-1 )/2 ) / (dReal)( HFIELD_DSTEP-1 );
@@ -170,7 +170,7 @@ static dReal heightfield_callback( void*, int x, int z )
 // this is called by dSpaceCollide when two objects in space are
 // potentially colliding.
 
-static void nearCallback (void *, dGeomID o1, dGeomID o2)
+static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
     int i;
     // if (o1->body && o2->body) return;
