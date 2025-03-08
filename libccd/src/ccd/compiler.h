@@ -23,7 +23,7 @@
 #define ccd_offsetof(TYPE, MEMBER) offsetof(TYPE, MEMBER)
 
 #define ccd_container_of(ptr, type, member) \
-    (type *)( (char *)ptr - ccd_offsetof(type, member))
+    (type *)( (char *)(ptr) - ccd_offsetof(type, member))
 
 
 /**

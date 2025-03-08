@@ -362,7 +362,7 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
 
 #define _GETA(i,j) (A[i][j])
 //#define _GETA(i,j) (A[(i)*nskip+(j)])
-#define GETA(i,j) ((i > j) ? _GETA(i,j) : _GETA(j,i))
+#define GETA(i,j) (((i) > (j)) ? _GETA(i,j) : _GETA(j,i))
 
 
 /*extern */

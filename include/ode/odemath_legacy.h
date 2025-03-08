@@ -98,9 +98,9 @@
   } while(0)
 #define dCROSSpqr(a,op,b,c,p,q,r) \
   do { \
-  (a)[  0] op ((b)[  q]*(c)[2*r] - (b)[2*q]*(c)[  r]); \
-  (a)[  p] op ((b)[2*q]*(c)[  0] - (b)[  0]*(c)[2*r]); \
-  (a)[2*p] op ((b)[  0]*(c)[  r] - (b)[  q]*(c)[  0]); \
+  (a)[  0] op ((b)[  q]*(c)[2*(r)] - (b)[2*(q)]*(c)[  r]); \
+  (a)[  p] op ((b)[2*(q)]*(c)[  0] - (b)[  0]*(c)[2*(r)]); \
+  (a)[2*(p)] op ((b)[  0]*(c)[  r] - (b)[  q]*(c)[  0]); \
   } while(0)
 #define dCROSS114(a,op,b,c) dCROSSpqr(a,op,b,c,1,1,4)
 #define dCROSS141(a,op,b,c) dCROSSpqr(a,op,b,c,1,4,1)

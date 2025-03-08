@@ -645,7 +645,7 @@ void AABBTreeCollider::_CollideBoxTri(const AABBNoLeafNode* b)
 #define FETCH_LEAF(prim_index, imesh, rot, trans)				\
 	mLeafIndex = udword(prim_index);									\
 	/* Request vertices from the app */							\
-	VertexPointers VP;	ConversionArea VC;	imesh->GetTriangle(VP, udword(prim_index), VC); \
+	VertexPointers VP;	ConversionArea VC;	(imesh)->GetTriangle(VP, udword(prim_index), VC); \
 	/* Transform them in a common space */						\
 	TransformPoint(mLeafVerts[0], *VP.Vertex[0], rot, trans);	\
 	TransformPoint(mLeafVerts[1], *VP.Vertex[1], rot, trans);	\

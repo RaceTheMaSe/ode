@@ -74,7 +74,7 @@ static int draw_all_objects_called;
 
 #define MAKE_TEST(number,function) \
   if (testslot[number].name) dDebug (0,"test number already used"); \
-  CONST_IF (number <= 0 || number >= MAX_TESTS) dDebug (0,"bad test number"); \
+  CONST_IF ((number) <= 0 || (number) >= MAX_TESTS) dDebug (0,"bad test number"); \
   testslot[number].name = # function; \
   testslot[number].test_fn = function
 

@@ -37,7 +37,7 @@ using namespace Opcode;
 
 #define SET_CONTACT(prim_index, flag)											\
 	/* Set contact status */													\
-	mFlags |= flag;																\
+	mFlags |= (flag);																\
 	mTouchedPrimitives->Add(udword(prim_index));
 
 //! OBB-triangle test

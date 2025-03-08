@@ -121,8 +121,8 @@
 #endif
 
 
-#define dALIGN_SIZE(buf_size, alignment) (((size_t)(buf_size) + (alignment - 1)) & (size_t)(int)(~(alignment - 1))) // Casting the mask to int ensures sign-extension to larger integer sizes
-#define dALIGN_PTR(buf_ptr, alignment) ((void *)(((uintptr)(buf_ptr) + ((alignment) - 1)) & (uintptr)(int)(~(alignment - 1)))) // Casting the mask to int ensures sign-extension to larger integer sizes
+#define dALIGN_SIZE(buf_size, alignment) (((size_t)(buf_size) + ((alignment) - 1)) & (size_t)(int)(~((alignment) - 1))) // Casting the mask to int ensures sign-extension to larger integer sizes
+#define dALIGN_PTR(buf_ptr, alignment) ((void *)(((uintptr)(buf_ptr) + ((alignment) - 1)) & (uintptr)(int)(~((alignment) - 1)))) // Casting the mask to int ensures sign-extension to larger integer sizes
 
 /* round something up to be a multiple of the EFFICIENT_ALIGNMENT */
 #define dEFFICIENT_SIZE(x) dALIGN_SIZE(x, EFFICIENT_ALIGNMENT)

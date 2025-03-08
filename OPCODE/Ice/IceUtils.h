@@ -200,10 +200,10 @@
 	// Prevent nasty user-manipulations (strategy borrowed from Charles Bloom)
 //	#define PREVENT_COPY(curclass)	void operator = (const curclass& object)	{	ASSERT(!"Bad use of operator =");	}
 	// ... actually this is better !
-	#define PREVENT_COPY(cur_class)	private: cur_class(const cur_class& object);	cur_class& operator=(const cur_class& object);
+	#define PREVENT_COPY(cur_class)	private: cur_class(const cur_class& object);	(cur_class)& operator=(const cur_class& object);
 
 	//! TO BE DOCUMENTED
-	#define OFFSET_OF(Class, Member)	(size_t)&(((Class*)0)->Member)
+	#define OFFSET_OF(Class, Member)	((size_t)&(((Class*)0)->Member))
 	//! TO BE DOCUMENTED
 #ifndef ARRAYSIZE
 	#define ARRAYSIZE(p)				(sizeof(p)/sizeof((p)[0]))
@@ -219,9 +219,9 @@
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	FUNCTION ICECORE_API udword Alignment(udword address);
 
-	#define IS_ALIGNED_2(x)		((x&1)==0)
-	#define IS_ALIGNED_4(x)		((x&3)==0)
-	#define IS_ALIGNED_8(x)		((x&7)==0)
+	#define IS_ALIGNED_2(x)		(((x)&1)==0)
+	#define IS_ALIGNED_4(x)		(((x)&3)==0)
+	#define IS_ALIGNED_8(x)		(((x)&7)==0)
 
 	inline_ void _prefetch(void const* ptr)		{ char c = *(char const volatile *)ptr; (void)c; }
 

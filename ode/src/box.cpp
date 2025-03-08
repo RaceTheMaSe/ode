@@ -813,9 +813,9 @@ int dCollideBoxPlaneOld(dxGeom *o1, dxGeom *o2,
     p[1] = o1->final_posr->pos[1];
     p[2] = o1->final_posr->pos[2];
 #define FOO(i,op) \
-    p[0] op REAL(0.5)*box->side[i] * R[0+i]; \
-    p[1] op REAL(0.5)*box->side[i] * R[4+i]; \
-    p[2] op REAL(0.5)*box->side[i] * R[8+i];
+    p[0] op REAL(0.5)*box->side[i] * R[0+(i)]; \
+    p[1] op REAL(0.5)*box->side[i] * R[4+(i)]; \
+    p[2] op REAL(0.5)*box->side[i] * R[8+(i)];
 #define BAR(i,iinc) if (A ## iinc > 0) { FOO(i,-=) } else { FOO(i,+=) } do {} while(0)
     BAR(0,1);
     BAR(1,2);
@@ -835,13 +835,13 @@ int dCollideBoxPlaneOld(dxGeom *o1, dxGeom *o2,
     // along the two sides with the smallest projected length.
 
 #define FOO(i,j,op) \
-    CONTACT(contact,i*skip)->pos[0] = p[0] op box->side[j] * R[0+j]; \
-    CONTACT(contact,i*skip)->pos[1] = p[1] op box->side[j] * R[4+j]; \
-    CONTACT(contact,i*skip)->pos[2] = p[2] op box->side[j] * R[8+j];
+    CONTACT(contact,(i)*skip)->pos[0] = p[0] op box->side[j] * R[0+(j)]; \
+    CONTACT(contact,(i)*skip)->pos[1] = p[1] op box->side[j] * R[4+(j)]; \
+    CONTACT(contact,(i)*skip)->pos[2] = p[2] op box->side[j] * R[8+(j)];
 #define BAR(ctact,side,sideinc) \
     if (depth - B ## sideinc < 0) goto done; \
     if (A ## sideinc > 0) { FOO(ctact,side,+); } else { FOO(ctact,side,-); } \
-    CONTACT(contact,ctact*skip)->depth = depth - B ## sideinc; \
+    CONTACT(contact,(ctact)*skip)->depth = depth - B ## sideinc; \
     ret++
 
     if (B1 < B2) {

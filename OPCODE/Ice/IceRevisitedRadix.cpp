@@ -75,7 +75,7 @@ using namespace IceCore;
 	if(INVALID_RANKS)																		\
 	{																						\
 		/* Prepare for temporal coherence */												\
-		const type* Running = (const type*)buffer;											\
+		const type* Running = (const type*)(buffer);											\
 		type PrevVal = *Running;															\
 																							\
 		while(p!=pe)																		\
@@ -105,12 +105,12 @@ using namespace IceCore;
 	{																						\
 		/* Prepare for temporal coherence */												\
 		udword* Indices = mRanks;															\
-		type PrevVal = (type)buffer[*Indices];												\
+		type PrevVal = (type)(buffer)[*Indices];											\
 																							\
 		while(p!=pe)																		\
 		{																					\
 			/* Read input buffer in previous sorted order */								\
-			type Val = (type)buffer[*Indices++];											\
+			type Val = (type)(buffer)[*Indices++];											\
 			/* Check whether already sorted or not */										\
 			if(Val<PrevVal)	{ AlreadySorted = false; break; } /* Early out */				\
 			/* Update for next iteration */													\
@@ -136,7 +136,7 @@ using namespace IceCore;
 
 #define CHECK_PASS_VALIDITY(pass)															\
 	/* Shortcut to current counters */														\
-	const udword* CurCount = &mHistogram[pass<<8];											\
+	const udword* CurCount = &mHistogram[(pass)<<8];										\
 																							\
 	/* Reset flag. The sorting pass is supposed to be performed. (default) */				\
 	bool PerformPass = true;																\

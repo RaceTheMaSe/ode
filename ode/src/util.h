@@ -321,7 +321,7 @@ struct dxStepperProcessingCallContext
     unsigned                m_lcpAllowedThreads;
 };
 
-#define BEGIN_STATE_SAVE(memarena, state) void *state = memarena->SaveState();
+#define BEGIN_STATE_SAVE(memarena, state) void *state = (memarena)->SaveState(); // NOLINT(bugprone-macro-parentheses)
 #define END_STATE_SAVE(memarena, state) memarena->RestoreState(state)
 
 typedef void (*dstepper_fn_t) (const dxStepperProcessingCallContext *callContext);

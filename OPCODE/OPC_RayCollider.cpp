@@ -122,7 +122,7 @@ using namespace Opcode;
 #define SET_CONTACT(prim_index, flag)											\
 	mNbIntersections++;															\
 	/* Set contact status */													\
-	mFlags |= flag;																\
+	mFlags |= (flag);																\
 	/* In any case the contact has been found and recorded in mStabbedFace  */	\
 	mStabbedFace.mFaceID = udword(prim_index);
 

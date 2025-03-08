@@ -26,7 +26,7 @@
 //****************************************************************************
 // matrix sizes
 
-#define dALIGN_SIZE(buf_size, alignment) (((size_t)(buf_size) + (alignment - 1)) & (size_t)(int)(~(alignment - 1))) // Casting the mask to int ensures sign-extension to larger integer sizes
+#define dALIGN_SIZE(buf_size, alignment) (((size_t)(buf_size) + ((alignment) - 1)) & (size_t)(int)(~((alignment) - 1))) // Casting the mask to int ensures sign-extension to larger integer sizes
 
 #define MSIZE 21
 #define MSIZE4 dALIGN_SIZE(MSIZE, 4)	// MSIZE rounded up to 4

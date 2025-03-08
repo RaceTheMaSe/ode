@@ -45,17 +45,17 @@ typedef struct _ccd_list_t ccd_list_t;
  * Iterates over list.
  */
 #define ccdListForEach(list, item) \
-        for (item = (list)->next; \
-             _ccd_prefetch((item)->next), item != (list); \
-             item = (item)->next)
+        for ((item) = (list)->next; \
+             _ccd_prefetch((item)->next), (item) != (list); \
+             (item) = (item)->next)
 
 /**
  * Iterates over list safe against removal of list entry
  */
 #define ccdListForEachSafe(list, item, tmp) \
-	    for (item = (list)->next, tmp = (item)->next; \
-             item != (list); \
-		     item = tmp, tmp = (item)->next)
+	    for ((item) = (list)->next, (tmp) = (item)->next; \
+             (item) != (list); \
+		     (item) = (tmp), (tmp) = (item)->next)
 
 /**
  * Iterates over list of given type.
@@ -64,9 +64,9 @@ typedef struct _ccd_list_t ccd_list_t;
  * @member:	the name of the list_struct within the struct.
  */
 #define ccdListForEachEntry(head, pos, postype, member)                 \
-	for (pos = ccdListEntry((head)->next, postype, member);	\
-	     _ccd_prefetch(pos->member.next), &pos->member != (head); 	\
-	     pos = ccdListEntry(pos->member.next, postype, member))
+	for ((pos) = ccdListEntry((head)->next, postype, member);	\
+	     _ccd_prefetch((pos)->member.next), &(pos)->member != (head); 	\
+	     (pos) = ccdListEntry((pos)->member.next, postype, member))
 
 /**
  * Iterates over list of given type safe against removal of list entry
@@ -76,10 +76,10 @@ typedef struct _ccd_list_t ccd_list_t;
  * @member:	the name of the list_struct within the struct.
  */
 #define ccdListForEachEntrySafe(head, pos, postype, n, ntype, member)         \
-    for (pos = ccdListEntry((head)->next, postype, member),             \
-		 n = ccdListEntry(pos->member.next, postype, member);	\
-	     &pos->member != (head); 					\
-	     pos = n, n = ccdListEntry(n->member.next, ntype, member))
+    for ((pos) = ccdListEntry((head)->next, postype, member),             \
+		 (n) = ccdListEntry((pos)->member.next, postype, member);	\
+	     &(pos)->member != (head); 					\
+	     (pos) = (n), (n) = ccdListEntry((n)->member.next, ntype, member))
 
 
 /**

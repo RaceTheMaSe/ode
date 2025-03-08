@@ -592,7 +592,7 @@ void dxSAPSpace::BoxPruning( int numBoxes, dxGeom** geoms, dArray< Pair >& pairs
 
 #define CHECK_PASS_VALIDITY(pass)															\
     /* Shortcut to current counters */														\
-    const uint32* CurCount = &mHistogram[pass<<8];											\
+    const uint32* CurCount = &mHistogram[(pass)<<8];											\
     \
     /* Reset flag. The sorting pass is supposed to be performed. (default) */				\
     bool PerformPass = true;																\
@@ -606,7 +606,7 @@ void dxSAPSpace::BoxPruning( int numBoxes, dxGeom** geoms, dArray< Pair >& pairs
     /* for words and O(n) for bytes. Running time for floats depends on actual values... */	\
     \
     /* Get first byte */																	\
-    const uint8 UniqueVal = *(((const uint8*)input)+pass);									\
+    const uint8 UniqueVal = *(((const uint8*)input)+(pass));									\
     \
     /* Check that byte's counter */															\
     if(CurCount[UniqueVal]==nb)	PerformPass=false

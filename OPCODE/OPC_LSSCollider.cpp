@@ -37,7 +37,7 @@ using namespace Opcode;
 
 #define SET_CONTACT(prim_index, flag)									\
 	/* Set contact status */											\
-	mFlags |= flag;														\
+	mFlags |= (flag);														\
 	mTouchedPrimitives->Add(udword(prim_index));
 
 //! LSS-triangle overlap test
@@ -680,7 +680,7 @@ bool HybridLSSCollider::Collide(LSSCache& cache, const IceMaths::LSS& lss, const
 	if(GetContactStatus())
 	{
 		// Reset contact status, since it currently only reflects collisions with leaf boxes
-		Collider::InitQueryBase();
+		VolumeCollider::InitQueryBase();
 
 		// Change dest container so that we can use built-in overlap tests and get collided primitives
 		cache.TouchedPrimitives.Reset();

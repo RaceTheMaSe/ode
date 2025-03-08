@@ -150,7 +150,7 @@ ODE_PURE_INLINE sizeint dxEstimateLDLTRemoveTmpbufSize(unsigned n2, unsigned nsk
 }
 
 /* For internal use */
-#define dSetZero(a, n) dxSetZero(a, (unsigned int)n)
+#define dSetZero(a, n) dxSetZero(a, (unsigned int)(n))
 #define dSetValue(a, n, value) dxSetValue(a, n, value)
 #define dDot(a, b, n) dxDot(a, b, n)
 #define dMultiply0(A, B, C, p, q, r) dxMultiply0(A, B, C, p, q, r)

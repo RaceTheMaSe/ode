@@ -442,7 +442,7 @@ enum {
 
 #define D_ALL_PARAM_NAMES(start) \
   /* parameters for limits and motors */ \
-  dParamLoStop = start, \
+  dParamLoStop = (start), \
   dParamHiStop, \
   dParamVel, \
   dParamLoVel, \
@@ -467,9 +467,9 @@ enum {
    *                  (dParamGroup2 | dParamFMax) == dParamFMax2
    */
 #define D_ALL_PARAM_NAMES_X(start,x) \
-  dParamGroup ## x = start, \
+  dParamGroup ## x = (start), \
   /* parameters for limits and motors */ \
-  dParamLoStop ## x = start, \
+  dParamLoStop ## x = (start), \
   dParamHiStop ## x, \
   dParamVel ## x, \
   dParamLoVel ## x, \

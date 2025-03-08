@@ -306,7 +306,7 @@ static int getHighBitIndex (unsigned int x)
 
 
 // shift x left by i, where i can be positive or negative
-#define SHIFTL(x,i) (((i) >= 0) ? ((x) << (i)) : ((x) >> (-i)))
+#define SHIFTL(x,i) (((i) >= 0) ? ((x) << (i)) : ((x) >> (-(i))))
 
 
 static void captureFrame (int num)

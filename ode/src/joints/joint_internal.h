@@ -31,7 +31,7 @@
 #include "odemath.h"
 
 
-#define checktype(j,t) dUASSERT(j->type() == dJointType##t, \
+#define checktype(j,t) dUASSERT((j)->type() == dJointType##t, \
     "joint type is not " #t)
 
 
