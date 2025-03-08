@@ -56,7 +56,7 @@ public:
     Block* mParent;
     Block* mChildren;
 
-    void Create(const dReal MinX, const dReal MaxX, const dReal MinZ, const dReal MaxZ, Block* Parent, int Depth, Block*& Blocks);
+    void Create(dReal MinX, dReal MaxX, dReal MinZ, dReal MaxZ, Block* Parent, int Depth, Block*& Blocks);
 
     void Collide(void* UserData, dNearCallback* Callback);
     void Collide(dGeomID g1, dGeomID g2, void* UserData, dNearCallback* Callback);

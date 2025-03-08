@@ -75,7 +75,7 @@ struct sCylinderTrimeshColliderData
     bool _cldClipCylinderEdgeToTriangle(const dVector3 &v0, const dVector3 &v1, const dVector3 &v2);
     void _cldClipCylinderToTriangle(const dVector3 &v0, const dVector3 &v1, const dVector3 &v2);
     void TestOneTriangleVsCylinder(const dVector3 &v0, const dVector3 &v1, const dVector3 &v2, 
-        const bool bDoubleSided);
+        bool bDoubleSided);
     int TestCollisionForSingleTriangle(int ctContacts0, int Triint, dVector3 dv[3], 
         bool &bOutFinishSearching);
 
