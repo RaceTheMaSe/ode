@@ -539,6 +539,8 @@ void dxJointLimitMotor::set( int num, dReal value )
     case dParamStopCFM:
         stop_cfm = value;
         break;
+    default:
+        break;
     }
 }
 

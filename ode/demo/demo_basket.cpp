@@ -135,6 +135,8 @@ static void command (int cmd)
     case ' ':
 	  reset_ball();
       break;
+    default:
+      break;
   }
 }
 

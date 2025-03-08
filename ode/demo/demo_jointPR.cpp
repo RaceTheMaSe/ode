@@ -205,6 +205,7 @@ static void command (int cmd)
 
     case 'i':
     case 'I':
+    {
         dVector3 anchor;
         dJointGetPRAnchor(joint[0], anchor);
         dReal angle = dJointGetPRAngle(joint[0]);
@@ -216,6 +217,9 @@ static void command (int cmd)
         printf("Anchor: [%6.4f, %6.4f, %6.4f]\n", anchor[0], anchor[1], anchor[2]);
         printf("Position: %7.4f, Rate: %7.4f\n", l, v);
         printf("Angle: %7.4f, Rate: %7.4f\n", angle, w);
+        break;
+    }
+    default:
         break;
     }
 }

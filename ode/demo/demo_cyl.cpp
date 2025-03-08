@@ -148,6 +148,8 @@ static void command (int cmd)
     case ' ':
 	  reset_state();
       break;
+    default:
+      break;
   }
 }
 

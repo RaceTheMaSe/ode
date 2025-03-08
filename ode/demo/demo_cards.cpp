@@ -195,6 +195,8 @@ void command(int c)
         case ' ':
             place_cards();
             break;
+        default:
+            break;
     }
 }
 

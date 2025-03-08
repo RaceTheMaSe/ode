@@ -259,6 +259,9 @@ static void handleEvent (XEvent &event, dsFunctions *fn)
 	writeframes ^= 1;
 	if (writeframes) printf ("Now writing frames to PPM files\n");
 	break;
+
+  default:
+    break;
       }
     }
     last_key_pressed = key;		// a kludgy place to put this...
@@ -282,6 +285,9 @@ static void handleEvent (XEvent &event, dsFunctions *fn)
   case ConfigureNotify:
     width = event.xconfigure.width;
     height = event.xconfigure.height;
+    return;
+
+  default:
     return;
   }
 }

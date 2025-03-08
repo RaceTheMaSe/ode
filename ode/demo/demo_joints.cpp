@@ -498,6 +498,9 @@ int setupTest (int n)
     dJointSetPRParam (joint,dParamLoStop2,-0.5);
     dJointSetPRParam (joint,dParamHiStop2,0.5);
     return 1;
+  
+  default:
+      break;
   }
   return 0;
 }
@@ -923,6 +926,9 @@ dReal doStuffAndGetError (int n)
   case 805:
     addOscillatingForce (0.1);
     return dInfinity;
+  
+  default:
+    break;
 	}
 
 

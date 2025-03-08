@@ -272,6 +272,8 @@ void dJointSetDBallParam( dJointID j, int parameter, dReal value )
         case dParamERP:
             joint->erp = value;
             break;
+        default:
+            break;
     }
 }
 

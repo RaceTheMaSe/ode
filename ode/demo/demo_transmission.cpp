@@ -117,6 +117,9 @@ void setup() {
 	dJointSetTransmissionAxis(transmission, 0, 0, 1);
 
 	break;
+
+	default:
+	break;
     }
 
     dJointSetTransmissionBacklash(transmission, backlash);
@@ -319,6 +322,8 @@ static void command (int cmd)
 		fprintf (stderr, "Sprocket ratio set to %.3f.\n", rho_2 / rho_1);
 	    }
 	    break;
+	default:
+		break;
 	}
 
 	setup();
@@ -346,6 +351,8 @@ static void command (int cmd)
 		fprintf (stderr, "Sprocket ratio set to %.3f.\n", rho_2 / rho_1);
 	    }
 	    break;
+	default:
+		break;
 	}
 
 	setup();

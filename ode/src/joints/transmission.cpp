@@ -208,6 +208,9 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
         }
 
         break;
+
+    default:
+        break;
     }
 
     if (update) {
@@ -557,6 +560,8 @@ void dJointSetTransmissionParam( dJointID j, int parameter, dReal value )
             break;
         case dParamERP:
             joint->erp = value;
+            break;
+        default:
             break;
     }
 }

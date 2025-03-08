@@ -77,6 +77,8 @@ void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
             ptrA[0] = a0 * d0;
             break;
         }
+        default:
+            break;
     }
     dSASSERT(step == 4);
 }

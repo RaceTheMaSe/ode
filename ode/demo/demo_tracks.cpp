@@ -390,6 +390,8 @@ static void command (int cmd)
         case ' ':
             resetSim();
             break;
+        default:
+            break;
     }
 }
 

@@ -370,6 +370,9 @@ case 'h' : case 'H' : case '?' :
       }
     }
     break;
+  
+  default:
+    break;
   }
 }
 

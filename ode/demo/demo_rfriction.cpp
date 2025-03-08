@@ -206,6 +206,8 @@ static void command (int cmd)
         case '[':
             omega-=1;
             break;
+        default:
+            break;
     }
 }
 

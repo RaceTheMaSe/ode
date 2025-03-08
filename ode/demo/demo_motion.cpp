@@ -198,6 +198,8 @@ static void nearCallback (void *, dGeomID o1, dGeomID o2)
                 case 2:
                     contactplat_2(contact[i]);
                     break;
+                default:
+                    break;
             }
         }
 

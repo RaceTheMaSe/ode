@@ -320,6 +320,8 @@ void dMassSetTrimesh( dMass *m, dReal density, dGeomID g )
                             a1 = v[0][A];
                             b1 = v[0][B];
                             break;
+                        default:
+                            break;
                         }
                         da = a1 - a0;
                         db = b1 - b0;

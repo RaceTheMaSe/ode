@@ -157,6 +157,9 @@ static void command (int cmd)
         fclose (f);
       }
     }
+    break;
+  default:
+    break;
   }
 }
 

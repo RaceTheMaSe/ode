@@ -198,6 +198,8 @@ static void osxKeyEventHandler( unsigned char key, int /*x*/, int /*y*/ )
                     printf( "Now writing frames to PPM files\n" );
                 }						 
                 break;
+            default:
+                break;
         }
     }
 }
@@ -236,6 +238,8 @@ static void osxMouseEventHandler(int button, int state, int x, int y)
                 if( button == GLUT_RIGHT_BUTTON ) mouseButtonMode &= (~4);  // Right
             }		
             return;
+        default:
+            break;
     }
 }
 

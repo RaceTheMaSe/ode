@@ -1142,6 +1142,8 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                     tmpbuf = memarena->PeekBufferRemainder();
                     lcp.transfer_i_from_C_to_N (si, tmpbuf);
                     break;
+                default:
+                    break;
                 }
 
                 if (cmd <= 3) break;

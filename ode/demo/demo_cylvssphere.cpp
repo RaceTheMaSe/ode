@@ -131,6 +131,8 @@ static void command (int cmd)
   {
     case ' ':
       break;
+    default:
+      break;
   }
 }
 

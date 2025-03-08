@@ -247,6 +247,8 @@ void dxHeightfieldData::ComputeHeightBounds()
 
         break;
 
+    default:
+        break;
     }
 
     // scale and offset
@@ -378,6 +380,9 @@ dReal dxHeightfieldData::GetHeight( int x, int z )
         data_double = (double*)m_pHeightData;
         h = (dReal)( data_double[x+(z * m_nWidthSamples)] );
         break;
+    
+    default:
+        break;
     }
 
     return (h * m_fScale) + m_fOffset;
@@ -465,7 +470,9 @@ dxHeightfieldData::~dxHeightfieldData()
             data_double = (double*)m_pHeightData;
             delete [] data_double;
             break;
-
+    
+        default:
+            break;
         }
     }
 }

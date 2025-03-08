@@ -220,6 +220,8 @@ void draw_all_objects(dSpaceID space)
             break;
         }
 
+        default:
+            break;
         }
     }
 }

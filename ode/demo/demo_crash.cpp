@@ -494,6 +494,8 @@ static void command (int cmd)
 		dBodySetAngularVel (cannon_ball_body,0,0,0);
 		break;
 	}
+	default:
+		break;
 	}
 }
 

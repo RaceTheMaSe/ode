@@ -1743,5 +1743,7 @@ void dsSetDrawMode(int mode)
     case DS_WIREFRAME:
         glPolygonMode(GL_FRONT, GL_LINE);
         break;
+    default:
+        break;
     }
 }

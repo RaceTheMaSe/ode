@@ -390,6 +390,9 @@ LRESULT CALLBACK AboutDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
             }
             break;
         }
+
+        default:
+            break;
     }
 
     return FALSE;
@@ -600,6 +603,9 @@ LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM /*lParam*/)
             PostMessage(hWnd, WM_CLOSE, 0, 0);
             break;
         }
+
+        default:
+            break;
     }
 
     return result;

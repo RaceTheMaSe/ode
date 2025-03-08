@@ -476,7 +476,8 @@ static void command (int cmd)
         setPositionBodies (tc);
         break;
 
-
+    default:
+        break;
     }
 }
 

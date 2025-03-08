@@ -186,6 +186,8 @@ void command(int c)
         case ' ':
             dropBox();
             break;
+        default:
+            break;
     }
 }
 

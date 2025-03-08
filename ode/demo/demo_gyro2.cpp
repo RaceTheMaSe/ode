@@ -141,6 +141,8 @@ static void command (int cmd)
     case 'r': case 'R':
   		reset();
 	  	break;
+    default:
+      break;
   }
   
 }
