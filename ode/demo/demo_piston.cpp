@@ -89,7 +89,7 @@ const int catBits[NUM_PARTS+1] =
     0x0008, ///< Box category
     0x0010, ///< Obstacle category
     0x0020, ///< Ground category
-    ~0L    ///< All categories
+    ~0      ///< All categories
 };
 
 #define Mass1 10
