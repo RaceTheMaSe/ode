@@ -57,7 +57,7 @@ dMatrix::dMatrix (const dMatrix &a)
 
 
 dMatrix::dMatrix (int rows, int cols,
-                  dReal *_data, int rowskip, int colskip)
+                  const dReal *_data, int rowskip, int colskip)
 {
     if (rows < 1 || cols < 1) dDebug (0,"bad matrix size");
     n = rows;
@@ -111,7 +111,7 @@ dMatrix dMatrix::transpose()
 }
 
 
-dMatrix dMatrix::select (int np, int *p, int nq, int *q)
+dMatrix dMatrix::select (int np, const int *p, int nq, const int *q)
 {
     if (np < 1 || nq < 1) dDebug (0,"Matrix select, bad index array sizes");
     const dMatrix r (np,nq);

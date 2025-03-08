@@ -39,7 +39,7 @@ public:
     dMatrix (int rows, int cols);		// construct zero matrix of given size
     dMatrix (const dMatrix &);		// construct copy of given matrix
     // create copy of given data - element (i,j) is data[i*rowskip+j*colskip]
-    dMatrix (int rows, int cols, dReal *_data, int rowskip, int colskip);
+    dMatrix (int rows, int cols, const dReal *_data, int rowskip, int colskip);
     ~dMatrix();				// destructor
 
     // data movement
@@ -49,7 +49,7 @@ public:
     dMatrix transpose();			// return transposed matrix
     // return a permuted submatrix of this matrix, made up of the rows in p
     // and the columns in q. p has np elements, q has nq elements.
-    dMatrix select (int np, int *p, int nq, int *q);
+    dMatrix select (int np, const int *p, int nq, const int *q);
 
     // operators
     dMatrix operator + (const dMatrix &);

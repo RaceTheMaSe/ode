@@ -816,7 +816,7 @@ static void compareMassParams (dMass *m1, dMass *m2, const char *msg)
 
 // compute the mass parameters of a particle set
 
-static void computeMassParams (dMass *m, dReal q[NUMP][3], dReal pm[NUMP])
+static void computeMassParams (dMass *m, dReal q[NUMP][3], const dReal pm[NUMP])
 {
     int i,j;
     dMassSetZero (m);

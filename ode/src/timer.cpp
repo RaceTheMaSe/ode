@@ -60,7 +60,7 @@ static inline void serialize()
 }
 
 
-static inline double loadClockCount (unsigned long cc[2])
+static inline double loadClockCount (const unsigned long cc[2])
 {
     LARGE_INTEGER a;
     a.LowPart = cc[0];

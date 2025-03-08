@@ -209,7 +209,7 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
 // the number of intersection points is returned by the function (this will
 // be in the range 0 to 8).
 
-static int intersectRectQuad (dReal h[2], dReal p[8], dReal ret[16])
+static int intersectRectQuad (const dReal h[2], dReal p[8], dReal ret[16])
 {
     // q (and r) contain nq (and nr) coordinate points for the current (and
     // chopped) polygons

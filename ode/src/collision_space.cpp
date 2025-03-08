@@ -326,7 +326,7 @@ struct Node {
 //	size/2 < q <= size
 // where q is the maximum AABB dimension.
 
-static int findLevel (dReal bounds[6])
+static int findLevel (const dReal bounds[6])
 {
     if (bounds[0] <= -dInfinity || bounds[1] >= dInfinity ||
         bounds[2] <= -dInfinity || bounds[3] >= dInfinity ||

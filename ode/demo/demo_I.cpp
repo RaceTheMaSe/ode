@@ -80,7 +80,7 @@ static void start()
 
 #define _I(i,j) I[(i)*4+(j)]
 
-static void computeMassParams (dMass *m, dReal q[NUM][3], dReal pm[NUM])
+static void computeMassParams (dMass *m, dReal q[NUM][3], const dReal pm[NUM])
 {
   int i,j;
   dMassSetZero (m);
