@@ -314,7 +314,7 @@ template<class tThreadWakeup, class tJobListContainer>
 class dxtemplateJobListThreadedHandler
 {
 public:
-    dxtemplateJobListThreadedHandler(tJobListContainer *list_container_ptr):
+    explicit dxtemplateJobListThreadedHandler(tJobListContainer *list_container_ptr):
         m_job_list_ptr(list_container_ptr),
         m_processing_wakeup(),
         m_idle_thread_count(0),

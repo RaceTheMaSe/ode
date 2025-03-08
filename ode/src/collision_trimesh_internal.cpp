@@ -155,7 +155,7 @@ class FaceAnglesWrapper:
     public IFaceAngleStorageView
 {
 protected:
-    FaceAnglesWrapper(unsigned triangleCount) { setAllocatedTriangleCount(triangleCount); }
+    explicit FaceAnglesWrapper(unsigned triangleCount) { setAllocatedTriangleCount(triangleCount); }
 
 public:
     virtual ~FaceAnglesWrapper() ODE_OVERRIDE;

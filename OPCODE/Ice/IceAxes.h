@@ -38,17 +38,17 @@
 	{
 		public:
 
-		inline_			Axes(AxisOrder order)
-						{
-							mAxis0 = (udword)((order   ) & 3);
-							mAxis1 = (udword)((order>>2) & 3);
-							mAxis2 = (udword)((order>>4) & 3);
-						}
-		inline_			~Axes()		{}
+		inline_	explicit	Axes(AxisOrder order)
+							{
+								mAxis0 = (udword)((order   ) & 3);
+								mAxis1 = (udword)((order>>2) & 3);
+								mAxis2 = (udword)((order>>4) & 3);
+							}
+		inline_				~Axes()		{}
 
-				udword	mAxis0;
-				udword	mAxis1;
-				udword	mAxis2;
+					udword	mAxis0;
+					udword	mAxis1;
+					udword	mAxis2;
 	};
 
 #endif // __ICEAXES_H__

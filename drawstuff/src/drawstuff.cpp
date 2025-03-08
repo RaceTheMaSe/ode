@@ -132,7 +132,7 @@ class Image {
     int image_width, image_height;
     byte *image_data;
 public:
-    Image(char *filename);
+    explicit Image(char *filename);
     // load from PPM file
     ~Image();
     int width() const { return image_width; }
@@ -242,7 +242,7 @@ class Texture {
     Image *image;
     GLuint name;
 public:
-    Texture(char *filename);
+    explicit Texture(char *filename);
     ~Texture();
     void bind(int modulate) const;
 };

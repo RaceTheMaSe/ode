@@ -616,8 +616,8 @@ const uint32* RaixSortContext::RadixSort( const float* input2, uint32 nb )
 {
     union _type_cast_union
     {
-        _type_cast_union(const float *floats): asFloats(floats) {}
-        _type_cast_union(const uint32 *uints32): asUInts32(uints32) {}
+        explicit _type_cast_union(const float *floats): asFloats(floats) {}
+        explicit _type_cast_union(const uint32 *uints32): asUInts32(uints32) {}
 
         const float *asFloats;
         const uint32 *asUInts32;

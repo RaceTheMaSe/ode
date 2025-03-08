@@ -33,7 +33,7 @@
 		//! Constructor
 		inline_				CollisionAABB()						{}
 		//! Constructor
-		inline_				CollisionAABB(const IceMaths::AABB& b)		{ b.GetCenter(mCenter);	b.GetExtents(mExtents);	}
+		inline_	explicit	CollisionAABB(const IceMaths::AABB& b)		{ b.GetCenter(mCenter);	b.GetExtents(mExtents);	}
 		//! Destructor
 		// inline_				~CollisionAABB()					{}
 

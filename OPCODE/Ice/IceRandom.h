@@ -26,7 +26,7 @@
 		public:
 
 		//! Constructor
-		inline_				BasicRandom(udword seed=0)	: mRnd(seed)	{}
+		inline_	explicit	BasicRandom(udword seed=0)	: mRnd(seed)	{}
 		//! Destructor
 		inline_				~BasicRandom()								{}
 

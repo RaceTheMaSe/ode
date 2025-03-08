@@ -189,9 +189,9 @@ protected:
 public:
   dBodyTemplate()
     { }
-  dBodyTemplate (dWorldID wrld)
+  explicit dBodyTemplate (dWorldID wrld)
     { set_id(dBodyCreate(wrld)); }
-  dBodyTemplate (dWorldTemplate<dWorldTemplateBase>& wrld)
+  explicit dBodyTemplate (dWorldTemplate<dWorldTemplateBase>& wrld)
     { set_id(dBodyCreate(wrld.id())); }
 
   void create (dWorldID wrld) {
@@ -568,9 +568,9 @@ protected:
 
 public:
   dBallJointTemplate() { }
-  dBallJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dBallJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateBall(wrld, group)); }
-  dBallJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dBallJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateBall(wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {
@@ -613,9 +613,9 @@ protected:
 
 public:
   dHingeJointTemplate() { }
-  dHingeJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dHingeJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateHinge(wrld, group)); }
-  dHingeJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+    explicit dHingeJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateHinge(wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {
@@ -674,9 +674,9 @@ protected:
 
 public:
   dSliderJointTemplate() { }
-  dSliderJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dSliderJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateSlider(wrld, group)); }
-  dSliderJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dSliderJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateSlider(wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {
@@ -726,9 +726,9 @@ protected:
 
 public:
   dUniversalJointTemplate() { }
-  dUniversalJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dUniversalJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateUniversal(wrld, group)); }
-  dUniversalJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dUniversalJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateUniversal(wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {
@@ -800,9 +800,9 @@ protected:
 
 public:
   dHinge2JointTemplate() { }
-  dHinge2JointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dHinge2JointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateHinge2(wrld, group)); }
-  dHinge2JointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dHinge2JointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateHinge2(wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {
@@ -871,9 +871,9 @@ protected:
 
 public:
   dPRJointTemplate() { }
-  dPRJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dPRJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreatePR(wrld, group)); }
-  dPRJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dPRJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreatePR(wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {
@@ -938,9 +938,9 @@ protected:
 
 public:
   dPUJointTemplate() { }
-  dPUJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dPUJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreatePU(wrld, group)); }
-  dPUJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dPUJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreatePU(wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL)
@@ -1021,9 +1021,9 @@ protected:
 
 public:
   dPistonJointTemplate() { }
-  dPistonJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dPistonJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreatePiston(wrld, group)); }
-  dPistonJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dPistonJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreatePiston(wrld, group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL)
@@ -1084,9 +1084,9 @@ protected:
 
 public:
   dFixedJointTemplate() { }
-  dFixedJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dFixedJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateFixed(wrld, group)); }
-  dFixedJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dFixedJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateFixed(wrld, group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {
@@ -1157,9 +1157,9 @@ protected:
 
 public:
   dNullJointTemplate() { }
-  dNullJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dNullJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateNull(wrld, group)); }
-  dNullJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dNullJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateNull (wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {
@@ -1188,9 +1188,9 @@ protected:
 
 public:
   dAMotorJointTemplate() { }
-  dAMotorJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dAMotorJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateAMotor(wrld, group)); }
-  dAMotorJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dAMotorJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateAMotor(wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {
@@ -1254,9 +1254,9 @@ protected:
 
 public:
   dLMotorJointTemplate() { }
-  dLMotorJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
+  explicit dLMotorJointTemplate (dWorldID wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateLMotor(wrld, group)); }
-  dLMotorJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
+  explicit dLMotorJointTemplate (dWorldTemplate<dWorldTemplateBase>& wrld, dJointGroupID group=NULL)
     { set_id(dJointCreateLMotor(wrld.id(), group)); }
 
   void create (dWorldID wrld, dJointGroupID group=NULL) {

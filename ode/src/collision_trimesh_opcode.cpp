@@ -230,7 +230,7 @@ struct TrimeshDataVertexIndexAccessor_OPCODE
 
 struct TrimeshDataTrianglePointAccessor_OPCODE
 {
-    TrimeshDataTrianglePointAccessor_OPCODE(const Opcode::MeshInterface &mesh):
+    explicit TrimeshDataTrianglePointAccessor_OPCODE(const Opcode::MeshInterface &mesh):
         m_Mesh(mesh)
     {
     }

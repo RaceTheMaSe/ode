@@ -35,7 +35,7 @@
 		template<typename toffsetfloat>
 		inline_					Point(toffsetfloat xx, toffsetfloat yy, toffsetfloat zz) : x((float)xx), y((float)yy), z((float)zz)	{}
 		//! Constructor from array
-		inline_					Point(const float f[3]) : x(f[X]), y(f[Y]), z(f[Z])		{}
+		inline_	explicit		Point(const float f[3]) : x(f[X]), y(f[Y]), z(f[Z])		{}
 		//! Copy constructor
 		inline_					Point(const Point& p) : x(p.x), y(p.y), z(p.z)				{}
 		//! Copy assignment

@@ -54,7 +54,7 @@ public:
 	{
 	}
 
-	_OU_INLINE _OU_CONVENTION_METHOD CAtomicFlags(atomicord32 aoFlagsValue):
+	_OU_INLINE _OU_CONVENTION_METHOD explicit CAtomicFlags(atomicord32 aoFlagsValue):
 		m_aoFlagsValue(aoFlagsValue)
 	{
 	}

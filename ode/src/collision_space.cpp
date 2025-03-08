@@ -212,7 +212,7 @@ void dxSpace::dirty (dxGeom *geom)
 // simple space - reports all n^2 object intersections
 
 struct dxSimpleSpace : public dxSpace {
-    dxSimpleSpace (dSpaceID _space);
+    explicit dxSimpleSpace (dSpaceID _space);
     void cleanGeoms() ODE_OVERRIDE;
     void collide (void *data, dNearCallback *callback) ODE_OVERRIDE;
     void collide2 (void *data, dxGeom *geom, dNearCallback *callback) ODE_OVERRIDE;
@@ -368,7 +368,7 @@ struct dxHashSpace : public dxSpace {
     int global_maxlevel;	// objects that need a level larger than this will be
     // put in a "big objects" list instead of a hash table
 
-    dxHashSpace (dSpaceID _space);
+    explicit dxHashSpace (dSpaceID _space);
     void setLevels (int minlevel, int maxlevel);
     void getLevels (int *minlevel, int *maxlevel);
     void cleanGeoms() ODE_OVERRIDE;

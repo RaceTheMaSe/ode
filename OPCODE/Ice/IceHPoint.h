@@ -21,9 +21,9 @@
 		//! Constructor from floats
 		inline_				HPoint(float xx, float yy, float zz, float ww=0.0f) : Point(xx, yy, zz), w(ww)	{}
 		//! Constructor from array
-		inline_				HPoint(const float f[4]) : Point(f), w(f[3])									{}
+		inline_	explicit	HPoint(const float f[4]) : Point(f), w(f[3])									{}
 		//! Constructor from a Point
-		inline_				HPoint(const Point& p, float ww=0.0f) : Point(p), w(ww)							{}
+		inline_	explicit	HPoint(const Point& p, float ww=0.0f) : Point(p), w(ww)							{}
 		//! Destructor
 		// inline_				~HPoint()																		{}
 

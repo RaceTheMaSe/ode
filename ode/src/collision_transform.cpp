@@ -50,7 +50,7 @@ struct dxGeomTransform : public dxGeom {
     // computeAABB(), and it is valid while the AABB is valid.
     dxPosR transform_posr;
 
-    dxGeomTransform (dSpaceID space);
+    explicit dxGeomTransform (dSpaceID space);
     ~dxGeomTransform() ODE_OVERRIDE;
     void computeAABB() ODE_OVERRIDE;
     void computeFinalTx();

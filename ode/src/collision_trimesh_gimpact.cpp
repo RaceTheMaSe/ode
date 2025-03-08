@@ -90,7 +90,7 @@ struct TrimeshDataTrianglePointAccessor_GIMPACT
         TRIANGLEINDEX_STRIDE = dxTriMesh::TRIANGLEINDEX_STRIDE
     };
 
-    TrimeshDataTrianglePointAccessor_GIMPACT(dxTriMeshData *meshData):
+    explicit TrimeshDataTrianglePointAccessor_GIMPACT(dxTriMeshData *meshData):
         m_VertexInstances(meshData->retrieveVertexInstances()),
         m_TriangleVertexIndices(meshData->retrieveTriangleVertexIndices())
     {

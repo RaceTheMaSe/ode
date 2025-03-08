@@ -48,7 +48,7 @@ public:
 	{
 	}
 
-	_OU_INLINE _OU_CONVENTION_METHOD CSimpleFlagsTemplate(ContainerType ctFlagsValue):
+	_OU_INLINE _OU_CONVENTION_METHOD explicit CSimpleFlagsTemplate(ContainerType ctFlagsValue):
 		m_ctFlagsValue(ctFlagsValue)
 	{
 	}

@@ -47,7 +47,7 @@ public:
 
   dGeomID id() const
     { return _id; }
-  explicit operator dGeomID() const
+  operator dGeomID() const
     { return _id; }
 
   void destroy() {
@@ -148,7 +148,7 @@ public:
   ~dSpace() ODE_OVERRIDE;
   dSpaceID id() const
     { return (dSpaceID) _id; }
-  explicit operator dSpaceID() const
+  operator dSpaceID() const
     { return (dSpaceID) _id; }
 
   void setCleanup (int mode) const
@@ -181,9 +181,9 @@ class ODE_API dSimpleSpace : public dSpace {
 public:
   dSimpleSpace ()
     { _id = (dGeomID) dSimpleSpaceCreate (NULL); }
-  dSimpleSpace (dSpace &space)
+  explicit dSimpleSpace (dSpace &space)
     { _id = (dGeomID) dSimpleSpaceCreate (space.id()); }
-  dSimpleSpace (dSpaceID space)
+  explicit dSimpleSpace (dSpaceID space)
     { _id = (dGeomID) dSimpleSpaceCreate (space); }
   ~dSimpleSpace() ODE_OVERRIDE;
 };
@@ -197,9 +197,9 @@ class ODE_API dHashSpace : public dSpace {
 public:
   dHashSpace ()
     { _id = (dGeomID) dHashSpaceCreate (NULL); }
-  dHashSpace (dSpace &space)
+  explicit dHashSpace (dSpace &space)
     { _id = (dGeomID) dHashSpaceCreate (space.id()); }
-  dHashSpace (dSpaceID space)
+  explicit dHashSpace (dSpaceID space)
     { _id = (dGeomID) dHashSpaceCreate (space); }
   ~dHashSpace() ODE_OVERRIDE;
 
@@ -216,9 +216,9 @@ class ODE_API dQuadTreeSpace : public dSpace {
 public:
   dQuadTreeSpace (const dVector3 center, const dVector3 extents, int depth)
     { _id = (dGeomID) dQuadTreeSpaceCreate (NULL,center,extents,depth); }
-  dQuadTreeSpace (dSpace &space, const dVector3 center, const dVector3 extents, int depth)
+  explicit dQuadTreeSpace (dSpace &space, const dVector3 center, const dVector3 extents, int depth)
     { _id = (dGeomID) dQuadTreeSpaceCreate (space.id(),center,extents,depth); }
-  dQuadTreeSpace (dSpaceID space, const dVector3 center, const dVector3 extents, int depth)
+  explicit dQuadTreeSpace (dSpaceID space, const dVector3 center, const dVector3 extents, int depth)
     { _id = (dGeomID) dQuadTreeSpaceCreate (space,center,extents,depth); }
   ~dQuadTreeSpace() ODE_OVERRIDE;
 };
@@ -231,7 +231,7 @@ class ODE_API dSphere : public dGeom {
 
 public:
   dSphere () { }
-  dSphere (dReal radius)
+  explicit dSphere (dReal radius)
     { _id = dCreateSphere (NULL, radius); }
   dSphere (dSpace &space, dReal radius)
     { _id = dCreateSphere (space.id(), radius); }
@@ -366,7 +366,7 @@ class ODE_API dRay : public dGeom {
 
 public:
   dRay() { }
-  dRay (dReal length)
+  explicit dRay (dReal length)
     { _id = dCreateRay (NULL,length); }
   dRay (dSpace &space, dReal length)
     { _id = dCreateRay (space.id(),length); }
@@ -439,9 +439,9 @@ class ODE_API_DEPRECATED dGeomTransform : public dGeom {
 
 public:
   dGeomTransform() { }
-  dGeomTransform (dSpace &space)
+  explicit dGeomTransform (dSpace &space)
     { _id = dCreateGeomTransform (space.id()); }
-  dGeomTransform (dSpaceID space)
+  explicit dGeomTransform (dSpaceID space)
     { _id = dCreateGeomTransform (space); }
   ~dGeomTransform() ODE_OVERRIDE;
 

@@ -909,7 +909,7 @@ static dGeomClass user_classes [dMaxUserClasses];
 struct dxUserGeom : public dxGeom {
     void *user_data;
 
-    dxUserGeom (int class_num);
+    explicit dxUserGeom (int class_num);
     ~dxUserGeom() ODE_OVERRIDE;
     void computeAABB() ODE_OVERRIDE;
     int AABBTest (dxGeom *o, dReal aabb[6]) ODE_OVERRIDE;
