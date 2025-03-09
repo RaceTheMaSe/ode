@@ -89,7 +89,7 @@
 #define DBL_MANT_DIG 53
 #endif
 
-#define dMaxExact   (double)((1ULL << DBL_MANT_DIG) - 1)
+#define dMaxExact   (double)(((uint64_t)1 << DBL_MANT_DIG) - 1)
 #define dMinExact   ((double)(-dMaxExact))
 
 
