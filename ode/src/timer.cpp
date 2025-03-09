@@ -392,7 +392,7 @@ static void initSlots()
 void dTimerStart (const char *description)
 {
     initSlots();
-    event[0].description = const_cast<char*> (description);
+    event[0].description = description;
     num = 1;
     serialize();
     getClockCount (event[0].cc);
@@ -404,7 +404,7 @@ void dTimerNow (const char *description)
     if (num < MAXNUM) {
         // do not serialize
         getClockCount (event[num].cc);
-        event[num].description = const_cast<char*> (description);
+        event[num].description = description;
         num++;
     }
 }
