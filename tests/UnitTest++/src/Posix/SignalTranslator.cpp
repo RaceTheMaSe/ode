@@ -22,11 +22,20 @@ SignalTranslator::SignalTranslator ()
     m_oldJumpTarget = s_jumpTarget;
     s_jumpTarget = &m_currentJumpTarget;
 
+#if defined(__clang__)
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdisabled-macro-expansion"
+#endif
+    
     struct sigaction action;
     action.sa_flags = 0;
     action.sa_handler = SignalHandler;
     sigemptyset( &action.sa_mask );
 
+#if defined(__clang__)
+    #pragma clang diagnostic pop
+#endif
+    
     sigaction( SIGSEGV, &action, &m_old_SIGSEGV_action );
     sigaction( SIGFPE , &action, &m_old_SIGFPE_action  );
     sigaction( SIGTRAP, &action, &m_old_SIGTRAP_action );
