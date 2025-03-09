@@ -398,7 +398,6 @@ static void CloseODEForMode(EODEINITMODE imInitMode)
 #endif
 
 #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE)
-        extern void opcode_collider_cleanup();
         // Free up static allocations in opcode
         opcode_collider_cleanup();
 
