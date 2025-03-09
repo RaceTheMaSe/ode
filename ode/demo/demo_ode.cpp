@@ -1077,7 +1077,7 @@ public:
         {
             max *= 2;
             T* newdata = new T[(size_t)max];
-            memcpy(newdata, data, sizeof(T)*(size_t)n);
+            memcpy((void*)newdata, (void*)data, sizeof(T)*(size_t)n);
             delete[] data;
             data = newdata;
         }

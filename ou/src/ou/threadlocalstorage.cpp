@@ -381,7 +381,7 @@ CTLSStorageArray *CTLSStorageArray::AllocateInstance(tlsindextype iValueCount)
 	if (psaNewInstance)
 	{
 		memset((void*)psaNewInstance, 0, nRequiredSize);
-		new((CTLSStorageArray *)psaNewInstance) CTLSStorageArray();
+		new(psaNewInstance) CTLSStorageArray();
 
 		psaNewInstance->AssignAllBlocksHostArray(iValueCount);
 	}
@@ -603,7 +603,7 @@ unsigned int CTLSStorageArray::TranslateClientHandles(CClientHandleArray haTrans
 
 			unsigned int nTargetIncrement = nSourceCurrentIndex - nSourceStartIndex;
 
-			memcpy(&haTranslatedHandlesStorage[nTargetStartIndex], &ph_BlockThreadHandles[nSourceStartIndex], nTargetIncrement * sizeof(HANDLE));
+			memcpy((void*)&haTranslatedHandlesStorage[nTargetStartIndex], (const void*)&ph_BlockThreadHandles[nSourceStartIndex], nTargetIncrement * sizeof(HANDLE));
 			for (; nTargetIncrement != 0; ++nTargetStartIndex, ++nSourceStartIndex, --nTargetIncrement) { tmTranslationMapStorage[nTargetStartIndex] = nSourceStartIndex; }
 
 			// Skip invalid handle (at this point nSourceStartIndex is equal to nSourceCurrentIndex)
@@ -621,7 +621,7 @@ unsigned int CTLSStorageArray::TranslateClientHandles(CClientHandleArray haTrans
 				
 				unsigned int nTargetIncrement = nSourceCurrentIndex - nSourceStartIndex;
 				
-				memcpy(&haTranslatedHandlesStorage[nTargetStartIndex], &ph_BlockThreadHandles[nSourceStartIndex], nTargetIncrement * sizeof(HANDLE));
+				memcpy((void*)&haTranslatedHandlesStorage[nTargetStartIndex], (const void*)&ph_BlockThreadHandles[nSourceStartIndex], nTargetIncrement * sizeof(HANDLE));
 				for (; nTargetIncrement != 0; ++nTargetStartIndex, ++nSourceStartIndex, --nTargetIncrement) { tmTranslationMapStorage[nTargetStartIndex] = nSourceStartIndex; }
 			}
 

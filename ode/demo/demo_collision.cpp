@@ -1444,7 +1444,7 @@ void do_tests(int argc, char **argv)
             }
         }
         if(ts)
-            free(ts);
+            free((void*)ts);
         dsFinalizeConsole();
     }
 }

@@ -1358,7 +1358,7 @@ void dJointGroupEmpty (dJointGroupID group)
         group->freeAll();
 
         if (jlist != stack_jlist && jlist != NULL) {
-            dFree(jlist, jlist_size);
+            dFree((void*)jlist, jlist_size);
         }
     }
 }
@@ -2461,7 +2461,7 @@ int dCheckConfiguration( const char* extension )
     start = config;
     for (  ; ;  )
     {
-        where = strstr((const char *) start, extension);
+        where = strstr(start, extension);
         if (!where)
             break;
 
