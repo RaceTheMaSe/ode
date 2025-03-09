@@ -231,8 +231,8 @@ static bool IntersectSegmentPlane(dVector3 a,
                            dVector4 p,
                            dReal &t,
                            dVector3 q);
-static bool CheckEdgeIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,int& curc,
-                           dContactGeom *contact, int skip);
+// static bool CheckEdgeIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,int& curc,
+//                            dContactGeom *contact, int skip);
 static int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
                            dContactGeom *contact, int skip);
 
@@ -284,28 +284,28 @@ bool IntersectSegmentPlane(dVector3 a,
   (closest_point=Origin1+(Direction1*t).
   \return true if there is a closest point, false if the rays are parallel.
 */
-static inline bool ClosestPointInRay(const dVector3 Origin1,
-                              const dVector3 Direction1,
-                              const dVector3 Origin2,
-                              const dVector3 Direction2,
-                              dReal& t)
-{
-    dVector3 w = {Origin1[0]-Origin2[0],
-        Origin1[1]-Origin2[1],
-        Origin1[2]-Origin2[2]};
-    const dReal a = dCalcVectorDot3(Direction1 , Direction1);
-    const dReal b = dCalcVectorDot3(Direction1 , Direction2);
-    const dReal c = dCalcVectorDot3(Direction2 , Direction2);
-    const dReal d = dCalcVectorDot3(Direction1 , w);
-    const dReal e = dCalcVectorDot3(Direction2 , w);
-    const dReal denominator = (a*c)-(b*b);
-    if(denominator==REAL(0.0))
-    {
-        return false;
-    }
-    t = ((a*e)-(b*d))/denominator;
-    return true;
-}
+// static inline bool ClosestPointInRay(const dVector3 Origin1,
+//                               const dVector3 Direction1,
+//                               const dVector3 Origin2,
+//                               const dVector3 Direction2,
+//                               dReal& t)
+// {
+//     dVector3 w = {Origin1[0]-Origin2[0],
+//         Origin1[1]-Origin2[1],
+//         Origin1[2]-Origin2[2]};
+//     const dReal a = dCalcVectorDot3(Direction1 , Direction1);
+//     const dReal b = dCalcVectorDot3(Direction1 , Direction2);
+//     const dReal c = dCalcVectorDot3(Direction2 , Direction2);
+//     const dReal d = dCalcVectorDot3(Direction1 , w);
+//     const dReal e = dCalcVectorDot3(Direction2 , w);
+//     const dReal denominator = (a*c)-(b*b);
+//     if(denominator==REAL(0.0))
+//     {
+//         return false;
+//     }
+//     t = ((a*e)-(b*d))/denominator;
+//     return true;
+// }
 
 /*! \brief Returns the Closest Points from Segment 1 to Segment 2
   \param p1 start of segment 1
@@ -440,25 +440,25 @@ if (tnom < 0.0f) {
   \param d Contains the direction of the ray upon returning if planes intersect
   \return true if the planes intersect, false if parallel.
 */
-static inline bool IntersectPlanes(const dVector4 p1, const dVector4 p2, dVector3 p, dVector3 d)
-{
-    // Compute direction of intersection line
-    dCalcVectorCross3(d,p1,p2);
-    // If d is (near) zero, the planes are parallel (and separated)
-    // or coincident, so they're not considered intersecting
-    const dReal denom = dCalcVectorDot3(d, d);
-    if (denom < dEpsilon) return false;
-    dVector3 n;
-    n[0]=p1[3]*p2[0] - p2[3]*p1[0];
-    n[1]=p1[3]*p2[1] - p2[3]*p1[1];
-    n[2]=p1[3]*p2[2] - p2[3]*p1[2];
-    // Compute point on intersection line
-    dCalcVectorCross3(p,n,d);
-    p[0]/=denom;
-    p[1]/=denom;
-    p[2]/=denom;
-    return true;
-}
+// static inline bool IntersectPlanes(const dVector4 p1, const dVector4 p2, dVector3 p, dVector3 d)
+// {
+//     // Compute direction of intersection line
+//     dCalcVectorCross3(d,p1,p2);
+//     // If d is (near) zero, the planes are parallel (and separated)
+//     // or coincident, so they're not considered intersecting
+//     const dReal denom = dCalcVectorDot3(d, d);
+//     if (denom < dEpsilon) return false;
+//     dVector3 n;
+//     n[0]=p1[3]*p2[0] - p2[3]*p1[0];
+//     n[1]=p1[3]*p2[1] - p2[3]*p1[1];
+//     n[2]=p1[3]*p2[2] - p2[3]*p1[2];
+//     // Compute point on intersection line
+//     dCalcVectorCross3(p,n,d);
+//     p[0]/=denom;
+//     p[1]/=denom;
+//     p[2]/=denom;
+//     return true;
+// }
 
 
 #if 0
@@ -835,77 +835,77 @@ static inline void ComputeInterval(dxConvex& cvx,dVector4 axis,dReal& min,dReal&
     // which face to pick when there are 2 parallel sides.
 }
 
-bool CheckEdgeIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,int& curc,
-                           dContactGeom *contact, int skip)
-{
-    const int maxc = flags & NUMC_MASK;
-    dIASSERT(maxc != 0);
-    dVector3 e1,e2,q;
-    dVector4 plane,depthplane;
-    dReal t;
-    for(unsigned int i = 0;i<cvx1.edgecount;++i)
-    {
-        // Rotate
-        dMultiply0_331(e1,cvx1.final_posr->R,cvx1.points+(cvx1.edges[i].first*3));
-        // translate
-        e1[0]+=cvx1.final_posr->pos[0];
-        e1[1]+=cvx1.final_posr->pos[1];
-        e1[2]+=cvx1.final_posr->pos[2];
-        // Rotate
-        dMultiply0_331(e2,cvx1.final_posr->R,cvx1.points+(cvx1.edges[i].second*3));
-        // translate
-        e2[0]+=cvx1.final_posr->pos[0];
-        e2[1]+=cvx1.final_posr->pos[1];
-        e2[2]+=cvx1.final_posr->pos[2];
-        const unsigned int* pPoly=cvx2.polygons;
-        for(sizeint j=0;j<cvx2.planecount;++j)
-        {
-            // Rotate
-            dMultiply0_331(plane,cvx2.final_posr->R,cvx2.planes+(j*4));
-            dNormalize3(plane);
-            // Translate
-            plane[3]=
-                (cvx2.planes[(j*4)+3])+
-                ((plane[0] * cvx2.final_posr->pos[0]) +
-                (plane[1] * cvx2.final_posr->pos[1]) +
-                (plane[2] * cvx2.final_posr->pos[2]));
-            dContactGeom *target = SAFECONTACT(flags, contact, curc, skip);
-            target->g1=&cvx1; // g1 is the one pushed
-            target->g2=&cvx2;
-            if(IntersectSegmentPlane(e1,e2,plane,t,target->pos))
-            {
-                if(IsPointInPolygon(target->pos,pPoly,plane,&cvx2,q))
-                {
-                    target->depth = dInfinity;
-                    for(sizeint k=0;k<cvx2.planecount;++k)
-                    {
-                        if(k==j) continue; // we're already at 0 depth on this plane
-                        // Rotate
-                        dMultiply0_331(depthplane,cvx2.final_posr->R,cvx2.planes+(k*4));
-                        dNormalize3(depthplane);
-                        // Translate
-                        depthplane[3]=
-                            (cvx2.planes[(k*4)+3])+
-                            ((plane[0] * cvx2.final_posr->pos[0]) +
-                            (plane[1] * cvx2.final_posr->pos[1]) +
-                            (plane[2] * cvx2.final_posr->pos[2]));
-                        const dReal depth = (dVector3Dot(depthplane, target->pos) - depthplane[3]); // Ax + By + Cz - D
-                        if((fabs(depth)<fabs(target->depth))&&((depth<-dEpsilon)||(depth>dEpsilon)))
-                        {
-                            target->depth=depth;
-                            dVector3Copy(depthplane,target->normal);
-                        }
-                    }
-                    ++curc;
-                    if(curc==maxc)
-                        return true;
-                }
-            }
-            pPoly+=pPoly[0]+1;
-        }
-    }
-    return false;
-}
+// static bool CheckEdgeIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,int& curc,
+//                            dContactGeom *contact, int skip)
+// {
+//     const int maxc = flags & NUMC_MASK;
+//     dIASSERT(maxc != 0);
+//     dVector3 e1,e2,q;
+//     dVector4 plane,depthplane;
+//     dReal t;
+//     for(unsigned int i = 0;i<cvx1.edgecount;++i)
+//     {
+//         // Rotate
+//         dMultiply0_331(e1,cvx1.final_posr->R,cvx1.points+(cvx1.edges[i].first*3));
+//         // translate
+//         e1[0]+=cvx1.final_posr->pos[0];
+//         e1[1]+=cvx1.final_posr->pos[1];
+//         e1[2]+=cvx1.final_posr->pos[2];
+//         // Rotate
+//         dMultiply0_331(e2,cvx1.final_posr->R,cvx1.points+(cvx1.edges[i].second*3));
+//         // translate
+//         e2[0]+=cvx1.final_posr->pos[0];
+//         e2[1]+=cvx1.final_posr->pos[1];
+//         e2[2]+=cvx1.final_posr->pos[2];
+//         const unsigned int* pPoly=cvx2.polygons;
+//         for(sizeint j=0;j<cvx2.planecount;++j)
+//         {
+//             // Rotate
+//             dMultiply0_331(plane,cvx2.final_posr->R,cvx2.planes+(j*4));
+//             dNormalize3(plane);
+//             // Translate
+//             plane[3]=
+//                 (cvx2.planes[(j*4)+3])+
+//                 ((plane[0] * cvx2.final_posr->pos[0]) +
+//                 (plane[1] * cvx2.final_posr->pos[1]) +
+//                 (plane[2] * cvx2.final_posr->pos[2]));
+//             dContactGeom *target = SAFECONTACT(flags, contact, curc, skip);
+//             target->g1=&cvx1; // g1 is the one pushed
+//             target->g2=&cvx2;
+//             if(IntersectSegmentPlane(e1,e2,plane,t,target->pos))
+//             {
+//                 if(IsPointInPolygon(target->pos,pPoly,plane,&cvx2,q))
+//                 {
+//                     target->depth = dInfinity;
+//                     for(sizeint k=0;k<cvx2.planecount;++k)
+//                     {
+//                         if(k==j) continue; // we're already at 0 depth on this plane
+//                         // Rotate
+//                         dMultiply0_331(depthplane,cvx2.final_posr->R,cvx2.planes+(k*4));
+//                         dNormalize3(depthplane);
+//                         // Translate
+//                         depthplane[3]=
+//                             (cvx2.planes[(k*4)+3])+
+//                             ((plane[0] * cvx2.final_posr->pos[0]) +
+//                             (plane[1] * cvx2.final_posr->pos[1]) +
+//                             (plane[2] * cvx2.final_posr->pos[2]));
+//                         const dReal depth = (dVector3Dot(depthplane, target->pos) - depthplane[3]); // Ax + By + Cz - D
+//                         if((fabs(depth)<fabs(target->depth))&&((depth<-dEpsilon)||(depth>dEpsilon)))
+//                         {
+//                             target->depth=depth;
+//                             dVector3Copy(depthplane,target->normal);
+//                         }
+//                     }
+//                     ++curc;
+//                     if(curc==maxc)
+//                         return true;
+//                 }
+//             }
+//             pPoly+=pPoly[0]+1;
+//         }
+//     }
+//     return false;
+// }
 
 /*
 Helper struct

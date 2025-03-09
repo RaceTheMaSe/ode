@@ -91,10 +91,6 @@ static int draw_all_objects_called;
          dVector3 normal, dReal *depth, int *code,
          int maxc, dContactGeom *contact, int skip); */
 
-static void dLineClosestApproach(const dVector3 pa, const dVector3 ua,
-    const dVector3 pb, const dVector3 ub,
-    dReal *alpha, dReal *beta);
-
 //****************************************************************************
 // draw all objects in a space, and draw all the collision contact points
 

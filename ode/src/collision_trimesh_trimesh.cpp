@@ -76,8 +76,8 @@ static bool BuildEdgePlane(
                     const dVector3 normal,
                     dVector3 plane_normal,
                     dReal & plane_dist);
-static dReal IntervalPenetration(dReal &vmin1, dReal &vmax1, dReal &vmin2, dReal &vmax2);
-static void FindInterval(const dVector3 * vertices, int verticecount, dVector3 dir,dReal &vmin,dReal &vmax);
+// static dReal IntervalPenetration(dReal &vmin1, dReal &vmax1, dReal &vmin2, dReal &vmax2);
+// static void FindInterval(const dVector3 * vertices, int verticecount, dVector3 dir,dReal &vmin,dReal &vmax);
 ///returns the penetration depth:
 static dReal MostDeepPoints(
                             LineContactSet & points,
@@ -907,47 +907,47 @@ bool BuildEdgePlane(
 Positive penetration
 Negative number: they are separated
 */
-dReal IntervalPenetration(dReal &vmin1,dReal &vmax1,
-                          dReal &vmin2,dReal &vmax2)
-{
-    if(vmax1<=vmin2)
-    {
-        return -(vmin2-vmax1);
-    }
-    else
-    {
-        if(vmax2<=vmin1)
-        {
-            return -(vmin1-vmax2);
-        }
-        else
-        {
-            if(vmax1<=vmax2)
-            {
-                return vmax1-vmin2;
-            }
+// dReal IntervalPenetration(dReal &vmin1,dReal &vmax1,
+//                           dReal &vmin2,dReal &vmax2)
+// {
+//     if(vmax1<=vmin2)
+//     {
+//         return -(vmin2-vmax1);
+//     }
+//     else
+//     {
+//         if(vmax2<=vmin1)
+//         {
+//             return -(vmin1-vmax2);
+//         }
+//         else
+//         {
+//             if(vmax1<=vmax2)
+//             {
+//                 return vmax1-vmin2;
+//             }
 
-            return vmax2-vmin1;
-        }
-    }
-}
+//             return vmax2-vmin1;
+//         }
+//     }
+// }
 
-void FindInterval(
-                  const dVector3 * vertices, int verticecount,
-                  dVector3 dir,dReal &vmin,dReal &vmax)
-{
+// void FindInterval(
+//                   const dVector3 * vertices, int verticecount,
+//                   dVector3 dir,dReal &vmin,dReal &vmax)
+// {
 
-    dReal dist;
-    int i;
-    vmin = DOT(vertices[0],dir);
-    vmax = vmin;
-    for(i=1;i<verticecount;i++)
-    {
-        dist = DOT(vertices[i],dir);
-        if(vmin>dist) vmin=dist;
-        else if(vmax<dist) vmax=dist;
-    }
-}
+//     dReal dist;
+//     int i;
+//     vmin = DOT(vertices[0],dir);
+//     vmax = vmin;
+//     for(i=1;i<verticecount;i++)
+//     {
+//         dist = DOT(vertices[i],dir);
+//         if(vmin>dist) vmin=dist;
+//         else if(vmax<dist) vmax=dist;
+//     }
+// }
 
 ///returns the penetration depth
 dReal MostDeepPoints(
