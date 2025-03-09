@@ -193,9 +193,9 @@ static void     cb_sim_step (int pause)
         for (int b = 0; b < N_BODIES; b ++)
         {
             if (b == 0)
-            dsSetColor (1.0, 0.5, 1.0);
+                dsSetColor (1.0, 0.5, 1.0);
             else
-            dsSetColor (0, 0.5, 1.0);
+                dsSetColor (0, 0.5, 1.0);
 #ifdef dDOUBLE
             dsDrawBoxD (g_globals_ptr->dyn_bodies[b].getPosition(), g_globals_ptr->dyn_bodies[b].getRotation(), g_globals_ptr->bodies_sides[b]);
 #else

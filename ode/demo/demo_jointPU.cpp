@@ -227,7 +227,7 @@ static void update()
 static void command (int cmd)
 {
   switch (cmd) {
-case 'h' : case 'H' : case '?' :
+  case 'h' : case 'H' : case '?' :
       printKeyBoardShortCut();
       break;
 

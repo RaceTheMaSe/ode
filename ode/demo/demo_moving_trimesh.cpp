@@ -295,7 +295,7 @@ static void command (int cmd)
             dMassSetCylinder (&m,DENSITY,3,sides[0],sides[1]);
             obj[i].geom[0] = dCreateCylinder (space,sides[0],sides[1]);
         }
-	else if (cmd == 's') {
+	      else if (cmd == 's') {
             sides[0] *= REAL(0.5);
             dMassSetSphere (&m,DENSITY,sides[0]);
             obj[i].geom[0] = dCreateSphere (space,sides[0]);

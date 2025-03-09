@@ -1032,7 +1032,7 @@ static void doTest (int argc, char **argv, int n, int fatal_if_bad_n)
   if (cmd_path_to_textures)
     fn.path_to_textures = cmd_path_to_textures;
   else
-  fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
+    fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   // run simulation
   if (cmd_graphics) {
