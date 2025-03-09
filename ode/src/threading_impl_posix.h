@@ -146,11 +146,9 @@ public:
 private:
     bool BlockAsAWaiter(const dThreadedWaitTime *timeout_time_ptr);
 
-private:
     void RegisterWaiterInList();
     void UnregisterWaiterFromList(bool wait_result);
 
-private:
     unsigned      m_waiter_count;
     unsigned      m_signal_count;
     bool          m_state_is_permanent;

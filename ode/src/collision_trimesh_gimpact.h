@@ -75,11 +75,9 @@ public:
     /* For when app changes the vertices */
     void updateData() { /* Do nothing */ }
 
-public:
     const vec3f *retrieveVertexInstances() const { return (const vec3f *)dxTriMeshData_Parent::retrieveVertexInstances(); }
     const GUINT32 *retrieveTriangleVertexIndices() const { return (const GUINT32 *)dxTriMeshData_Parent::retrieveTriangleVertexIndices(); }
 
-public:
     void assignNormals(const dReal *normals) { dxTriMeshData_Parent::assignNormals(normals); }
     const dReal *retrieveNormals() const { return (const dReal *)dxTriMeshData_Parent::retrieveNormals(); }
     sizeint calculateNormalsMemoryRequirement() const { return retrieveTriangleCount() * (sizeof(dReal) * dSA__MAX); }
@@ -207,7 +205,6 @@ public:
 
     virtual void computeAABB() ODE_OVERRIDE;
 
-public:
     dxTriMeshData *retrieveMeshData() const { return getMeshData(); }
 
     unsigned getMeshTriangleCount() const { return gim_trimesh_get_triangle_count(const_cast<GIM_TRIMESH *>(&m_collision_trimesh)); }
@@ -238,7 +235,6 @@ public:
 
     void assignMeshData(dxTriMeshData *Data);
 
-public:
     GIM_TRIMESH  m_collision_trimesh;
     GBUFFER_MANAGER_DATA m_buffer_managers[G_BUFFER_MANAGER__MAX];
 };

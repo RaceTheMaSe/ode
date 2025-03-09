@@ -492,7 +492,6 @@ void FromQuatL2(const Quat &q, float l2);
 		inline_	const Point&	operator[](int row)		const	{ return *(const Point*)&m[row][0];	}
 		inline_	Point&			operator[](int row)				{ return *(Point*)&m[row][0];		}
 
-		public:
 
 				float			m[3][3];
 	};

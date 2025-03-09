@@ -212,7 +212,6 @@ private:
     void FinalizeThreadAttributes(pthread_attr_t *thread_attr);
     bool WaitInitStatus();
 
-private:
     void Finalize();
     void WaitAndCloseThreadHandle(pthread_t thread_handle);
 
@@ -247,7 +246,6 @@ private:
     void ThreadedServeImplementation(dThreadingImplementationID impl, dxEventObject *ready_wait_event);
     static void ProcessThreadServeReadiness_Callback(void *context);
 
-private:
     pthread_t   m_thread_handle;
     bool        m_thread_allocated;
 

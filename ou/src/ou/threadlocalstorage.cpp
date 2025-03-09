@@ -127,7 +127,6 @@ private:
 public:
 	static inline size_t GetHeaderSize() { return OU_ALIGNED_SIZE(sizeof(CTLSStorageArray), CTLSStorageBlock::TSB_LARGEST_ALIGNMENT); }
 
-public:
 	static CTLSStorageArray *AllocateInstance(tlsindextype iValueCount);
 	void FreeInstance(tlsindextype iValueCount);
 
@@ -138,7 +137,6 @@ protected:
 public:
 	void FreeStorageBlockOnThreadExit(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
 	
-public:
 	bool FindFreeStorageBlock(CTLSStorageBlock *&psbOutFreeStorageBlock, 
 		tlsindextype iValueCount, bool bIsManualCleanup);
 	
@@ -153,7 +151,6 @@ private:
 
 #endif // #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 
-private:
 	void FreeStorageAllBlocks(tlsindextype iValueCount);
 	void ReinitializeStorageSingleBlock(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
 	static void FinalizeStorageSingleBlock(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
@@ -161,12 +158,10 @@ private:
 	void AssignAllBlocksHostArray(tlsindextype iValueCount);
 	inline void AssignSingleBlockHostArray(CTLSStorageBlock *psbStorageBlock);
 	
-private:
 	inline CTLSStorageBlock *GetStorageBlockPointer(unsigned int nBlockIndex, tlsindextype iValueCount);
 	inline unsigned int GetStorageBlockIndex(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
 	inline static void ZeroStorageBlockMemory(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
 
-private:
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 
 	void AllocateBlockThreadHandle(unsigned int nBlockIndex);
@@ -177,7 +172,6 @@ private:
 	
 #endif // #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 	
-private:
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 	
 	inline void SetBlockThreadHandle(unsigned int nBlockIndex, HANDLE hValue)
@@ -252,7 +246,6 @@ private:
 		m_afOccupancyFlags.DropFlagsMaskValue(FL_ARRAY_LOCKED);
 	}
 
-private:
 	typedef CAtomicFlags COccupancyFlagsType;
 
 	volatile atomicptr	m_psaNextArray; // CTLSStorageArray *
@@ -291,10 +284,8 @@ public:
 	
 	inline bool GetIsThreadManualCleanup() const { return GetThreadManualCleanupFlag(); }
 
-public:
 	void FreeStorageBlockOnThreadExit(CTLSStorageBlock *psbStorageBlock);
 
-public:
 	bool FindFreeStorageBlock(CTLSStorageBlock *&psbOutStorageBlock);
 
 private:
@@ -306,7 +297,6 @@ private:
 
 	void AddStorageArrayToArrayList(CTLSStorageArray *psaStorageArray);
 
-private:
 	static bool AllocateStorageKey(HTLSKEYVALUE &hkvOutStorageKey, ESTORAGEINSTANCEKIND ikInstanceKind);
 	static void FreeStorageKey(const HTLSKEYVALUE &hkvStorageKey);
 
@@ -323,7 +313,6 @@ private:
 	CTLSStorageArray *AllocateStorageArray();
 	void FreeStorageArrayList(CTLSStorageArray *psaStorageArrayList);
 	
-private:
 	inline bool TrySettingStorageArrayList(CTLSStorageArray *psaInstance, CTLSStorageArray *psaCurrentList)
 	{
 		return AtomicCompareExchangePointer(&m_psaStorageList, (atomicptr)psaCurrentList, (atomicptr)psaInstance);
@@ -339,7 +328,6 @@ private:
 
 	inline tlsindextype GetValueCount() const { return m_iValueCount; }
 
-private:
 	enum
 	{
 		FL_STORAGE_KEY_VALID			= 0x00000001,
@@ -359,7 +347,6 @@ private:
 
 	inline bool GetThreadManualCleanupFlag() const { return m_sfInstanceFlags.GetFlagsMaskValue(FL_INITIALIZATION_THREAD_MANUAL_CLEANUP); }
 
-private:
 	volatile atomicptr	m_psaStorageList; // CTLSStorageArray *
 	HTLSKEYVALUE		m_hskStorageKey;
 	CSimpleFlags		m_sfInstanceFlags;

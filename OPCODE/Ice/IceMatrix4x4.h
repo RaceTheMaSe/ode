@@ -432,7 +432,6 @@
 		inline_	const HPoint&	operator[](int row)		const	{ return *(const HPoint*)&m[row][0];	}
 		inline_	HPoint&			operator[](int row)				{ return *(HPoint*)&m[row][0];			}
 
-		public:
 
 				float			m[4][4];
 	};

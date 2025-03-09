@@ -75,7 +75,6 @@ public:
         mergeFeatureFlags(featureRequirement);
     }
 
-public:
     dxThreadingBase *getrelatedThreading() const { return m_relatedThreading; }
     sizeint getMemorySizeRequirement() const { return m_memorySizeRequirement; }
     unsigned getMemoryAlignmentRequirement() const { return m_memoryAlignmentRequirement; }
@@ -95,7 +94,6 @@ private:
     CSimpleFlags::value_type queryAllFeatureFlags() const { return m_featureRequirements.QueryFlagsAllValues(); }
     void mergeFeatureFlags(CSimpleFlags::value_type flagValues) { m_featureRequirements.SignalFlagsMaskValue(flagValues); }
 
-private:
     dxThreadingBase     *m_relatedThreading;
     sizeint              m_memorySizeRequirement;
     unsigned            m_memoryAlignmentRequirement;
@@ -127,7 +125,6 @@ public:
     bool allocateResources(const dxResourceRequirementDescriptor &requirementDescriptor);
     void freeResources();
 
-public:
     dxThreadingBase *getThreadingInstance() const { return m_relatedThreading; }
     dCallWaitID getStockCallWait() const { return m_stockCallWait; }
     void *getMemoryBufferPointer() const { return m_memoryAllocation.getUserAreaPointer(); }

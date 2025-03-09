@@ -152,7 +152,6 @@
 		// gcc complains that conversion to a base class will never use a type conversion operator
 #endif
 
-		public:
 				float		w;
 	};
 

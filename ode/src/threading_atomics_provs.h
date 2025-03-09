@@ -51,7 +51,6 @@ public:
     typedef unsigned long atomicord_t;
     typedef void *atomicptr_t;
 
-public:
     static void IncrementTargetNoRet(volatile atomicord_t *value_accumulator_ptr)
     {
         *value_accumulator_ptr = *value_accumulator_ptr + 1;
@@ -155,7 +154,6 @@ public:
     typedef _OU_NAMESPACE::atomicord32 atomicord_t;
     typedef _OU_NAMESPACE::atomicptr atomicptr_t;
 
-public:
     static void IncrementTargetNoRet(volatile atomicord_t *value_accumulator_ptr)
     {
         _OU_NAMESPACE::AtomicIncrementNoResult(value_accumulator_ptr);

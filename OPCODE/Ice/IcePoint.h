@@ -525,7 +525,6 @@
 		inline_					operator	const	float*() const	{ return &x; }
 		inline_					operator			float*()		{ return &x; }
 
-		public:
 				float			x, y, z;
 	};
 

@@ -195,14 +195,14 @@ private:
         return (storageSize - sizeof(FaceAnglesWrapper<TStorageCodec>)) / singleTriangleSize + baseIncludedTriangleCount;
     }
 
-private: // IFaceAngleStorageControl
+    // IFaceAngleStorageControl
     void disposeStorage() ODE_OVERRIDE;
 
     bool areNegativeAnglesStored() const ODE_OVERRIDE;
 
     void assignFacesAngleIntoStorage(unsigned triangleIndex, dMeshTriangleVertex vertexIndex, dReal dAngleValue) ODE_OVERRIDE;
 
-private: // IFaceAngleStorageView
+    // IFaceAngleStorageView
     FaceAngleDomain retrieveFacesAngleFromStorage(dReal &out_angleValue, unsigned triangleIndex, dMeshTriangleVertex vertexIndex) ODE_OVERRIDE;
 
 public:
@@ -230,7 +230,6 @@ private:
     unsigned getAllocatedTriangleCount() const { return m_record.m_triangleCount; }
     void setAllocatedTriangleCount(unsigned triangleCount) { m_record.m_triangleCount = triangleCount; }
 
-private:
     StorageRecord       m_record;
 };
 

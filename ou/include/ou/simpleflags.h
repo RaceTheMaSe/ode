@@ -55,7 +55,6 @@ public:
 
 	typedef ContainerType value_type;
 
-public:
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */AssignFlagsAllValues(ContainerType ctFlagsValue)
 	{
@@ -155,7 +154,6 @@ public:
 		return ContainerType(m_ctFlagsValue & ctFlagsMask);
 	}
 	
-public:
 	// Signal only flag out of mask
 	_OU_ALWAYSINLINE bool _OU_CONVENTION_METHOD 
 	/*bool */OnlySignalSingleFlagOutOfMask(ContainerType ctFlagsMask, ContainerType ctSingleFlag)
@@ -167,7 +165,6 @@ public:
 			: (false);
 	}
 	
-public:
 	// Set value of flag indexed by enum
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */EnumSetEnumeratedFlagValue(ContainerType ctStartingFlag, unsigned int uiEnumeratedValue, unsigned int uiEnumeratedMaximum, bool bFlagValue) 
@@ -283,7 +280,6 @@ public:
 		return uiResult;
 	}
 	
-public:
 	// Signal all flags indexed by enum
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */EnumAllSignalEnumeratedFlags(ContainerType ctStartingFlag, unsigned int uiEnumeratedMaximum)
@@ -321,7 +317,6 @@ public:
 		return GetFlagsMaskValue(OU_FLAGS_ENUMFLAGS_MASK(ContainerType, ctStartingFlag, uiEnumeratedMaximum));
 	}
 	
-public:
 	// Store enumerated value in flags
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */StoreFlagsEnumeratedValue(ContainerType ctEnumeratedValueMask, unsigned int uiEnumeratedValueShift, unsigned int uiEnumeratedValue)

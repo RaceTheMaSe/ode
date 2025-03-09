@@ -120,7 +120,6 @@ private:
         m_VertexUseElements = 0;
     }
 
-private:
     uint8 *m_VertexUseBits;
     sizeint m_VertexUseElements;
 };

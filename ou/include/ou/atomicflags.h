@@ -61,7 +61,6 @@ public:
 
 	typedef atomicord32 value_type;
 
-public:
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */AssignFlagsAllValues(atomicord32 aoFlagsValue)
 	{
@@ -174,7 +173,6 @@ public:
 		return (m_aoFlagsValue & aoFlagsMask);
 	}
 	
-public:
 	// Signal only flag out of mask
 	_OU_ALWAYSINLINE bool _OU_CONVENTION_METHOD 
 	/*bool */OnlySignalSingleFlagOutOfMask(atomicord32 aoFlagsMask, atomicord32 aoSingleFlag)
@@ -209,7 +207,6 @@ public:
 		return bResult;
 	}
 	
-public:
 	// Set value of flag indexed by enum
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */EnumSetEnumeratedFlagValue(atomicord32 aoStartingFlag, unsigned int uiEnumeratedValue, unsigned int uiEnumeratedMaximum, bool bFlagValue) 
@@ -324,7 +321,6 @@ public:
 		return (int)uiResult;
 	}
 	
-public:
 	// Signal all flags indexed by enum
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */EnumAllSignalEnumeratedFlags(atomicord32 aoStartingFlag, unsigned int uiEnumeratedMaximum)
@@ -362,7 +358,6 @@ public:
 		return GetFlagsMaskValue(OU_FLAGS_ENUMFLAGS_MASK(atomicord32, aoStartingFlag, uiEnumeratedMaximum));
 	}
 	
-public:
 	// Store enumerated value in flags
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */StoreFlagsEnumeratedValue(atomicord32 aoEnumeratedValueMask, unsigned int uiEnumeratedValueShift, unsigned int uiEnumeratedValue)

@@ -48,7 +48,6 @@
 							n.z	*= Denom;
 							d	*= Denom;
 						}
-		public:
 		// Members
 				Point	n;		//!< The normal to the plane
 				float	d;		//!< The distance from the origin

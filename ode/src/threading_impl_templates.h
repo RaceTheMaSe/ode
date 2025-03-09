@@ -135,7 +135,6 @@ private:
     bool DoInitializeObject() { return m_alarm_wakeup.InitializeObject(); }
     void DoFinalizeObject() { /* Do nothing */ }
 
-private:
     typedef typename tAtomicsProvider::atomicord_t atomicord_t;
 
 public:

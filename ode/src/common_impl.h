@@ -214,7 +214,6 @@ private:
         return bufferPointer;
     }
 
-private:
     void *m_userAreaPointer;
     void *m_bufferAllocated;
     sizeint m_sizeUsed;

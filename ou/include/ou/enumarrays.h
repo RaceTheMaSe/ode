@@ -88,7 +88,6 @@ public:
 #endif // #if !defined(NDEBUG)
 	}
 	
-public:
 	static _OU_ALWAYSINLINE const EnumType _OU_CONVENTION_API 
 	/*const EnumType */Decode(const ElementType &etValue)
 	{
@@ -137,7 +136,6 @@ private:
 		return petCurrentElement;
 	}
 
-private:
 	static const ElementType m_aetElementArray[];
 };
 	
@@ -245,7 +243,6 @@ private:
 		return petCurrentRangeBegin;
 	}
 
-private:
 	static const ElementType m_aetElementArray[];
 };
 

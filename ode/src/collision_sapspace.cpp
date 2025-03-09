@@ -66,7 +66,6 @@ private:
 
     void ReallocateRanksIfNecessary(sizeint nNewSize);
 
-private:
     void SetCurrentSize(sizeint nValue) { mCurrentSize = nValue; }
     sizeint GetCurrentSize() const { return mCurrentSize; }
 
@@ -81,7 +80,6 @@ private:
     void InvalidateRanks() { mRanksValid = false; }
     void ValidateRanks() { mRanksValid = true; }
 
-private:
     sizeint mCurrentSize;						//!< Current size of the indices list
     sizeint mCurrentUtilization;					//!< Current utilization of the indices list
     bool mRanksValid;

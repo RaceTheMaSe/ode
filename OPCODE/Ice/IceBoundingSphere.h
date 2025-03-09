@@ -134,7 +134,7 @@
 									if(mRadius < 0.0f)	return FALSE;
 									return TRUE;
 								}
-		public:
+		
 				Point			mCenter;		//!< Sphere center
 				float			mRadius;		//!< Sphere radius
 	};

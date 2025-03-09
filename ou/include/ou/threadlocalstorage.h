@@ -102,7 +102,6 @@ public:
 		TSB_LARGEST_ALIGNMENT = sizeof(void *) > sizeof(tlsvaluetype) ? sizeof(void *) : sizeof(tlsvaluetype)
 	};
 	
-public:
 	static inline size_t GetRequiredSize(tlsindextype iValueCount)
 	{
 		return OU_ALIGNED_SIZE(iValueCount * (sizeof(tlsvaluetype) + sizeof(CTLSValueDestructor)) + TSB_RESERVEDPOINTER__MAX * sizeof(void *), TSB_LARGEST_ALIGNMENT);
@@ -116,7 +115,6 @@ public:
 		return OU_ALIGNED_SIZE(iValueCount * sizeof(CTLSValueDestructor) + TSB_RESERVEDPOINTER__MAX * sizeof(void *), TSB_LARGEST_ALIGNMENT);
 	}
 
-public:
 	inline void SetValueData(tlsindextype iValueIndex, tlsvaluetype vValueData)
 	{
 		un.m_av_ValueDatas[iValueIndex] = vValueData;
@@ -206,7 +204,7 @@ public: // Safe methods
 		return vValueData;
 	}
 
-public: // Unsafe methods
+// Unsafe methods
 	static _OU_ALWAYSINLINE void _OU_CONVENTION_API 
 	/*void */UnsafeSetStorageValue(const HTLSKEY &hskStorageKey, tlsindextype iValueIndex, tlsvaluetype vValueData)
 	{
@@ -225,7 +223,6 @@ private:
 	static bool _OU_CONVENTION_API AllocateAndSetStorageValue(const HTLSKEYSELECTOR &hksKeySelector,
 		tlsindextype iValueIndex, tlsvaluetype vValueData, CTLSValueDestructor fnValueDestructor);
 	
-private:
 	friend class CTLSInitialization;
 	
 	static inline void _OU_CONVENTION_API SetKeyStorageBlock(const HTLSKEYSELECTOR &hskStorageKey, CTLSStorageBlock *psbInstance)
@@ -273,7 +270,6 @@ public:
 		SIF_MANUAL_CLEANUP_ON_THREAD_EXIT	= 0x00000001
 	};
 
-public:
 	// Initialization must be performed from main thread
 	static bool _OU_CONVENTION_API InitializeTLSAPI(HTLSKEY &hskOutStorageKey, tlsindextype iValueCount,
 		unsigned int uiInitializationFlags=0);
