@@ -67,7 +67,7 @@ public:
     void DelObject(dGeomID Object);
     void Traverse(dGeomID Object);
 
-    bool Inside(const dReal* AABB);
+    bool Inside(const dReal* AABB) const;
 
     Block* GetBlock(const dReal* AABB);
     Block* GetBlockChild(const dReal* AABB);
@@ -311,7 +311,7 @@ void Block::Traverse(dGeomID Object){
     }
 }
 
-bool Block::Inside(const dReal* AABB){
+bool Block::Inside(const dReal* AABB) const {
     return AABB[AXIS0 * 2 + 0] >= mMinX && AABB[AXIS0 * 2 + 1] < mMaxX && AABB[AXIS1 * 2 + 0] >= mMinZ && AABB[AXIS1 * 2 + 1] < mMaxZ;
 }
 

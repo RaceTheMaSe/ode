@@ -320,7 +320,7 @@ bool dxHeightfieldData::IsOnHeightfield2 ( const HeightFieldVertex * const CellC
 
 
 // returns height at given sample coordinates
-dReal dxHeightfieldData::GetHeight( int x, int z )
+dReal dxHeightfieldData::GetHeight( int x, int z ) const
 {
     dReal h=0;
     const unsigned char *data_byte;
@@ -386,7 +386,7 @@ dReal dxHeightfieldData::GetHeight( int x, int z )
 
 
 // returns height at given coordinates
-dReal dxHeightfieldData::GetHeight( dReal x, dReal z )
+dReal dxHeightfieldData::GetHeight( dReal x, dReal z ) const
 {
     const dReal dnX = dFloor( x * m_fInvSampleWidth );
     const dReal dnZ = dFloor( z * m_fInvSampleDepth );

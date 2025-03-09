@@ -356,7 +356,7 @@ void MeshInterface::FetchExTriangleFromDoubles(VertexPointersEx& vpe, udword ind
  *	\return		true if success
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool MeshInterface::RemapClient(udword nb_indices, const dTriIndex* permutation)
+bool MeshInterface::RemapClient(udword nb_indices, const dTriIndex* permutation) const
 {
 	// Checkings
 	if(!nb_indices || !permutation)	return false;

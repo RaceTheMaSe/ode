@@ -47,37 +47,37 @@ struct PrintingContext {
     int precision;		// digits of precision to print
     int indent;		// number of levels of indent
 
-    void printIndent();
-    void printReal (dReal x);
-    void print (const char *name, int x);
-    void print (const char *name, unsigned x);
-    void print (const char *name, dReal x);
-    void print (const char *name, const dReal *x, int n=3);
-    void print (const char *name, const char *x=NULL);
-    void printNonzero (const char *name, dReal x);
-    void printNonzero (const char *name, const dReal x[3]);
+    void printIndent() const;
+    void printReal (dReal x) const;
+    void print (const char *name, int x) const;
+    void print (const char *name, unsigned x) const;
+    void print (const char *name, dReal x) const;
+    void print (const char *name, const dReal *x, int n=3) const;
+    void print (const char *name, const char *x=NULL) const;
+    void printNonzero (const char *name, dReal x) const;
+    void printNonzero (const char *name, const dReal x[3]) const;
 };
 
 
-void PrintingContext::printIndent()
+void PrintingContext::printIndent() const
 {
     for (int i=0; i<indent; i++) fputc ('\t',file);
 }
 
 
-void PrintingContext::print (const char *name, int x)
+void PrintingContext::print (const char *name, int x) const
 {
     printIndent();
     fprintf (file,"%s = %d,\n",name,x);
 }
 
-void PrintingContext::print (const char *name, unsigned x)
+void PrintingContext::print (const char *name, unsigned x) const
 {
     printIndent();
     fprintf (file,"%s = %u,\n",name,x);
 }
 
-void PrintingContext::printReal (dReal x)
+void PrintingContext::printReal (dReal x) const
 {
     if (x==dInfinity) {
         fprintf (file,"inf");
@@ -91,7 +91,7 @@ void PrintingContext::printReal (dReal x)
 }
 
 
-void PrintingContext::print (const char *name, dReal x)
+void PrintingContext::print (const char *name, dReal x) const
 {
     printIndent();
     fprintf (file,"%s = ",name);
@@ -100,7 +100,7 @@ void PrintingContext::print (const char *name, dReal x)
 }
 
 
-void PrintingContext::print (const char *name, const dReal *x, int n)
+void PrintingContext::print (const char *name, const dReal *x, int n) const
 {
     printIndent();
     fprintf (file,"%s = {",name);
@@ -112,7 +112,7 @@ void PrintingContext::print (const char *name, const dReal *x, int n)
 }
 
 
-void PrintingContext::print (const char *name, const char *x)
+void PrintingContext::print (const char *name, const char *x) const
 {
     printIndent();
     if (x) {
@@ -124,13 +124,13 @@ void PrintingContext::print (const char *name, const char *x)
 }
 
 
-void PrintingContext::printNonzero (const char *name, dReal x)
+void PrintingContext::printNonzero (const char *name, dReal x) const
 {
     if (x != 0) print (name,x);
 }
 
 
-void PrintingContext::printNonzero (const char *name, const dReal x[3])
+void PrintingContext::printNonzero (const char *name, const dReal x[3]) const
 {
     if (x[0] != 0 && x[1] != 0 && x[2] != 0) print (name,x);
 }
@@ -545,6 +545,7 @@ static void printGeom (PrintingContext &c, dxGeom *g)
         case dConvexClass:      printConvex           (c,g); break;
         case dTriMeshClass:     printTriMesh          (c,g); break;
         case dHeightfieldClass: printHeightfieldClass (c,g); break;
+        default: break;
     }
 }
 

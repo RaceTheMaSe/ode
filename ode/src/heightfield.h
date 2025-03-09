@@ -90,8 +90,8 @@ struct dxHeightfieldData
     bool IsOnHeightfield2  ( const HeightFieldVertex * const CellCorner, 
         const dReal * const pos,  const bool isABC) const;
 
-    dReal GetHeight(int x, int z);
-    dReal GetHeight(dReal x, dReal z);
+    dReal GetHeight(int x, int z) const;
+    dReal GetHeight(dReal x, dReal z) const;
 
 };
 
