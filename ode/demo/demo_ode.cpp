@@ -134,9 +134,8 @@ static void testRandomNumberGenerator()
 static void testInfinity()
 {
     HEADER;
-    CONST_IF (REAL(1e10) < dInfinity && REAL(-1e10) > -dInfinity && -dInfinity < dInfinity)
-        printf ("\tpassed\n");
-    else printf ("\tFAILED\n");
+    const bool infTestPassed = REAL(1e10) < dInfinity && REAL(-1e10) > -dInfinity && -dInfinity < dInfinity;
+    infTestPassed ? printf ("\tpassed\n") : printf ("\tFAILED\n");
 }
 
 
