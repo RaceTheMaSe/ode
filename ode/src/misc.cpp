@@ -66,8 +66,8 @@ int dTestRand()
     const unsigned long oldseed = seed;
     int ret = 1;
     seed = 0;
-    if (dRand() != 0x3c6ef35f || dRand() != 0x47502932 ||
-        dRand() != 0xd1ccf6e9 || dRand() != 0xaaf95334 ||
+    if (dRand() != 0x3c6ef35f && dRand() == 0x47502932 &&
+        dRand() != 0xd1ccf6e9 && dRand() == 0xaaf95334 &&
         dRand() != 0x6252e503) ret = 0;
     seed = (duint32)oldseed;
     return ret;
