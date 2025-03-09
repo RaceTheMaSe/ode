@@ -139,14 +139,14 @@ struct dxSAPSpace : public dxSpace
     ~dxSAPSpace() ODE_OVERRIDE;
 
     // dxSpace
-    virtual dxGeom* getGeom(int i) ODE_OVERRIDE;
-    virtual void add(dxGeom* g) ODE_OVERRIDE;
-    virtual void remove(dxGeom* g) ODE_OVERRIDE;
-    virtual void dirty(dxGeom* g) ODE_OVERRIDE;
-    virtual void computeAABB() ODE_OVERRIDE;
-    virtual void cleanGeoms() ODE_OVERRIDE;
-    virtual void collide( void *data, dNearCallback *callback ) ODE_OVERRIDE;
-    virtual void collide2( void *data, dxGeom *geom, dNearCallback *callback ) ODE_OVERRIDE;
+    dxGeom* getGeom(int i) ODE_OVERRIDE;
+    void add(dxGeom* g) ODE_OVERRIDE;
+    void remove(dxGeom* g) ODE_OVERRIDE;
+    void dirty(dxGeom* g) ODE_OVERRIDE;
+    void computeAABB() ODE_OVERRIDE;
+    void cleanGeoms() ODE_OVERRIDE;
+    void collide( void *data, dNearCallback *callback ) ODE_OVERRIDE;
+    void collide2( void *data, dxGeom *geom, dNearCallback *callback ) ODE_OVERRIDE;
 
 private:
 
