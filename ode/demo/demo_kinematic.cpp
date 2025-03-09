@@ -208,7 +208,7 @@ int main(int argc, char **argv)
     fn.stop = NULL;
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
     
-    std::cout << std::endl << "*** Press SPACE to drop boxes **" << std::endl;
+    std::cout << "\n" << "*** Press SPACE to drop boxes **" << "\n";
     
     space = new dSimpleSpace();
     ground = new dPlane(*space, 0, 0, 1, 0);
