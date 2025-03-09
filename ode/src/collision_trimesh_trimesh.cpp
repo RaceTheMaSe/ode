@@ -840,7 +840,6 @@ ClipConvexPolygonAgainstPlane( const dVector3 N, dReal C,
     }
     Contacts.Count = clippedcount;
     memcpy( Contacts.Points, clipped, (size_t)clippedcount * sizeof(dVector3) );
-    return;
 }
 
 
