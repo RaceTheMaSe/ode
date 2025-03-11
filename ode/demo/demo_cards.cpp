@@ -188,7 +188,7 @@ static void command(int c)
             break;
         case '-':
             levels--;
-            if (levels <= 0)
+            if (levels == (size_t)-1)
                 levels++;
             place_cards();
             break;
