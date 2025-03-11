@@ -77,7 +77,7 @@ static dReal speed=0,steer=0;	// user commands
 
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-  int i,n;
+  int n;
 
   // only collide things with the ground
   const int g1 = (o1 == ground || o1 == ground_box);
@@ -88,7 +88,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
   dContact contact[N];
   n = dCollide (o1,o2,N,&contact[0].geom,sizeof(dContact));
   if (n > 0) {
-    for (i=0; i<n; i++) {
+    for (int i=0; i<n; i++) {
       contact[i].surface.mode = dContactSlip1 | dContactSlip2 |
 	dContactSoftERP | dContactSoftCFM | dContactApprox1;
       contact[i].surface.mu = dInfinity;

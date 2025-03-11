@@ -70,8 +70,6 @@ static dGeomID sphereGeom[RAMP_COUNT];
 
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-    int i;
-
     dBodyID b1 = dGeomGetBody(o1);
     dBodyID b2 = dGeomGetBody(o2);
   
@@ -84,7 +82,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
         contact[ii].surface.rho = rho;
     }
     if (const int numc = dCollide (o1,o2,3,&contact[0].geom,sizeof(dContact))) {
-        for (i=0; i<numc; i++) {
+        for (int i=0; i<numc; i++) {
             dJointID c = dJointCreateContact (world,contactgroup,contact+i);
             dJointAttach (c,b1,b2);
         }

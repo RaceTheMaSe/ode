@@ -113,7 +113,7 @@ static dReal cannon_angle=0,cannon_elevation=REAL(-1.2);
 
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-	int i,n;
+	int n;
 	
 	dBodyID b1 = dGeomGetBody(o1);
 	dBodyID b2 = dGeomGetBody(o2);
@@ -124,7 +124,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 	dContact contact[N];
 	n = dCollide (o1,o2,N,&contact[0].geom,sizeof(dContact));
 	if (n > 0) {
-		for (i=0; i<n; i++) {
+		for (int i=0; i<n; i++) {
 			contact[i].surface.mode = dContactSlip1 | dContactSlip2 | dContactSoftERP | dContactSoftCFM | dContactApprox1;
 			if (dGeomGetClass(o1) == dSphereClass || dGeomGetClass(o2) == dSphereClass)
 				contact[i].surface.mu = 20;

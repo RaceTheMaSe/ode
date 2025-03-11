@@ -627,11 +627,11 @@ bool AABBQuantizedTree::Build(AABBTree* tree)
 			INIT_QUANTIZATION
 
 			// Quantize
-			size_t Data;
 			for(udword i=0;i<NbNodes;i++)
 			{
+				size_t Data;
 				PERFORM_QUANTIZATION
-					REMAP_DATA(mData, AABBCollisionNode)
+				REMAP_DATA(mData, AABBCollisionNode)
 			}
 		}
 
@@ -747,9 +747,9 @@ bool AABBQuantizedNoLeafTree::Build(AABBTree* tree)
 			INIT_QUANTIZATION
 
 			// Quantize
-			size_t Data;
 			for(udword i=0;i<NbNodes;i++)
 			{
+				size_t Data;
 				PERFORM_QUANTIZATION
 				REMAP_DATA(mPosData, AABBNoLeafNode)
 				REMAP_DATA(mNegData, AABBNoLeafNode)

@@ -97,7 +97,7 @@ static int draw_all_objects_called;
 static 
 void nearCallback(void * /*data*/, dGeomID o1, dGeomID o2)
 {
-    int i, j, n;
+    int n;
     const int N = 100;
     dContactGeom contact[N];
 
@@ -111,11 +111,11 @@ void nearCallback(void * /*data*/, dGeomID o1, dGeomID o2)
         dMatrix3 RI;
         dRSetIdentity(RI);
         const dReal ss[3] = { REAL(0.01),REAL(0.01),REAL(0.01) };
-        for (i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             contact[i].pos[2] += Z_OFFSET;
             dsDrawBox(contact[i].pos, RI, ss);
             dVector3 norm;
-            for (j = 0; j < 3; j++) norm[j] = contact[i].pos[j] + REAL(0.1)*contact[i].normal[j];
+            for (int j = 0; j < 3; j++) norm[j] = contact[i].pos[j] + REAL(0.1)*contact[i].normal[j];
             dsDrawLine(contact[i].pos, norm);
         }
     }

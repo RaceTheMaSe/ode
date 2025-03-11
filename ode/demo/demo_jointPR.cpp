@@ -76,7 +76,7 @@ static dGeomID box2[1];
 //collision detection
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-    int i,n;
+    int n;
 
     dBodyID b1 = dGeomGetBody(o1);
     dBodyID b2 = dGeomGetBody(o2);
@@ -86,7 +86,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     n = dCollide (o1,o2,N,&contact[0].geom,sizeof(dContact));
     if (n > 0)
     {
-        for (i=0; i<n; i++)
+        for (int i=0; i<n; i++)
         {
             contact[i].surface.mode = dContactSlip1 | dContactSlip2 |
                                       dContactSoftERP | dContactSoftCFM | dContactApprox1;
