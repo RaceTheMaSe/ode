@@ -119,10 +119,6 @@ static unsigned int polygons[] = //Polygons for a cube (6 squares)
 struct MyObject {
   dBodyID body;			// the body
   dGeomID geom[GPB];		// geometries representing this body
-
-  // Trimesh only - double buffered matrices for 'last transform' setup
-  dReal matrix_dblbuff[ 16 * 2 ];
-  int last_matrix_index;
 };
 
 static int num=0;		// number of objects in simulation
