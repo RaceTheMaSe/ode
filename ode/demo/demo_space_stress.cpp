@@ -138,7 +138,7 @@ static char locase(char c)
 
 static void command (int cmdIn)
 {
-    int i,j,k;
+    int i;
     dReal sides[3];
     dMass m;
     bool setBody = false;
@@ -158,7 +158,7 @@ static void command (int cmdIn)
             dBodyDestroy (obj[i].body);
             obj[i].body = NULL;
 
-            for (k=0; k < GPB; k++)
+            for (int k=0; k < GPB; k++)
                 if (obj[i].geom[k]) {
                     dGeomDestroy(obj[i].geom[k]);
                     obj[i].geom[k] = NULL;
@@ -167,7 +167,7 @@ static void command (int cmdIn)
 
         obj[i].body = dBodyCreate(world);
 
-        for (k=0; k<3; k++)
+        for (int k=0; k<3; k++)
             sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
 
         dMatrix3 R;
@@ -179,7 +179,7 @@ static void command (int cmdIn)
         } else {
             // higher than highest body position
             dReal maxheight = 0;
-            for (k=0; k<num; k++) {
+            for (int k=0; k<num; k++) {
                 const dReal *pos = dBodyGetPosition(obj[k].body);
                 if (pos[2] > maxheight)
                     maxheight = pos[2];
@@ -224,11 +224,11 @@ static void command (int cmdIn)
             dMatrix3 drot[GPB];
       
             // set random delta positions
-            for (j=0; j<GPB; j++)
-                for (k=0; k<3; k++)
+            for (int j=0; j<GPB; j++)
+                for (int k=0; k<3; k++)
                     dpos[j][k] = dRandReal()*REAL(0.3)-REAL(0.15);
     
-            for (k=0; k<GPB; k++) {
+            for (int k=0; k<GPB; k++) {
                 if (k==0) {
                   const dReal radius = dRandReal()*REAL(0.25)+REAL(0.05);
                     obj[i].geom[k] = dCreateSphere (space,radius);
@@ -253,7 +253,7 @@ static void command (int cmdIn)
                 dMassAdd(&m,&m2);
 
             }
-            for (k=0; k<GPB; k++) {
+            for (int k=0; k<GPB; k++) {
                 dGeomSetBody(obj[i].geom[k],obj[i].body);
                 dGeomSetOffsetPosition(obj[i].geom[k],
                                        dpos[k][0]-m.c[0],
@@ -267,7 +267,7 @@ static void command (int cmdIn)
         }
 
         if (!setBody) { // avoid calling for composite geometries
-            for (k=0; k < GPB; k++)
+            for (int k=0; k < GPB; k++)
                 if (obj[i].geom[k])
                     dGeomSetBody(obj[i].geom[k],obj[i].body);
 

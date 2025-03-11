@@ -1362,8 +1362,6 @@ void simLoop(int /*pause*/)
 static 
 void do_tests(int argc, char **argv)
 {
-    int i, j;
-
     // process command line arguments
     if (argc >= 2) {
         graphical_test = atoi(argv[1]);
@@ -1396,21 +1394,21 @@ void do_tests(int argc, char **argv)
         // do all tests noninteractively
         dsInitializeConsole(argc, argv);
 
-        for (i = 0; i < MAX_TESTS; i++) testslot[i].number = i;
+        for (int i = 0; i < MAX_TESTS; i++) testslot[i].number = i;
 
         // first put the active tests into a separate array
         int n = 0;
-        for (i = 0; i < MAX_TESTS; i++) if (testslot[i].name) n++;
+        for (int i = 0; i < MAX_TESTS; i++) if (testslot[i].name) n++;
         TestSlot **ts = (TestSlot**)malloc((size_t)n * sizeof(TestSlot*));
-        j = 0;
-        for (i = 0; i < MAX_TESTS; i++) if (testslot[i].name) ts[j++] = testslot + i;
+        int j = 0;
+        for (int i = 0; i < MAX_TESTS; i++) if (testslot[i].name) ts[j++] = testslot + i;
         if (j != n) dDebug(0, "internal");
 
         // do two test batches. the first test batch has far fewer reps and will
         // catch problems quickly. if all tests in the first batch passes, the
         // second batch is run.
 
-        for (i = 0; i < n; i++) ts[i]->failcount = 0;
+        for (int i = 0; i < n; i++) ts[i]->failcount = 0;
         int total_reps = 0;
         for (int batch = 0; batch < 2; batch++) {
             const int reps = (batch == 0) ? TEST_REPS1 : TEST_REPS2;
@@ -1419,7 +1417,7 @@ void do_tests(int argc, char **argv)
 
             // run tests
             for (j = 0; j < reps; j++) {
-                for (i = 0; i < n; i++) {
+                for (int i = 0; i < n; i++) {
                     current_test = ts[i]->number;
                     if (ts[i]->test_fn() != 1) ts[i]->failcount++;
                 }
@@ -1427,12 +1425,12 @@ void do_tests(int argc, char **argv)
 
             // check for failures
             int total_fail_count = 0;
-            for (i = 0; i < n; i++) total_fail_count += ts[i]->failcount;
+            for (int i = 0; i < n; i++) total_fail_count += ts[i]->failcount;
             if (total_fail_count) break;
         }
 
         // print results
-        for (i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             printf("%3d: %-30s: ", ts[i]->number, ts[i]->name);
             if (ts[i]->failcount) {
                 printf("FAILED (%.2f%%) at line %d\n",

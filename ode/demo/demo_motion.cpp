@@ -239,14 +239,12 @@ static char locase (char c)
 static void command (int cmdIn)
 {
     dsizeint i;
-    int k;
     dReal sides[3];
     dMass m;
   
     char cmd = locase ((char)cmdIn);
     if (cmd == 'b' || cmd == 's' || cmd == 'c' || cmd == 'y')
         {
-            setBody = 0;
             if (num < NUM) {
                 i = (dsizeint)num;
                 num++;
@@ -260,7 +258,7 @@ static void command (int cmdIn)
                 if (obj[i].body) {
                   dBodyDestroy (obj[i].body);
                 }
-                for (k=0; k < GPB; k++) {
+                for (int k=0; k < GPB; k++) {
                     if (obj[i].geom[k]) {
                       dGeomDestroy (obj[i].geom[k]);
                     }
@@ -269,7 +267,7 @@ static void command (int cmdIn)
             }
 
             obj[i].body = dBodyCreate (world);
-            for (k=0; k<3; k++) sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
+            for (int k=0; k<3; k++) sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
 
             dMatrix3 R;
             if (random_pos) 
@@ -311,12 +309,11 @@ static void command (int cmdIn)
                 obj[i].geom[0] = dCreateSphere (space,sides[0]);
             }
 
-            if (!setBody)
-                for (k=0; k < GPB; k++) {
-                    if (obj[i].geom[k]) {
-                      dGeomSetBody (obj[i].geom[k],obj[i].body);
-                    }
+            for (int k=0; k < GPB; k++) {
+                if (obj[i].geom[k]) {
+                    dGeomSetBody (obj[i].geom[k],obj[i].body);
                 }
+            }
 
             dBodySetMass (obj[i].body,&m);
         }
@@ -346,8 +343,6 @@ static void command (int cmdIn)
 
 static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 {
-    int i;
-	
     if (!g) return;
     if (!pos) pos = dGeomGetPosition (g);
     if (!R) R = dGeomGetRotation (g);
@@ -387,9 +382,9 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
         dReal aabb[6];
         dGeomGetAABB (g,aabb);
         dVector3 bbpos;
-        for (i=0; i<3; i++) bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
+        for (int i=0; i<3; i++) bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
         dVector3 bbsides;
-        for (i=0; i<3; i++) bbsides[i] = aabb[i*2+1] - aabb[i*2];
+        for (int i=0; i<3; i++) bbsides[i] = aabb[i*2+1] - aabb[i*2];
         dMatrix3 RI;
         dRSetIdentity (RI);
         dsSetColorAlpha (1,0,0,REAL(0.5));

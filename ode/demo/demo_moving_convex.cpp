@@ -138,7 +138,7 @@ static char locase( char c )
 // called when a key pressed
 static void command( int cmdIn )
 {
-	int i,k;
+	int i;
 	dReal sides[3];
 	dMass m;
 
@@ -158,7 +158,7 @@ static void command( int cmdIn )
 
 			// destroy the body and geoms for slot i
 			dBodyDestroy( obj[i].body );
-			for ( k=0; k < GPB; k++ )
+			for ( int k=0; k < GPB; k++ )
 			{
 				if ( obj[i].geom[k] ) dGeomDestroy( obj[i].geom[k] );
 			}
@@ -166,7 +166,7 @@ static void command( int cmdIn )
 		}
 
 		obj[i].body = dBodyCreate( world );
-		for ( k=0; k<3; k++ ) sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
+		for ( int k=0; k<3; k++ ) sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
 
 		dMatrix3 R;
 		if ( random_pos )
@@ -179,7 +179,7 @@ static void command( int cmdIn )
 		else
 		{
 			dReal maxheight = 0;
-			for ( k=0; k<num; k++ )
+			for (int k=0; k<num; k++ )
 			{
 				const dReal *pos = dBodyGetPosition( obj[k].body );
 				if ( pos[2] > maxheight ) maxheight = pos[2];
@@ -238,7 +238,7 @@ static void command( int cmdIn )
 			dMassTranslate( &m, -m.c[0], -m.c[1], -m.c[2] );
 		}
 
-		for ( k=0; k < GPB; k++ )
+		for ( int k=0; k < GPB; k++ )
 		{
 			if ( obj[i].geom[k] ) dGeomSetBody( obj[i].geom[k],obj[i].body );
 		}
