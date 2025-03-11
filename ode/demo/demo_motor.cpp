@@ -118,9 +118,9 @@ static void simLoop (int pause)
 	dJointGroupEmpty(contactgroup);
   }
 
-  dReal sides1[3];
+  dVector3 sides1;
   dGeomBoxGetLengths(geom[0], sides1);
-  dReal sides2[3];
+  dVector3 sides2;
   dGeomBoxGetLengths(geom[1], sides2);
   dsSetTexture (DS_WOOD);
   dsSetColor (1,1,0);

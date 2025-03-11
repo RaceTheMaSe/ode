@@ -195,7 +195,7 @@ static void simLoop(int pause)
             const dReal *pos = dBodyGetPosition(bodyId[j]);
             // Calculate force tensity according to distance from world center
             const dReal length = dCalcVectorLengthSquare3(pos);
-            dReal pos1[3];
+            dVector3 pos1;
             dCopyVector3(pos1, pos);
             dNegateVector3(pos1);
             dNormalize3(pos1);
