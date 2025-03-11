@@ -1099,10 +1099,10 @@ public:
   void set()
     { dJointSetFixed (get_id()); }
 
-  virtual void setParam (int parameter, dReal value)
+  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetFixedParam (get_id(), parameter, value); }
 
-  virtual dReal getParam (int parameter) const
+  virtual dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetFixedParam (get_id(), parameter); }
   // TODO: expose params through methods
 };
@@ -1226,9 +1226,9 @@ public:
   dReal getAngleRate (int anum)
     { return dJointGetAMotorAngleRate (get_id(), anum); }
 
-  void setParam (int parameter, dReal value)
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetAMotorParam (get_id(), parameter, value); }
-  dReal getParam (int parameter) const
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetAMotorParam (get_id(), parameter); }
   // TODO: expose params through methods
 
@@ -1278,9 +1278,9 @@ public:
   void getAxis (int anum, dVector3 result) const
     { dJointGetLMotorAxis (get_id(), anum, result); }
 
-  void setParam (int parameter, dReal value)
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetLMotorParam (get_id(), parameter, value); }
-  dReal getParam (int parameter) const
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetLMotorParam (get_id(), parameter); }
   // TODO: expose params through methods
 };
