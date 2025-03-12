@@ -1,0 +1,11 @@
+constParameterPointer
+constParameterReference
+cstyleCast
+missingInclude
+missingIncludeSystem
+passedByValue
+returnByReference
+syntaxError
+useStlAlgorithm
+unusedFunction
+virtualCallInConstructor

@@ -71,3 +71,4 @@ xcode
 # ignore build folders
 build-*
 tools/cpBuild/*
+cppcheck/*
