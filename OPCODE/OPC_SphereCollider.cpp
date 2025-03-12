@@ -573,11 +573,12 @@ void SphereCollider::_Collide(const AABBTreeNode* node)
 {
 	// Perform Sphere-AABB overlap test
 	IceMaths::Point Center, Extents;
-	if(node->GetAABB())
-	{
-		node->GetAABB()->GetCenter(Center);
-		node->GetAABB()->GetExtents(Extents);
-	}
+
+	if(!node) return;
+
+	node->GetAABB()->GetCenter(Center);
+	node->GetAABB()->GetExtents(Extents);
+
 	if(!SphereAABBOverlap(Center, Extents))	return;
 
 	if(node->IsLeaf() || SphereContainsBox(Center, Extents))

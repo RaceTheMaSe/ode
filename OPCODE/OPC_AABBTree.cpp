@@ -533,14 +533,14 @@ bool AABBTree::Refit2(AABBTreeBuilder* builder)
 		else
 		{
 			ASSERT(Current.GetPos());
-			if(Current.GetPos() != NULL && Current.GetPos()->GetAABB() != NULL)
+			if(Current.GetPos())
 			{
 				Current.GetPos()->GetAABB()->GetMin(Min);
 				Current.GetPos()->GetAABB()->GetMax(Max);
 			}
 
 			ASSERT(Current.GetNeg());
-			if(Current.GetNeg() != NULL && Current.GetNeg()->GetAABB() != NULL)
+			if(Current.GetNeg() != NULL)
 			{
 				Current.GetNeg()->GetAABB()->GetMin(Min_);
 				Current.GetNeg()->GetAABB()->GetMax(Max_);
@@ -549,8 +549,8 @@ bool AABBTree::Refit2(AABBTreeBuilder* builder)
 			Min.Min(Min_);
 			Max.Max(Max_);
 
-			if(Current.GetAABB())
-				const_cast<IceMaths::AABB*>(Current.GetAABB())->SetMinMax(Min, Max);
+			// if(Current.GetAABB())
+			const_cast<IceMaths::AABB*>(Current.GetAABB())->SetMinMax(Min, Max);
 		}
 	}
 	return true;

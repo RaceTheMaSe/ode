@@ -103,12 +103,12 @@ static void _BuildCollisionTree(AABBCollisionNode* linear, const udword box_id, 
 {
 	// Current node from input tree is "current_node". Must be flattened into "linear[boxid]".
 
+	if(!current_node) return;
+
 	// Store the AABB
-	if(current_node->GetAABB())
-	{
-		current_node->GetAABB()->GetCenter(linear[box_id].mAABB.mCenter);
-		current_node->GetAABB()->GetExtents(linear[box_id].mAABB.mExtents);
-	}
+	current_node->GetAABB()->GetCenter(linear[box_id].mAABB.mCenter);
+	current_node->GetAABB()->GetExtents(linear[box_id].mAABB.mExtents);
+	
 	// Store remaining info
 	if(current_node->IsLeaf())
 	{

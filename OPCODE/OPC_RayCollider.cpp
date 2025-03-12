@@ -609,11 +609,12 @@ void RayCollider::_SegmentStab(const AABBTreeNode* node, IceCore::Container& box
 {
 	// Test the box against the segment
 	IceMaths::Point Center=IceMaths::Point(), Extents=IceMaths::Point();
-	if(node->GetAABB())
-	{
-		node->GetAABB()->GetCenter(Center);
-		node->GetAABB()->GetExtents(Extents);
-	}
+
+	if(!node) return;
+
+	node->GetAABB()->GetCenter(Center);
+	node->GetAABB()->GetExtents(Extents);
+
 	if(!SegmentAABBOverlap(Center, Extents))	return;
 
 	if(node->IsLeaf())
@@ -750,11 +751,12 @@ void RayCollider::_RayStab(const AABBTreeNode* node, IceCore::Container& box_ind
 {
 	// Test the box against the ray
 	IceMaths::Point Center, Extents;
-	if(node->GetAABB())
-	{
-		node->GetAABB()->GetCenter(Center);
-		node->GetAABB()->GetExtents(Extents);
-	}
+	
+	if(!node) return;
+
+	node->GetAABB()->GetCenter(Center);
+	node->GetAABB()->GetExtents(Extents);
+
 	if(!RayAABBOverlap(Center, Extents))	return;
 
 	if(node->IsLeaf())
