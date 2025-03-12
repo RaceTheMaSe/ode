@@ -48,6 +48,7 @@ AABBTreeCollider::AABBTreeCollider() :
 	mNbBVBVTests		(0),
 	mNbPrimPrimTests	(0),
 	mNbBVPrimTests		(0),
+	mLeafIndex			(~udword(0)),
 	mFullBoxBoxTest		(true),
 	mFullPrimBoxTest	(true)
 {
