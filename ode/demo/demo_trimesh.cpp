@@ -206,14 +206,14 @@ static char locase (char c)
 
 // called when a key pressed
 
-static void command (int cmd)
+static void command (int cmdIn)
 {
   int i,j,k;
   dReal sides[3];
   dMass m;
   bool setBody = false;
 
-  cmd = locase ((char)cmd);
+  char cmd = locase ((char)cmdIn);
   if (cmd == 'b' || cmd == 's' || cmd == 'c' || cmd == 'x' || cmd == 'v' 
       /* || cmd == 'l' */) {
     if (num < NUM) {

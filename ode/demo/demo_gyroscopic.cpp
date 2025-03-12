@@ -103,9 +103,9 @@ static char locase (char c)
 static void reset();
 static void tilt();
 
-static void command (int cmd)
+static void command (int cmdIn)
 {
-    cmd = locase ((char)cmd);
+    char cmd = locase ((char)cmdIn);
     if (cmd == ' ')
     {
         reset();       

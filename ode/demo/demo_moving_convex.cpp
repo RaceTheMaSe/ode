@@ -136,13 +136,13 @@ static char locase( char c )
 
 
 // called when a key pressed
-static void command( int cmd )
+static void command( int cmdIn )
 {
 	int i,k;
 	dReal sides[3];
 	dMass m;
 
-	cmd = locase( (char)cmd );
+	char cmd = locase( (char)cmdIn );
 	if ( cmd == 'v' || cmd == 'b' || cmd == 'c' || cmd == 's' || cmd == 'y')
 	{
 		if ( num < NUM )

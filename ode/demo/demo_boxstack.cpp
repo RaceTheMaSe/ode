@@ -201,14 +201,14 @@ static void start()
 
 static char locase(char c)
 {
-  if (c >= 'A' && c <= 'Z') return c - ('a'-'A');
+  if (c >= 'A' && c <= 'Z') return (char)((unsigned char)c - ('a'-'A'));
   else return c;
 }
 
 
 // called when a key pressed
 
-static void command(int cmd)
+static void command(int cmdIn)
 {
     dsizeint i;
     int j,k;
@@ -216,7 +216,7 @@ static void command(int cmd)
     dMass m;
     bool setBody = false;
 
-    cmd = locase((char)cmd);
+    char cmd = locase((char)cmdIn);
     if (cmd == 'b' || cmd == 's' || cmd == 'c' || cmd == 'x' || cmd == 'y' || cmd == 'v') {
         if (num < NUM) {
             // new object to be created
