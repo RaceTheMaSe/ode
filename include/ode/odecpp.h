@@ -181,10 +181,10 @@ class dBodyTemplate: public dBodyTemplateBase {
   void operator= (const dBodyTemplate<dBodyTemplateBase, dWorldTemplateBase> &);
 
 protected:
-  dBodyID get_id() const { return dBodyTemplateBase::_id; }
-  void set_id(dBodyID value) { dBodyTemplateBase::_id = value; }
+  virtual dBodyID get_id() const { return dBodyTemplateBase::_id; }
+  virtual void set_id(dBodyID value) { dBodyTemplateBase::_id = value; }
 
-  void destroy() { dBodyTemplateBase::destroy(); }
+  void destroy() ODE_OVERRIDE { dBodyTemplateBase::destroy(); }
 
 public:
   dBodyTemplate()
@@ -450,10 +450,10 @@ class dJointGroupTemplate: public dJointGroupTemplateBase {
   void operator= (const dJointGroupTemplate<dJointGroupTemplateBase> &);
 
 protected:
-  dJointGroupID get_id() const { return dJointGroupTemplateBase::_id; }
-  void set_id(dJointGroupID value) { dJointGroupTemplateBase::_id = value; }
+  virtual dJointGroupID get_id() const { return dJointGroupTemplateBase::_id; }
+  virtual void set_id(dJointGroupID value) { dJointGroupTemplateBase::_id = value; }
 
-  void destroy() { dJointGroupTemplateBase::destroy(); }
+  void destroy() ODE_OVERRIDE { dJointGroupTemplateBase::destroy(); }
 
 public:
   dJointGroupTemplate ()
@@ -499,10 +499,10 @@ private:
   void operator= (const dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
 
 protected:
-  dJointID get_id() const { return dJointTemplateBase::_id; }
-  void set_id(dJointID value) { dJointTemplateBase::_id = value; }
+  virtual dJointID get_id() const { return dJointTemplateBase::_id; }
+  virtual void set_id(dJointID value) { dJointTemplateBase::_id = value; }
 
-  void destroy() { dJointTemplateBase::destroy(); }
+  void destroy() ODE_OVERRIDE { dJointTemplateBase::destroy(); }
 
 protected:
   dJointTemplate() // don't let user construct pure dJointTemplate objects
@@ -561,10 +561,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const  ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dBallJointTemplate() { }
@@ -606,10 +606,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dHingeJointTemplate() { }
@@ -667,10 +667,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dSliderJointTemplate() { }
@@ -719,10 +719,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dUniversalJointTemplate() { }
@@ -793,10 +793,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dHinge2JointTemplate() { }
@@ -864,10 +864,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dPRJointTemplate() { }
@@ -931,10 +931,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dPUJointTemplate() { }
@@ -1014,10 +1014,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dPistonJointTemplate() { }
@@ -1077,10 +1077,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dFixedJointTemplate() { }
@@ -1118,10 +1118,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dContactJointTemplate() { }
@@ -1150,10 +1150,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dNullJointTemplate() { }
@@ -1181,10 +1181,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dAMotorJointTemplate() { }
@@ -1247,10 +1247,10 @@ private:
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
 
-  dJointID get_id() const { return dBaseTemplate::get_id(); }
-  void set_id(dJointID value) { dBaseTemplate::set_id(value); }
+  dJointID get_id() const ODE_OVERRIDE { return dBaseTemplate::get_id(); }
+  void set_id(dJointID value) ODE_OVERRIDE { dBaseTemplate::set_id(value); }
 
-  void destroy() { dBaseTemplate::destroy(); }
+  void destroy() ODE_OVERRIDE { dBaseTemplate::destroy(); }
 
 public:
   dLMotorJointTemplate() { }

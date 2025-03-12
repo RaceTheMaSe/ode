@@ -45,7 +45,7 @@
 		inline_	udword					GetNbFaces()					const	{ return GetNbEntries()>>2;						}
 		inline_	const CollisionFace*	GetFaces()						const	{ return (const CollisionFace*)GetEntries();	}
 
-		inline_	void					Reset()	OPCODE_OVERRIDE					{ Container::Reset();							}
+		inline_	void					Reset()									{ Container::Reset();							}
 
 		inline_	void					AddFace(const CollisionFace& face)		{ Add(face.mFaceID).Add(face.mDistance).Add(face.mU).Add(face.mV);	}
 	};
