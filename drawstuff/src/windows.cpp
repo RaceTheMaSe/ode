@@ -28,7 +28,7 @@
 #include <GL/gl.h>
 
 #include "config.h"
-#include "common.h"
+#include "common_impl.h"
 #include "resource.h"
 #include "internal.h"
 

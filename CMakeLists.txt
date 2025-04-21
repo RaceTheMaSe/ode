@@ -239,7 +239,7 @@ set(
 	ode/src/collision_trimesh_opcode.h
 	ode/src/collision_util.cpp
 	ode/src/collision_util.h
-	ode/src/common.h
+	ode/src/common_impl.h
 	ode/src/convex.cpp
 	ode/src/coop_matrix_types.h
 	ode/src/cylinder.cpp

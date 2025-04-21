@@ -30,7 +30,7 @@
 
 
 #include "threadingutils.h"
-#include "common.h"
+#include "common_impl.h"
 #include "error.h"
 
 #ifndef dCOOPERATIVE_ENABLED

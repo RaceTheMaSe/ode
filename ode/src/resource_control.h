@@ -32,7 +32,7 @@
 #include "objects.h"
 #include "threading_base.h"
 #include "odeou.h"
-#include "common.h"
+#include "common_impl.h"
 #include "error.h"
 
 

@@ -33,7 +33,7 @@ TODO
 #include <ode/common.h>
 #include <ode/timer.h>
 #include "config.h"
-#include "common.h"
+#include "common_impl.h"
 
 
 // misc defines

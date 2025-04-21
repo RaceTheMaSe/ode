@@ -34,7 +34,7 @@
 #define _ODE_THREADING_BASE_H_
 
 
-#include "common.h"
+#include "common_impl.h"
 #include <ode/threading.h>
 
 

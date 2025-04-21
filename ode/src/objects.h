@@ -33,7 +33,7 @@
 #include <ode/objects.h>
 #include "error.h"
 #include "array.h"
-#include "common.h"
+#include "common_impl.h"
 #include "threading_base.h"
 #include "odeou.h"
 

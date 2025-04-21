@@ -32,7 +32,7 @@
 
 
 #include "error.h"
-#include "common.h"
+#include "common_impl.h"
 
 #if defined(_MSC_VER)
 #pragma warning(push)

@@ -1,6 +1,6 @@
 #include <UnitTest++.h>
 #include <ode/ode.h>
-#include "common.h"
+#include "common_impl.h"
 
 
 #ifdef dSINGLE

@@ -25,7 +25,7 @@
 
 
 #include <ode/contact.h>
-#include "common.h"
+#include "common_impl.h"
 #include "objects.h"
 #include "obstack.h"
 

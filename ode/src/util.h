@@ -24,7 +24,7 @@
 #define _ODE_UTIL_H_
 
 #include "objects.h"
-#include "common.h"
+#include "common_impl.h"
 
 
 /* utility */

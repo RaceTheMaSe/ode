@@ -23,7 +23,7 @@
 
 #include <ode/odeconfig.h>
 #include "config.h"
-#include "common.h"
+#include "common_impl.h"
 #include "amotor.h"
 #include "joint_internal.h"
 #include "odeou.h"

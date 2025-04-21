@@ -34,7 +34,7 @@ internal data structures and functions for collision detection.
 #include <ode/collision.h>
 #include "objects.h"
 #include "odetls.h"
-#include "common.h"
+#include "common_impl.h"
 /* atomics from C++11, __cplusplus macro can be explicitly enabled in MSVC since 2017 with /Zc:__cplusplus, C++11 from MSVC 2013 */
 #if defined(__cplusplus) && __cplusplus >= 201103L || (defined(_MSC_VER) && _MSC_VER >= 1800 && _MSC_VER < 1910)
 #include <atomic>
