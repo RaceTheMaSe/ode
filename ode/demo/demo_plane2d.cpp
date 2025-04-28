@@ -238,8 +238,10 @@ extern int      main
     for (b = 0; b < N_BODIES; b ++)
     {
         const int    l = (int) (1 + sqrt ((double) N_BODIES));
-        const dReal  x = dReal( (0.5 + (b / l)) / l * STAGE_SIZE );
-        const dReal  y = dReal( (0.5 + (b % l)) / l * STAGE_SIZE );
+        const int    d = (b / l);
+        const int    e = (b % l);
+        const dReal  x = dReal( (0.5 + d) / l * STAGE_SIZE );
+        const dReal  y = dReal( (0.5 + e) / l * STAGE_SIZE );
         const dReal  z = REAL( 1.0 ) + REAL( 0.1 ) * (dReal)drand48();
 
         g_globals_ptr->bodies_sides[b][0] = dReal( 5 * (0.2 + 0.7*drand48()) / sqrt((double)N_BODIES) );
