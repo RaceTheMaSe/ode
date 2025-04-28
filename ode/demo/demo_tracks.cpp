@@ -280,11 +280,10 @@ static void nearCallback(void * /*data*/, dGeomID a, dGeomID b)
     /* If we know one of the geoms is a sphere, we can base the epsilon on the
      *  sphere's radius.
      */
-    dGeomID s = NULL;
-    if ((dGeomGetClass(a) == dSphereClass && (s = a) != NULL) || 
-        (dGeomGetClass(b) == dSphereClass && (s = b) != NULL)) {
-        epsilon = dGeomSphereGetRadius(s) * REAL(0.3);
-    }
+    if (dGeomGetClass(a) == dSphereClass && a != NULL)
+        epsilon = dGeomSphereGetRadius(a) * REAL(0.3);
+    else if (dGeomGetClass(b) == dSphereClass && b != NULL)
+        epsilon = dGeomSphereGetRadius(b) * REAL(0.3);
 
 
     for (int i=0; i<n; ++i) {
@@ -386,13 +385,8 @@ static void stop()
 
 static void command (int cmd)
 {
-    switch (cmd) {
-        case ' ':
-            resetSim();
-            break;
-        default:
-            break;
-    }
+    if (cmd == ' ')
+        resetSim();
 }
 
 
