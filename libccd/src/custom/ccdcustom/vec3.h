@@ -18,7 +18,9 @@
 #ifndef __CCD_CUSTOM_VEC3_H__
 #define __CCD_CUSTOM_VEC3_H__
 
+#include <ccd/compiler.h>
 #include <ccd/vec3.h>
+#include "compiler.h" /* compile issue with system libccd installed */
 
 
 #ifdef __cplusplus
