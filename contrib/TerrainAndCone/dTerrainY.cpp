@@ -11,7 +11,7 @@
 #include "collision_util.h"
 //#include <drawstuff/drawstuff.h>
 #include "windows.h"
-#include "ode\ode.h"
+#include "ode/ode.h"
 
 #define CONTACT(p,skip) ((dContactGeom*) (((char*)p) + (skip)))
 #define MAXCONTACT 10

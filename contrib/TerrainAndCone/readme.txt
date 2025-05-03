@@ -31,7 +31,7 @@ dTerrainY.cpp
 dTerrainZ.cpp 
 collision_std_internal.h
 
-On linux => edit each .cpp file and comment out     #include "windows.h"    &    #include "ode\ode.h"
+On linux => edit each .cpp file and comment out     #include "windows.h"    &    #include "ode/ode.h"
 
 
 *** add to drawstuff\src\drawstuff.cpp:
