@@ -951,8 +951,8 @@ void dsStartGraphics(int width, int height, dsFunctions *fn)
 {
 
     // All examples build into the same dir
-    char *prefix = "::::drawstuff:textures";
-    char *s = (char*)alloca(strlen(prefix) + 20);
+    char prefix[42] = "::::drawstuff:textures";
+    char* s      = prefix;
 
     strcpy(s, prefix);
     strcat(s, ":sky.ppm");
