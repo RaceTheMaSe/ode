@@ -13,6 +13,11 @@
     #error UnitTest++ redefines TEST
 #endif
 
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wglobal-constructors"
+#pragma clang diagnostic ignored "-Wexit-time-destructors"
+#endif
+
 #define SUITE(Name)                                                         \
     namespace Name {                                                        \
         namespace UnitTestSuite {                                           \
