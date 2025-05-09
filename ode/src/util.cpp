@@ -32,9 +32,27 @@
 //****************************************************************************
 // Malloc based world stepping memory manager
 
-/*extern */dxWorldProcessMemoryManager g_WorldProcessMallocMemoryManager(dAlloc, dRealloc, dFree);
-/*extern */dxWorldProcessMemoryReserveInfo g_WorldProcessDefaultReserveInfo(dWORLDSTEP_RESERVEFACTOR_DEFAULT, dWORLDSTEP_RESERVESIZE_DEFAULT);
+/*extern */dxWorldProcessMemoryManager* g_WorldProcessMallocMemoryManager = NULL;
+/*extern */dxWorldProcessMemoryReserveInfo* g_WorldProcessDefaultReserveInfo = NULL;
 
+void initGlobalProcessMemoryStructures()
+{
+    if(g_WorldProcessMallocMemoryManager == NULL)
+    {
+        g_WorldProcessMallocMemoryManager = new dxWorldProcessMemoryManager(dAlloc, dRealloc, dFree);
+    }
+    if(g_WorldProcessDefaultReserveInfo == NULL)
+    {
+        g_WorldProcessDefaultReserveInfo = new dxWorldProcessMemoryReserveInfo(dWORLDSTEP_RESERVEFACTOR_DEFAULT, dWORLDSTEP_RESERVESIZE_DEFAULT);
+    }
+    atexit(deleteGlobalProcessMemoryStructures);
+}
+
+void deleteGlobalProcessMemoryStructures()
+{
+    delete g_WorldProcessMallocMemoryManager;
+    delete g_WorldProcessDefaultReserveInfo;
+}
 
 //****************************************************************************
 // dxWorldProcessContext
@@ -1219,8 +1237,8 @@ bool dxReallocateWorldProcessContext (dxWorld *world, dxWorldProcessIslandsInfo 
 dxWorldProcessMemArena *dxAllocateTemporaryWorldProcessMemArena(
     sizeint memreq, const dxWorldProcessMemoryManager *memmgr/*=NULL*/, const dxWorldProcessMemoryReserveInfo *reserveinfo/*=NULL*/)
 {
-    const dxWorldProcessMemoryManager *surememmgr = memmgr ? memmgr : &g_WorldProcessMallocMemoryManager;
-    const dxWorldProcessMemoryReserveInfo *surereserveinfo = reserveinfo ? reserveinfo : &g_WorldProcessDefaultReserveInfo;
+    const dxWorldProcessMemoryManager *surememmgr = memmgr ? memmgr : g_WorldProcessMallocMemoryManager;
+    const dxWorldProcessMemoryReserveInfo *surereserveinfo = reserveinfo ? reserveinfo : g_WorldProcessDefaultReserveInfo;
     dxWorldProcessMemArena *arena = dxWorldProcessMemArena::ReallocateMemArena(NULL, memreq, surememmgr, surereserveinfo->m_fReserveFactor, surereserveinfo->m_uiReserveMinimum);
     return arena;
 }

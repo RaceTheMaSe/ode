@@ -24,12 +24,17 @@ udword IceCore::Rand()
 }
 
 
-static BasicRandom gRandomGenerator(42);
+static BasicRandom* gRandomGenerator = NULL;
+static void deleteRandomGenerator() { delete gRandomGenerator; }
 
 udword IceCore::GetRandomIndex(udword max_index)
 {
-	// We don't use rand() since it's limited to RAND_MAX
-	udword Index = gRandomGenerator.Randomize();
-	return Index % max_index;
+    if (gRandomGenerator == NULL)
+    {
+        gRandomGenerator = new BasicRandom(42);
+        atexit(deleteRandomGenerator);
+    }
+    // We don't use rand() since it's limited to RAND_MAX
+    udword Index = gRandomGenerator->Randomize();
+    return Index % max_index;
 }
-

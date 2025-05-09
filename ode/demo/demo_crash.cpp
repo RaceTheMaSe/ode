@@ -98,7 +98,7 @@ static int wb_stepsdis[10000];
 static int wb;
 static bool doFast;
 static dBodyID b;
-static dMass m;
+static dMass* m;
 
 
 // things that the user controls
@@ -244,6 +244,8 @@ void shutdownSimulation()
 
         bodies = 0;
     }
+
+    delete m;
 }
 
 static 
@@ -281,6 +283,8 @@ void setupSimulation()
 	boxes = 0;
 	spheres = 0;
 	wb = 0;
+
+	m = new dMass();
 	
 #ifdef CARS
 	for (dReal x = 0.0; x < COLS*(LENGTH+RADIUS); x = x + LENGTH+RADIUS)
@@ -296,9 +300,9 @@ void setupSimulation()
 		{
 			wall_bodies[wb] = dBodyCreate (world);
 			dBodySetPosition (wall_bodies[wb],-20,y,z);
-			dMassSetBox (&m,1,WBOXSIZE,WBOXSIZE,WBOXSIZE);
-			dMassAdjust (&m, WALLMASS);
-			dBodySetMass (wall_bodies[wb],&m);
+			dMassSetBox (m,1,WBOXSIZE,WBOXSIZE,WBOXSIZE);
+			dMassAdjust (m, WALLMASS);
+			dBodySetMass (wall_bodies[wb],m);
 			wall_boxes[wb] = dCreateBox (space,WBOXSIZE,WBOXSIZE,WBOXSIZE);
 			dGeomSetBody (wall_boxes[wb],wall_bodies[wb]);
 			//dBodyDisable(wall_bodies[wb++]);
@@ -425,8 +429,8 @@ void setupSimulation()
 #ifdef CANNON
 	cannon_ball_body = dBodyCreate (world);
 	cannon_ball_geom = dCreateSphere (space,CANNON_BALL_RADIUS);
-	dMassSetSphereTotal (&m,CANNON_BALL_MASS,CANNON_BALL_RADIUS);
-	dBodySetMass (cannon_ball_body,&m);
+	dMassSetSphereTotal (m,CANNON_BALL_MASS,CANNON_BALL_RADIUS);
+	dBodySetMass (cannon_ball_body,m);
 	dGeomSetBody (cannon_ball_geom,cannon_ball_body);
 	dBodySetPosition (cannon_ball_body,CANNON_X,CANNON_Y,CANNON_BALL_RADIUS);
 #endif

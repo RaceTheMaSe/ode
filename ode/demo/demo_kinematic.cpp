@@ -39,7 +39,7 @@ static dSpace *space;
 static dPlane *ground;
 static dBody *kbody;
 static dBox *kbox;
-static dJointGroup joints;
+static dJointGroup* joints;
 static dCylinder *kpole;
 static dBody *matraca;
 static dBox *matraca_geom;
@@ -68,8 +68,8 @@ struct Box {
     }
 };
 
-static std::set<Box*> boxes;
-static std::set<Box*> to_remove;
+static std::set<Box*>* boxes;
+static std::set<Box*>* to_remove;
 
 static void dropBox()
 {
@@ -80,23 +80,23 @@ static void dropBox()
         const dReal py = ((dReal)rand() / dReal(RAND_MAX)) * 2 - 1;
         const dReal pz = REAL(2.5);
         box->body.setPosition(px, py, pz);
-        
-        boxes.insert(box);
+
+        boxes->insert(box);
     }
 }
 
 static void queueRemoval(dGeomID g)
 {
-    Box *b = (Box*)dGeomGetData(g);
-    to_remove.insert(b);
+    Box* b = (Box*)dGeomGetData(g);
+    to_remove->insert(b);
 }
 
 static void removeQueued()
 {
-    while (!to_remove.empty()) {
-        Box *b = *to_remove.begin();
-        to_remove.erase(b);
-        boxes.erase(b);
+    while (!to_remove->empty()) {
+        Box *b = *to_remove->begin();
+        to_remove->erase(b);
+        boxes->erase(b);
         delete b;
     }
 }
@@ -125,7 +125,7 @@ static void nearCallback(void * /*data*/, dGeomID g1, dGeomID g2)
     for (int i=0; i<n; ++i) {
         contact[i].surface.mode = 0;
         contact[i].surface.mu = 1;
-        dJointID j = dJointCreateContact (*world, joints.id(), contact+i);
+        dJointID j = dJointCreateContact (*world, joints->id(), contact+i);
         dJointAttach(j, b1, b2);
     }
 }
@@ -154,7 +154,7 @@ simLoop(int pause)
         removeQueued();
         
         world->quickStep(timestep);
-        joints.clear();
+        joints->clear();
     }
 
     dVector3 lengths;
@@ -178,9 +178,9 @@ simLoop(int pause)
 
     // and the boxes
 #if defined(__cplusplus) && __cplusplus >= 201103L || defined(_MSC_VER)
-    for_each(boxes.begin(), boxes.end(), std::mem_fn(&Box::draw));
+    for_each(boxes->begin(), boxes->end(), std::mem_fn(&Box::draw));
 #else
-    for_each(boxes.begin(), boxes.end(), std::mem_fun(&Box::draw));
+    for_each(boxes->begin(), boxes->end(), std::mem_fun(&Box::draw));
 #endif
 }
 
@@ -210,6 +210,9 @@ int main(int argc, char **argv)
     
     std::cout << "\n" << "*** Press SPACE to drop boxes **" << "\n";
     
+    boxes     = new std::set<Box*>();
+    to_remove = new std::set<Box*>();
+
     space = new dSimpleSpace();
     ground = new dPlane(*space, 0, 0, 1, 0);
     
@@ -222,6 +225,7 @@ int main(int argc, char **argv)
     kbody->setPosition(kx, ky, kz);
     kbox = new dBox(*space, 3, 3, REAL(.5));
     kbox->setBody(*kbody);
+    joints = new dJointGroup();
     kpole = new dCylinder(*space, REAL(.125), REAL(1.5));
     kpole->setBody(*kbody);
     dGeomSetOffsetPosition(kpole->id(), 0, 0, REAL(0.8));
@@ -242,4 +246,8 @@ int main(int argc, char **argv)
     dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &fn);
     
     dCloseODE();
+
+    delete boxes;
+    delete to_remove;
+    delete joints;
 }

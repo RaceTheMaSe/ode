@@ -48,6 +48,9 @@
 struct TrimeshCollidersCache;
 struct dxTriMeshData;
 
+#if !defined(dTLS_ENABLED)
+    extern TrimeshCollidersCache* g_ccTrimeshCollidersCache;
+#endif // dTLS_ENABLED
 
 static inline 
 TrimeshCollidersCache *GetTrimeshCollidersCache(unsigned uiTLSKind)
@@ -57,8 +60,7 @@ TrimeshCollidersCache *GetTrimeshCollidersCache(unsigned uiTLSKind)
     return COdeTls::GetTrimeshCollidersCache(tkTLSKind);
 #else // dTLS_ENABLED
     (void)uiTLSKind; // unused
-    extern TrimeshCollidersCache g_ccTrimeshCollidersCache;
-    return &g_ccTrimeshCollidersCache;
+    return g_ccTrimeshCollidersCache;
 #endif // dTLS_ENABLED
 }
 

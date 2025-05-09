@@ -104,7 +104,7 @@ static bool TestSubsystem(unsigned int &nOutSuccessCount, unsigned int &nOutTest
 #if _OU_FEATURE_SET >= _OU_FEATURE_SET_TLS
 
 static bool g_bTestTLSAPIInitialized = false;
-static HTLSKEY g_htkTestTLSKey;
+static HTLSKEY* g_htkTestTLSKey = NULL;
 
 enum ETESTTLSVALUES
 {
@@ -132,16 +132,21 @@ static bool TestTls_Initialization()
 {
 	bool bResult = false;
 	
+	if(g_htkTestTLSKey == NULL)
+	{
+		g_htkTestTLSKey = new HTLSKEY;
+	}
+
 	do
 	{
-		if (!CTLSInitialization::InitializeTLSAPI(g_htkTestTLSKey, 1, 0))
+		if (!CTLSInitialization::InitializeTLSAPI(*g_htkTestTLSKey, 1, 0))
 		{
 			break;
 		}
 
 		CTLSInitialization::FinalizeTLSAPI();
 
-		if (!CTLSInitialization::InitializeTLSAPI(g_htkTestTLSKey, TTV__MAX, CTLSInitialization::SIF_MANUAL_CLEANUP_ON_THREAD_EXIT))
+		if (!CTLSInitialization::InitializeTLSAPI(*g_htkTestTLSKey, TTV__MAX, CTLSInitialization::SIF_MANUAL_CLEANUP_ON_THREAD_EXIT))
 		{
 			break;
 		}
@@ -161,57 +166,57 @@ static bool TestTls_GetSetValue()
 	
 	do
 	{
-		tlsvaluetype vtFirstValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE);
+		tlsvaluetype vtFirstValue = CThreadLocalStorage::GetStorageValue(*g_htkTestTLSKey, TTV_FIRSTVALUE);
 
 		if (vtFirstValue != 0)
 		{
 			break;
 		}
 	
-		tlsvaluetype vtSecondValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE);
+		tlsvaluetype vtSecondValue = CThreadLocalStorage::GetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE);
 		
 		if (vtSecondValue != 0)
 		{
 			break;
 		}
 
-		if (!CThreadLocalStorage::SetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE, (tlsvaluetype)&TestTls_GetSetValue))
+		if (!CThreadLocalStorage::SetStorageValue(*g_htkTestTLSKey, TTV_FIRSTVALUE, (tlsvaluetype)&TestTls_GetSetValue))
 		{
 			break;
 		}
 		
-		if (!CThreadLocalStorage::SetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)&TestTlsSecondValueDestructor, &TestTlsSecondValueDestructor))
+		if (!CThreadLocalStorage::SetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)&TestTlsSecondValueDestructor, &TestTlsSecondValueDestructor))
 		{
 			break;
 		}
 
-		vtFirstValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE);
+		vtFirstValue = CThreadLocalStorage::GetStorageValue(*g_htkTestTLSKey, TTV_FIRSTVALUE);
 
 		if ((bool (*)())vtFirstValue != &TestTls_GetSetValue)
 		{
 			break;
 		}
 
-		vtSecondValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE);
+		vtSecondValue = CThreadLocalStorage::GetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE);
 
 		if ((void (*)(void*))vtSecondValue != &TestTlsSecondValueDestructor)
 		{
 			break;
 		}
 		
-		if (!CThreadLocalStorage::SetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE, 0, &TestTlsSecondValueDestructor))
+		if (!CThreadLocalStorage::SetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE, 0, &TestTlsSecondValueDestructor))
 		{
 			break;
 		}
 
-		vtSecondValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE);
+		vtSecondValue = CThreadLocalStorage::GetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE);
 		
 		if (vtSecondValue != 0)
 		{
 			break;
 		}
 		
-		if (!CThreadLocalStorage::SetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)&TestTlsSecondValueDestructor, &TestTlsSecondValueDestructor))
+		if (!CThreadLocalStorage::SetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)&TestTlsSecondValueDestructor, &TestTlsSecondValueDestructor))
 		{
 			break;
 		}
@@ -234,31 +239,31 @@ static bool TestTls_UnsafeGetSetValue()
 	
 	do
 	{
-		tlsvaluetype vtFirstValue = CThreadLocalStorage::UnsafeGetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE);
+		tlsvaluetype vtFirstValue = CThreadLocalStorage::UnsafeGetStorageValue(*g_htkTestTLSKey, TTV_FIRSTVALUE);
 		
 		if ((bool (*)())vtFirstValue != &TestTls_GetSetValue)
 		{
 			break;
 		}
 		
-		tlsvaluetype vtSecondValue = CThreadLocalStorage::UnsafeGetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE);
+		tlsvaluetype vtSecondValue = CThreadLocalStorage::UnsafeGetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE);
 		
 		if ((void (*)(void*))vtSecondValue != &TestTlsSecondValueDestructor)
 		{
 			break;
 		}
 
-		CThreadLocalStorage::UnsafeSetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE, (tlsvaluetype)(size_t)(-1));
-		CThreadLocalStorage::UnsafeSetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)(size_t)(-1));
+		CThreadLocalStorage::UnsafeSetStorageValue(*g_htkTestTLSKey, TTV_FIRSTVALUE, (tlsvaluetype)(size_t)(-1));
+		CThreadLocalStorage::UnsafeSetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)(size_t)(-1));
 
-		vtFirstValue = CThreadLocalStorage::UnsafeGetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE);
+		vtFirstValue = CThreadLocalStorage::UnsafeGetStorageValue(*g_htkTestTLSKey, TTV_FIRSTVALUE);
 		
 		if ((size_t)vtFirstValue != (size_t)(-1))
 		{
 			break;
 		}
 		
-		vtSecondValue = CThreadLocalStorage::UnsafeGetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE);
+		vtSecondValue = CThreadLocalStorage::UnsafeGetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE);
 		
 		if ((size_t)vtSecondValue != (size_t)(-1))
 		{
@@ -266,7 +271,7 @@ static bool TestTls_UnsafeGetSetValue()
 		}
 		
 		// Safe function used by intent !!!
-		vtFirstValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE);
+		vtFirstValue = CThreadLocalStorage::GetStorageValue(*g_htkTestTLSKey, TTV_FIRSTVALUE);
 		
 		if ((size_t)vtFirstValue != (size_t)(-1))
 		{
@@ -274,14 +279,14 @@ static bool TestTls_UnsafeGetSetValue()
 		}
 		
 		// Safe function used by intent !!!
-		vtSecondValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE);
+		vtSecondValue = CThreadLocalStorage::GetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE);
 		
 		if ((size_t)vtSecondValue != (size_t)(-1))
 		{
 			break;
 		}
 	
-		CThreadLocalStorage::UnsafeSetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)(&TestTlsSecondValueDestructor));
+		CThreadLocalStorage::UnsafeSetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)(&TestTlsSecondValueDestructor));
 
 		if (g_uiTestTLSDestructorCallCount != 0)
 		{
@@ -308,7 +313,7 @@ static bool TestTls_CleanupDestructor()
 			break;
 		}
 		
-		tlsvaluetype vtFirstValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_FIRSTVALUE);
+		tlsvaluetype vtFirstValue = CThreadLocalStorage::GetStorageValue(*g_htkTestTLSKey, TTV_FIRSTVALUE);
 		
 		if (vtFirstValue != 0)
 		{
@@ -316,7 +321,7 @@ static bool TestTls_CleanupDestructor()
 		}
 		
 		// Safe function used by intent !!!
-		tlsvaluetype vtSecondValue = CThreadLocalStorage::GetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE);
+		tlsvaluetype vtSecondValue = CThreadLocalStorage::GetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE);
 		
 		if (vtSecondValue != 0)
 		{
@@ -333,7 +338,7 @@ static bool TestTls_CleanupDestructor()
 			break;
 		}
 		
-		if (!CThreadLocalStorage::SetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE, 0, &TestTlsSecondValueDestructor))
+		if (!CThreadLocalStorage::SetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE, 0, &TestTlsSecondValueDestructor))
 		{
 			break;
 		}
@@ -345,7 +350,7 @@ static bool TestTls_CleanupDestructor()
 			break;
 		}
 		
-		if (!CThreadLocalStorage::SetStorageValue(g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)(size_t)(-1), &TestTlsSecondValueDestructor))
+		if (!CThreadLocalStorage::SetStorageValue(*g_htkTestTLSKey, TTV_SECONDVALUE, (tlsvaluetype)(size_t)(-1), &TestTlsSecondValueDestructor))
 		{
 			break;
 		}
@@ -382,6 +387,12 @@ static bool TestTls_Finalization()
 		bResult = true;
 	}
 	while (false);
+
+	if(g_htkTestTLSKey != NULL)
+	{
+		delete g_htkTestTLSKey;
+		g_htkTestTLSKey = NULL;
+	}
 	
 	return bResult;
 }

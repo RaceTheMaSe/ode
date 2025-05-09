@@ -75,17 +75,22 @@ enum ESTORAGEINSTANCEKIND
 
 static unsigned int g_uiThreadLocalStorageInitializationCount = 0;
 static CTLSStorageInstance *g_apsiStorageGlobalInstances[SIK__MAX] = { NULL };
-static HTLSKEYVALUE g_ahkvStorageGlobalKeyValues[SIK__MAX] = { NULL };
+static HTLSKEYVALUE* g_ahkvStorageGlobalKeyValues[SIK__MAX] = { NULL };
 
 
 static inline size_t DecodeInstanceKindFromKeySelector(const HTLSKEYSELECTOR &hksKeySelector)
 {
-	return (size_t)((HTLSKEYSELECTOR::value_type)hksKeySelector - (HTLSKEYSELECTOR::value_type)g_ahkvStorageGlobalKeyValues);
+	for(size_t i=0;i<SIK__MAX;++i)
+	{
+		if(*hksKeySelector == *g_ahkvStorageGlobalKeyValues[i]) return i;
+	}
+	OU_ASSERT(false);
+	return 0;
 }
 
 static inline HTLSKEYSELECTOR EncodeKeySelectorFromStorageKind(ESTORAGEINSTANCEKIND ikInstanceKind)
 {
-	return g_ahkvStorageGlobalKeyValues + ikInstanceKind;
+	return g_ahkvStorageGlobalKeyValues[ikInstanceKind];
 }
 
 
@@ -1186,6 +1191,11 @@ bool CTLSInitialization::InitializeTLSAPI(HTLSKEY &hskOutStorageKey, tlsindextyp
 	
 	bool bAtomicAPIInitialized = false;
 
+	for(ESTORAGEINSTANCEKIND i=SIK__MIN;i!=SIK__MAX;++i)
+	{
+		g_ahkvStorageGlobalKeyValues[i] = new HTLSKEYVALUE(NULL);
+	}
+
 	do
 	{
 		const ESTORAGEINSTANCEKIND ikInstanceKind = (uiInitializationFlags & SIF_MANUAL_CLEANUP_ON_THREAD_EXIT) ? SIK_MANUALCLEANUP : SIK_AUTOCLEANUP;
@@ -1205,7 +1215,7 @@ bool CTLSInitialization::InitializeTLSAPI(HTLSKEY &hskOutStorageKey, tlsindextyp
 			}
 
 			const HTLSKEYVALUE &hkvStorageKey = g_apsiStorageGlobalInstances[ikInstanceKind]->RetrieveStorageKey();
-			g_ahkvStorageGlobalKeyValues[ikInstanceKind] = hkvStorageKey;
+			*g_ahkvStorageGlobalKeyValues[ikInstanceKind] = hkvStorageKey;
 		}
 
 		++g_uiThreadLocalStorageInitializationCount;
@@ -1239,12 +1249,17 @@ void CTLSInitialization::FinalizeTLSAPI()
 	{
 		if (g_apsiStorageGlobalInstances[ikInstanceKind])
 		{
-			g_ahkvStorageGlobalKeyValues[ikInstanceKind] = NULL;
+			*g_ahkvStorageGlobalKeyValues[ikInstanceKind] = NULL;
 
 			FinalizeTLSAPIValidated(ikInstanceKind);
 
 			FinalizeAtomicAPI();
 		}
+	}
+
+	for(ESTORAGEINSTANCEKIND i=SIK__MIN;i!=SIK__MAX;++i)
+	{
+		delete g_ahkvStorageGlobalKeyValues[i];
 	}
 }
 

@@ -14,8 +14,6 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         # -Weverything:
         -Wno-used-but-marked-unused # libccd
         -Wno-duplicate-enum
-        -Wno-global-constructors
-        -Wno-exit-time-destructors
         -Wno-old-style-cast
         -Wno-cast-align # pointer arithmetics on dContact array - asserts added to check stride
         -Wno-zero-as-null-pointer-constant

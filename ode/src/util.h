@@ -57,7 +57,10 @@ struct dxWorldProcessMemoryManager:
     free_block_fn_t m_fnFree;
 };
 
-extern dxWorldProcessMemoryManager g_WorldProcessMallocMemoryManager;
+extern dxWorldProcessMemoryManager* g_WorldProcessMallocMemoryManager;
+
+extern void initGlobalProcessMemoryStructures();
+extern void deleteGlobalProcessMemoryStructures();
 
 struct dxWorldProcessMemoryReserveInfo:
     public dBase
@@ -77,7 +80,7 @@ struct dxWorldProcessMemoryReserveInfo:
     unsigned m_uiReserveMinimum;
 };
 
-extern dxWorldProcessMemoryReserveInfo g_WorldProcessDefaultReserveInfo;
+extern dxWorldProcessMemoryReserveInfo *g_WorldProcessDefaultReserveInfo;
 
 
 class dxWorldProcessMemArena:
@@ -409,7 +412,7 @@ public:
     dxWorldProcessContext *GetWorldProcessingContext() const { return m_ppcProcessingContext; }
 
     const dxWorldProcessMemoryReserveInfo *GetMemoryReserveInfo() const { return m_priReserveInfo; }
-    const dxWorldProcessMemoryReserveInfo *SureGetMemoryReserveInfo() const { return m_priReserveInfo ? m_priReserveInfo : &g_WorldProcessDefaultReserveInfo; }
+    const dxWorldProcessMemoryReserveInfo *SureGetMemoryReserveInfo() const { return m_priReserveInfo ? m_priReserveInfo : g_WorldProcessDefaultReserveInfo; }
     void SetMemoryReserveInfo(float fReserveFactor, unsigned uiReserveMinimum)
     {
         if (m_priReserveInfo) { m_priReserveInfo->Assign(fReserveFactor, uiReserveMinimum); }
@@ -421,7 +424,7 @@ public:
     }
 
     const dxWorldProcessMemoryManager *GetMemoryManager() const { return m_pmmMemoryManager; }
-    const dxWorldProcessMemoryManager *SureGetMemoryManager() const { return m_pmmMemoryManager ? m_pmmMemoryManager : &g_WorldProcessMallocMemoryManager; }
+    const dxWorldProcessMemoryManager *SureGetMemoryManager() const { return m_pmmMemoryManager ? m_pmmMemoryManager : g_WorldProcessMallocMemoryManager; }
     void SetMemoryManager(dxWorldProcessMemoryManager::alloc_block_fn_t fnAlloc, 
         dxWorldProcessMemoryManager::shrink_block_fn_t fnShrink, 
         dxWorldProcessMemoryManager::free_block_fn_t fnFree) 

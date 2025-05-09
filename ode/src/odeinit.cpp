@@ -26,6 +26,7 @@ ODE initialization/finalization code
 
 */
 
+#include "util.h"
 #include <ode/common.h>
 #include <ode/odeinit.h>
 // <ode/objects.h> included for dWorldQuickStepCleanup()
@@ -250,6 +251,8 @@ static bool InitODEForMode(EODEINITMODE imInitMode)
 
     bool bWorldThreadingInitialized = false;
 
+    initGlobalProcessMemoryStructures();
+
     do
     {
         const bool bAnyModeAlreadyInitialized = IsODEAnyModeInitialized();
@@ -282,6 +285,13 @@ static bool InitODEForMode(EODEINITMODE imInitMode)
         }
 
         bTlsInitialized = true;
+#else
+#if defined(dTRIMESH_ENABLED)
+        if(g_ccTrimeshCollidersCache == NULL)
+        {
+            g_ccTrimeshCollidersCache = new TrimeshCollidersCache();
+        }
+#endif        
 #endif
 
         if (!bAnyModeAlreadyInitialized)
@@ -412,6 +422,10 @@ static void CloseODEForMode(EODEINITMODE imInitMode)
     COdeTls::Finalize(tkTLSKindToFinalize);
 #else
     (void)imInitMode; // unused
+#if defined(dTRIMESH_ENABLED)
+    delete g_ccTrimeshCollidersCache;
+    g_ccTrimeshCollidersCache = NULL;
+#endif
 #endif
 
     if (!bAnyModeStillInitialized)
@@ -422,6 +436,10 @@ static void CloseODEForMode(EODEINITMODE imInitMode)
 
 #if defined(dOU_ENABLED)
         COdeOu::UndoOUCustomizations();
+#endif
+
+#if defined(dTLS_ENABLED)
+        COdeTls::Close();
 #endif
     }
 }

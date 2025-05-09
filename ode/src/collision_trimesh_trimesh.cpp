@@ -38,7 +38,7 @@
 
 #if !defined(dTLS_ENABLED)
 // Have collider cache instance unconditionally of OPCODE or GIMPACT selection
-/*extern */TrimeshCollidersCache g_ccTrimeshCollidersCache;
+TrimeshCollidersCache* g_ccTrimeshCollidersCache;
 #endif
 
 

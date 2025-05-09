@@ -37,7 +37,7 @@ static bool show_contacts = false;
 static dWorld * world;
 static dBody *top1, *top2;
 static dSpace *space;
-static dJointGroup contactgroup;
+static dJointGroup* contactgroup;
 
 static const dReal pinradius = REAL(0.05);
 static const dReal pinlength = REAL(1.5);
@@ -66,7 +66,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
         contact[i].surface.mode = dContactApprox1;
         contact[i].surface.mu = 2;
 
-        dJointID c = dJointCreateContact (*world,contactgroup,contact+i);
+        dJointID c = dJointCreateContact (*world,*contactgroup,contact+i);
         dJointAttach (c,b1,b2);
         if (show_contacts)
             dsDrawBox (contact[i].geom.pos, RI, ss);
@@ -141,7 +141,7 @@ static void simLoop (int pause)
     }
 
     // remove all contact joints
-    dJointGroupEmpty (contactgroup);
+    dJointGroupEmpty (*contactgroup);
 
     dsSetTexture (DS_WOOD);
 
@@ -232,7 +232,9 @@ int main (int argc, char **argv)
     pin2->setBody(*top2);
     
     top2->setGyroscopicMode(false);
-    
+
+    contactgroup = new dJointGroup();
+
     reset();
 
     // run simulation
@@ -243,7 +245,8 @@ int main (int argc, char **argv)
     delete pin1;
     delete pin2;
     delete floor;
-    contactgroup.empty();
+    contactgroup->empty();
+    delete contactgroup;
     delete top1;
     delete top2;
     delete space;

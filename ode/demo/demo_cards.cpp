@@ -68,7 +68,7 @@ static const dReal cwidth=.5, cthickness=REAL(.02), clength=1;
 const dReal Card::sides[3] = { cwidth, cthickness, clength };
 
 
-static std::vector<Card*> cards;
+static std::vector<Card*>* cards;
 
 static size_t getncards(size_t nLevels)
 {
@@ -79,13 +79,13 @@ static void place_cards()
 {
     ncards = getncards(levels);
     // destroy removed cards (if any)
-    const size_t oldcards = cards.size();
-    for (size_t i=ncards; i<oldcards; ++i)
-        delete cards[i];
-    cards.resize(ncards);
+    const size_t oldcards = cards->size();
+    for (size_t i = ncards; i < oldcards; ++i)
+        delete (*cards)[i];
+    cards->resize(ncards);
     // construct new cards (if any)
-    for (size_t i=oldcards; i<ncards; ++i)
-        cards[i] = new Card;
+    for (size_t i = oldcards; i < ncards; ++i)
+        (*cards)[i] = new Card;
     
     // for each level
     size_t c = 0;
@@ -106,15 +106,15 @@ static void place_cards()
         const dReal height = (dReal)(lvl)*vstep + vstep/2;
         // inclined cards
         for (size_t i=0; i<2*n; ++i, ++c) {
-            dBodySetPosition(cards[c]->body, 
+            dBodySetPosition((*cards)[c]->body, 
                     0,
                     -(dReal)n*hstep + hstep*(dReal)i,
                     height
                     );
             if (i%2)
-                dBodySetRotation(cards[c]->body, left);
+                dBodySetRotation((*cards)[c]->body, left);
             else
-                dBodySetRotation(cards[c]->body, right);
+                dBodySetRotation((*cards)[c]->body, right);
         }
         
         if (n==1) // top of the house
@@ -122,11 +122,11 @@ static void place_cards()
         
         // horizontal cards
         for (size_t i=0; i<n-1; ++i, ++c) {
-            dBodySetPosition(cards[c]->body,
+            dBodySetPosition((*cards)[c]->body,
                     0,
                     -((dReal)(n-1) - (clength-hstep)/2)*hstep + 2*hstep*(dReal)i,
                     height + vstep/2);
-            dBodySetRotation(cards[c]->body, hrot);
+            dBodySetRotation((*cards)[c]->body, hrot);
         }
     }
     
@@ -174,7 +174,7 @@ static void simLoop(int pause)
     dsSetColor (1,1,0);
     for (size_t i=0; i<ncards; ++i) {
         dsSetColor (1, (float)((dReal)i/(dReal)ncards), 0);
-        cards[i]->draw();
+        (*cards)[i]->draw();
     }
     
 }
@@ -214,6 +214,7 @@ int main(int argc, char **argv)
     fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
     
     
+    cards = new std::vector<Card*>();
     world = dWorldCreate();
     dWorldSetGravity(world, 0, 0, -0.5);
     dWorldSetQuickStepNumIterations(world, 50); // <-- increase for more stability
@@ -245,6 +246,7 @@ int main(int argc, char **argv)
     dWorldDestroy(world);
     dGeomDestroy(ground);
     dSpaceDestroy(space);
+    delete cards;
     
     dCloseODE();
 }

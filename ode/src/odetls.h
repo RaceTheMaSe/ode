@@ -76,6 +76,8 @@ class COdeTls
 public:
     static bool Initialize(EODETLSKIND tkTLSKind);
     static void Finalize(EODETLSKIND tkTLSKind);
+    static void Open();
+    static void Close();
 
     static void CleanupForThread();
 
@@ -83,24 +85,24 @@ public:
     static unsigned GetDataAllocationFlags(EODETLSKIND tkTLSKind)
     {
         // Must be a safe call as it is used to test if TLS slot is allocated at all
-        return (unsigned)(sizeint)CThreadLocalStorage::GetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
+        return (unsigned)(sizeint)CThreadLocalStorage::GetStorageValue(*m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
     }
 
     static void SignalDataAllocationFlags(EODETLSKIND tkTLSKind, unsigned uFlagsMask)
     {
-        const unsigned uCurrentFlags = (unsigned)(sizeint)CThreadLocalStorage::UnsafeGetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
-        CThreadLocalStorage::UnsafeSetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS, (tlsvaluetype)(sizeint)(uCurrentFlags | uFlagsMask));
+        const unsigned uCurrentFlags = (unsigned)(sizeint)CThreadLocalStorage::UnsafeGetStorageValue(*m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
+        CThreadLocalStorage::UnsafeSetStorageValue(*m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS, (tlsvaluetype)(sizeint)(uCurrentFlags | uFlagsMask));
     }
 
     static void DropDataAllocationFlags(EODETLSKIND tkTLSKind, unsigned uFlagsMask)
     {
-        const unsigned uCurrentFlags = (unsigned)(sizeint)CThreadLocalStorage::UnsafeGetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
-        CThreadLocalStorage::UnsafeSetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS, (tlsvaluetype)(sizeint)(uCurrentFlags & ~uFlagsMask));
+        const unsigned uCurrentFlags = (unsigned)(sizeint)CThreadLocalStorage::UnsafeGetStorageValue(*m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
+        CThreadLocalStorage::UnsafeSetStorageValue(*m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS, (tlsvaluetype)(sizeint)(uCurrentFlags & ~uFlagsMask));
     }
 
     static TrimeshCollidersCache *GetTrimeshCollidersCache(EODETLSKIND tkTLSKind)
     { 
-        return (TrimeshCollidersCache *)CThreadLocalStorage::UnsafeGetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_TRIMESH_TRIMESH_COLLIDER_CACHE);
+        return (TrimeshCollidersCache *)CThreadLocalStorage::UnsafeGetStorageValue(*m_ahtkStorageKeys[tkTLSKind], OTI_TRIMESH_TRIMESH_COLLIDER_CACHE);
     }
 
 public:
@@ -115,8 +117,7 @@ private:
 private:
     static void _OU_CONVENTION_CALLBACK FreeTrimeshCollidersCache_Callback(tlsvaluetype vValueData);
 
-private:
-    static HTLSKEY				m_ahtkStorageKeys[OTK__MAX];
+    static HTLSKEY*				m_ahtkStorageKeys[OTK__MAX];
 };
 
 
