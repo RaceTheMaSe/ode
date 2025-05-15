@@ -37,15 +37,15 @@ struct dxJointFixed : public dxJoint
     void  set ( int num, dReal value );
     dReal get ( int num ) const;
 
-    dxJointFixed ( dxWorld *w );
-    virtual void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;
-    virtual void getInfo1 ( Info1* info ) ODE_OVERRIDE;
-    virtual void getInfo2 ( dReal worldFPS, dReal worldERP, 
+    explicit dxJointFixed ( dxWorld *w );
+    void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;
+    void getInfo1 ( Info1* info ) ODE_OVERRIDE;
+    void getInfo2 ( dReal worldFPS, dReal worldERP, 
         int rowskip, dReal *J1, dReal *J2,
         int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
         int *findex ) ODE_OVERRIDE;
-    virtual dJointType type() const ODE_OVERRIDE;
-    virtual sizeint size() const ODE_OVERRIDE;
+    dJointType type() const ODE_OVERRIDE;
+    sizeint size() const ODE_OVERRIDE;
 
     void computeInitialRelativeRotation();
 };

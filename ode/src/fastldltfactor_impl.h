@@ -215,7 +215,8 @@ void solveL1Stripe_2(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
                     ptrLElement += 2;
                     ptrBElement += 2;
 
-                    if ((columnCounter -= 2) == 0)
+                    columnCounter -= 2;
+                    if (columnCounter == 0)
                     {
                         break;
                     }
@@ -346,7 +347,8 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
             ptrAElement += 2;
             ptrDElement += 2 * d_stride;
 
-            if ((columnCounter -= 2) == 0)
+            columnCounter -= 2;
+            if (columnCounter == 0)
             {
                 break;
             }
@@ -498,7 +500,8 @@ void solveStripeL1_1(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
                     ptrLElement += 2;
                     ptrBElement += 2;
 
-                    if ((columnCounter -= 2) == 0)
+                    columnCounter -= 2;
+                    if (columnCounter == 0)
                     {
                         break;
                     }
@@ -586,7 +589,8 @@ void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRo
             ptrAElement += 2;
             ptrDElement += 2 * d_stride;
 
-            if ((columnCounter -= 2) == 0)
+            columnCounter -= 2;
+            if (columnCounter == 0)
             {
                 break;
             }

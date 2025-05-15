@@ -179,7 +179,6 @@ public:
 #endif
     }
 
-public:
     static dxWorldProcessMemArena *ReallocateMemArena (
         dxWorldProcessMemArena *oldarena, sizeint memreq, 
         const dxWorldProcessMemoryManager *memmgr, float rsrvfactor, unsigned rsrvminimum);
@@ -191,7 +190,6 @@ public:
 private:
     static sizeint AdjustArenaSizeForReserveRequirements(sizeint arenareq, float rsrvfactor, unsigned rsrvminimum);
 
-private:
     void *m_pAllocCurrentOrNextArena;
     void *m_pAllocBegin;
     void *m_pAllocEnd;
@@ -209,11 +207,9 @@ public:
 
     void CleanupWorldReferences(dxWorld *pswWorldInstance);
 
-public:
     bool EnsureStepperSyncObjectsAreAllocated(dxWorld *pswWorldInstance);
     dCallWaitID GetIslandsSteppingWait() const { return m_pcwIslandsSteppingWait; }
 
-public:
     dxWorldProcessMemArena *ObtainStepperMemArena();
     void ReturnStepperMemArena(dxWorldProcessMemArena *pmaArenaInstance);
 
@@ -225,7 +221,6 @@ public:
 private:
     static void FreeArenasList(dxWorldProcessMemArena *pmaExistingArenas);
 
-private:
     void SetIslandsMemArena(dxWorldProcessMemArena *pmaInstance) { m_pmaIslandsArena = pmaInstance; }
     dxWorldProcessMemArena *GetIslandsMemArena() const { return m_pmaIslandsArena; }
 
@@ -254,7 +249,6 @@ private:
 
     static const char *const m_aszContextMutexNames[dxPCM__MAX];
 
-private:
     dxWorldProcessMemArena  *m_pmaIslandsArena;
     dxWorldProcessMemArena  *volatile m_pmaStepperArenas;
     dxWorld                 *m_pswObjectsAllocWorld;
@@ -392,7 +386,6 @@ public:
         }
     }
 
-public:
     void CleanupMemory()
     {
         delete m_ppcProcessingContext;
@@ -407,7 +400,6 @@ public:
         }
     }
 
-public: 
     dxWorldProcessContext *SureGetWorldProcessingContext() { return AllocateOnDemand(m_ppcProcessingContext); }
     dxWorldProcessContext *GetWorldProcessingContext() const { return m_ppcProcessingContext; }
 

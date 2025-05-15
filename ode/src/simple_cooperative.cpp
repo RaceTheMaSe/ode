@@ -76,9 +76,6 @@ void dCooperativeDestroy(dCooperativeID cooperative)
 {
     dxSimpleCooperative *cooperativeInstance = decodeCooperativeID(cooperative);
 
-    if (cooperativeInstance != NULL)
-    {
-        delete cooperativeInstance;
-    }
+    delete cooperativeInstance;
 }
 

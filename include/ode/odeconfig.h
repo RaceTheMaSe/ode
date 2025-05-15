@@ -97,8 +97,10 @@
 /* C++98 compatibility */
 #if defined(__cplusplus) && __cplusplus >= 201103L
 #define ODE_OVERRIDE override
+#define ODE_DELETE = delete
 #else
 #define ODE_OVERRIDE
+#define ODE_DELETE
 #endif
 
 /* Well-defined common data types...need to be defined for 64 bit systems */

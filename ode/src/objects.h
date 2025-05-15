@@ -219,7 +219,7 @@ struct dxPosR {
 };
 
 struct dxBody : public dObject {
-    dxBody(dxWorld *w);
+    explicit dxBody(dxWorld *w);
     ~dxBody() ODE_OVERRIDE;
 
     dxJointNode *firstjoint;	// list of attached joints
@@ -252,7 +252,7 @@ struct dxBody : public dObject {
 struct dxWorld : public dBase, private dxIThreadingDefaultImplProvider, public dxThreadingBase {
 public:
     dxWorld();
-    virtual ~dxWorld() ODE_OVERRIDE;
+    ~dxWorld() ODE_OVERRIDE;
 
     void assignThreadingImpl(const dxThreadingFunctionsInfo *functions_info, dThreadingImplementationID threading_impl);
 
@@ -281,7 +281,7 @@ public:
     dxWorldProcessContext *unsafeGetWorldProcessingContext() const;
 
 private: // dxIThreadingDefaultImplProvider
-    virtual const dxThreadingFunctionsInfo *retrieveThreadingDefaultImpl(dThreadingImplementationID &out_defaultImpl) ODE_OVERRIDE;
+    const dxThreadingFunctionsInfo *retrieveThreadingDefaultImpl(dThreadingImplementationID &out_defaultImpl) ODE_OVERRIDE;
 
 public:
     dxBody *firstbody;		// body linked list

@@ -85,7 +85,7 @@
 #define GROUND_G (0.5f)
 #define GROUND_B (0.3f)
 
-const float ground_scale = 1.0f / 1.0f;	// ground texture scale (1/size)
+const float ground_scale = 1.0f;	// ground texture scale (1/size)
 const float ground_ofsx = 0.5;		// offset of ground texture
 const float ground_ofsy = 0.5;
 const float sky_scale = 1.0f / 4.0f;	// sky texture scale (1/size)

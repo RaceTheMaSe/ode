@@ -78,7 +78,6 @@ public:
         m_threading_impl = threading_impl;
     }
 
-public:
     unsigned calculateThreadingLimitedThreadCount(unsigned limitValue, bool countCallerAsExtraThread, unsigned *ptrOut_activeThreadCount=NULL) const
     {
         const unsigned activeThreadCount = RetrieveThreadingThreadCount();
@@ -94,7 +93,6 @@ public:
             : dMIN(limitValue, adjustedActiveThreads);
     }
 
-public:
     dCallWaitID AllocateOrRetrieveStockCallWaitID()
     {
         dCallWaitID stock_wait_id = GetStockCallWait();
@@ -107,7 +105,6 @@ public:
             return DoAllocateStockCallWait(); 
     }
 
-public:
     dMutexGroupID AllocMutexGroup(dmutexindex_t Mutex_count, const char *const *Mutex_names_ptr/*=NULL*/) const
     {
         dThreadingImplementationID impl;
@@ -216,7 +213,6 @@ public:
         return functions->preallocate_resources_for_calls(impl, max_simultaneous_calls_estimate) != 0;
     }
 
-public:
     void PostThreadedCallsGroup(int *out_summary_fault/*=NULL*/, 
         ddependencycount_t member_count, dCallReleaseeID dependent_releasee/*=NULL*/, 
         dThreadedCallFunction *call_func, void *call_context, 
@@ -238,14 +234,12 @@ private:
     dCallWaitID DoAllocateStockCallWait();
     void DoFreeStockCallWait();
 
-private:
     const dxThreadingFunctionsInfo *GetFunctionsInfo() const { return m_functions_info; }
     dThreadingImplementationID GetThreadingImpl() const { return m_threading_impl; }
 
     void SetStockCallWait(dCallWaitID value) { m_stock_call_wait = value; }
     dCallWaitID GetStockCallWait() const { return m_stock_call_wait; }
 
-private:
     dxIThreadingDefaultImplProvider   *m_default_impl_provider;
     const dxThreadingFunctionsInfo    *m_functions_info;
     dThreadingImplementationID        m_threading_impl;

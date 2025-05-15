@@ -150,10 +150,7 @@ void dResourceRequirementsDestroy(dResourceRequirementsID requirements)
 {
     dxResourceRequirementDescriptor *requirementsDescriptor = decodeResourceRequirementsID(requirements);
 
-    if (requirementsDescriptor != NULL)
-    {
-        delete requirementsDescriptor;
-    }
+    delete requirementsDescriptor;
 }
 
 
@@ -242,9 +239,6 @@ void dResourceContainerDestroy(dResourceContainerID resources)
 {
     dxRequiredResourceContainer *containerInstance = decodeResourceContainerID(resources);
 
-    if (containerInstance != NULL)
-    {
-        delete containerInstance;
-    }
+    delete containerInstance;
 }
 

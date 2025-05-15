@@ -117,7 +117,7 @@ void dxConvex::FillEdges()
 {
     const unsigned int *points_in_poly=polygons;
     const unsigned int *index=polygons+1;
-    if (edges!=NULL) delete[] edges;
+    delete[] edges;
     edgecount = 0;
     edge e;
     bool isinset;

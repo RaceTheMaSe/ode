@@ -68,7 +68,6 @@ public:
     static void cooperativelySolveLDLT(dxRequiredResourceContainer *resourceContainer, unsigned allowedThreadCount, 
         const dReal *L, const dReal *d, dReal *b, unsigned rowCount, unsigned rowSkip);
 
-public:
     enum
     {
         ALLOCATION_DEFAULT_ALIGNMENT = COOP_THREAD_DATA_ALIGNMENT_SIZE
@@ -237,7 +236,6 @@ private:
     static void participateScalingAndFactorizingL1Stripe_X(dReal *ARow, dReal *d, unsigned factorizationRow, unsigned rowSkip,
         FactorizationFactorizeL1StripeContext *factorizationContext, unsigned ownThreadIndex);
 
-private:
     struct FactorLDLTWorkerContext
     {
         FactorLDLTWorkerContext(dxThreadingBase *threading, unsigned allowedThreadCount, 
@@ -310,7 +308,6 @@ private:
 
     static int factotLDLT_completion_callback(void *callContext, dcallindex_t callInstanceIndex, dCallReleaseeID callThisReleasee);
 
-private:
     struct FactorizationSolveL1StripeCellContext
     {
         template<unsigned int block_step, unsigned int b_rows>
@@ -384,7 +381,6 @@ private:
         return cellContexts[blockCount * CCI__MAX + blockIndex];
     }
 
-private:
     struct FactorizationFactorizeL1StripeThreadContext
     {
         template<unsigned int a_rows>
@@ -443,7 +439,6 @@ private:
         FactorizationFactorizeL1StripeThreadContext m_threadContexts[1]; // =[threadCount]
     };
 
-private:
     struct SolveL1StraightCellContext;
 
     enum
@@ -510,7 +505,6 @@ private:
         volatile atomicord32 &refBlockCompletionProgress/*=0*/, volatile cellindexint *blockProgressDescriptors/*=[blockCount]*/, 
         SolveL1StraightCellContext *cellContexts/*=[CCI__MAX x blockCount] + [blockCount]*/, unsigned ownThreadIndex);
 
-private:
     struct SolveL1StraightWorkerContext
     {
         void init(const dReal *L, dReal *b, unsigned rowCount, unsigned rowSkip, 
@@ -539,7 +533,6 @@ private:
 
     static int solveL1Straight_completion_callback(void *callContext, dcallindex_t callInstanceIndex, dCallReleaseeID callThisReleasee);
 
-private:
     struct SolveL1StraightCellContext
     {
         template<unsigned int block_step>
@@ -579,7 +572,6 @@ private:
     }
 
 
-private:
     struct SolveL1TransposedCellContext;
 
     enum
@@ -648,7 +640,6 @@ private:
         volatile atomicord32 &refBlockCompletionProgress/*=0*/, volatile cellindexint *blockProgressDescriptors/*=[blockCount]*/, 
         SolveL1TransposedCellContext *cellContexts/*=[CCI__MAX x blockCount] + [blockCount]*/, unsigned ownThreadIndex);
 
-private:
     struct SolveL1TransposedWorkerContext
     {
         void init(const dReal *L, dReal *b, unsigned rowCount, unsigned rowSkip, 
@@ -677,7 +668,6 @@ private:
 
     static int solveL1Transposed_completion_callback(void *callContext, dcallindex_t callInstanceIndex, dCallReleaseeID callThisReleasee);
 
-private:
     struct SolveL1TransposedCellContext
     {
         template<unsigned int block_step>
@@ -715,7 +705,6 @@ private:
         return cellContexts[blockCount * CCI__MAX + blockIndex];
     }
 
-private:
     enum
     {
         SV_A_STRIDE = 1,
@@ -751,10 +740,9 @@ private:
         out_blockCompletionProgress = 0;
     }
     template<unsigned int block_step, unsigned int a_stride, unsigned int d_stride>
-    static void participateScalingVector(dReal *ptrAStart, const dReal *ptrDStart, const unsigned elementCount,
+    static void participateScalingVector(dReal *ptrAStart, const dReal *ptrDStart, unsigned elementCount,
         volatile atomicord32 &refBlockCompletionProgress/*=0*/);
 
-private:
     struct ScaleVectorWorkerContext
     {
         void init(dReal *vectorData, const dReal *scaleData, unsigned elementCount, 
@@ -778,7 +766,6 @@ private:
     static int scaleVector_completion_callback(void *callContext, dcallindex_t callInstanceIndex, dCallReleaseeID callThisReleasee);
 
 
-private:
     enum SolvingLDLTStage
     {
         SLDLTS__MIN,

@@ -267,7 +267,7 @@ DS_API void dsDrawTriangle (const float pos[3], const float R[12],
  * @param solid set to 0 for wireframe
  */
 DS_API void dsDrawTriangles (const float pos[3], const float R[12],
-		     const float *v, const int n, int solid);
+		     const float *v, int n, int solid);
 
 /**
  * @brief Draw a z-aligned cylinder
@@ -306,11 +306,11 @@ DS_API void dsDrawConvex(const float pos[3], const float R[12],
 DS_API void dsDrawBoxD (const double pos[3], const double R[12],
 		 const double sides[3]);
 DS_API void dsDrawSphereD (const double pos[3], const double R[12],
-		    const float radius);
+		    float radius);
 DS_API void dsDrawTriangleD (const double pos[3], const double R[12],
 		      const double *v0, const double *v1, const double *v2, int solid);
 DS_API void dsDrawTrianglesD (const double pos[3], const double R[12],
-		      const double *v, const int n, int solid);
+		      const double *v, int n, int solid);
 DS_API void dsDrawCylinderD (const double pos[3], const double R[12],
 		      float length, float radius);
 DS_API void dsDrawCapsuleD (const double pos[3], const double R[12],

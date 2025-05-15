@@ -199,21 +199,17 @@ public:
     /* For when app changes the vertices */
     void updateData();
 
-public:
     const IceMaths::Point *retrieveVertexInstances() const { return (const IceMaths::Point *)dxTriMeshData_Parent::retrieveVertexInstances(); }
 
-public:
     void assignNormals(const dReal *normals) { dxTriMeshData_Parent::assignNormals(normals); }
     const dReal *retrieveNormals() const { return (const dReal *)dxTriMeshData_Parent::retrieveNormals(); }
     sizeint calculateNormalsMemoryRequirement() const { return retrieveTriangleCount() * (sizeof(dReal) * dSA__MAX); }
 
-public:
     void assignExternalUseFlagsBuffer(uint8 *buffer) { m_ExternalUseFlags = buffer != m_InternalUseFlags ? buffer : NULL; }
     const uint8 *smartRetrieveUseFlags() const { return m_ExternalUseFlags != NULL ? m_ExternalUseFlags : m_InternalUseFlags; }
     bool haveUseFlagsBeenBuilt() const { return m_InternalUseFlags != NULL; }
     sizeint calculateUseFlagsMemoryRequirement() const { return m_Mesh.GetNbTriangles() * sizeof(m_InternalUseFlags[0]); }
 
-public:
     Opcode::Model m_BVTree;
     Opcode::MeshInterface m_Mesh;
 
@@ -249,9 +245,8 @@ public:
 
     bool controlGeometry(int controlClass, int controlCode, void *dataValue, int *dataSize) ODE_OVERRIDE;
 
-    virtual void computeAABB() ODE_OVERRIDE;
+    void computeAABB() ODE_OVERRIDE;
 
-public:
     dxTriMeshData *retrieveMeshData() const { return getMeshData(); }
     const dReal *retrieveMeshNormals() const { return getMeshData()->retrieveNormals(); }
     Opcode::Model &retrieveMeshBVTreeRef() const { return getMeshData()->m_BVTree; }
@@ -263,7 +258,6 @@ public:
     void fetchMeshTriangle(dVector3 *const pout_triangle[3], unsigned index, const dVector3 position, const dMatrix3 rotation) const;
     void fetchMeshTriangle(dVector3 out_triangle[3], unsigned index, const dVector3 position, const dMatrix3 rotation) const;
 
-public:
     void assignLastTransform(const dMatrix4 last_trans) { dCopyMatrix4x4(m_last_trans, last_trans); }
     const dReal *retrieveLastTransform() const { return m_last_trans; }
 
@@ -276,7 +270,7 @@ private:
     bool controlGeometry_SetMergeSphereContacts(int dataValue);
     bool controlGeometry_GetMergeSphereContacts(int &returnValue) const;
 
-private:
+
     dxTriMeshData *getMeshData() const { return static_cast<dxTriMeshData *>(dxTriMesh_Parent::getMeshData()); }
 
 public:
@@ -294,7 +288,6 @@ public:
         dxGeom* Geom;
     };
 
-public:
     // Contact merging option
     dxContactMergeOptions m_SphereContactsMergeOption;
     // Instance data for last transform.

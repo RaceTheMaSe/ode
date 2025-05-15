@@ -57,10 +57,8 @@ private:
         sizeint m_used;		// total number of bytes used in this arena, counting
     };			//   this header
 
-private:
     void *switch_to_arena(Arena *next_arena);
 
-private:
     Arena *m_first;		// head of the arena linked list. 0 if no arenas yet
     Arena *m_last;		// arena where blocks are currently being allocated
 

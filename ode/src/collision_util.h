@@ -88,9 +88,9 @@ void dClosestLineBoxPoints (const dVector3 p1, const dVector3 p2,
 // Start code by Nguyen Binh
 int dClipEdgeToPlane(dVector3 &vEpnt0, dVector3 &vEpnt1, const dVector4& plPlane);
 // clip polygon with plane and generate new polygon points
-void dClipPolyToPlane(const dVector3 avArrayIn[], const int ctIn, dVector3 avArrayOut[], int &ctOut, const dVector4 &plPlane );
+void dClipPolyToPlane(const dVector3 avArrayIn[], int ctIn, dVector3 avArrayOut[], int &ctOut, const dVector4 &plPlane );
 
-void dClipPolyToCircle(const dVector3 avArrayIn[], const int ctIn, dVector3 avArrayOut[], int &ctOut, const dVector4 &plPlane ,dReal fRadius);
+void dClipPolyToCircle(const dVector3 avArrayIn[], int ctIn, dVector3 avArrayOut[], int &ctOut, const dVector4 &plPlane ,dReal fRadius);
 
 // Some vector math
 static inline 

@@ -154,7 +154,6 @@ ODE_NORETURN
         bool Single);
 
 
-public:
     unsigned retrieveVertexCount() const { return m_vertexCount; }
     int retrieveVertexStride() const { return m_vertexStride; }
 
@@ -171,7 +170,6 @@ public:
     static void retrieveTriangleVertexPoints(dVector3 out_Points[dMTV__MAX], unsigned triangleIndex,
         const tcoordfloat *vertexInstances, int vertexStride, const tindexint *triangleVertexIndices, int triangleStride);
 
-public:
     void assignNormals(const void *normals) { m_normals = normals; }
     const void *retrieveNormals() const { return m_normals; }
 
@@ -224,17 +222,14 @@ protected:
 
         dMeshTriangleVertex getEdgeStartVertexIndex() const;
 
-    public:
         bool operator <(const EdgeRecord &anotherEdge) const { return m_vertIdx1 < anotherEdge.m_vertIdx1 || (m_vertIdx1 == anotherEdge.m_vertIdx1 && m_vertIdx2 < anotherEdge.m_vertIdx2); }
 
-    public:
         enum
         {
             AVF_VERTEX_USED             = 0x01,
             AVF_VERTEX_HAS_CONCAVE_EDGE = 0x02
         };
 
-    public:
         unsigned m_vertIdx1;	// Index into vertex array for this edges vertices
         unsigned m_vertIdx2;
         unsigned m_triIdx;		// Index into triangle array for triangle this edge belongs to
@@ -286,7 +281,6 @@ private:
     int m_triStride;
     bool m_single;
 
-private:
     const void *m_normals;
     IFaceAngleStorageControl *m_faceAngles;
     IFaceAngleStorageView *m_faceAngleView; 
@@ -319,7 +313,6 @@ public:
         return m_Callback == NULL || m_Callback(this, Object, TriIndex) != 0;
     }
 
-public:
     enum TRIMESHTC
     {
         TTC__MIN,
@@ -331,7 +324,6 @@ public:
         TTC__MAX
     };
 
-public:
     void assignCallback(dTriCallback *value) { m_Callback = value; }
     dTriCallback *retrieveCallback() const { return m_Callback; }
 
@@ -358,7 +350,6 @@ public:
     void assignDoTC(TRIMESHTC tc, bool value) { setDoTC(tc, value); }
     bool retrieveDoTC(TRIMESHTC tc) const { return getDoTC(tc); }
 
-public:
     void setDoTC(TRIMESHTC tc, bool value) { dIASSERT(dIN_RANGE(tc, TTC__MIN, TTC__MAX)); m_DoTCs[tc] = value; }
     bool getDoTC(TRIMESHTC tc) const { dIASSERT(dIN_RANGE(tc, TTC__MIN, TTC__MAX)); return m_DoTCs[tc]; }
 

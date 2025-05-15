@@ -270,7 +270,7 @@ struct dxSpace : public dxGeom {
     int lock_count;
 #endif
 
-    dxSpace (dSpaceID _space);
+    explicit dxSpace (dSpaceID _space);
     ~dxSpace() ODE_OVERRIDE;
 
     void computeAABB() ODE_OVERRIDE;

@@ -56,7 +56,6 @@ public:
 
     bool InitializeObject() { return true; }
 
-public:
     void ResetWakeup() { m_wakeup_state = false; m_state_is_permanent = false; }
     void WakeupAThread() { dIASSERT(!m_state_is_permanent); m_wakeup_state = true; } // Wakeup should not be used after permanent signal
     void WakeupAllThreads() { m_wakeup_state = true; m_state_is_permanent = true; }
@@ -98,7 +97,6 @@ public:
 
     bool InitializeObject() { return true; }
 
-public:
     void LockMutex() { /* Do nothing */ }
     bool TryLockMutex() { /* Do nothing */ return true; }
     void UnlockMutex() { /* Do nothing */ }
@@ -116,7 +114,6 @@ public:
 
     bool InitializeObject() { return true; }
 
-public:
     void RegisterToLull() { /* Do nothing */ }
     ODE_NORETURN_VOID WaitForLullAlarm() { dICHECK(false); } // Fake lull can't be waited
     void UnregisterFromLull() { /* Do nothing */ }

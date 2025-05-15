@@ -53,13 +53,12 @@ public:
         dxSimpleCooperative_ThreadingParent::assignThreadingImpl(functionInfo, threadingImpl);
     }
 
-    virtual ~dxSimpleCooperative() ODE_OVERRIDE;
+    ~dxSimpleCooperative() ODE_OVERRIDE;
 
-public:
     dxThreadingBase *getRelatedThreading() const { return const_cast<dxSimpleCooperative *>(this); }
 
 private: // dxIThreadingDefaultImplProvider
-    virtual const dxThreadingFunctionsInfo *retrieveThreadingDefaultImpl(dThreadingImplementationID &out_defaultImpl) ODE_OVERRIDE;
+    const dxThreadingFunctionsInfo *retrieveThreadingDefaultImpl(dThreadingImplementationID &out_defaultImpl) ODE_OVERRIDE;
 };
 
 

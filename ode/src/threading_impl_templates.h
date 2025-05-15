@@ -107,12 +107,10 @@ private:
 public:
     typedef dxtemplateCallWait<tThreadWakeup> dxCallWait;
 
-public:
     void ResetTheWait() { m_wait_wakeup.ResetWakeup(); }
     void SignalTheWait() { m_wait_wakeup.WakeupAllThreads(); }
     bool PerformWaiting(const dThreadedWaitTime *timeout_time_ptr/*=NULL*/) { return m_wait_wakeup.WaitWakeup(timeout_time_ptr); }
 
-public:
     static void AbstractSignalTheWait(void *wait_wakeup_ptr) { ((dxCallWait *)wait_wakeup_ptr)->SignalTheWait(); }
 
 private:
@@ -205,7 +203,7 @@ template<class tThreadMutex>
 class dxtemplateThreadingLockHelper
 {
 public:
-    dxtemplateThreadingLockHelper(tThreadMutex &mutex_instance): m_mutex_instance(mutex_instance), m_lock_indicator_flag(false) { LockMutex(); }
+    explicit dxtemplateThreadingLockHelper(tThreadMutex &mutex_instance): m_mutex_instance(mutex_instance), m_lock_indicator_flag(false) { LockMutex(); }
     ~dxtemplateThreadingLockHelper() { if (m_lock_indicator_flag) { UnlockMutex(); } }
 
     void LockMutex() { dIASSERT(!m_lock_indicator_flag); m_mutex_instance.LockMutex(); m_lock_indicator_flag = true; }
@@ -254,7 +252,6 @@ public:
     typedef dxtemplateThreadingLockHelper<tThreadMutex> dxMutexLockHelper;
     typedef void dWaitSignallingFunction(void *job_call_wait);
 
-public:
     bool ReleaseAJobAndPickNextPendingOne(
         dxThreadedJobInfo *job_to_release, bool job_result, dWaitSignallingFunction *wait_signal_proc_ptr, 
         dxThreadedJobInfo *&out_next_job, bool &out_last_job_flag);
@@ -281,7 +278,6 @@ private:
     dxThreadedJobInfo *ExtractJobInfoFromPoolOrAllocate();
     inline void ReleaseJobInfoIntoPool(dxThreadedJobInfo *job_instance);
 
-private:
     void FreeJobInfoPoolInfos();
 
 public:
@@ -339,11 +335,9 @@ private:
 public:
     typedef dxtemplateCallWait<tThreadWakeup> dxCallWait;
 
-public:
     inline void ProcessActiveJobAddition();
     inline void PrepareForWaitingAJobCompletion();
 
-public:
     inline unsigned RetrieveActiveThreadCount();
     inline void StickToJobsProcessing(dxThreadReadyToServeCallback *readiness_callback/*=NULL*/, void *callback_context/*=NULL*/);
 
@@ -361,7 +355,6 @@ public:
 private:
     bool IsShutdownRequested() const { return m_shutdown_requested != 0; }
 
-private:
     typedef typename tJobListContainer::dxAtomicsProvider dxAtomicsProvider;
     typedef typename tJobListContainer::atomicord_t atomicord_t;
 
@@ -374,7 +367,6 @@ private:
     void RegisterAsActiveThread() { dxAtomicsProvider::IncrementTargetNoRet(&m_active_thread_count); }
     void UnregisterAsActiveThread() { dxAtomicsProvider::DecrementTargetNoRet(&m_active_thread_count); }
 
-private:
     tJobListContainer       *m_job_list_ptr;
     tThreadWakeup           m_processing_wakeup;
     volatile atomicord_t    m_idle_thread_count;
@@ -390,7 +382,7 @@ template<class tThreadWakeup, class tJobListContainer>
 class dxtemplateJobListSelfHandler
 {
 public:
-    dxtemplateJobListSelfHandler(tJobListContainer *list_container_ptr):
+    explicit dxtemplateJobListSelfHandler(tJobListContainer *list_container_ptr):
         m_job_list_ptr(list_container_ptr)
     {
     }
@@ -402,14 +394,12 @@ public:
 
     bool InitializeObject() { return true; }
 
-public:
+
     typedef dxtemplateCallWait<tThreadWakeup> dxCallWait;
 
-public:
     inline void ProcessActiveJobAddition();
     inline void PrepareForWaitingAJobCompletion();
 
-public:
     inline unsigned RetrieveActiveThreadCount();
     inline void StickToJobsProcessing(dxThreadReadyToServeCallback *readiness_callback/*=NULL*/, void *callback_context/*=NULL*/);
 
@@ -435,19 +425,16 @@ public:
     virtual ~dxIThreadingImplementation();
     virtual void FreeInstance() = 0;
 
-public:
     virtual dIMutexGroup *AllocMutexGroup(dmutexindex_t Mutex_count) = 0;
     virtual void FreeMutexGroup(dIMutexGroup *mutex_group) = 0;
     virtual void LockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) = 0;
     // virtual bool TryLockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) = 0;
     virtual void UnlockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) = 0;
 
-public:
     virtual dxICallWait *AllocACallWait() = 0;
     virtual void ResetACallWait(dxICallWait *call_wait) = 0;
     virtual void FreeACallWait(dxICallWait *call_wait) = 0;
 
-public:
     virtual bool PreallocateJobInfos(ddependencycount_t max_simultaneous_calls_estimate) = 0;
     virtual void ScheduleNewJob(int *fault_accumulator_ptr/*=NULL*/, 
         dCallReleaseeID *out_post_releasee_ptr/*=NULL*/, ddependencycount_t dependencies_count, dCallReleaseeID dependent_releasee/*=NULL*/, 
@@ -457,7 +444,6 @@ public:
     virtual void WaitJobCompletion(int *out_wait_status_ptr/*=NULL*/, 
         dxICallWait *call_wait, const dThreadedWaitTime *timeout_time_ptr/*=NULL*/) = 0;
 
-public:
     virtual unsigned RetrieveActiveThreadCount() = 0;
     virtual void StickToJobsProcessing(dxThreadReadyToServeCallback *readiness_callback/*=NULL*/, void *callback_context/*=NULL*/) = 0;
     virtual void ShutdownProcessing() = 0;
@@ -478,7 +464,7 @@ public:
     {
     }
 
-    virtual ~dxtemplateThreadingImplementation() ODE_OVERRIDE
+    ~dxtemplateThreadingImplementation() ODE_OVERRIDE
     {
         DoFinalizeObject();
     }
@@ -490,39 +476,36 @@ private:
     void DoFinalizeObject() { /* Do nothing */ }
 
 protected:
-    virtual void FreeInstance() ODE_OVERRIDE;
+    void FreeInstance() ODE_OVERRIDE;
 
 private:
     typedef dxtemplateMutexGroup<typename tJobListContainer::dxThreadMutex> dxMutexGroup;
     typedef typename tJobListHandler::dxCallWait dxCallWait;
 
 protected:
-    virtual dIMutexGroup *AllocMutexGroup(dmutexindex_t Mutex_count) ODE_OVERRIDE;
-    virtual void FreeMutexGroup(dIMutexGroup *mutex_group) ODE_OVERRIDE;
-    virtual void LockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) ODE_OVERRIDE;
+    dIMutexGroup *AllocMutexGroup(dmutexindex_t Mutex_count) ODE_OVERRIDE;
+    void FreeMutexGroup(dIMutexGroup *mutex_group) ODE_OVERRIDE;
+    void LockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) ODE_OVERRIDE;
     // virtual bool TryLockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) ODE_OVERRIDE;
-    virtual void UnlockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) ODE_OVERRIDE;
+    void UnlockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) ODE_OVERRIDE;
 
-protected:
-    virtual dxICallWait *AllocACallWait() ODE_OVERRIDE;
-    virtual void ResetACallWait(dxICallWait *call_wait) ODE_OVERRIDE;
-    virtual void FreeACallWait(dxICallWait *call_wait) ODE_OVERRIDE;
+    dxICallWait *AllocACallWait() ODE_OVERRIDE;
+    void ResetACallWait(dxICallWait *call_wait) ODE_OVERRIDE;
+    void FreeACallWait(dxICallWait *call_wait) ODE_OVERRIDE;
 
-protected:
-    virtual bool PreallocateJobInfos(ddependencycount_t max_simultaneous_calls_estimate) ODE_OVERRIDE;
-    virtual void ScheduleNewJob(int *fault_accumulator_ptr/*=NULL*/, 
+    bool PreallocateJobInfos(ddependencycount_t max_simultaneous_calls_estimate) ODE_OVERRIDE;
+    void ScheduleNewJob(int *fault_accumulator_ptr/*=NULL*/, 
         dCallReleaseeID *out_post_releasee_ptr/*=NULL*/, ddependencycount_t dependencies_count, dCallReleaseeID dependent_releasee/*=NULL*/, 
         dxICallWait *call_wait/*=NULL*/, 
         dThreadedCallFunction *call_func, void *call_context, dcallindex_t instance_index) ODE_OVERRIDE;
-    virtual void AlterJobDependenciesCount(dCallReleaseeID target_releasee, ddependencychange_t dependencies_count_change) ODE_OVERRIDE;
-    virtual void WaitJobCompletion(int *out_wait_status_ptr/*=NULL*/, 
+    void AlterJobDependenciesCount(dCallReleaseeID target_releasee, ddependencychange_t dependencies_count_change) ODE_OVERRIDE;
+    void WaitJobCompletion(int *out_wait_status_ptr/*=NULL*/, 
         dxICallWait *call_wait, const dThreadedWaitTime *timeout_time_ptr/*=NULL*/) ODE_OVERRIDE;
 
-protected:
-    virtual unsigned RetrieveActiveThreadCount() ODE_OVERRIDE;
-    virtual void StickToJobsProcessing(dxThreadReadyToServeCallback *readiness_callback/*=NULL*/, void *callback_context/*=NULL*/) ODE_OVERRIDE;
-    virtual void ShutdownProcessing() ODE_OVERRIDE;
-    virtual void CleanupForRestart() ODE_OVERRIDE;
+    unsigned RetrieveActiveThreadCount() ODE_OVERRIDE;
+    void StickToJobsProcessing(dxThreadReadyToServeCallback *readiness_callback/*=NULL*/, void *callback_context/*=NULL*/) ODE_OVERRIDE;
+    void ShutdownProcessing() ODE_OVERRIDE;
+    void CleanupForRestart() ODE_OVERRIDE;
 
 private:
     tJobListContainer     m_list_container;

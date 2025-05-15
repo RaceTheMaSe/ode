@@ -33,20 +33,19 @@ class dxJointAMotor:
     public dxJointAMotor_Parent
 {
 public:
-    dxJointAMotor(dxWorld *w);
-    virtual ~dxJointAMotor() ODE_OVERRIDE;
+    explicit dxJointAMotor(dxWorld *w);
+    ~dxJointAMotor() ODE_OVERRIDE;
 
-public:
-    virtual void getSureMaxInfo(SureMaxInfo* info) ODE_OVERRIDE;
-    virtual void getInfo1(Info1* info) ODE_OVERRIDE;
-    virtual void getInfo2(dReal worldFPS, dReal worldERP, 
+
+    void getSureMaxInfo(SureMaxInfo* info) ODE_OVERRIDE;
+    void getInfo1(Info1* info) ODE_OVERRIDE;
+    void getInfo2(dReal worldFPS, dReal worldERP, 
         int rowskip, dReal *J1, dReal *J2,
         int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
         int *findex) ODE_OVERRIDE;
-    virtual dJointType type() const ODE_OVERRIDE;
-    virtual sizeint size() const ODE_OVERRIDE;
+    dJointType type() const ODE_OVERRIDE;
+    sizeint size() const ODE_OVERRIDE;
 
-public:
     void setOperationMode(int mode);
     int getOperationMode() const { return m_mode; }
 
@@ -71,7 +70,6 @@ public:
     void setLimotParameter(unsigned anum, int limotParam, dReal value) { dAASSERT(dIN_RANGE(anum, dSA__MIN, dSA__MAX)); m_limot[anum].set(limotParam, value); }
     dReal getLimotParameter(unsigned anum, int limotParam) const { dAASSERT(dIN_RANGE(anum, dSA__MIN, dSA__MAX)); return m_limot[anum].get(limotParam); }
 
-public:
     void addTorques(dReal torque1, dReal torque2, dReal torque3);
 
 private:
@@ -82,14 +80,11 @@ private:
     void computeEulerAngles(dVector3 ax[dSA__MAX]);
     void setEulerReferenceVectors();
 
-private:
     inline dSpaceAxis BuildFirstBodyEulerAxis() const;
     inline dJointConnectedBody BuildFirstEulerAxisBody() const;
 
-private:
     friend struct dxAMotorJointPrinter;
 
-private:
     int m_mode;                                   // a dAMotorXXX constant
     unsigned m_num;                               // number of axes (0..3)
     dJointBodyRelativity m_rel[dSA__MAX];         // what the axes are relative to (global,b1,b2)

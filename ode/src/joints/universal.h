@@ -38,7 +38,7 @@ struct dxJointUniversal : public dxJoint
     dxJointLimitMotor limot1; // limit and motor information for axis1
     dxJointLimitMotor limot2; // limit and motor information for axis2
 
-    dxJointUniversal(dxWorld *w);
+    explicit dxJointUniversal(dxWorld *w);
 
     void getAxes( dVector3 ax1, dVector3 ax2 );
     void getAngles( dReal *angle1, dReal *angle2 );
@@ -48,16 +48,16 @@ struct dxJointUniversal : public dxJoint
     void computeInitialRelativeRotations();
     void buildFirstBodyTorqueVector(dVector3 torqueVector, dReal torque1, dReal torque2);
 
-    virtual void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;
-    virtual void getInfo1( Info1* info ) ODE_OVERRIDE;
-    virtual void getInfo2( dReal worldFPS, dReal worldERP, 
+    void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;
+    void getInfo1( Info1* info ) ODE_OVERRIDE;
+    void getInfo2( dReal worldFPS, dReal worldERP, 
         int rowskip, dReal *J1, dReal *J2,
         int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
         int *findex) ODE_OVERRIDE;
-    virtual dJointType type() const ODE_OVERRIDE;
-    virtual sizeint size() const ODE_OVERRIDE;
+    dJointType type() const ODE_OVERRIDE;
+    sizeint size() const ODE_OVERRIDE;
 
-    virtual void setRelativeValues() ODE_OVERRIDE;
+    void setRelativeValues() ODE_OVERRIDE;
 };
 
 

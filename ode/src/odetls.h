@@ -81,7 +81,6 @@ public:
 
     static void CleanupForThread();
 
-public:
     static unsigned GetDataAllocationFlags(EODETLSKIND tkTLSKind)
     {
         // Must be a safe call as it is used to test if TLS slot is allocated at all
@@ -105,7 +104,6 @@ public:
         return (TrimeshCollidersCache *)CThreadLocalStorage::UnsafeGetStorageValue(*m_ahtkStorageKeys[tkTLSKind], OTI_TRIMESH_TRIMESH_COLLIDER_CACHE);
     }
 
-public:
     static bool AssignDataAllocationFlags(EODETLSKIND tkTLSKind, unsigned uInitializationFlags);
 
     static bool AssignTrimeshCollidersCache(EODETLSKIND tkTLSKind, TrimeshCollidersCache *pccInstance);
@@ -114,7 +112,6 @@ public:
 private:
     static void FreeTrimeshCollidersCache(TrimeshCollidersCache *pccCacheInstance);
 
-private:
     static void _OU_CONVENTION_CALLBACK FreeTrimeshCollidersCache_Callback(tlsvaluetype vValueData);
 
     static HTLSKEY*				m_ahtkStorageKeys[OTK__MAX];

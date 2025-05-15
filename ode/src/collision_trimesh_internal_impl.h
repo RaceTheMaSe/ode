@@ -311,7 +311,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
 }
 
 /*static */
-void dxTriDataBase::buildBoundaryEdgeAngle(IFaceAngleStorageControl *faceAngles, 
+inline void dxTriDataBase::buildBoundaryEdgeAngle(IFaceAngleStorageControl *faceAngles, 
     EdgeRecord *currEdge)
 {
     const dReal faceAngle = REAL(0.0);

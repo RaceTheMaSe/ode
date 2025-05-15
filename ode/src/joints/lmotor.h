@@ -35,15 +35,15 @@ struct dxJointLMotor : public dxJoint
     void computeGlobalAxes( dVector3 ax[3] );
 
 
-    dxJointLMotor( dxWorld *w );
-    virtual void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;
-    virtual void getInfo1( Info1* info ) ODE_OVERRIDE;
-    virtual void getInfo2( dReal worldFPS, dReal worldERP, 
+    explicit dxJointLMotor( dxWorld *w );
+    void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;
+    void getInfo1( Info1* info ) ODE_OVERRIDE;
+    void getInfo2( dReal worldFPS, dReal worldERP, 
         int rowskip, dReal *J1, dReal *J2,
         int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
         int *findex ) ODE_OVERRIDE;
-    virtual dJointType type() const ODE_OVERRIDE;
-    virtual sizeint size() const ODE_OVERRIDE;
+    dJointType type() const ODE_OVERRIDE;
+    sizeint size() const ODE_OVERRIDE;
 };
 
 

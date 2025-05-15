@@ -88,14 +88,14 @@ public:
         memcpy (_data,x._data,x._size * sizeof(T));
     }
 
-    dArray () { constructor(); }
-    dArray (const dArray<T> &x) { constructor(); equals (x); }
+    dArray () : dArrayBase() { constructor(); }
+    dArray (const dArray<T> &x) : dArrayBase() { constructor(); equals (x); }
     ~dArray () { _freeAll(sizeof(T)); }
     void setSize (int newsize) { _setSize (newsize,sizeof(T)); }
     T *data() { return (T*) _data; }
     const T *data() const { return (const T*) _data; }
     T & operator[] (int i) const { return ((T*)_data)[i]; }
-    void operator = (const dArray<T> &x) { equals (x); }
+    dArray& operator = (const dArray<T> &x) { equals (x); }
 
     void push (const T item) {
         if (_size < _anum) _size++; else _setSize (_size+1,sizeof(T));

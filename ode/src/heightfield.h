@@ -87,8 +87,8 @@ struct dxHeightfieldData
 
     void ComputeHeightBounds();
 
-    bool IsOnHeightfield2  ( const HeightFieldVertex * const CellCorner, 
-        const dReal * const pos,  const bool isABC) const;
+    bool IsOnHeightfield2  ( const HeightFieldVertex * CellCorner, 
+        const dReal * pos, bool isABC) const;
 
     dReal GetHeight(int x, int z) const;
     dReal GetHeight(dReal x, dReal z) const;
@@ -120,7 +120,7 @@ class HeightFieldTriangle
 public:
     HeightFieldTriangle(){}
 
-    inline void setMinMax()
+    void setMinMax()
     {
         maxAAAB = vertices[0]->vertex[1] > vertices[1]->vertex[1] ? vertices[0]->vertex[1] : vertices[1]->vertex[1];
         maxAAAB = vertices[2]->vertex[1] > maxAAAB  ? vertices[2]->vertex[1] : maxAAAB;
@@ -149,7 +149,7 @@ public:
         delete [] trianglelist;
     }
 
-    inline void setMinMax()
+    void setMinMax()
     {
         const sizeint asize = trianglelistCurrentSize;
         if (asize > 0)
@@ -203,8 +203,8 @@ struct dxHeightfield : public dxGeom
 
     void computeAABB() ODE_OVERRIDE;
 
-    int dCollideHeightfieldZone( const int minX, const int maxX, const int minZ, const int maxZ,  
-        dxGeom *o2, const int numMaxContacts,
+    int dCollideHeightfieldZone( int minX, int maxX, int minZ, int maxZ,  
+        dxGeom *o2, int numMaxContacts,
         int flags, dContactGeom *contact, int skip );
 
     enum
@@ -215,7 +215,7 @@ struct dxHeightfield : public dxGeom
         TEMP_TRIANGLE_BUFFER_ELEMENT_COUNT_ALIGNMENT = 1 // Triangles are easy to reallocate and hard to predict
     };
 
-    static inline sizeint AlignBufferSize(sizeint value, sizeint alignment) { dIASSERT((alignment & (alignment - 1)) == 0); return (value + (alignment - 1)) & ~(alignment - 1); }
+    static sizeint AlignBufferSize(sizeint value, sizeint alignment) { dIASSERT((alignment & (alignment - 1)) == 0); return (value + (alignment - 1)) & ~(alignment - 1); }
 
     void  allocateTriangleBuffer(sizeint numTri);
     void  resetTriangleBuffer() const;

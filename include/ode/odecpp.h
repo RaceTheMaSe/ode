@@ -56,8 +56,8 @@ protected:
 template <class dWorldTemplateBase>
 class dWorldTemplate: public dWorldTemplateBase {
   // intentionally undefined, don't use these
-  dWorldTemplate (const dWorldTemplate<dWorldTemplateBase> &);
-  void operator= (const dWorldTemplate<dWorldTemplateBase> &);
+  dWorldTemplate (const dWorldTemplate<dWorldTemplateBase> &) ODE_DELETE;
+  void operator= (const dWorldTemplate<dWorldTemplateBase> &) ODE_DELETE;
 
 protected:
   dWorldID get_id() const { return dWorldTemplateBase::_id; }
@@ -171,14 +171,14 @@ protected:
 
 class ODE_API dBodyDynamicIDContainer: public dBodySimpleIDContainer {
 protected:
-	virtual ~dBodyDynamicIDContainer() ODE_OVERRIDE;
+	~dBodyDynamicIDContainer() ODE_OVERRIDE;
 };
 
 template <class dBodyTemplateBase, class dWorldTemplateBase>
 class dBodyTemplate: public dBodyTemplateBase {
   // intentionally undefined, don't use these
-  dBodyTemplate (const dBodyTemplate<dBodyTemplateBase, dWorldTemplateBase> &);
-  void operator= (const dBodyTemplate<dBodyTemplateBase, dWorldTemplateBase> &);
+  dBodyTemplate (const dBodyTemplate<dBodyTemplateBase, dWorldTemplateBase> &) ODE_DELETE;
+  void operator= (const dBodyTemplate<dBodyTemplateBase, dWorldTemplateBase> &) ODE_DELETE;
 
 protected:
   virtual dBodyID get_id() const { return dBodyTemplateBase::_id; }
@@ -440,14 +440,14 @@ protected:
 
 class ODE_API dJointGroupDynamicIDContainer: public dJointGroupSimpleIDContainer {
 protected:
-	virtual ~dJointGroupDynamicIDContainer() ODE_OVERRIDE;
+	~dJointGroupDynamicIDContainer() ODE_OVERRIDE;
 };
 
 template <class dJointGroupTemplateBase>
 class dJointGroupTemplate: public dJointGroupTemplateBase {
   // intentionally undefined, don't use these
-  dJointGroupTemplate (const dJointGroupTemplate<dJointGroupTemplateBase> &);
-  void operator= (const dJointGroupTemplate<dJointGroupTemplateBase> &);
+  dJointGroupTemplate (const dJointGroupTemplate<dJointGroupTemplateBase> &) ODE_DELETE;
+  void operator= (const dJointGroupTemplate<dJointGroupTemplateBase> &) ODE_DELETE;
 
 protected:
   virtual dJointGroupID get_id() const { return dJointGroupTemplateBase::_id; }
@@ -488,15 +488,15 @@ protected:
 
 class ODE_API dJointDynamicIDContainer: public dJointSimpleIDContainer {
 protected:
-	virtual ~dJointDynamicIDContainer() ODE_OVERRIDE;
+	~dJointDynamicIDContainer() ODE_OVERRIDE;
 };
 
 template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplateBase>
 class dJointTemplate: public dJointTemplateBase {
 private:
   // intentionally undefined, don't use these
-  dJointTemplate (const dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ;
-  void operator= (const dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dJointTemplate (const dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE ;
+  void operator= (const dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   virtual dJointID get_id() const { return dJointTemplateBase::_id; }
@@ -504,7 +504,6 @@ protected:
 
   void destroy() ODE_OVERRIDE { dJointTemplateBase::destroy(); }
 
-protected:
   dJointTemplate() // don't let user construct pure dJointTemplate objects
     { }
 
@@ -555,8 +554,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dBallJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dBallJointTemplate (const dBallJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator= (const dBallJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dBallJointTemplate (const dBallJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator= (const dBallJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -588,9 +587,9 @@ public:
     { dJointGetBallAnchor (get_id(), result); }
   void getAnchor2 (dVector3 result) const
     { dJointGetBallAnchor2 (get_id(), result); }
-  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetBallParam (get_id(), parameter, value); }
-  virtual dReal getParam (int parameter) const ODE_OVERRIDE
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetBallParam (get_id(), parameter); }
   // TODO: expose params through methods
 } ;
@@ -600,8 +599,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dHingeJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dHingeJointTemplate (const dHingeJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dHingeJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dHingeJointTemplate (const dHingeJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dHingeJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -646,9 +645,9 @@ public:
   dReal getAngleRate() const
     { return dJointGetHingeAngleRate (get_id()); }
 
-  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetHingeParam (get_id(), parameter, value); }
-  virtual dReal getParam (int parameter) const ODE_OVERRIDE
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetHingeParam (get_id(), parameter); }
   // TODO: expose params through methods
 
@@ -661,8 +660,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dSliderJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dSliderJointTemplate (const dSliderJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dSliderJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dSliderJointTemplate (const dSliderJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dSliderJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -698,9 +697,9 @@ public:
   dReal getPositionRate() const
     { return dJointGetSliderPositionRate (get_id()); }
 
-  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetSliderParam (get_id(), parameter, value); }
-  virtual dReal getParam (int parameter) const ODE_OVERRIDE
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetSliderParam (get_id(), parameter); }
   // TODO: expose params through methods
 
@@ -713,8 +712,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dUniversalJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dUniversalJointTemplate (const dUniversalJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dUniversalJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dUniversalJointTemplate (const dUniversalJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dUniversalJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -760,9 +759,9 @@ public:
   void getAxis2 (dVector3 result) const
     { dJointGetUniversalAxis2 (get_id(), result); }
 
-  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetUniversalParam (get_id(), parameter, value); }
-  virtual dReal getParam (int parameter) const ODE_OVERRIDE
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetUniversalParam (get_id(), parameter); }
   // TODO: expose params through methods
   
@@ -787,8 +786,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dHinge2JointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dHinge2JointTemplate (const dHinge2JointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dHinge2JointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dHinge2JointTemplate (const dHinge2JointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dHinge2JointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -843,9 +842,9 @@ public:
   dReal getAngle2Rate() const
     { return dJointGetHinge2Angle2Rate (get_id()); }
 
-  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetHinge2Param (get_id(), parameter, value); }
-  virtual dReal getParam (int parameter) const ODE_OVERRIDE
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetHinge2Param (get_id(), parameter); }
   // TODO: expose params through methods
 
@@ -858,8 +857,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dPRJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dPRJointTemplate (const dPRJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dPRJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dPRJointTemplate (const dPRJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dPRJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -913,9 +912,9 @@ public:
   dReal getAngleRate() const
     { return dJointGetPRAngleRate (get_id()); }
 
-  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetPRParam (get_id(), parameter, value); }
-  virtual dReal getParam (int parameter) const ODE_OVERRIDE
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetPRParam (get_id(), parameter); }
 };
 
@@ -925,8 +924,8 @@ class dPUJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplat
 {
 private:
   // intentionally undefined, don't use these
-  dPUJointTemplate (const dPUJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dPUJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dPUJointTemplate (const dPUJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dPUJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -995,9 +994,9 @@ public:
   dReal getPositionRate() const
     { return dJointGetPUPositionRate (get_id()); }
 
-  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
   { dJointSetPUParam (get_id(), parameter, value); }
-  virtual dReal getParam (int parameter) const ODE_OVERRIDE
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetPUParam (get_id(), parameter); }
   // TODO: expose params through methods
 };
@@ -1008,8 +1007,8 @@ class dPistonJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTem
 {
 private:
   // intentionally undefined, don't use these
-  dPistonJointTemplate (const dPistonJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dPistonJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dPistonJointTemplate (const dPistonJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dPistonJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1055,9 +1054,9 @@ public:
   dReal getPositionRate() const
     { return dJointGetPistonPositionRate (get_id()); }
 
-  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
   { dJointSetPistonParam (get_id(), parameter, value); }
-  virtual dReal getParam (int parameter) const ODE_OVERRIDE
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetPistonParam (get_id(), parameter); }
   // TODO: expose params through methods
 
@@ -1071,8 +1070,8 @@ class dFixedJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemp
 {
 private:
   // intentionally undefined, don't use these
-  dFixedJointTemplate (const dFixedJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dFixedJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dFixedJointTemplate (const dFixedJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dFixedJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1099,10 +1098,10 @@ public:
   void set()
     { dJointSetFixed (get_id()); }
 
-  virtual void setParam (int parameter, dReal value) ODE_OVERRIDE
+  void setParam (int parameter, dReal value) ODE_OVERRIDE
     { dJointSetFixedParam (get_id(), parameter, value); }
 
-  virtual dReal getParam (int parameter) const ODE_OVERRIDE
+  dReal getParam (int parameter) const ODE_OVERRIDE
     { return dJointGetFixedParam (get_id(), parameter); }
   // TODO: expose params through methods
 };
@@ -1112,8 +1111,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dContactJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dContactJointTemplate (const dContactJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dContactJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dContactJointTemplate (const dContactJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dContactJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1144,8 +1143,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dNullJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dNullJointTemplate (const dNullJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dNullJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dNullJointTemplate (const dNullJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dNullJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1175,8 +1174,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dAMotorJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dAMotorJointTemplate (const dAMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dAMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dAMotorJointTemplate (const dAMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dAMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1241,8 +1240,8 @@ template <class dJointTemplateBase, class dWorldTemplateBase, class dBodyTemplat
 class dLMotorJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> {
 private:
   // intentionally undefined, don't use these
-  dLMotorJointTemplate (const dLMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
-  void operator = (const dLMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &);
+  dLMotorJointTemplate (const dLMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  void operator = (const dLMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;

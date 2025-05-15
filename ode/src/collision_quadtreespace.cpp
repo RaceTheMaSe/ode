@@ -227,7 +227,7 @@ void Block::Collide(dxGeom* g1, dxGeom* g2, void* UserData, dNearCallback* Callb
             if (CurrentChild.mGeomCount == 1){
                 //
             }
-            else if (true){
+            else {
                 if (g1->aabb[AXIS0 * 2 + 0] >= CurrentChild.mMaxX ||
                     g1->aabb[AXIS0 * 2 + 1] < CurrentChild.mMinX ||
                     g1->aabb[AXIS1 * 2 + 0] >= CurrentChild.mMaxZ ||

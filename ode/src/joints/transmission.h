@@ -35,16 +35,16 @@ struct dxJointTransmission : public dxJoint
     dReal erp;          // error reduction
     dReal cfm;          // constraint force mix in
     
-    dxJointTransmission(dxWorld *w);
+    explicit dxJointTransmission(dxWorld *w);
 
-    virtual void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;
-    virtual void getInfo1( Info1* info ) ODE_OVERRIDE;
-    virtual void getInfo2( dReal worldFPS, dReal worldERP, 
+    void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;
+    void getInfo1( Info1* info ) ODE_OVERRIDE;
+    void getInfo2( dReal worldFPS, dReal worldERP, 
         int rowskip, dReal *J1, dReal *J2,
         int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
         int *findex ) ODE_OVERRIDE;
-    virtual dJointType type() const ODE_OVERRIDE;
-    virtual sizeint size() const ODE_OVERRIDE;
+    dJointType type() const ODE_OVERRIDE;
+    sizeint size() const ODE_OVERRIDE;
 };
 
 
