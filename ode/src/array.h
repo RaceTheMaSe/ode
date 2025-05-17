@@ -102,7 +102,7 @@ public:
         (((T*)_data)[_size-1]) = item; // memcpy (&(((T*)_data)[_size-1]), &item, sizeof(T)); - replaced for GCC -Wclass-memaccess
     }
 
-    void swap (dArray<T> &x) {
+    void swap (dArray<T> &x) ODE_NOEXCEPT {
         int tmp1;
         void *tmp2;
         tmp1=_size; _size=x._size; x._size=tmp1;
