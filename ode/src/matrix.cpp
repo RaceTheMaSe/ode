@@ -188,7 +188,7 @@ void dxSolveCholesky(const dReal *L, dReal *b, unsigned n, void *tmpBuf/*[n]*/)
         }
     }
     {
-        const dReal *ll = L + (n - 1) * (nskip + 1);
+        const dReal *ll = L + (size_t)((n - 1) * (nskip + 1));
         for (unsigned i = n; i > 0; ll -= nskip + 1) {
             --i;
             dReal sum = REAL(0.0);
@@ -399,7 +399,7 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
     else {
         dReal *t = (dReal *)((char *)tmp + LDLTAddTLSize);
         {
-            dReal *Lcurr = L + r*nskip;
+            dReal *Lcurr = L + (size_t)(r*nskip);
             for (unsigned i = 0; i < r; ++Lcurr, ++i) {
                 dIASSERT(d[i] != dReal(0.0));
                 t[i] = *Lcurr / d[i];
@@ -407,7 +407,7 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
         }
         dReal *a = t + r;
         {
-            dReal *Lcurr = L + r * nskip;
+            dReal *Lcurr = L + (size_t)(r * nskip);
             const unsigned *pp_r = p + r, p_r = *pp_r;
             const unsigned n2_minus_r = n2 - r;
             for (unsigned i = 0; i < n2_minus_r; Lcurr += nskip, ++i) {

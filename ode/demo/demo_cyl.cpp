@@ -206,9 +206,9 @@ static void simLoop (int pause)
     const int i0 = (int)world_indices[i*3+0];
     const int i1 = (int)world_indices[i*3+1];
     const int i2 = (int)world_indices[i*3+2];
-    const float *v0 = world_vertices+i0*3;
-    const float *v1 = world_vertices+i1*3;
-    const float *v2 = world_vertices+i2*3;
+    const float *v0 = world_vertices+(size_t)i0*3;
+    const float *v1 = world_vertices+(size_t)i1*3;
+    const float *v2 = world_vertices+(size_t)i2*3;
     dsDrawTriangle(pos, rot, v0,v1,v2, true); // single precision draw
   }
 }

@@ -265,7 +265,7 @@ private:
         {
             const unsigned blockStep = FSL1S_BLOCK_SIZE;
 
-            m_ARow += blockStep * m_rowSkip;
+            m_ARow += (size_t)(blockStep * m_rowSkip);
             m_solvingBlockIndex += 1;
         }
 

@@ -215,19 +215,19 @@ static void simLoop(int pause)
             for (unsigned int j = 0; j < odeIndsCount[i] / 3; j++)
             {
                 const dVector3 v0 = {
-                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 0] * 3]),
-                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 1]),
-                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 2])
+                    SINGLE_TO_REAL(odeVerts[i][(size_t)odeInds[i][j * 3u + 0u] * 3u]),
+                    SINGLE_TO_REAL(odeVerts[i][(size_t)odeInds[i][j * 3 + 0] * 3 + 1]),
+                    SINGLE_TO_REAL(odeVerts[i][(size_t)odeInds[i][j * 3 + 0] * 3 + 2])
                 };
                 const dVector3 v1 = {
-                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 1] * 3]),
-                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 1]),
-                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 2])
+                    SINGLE_TO_REAL(odeVerts[i][(size_t)odeInds[i][j * 3 + 1] * 3]),
+                    SINGLE_TO_REAL(odeVerts[i][(size_t)odeInds[i][j * 3 + 1] * 3 + 1]),
+                    SINGLE_TO_REAL(odeVerts[i][(size_t)odeInds[i][j * 3 + 1] * 3 + 2])
                 };
                 const dVector3 v2 = {
-                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 2] * 3]),
-                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 1]),
-                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 2])
+                    SINGLE_TO_REAL(odeVerts[i][(size_t)odeInds[i][j * 3 + 2] * 3]),
+                    SINGLE_TO_REAL(odeVerts[i][(size_t)odeInds[i][j * 3 + 2] * 3 + 1]),
+                    SINGLE_TO_REAL(odeVerts[i][(size_t)odeInds[i][j * 3 + 2] * 3 + 2])
                 };
                 dsDrawTriangle(Pos, Rot, v0, v1, v2, 1);
             }
@@ -279,13 +279,13 @@ int main(int argc, char **argv)
         for (unsigned int j = 0; j < hullSize; j++)
         {
             // Bottom layer
-            odeVerts[i][j * 3] = (HULLS[i][j * 2] - CENTERS[i][0]) * REAL(0.05);
-            odeVerts[i][j * 3 + 1] = (HULLS[i][j * 2 + 1] - CENTERS[i][1]) * REAL(0.05);
-            odeVerts[i][j * 3 + 2] = REAL(0.0);
+            odeVerts[i][(size_t)j * 3] = (HULLS[i][(size_t)j * 2] - CENTERS[i][0]) * REAL(0.05);
+            odeVerts[i][(size_t)j * 3 + 1] = (HULLS[i][(size_t)j * 2 + 1] - CENTERS[i][1]) * REAL(0.05);
+            odeVerts[i][(size_t)j * 3 + 2] = REAL(0.0);
             // Top layer
-            odeVerts[i][(hullSize + j) * 3] = (HULLS[i][j * 2] - CENTERS[i][0]) * REAL(0.05);
-            odeVerts[i][(hullSize + j) * 3 + 1] = (HULLS[i][j * 2 + 1] - CENTERS[i][1]) * REAL(0.05);
-            odeVerts[i][(hullSize + j) * 3 + 2] = TRIMESH_HEIGHT;
+            odeVerts[i][(size_t)(hullSize + j) * 3] = (HULLS[i][(size_t)j * 2] - CENTERS[i][0]) * REAL(0.05);
+            odeVerts[i][(size_t)(hullSize + j) * 3 + 1] = (HULLS[i][(size_t)j * 2 + 1] - CENTERS[i][1]) * REAL(0.05);
+            odeVerts[i][(size_t)(hullSize + j) * 3 + 2] = TRIMESH_HEIGHT;
         }
         // Center vertex on bottom plane
         odeVerts[i][odeVertsCount1] = REAL(0.0);
@@ -305,12 +305,12 @@ int main(int argc, char **argv)
             // Wrap around index
             const unsigned int n1 = j + 1 < hullSize ? j + 1 : 0;
             const unsigned int n2 = hullSize + n1;
-            odeInds[i][j * 6] = (dTriIndex)j;
-            odeInds[i][j * 6 + 1] = (dTriIndex)n1;
-            odeInds[i][j * 6 + 2] = (dTriIndex)(hullSize + j);
-            odeInds[i][j * 6 + 3] = (dTriIndex)(hullSize + j);
-            odeInds[i][j * 6 + 4] = (dTriIndex)n1;
-            odeInds[i][j * 6 + 5] = (dTriIndex)n2;
+            odeInds[i][(size_t)j * 6] = (dTriIndex)j;
+            odeInds[i][(size_t)j * 6 + 1] = (dTriIndex)n1;
+            odeInds[i][(size_t)j * 6 + 2] = (dTriIndex)(hullSize + j);
+            odeInds[i][(size_t)j * 6 + 3] = (dTriIndex)(hullSize + j);
+            odeInds[i][(size_t)j * 6 + 4] = (dTriIndex)n1;
+            odeInds[i][(size_t)j * 6 + 5] = (dTriIndex)n2;
             // Bottom and Top triangles
             odeInds[i][odeIndsCount1 + j * 6] = (dTriIndex)j;
             odeInds[i][odeIndsCount1 + j * 6 + 1] = (dTriIndex)n1;

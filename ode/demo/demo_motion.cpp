@@ -382,9 +382,9 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
         dReal aabb[6];
         dGeomGetAABB (g,aabb);
         dVector3 bbpos;
-        for (int i=0; i<3; i++) bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
+        for (size_t i=0; i<3; i++) bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
         dVector3 bbsides;
-        for (int i=0; i<3; i++) bbsides[i] = aabb[i*2+1] - aabb[i*2];
+        for (size_t i=0; i<3; i++) bbsides[i] = aabb[i*2+1] - aabb[i*2];
         dMatrix3 RI;
         dRSetIdentity (RI);
         dsSetColorAlpha (1,0,0,REAL(0.5));

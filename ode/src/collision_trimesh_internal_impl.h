@@ -166,7 +166,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
             // ...or use the externally supplied normals
             else
             {
-                const dReal *pTriangleExternalNormal = externalNormals + currEdge[0].m_triIdx * dSA__MAX;
+                const dReal *pTriangleExternalNormal = externalNormals + (size_t)(currEdge[0].m_triIdx * dSA__MAX);
                 dAssignVector3(triangleNormal, pTriangleExternalNormal[dSA_X], pTriangleExternalNormal[dSA_Y], pTriangleExternalNormal[dSA_Z]);
                 // normalLengthSuqare = REAL(1.0);
                 dUASSERT(dFabs(dCalcVectorLengthSquare3(triangleNormal) - REAL(1.0)) < (dReal)(0.25 * (double)kConcaveThreshold * (double)kConcaveThreshold), "Mesh triangle normals must be normalized");

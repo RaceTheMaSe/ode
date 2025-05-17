@@ -702,7 +702,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     if (cnum <= maxc) {
         // we have less contacts than we need, so we use them all
         for (j=0; j < cnum; j++) {
-            dContactGeom *con = CONTACT(contact,skip*j);
+            dContactGeom *con = CONTACT(contact,(size_t)(skip*j));
             for (i=0; i<3; i++) con->pos[i] = point[j*3+i] + pa[i];
             con->depth = dep[j];
         }
@@ -724,7 +724,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
         cullPoints (cnum,ret,maxc,i1,iret);
 
         for (j=0; j < maxc; j++) {
-            dContactGeom *con = CONTACT(contact,skip*j);
+            dContactGeom *con = CONTACT(contact,(size_t)(skip*j));
             for (i=0; i<3; i++) con->pos[i] = point[iret[j]*3+i] + pa[i];
             con->depth = dep[iret[j]];
         }
@@ -753,7 +753,7 @@ int dCollideBoxBox (dxGeom *o1, dxGeom *o2, int flags,
     const int num = dBoxBox (o1->final_posr->pos,o1->final_posr->R,b1->side, o2->final_posr->pos,o2->final_posr->R,b2->side,
         normal,&depth,&code,flags,contact,skip);
     for (int i=0; i<num; i++) {
-        dContactGeom *currContact = CONTACT(contact,i*skip);
+        dContactGeom *currContact = CONTACT(contact,(size_t)(i*skip));
         currContact->normal[0] = -normal[0];
         currContact->normal[1] = -normal[1];
         currContact->normal[2] = -normal[2];

@@ -177,8 +177,8 @@ static void simLoop (int /*pause*/)
     dVector3 pos,side;
     dMatrix3 R;
     dRSetIdentity (R);
-    for (j=0; j<3; j++) pos[j] = (bounds[i][j*2+1] + bounds[i][j*2]) * REAL(0.5);
-    for (j=0; j<3; j++) side[j] = bounds[i][j*2+1] - bounds[i][j*2];
+    for (j=0; j<3; j++) pos[j] = (bounds[i][j*2+1] + bounds[i][(size_t)j*2]) * REAL(0.5);
+    for (j=0; j<3; j++) side[j] = bounds[i][j*2+1] - bounds[i][(size_t)j*2];
     if (hits[i] > 0) dsSetColor (1,0,0);
     else dsSetColor (1,1,0);
     dsDrawBox (pos,R,side);

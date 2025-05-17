@@ -521,7 +521,7 @@ static inline bool IsPointInPolygon(dVector3 const p,
     polygon++; // skip past pointcount
 
     dMultiply0_331 (b,convex->final_posr->R,
-        &convex->points[(polygon[pointcount-1]*3)]);
+        &convex->points[(size_t)(polygon[pointcount-1]*3)]);
     b[0]=convex->final_posr->pos[0]+b[0];
     b[1]=convex->final_posr->pos[1]+b[1];
     b[2]=convex->final_posr->pos[2]+b[2];
@@ -532,7 +532,7 @@ static inline bool IsPointInPolygon(dVector3 const p,
         a[1] = b[1];
         a[2] = b[2];
 
-        dMultiply0_331 (b,convex->final_posr->R,&convex->points[(polygon[i]*3)]);
+        dMultiply0_331 (b,convex->final_posr->R,&convex->points[(size_t)(polygon[i]*3)]);
         b[0]=convex->final_posr->pos[0]+b[0];
         b[1]=convex->final_posr->pos[1]+b[1];
         b[2]=convex->final_posr->pos[2]+b[2];
@@ -599,7 +599,7 @@ int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
     unsigned int totalsign = 0;
     for(unsigned int i=0;i<Convex->pointcount;++i)
     {
-        dMultiply0_331 (v2,Convex->final_posr->R,&Convex->points[(i*3)]);
+        dMultiply0_331 (v2,Convex->final_posr->R,&Convex->points[(size_t)(i*3)]);
         dVector3Add(Convex->final_posr->pos, v2, v2);
 
         unsigned int distance2sign = GTEQ_ZERO;
@@ -669,8 +669,8 @@ int dCollideSphereConvex (dxGeom *o1, dxGeom *o2, int flags,
     for(unsigned int i=0;i<Convex->planecount;++i)
     {
         // apply rotation to the plane
-        dMultiply0_331(plane,Convex->final_posr->R,&Convex->planes[(i*4)]);
-        plane[3]=(&Convex->planes[(i*4)])[3];
+        dMultiply0_331(plane,Convex->final_posr->R,&Convex->planes[(size_t)(i*4)]);
+        plane[3]=(&Convex->planes[(size_t)(i*4)])[3];
         // Get the distance from the sphere origin to the plane
         dist = dVector3Dot(plane, offsetpos) - plane[3]; // Ax + By + Cz - D
         if(dist>0)
@@ -754,7 +754,7 @@ int dCollideSphereConvex (dxGeom *o1, dxGeom *o2, int flags,
         // the Convex, we need to pop it out
         dMultiply0_331(contact->normal,
             Convex->final_posr->R,
-            &Convex->planes[(closestplane*4)]);
+            &Convex->planes[(size_t)(closestplane*4)]);
         contact->pos[0] = Sphere->final_posr->pos[0];
         contact->pos[1] = Sphere->final_posr->pos[1];
         contact->pos[2] = Sphere->final_posr->pos[2];
@@ -816,7 +816,7 @@ static inline void ComputeInterval(dxConvex& cvx,dVector4 axis,dReal& min,dReal&
     max = min = dCalcVectorDot3(point,axis)-axis[3];//(*)
     for (unsigned int i = 1; i < cvx.pointcount; ++i)
     {
-        dMultiply0_331(point,cvx.final_posr->R,cvx.points+(i*3));
+        dMultiply0_331(point,cvx.final_posr->R,cvx.points+(size_t)(i*3));
         point[0]+=cvx.final_posr->pos[0];
         point[1]+=cvx.final_posr->pos[1];
         point[2]+=cvx.final_posr->pos[2];
@@ -934,7 +934,7 @@ static inline bool CheckSATConvexFaces(dxConvex& cvx1,
     {
         // -- Apply Transforms --
         // Rotate
-        dMultiply0_331(plane,cvx1.final_posr->R,cvx1.planes+(i*4));
+        dMultiply0_331(plane,cvx1.final_posr->R,cvx1.planes+(size_t)(i*4));
         dNormalize3(plane);
         // Translate
         plane[3]=
@@ -989,8 +989,8 @@ static inline bool CheckSATConvexEdges(dxConvex& cvx1,
         // Skip edge if it doesn't contain the extremal vertex
         if((cvx1.edges[i].first!=s1)&&(cvx1.edges[i].second!=s1)) continue;
         // we only need to apply rotation here
-        dMultiply0_331(e1a,cvx1.final_posr->R,cvx1.points+(cvx1.edges[i].first*3));
-        dMultiply0_331(e1b,cvx1.final_posr->R,cvx1.points+(cvx1.edges[i].second*3));
+        dMultiply0_331(e1a,cvx1.final_posr->R,cvx1.points+(size_t)(cvx1.edges[i].first*3));
+        dMultiply0_331(e1b,cvx1.final_posr->R,cvx1.points+(size_t)(cvx1.edges[i].second*3));
         e1[0]=e1b[0]-e1a[0];
         e1[1]=e1b[1]-e1a[1];
         e1[2]=e1b[2]-e1a[2];
@@ -999,8 +999,8 @@ static inline bool CheckSATConvexEdges(dxConvex& cvx1,
             // Skip edge if it doesn't contain the extremal vertex
             if((cvx2.edges[j].first!=s2)&&(cvx2.edges[j].second!=s2)) continue;
             // we only need to apply rotation here
-            dMultiply0_331 (e2a,cvx2.final_posr->R,cvx2.points+(cvx2.edges[j].first*3));
-            dMultiply0_331 (e2b,cvx2.final_posr->R,cvx2.points+(cvx2.edges[j].second*3));
+            dMultiply0_331 (e2a,cvx2.final_posr->R,cvx2.points+(size_t)(cvx2.edges[j].first*3));
+            dMultiply0_331 (e2b,cvx2.final_posr->R,cvx2.points+(size_t)(cvx2.edges[j].second*3));
             e2[0]=e2b[0]-e2a[0];
             e2[1]=e2b[1]-e2a[1];
             e2[2]=e2b[2]-e2a[2];
@@ -1084,7 +1084,7 @@ static inline unsigned int GetSupportSide(dVector3& dir,dxConvex& cvx)
     SavedDot = dCalcVectorDot3(dics,cvx.planes);
     for(unsigned int i=1;i<cvx.planecount;++i)
     {
-        Dot = dCalcVectorDot3(dics,cvx.planes+(i*4));
+        Dot = dCalcVectorDot3(dics,cvx.planes+(size_t)(i*4));
         if(Dot>SavedDot)
         {
             SavedDot=Dot;
@@ -1148,7 +1148,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
         pIncidentPoly  = cvx2.polygons;
         // Get Reference plane (We may not have to apply transforms Optimization Opportunity)
         // Rotate
-        dMultiply0_331(rplane,cvx1.final_posr->R,cvx1.planes+(reference_side*4));
+        dMultiply0_331(rplane,cvx1.final_posr->R,cvx1.planes+((size_t)(reference_side*4)));
         dNormalize3(rplane);
         // Translate
         rplane[3]=
@@ -1167,7 +1167,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
         }
         pIncidentPoints = pIncidentPoly+1;
         // Get the first point of the incident face
-        dMultiply0_331(i2,cvx2.final_posr->R,&cvx2.points[(pIncidentPoints[0]*3)]);
+        dMultiply0_331(i2,cvx2.final_posr->R,&cvx2.points[(size_t)(pIncidentPoints[0]*3)]);
         dVector3Add(i2,cvx2.final_posr->pos,i2);
         // Get the same point in the reference convex space
         dVector3Copy(i2,r2);
@@ -1179,7 +1179,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
             // Move i2 to i1, r2 to r1
             dVector3Copy(i2,i1);
             dVector3Copy(r2,r1);
-            dMultiply0_331(i2,cvx2.final_posr->R,&cvx2.points[(pIncidentPoints[(i+1)%pIncidentPoly[0]]*3)]);
+            dMultiply0_331(i2,cvx2.final_posr->R,&cvx2.points[(size_t)(pIncidentPoints[(i+1)%pIncidentPoly[0]]*3)]);
             dVector3Add(i2,cvx2.final_posr->pos,i2);
             // Get the same point in the reference convex space
             dVector3Copy(i2,r2);
@@ -1292,7 +1292,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
 
         /* Get Incident plane, we need it for projection */
         /* Rotate */
-        dMultiply0_331(iplane,cvx2.final_posr->R,cvx2.planes+(incident_side*4));
+        dMultiply0_331(iplane,cvx2.final_posr->R,cvx2.planes+(size_t)(incident_side*4));
         dNormalize3(iplane);
         /* Translate */
         iplane[3]=
@@ -1308,7 +1308,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
         pReferencePoints = pReferencePoly+1;
         for(unsigned int i=0;i<pReferencePoly[0];++i)
         {
-            dMultiply0_331(i1,cvx1.final_posr->R,&cvx1.points[(pReferencePoints[i]*3)]);
+            dMultiply0_331(i1,cvx1.final_posr->R,&cvx1.points[(size_t)(pReferencePoints[i]*3)]);
             dVector3Add(cvx1.final_posr->pos,i1,i1);
             // Project onto Incident face plane
             t = -(i1[0]*iplane[0]+
@@ -1524,7 +1524,7 @@ int dCollideRayConvex(dxGeom *o1, dxGeom *o2,
     for (unsigned int i = 0; i < convex->planecount; ++i)
     {
         // Alias this plane.
-        const dReal* plane = convex->planes + (i * 4);
+        const dReal* plane = convex->planes + (size_t)(i * 4);
 
         // If alpha >= 0 then start point is outside of plane.
         alpha = dCalcVectorDot3(plane, ray_pos) - plane[3];
@@ -1552,7 +1552,7 @@ int dCollideRayConvex(dxGeom *o1, dxGeom *o2,
     for (unsigned int i = 0; i < convex->planecount; ++i)
     {
         // Alias this plane.
-        const dReal* plane = convex->planes + (i * 4);
+        const dReal* plane = convex->planes + (size_t)(i * 4);
 
         // If alpha >= 0 then point is outside of plane.
         alpha = nsign * (dCalcVectorDot3(plane, ray_pos) - plane[3]);
@@ -1581,7 +1581,7 @@ int dCollideRayConvex(dxGeom *o1, dxGeom *o2,
                     continue;	// Skip self.
 
                 // Alias this plane.
-                const dReal* planej = convex->planes + (j * 4);
+                const dReal* planej = convex->planes + (size_t)(j * 4);
 
                 // If beta >= 0 then start is outside of plane.
                 beta = dCalcVectorDot3(planej, contact->pos) - planej[3];

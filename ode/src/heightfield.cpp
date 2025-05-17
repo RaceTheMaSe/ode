@@ -1140,7 +1140,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
         
         for (int i = 0; i < numTerrainContacts; i++)
         {
-            pContact = CONTACT(contact, i*skip);
+            pContact = CONTACT(contact, (size_t)(i*skip));
             dOPESIGN(pContact->normal, =, -, triplane);
         }
         return numTerrainContacts;
@@ -1520,7 +1520,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
                         triangleTestPos,
                         itPlane->trianglelist[b]->isUp))
                     {
-                        pContact = CONTACT(contact, numTerrainContacts*skip);
+                        pContact = CONTACT(contact, (size_t)(numTerrainContacts*skip));
                         dCopyVector3(pContact->pos, triangleTestPos);
                         dOPESIGN(pContact->normal, =, -, itPlane->planeDef);
                         pContact->depth = planeCurrContact->depth;
@@ -1632,7 +1632,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
                 
                 if (vertexCollided)
                 {
-                    pContact = CONTACT(contact, numTerrainContacts*skip);
+                    pContact = CONTACT(contact, (size_t)(numTerrainContacts*skip));
                     //create contact using vertices
                     dCopyVector3(pContact->pos, triVertex);
                     //create contact using Plane Normal
@@ -1841,14 +1841,14 @@ int dCollideHeightfield( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contac
         numTerrainOrigContacts = numTerrainContacts;
         numTerrainContacts += terrain->dCollideHeightfieldZone(
             nMinX,nMaxX,nMinZ,nMaxZ,o2,numMaxTerrainContacts - numTerrainContacts,
-            flags,CONTACT(contact,numTerrainContacts*skip),skip	);
+            flags,CONTACT(contact,(size_t)(numTerrainContacts*skip)),skip	);
         dIASSERT( numTerrainContacts <= numMaxTerrainContacts );
     }
 
     dContactGeom *pContact;
     for ( i = numTerrainOrigContacts; i != numTerrainContacts; ++i )
     {
-        pContact = CONTACT(contact,i*skip);
+        pContact = CONTACT(contact,(size_t)(i*skip));
         pContact->g1 = o1;
         pContact->g2 = o2;
         // pContact->side1 = -1; -- Oleh_Derevenko: sides must not be erased here as they are set by respective colliders during ray/plane tests 
@@ -1875,7 +1875,7 @@ dCollideHeightfieldExit:
         {
             for ( i = 0; i < numTerrainContacts; ++i )
             {
-                pContact = CONTACT(contact,i*skip);
+                pContact = CONTACT(contact,(size_t)(i*skip));
                 dCopyVector3( pos0, pContact->pos );
 
 #ifndef DHEIGHTFIELD_CORNER_ORIGIN
@@ -1896,7 +1896,7 @@ dCollideHeightfieldExit:
         {
             for ( i = 0; i < numTerrainContacts; ++i )
             {
-                pContact = CONTACT(contact,i*skip);
+                pContact = CONTACT(contact,(size_t)(i*skip));
                 pContact->pos[ 0 ] -= terrain->m_p_data->m_fHalfWidth;
                 pContact->pos[ 2 ] -= terrain->m_p_data->m_fHalfDepth;
             }

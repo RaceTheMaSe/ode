@@ -38,15 +38,15 @@ void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
     dReal *ptrA = aStart;
     const dReal *ptrD = dStart;
     const dReal *const dStepsEnd = dStart + (sizeint)(elementCount & ~(step - 1)) * d_stride;
-    for (; ptrD != dStepsEnd; ptrA += step * a_stride, ptrD += step * d_stride) 
+    for (; ptrD != dStepsEnd; ptrA += step * (size_t)a_stride, ptrD += step * (size_t)d_stride) 
     {
-        dReal a0 = ptrA[0], a1 = ptrA[1 * a_stride], a2 = ptrA[2 * a_stride], a3 = ptrA[3 * a_stride];
-        dReal d0 = ptrD[0], d1 = ptrD[1 * d_stride], d2 = ptrD[2 * d_stride], d3 = ptrD[3 * d_stride];
+        dReal a0 = ptrA[0], a1 = ptrA[1 * (size_t)a_stride], a2 = ptrA[2 * (size_t)a_stride], a3 = ptrA[3 * (size_t)a_stride];
+        dReal d0 = ptrD[0], d1 = ptrD[1 * (size_t)d_stride], d2 = ptrD[2 * (size_t)d_stride], d3 = ptrD[3 * (size_t)d_stride];
         a0 *= d0;
         a1 *= d1;
         a2 *= d2;
         a3 *= d3;
-        ptrA[0] = a0; ptrA[1 * a_stride] = a1; ptrA[2 * a_stride] = a2; ptrA[3 * a_stride] = a3;
+        ptrA[0] = a0; ptrA[1 * (size_t)a_stride] = a1; ptrA[2 * (size_t)a_stride] = a2; ptrA[3 * (size_t)a_stride] = a3;
         dSASSERT(step == 4);
     }
 
@@ -54,17 +54,17 @@ void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
     {
         case 3:
         {
-            dReal a2 = ptrA[2 * a_stride];
-            dReal d2 = ptrD[2 * d_stride];
-            ptrA[2 * a_stride] = a2 * d2;
+            dReal a2 = ptrA[2 * (size_t)a_stride];
+            dReal d2 = ptrD[2 * (size_t)d_stride];
+            ptrA[2 * (size_t)a_stride] = a2 * d2;
             // break; -- proceed to case 2
         }
         ANNOTATE_FALLTHROUGH
         case 2:
         {
-            dReal a1 = ptrA[1 * a_stride];
-            dReal d1 = ptrD[1 * d_stride];
-            ptrA[1 * a_stride] = a1 * d1;
+            dReal a1 = ptrA[1 * (size_t)a_stride];
+            dReal d1 = ptrD[1 * (size_t)d_stride];
+            ptrA[1 * (size_t)a_stride] = a1 * d1;
             // break; -- proceed to case 1
         }
         ANNOTATE_FALLTHROUGH

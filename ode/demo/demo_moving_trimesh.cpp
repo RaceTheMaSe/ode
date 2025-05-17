@@ -442,9 +442,9 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
     dReal aabb[6];
     dGeomGetAABB (g,aabb);
     dVector3 bbpos;
-    for (int i=0; i<3; i++) bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
+    for (size_t i=0; i<3; i++) bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
     dVector3 bbsides;
-    for (int j=0; j<3; j++) bbsides[j] = aabb[j*2+1] - aabb[j*2];
+    for (size_t j=0; j<3; j++) bbsides[j] = aabb[j*2+1] - aabb[j*2];
     dMatrix3 RI;
     dRSetIdentity (RI);
     dsSetColorAlpha (1,0,0,0.5f);
@@ -546,7 +546,7 @@ static void simLoop (int pause)
           // this is fairly important for good results.
           
 		  // Fill in the (4x4) matrix.
-		  dReal* p_matrix = obj[i].matrix_dblbuff + ( obj[i].last_matrix_index * 16 );
+		  dReal* p_matrix = obj[i].matrix_dblbuff + ( (size_t)obj[i].last_matrix_index * 16 );
 
 		  p_matrix[ 0 ] = Rot[ 0 ];	p_matrix[ 1 ] = Rot[ 1 ];	p_matrix[ 2 ] = Rot[ 2 ];	p_matrix[ 3 ] = 0;
 		  p_matrix[ 4 ] = Rot[ 4 ];	p_matrix[ 5 ] = Rot[ 5 ];	p_matrix[ 6 ] = Rot[ 6 ];	p_matrix[ 7 ] = 0;
@@ -557,7 +557,7 @@ static void simLoop (int pause)
 		  obj[i].last_matrix_index = !obj[i].last_matrix_index;
 
 		  dGeomTriMeshSetLastTransform( obj[i].geom[j], 
-			  *(dMatrix4*)( obj[i].matrix_dblbuff + obj[i].last_matrix_index * 16 ) );
+			  *(dMatrix4*)( obj[i].matrix_dblbuff + (size_t)obj[i].last_matrix_index * 16 ) );
   
         } else {
           drawGeom (obj[i].geom[j],NULL,NULL,show_aabb);

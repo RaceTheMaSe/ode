@@ -119,7 +119,7 @@ static void space_geom_collider (void *data, dxGeom *o1, dxGeom *o2)
     SpaceGeomColliderData *d = (SpaceGeomColliderData*) data;
     if (d->flags & NUMC_MASK) {
         const int n = dCollide (o1,o2,d->flags,d->contact,d->skip);
-        d->contact = CONTACT (d->contact,d->skip*n);
+        d->contact = CONTACT (d->contact,(size_t)(d->skip*n));
         d->flags -= n;
     }
 }
@@ -324,7 +324,7 @@ int dCollide (dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip
         if (ce->reverse) {
             count = (*ce->fn) (o2,o1,flags,contact,skip);
             for (int i=0; i<count; i++) {
-                dContactGeom *c = CONTACT(contact,skip*i);
+                dContactGeom *c = CONTACT(contact,(size_t)(skip*i));
                 c->normal[0] = -c->normal[0];
                 c->normal[1] = -c->normal[1];
                 c->normal[2] = -c->normal[2];

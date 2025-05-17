@@ -196,7 +196,7 @@ int ThreadedEquationSolverLDLT::solveL1Straight_completion_callback(void *dUNUSE
 // Public interface functions
 
 /*extern ODE_API */
-void dSolveL1(const dReal *L, dReal *B, int n, int lskip1)
+void dSolveL1(const dReal *L, dReal *B, int n, int nskip)
 {
     dAASSERT(n != 0);
 
@@ -205,7 +205,7 @@ void dSolveL1(const dReal *L, dReal *B, int n, int lskip1)
         dAASSERT(L != NULL);
         dAASSERT(B != NULL);
 
-        solveL1Straight<1>(L, B, (unsigned int)n, (unsigned int)lskip1);
+        solveL1Straight<1>(L, B, (unsigned int)n, (unsigned int)nskip);
     }
 }
 

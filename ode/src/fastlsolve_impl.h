@@ -62,7 +62,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
         /* compute all 4 x 1 block of X, from rows i..i+4-1 */
         if (subsequentPass)
         {
-            ptrLElement = L + (1 + blockStartRow) * rowSkip;
+            ptrLElement = L + (size_t)(1 + blockStartRow) * rowSkip;
             ptrBElement = B;
             /* set the Z matrix to 0 */
             Z11 = 0; Z21 = 0; Z31 = 0; Z41 = 0;
@@ -73,7 +73,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                 dReal q1, p1, p2, p3, p4;
 
                 /* load p and q values */
-                q1 = ptrBElement[0 * b_stride];
+                q1 = ptrBElement[0 * (size_t)b_stride];
                 p1 = (ptrLElement - rowSkip)[0];
                 p2 = ptrLElement[0];
                 ptrLElement += rowSkip;
@@ -87,7 +87,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                 Z41 += p4 * q1;
 
                 /* load p and q values */
-                q1 = ptrBElement[1 * b_stride];
+                q1 = ptrBElement[1 * (size_t)b_stride];
                 p3 = ptrLElement[1];
                 p4 = ptrLElement[1 + rowSkip];
                 ptrLElement -= rowSkip;
@@ -101,7 +101,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                 Z41 += p4 * q1;
 
                 /* load p and q values */
-                q1 = ptrBElement[2 * b_stride];
+                q1 = ptrBElement[2 * (size_t)b_stride];
                 p1 = (ptrLElement - rowSkip)[2];
                 p2 = ptrLElement[2];
                 ptrLElement += rowSkip;
@@ -115,7 +115,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                 Z41 += p4 * q1;
 
                 /* load p and q values */
-                q1 = ptrBElement[3 * b_stride];
+                q1 = ptrBElement[3 * (size_t)b_stride];
                 p3 = ptrLElement[3];
                 p4 = ptrLElement[3 + rowSkip];
                 ptrLElement -= rowSkip;
@@ -134,10 +134,10 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
 
                     /* advance pointers */
                     ptrLElement += 12;
-                    ptrBElement += 12 * b_stride;
+                    ptrBElement += 12 * (size_t)b_stride;
 
                     /* load p and q values */
-                    q1 = ptrBElement[-8 * (int)b_stride];
+                    q1 = ptrBElement[-8 * (ptrdiff_t)b_stride];
                     p1 = (ptrLElement - rowSkip)[-8];
                     p2 = ptrLElement[-8];
                     ptrLElement += rowSkip;
@@ -151,7 +151,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     Z41 += p4 * q1;
 
                     /* load p and q values */
-                    q1 = ptrBElement[-7 * (int)b_stride];
+                    q1 = ptrBElement[-7 * (ptrdiff_t)b_stride];
                     p3 = ptrLElement[-7];
                     p4 = ptrLElement[-7 + rowSkip];
                     ptrLElement -= rowSkip;
@@ -165,7 +165,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     Z41 += p4 * q1;
 
                     /* load p and q values */
-                    q1 = ptrBElement[-6 * (int)b_stride];
+                    q1 = ptrBElement[-6 * (ptrdiff_t)b_stride];
                     p1 = (ptrLElement - rowSkip)[-6];
                     p2 = ptrLElement[-6];
                     ptrLElement += rowSkip;
@@ -179,7 +179,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     Z41 += p4 * q1;
 
                     /* load p and q values */
-                    q1 = ptrBElement[-5 * (int)b_stride];
+                    q1 = ptrBElement[-5 * (ptrdiff_t)b_stride];
                     p3 = ptrLElement[-5];
                     p4 = ptrLElement[-5 + rowSkip];
                     ptrLElement -= rowSkip;
@@ -193,7 +193,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     Z41 += p4 * q1;
 
                     /* load p and q values */
-                    q1 = ptrBElement[-4 * (int)b_stride];
+                    q1 = ptrBElement[-4 * (ptrdiff_t)b_stride];
                     p1 = (ptrLElement - rowSkip)[-4];
                     p2 = ptrLElement[-4];
                     ptrLElement += rowSkip;
@@ -207,7 +207,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     Z41 += p4 * q1;
 
                     /* load p and q values */
-                    q1 = ptrBElement[-3 * (int)b_stride];
+                    q1 = ptrBElement[-3 * (ptrdiff_t)b_stride];
                     p3 = ptrLElement[-3];
                     p4 = ptrLElement[-3 + rowSkip];
                     ptrLElement -= rowSkip;
@@ -221,7 +221,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     Z41 += p4 * q1;
 
                     /* load p and q values */
-                    q1 = ptrBElement[-2 * (int)b_stride];
+                    q1 = ptrBElement[-2 * (ptrdiff_t)b_stride];
                     p1 = (ptrLElement - rowSkip)[-2];
                     p2 = ptrLElement[-2];
                     ptrLElement += rowSkip;
@@ -235,7 +235,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     Z41 += p4 * q1;
 
                     /* load p and q values */
-                    q1 = ptrBElement[-1 * (int)b_stride];
+                    q1 = ptrBElement[-1 * (ptrdiff_t)b_stride];
                     p3 = ptrLElement[-1];
                     p4 = ptrLElement[-1 + rowSkip];
                     ptrLElement -= rowSkip;
@@ -252,7 +252,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                 {
                     /* advance pointers */
                     ptrLElement += 4;
-                    ptrBElement += 4 * b_stride;
+                    ptrBElement += 4 * (size_t)b_stride;
 
                     if ((columnCounter -= 4) == 0)
                     {
@@ -273,27 +273,27 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
         /* finish computing the X(i) block */
         dReal Y11, Y21, Y31, Y41;
         {
-            Y11 = ptrBElement[0 * b_stride] - Z11;
-            ptrBElement[0 * b_stride] = Y11;
+            Y11 = ptrBElement[0 * (size_t)b_stride] - Z11;
+            ptrBElement[0 * (size_t)b_stride] = Y11;
         }
         {
             dReal p2 = ptrLElement[0];
-            Y21 = ptrBElement[1 * b_stride] - Z21 - p2 * Y11;
-            ptrBElement[1 * b_stride] = Y21;
+            Y21 = ptrBElement[1 * (size_t)b_stride] - Z21 - p2 * Y11;
+            ptrBElement[1 * (size_t)b_stride] = Y21;
         }
         ptrLElement += rowSkip;
         {
             dReal p3 = ptrLElement[0];
             dReal p3_1 = ptrLElement[1];
-            Y31 = ptrBElement[2 * b_stride] - Z31 - p3 * Y11 - p3_1 * Y21;
-            ptrBElement[2 * b_stride] = Y31;
+            Y31 = ptrBElement[2 * (size_t)b_stride] - Z31 - p3 * Y11 - p3_1 * Y21;
+            ptrBElement[2 * (size_t)b_stride] = Y31;
         }
         {
             dReal p4 = ptrLElement[rowSkip];
             dReal p4_1 = ptrLElement[1 + rowSkip];
             dReal p4_2 = ptrLElement[2 + rowSkip];
-            Y41 = ptrBElement[3 * b_stride] - Z41 - p4 * Y11 - p4_1 * Y21 - p4_2 * Y31;
-            ptrBElement[3 * b_stride] = Y41;
+            Y41 = ptrBElement[3 * (size_t)b_stride] - Z41 - p4 * Y11 - p4_1 * Y21 - p4_2 * Y31;
+            ptrBElement[3 * (size_t)b_stride] = Y41;
         }
         /* end of outer loop */
     }
@@ -312,7 +312,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
             /* set the Z matrix to 0 */
             Z11 = 0; Z12 = 0;
 
-            const dReal *ptrLElement = L + blockStartRow * rowSkip;
+            const dReal *ptrLElement = L + blockStartRow * (size_t)rowSkip;
 
             /* the inner loop that computes outer products and adds them to Z */
             unsigned columnCounter = blockStartRow;
@@ -323,8 +323,8 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                 /* load p and q values */
                 p1 = ptrLElement[0];
                 p2 = ptrLElement[1];
-                q1 = ptrBElement[0 * b_stride];
-                q2 = ptrBElement[1 * b_stride];
+                q1 = ptrBElement[0 * (size_t)b_stride];
+                q2 = ptrBElement[1 * (size_t)b_stride];
 
                 /* compute outer product and add it to the Z matrix */
                 Z11 += p1 * q1;
@@ -333,8 +333,8 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                 /* load p and q values */
                 p1 = ptrLElement[2];
                 p2 = ptrLElement[3];
-                q1 = ptrBElement[2 * b_stride];
-                q2 = ptrBElement[3 * b_stride];
+                q1 = ptrBElement[2 * (size_t)b_stride];
+                q2 = ptrBElement[3 * (size_t)b_stride];
 
                 /* compute outer product and add it to the Z matrix */
                 Z11 += p1 * q1;
@@ -346,13 +346,13 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
 
                     /* advance pointers */
                     ptrLElement += 12;
-                    ptrBElement += 12 * b_stride;
+                    ptrBElement += 12 * (size_t)b_stride;
 
                     /* load p and q values */
                     p1 = ptrLElement[-8];
                     p2 = ptrLElement[-7];
-                    q1 = ptrBElement[-8 * (int)b_stride];
-                    q2 = ptrBElement[-7 * (int)b_stride];
+                    q1 = ptrBElement[-8 * (ptrdiff_t)b_stride];
+                    q2 = ptrBElement[-7 * (ptrdiff_t)b_stride];
 
                     /* compute outer product and add it to the Z matrix */
                     Z11 += p1 * q1;
@@ -361,8 +361,8 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     /* load p and q values */
                     p1 = ptrLElement[-6];
                     p2 = ptrLElement[-5];
-                    q1 = ptrBElement[-6 * (int)b_stride];
-                    q2 = ptrBElement[-5 * (int)b_stride];
+                    q1 = ptrBElement[-6 * (ptrdiff_t)b_stride];
+                    q2 = ptrBElement[-5 * (ptrdiff_t)b_stride];
 
                     /* compute outer product and add it to the Z matrix */
                     Z11 += p1 * q1;
@@ -371,8 +371,8 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     /* load p and q values */
                     p1 = ptrLElement[-4];
                     p2 = ptrLElement[-3];
-                    q1 = ptrBElement[-4 * (int)b_stride];
-                    q2 = ptrBElement[-3 * (int)b_stride];
+                    q1 = ptrBElement[-4 * (ptrdiff_t)b_stride];
+                    q2 = ptrBElement[-3 * (ptrdiff_t)b_stride];
 
                     /* compute outer product and add it to the Z matrix */
                     Z11 += p1 * q1;
@@ -381,8 +381,8 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                     /* load p and q values */
                     p1 = ptrLElement[-2];
                     p2 = ptrLElement[-1];
-                    q1 = ptrBElement[-2 * (int)b_stride];
-                    q2 = ptrBElement[-1 * (int)b_stride];
+                    q1 = ptrBElement[-2 * (ptrdiff_t)b_stride];
+                    q2 = ptrBElement[-1 * (ptrdiff_t)b_stride];
 
                     /* compute outer product and add it to the Z matrix */
                     Z11 += p1 * q1;
@@ -392,7 +392,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                 {
                     /* advance pointers */
                     ptrLElement += 4;
-                    ptrBElement += 4 * b_stride;
+                    ptrBElement += 4 * (size_t)b_stride;
 
                     if ((columnCounter -= 4) < 4)
                     {
@@ -410,8 +410,8 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
                 /* load p and q values */
                 p1 = ptrLElement[0];
                 p2 = ptrLElement[1];
-                q1 = ptrBElement[0 * b_stride];
-                q2 = ptrBElement[1 * b_stride];
+                q1 = ptrBElement[0 * (size_t)b_stride];
+                q2 = ptrBElement[1 * (size_t)b_stride];
 
                 /* compute outer product and add it to the Z matrix */
                 Z11 += p1 * q1;
@@ -419,7 +419,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
 
                 /* advance pointers */
                 ptrLElement += 2;
-                ptrBElement += 2 * b_stride;
+                ptrBElement += 2 * (size_t)b_stride;
             }
 
             if ((columnCounter & 1) != 0)
@@ -428,19 +428,19 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
 
                 /* load p and q values */
                 p1 = ptrLElement[0];
-                q1 = ptrBElement[0 * b_stride];
+                q1 = ptrBElement[0 * (size_t)b_stride];
 
                 /* compute outer product and add it to the Z matrix */
                 Z11 += p1 * q1;
 
                 /* advance pointers */
                 // ptrLElement += 1; -- not needed anymore
-                ptrBElement += 1 * b_stride;
+                ptrBElement += 1 * (size_t)b_stride;
             }
 
             /* finish computing the X(i) block */
-            dReal Y11 = ptrBElement[0 * b_stride] - (Z11 + Z12);
-            ptrBElement[0 * b_stride] = Y11;
+            dReal Y11 = ptrBElement[0 * (size_t)b_stride] - (Z11 + Z12);
+            ptrBElement[0 * (size_t)b_stride] = Y11;
         }
     }
 }

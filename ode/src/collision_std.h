@@ -182,7 +182,7 @@ struct dxConvex : public dxGeom
         dReal tmp;
         for (unsigned int i = 1; i < pointcount; ++i) 
         {
-            tmp = dCalcVectorDot3(points+(i*3),rdir);
+            tmp = dCalcVectorDot3(points+((size_t)(i*3)),rdir);
             if (tmp > max) 
             {
                 index=i;

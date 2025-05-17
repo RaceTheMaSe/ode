@@ -105,7 +105,7 @@ struct IndexError;
 
 
 #define CACHELINE_BLOCKING_FACTOR       16U
-#define PER_THREAD_PROCESSING_BLOCK_SIZE (COMMON_CACHELINE_SIZE * CACHELINE_BLOCKING_FACTOR)
+#define PER_THREAD_PROCESSING_BLOCK_SIZE ((size_t)COMMON_CACHELINE_SIZE * CACHELINE_BLOCKING_FACTOR)
 
 
 #define dxQUICKSTEPISLAND_STAGE0_BODIES_STEP  dMAX((PER_THREAD_PROCESSING_BLOCK_SIZE / (IIE__MAX * sizeof(dReal))), 1U)
@@ -1553,7 +1553,7 @@ void dxQuickStepIsland_Stage2a(dxQuickStepperStage2CallContext *stage2CallContex
 
                 dReal *const JRow = J + (sizeint)ofsi * JME__MAX;
                 {
-                    dReal *const JEnd = JRow + infom * JME__MAX;
+                    dReal *const JEnd = JRow + (size_t)(infom * JME__MAX);
                     for (dReal *JCurr = JRow; JCurr != JEnd; JCurr += JME__MAX) {
                         dSetZero(JCurr + JME__J1_MIN, JME__J1_COUNT);
                         JCurr[JME_RHS] = REAL(0.0);
@@ -1583,7 +1583,7 @@ void dxQuickStepIsland_Stage2a(dxQuickStepperStage2CallContext *stage2CallContex
                     }
                 }
                 {
-                    dReal *const JEnd = JRow + infom * JME__MAX;
+                    dReal *const JEnd = JRow + (size_t)(infom * JME__MAX);
                     for (dReal *JCurr = JRow; JCurr != JEnd; JCurr += JME__MAX) {
                         JCurr[JME_RHS] *= stepsizeRecip;
                         JCurr[JME_CFM] *= stepsizeRecip;
@@ -1596,8 +1596,8 @@ void dxQuickStepIsland_Stage2a(dxQuickStepperStage2CallContext *stage2CallContex
                     // for joints, that requested feedback (which is normally much less)
                     const unsigned mfbIndex = mindex[ji].fbIndex;
                     if (mfbIndex != mindex[ji + 1].fbIndex) {
-                        dReal *const JEnd = JRow + infom * JME__MAX;
-                        dReal *JCopyRow = JCopy + mfbIndex * JCE__MAX; // Random access by mfbIndex here! Do not optimize!
+                        dReal *const JEnd = JRow + (size_t)(infom * JME__MAX);
+                        dReal *JCopyRow = JCopy + (size_t)(mfbIndex * JCE__MAX); // Random access by mfbIndex here! Do not optimize!
                         for (const dReal *JCurr = JRow; ; ) {
                             for (unsigned i = 0; i != JME__J1_COUNT; ++i) { JCopyRow[i + JCE__J1_MIN] = JCurr[i + JME__J1_MIN]; }
                             for (unsigned j = 0; j != JME__J2_COUNT; ++j) { JCopyRow[j + JCE__J2_MIN] = JCurr[j + JME__J2_MIN]; }
@@ -2232,7 +2232,7 @@ void dxQuickStepIsland_Stage4LCP_MTfcComputation_cold(dxQuickStepperStage4CallCo
     while ((bi_step = ThrsafeIncrementIntUpToLimit(&stage4CallContext->m_bi_fc, nb_steps)) != nb_steps) {
         const unsigned int bi = bi_step * step_size;
         const unsigned int bicnt = dRESTRICT_STEP(step_size, nb - bi);
-        dSetZero(fc + (sizeint)bi * CFE__MAX, (sizeint)bicnt * CFE__MAX);
+        dSetZero(fc + (size_t)((sizeint)bi * CFE__MAX), (size_t)((sizeint)bicnt * CFE__MAX));
     }
 }
 
@@ -2255,7 +2255,7 @@ void dxQuickStepIsland_Stage4LCP_MTForceMaxAdjustmentZeroing(dxQuickStepperStage
     while ((bi_step = ThrsafeIncrementIntUpToLimit(&stage4CallContext->m_bi_forceMaxAdj, nb_steps)) != nb_steps) {
         const unsigned int bi = bi_step * step_size;
         const unsigned int bicnt = dRESTRICT_STEP(step_size, nb - bi);
-        dSetZero(forceMaxAdjustments + (sizeint)bi * FAE__MAX, (sizeint)bicnt * FAE__MAX);
+        dSetZero(forceMaxAdjustments + (size_t)((sizeint)bi * FAE__MAX), (size_t)((sizeint)bicnt * FAE__MAX));
     }
 }
 
@@ -2283,7 +2283,7 @@ void dxQuickStepIsland_Stage4LCP_STfcComputation(dxQuickStepperStage4CallContext
     _multiply_invM_JT<CFE__DYNAMICS_MIN, CFE__MAX>(fc, m, nb, iMJ, jb, lambda);
 #else
 	dReal *fc = stage4CallContext->m_cforce;
-    dSetZero(fc, (sizeint)nb * CFE__MAX);
+    dSetZero(fc, (size_t)((sizeint)nb * CFE__MAX));
 #endif
 }
 
@@ -3211,7 +3211,7 @@ void dxQuickStepIsland_Stage4b(dxQuickStepperStage4CallContext *stage4CallContex
                     fb->t1[dSA_Y] = data[JVE_AY];
                     fb->t1[dSA_Z] = data[JVE_AZ];
 
-                    Jcopycurr += fb_infom * JCE__MAX;
+                    Jcopycurr += (size_t)(fb_infom * JCE__MAX);
                 }
                 else {
 #ifdef WARM_STARTING

@@ -178,7 +178,7 @@ unsigned int ThrsafeIncrementIntUpToLimit(volatile atomicord32 *storagePointer, 
             resultValue = limitValue;
             break;
         }
-        if (ThrsafeCompareExchange(storagePointer, (atomicord32)resultValue, (atomicord32)(resultValue + 1))) {
+        if (ThrsafeCompareExchange(storagePointer, (atomicord32)resultValue, (atomicord32)resultValue + 1)) {
             break;
         }
     }

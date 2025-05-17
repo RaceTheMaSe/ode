@@ -170,10 +170,10 @@ dxJointContact::getInfo2(dReal worldFPS, dReal worldERP,
     if (b1) {
         dSubtractVectors3(c2, contact.geom.pos, b1->posr.pos);
         // set Jacobian for b1 normal
-        dCopyNegatedVector3(J2 + ROW_NORMAL * rowskip + GI2__JL_MIN, normal);
-        dCalcVectorCross3(J2 + ROW_NORMAL * rowskip + GI2__JA_MIN, normal, c2); //== dCalcVectorCross3( J2 + GI2__JA_MIN, c2, normal ); dNegateVector3( J2 + GI2__JA_MIN );
+        dCopyNegatedVector3(J2 + (size_t)(ROW_NORMAL * rowskip) + GI2__JL_MIN, normal);
+        dCalcVectorCross3(J2 + (size_t)(ROW_NORMAL * rowskip) + GI2__JA_MIN, normal, c2); //== dCalcVectorCross3( J2 + GI2__JA_MIN, c2, normal ); dNegateVector3( J2 + GI2__JA_MIN );
         if (apply_bounce) {
-            outgoing /*+*/= dCalcVectorDot3(J2 + ROW_NORMAL * rowskip + GI2__JA_MIN, node[1].body->avel)
+            outgoing /*+*/= dCalcVectorDot3(J2 + (size_t)(ROW_NORMAL * rowskip) + GI2__JA_MIN, node[1].body->avel)
                 - dCalcVectorDot3(normal, node[1].body->lvel);
         }
     }
@@ -181,11 +181,11 @@ dxJointContact::getInfo2(dReal worldFPS, dReal worldERP,
     dxBody *b0 = node[0].body;
     dSubtractVectors3(c1, contact.geom.pos, b0->posr.pos);
     // set Jacobian for b0 normal
-    dCopyVector3(J1 + ROW_NORMAL * rowskip + GI2__JL_MIN, normal);
-    dCalcVectorCross3(J1 + ROW_NORMAL * rowskip + GI2__JA_MIN, c1, normal);
+    dCopyVector3(J1 + (size_t)(ROW_NORMAL * rowskip) + GI2__JL_MIN, normal);
+    dCalcVectorCross3(J1 + (size_t)(ROW_NORMAL * rowskip) + GI2__JA_MIN, c1, normal);
     if (apply_bounce) {
         // calculate outgoing velocity (-ve for incoming contact)
-        outgoing += dCalcVectorDot3(J1 + ROW_NORMAL * rowskip + GI2__JA_MIN, node[0].body->avel)
+        outgoing += dCalcVectorDot3(J1 + (size_t)(ROW_NORMAL * rowskip) + GI2__JA_MIN, node[0].body->avel)
             + dCalcVectorDot3(normal, node[0].body->lvel);
     }
 

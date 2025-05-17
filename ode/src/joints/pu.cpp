@@ -316,19 +316,19 @@ dxJointPU::getInfo2( dReal worldFPS, dReal worldERP,
     dPlaneSpace(axP, p, q);
 
     dCopyVector3( J1 + rowskip + GI2__JL_MIN, p );
-    dCopyVector3( J1 + 2 * rowskip + GI2__JL_MIN, q );
+    dCopyVector3( J1 + (size_t)(2 * rowskip) + GI2__JL_MIN, q );
     // Make the anchors be body local
     // Aliasing isn't a problem here.
     dSubtractVectors3(an1, an1, node[0].body->posr.pos);
     dCalcVectorCross3( J1 + rowskip + GI2__JA_MIN, an1, p );
-    dCalcVectorCross3( J1 + 2 * rowskip + GI2__JA_MIN, an1, q );
+    dCalcVectorCross3( J1 + (size_t)(2 * rowskip) + GI2__JA_MIN, an1, q );
 
     if (body1) {
         dCopyNegatedVector3( J2 + rowskip + GI2__JL_MIN, p );
-        dCopyNegatedVector3( J2 + 2 * rowskip + GI2__JL_MIN, q );
+        dCopyNegatedVector3( J2 + (size_t)(2 * rowskip) + GI2__JL_MIN, q );
         dSubtractVectors3(an2, an2, body1->posr.pos);
         dCalcVectorCross3( J2 + rowskip + GI2__JA_MIN, p, an2 );
-        dCalcVectorCross3( J2 + 2 * rowskip + GI2__JA_MIN, q, an2 );
+        dCalcVectorCross3( J2 + (size_t)(2 * rowskip) + GI2__JA_MIN, q, an2 );
     }
 
     pairRhsCfm[pairskip + GI2_RHS] = k * dCalcVectorDot3( p, sep );

@@ -65,7 +65,7 @@ void factorMatrixAsLDLT(dReal *A, dReal *d, unsigned rowCount, unsigned rowSkip)
 
     /* compute blocks of 2 rows */
     bool subsequentPass = false;
-    for (; blockStartRow < lastRowIndex; subsequentPass = true, ARow += blockStep * rowSkip, blockStartRow += blockStep) 
+    for (; blockStartRow < lastRowIndex; subsequentPass = true, ARow += blockStep * (size_t)rowSkip, blockStartRow += blockStep) 
     {
         if (subsequentPass)
         {
@@ -128,7 +128,7 @@ void solveL1Stripe_2(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
         /* compute all 2 x 2 block of X, from rows i..i+2-1 */
         if (subsequentPass)
         {
-            ptrLElement = L + blockStartRow * rowSkip;
+            ptrLElement = L + (size_t)(blockStartRow * rowSkip);
             ptrBElement = B;
 
             /* set Z matrix to 0 */
@@ -271,7 +271,7 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
 
         p1 = ptrAElement[0];
         p2 = ptrAElement[rowSkip];
-        dd = ptrDElement[0 * d_stride];
+        dd = ptrDElement[0 * (size_t)d_stride];
         q1 = p1 * dd;
         q2 = p2 * dd;
         ptrAElement[0] = q1;
@@ -282,7 +282,7 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
 
         p1 = ptrAElement[1];
         p2 = ptrAElement[1 + rowSkip];
-        dd = ptrDElement[1 * d_stride];
+        dd = ptrDElement[1 * (size_t)d_stride];
         q1 = p1 * dd;
         q2 = p2 * dd;
         ptrAElement[1] = q1;
@@ -296,11 +296,11 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
             columnCounter -= 6;
 
             ptrAElement += 6;
-            ptrDElement += 6 * d_stride;
+            ptrDElement += 6 * (size_t)d_stride;
 
             p1 = ptrAElement[-4];
             p2 = ptrAElement[-4 + rowSkip];
-            dd = ptrDElement[-4 * (int)d_stride];
+            dd = ptrDElement[-4 * (ptrdiff_t)d_stride];
             q1 = p1 * dd;
             q2 = p2 * dd;
             ptrAElement[-4] = q1;
@@ -311,7 +311,7 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
 
             p1 = ptrAElement[-3];
             p2 = ptrAElement[-3 + rowSkip];
-            dd = ptrDElement[-3 * (int)d_stride];
+            dd = ptrDElement[-3 * (ptrdiff_t)d_stride];
             q1 = p1 * dd;
             q2 = p2 * dd;
             ptrAElement[-3] = q1;
@@ -322,7 +322,7 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
 
             p1 = ptrAElement[-2];
             p2 = ptrAElement[-2 + rowSkip];
-            dd = ptrDElement[-2 * (int)d_stride];
+            dd = ptrDElement[-2 * (ptrdiff_t)d_stride];
             q1 = p1 * dd;
             q2 = p2 * dd;
             ptrAElement[-2] = q1;
@@ -333,7 +333,7 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
 
             p1 = ptrAElement[-1];
             p2 = ptrAElement[-1 + rowSkip];
-            dd = ptrDElement[-1 * (int)d_stride];
+            dd = ptrDElement[-1 * (ptrdiff_t)d_stride];
             q1 = p1 * dd;
             q2 = p2 * dd;
             ptrAElement[-1] = q1;
@@ -345,7 +345,7 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
         else
         {
             ptrAElement += 2;
-            ptrDElement += 2 * d_stride;
+            ptrDElement += 2 * (size_t)d_stride;
 
             columnCounter -= 2;
             if (columnCounter == 0)
@@ -364,7 +364,7 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
     /* factorize row 1 */
     const dReal dd = dRecip(Y11);
 
-    ptrDElement[0 * d_stride] = dd;
+    ptrDElement[0 * (size_t)d_stride] = dd;
     dIASSERT(ptrDElement == d + (sizeint)factorizationRow * d_stride);
 
     /* factorize row 2 */
@@ -372,7 +372,7 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
     ptrAElement[rowSkip] = q2;
 
     const dReal sum = Y21 * q2;
-    ptrDElement[1 * d_stride] = dRecip(Y22 - sum);
+    ptrDElement[1 * (size_t)d_stride] = dRecip(Y22 - sum);
 }
 
 template<unsigned int d_stride>
@@ -390,7 +390,7 @@ void scaleAndFactorizeL1FirstRowStripe_2(dReal *ARow, dReal *d, unsigned rowSkip
     /* factorize row 1 */
     const dReal dd = dRecip(Y11);
 
-    ptrDElement[0 * d_stride] = dd;
+    ptrDElement[0 * (size_t)d_stride] = dd;
     dIASSERT(ptrDElement == d/* + (sizeint)factorizationRow * d_stride*/);
 
     /* factorize row 2 */
@@ -398,7 +398,7 @@ void scaleAndFactorizeL1FirstRowStripe_2(dReal *ARow, dReal *d, unsigned rowSkip
     ptrAElement[rowSkip] = q2;
 
     const dReal sum = Y21 * q2;
-    ptrDElement[1 * d_stride] = dRecip(Y22 - sum);
+    ptrDElement[1 * (size_t)d_stride] = dRecip(Y22 - sum);
 }
 
 
@@ -546,8 +546,8 @@ void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRo
 
         p1 = ptrAElement[0];
         p2 = ptrAElement[1];
-        dd1 = ptrDElement[0 * d_stride];
-        dd2 = ptrDElement[1 * d_stride];
+        dd1 = ptrDElement[0 * (size_t)d_stride];
+        dd2 = ptrDElement[1 * (size_t)d_stride];
         q1 = p1 * dd1;
         q2 = p2 * dd2;
         ptrAElement[0] = q1;
@@ -560,12 +560,12 @@ void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRo
             columnCounter -= 6;
 
             ptrAElement += 6;
-            ptrDElement += 6 * d_stride;
+            ptrDElement += 6 * (size_t)d_stride;
 
             p1 = ptrAElement[-4];
             p2 = ptrAElement[-3];
-            dd1 = ptrDElement[-4 * (int)d_stride];
-            dd2 = ptrDElement[-3 * (int)d_stride];
+            dd1 = ptrDElement[-4 * (ptrdiff_t)d_stride];
+            dd2 = ptrDElement[-3 * (ptrdiff_t)d_stride];
             q1 = p1 * dd1;
             q2 = p2 * dd2;
             ptrAElement[-4] = q1;
@@ -575,8 +575,8 @@ void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRo
 
             p1 = ptrAElement[-2];
             p2 = ptrAElement[-1];
-            dd1 = ptrDElement[-2 * (int)d_stride];
-            dd2 = ptrDElement[-1 * (int)d_stride];
+            dd1 = ptrDElement[-2 * (ptrdiff_t)d_stride];
+            dd2 = ptrDElement[-1 * (ptrdiff_t)d_stride];
             q1 = p1 * dd1;
             q2 = p2 * dd2;
             ptrAElement[-2] = q1;
@@ -587,7 +587,7 @@ void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRo
         else
         {
             ptrAElement += 2;
-            ptrDElement += 2 * d_stride;
+            ptrDElement += 2 * (size_t)d_stride;
 
             columnCounter -= 2;
             if (columnCounter == 0)
@@ -603,7 +603,7 @@ void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRo
     dIASSERT(ptrDElement == d + (sizeint)factorizationRow * d_stride);
     /* factorize 1 x 1 block Y, ptrDElement */
     /* factorize row 1 */
-    ptrDElement[0 * d_stride] = dRecip(Y11);
+    ptrDElement[0 * (size_t)d_stride] = dRecip(Y11);
 }
 
 template<unsigned int d_stride>
@@ -617,7 +617,7 @@ void scaleAndFactorizeL1FirstRowStripe_1(dReal *ARow, dReal *d)
     /* solve for diagonal 1 x 1 block at A(0,0) */
     /* factorize 1 x 1 block Y, ptrDElement */
     /* factorize row 1 */
-    ptrDElement[0 * d_stride] = dRecip(Y11);
+    ptrDElement[0 * (size_t)d_stride] = dRecip(Y11);
 }
 
 

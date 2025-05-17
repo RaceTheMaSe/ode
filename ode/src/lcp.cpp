@@ -1287,12 +1287,12 @@ extern "C" ODE_API int dTestSolveLCP()
             memcpy (A2, A, (sizeint)n * nskip * sizeof(dReal));
             dClearUpperTriangle (A2, n);
             for (i = 0; i != n; ++i) {
-                dReal *currbx = pairsbx + i * PBX__MAX;
+                dReal *currbx = pairsbx + (size_t)(i * PBX__MAX);
                 currbx[PBX_B] = b[i];
                 currbx[PBX_X] = 0;
             }
             for (i = 0; i != n; ++i) {
-                dReal *currlh = pairslh + i * PLH__MAX;
+                dReal *currlh = pairslh + (size_t)(i * PLH__MAX);
                 currlh[PLH_LO] = lo[i];
                 currlh[PLH_HI] = hi[i];
             }
@@ -1310,7 +1310,7 @@ extern "C" ODE_API int dTestSolveLCP()
             const double average = total_time / double(count+1) * 1000.0;
 
             for (i = 0; i != n; ++i) {
-                const dReal *currbx = pairsbx + i * PBX__MAX;
+                const dReal *currbx = pairsbx + (size_t)(i * PBX__MAX);
                 x[i] = currbx[PBX_X];
             }
 

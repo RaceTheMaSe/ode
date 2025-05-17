@@ -221,7 +221,7 @@ int dCollideCapsuleBox (dxGeom *o1, dxGeom *o2, int flags,
             normal, &depth, &code, flags, contact, skip);
 
         for (int i=0; i<num; i++) {
-            dContactGeom *currContact = CONTACT(contact,i*skip);
+            dContactGeom *currContact = CONTACT(contact,(size_t)(i*skip));
             currContact->normal[0] = normal[0];
             currContact->normal[1] = normal[1];
             currContact->normal[2] = normal[2];
@@ -408,7 +408,7 @@ int dCollideCapsulePlane (dxGeom *o1, dxGeom *o2, int flags,
     }
 
     for (int i=0; i < ncontacts; i++) {
-        dContactGeom *currContact = CONTACT(contact,i*skip);
+        dContactGeom *currContact = CONTACT(contact,(size_t)(i*skip));
         currContact->g1 = o1;
         currContact->g2 = o2;
         currContact->side1 = -1;

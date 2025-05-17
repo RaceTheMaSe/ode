@@ -75,9 +75,9 @@ dxJointDHinge::getInfo2( dReal worldFPS, dReal worldERP,
         dCopyNegatedVector3(J2 + rowskip + GI2__JA_MIN, p);
     }
 
-    dCopyVector3(J1 + 2 * rowskip + GI2__JA_MIN, q);
+    dCopyVector3(J1 + (size_t)(2 * rowskip) + GI2__JA_MIN, q);
     if ( body1 ) {
-        dCopyNegatedVector3(J2 + 2 * rowskip + GI2__JA_MIN, q);
+        dCopyNegatedVector3(J2 + (size_t)(2 * rowskip) + GI2__JA_MIN, q);
     }
 
     dVector3 globalAxis2;

@@ -158,7 +158,7 @@ int dCollideTransform (dxGeom *o1, dxGeom *o2, int flags,
     // object.
     if (tr->infomode) {
         for (int i=0; i<n; i++) {
-            dContactGeom *c = CONTACT(contact,skip*i);
+            dContactGeom *c = CONTACT(contact,(size_t)(skip*i));
             c->g1 = o1;
         }
     }

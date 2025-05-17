@@ -244,7 +244,7 @@ dxBody *dBodyCreate (dxWorld *w)
     b->average_lvel_buffer = NULL;
     b->average_avel_buffer = NULL;
     dMassSetParameters (&b->mass,1,0,0,0,1,1,1,0,0,0);
-    dSetZero (b->invI,4*3);
+    dSetZero (b->invI,(size_t)(4*3));
     b->invI[0] = 1;
     b->invI[5] = 1;
     b->invI[10] = 1;
@@ -834,7 +834,7 @@ void dBodySetDynamic (dBodyID b)
 void dBodySetKinematic (dBodyID b)
 {
     dAASSERT (b);
-    dSetZero (b->invI,4*3);
+    dSetZero (b->invI,(size_t)(4*3));
     b->invMass = 0; 
 }
 

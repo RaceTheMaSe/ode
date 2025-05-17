@@ -48,7 +48,7 @@ dContactGeom* SAFECONTACT(int Flags, dContactGeom* Contacts, int Index, int Stri
 #if defined(dNODEBUG)
     (void)Flags;
 #endif
-    return ((dContactGeom*)(((char*)Contacts) + (Index * Stride)));
+    return ((dContactGeom*)(((char*)Contacts) + (size_t)(Index * Stride)));
 }
 #endif
 

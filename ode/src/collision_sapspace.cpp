@@ -641,11 +641,11 @@ const uint32* RadixSortContext::RadixSort( const float* input2, uint32 nb )
     // wouldn't work with mixed positive/negative values....
     {
         /* Clear counters/histograms */
-        memset(mHistogram, 0, 256*4*sizeof(uint32));
+        memset(mHistogram, 0, (size_t)(256*4)*sizeof(uint32));
 
         /* Prepare to count */
         const uint8* p = _type_cast_union(input).asUInts8;
-        const uint8* pe = &p[nb*4];
+        const uint8* pe = &p[(size_t)nb*4];
         uint32* h0= &mHistogram[0];		/* Histogram for first pass (LSB)	*/
         uint32* h1= &mHistogram[256];	/* Histogram for second pass		*/
         uint32* h2= &mHistogram[512];	/* Histogram for third pass			*/

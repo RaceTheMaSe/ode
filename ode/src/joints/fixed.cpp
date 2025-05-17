@@ -64,8 +64,8 @@ dxJointFixed::getInfo2 ( dReal worldFPS, dReal worldERP,
 {
     // Three rows for orientation
     setFixedOrientation ( this, worldFPS, worldERP, 
-        rowskip, J1 + dSA__MAX * rowskip, J2 + dSA__MAX * rowskip,
-        pairskip, pairRhsCfm + dSA__MAX * pairskip, qrel );
+        rowskip, J1 + (size_t)(dSA__MAX * rowskip), J2 + (size_t)(dSA__MAX * rowskip),
+        pairskip, pairRhsCfm + (size_t)(dSA__MAX * pairskip), qrel );
 
     // Three rows for position.
     // set Jacobian

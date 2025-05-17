@@ -179,11 +179,11 @@ void setBall2( dxJoint *joint, dReal fps, dReal erp,
     // set Jacobian
     dCopyVector3(J1 + dxJoint::GI2__JL_MIN, axis);
     dCopyVector3(J1 + rowskip + dxJoint::GI2__JL_MIN, q1);
-    dCopyVector3(J1 + 2 * rowskip + dxJoint::GI2__JL_MIN, q2);
+    dCopyVector3(J1 + (size_t)(2 * rowskip) + dxJoint::GI2__JL_MIN, q2);
     dMultiply0_331( a1, joint->node[0].body->posr.R, anchor1 );
     dCalcVectorCross3( J1 + dxJoint::GI2__JA_MIN, a1, axis );
     dCalcVectorCross3( J1 + rowskip + dxJoint::GI2__JA_MIN, a1, q1 );
-    dCalcVectorCross3( J1 + 2 * rowskip + dxJoint::GI2__JA_MIN, a1, q2 );
+    dCalcVectorCross3( J1 + (size_t)(2 * rowskip) + dxJoint::GI2__JA_MIN, a1, q2 );
 
     dxBody *b0 = joint->node[0].body;
     dAddVectors3(a1, a1, b0->posr.pos);
@@ -197,11 +197,11 @@ void setBall2( dxJoint *joint, dReal fps, dReal erp,
     {
         dCopyNegatedVector3(J2 + dxJoint::GI2__JL_MIN, axis);
         dCopyNegatedVector3(J2 + rowskip + dxJoint::GI2__JL_MIN, q1);
-        dCopyNegatedVector3(J2 + 2 * rowskip + dxJoint::GI2__JL_MIN, q2);
+        dCopyNegatedVector3(J2 + (size_t)(2 * rowskip) + dxJoint::GI2__JL_MIN, q2);
         dMultiply0_331( a2, b1->posr.R, anchor2 );
         dCalcVectorCross3( J2 + dxJoint::GI2__JA_MIN, axis, a2 ); //== dCalcVectorCross3( J2 + dxJoint::GI2__J2A_MIN, a2, axis ); dNegateVector3( J2 + dxJoint::GI2__J2A_MIN );
         dCalcVectorCross3( J2 + rowskip + dxJoint::GI2__JA_MIN, q1, a2 ); //== dCalcVectorCross3( J2 + rowskip + dxJoint::GI2__J2A_MIN, a2, q1 ); dNegateVector3( J2 + rowskip + dxJoint::GI2__J2A_MIN );
-        dCalcVectorCross3( J2 + 2 * rowskip + dxJoint::GI2__JA_MIN, q2, a2 ); //== dCalcVectorCross3( J2 + 2 * rowskip + dxJoint::GI2__J2A_MIN, a2, q2 ); dNegateVector3( J2 + 2 * rowskip + dxJoint::GI2__J2A_MIN );
+        dCalcVectorCross3( J2 + (size_t)(2 * rowskip) + dxJoint::GI2__JA_MIN, q2, a2 ); //== dCalcVectorCross3( J2 + 2 * rowskip + dxJoint::GI2__J2A_MIN, a2, q2 ); dNegateVector3( J2 + 2 * rowskip + dxJoint::GI2__J2A_MIN );
 
         dAddVectors3(a2, a2, b1->posr.pos);
 
