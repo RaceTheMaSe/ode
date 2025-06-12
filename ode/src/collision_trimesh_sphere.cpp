@@ -29,11 +29,6 @@
 #include "odemath.h"
 #include "collision_util.h"
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
-
 #if defined(dTRIMESH_ENABLED)
 
 #include "collision_trimesh_internal.h"
