@@ -137,7 +137,7 @@ struct sTrimeshCapsuleColliderData
     BOOL _cldTestSeparatingAxesOfCapsule(const dVector3 &v0, const dVector3 &v1, 
         const dVector3 &v2, uint8 flags);
     void _cldTestOneTriangleVSCapsule(const dVector3 &v0, const dVector3 &v1, 
-        const dVector3 &v2, uint8 flags);
+        const dVector3 &v2, uint8 flags, bool bDoubleSided);
 
     sLocalContactData   *m_gLocalContacts;
     unsigned int		m_ctContacts;
@@ -724,7 +724,7 @@ BOOL sTrimeshCapsuleColliderData::_cldTestSeparatingAxesOfCapsule(
 // test one mesh triangle on intersection with capsule
 void sTrimeshCapsuleColliderData::_cldTestOneTriangleVSCapsule(
     const dVector3 &v0, const dVector3 &v1, const dVector3 &v2,
-    uint8 flags)
+    uint8 flags, const bool bDoubleSided)
 {
     // calculate edges
     SUBTRACT(v1,v0,m_vE0);
@@ -754,7 +754,7 @@ void sTrimeshCapsuleColliderData::_cldTestOneTriangleVSCapsule(
     dReal fDistanceCapsuleCenterToPlane = POINTDISTANCE(plTrianglePlane,m_vCapsulePosition);
 
     // Capsule must be over positive side of triangle
-    if (fDistanceCapsuleCenterToPlane < 0 /* && !bDoubleSided*/) 
+    if (fDistanceCapsuleCenterToPlane < 0 && !bDoubleSided) 
     {
         // if not don't generate contacts
         return;
@@ -765,6 +765,9 @@ void sTrimeshCapsuleColliderData::_cldTestOneTriangleVSCapsule(
 
     if (fDistanceCapsuleCenterToPlane < 0)
     {
+        m_vNormal[0] = -m_vNormal[0];
+        m_vNormal[1] = -m_vNormal[1];
+        m_vNormal[2] = -m_vNormal[2];
         SET	(vPnt1,v2);
         SET	(vPnt2,v1);
     }
@@ -866,6 +869,16 @@ void sTrimeshCapsuleColliderData::_cldTestOneTriangleVSCapsule(
     SUBTRACT(vCEdgePoint1,m_vCapsulePosition,vTemp);
     dReal fDepth1 = dCalcVectorDot3(vTemp,m_vNormal) - (m_fBestCenter-m_fBestrt);
 
+    // double sided result - not very elegant and only tested with an upright capsule
+    if (fDistanceCapsuleCenterToPlane < 0)
+    {
+        fDepth0 = m_vCapsuleRadius*REAL(2.0) - fDepth0;
+        fDepth1 = m_vCapsuleRadius*REAL(2.0) - fDepth1;
+        m_vNormal[0] = -m_vNormal[0];
+        m_vNormal[1] = -m_vNormal[1];
+        m_vNormal[2] = -m_vNormal[2];
+    }
+
     // clamp depths to zero
     if (fDepth0 < 0) 
     {
@@ -941,7 +954,11 @@ int sTrimeshCapsuleColliderData::TestCollisionForSingleTriangle(int ctContacts0,
                                                                 int Triint, dVector3 dv[3], uint8 flags, bool &bOutFinishSearching)
 {
     // test this triangle
-    _cldTestOneTriangleVSCapsule(dv[0],dv[1],dv[2], flags);
+#if defined(dTRIMESH_CAPSULE_DOUBLE_SIDED) // not exposed in ODE build scripts - only implemented for one use case, not tested thoroughly
+    _cldTestOneTriangleVSCapsule(dv[0],dv[1],dv[2], flags, true);
+#else
+    _cldTestOneTriangleVSCapsule(dv[0],dv[1],dv[2], flags, false);
+#endif
 
     // fill-in tri index for generated contacts
     for (; ctContacts0 < (int)m_ctContacts; ctContacts0++)
