@@ -1161,7 +1161,7 @@ bool CThreadLocalStorage::AllocateAndSetStorageValue(const HTLSKEYSELECTOR &hksK
 		ESTORAGEINSTANCEKIND ikInstanceKind = (ESTORAGEINSTANCEKIND)DecodeInstanceKindFromKeySelector(hksKeySelector);
 		CTLSStorageInstance *psiStorageInstance = g_apsiStorageGlobalInstances[ikInstanceKind];
 
-		CTLSStorageBlock *psbStorageBlock;
+		CTLSStorageBlock *psbStorageBlock = NULL;
 
 		if (!psiStorageInstance->FindFreeStorageBlock(psbStorageBlock))
 		{
@@ -1170,10 +1170,16 @@ bool CThreadLocalStorage::AllocateAndSetStorageValue(const HTLSKEYSELECTOR &hksK
 
 		SetKeyStorageBlock(hksKeySelector, psbStorageBlock);
 
-		psbStorageBlock->SetValueData(iValueIndex, vValueData);
-		psbStorageBlock->SetValueDestructor(iValueIndex, fnValueDestructor);
-	
-		bResult = true;
+		if(psbStorageBlock)
+		{
+			psbStorageBlock->SetValueData(iValueIndex, vValueData);
+			psbStorageBlock->SetValueDestructor(iValueIndex, fnValueDestructor);
+			bResult = true;
+		}
+		else
+		{
+			bResult = false;
+		}
 	}
 	while (false);
 	
