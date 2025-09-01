@@ -101,7 +101,7 @@ using namespace IceCore;
 			return *this;																	\
 		}																					\
 	}																						\
-	else																					\
+	else if(mRanks)																			\
 	{																						\
 		/* Prepare for temporal coherence */												\
 		udword* Indices = mRanks;															\
@@ -201,8 +201,8 @@ bool RadixSort::Resize(udword nb)
 	DELETEARRAY(mRanks);
 
 	// Get some fresh one
-	mRanks	= new udword[nb];	CHECKALLOC(mRanks);
-	mRanks2	= new udword[nb];	CHECKALLOC(mRanks2);
+	mRanks	= new udword[nb]();	CHECKALLOC(mRanks);
+	mRanks2	= new udword[nb]();	CHECKALLOC(mRanks2);
 
 	return true;
 }
