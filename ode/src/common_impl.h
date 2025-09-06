@@ -144,8 +144,13 @@
 /* alloca aligned to the EFFICIENT_ALIGNMENT. note that this can waste
  * up to 15 bytes per allocation, depending on what alloca() returns.
  */
+#if defined(_MSC_VER)
+#define dALLOCA16(n) \
+    dEFFICIENT_PTR(_malloca((n)+(EFFICIENT_ALIGNMENT)))
+#else
 #define dALLOCA16(n) \
     dEFFICIENT_PTR(alloca((n)+(EFFICIENT_ALIGNMENT)))
+#endif
 
 
 class dxAlignedAllocation

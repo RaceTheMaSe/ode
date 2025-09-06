@@ -139,6 +139,7 @@ extern "C" ODE_NORETURN_VOID dError (int num, const char *msg, ...)
     if (error_function) error_function (num,msg,ap);
     else {
         char s[1000],title[100];
+		title[0] = '\0';
         _snprintf (title,sizeof(title),"ODE Error %d",num);
         _vsnprintf (s,sizeof(s),msg,ap);
         s[sizeof(s)-1] = 0;
@@ -156,6 +157,7 @@ extern "C" ODE_NORETURN_VOID dDebug (int num, const char *msg, ...)
     if (debug_function) debug_function (num,msg,ap);
     else {
         char s[1000],title[100];
+		title[0] = '\0';
         _snprintf (title,sizeof(title),"ODE INTERNAL ERROR %d",num);
         _vsnprintf (s,sizeof(s),msg,ap);
         s[sizeof(s)-1] = 0;

@@ -966,6 +966,7 @@ static int dCollideUserGeomWithGeom (dxGeom *o1, dxGeom *o2, int flags, dContact
         fn = user_classes[t2-dFirstUserClass].collider (t1);
         reverse = 1;
     }
+	if (t2 > dLastUserClass) return 0;
 
     // set the colliders array so that the correct function is called directly
     // the next time around. note that fn can be 0 here if no collider was found,

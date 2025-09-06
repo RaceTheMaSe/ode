@@ -131,7 +131,8 @@ void dJointSetLMotorAxis( dJointID j, int anum, int rel, dReal x, dReal y, dReal
         else
         {
             //second body has to exists thanks to ref 1 line
-            dMultiply1_331( joint->axis[anum], joint->node[1].body->posr.R, r );
+			if (joint->node[1].body)
+				dMultiply1_331( joint->axis[anum], joint->node[1].body->posr.R, r );
         }
     }
     else
