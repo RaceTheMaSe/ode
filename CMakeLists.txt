@@ -45,6 +45,9 @@ set(VERSION_MINOR 16)
 # Bump this immediately after cutting each release.
 set(VERSION_PATCH 7)
 set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+if(NOT PROJECT_IS_TOP_LEVEL)
+	set(ODE_VERSION ${VERSION} PARENT_SCOPE)
+endif()
 
 option(BUILD_SHARED_LIBS "Build shared libraries." ON)
 option(ODE_WIN32_LIB_OUTPUT_NAME_BASED_ON_FLOAT_SIZE "The output name of the library will be based on the size of float, on Windows." ON)
