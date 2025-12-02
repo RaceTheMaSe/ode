@@ -5,21 +5,21 @@
 
 namespace UnitTest {
 
-void TestReporterStdout::ReportFailure(TestDetails const& details, char const* failure)
+void TestReporterStdout::ReportFailure(TestDetails const& test, char const* failure)
 {
 #ifdef __APPLE__
     char const* const errorFormat = "%s:%d: error: Failure in %s: %s\n";
 #else
     char const* const errorFormat = "%s(%d): error: Failure in %s: %s\n";
 #endif
-    std::printf(errorFormat, details.filename, details.lineNumber, details.testName, failure);
+    std::printf(errorFormat, test.filename, test.lineNumber, test.testName, failure);
 }
 
 void TestReporterStdout::ReportTestStart(TestDetails const& /*test*/)
 {
 }
 
-void TestReporterStdout::ReportTestFinish(TestDetails const& /*test*/, float)
+void TestReporterStdout::ReportTestFinish(TestDetails const& /*test*/, float /**/)
 {
 }
 

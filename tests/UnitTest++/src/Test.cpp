@@ -54,7 +54,7 @@ void Test::Run(TestResults& testResults) const
 }
 
 
-void Test::RunImpl(TestResults&) const
+void Test::RunImpl(TestResults& /**/) const
 {
 }
 
