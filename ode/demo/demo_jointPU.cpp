@@ -272,7 +272,7 @@ static void command (int cmd)
       dBodyAddTorque(body[D],0,0,REAL(0.1));
       break;
   case 'v': case 'V':
-      dBodyAddTorque(body[D],0,0,REAL(0.1));
+      dBodyAddTorque(body[D],0,0,REAL(-0.1));
       break;
 
       // Velocity of joint
