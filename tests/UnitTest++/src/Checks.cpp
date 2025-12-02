@@ -8,7 +8,7 @@ namespace {
 void CheckStringsEqual(TestResults& results, char const* expected, char const* actual, 
                        TestDetails const& details)
 {
-    if (std::strcmp(expected, actual))
+    if (std::strcmp(expected, actual) != 0)
     {
         UnitTest::MemoryOutStream stream;
         stream << "Expected " << expected << " but was " << actual;
