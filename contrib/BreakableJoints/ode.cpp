@@ -45,9 +45,9 @@
 static inline void initObject (dObject *obj, dxWorld *w)
 {
   obj->world = w;
-  obj->next = 0;
-  obj->tome = 0;
-  obj->userdata = 0;
+  obj->next = NULL;
+  obj->tome = NULL;
+  obj->userdata = NULL;
   obj->tag = 0;
 }
 
@@ -70,8 +70,8 @@ static inline void removeObjectFromList (dObject *obj)
   if (obj->next) obj->next->tome = obj->tome;
   *(obj->tome) = obj->next;
   // safeguard
-  obj->next = 0;
-  obj->tome = 0;
+  obj->next = NULL;
+  obj->tome = NULL;
 }
 
 
