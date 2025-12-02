@@ -36,4 +36,4 @@ int AssertException::LineNumber() const
     return m_lineNumber;
 }
 
-}
+} // namespace UnitTest

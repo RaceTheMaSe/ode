@@ -26,4 +26,4 @@ TEST (TimeConstraintMacroUsesCorrectInfo)
     CHECK (std::strstr(reporter.lastFailedTest, "TimeConstraintMacroUsesCorrectInfo"));
 }
 
-}
+}  // namespace

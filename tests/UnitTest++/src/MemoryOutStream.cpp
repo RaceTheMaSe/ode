@@ -13,7 +13,7 @@ char const* MemoryOutStream::GetText() const
 
 MemoryOutStream::~MemoryOutStream() {}
 
-}
+}  // namespace UnitTest
 
 
 #else

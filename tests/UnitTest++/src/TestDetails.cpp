@@ -19,4 +19,4 @@ TestDetails::TestDetails(const TestDetails& details, int lineNumber_)
 }
 
 
-}
+}  // namespace UnitTest

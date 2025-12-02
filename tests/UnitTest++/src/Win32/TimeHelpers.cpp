@@ -43,4 +43,4 @@ void TimeHelpers::SleepMs(int const ms)
 	::Sleep((DWORD)ms);
 }
 
-}
+}  // namespace UnitTest

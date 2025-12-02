@@ -108,4 +108,4 @@ TEST(NotifiesReporterOfTestEnd)
 }
 
 
-}
+}  // namespace

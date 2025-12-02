@@ -18,5 +18,5 @@ public:
     virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed) = 0;
 };
 
-}
+}  // namespace UnitTest
 #endif

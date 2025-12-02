@@ -54,4 +54,4 @@ TEST(TimeConstraintFailureIncludesTimeoutInformation)
     CHECK(std::strstr(reporter.lastFailedMessage, "under 10ms"));
 }
 
-}
+}  // namespace

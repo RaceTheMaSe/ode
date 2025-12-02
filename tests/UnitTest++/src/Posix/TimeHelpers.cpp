@@ -30,4 +30,4 @@ void TimeHelpers::SleepMs (int ms)
     usleep((useconds_t)ms * 1000);
 }
 
-}
+}  // namespace UnitTest

@@ -29,6 +29,6 @@ private:
 };
 
 
-}
+}  // namespace UnitTest
 
 #endif

@@ -32,6 +32,6 @@ private:
     TestResults& operator =(TestResults const&);
 };
 
-}
+}  // namespace UnitTest
 
 #endif

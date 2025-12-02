@@ -40,7 +40,7 @@ string BuildFailureMessage(string const& file, int const line, string const& mes
     return failureMessage.str();
 }
 
-}
+}  // namespace
 
 namespace UnitTest {
 
@@ -127,4 +127,4 @@ void XmlTestReporter::AddFailure(std::ostream& os, DeferredTestResult const& res
     }
 }
 
-}
+}  // namespace UnitTest

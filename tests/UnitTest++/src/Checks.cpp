@@ -17,7 +17,7 @@ void CheckStringsEqual(TestResults& results, char const* expected, char const* a
     }
 }
 
-}
+}  // namespace
 
 
 void CheckEqual(TestResults& results, char const* expected, char const* actual,
@@ -45,4 +45,4 @@ void CheckEqual(TestResults& results, char const* expected, char* actual,
 }
 
 
-}
+}  // namespace UnitTest

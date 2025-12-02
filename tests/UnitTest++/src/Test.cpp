@@ -59,4 +59,4 @@ void Test::RunImpl(TestResults&) const
 }
 
 
-}
+}  // namespace UnitTest

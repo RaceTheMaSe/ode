@@ -29,6 +29,6 @@ private:
     std::ostream& m_ostream;
 };
 
-}
+}  // namespace UnitTest
 
 #endif

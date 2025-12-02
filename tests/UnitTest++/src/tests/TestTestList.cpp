@@ -47,4 +47,4 @@ TEST (ListAdderAddsTestToList)
     CHECK (test.next == 0);
 }
 
-}
+}  // namespace

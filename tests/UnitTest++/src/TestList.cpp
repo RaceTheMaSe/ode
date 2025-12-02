@@ -37,4 +37,4 @@ ListAdder::ListAdder(TestList& list, Test* test)
     list.Add(test);
 }
 
-}
+}  // namespace UnitTest

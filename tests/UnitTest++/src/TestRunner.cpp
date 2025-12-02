@@ -57,4 +57,4 @@ int RunAllTests()
     return RunAllTests(reporter, Test::GetTestList(), NULL);
 }
 
-}
+}  // namespace UnitTest

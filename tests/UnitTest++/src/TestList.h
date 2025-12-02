@@ -26,7 +26,7 @@ public:
     ListAdder(TestList& list, Test* test);
 };
 
-}
+}  // namespace UnitTest
 
 
 #endif

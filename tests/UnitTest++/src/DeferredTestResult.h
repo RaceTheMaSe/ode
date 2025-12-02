@@ -24,6 +24,6 @@ struct DeferredTestResult
 	bool failed;
 };
 
-}
+}  // namespace UnitTest
 
 #endif //UNITTEST_DEFERREDTESTRESULT_H

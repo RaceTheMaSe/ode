@@ -33,4 +33,4 @@ void TestReporterStdout::ReportSummary(int const totalTestCount, int const faile
     std::printf("Test time: %.2f seconds.\n", (double)secondsElapsed);
 }
 
-}
+}  // namespace UnitTest

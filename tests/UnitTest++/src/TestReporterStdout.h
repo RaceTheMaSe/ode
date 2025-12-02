@@ -14,6 +14,6 @@ private:
     virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed) OVERRIDE;
 };
 
-}
+}  // namespace UnitTest
 
 #endif 

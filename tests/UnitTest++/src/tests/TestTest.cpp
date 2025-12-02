@@ -94,4 +94,4 @@ TEST (TestReflectsSpecifiedSuiteName)
 }
 
 
-}
+}  // namespace

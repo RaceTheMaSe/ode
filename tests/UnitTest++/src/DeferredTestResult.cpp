@@ -23,4 +23,4 @@ DeferredTestResult::DeferredTestResult(char const* suite, char const* test)
 {
 }
 
-}
+}  // namespace UnitTest

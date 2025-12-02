@@ -25,4 +25,4 @@ TimeConstraint::~TimeConstraint()
     }
 }
 
-}
+}  // namespace UnitTest

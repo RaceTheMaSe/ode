@@ -41,7 +41,7 @@ void SleepMs (int ms);
 }
 
 
-}
+}  // namespace UnitTest
 
 
 

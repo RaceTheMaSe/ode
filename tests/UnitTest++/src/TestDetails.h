@@ -19,6 +19,6 @@ private:
     TestDetails& operator=(TestDetails const&);
 };
 
-}
+}  // namespace UnitTest
 
 #endif

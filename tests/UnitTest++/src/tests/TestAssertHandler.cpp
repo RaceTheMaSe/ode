@@ -41,4 +41,4 @@ TEST(ReportAssertSetsCorrectInfoInException)
 }
 
 
-}
+}  // namespace

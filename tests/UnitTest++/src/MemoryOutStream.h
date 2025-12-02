@@ -24,7 +24,7 @@ private:
     mutable std::string m_text;
 };
 
-}
+}  // namespace UnitTest
 
 #else
 

@@ -141,6 +141,6 @@ void CheckArray2DClose(TestResults& results, Expected const expected, Actual con
     }
 }
 
-}
+}  // namespace UnitTest
 
 #endif

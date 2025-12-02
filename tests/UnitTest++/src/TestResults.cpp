@@ -57,4 +57,4 @@ int TestResults::GetFailureCount() const
 }
 
 
-}
+}  // namespace UnitTest

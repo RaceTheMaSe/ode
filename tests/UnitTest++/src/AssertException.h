@@ -24,6 +24,6 @@ private:
     int m_lineNumber;
 };
 
-}
+} // namespace UnitTest
 
 #endif
