@@ -647,7 +647,7 @@ static ODE_NORETURN_VOID Help (char **argv)
     printf ("-pause          : Initial pause\n");
     printf ("--------------------------------------------------\n");
     printf ("Hit any key to continue:");
-    getchar();
+    (void)getchar();
 
     exit (0);
 }

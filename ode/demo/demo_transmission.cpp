@@ -180,7 +180,7 @@ static void start()
     float hpr[3] = {105,-45.5,0};
     dsSetViewpoint (xyz,hpr);
 
-    fprintf (stderr,
+    (void)fprintf (stderr,
 	     "The green wheel is driving the red one. To control it use the following:\n"
 	     "   '[' : decrease wheel ratio\n"
 	     "   ']' : increase wheel ratio\n"
@@ -299,14 +299,14 @@ static void command (int cmd)
 	    if (ratio > REAL(0.125)) {
 		ratio *= REAL(0.5);
 
-		fprintf (stderr, "Gear ratio set to %.3f.\n", (double)ratio);
+		(void)fprintf (stderr, "Gear ratio set to %.3f.\n", (double)ratio);
 	    }
 	    break;
 	case dTransmissionIntersectingAxes:
 	    if (theta > REAL(0.1)) {
 		theta -= REAL(0.1);
 
-		fprintf (stderr, "Gear angle set to %.3f deg.\n",
+		(void)fprintf (stderr, "Gear angle set to %.3f deg.\n",
 			 double(theta) / (M_PI * 180));
 	    }
 	    break;
@@ -314,7 +314,7 @@ static void command (int cmd)
 	    if (rho_2 > REAL(0.125)) {
 		rho_2 /= 2;
 
-		fprintf (stderr, "Sprocket ratio set to %.3f.\n", (double)(rho_2 / rho_1));
+		(void)fprintf (stderr, "Sprocket ratio set to %.3f.\n", (double)(rho_2 / rho_1));
 	    }
 	    break;
 	default:
@@ -328,14 +328,14 @@ static void command (int cmd)
 	    if (ratio < 8) {
 		ratio *= 2;
 
-		fprintf (stderr, "Gear ratio set to %.3f.\n", (double)ratio);
+		(void)fprintf (stderr, "Gear ratio set to %.3f.\n", (double)ratio);
 	    }
 	    break;
 	case dTransmissionIntersectingAxes:
 	    if (theta < REAL(0.9)) {
 		theta += REAL(0.1);
 
-		fprintf (stderr, "Gear angle set to %.3f deg.\n",
+		(void)fprintf (stderr, "Gear angle set to %.3f deg.\n",
 			 double(theta) / (M_PI * 180));
 	    }
 	    break;
@@ -343,7 +343,7 @@ static void command (int cmd)
 	    if (rho_2 < 2) {
 		rho_2 *= 2;
 
-		fprintf (stderr, "Sprocket ratio set to %.3f.\n", (double)(rho_2 / rho_1));
+		(void)fprintf (stderr, "Sprocket ratio set to %.3f.\n", (double)(rho_2 / rho_1));
 	    }
 	    break;
 	default:
@@ -354,13 +354,13 @@ static void command (int cmd)
     } else if (cmd == '.') {
 	speed += 5;
 
-	fprintf (stderr, "Driving wheel speed set to %g rad/s.\n", (double)speed);
+	(void)fprintf (stderr, "Driving wheel speed set to %g rad/s.\n", (double)speed);
 
 	dJointSetHingeParam(hinge2, dParamVel, speed);
     } else if (cmd == ',') {
 	speed -= 5;
 
-	fprintf (stderr, "Driving wheel speed set to %g rad/s.\n", (double)speed);
+	(void)fprintf (stderr, "Driving wheel speed set to %g rad/s.\n", (double)speed);
 
 	dJointSetHingeParam(hinge2, dParamVel, speed);
     } else if (cmd == '/') {
@@ -373,13 +373,13 @@ static void command (int cmd)
     } else if (cmd == '-') {
 	backlash -= REAL(0.1);
 
-	fprintf (stderr, "Backlash set to %g m.\n", (double)backlash);
+	(void)fprintf (stderr, "Backlash set to %g m.\n", (double)backlash);
 
         dJointSetTransmissionBacklash(transmission, backlash);
     } else if (cmd == '=') {
 	backlash += REAL(0.1);
 
-	fprintf (stderr, "Backlash set to %g m.\n", (double)backlash);
+	(void)fprintf (stderr, "Backlash set to %g m.\n", (double)backlash);
 
         dJointSetTransmissionBacklash(transmission, backlash);
     } else if (cmd == '1') {

@@ -69,13 +69,13 @@ extern "C" dMessageFunction *dGetMessageHandler()
 static void printMessage (int num, const char *msg1, const char *msg2,
                           va_list ap)
 {
-    fflush (stderr);
-    fflush (stdout);
-    if (num) fprintf (stderr,"\n%s %d: ",msg1,num);
-    else fprintf (stderr,"\n%s: ",msg1);
-    vfprintf (stderr,msg2,ap);
-    fprintf (stderr,"\n");
-    fflush (stderr);
+    (void)fflush (stderr);
+    (void)fflush (stdout);
+    if (num) (void)fprintf (stderr,"\n%s %d: ",msg1,num);
+    else (void)fprintf (stderr,"\n%s: ",msg1);
+    (void)vfprintf (stderr,msg2,ap);
+    (void)fprintf (stderr,"\n");
+    (void)fflush (stderr);
 }
 
 //****************************************************************************
@@ -140,8 +140,8 @@ extern "C" ODE_NORETURN_VOID dError (int num, const char *msg, ...)
     else {
         char s[1000],title[100];
 		title[0] = '\0';
-        _snprintf (title,sizeof(title),"ODE Error %d",num);
-        _vsnprintf (s,sizeof(s),msg,ap);
+        (void)_snprintf (title,sizeof(title),"ODE Error %d",num);
+        (void)_vsnprintf (s,sizeof(s),msg,ap);
         s[sizeof(s)-1] = 0;
         MessageBox(NULL,s,title,MB_OK | MB_ICONWARNING);
     }
@@ -158,8 +158,8 @@ extern "C" ODE_NORETURN_VOID dDebug (int num, const char *msg, ...)
     else {
         char s[1000],title[100];
 		title[0] = '\0';
-        _snprintf (title,sizeof(title),"ODE INTERNAL ERROR %d",num);
-        _vsnprintf (s,sizeof(s),msg,ap);
+        (void)_snprintf (title,sizeof(title),"ODE INTERNAL ERROR %d",num);
+        (void)_vsnprintf (s,sizeof(s),msg,ap);
         s[sizeof(s)-1] = 0;
         MessageBox(NULL,s,title,MB_OK | MB_ICONSTOP);
     }

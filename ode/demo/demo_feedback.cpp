@@ -71,7 +71,7 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
 
   if (dGeomIsSpace(o1) || dGeomIsSpace(o2))
   {
-      fprintf(stderr,"testing space %p %p\n", (void*)o1, (void*)o2);
+      (void)fprintf(stderr,"testing space %p %p\n", (void*)o1, (void*)o2);
     // colliding a space with something
     dSpaceCollide2(o1,o2,data,&nearCallback);
     // Note we do not want to test intersections within a space,
@@ -159,7 +159,7 @@ static void inspectJoints(void)
       {
         // Low-pass filter the noisy feedback data.
         // Only after 4 consecutive timesteps with excessive load, snap.
-        fprintf(stderr,"SNAP! (that was the sound of joint %d breaking)\n", i);
+        (void)fprintf(stderr,"SNAP! (that was the sound of joint %d breaking)\n", i);
         dJointAttach (hinges[i], NULL, NULL);
       }
     }

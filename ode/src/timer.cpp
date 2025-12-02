@@ -426,24 +426,24 @@ void dTimerEnd()
 static void fprintDoubleWithPrefix (FILE *f, double a, const char *fmt)
 {
     if (a >= 0.999999) {
-        fprintf (f,fmt,a);
+        (void)fprintf (f,fmt,a);
         return;
     }
     a *= 1000.0;
     if (a >= 0.999999) {
-        fprintf (f,fmt,a);
-        fprintf (f,"m");
+        (void)fprintf (f,fmt,a);
+        (void)fprintf (f,"m");
         return;
     }
     a *= 1000.0;
     if (a >= 0.999999) {
-        fprintf (f,fmt,a);
-        fprintf (f,"u");
+        (void)fprintf (f,fmt,a);
+        (void)fprintf (f,"u");
         return;
     }
     a *= 1000.0;
-    fprintf (f,fmt,a);
-    fprintf (f,"n");
+    (void)fprintf (f,fmt,a);
+    (void)fprintf (f,"n");
 }
 
 
@@ -452,9 +452,9 @@ void dTimerReport (FILE *fout, int average)
     int i;
     sizeint maxl;
     const double ccunit = 1.0/dTimerTicksPerSecond();
-    fprintf (fout,"\nTimer Report (");
+    (void)fprintf (fout,"\nTimer Report (");
     fprintDoubleWithPrefix (fout,ccunit,"%.2f ");
-    fprintf (fout,"s resolution)\n------------\n");
+    (void)fprintf (fout,"s resolution)\n------------\n");
     if (num < 1) return;
 
     // get maximum description length
@@ -492,14 +492,14 @@ void dTimerReport (FILE *fout, int average)
             t = total;
             p = 100.0;
         }
-        fprintf (fout,"%-*s %7.2fms %6.2f%%",(int)maxl,event[i].description,
+        (void)fprintf (fout,"%-*s %7.2fms %6.2f%%",(int)maxl,event[i].description,
             t*ccunit * 1000.0, p);
         if (average && i < (num-1)) {
-            fprintf (fout,"  (avg %7.2fms %6.2f%%)",
+            (void)fprintf (fout,"  (avg %7.2fms %6.2f%%)",
                 (event[i].total_t / event[i].count)*ccunit * 1000.0,
                 event[i].total_p / event[i].count);
         }
-        fprintf (fout,"\n");
+        (void)fprintf (fout,"\n");
     }
-    fprintf (fout,"\n");
+    (void)fprintf (fout,"\n");
 }

@@ -144,7 +144,7 @@ static void testPad()
     HEADER;
     char s[100];
     s[0]=0;
-    for (unsigned int i=0; i<=16; i++) sprintf (s+strlen(s),"%u ",dPAD(i));
+    for (unsigned int i=0; i<=16; i++) (void)sprintf (s+strlen(s),"%u ",dPAD(i));
     printf ("\t%s\n", strcmp(s,"0 1 4 4 4 8 8 8 8 12 12 12 12 16 16 16 16 ") ?
         "FAILED" : "passed");
 }
@@ -1164,7 +1164,7 @@ dReal dMatrixComparison::nextMatrix (dReal *A, int n, int m, int lower_tri,
 
         va_list ap;
         va_start (ap,name);
-        vsprintf (mi->name,name,ap);
+        (void)vsprintf (mi->name,name,ap);
         va_end (ap);
         if (strlen(mi->name) >= sizeof (mi->name)) dDebug (0,"name too long");
 
@@ -1181,7 +1181,7 @@ dReal dMatrixComparison::nextMatrix (dReal *A, int n, int m, int lower_tri,
         dMatInfo mi;
         va_list ap;
         va_start (ap,name);
-        vsprintf (mi.name,name,ap);
+        (void)vsprintf (mi.name,name,ap);
         va_end (ap);
         if (strlen(mi.name) >= sizeof (mi.name)) dDebug (0,"name too long");
 

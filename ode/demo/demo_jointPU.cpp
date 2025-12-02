@@ -589,7 +589,7 @@ static ODE_NORETURN_VOID Help (char **argv)
   printf ("                             Default = %s\n", DRAWSTUFF_TEXTURE_PATH);
   printf ("--------------------------------------------------\n");
   printf ("Hit any key to continue:");
-  getchar();
+  (void)getchar();
 
   exit (0);
 }

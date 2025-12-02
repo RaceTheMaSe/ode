@@ -161,7 +161,7 @@ void skipWhiteSpace(char *filename, FILE *f)
         }
 
         if (c > ' ') {
-            ungetc(c, f);
+            (void)ungetc(c, f);
             return;
         }
     }
@@ -180,7 +180,7 @@ int readNumber(char *filename, FILE *f)
         if (c == EOF) dsError("unexpected end of file in \"%s\"", filename);
         if (c >= '0' && c <= '9') n = n * 10 + (c - '0');
         else {
-            ungetc(c, f);
+            (void)ungetc(c, f);
             return n;
         }
     }
@@ -218,15 +218,15 @@ Image::Image(char *filename)
     else if (c == 13) {
         // CR
         c = fgetc(f);
-        if (c != 10) ungetc(c, f);
+        if (c != 10) (void)ungetc(c, f);
     }
-    else ungetc(c, f);
+    else (void)ungetc(c, f);
 
     // read in rest of data
     image_data = new byte[(size_t)(image_width*image_height * 3)];
-    if (fread(image_data, (size_t)(image_width*image_height * 3), 1, f) != 1)
+    if (fread(image_data, (size_t)(image_width*image_height) * 3, 1, f) != 1)
         dsError("Can not read data from image file `%s'", filename);
-    fclose(f);
+    (void)fclose(f);
 }
 
 

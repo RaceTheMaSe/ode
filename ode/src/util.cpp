@@ -45,7 +45,7 @@ void initGlobalProcessMemoryStructures()
     {
         g_WorldProcessDefaultReserveInfo = new dxWorldProcessMemoryReserveInfo(dWORLDSTEP_RESERVEFACTOR_DEFAULT, dWORLDSTEP_RESERVESIZE_DEFAULT);
     }
-    atexit(deleteGlobalProcessMemoryStructures);
+    (void)atexit(deleteGlobalProcessMemoryStructures);
 }
 
 void deleteGlobalProcessMemoryStructures()

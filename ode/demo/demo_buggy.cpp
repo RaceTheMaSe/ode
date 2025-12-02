@@ -148,7 +148,7 @@ static void command (int cmd)
       FILE *f = fopen ("state.dif","wt");
       if (f) {
         dWorldExportDIF (world,f,"");
-        fclose (f);
+        (void)fclose (f);
       }
     }
     break;

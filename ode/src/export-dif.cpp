@@ -61,32 +61,32 @@ struct PrintingContext {
 
 void PrintingContext::printIndent() const
 {
-    for (int i=0; i<indent; i++) fputc ('\t',file);
+    for (int i=0; i<indent; i++) (void)fputc ('\t',file);
 }
 
 
 void PrintingContext::print (const char *name, int x) const
 {
     printIndent();
-    fprintf (file,"%s = %d,\n",name,x);
+    (void)fprintf (file,"%s = %d,\n",name,x);
 }
 
 void PrintingContext::print (const char *name, unsigned x) const
 {
     printIndent();
-    fprintf (file,"%s = %u,\n",name,x);
+    (void)fprintf (file,"%s = %u,\n",name,x);
 }
 
 void PrintingContext::printReal (dReal x) const
 {
     if (x==dInfinity) {
-        fprintf (file,"inf");
+        (void)fprintf (file,"inf");
     }
     else if (x==-dInfinity) {
-        fprintf (file,"-inf");
+        (void)fprintf (file,"-inf");
     }
     else {
-        fprintf (file,"%.*g",precision,(double)x);
+        (void)fprintf (file,"%.*g",precision,(double)x);
     }
 }
 
@@ -94,21 +94,21 @@ void PrintingContext::printReal (dReal x) const
 void PrintingContext::print (const char *name, dReal x) const
 {
     printIndent();
-    fprintf (file,"%s = ",name);
+    (void)fprintf (file,"%s = ",name);
     printReal (x);
-    fprintf (file,",\n");
+    (void)fprintf (file,",\n");
 }
 
 
 void PrintingContext::print (const char *name, const dReal *x, int n) const
 {
     printIndent();
-    fprintf (file,"%s = {",name);
+    (void)fprintf (file,"%s = {",name);
     for (int i=0; i<n; i++) {
         printReal (x[i]);
-        if (i < n-1) fputc (',',file);
+        if (i < n-1) (void)fputc (',',file);
     }
-    fprintf (file,"},\n");
+    (void)fprintf (file,"},\n");
 }
 
 
@@ -116,10 +116,10 @@ void PrintingContext::print (const char *name, const char *x) const
 {
     printIndent();
     if (x) {
-        fprintf (file,"%s = \"%s\",\n",name,x);
+        (void)fprintf (file,"%s = \"%s\",\n",name,x);
     }
     else {
-        fprintf (file,"%s\n",name);
+        (void)fprintf (file,"%s\n",name);
     }
 }
 
@@ -143,7 +143,7 @@ static void printLimot (PrintingContext &c, dxJointLimitMotor &limot, int num)
 {
     if (num >= 0) {
         c.printIndent();
-        fprintf (c.file,"limit%d = {\n",num);
+        (void)fprintf (c.file,"limit%d = {\n",num);
     }
     else {
         c.print ("limit = {");
@@ -163,7 +163,7 @@ static void printLimot (PrintingContext &c, dxJointLimitMotor &limot, int num)
 
     if (num >= 0) {
         c.printIndent();
-        fprintf (c.file,"motor%d = {\n",num);
+        (void)fprintf (c.file,"motor%d = {\n",num);
     }
     else {
         c.print ("motor = {");
@@ -353,7 +353,7 @@ static void printLMotor (PrintingContext &c, dxJoint *j)
     dxJointLMotor *lm = (dxJointLMotor*) j;
     c.print("num", lm->num);
     c.printIndent();
-    fprintf (c.file,"rel = {%d,%d,%d},\n",lm->rel[0],lm->rel[1],lm->rel[2]);
+    (void)fprintf (c.file,"rel = {%d,%d,%d},\n",lm->rel[0],lm->rel[1],lm->rel[2]);
     c.print ("axis1",lm->axis[0]);
     c.print ("axis2",lm->axis[1]);
     c.print ("axis3",lm->axis[2]);
@@ -421,7 +421,7 @@ struct dxAMotorJointPrinter
         c.print ("num",a->m_num);
         c.print ("mode",a->m_mode);
         c.printIndent();
-        fprintf (c.file,"rel = {%d,%d,%d},\n",a->m_rel[0],a->m_rel[1],a->m_rel[2]);
+        (void)fprintf (c.file,"rel = {%d,%d,%d},\n",a->m_rel[0],a->m_rel[1],a->m_rel[2]);
         c.print ("axis1",a->m_axis[0]);
         c.print ("axis2",a->m_axis[1]);
         c.print ("axis3",a->m_axis[2]);
@@ -527,12 +527,12 @@ static void printGeom (PrintingContext &c, dxGeom *g)
     const unsigned long category = dGeomGetCategoryBits (g);
     if (category != ~(unsigned long)0) {
         c.printIndent();
-        fprintf (c.file,"category_bits = %lu\n",category);
+        (void)fprintf (c.file,"category_bits = %lu\n",category);
     }
     const unsigned long collide = dGeomGetCollideBits (g);
     if (collide != ~(unsigned long)0) {
         c.printIndent();
-        fprintf (c.file,"collide_bits = %lu\n",collide);
+        (void)fprintf (c.file,"collide_bits = %lu\n",collide);
     }
     if (!dGeomIsEnabled (g)) {
         c.print ("disabled",1);
@@ -565,7 +565,7 @@ void dWorldExportDIF (dWorldID w, FILE *file, const char *prefix)
 #endif
     c.indent = 1;
 
-    fprintf (file,"-- Dynamics Interchange Format v0.1\n\n%sworld = dynamics.world {\n",prefix);
+    (void)fprintf (file,"-- Dynamics Interchange Format v0.1\n\n%sworld = dynamics.world {\n",prefix);
     c.print ("gravity",w->gravity);
     c.print ("ODE = {");
     c.indent++;
@@ -578,30 +578,30 @@ void dWorldExportDIF (dWorldID w, FILE *file, const char *prefix)
     c.print ("average_samples",(int)w->adis.average_samples);
     c.print ("idle_time",w->adis.idle_time);
     c.print ("idle_steps",w->adis.idle_steps);
-    fprintf (file,"\t\t},\n\t},\n}\n");
+    (void)fprintf (file,"\t\t},\n\t},\n}\n");
     c.indent -= 3;
 
     // bodies
     int num = 0;
-    fprintf (file,"%sbody = {}\n",prefix);
+    (void)fprintf (file,"%sbody = {}\n",prefix);
     for (dxBody *b=w->firstbody; b; b=(dxBody*)b->next) {
         b->tag = num;
-        fprintf (file,"%sbody[%d] = dynamics.body {\n\tworld = %sworld,\n",prefix,num,prefix);
+        (void)fprintf (file,"%sbody[%d] = dynamics.body {\n\tworld = %sworld,\n",prefix,num,prefix);
         c.indent++;
         c.print ("pos",b->posr.pos);
         c.print ("q",b->q,4);
         c.print ("lvel",b->lvel);
         c.print ("avel",b->avel);
         c.print ("mass",b->mass.mass);
-        fprintf (file,"\tI = {{");
+        (void)fprintf (file,"\tI = {{");
         for (int i=0; i<3; i++) {
             for (int j=0; j<3; j++) {
                 c.printReal (b->mass.I[i*4+j]);
-                if (j < 2) fputc (',',file);
+                if (j < 2) (void)fputc (',',file);
             }
-            if (i < 2) fprintf (file,"},{");
+            if (i < 2) (void)fprintf (file,"},{");
         }
-        fprintf (file,"}},\n");
+        (void)fprintf (file,"}},\n");
         c.printNonzero ("com",b->mass.c);
         c.print ("ODE = {");
         c.indent++;
@@ -648,21 +648,21 @@ void dWorldExportDIF (dWorldID w, FILE *file, const char *prefix)
 
     // joints
     num = 0;
-    fprintf (file,"%sjoint = {}\n",prefix);
+    (void)fprintf (file,"%sjoint = {}\n",prefix);
     for (dxJoint *j=w->firstjoint; j; j=(dxJoint*)j->next) {
         c.indent++;
         const char *name = getJointName (j);
-        fprintf (file,
+        (void)fprintf (file,
             "%sjoint[%d] = dynamics.%s_joint {\n"
             "\tworld = %sworld,\n"
             "\tbody = {"
             ,prefix,num,name,prefix);
 
         if ( j->node[0].body )
-            fprintf (file,"%sbody[%d]",prefix,j->node[0].body->tag);
+            (void)fprintf (file,"%sbody[%d]",prefix,j->node[0].body->tag);
         if ( j->node[1].body )
-            fprintf (file,",%sbody[%d]",prefix,j->node[1].body->tag);
-        fprintf (file,"}\n");
+            (void)fprintf (file,",%sbody[%d]",prefix,j->node[1].body->tag);
+        (void)fprintf (file,"}\n");
 
         switch (j->type()) {
             case dJointTypeBall:         printBall         (c,j); break;

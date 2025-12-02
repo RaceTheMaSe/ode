@@ -77,11 +77,11 @@ dxGeom (space,1)
             points[(index[0]*3)+1]*points[(index[1]*3)+0]*points[(index[2]*3)+2] -
             points[(index[0]*3)+0]*points[(index[1]*3)+2]*points[(index[2]*3)+1])<0)
         {
-            fprintf(stdout,"WARNING: Polygon %u is not defined counterclockwise\n",i);
+            (void)fprintf(stdout,"WARNING: Polygon %u is not defined counterclockwise\n",i);
         }
         points_in_poly+=(*points_in_poly+1);
         index=points_in_poly+1;
-        if(planes[(i*4)+3]<0) fprintf(stdout,"WARNING: Plane %u does not contain the origin\n",i);
+        if(planes[(i*4)+3]<0) (void)fprintf(stdout,"WARNING: Plane %u does not contain the origin\n",i);
     }
 #endif
 
