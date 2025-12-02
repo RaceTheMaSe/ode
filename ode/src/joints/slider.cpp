@@ -263,7 +263,7 @@ void dJointSetSliderAxis ( dJointID j, dReal x, dReal y, dReal z )
 }
 
 
-void dJointSetSliderAxisDelta ( dJointID j, dReal x, dReal y, dReal z, dReal dx, dReal dy, dReal dz )
+void dJointSetSliderAxisDelta ( dJointID j, dReal x, dReal y, dReal z, dReal ax, dReal ay, dReal az )
 {
     dxJointSlider* joint = ( dxJointSlider* ) j;
     dUASSERT ( joint, "bad joint argument" );
@@ -276,9 +276,9 @@ void dJointSetSliderAxisDelta ( dJointID j, dReal x, dReal y, dReal z, dReal dx,
     // also compute center of body1 w.r.t body 2
     if ( !(joint->node[1].body) )
     {
-        joint->offset[0] += dx;
-        joint->offset[1] += dy;
-        joint->offset[2] += dz;
+        joint->offset[0] += ax;
+        joint->offset[1] += ay;
+        joint->offset[2] += az;
     }
 
     joint->computeInitialRelativeRotation();

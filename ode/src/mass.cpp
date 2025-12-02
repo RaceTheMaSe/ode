@@ -162,9 +162,9 @@ void dMassSetCapsule (dMass *m, dReal density, int direction,
 
 
 void dMassSetCapsuleTotal (dMass *m, dReal total_mass, int direction,
-                           dReal a, dReal b)
+                           dReal radius, dReal length)
 {
-    dMassSetCapsule (m, 1.0, direction, a, b);
+    dMassSetCapsule (m, 1.0, direction, radius, length);
     dMassAdjust (m, total_mass);
 }
 

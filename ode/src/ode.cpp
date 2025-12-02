@@ -2176,10 +2176,10 @@ int dWorldAttachQuickStepDynamicIterationStatisticsSink(dWorldID w, dWorldQuickS
 }
 
 
-void dWorldSetQuickStepW (dWorldID w, dReal param)
+void dWorldSetQuickStepW (dWorldID w, dReal over_relaxation)
 {
     dAASSERT(w);
-    w->qs.w = param;
+    w->qs.w = over_relaxation;
 }
 
 
@@ -2443,25 +2443,25 @@ const char* dGetConfiguration (void)
 
 
 // Helper to check for a feature of ODE
-int dCheckConfiguration( const char* extension )
+int dCheckConfiguration( const char* token )
 {
     const char *start;
     const char *where, *terminator;
 
     /* Feature names should not have spaces. */
-    where = strchr(extension, ' ');
-    if ( where || *extension == '\0')
+    where = strchr(token, ' ');
+    if ( where || *token == '\0')
         return 1;
 
     const char* config = dGetConfiguration();
 
-    const sizeint ext_length = strlen(extension);
+    const sizeint ext_length = strlen(token);
 
     /* It takes a bit of care to be fool-proof. Don't be fooled by sub-strings, etc. */
     start = config;
     for (  ; ;  )
     {
-        where = strstr(start, extension);
+        where = strstr(start, token);
         if (!where)
             break;
 

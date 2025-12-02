@@ -519,7 +519,7 @@ void dJointSetPistonAxis ( dJointID j, dReal x, dReal y, dReal z )
 
 
 void dJointSetPistonAxisDelta ( dJointID j, dReal x, dReal y, dReal z,
-                               dReal dx, dReal dy, dReal dz )
+                               dReal ax, dReal ay, dReal az )
 {
     dxJointPiston* joint = ( dxJointPiston* ) j;
     dUASSERT ( joint, "bad joint argument" );
@@ -533,17 +533,17 @@ void dJointSetPistonAxisDelta ( dJointID j, dReal x, dReal y, dReal z,
     if ( joint->node[1].body )
     {
         c[0] = ( joint->node[0].body->posr.pos[0] -
-            joint->node[1].body->posr.pos[0] - dx );
+            joint->node[1].body->posr.pos[0] - ax );
         c[1] = ( joint->node[0].body->posr.pos[1] -
-            joint->node[1].body->posr.pos[1] - dy );
+            joint->node[1].body->posr.pos[1] - ay );
         c[2] = ( joint->node[0].body->posr.pos[2] -
-            joint->node[1].body->posr.pos[2] - dz );
+            joint->node[1].body->posr.pos[2] - az );
     }
     else /*if ( joint->node[0].body )*/ // -- body[0] should always be present -- there is a matrix multiplication below
     {
-        c[0] = joint->node[0].body->posr.pos[0] - dx;
-        c[1] = joint->node[0].body->posr.pos[1] - dy;
-        c[2] = joint->node[0].body->posr.pos[2] - dz;
+        c[0] = joint->node[0].body->posr.pos[0] - ax;
+        c[1] = joint->node[0].body->posr.pos[1] - ay;
+        c[2] = joint->node[0].body->posr.pos[2] - az;
     }
 
     // Convert into frame of body 1

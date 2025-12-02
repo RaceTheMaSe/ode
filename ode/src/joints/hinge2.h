@@ -47,7 +47,7 @@ struct dxJointHinge2 : public dxJoint
     void makeV1andV2();
     void makeW1andW2();
 
-    void getAxisInfo(dVector3 ax1, dVector3 ax2, dVector3 axis,
+    void getAxisInfo(dVector3 ax1, dVector3 ax2, dVector3 axCross,
         dReal &sin_angle, dReal &cos_Angle) const;
 
 

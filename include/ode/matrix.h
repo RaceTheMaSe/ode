@@ -85,7 +85,7 @@ ODE_API int dFactorCholesky (dReal *A, int n);
  * L is size n*n, b is size n*1. only the lower triangle of L is considered.
  */
 
-ODE_API void dSolveCholesky (const dReal *L, dReal *b, int n);
+ODE_API void dSolveCholesky (const dReal *L, dReal *B, int n);
 
 
 /* compute the inverse of the n*n positive definite matrix A and put it in
@@ -112,21 +112,21 @@ ODE_API int dIsPositiveDefinite (const dReal *A, int n);
  * written) and the reciprocal of the diagonal elements of D are written into
  * d.
  */
-ODE_API void dFactorLDLT (dReal *A, dReal *d, int n, int nskip);
+ODE_API void dFactorLDLT (dReal *A, dReal *D, int n, int nskip);
 
 
 /* solve L*x=b, where L is n*n lower triangular with ones on the diagonal,
  * and x,b are n*1. b is overwritten with x.
  * the leading dimension of L is `nskip'.
  */
-ODE_API void dSolveL1 (const dReal *L, dReal *b, int n, int nskip);
+ODE_API void dSolveL1 (const dReal *L, dReal *B, int n, int nskip);
 
 
 /* solve L'*x=b, where L is n*n lower triangular with ones on the diagonal,
  * and x,b are n*1. b is overwritten with x.
  * the leading dimension of L is `nskip'.
  */
-ODE_API void dSolveL1T (const dReal *L, dReal *b, int n, int nskip);
+ODE_API void dSolveL1T (const dReal *L, dReal *B, int n, int nskip);
 
 
 /* in matlab syntax: a(1:n) = a(1:n) .* d(1:n) 

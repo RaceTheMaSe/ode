@@ -161,7 +161,7 @@ struct dxThreadedJobInfo:
     public dBase
 {
     dxThreadedJobInfo() {}
-    explicit dxThreadedJobInfo(void *): m_next_job(NULL) {}
+    explicit dxThreadedJobInfo(void * /**/): m_next_job(NULL) {}
 
     void AssignJobData(ddependencycount_t dependencies_count, dxThreadedJobInfo *dependent_job, void *call_wait, 
         int *fault_accumulator_ptr, dThreadedCallFunction *call_function, void *call_context, dcallindex_t call_index)

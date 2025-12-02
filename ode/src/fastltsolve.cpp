@@ -195,16 +195,16 @@ int ThreadedEquationSolverLDLT::solveL1Transposed_completion_callback(void *dUNU
 // Public interface functions
 
 /*extern ODE_API */
-void dSolveL1T(const dReal *L, dReal *B, int rowCount, int rowSkip)
+void dSolveL1T(const dReal *L, dReal *B, int n, int nskip)
 {
-    dAASSERT(rowCount != 0);
+    dAASSERT(n != 0);
 
-    if (rowCount != 0)
+    if (n != 0)
     {
         dAASSERT(L != NULL);
         dAASSERT(B != NULL);
 
-        solveL1Transposed<1>(L, B, (unsigned int)rowCount, (unsigned int)rowSkip);
+        solveL1Transposed<1>(L, B, (unsigned int)n, (unsigned int)nskip);
     }
 }
 

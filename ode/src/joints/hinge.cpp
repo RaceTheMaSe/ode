@@ -158,7 +158,7 @@ void dJointSetHingeAnchor( dJointID j, dReal x, dReal y, dReal z )
 }
 
 
-void dJointSetHingeAnchorDelta( dJointID j, dReal x, dReal y, dReal z, dReal dx, dReal dy, dReal dz )
+void dJointSetHingeAnchorDelta( dJointID j, dReal x, dReal y, dReal z, dReal ax, dReal ay, dReal az )
 {
     dxJointHinge* joint = ( dxJointHinge* )j;
     dUASSERT( joint, "bad joint argument" );
@@ -185,9 +185,9 @@ void dJointSetHingeAnchorDelta( dJointID j, dReal x, dReal y, dReal z, dReal dx,
         {
             // Move the relative displacement between the passive body and the
             //  anchor in the same direction as the passive body has just moved
-            joint->anchor2[0] = x + dx;
-            joint->anchor2[1] = y + dy;
-            joint->anchor2[2] = z + dz;
+            joint->anchor2[0] = x + ax;
+            joint->anchor2[1] = y + ay;
+            joint->anchor2[2] = z + az;
         }
     }
     joint->anchor1[3] = 0;
