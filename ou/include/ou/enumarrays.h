@@ -88,7 +88,7 @@ public:
 #endif // #if !defined(NDEBUG)
 	}
 	
-	static _OU_ALWAYSINLINE const EnumType _OU_CONVENTION_API 
+	static _OU_ALWAYSINLINE EnumType _OU_CONVENTION_API 
 	/*const EnumType */Decode(const ElementType &etValue)
 	{
 		const ElementType *itElementFound = FindValueSequentially(m_aetElementArray, m_aetElementArray + EnumMax, etValue);
@@ -177,7 +177,7 @@ public:
 #endif // #if !defined(NDEBUG)
 	}
 	
-	static _OU_ALWAYSINLINE const EnumType _OU_CONVENTION_API 
+	static _OU_ALWAYSINLINE EnumType _OU_CONVENTION_API 
 	/*const EnumType */Decode(const ElementType &etValue)
 	{
 		const CElementLessType ltElementLess = CElementLessType();
