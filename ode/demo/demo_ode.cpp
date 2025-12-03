@@ -847,6 +847,11 @@ static void testMassFunctions()
 
     HEADER;
 
+#if defined(__clang__) // OSX - setjmp
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdisabled-macro-expansion"
+#endif
+    
     printf ("\t");
     dMassSetZero (&m);
     TRAP_MESSAGE (dMassSetParameters (&m,10, 0,0,0, 1,2,3, 4,5,6),
@@ -1333,6 +1338,11 @@ static void dTestMatrixComparison()
         printf ("\tpassed (4)\n");
     }
     dSetDebugHandler (orig_debug);
+
+#if defined(__clang__)
+    #pragma clang diagnostic pop
+#endif
+    
 }
 
 //****************************************************************************
