@@ -106,19 +106,21 @@ extern "C" void dsPrint (const char *msg, ...)
 static void captureFrame( int num ){
 
   	fprintf( stderr,"\rcapturing frame %04d", num );
-	unsigned char buffer[windowWidth*windowHeight][3];
-	glReadPixels( 0, 0, windowWidth, windowHeight, GL_RGB, GL_UNSIGNED_BYTE, &buffer );
+	unsigned char* buffer = new unsigned char[windowWidth*windowHeight*3];
+	glReadPixels( 0, 0, windowWidth, windowHeight, GL_RGB, GL_UNSIGNED_BYTE, buffer );
 	char s[100];
 	sprintf (s,"frame%04d.ppm",num);
 	FILE *f = fopen (s,"wb");
 	if( !f ){
+        delete[] buffer;
 		dsError( "can't open \"%s\" for writing", s );
 	}
 	fprintf( f,"P6\n%d %d\n255\n", windowWidth, windowHeight );
 	for( int y=windowHeight-1; y>-1; y-- ){
-		fwrite( buffer[y*windowWidth], 3*(size_t)windowWidth, 1, f );
+		fwrite( &buffer[y*windowWidth], 3*(size_t)windowWidth, 1, f );
 	}
 	fclose (f);	
+    delete[] buffer;
 }
 
 extern "C" void dsStop()
