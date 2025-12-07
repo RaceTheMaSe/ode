@@ -324,13 +324,13 @@ void dsPlatformFinalizeConsole()
 }
 
 /*extern */
-void dsPlatformSimLoop( int givenWindowWidth, int givenWindowHeight, dsFunctions *fn, int givenPause ){
+void dsPlatformSimLoop( int window_width, int window_height, dsFunctions *fn, int initial_pause ){
 	
 	functions = fn;
 	
-	paused = givenPause;
+	paused = initial_pause;
 	
-	osxCreateMainWindow( givenWindowWidth, givenWindowHeight );
+	osxCreateMainWindow( window_width, window_height );
 	osxInstallEventHandlers();
 	
 	dsStartGraphics( windowWidth, windowHeight, fn );
