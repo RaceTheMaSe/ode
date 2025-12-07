@@ -190,7 +190,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                 dVector3        orig_pos, old_pos1, old_pos2, elt1, elt2, elt_sum;
                 dVector3        elt_f1[3], elt_f2[3];
                 dReal          contact_elt_length = SMALL_ELT;
-                LineContactSet  firstClippedTri, secondClippedTri;
+                LineContactSet  firstClippedTri = {}, secondClippedTri = {};
                 dVector3       *firstClippedElt = new dVector3[LineContactSet::MAX_POINTS];
                 dVector3       *secondClippedElt = new dVector3[LineContactSet::MAX_POINTS];
 
