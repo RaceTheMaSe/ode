@@ -33,7 +33,7 @@ struct _ccd_support_t {
 };
 typedef struct _ccd_support_t ccd_support_t;
 
-_ccd_inline void ccdSupportCopy(ccd_support_t *, const ccd_support_t *s);
+_ccd_inline void ccdSupportCopy(ccd_support_t * /*d*/, const ccd_support_t *s);
 
 /**
  * Computes support point of obj1 and obj2 in direction dir.

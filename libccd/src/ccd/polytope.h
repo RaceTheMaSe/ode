@@ -155,9 +155,9 @@ ccd_pt_face_t *ccdPtAddFace(ccd_pt_t *pt, ccd_pt_edge_t *e1,
  * Deletes vertex from polytope.
  * Returns 0 on success, -1 otherwise.
  */
-_ccd_inline int ccdPtDelVertex(ccd_pt_t *pt, ccd_pt_vertex_t *);
-_ccd_inline int ccdPtDelEdge(ccd_pt_t *pt, ccd_pt_edge_t *);
-_ccd_inline int ccdPtDelFace(ccd_pt_t *pt, ccd_pt_face_t *);
+_ccd_inline int ccdPtDelVertex(ccd_pt_t *pt, ccd_pt_vertex_t * /*v*/);
+_ccd_inline int ccdPtDelEdge(ccd_pt_t *pt, ccd_pt_edge_t * /*e*/);
+_ccd_inline int ccdPtDelFace(ccd_pt_t *pt, ccd_pt_face_t * /*f*/);
 
 
 /**

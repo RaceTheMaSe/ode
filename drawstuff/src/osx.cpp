@@ -287,14 +287,14 @@ static void osxRedisplayEventHandler()
     }
 }
 
-static void osxTimerEventHandler(int);
+static void osxTimerEventHandler(int /**/);
 
 static void osxInstallTimerHandler()
 {
     glutTimerFunc(1000/60, osxTimerEventHandler, 0);
 }
 
-static void osxTimerEventHandler(int)
+static void osxTimerEventHandler(int /**/)
 {
     glutPostRedisplay();
     osxInstallTimerHandler();
