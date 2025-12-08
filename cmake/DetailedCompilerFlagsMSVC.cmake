@@ -33,6 +33,7 @@ MACRO(APPLY_COMPILER_OPTIONS_MSVC TARGET_NAME)
   endif()
   if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 19.19) # MSVC 2019
     target_compile_options(${TARGET_NAME} PRIVATE
+      /wd4746 # volatile access of 'variable' is subject to /volatile:<iso|ms> setting; consider using __iso_volatile_load/store intrinsic functions
       /wd5026 # 'type': move constructor was implicitly defined as deleted
       /wd5027 # 'type': move assignment operator was implicitly defined as deleted
       /wd5039 # 'function': pointer or reference to potentially throwing function passed to extern C function under -EHc. Undefined behavior may occur if this function throws an exception.

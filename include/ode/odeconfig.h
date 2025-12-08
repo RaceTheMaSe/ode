@@ -106,7 +106,8 @@
     || defined(__s390__) || defined(__s390x__) || defined(__zarch__) \
     || defined(__mips__) || defined(__powerpc64__) || defined(__riscv) \
     || defined(__loongarch64) || defined(__e2k__) \
-    || (defined(__sparc__) && defined(__arch64__))
+    || (defined(__sparc__) && defined(__arch64__)) \
+    || defined(_M_ARM64)
     #include <stdint.h>
     typedef int64_t         dint64;
     typedef uint64_t        duint64;
@@ -222,7 +223,7 @@ typedef unsigned long     duint64;
 
 
   /* Visual C does not define these functions */
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && defined(X86_64_SYSTEM)
   #define _ode_copysignf(x, y) ((float)_copysign(x, y))
   #define _ode_copysign(x, y) _copysign(x, y)
   #define _ode_nextafterf(x, y) _nextafterf(x, y)
