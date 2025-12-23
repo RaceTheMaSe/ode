@@ -58,7 +58,7 @@ class dWorldTemplate: public dWorldTemplateBase {
 public:
   // intentionally undefined, don't use these
   dWorldTemplate (const dWorldTemplate<dWorldTemplateBase> &) ODE_DELETE;
-  void operator= (const dWorldTemplate<dWorldTemplateBase> &) ODE_DELETE;
+  dWorldTemplate& operator= (const dWorldTemplate<dWorldTemplateBase> &) ODE_DELETE;
 
 protected:
   dWorldID get_id() const { return dWorldTemplateBase::_id; }
@@ -180,7 +180,7 @@ class dBodyTemplate: public dBodyTemplateBase {
 public:
   // intentionally undefined, don't use these
   dBodyTemplate (const dBodyTemplate<dBodyTemplateBase, dWorldTemplateBase> &) ODE_DELETE;
-  void operator= (const dBodyTemplate<dBodyTemplateBase, dWorldTemplateBase> &) ODE_DELETE;
+  dBodyTemplate& operator= (const dBodyTemplate<dBodyTemplateBase, dWorldTemplateBase> &) ODE_DELETE;
 
 protected:
   virtual dBodyID get_id() const { return dBodyTemplateBase::_id; }
@@ -450,7 +450,7 @@ class dJointGroupTemplate: public dJointGroupTemplateBase {
 public:
   // intentionally undefined, don't use these
   dJointGroupTemplate (const dJointGroupTemplate<dJointGroupTemplateBase> &) ODE_DELETE;
-  void operator= (const dJointGroupTemplate<dJointGroupTemplateBase> &) ODE_DELETE;
+  dJointGroupTemplate& operator= (const dJointGroupTemplate<dJointGroupTemplateBase> &) ODE_DELETE;
 
 protected:
   virtual dJointGroupID get_id() const { return dJointGroupTemplateBase::_id; }
@@ -499,7 +499,7 @@ class dJointTemplate: public dJointTemplateBase {
 public:
   // intentionally undefined, don't use these
   dJointTemplate (const dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE ;
-  void operator= (const dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dJointTemplate& operator= (const dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   virtual dJointID get_id() const { return dJointTemplateBase::_id; }
@@ -558,7 +558,7 @@ class dBallJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTempl
 public:
   // intentionally undefined, don't use these
   dBallJointTemplate (const dBallJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator= (const dBallJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dBallJointTemplate& operator= (const dBallJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -603,7 +603,7 @@ class dHingeJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemp
 public:
   // intentionally undefined, don't use these
   dHingeJointTemplate (const dHingeJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dHingeJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dHingeJointTemplate& operator = (const dHingeJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -664,7 +664,7 @@ class dSliderJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTem
 public:
   // intentionally undefined, don't use these
   dSliderJointTemplate (const dSliderJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dSliderJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dSliderJointTemplate& operator = (const dSliderJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -716,7 +716,7 @@ class dUniversalJointTemplate : public dJointTemplate<dJointTemplateBase, dWorld
 public:
   // intentionally undefined, don't use these
   dUniversalJointTemplate (const dUniversalJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dUniversalJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dUniversalJointTemplate& operator = (const dUniversalJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -790,7 +790,7 @@ class dHinge2JointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTem
 public:
   // intentionally undefined, don't use these
   dHinge2JointTemplate (const dHinge2JointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dHinge2JointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dHinge2JointTemplate& operator = (const dHinge2JointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -861,7 +861,7 @@ class dPRJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplat
 public:
   // intentionally undefined, don't use these
   dPRJointTemplate (const dPRJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dPRJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dPRJointTemplate& operator = (const dPRJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -928,7 +928,7 @@ class dPUJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemplat
 public:
   // intentionally undefined, don't use these
   dPUJointTemplate (const dPUJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dPUJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dPUJointTemplate& operator = (const dPUJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1011,7 +1011,7 @@ class dPistonJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTem
 public:
   // intentionally undefined, don't use these
   dPistonJointTemplate (const dPistonJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dPistonJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dPistonJointTemplate& operator = (const dPistonJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1074,7 +1074,7 @@ class dFixedJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTemp
 public:
   // intentionally undefined, don't use these
   dFixedJointTemplate (const dFixedJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dFixedJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dFixedJointTemplate& operator = (const dFixedJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1115,7 +1115,7 @@ class dContactJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTe
 public:
   // intentionally undefined, don't use these
   dContactJointTemplate (const dContactJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dContactJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dContactJointTemplate& operator = (const dContactJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1147,7 +1147,7 @@ class dNullJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTempl
 public:
   // intentionally undefined, don't use these
   dNullJointTemplate (const dNullJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dNullJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dNullJointTemplate& operator = (const dNullJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1178,7 +1178,7 @@ class dAMotorJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTem
 public:
   // intentionally undefined, don't use these
   dAMotorJointTemplate (const dAMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dAMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dAMotorJointTemplate& operator = (const dAMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
@@ -1244,7 +1244,7 @@ class dLMotorJointTemplate : public dJointTemplate<dJointTemplateBase, dWorldTem
 public:
   // intentionally undefined, don't use these
   dLMotorJointTemplate (const dLMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
-  void operator = (const dLMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
+  dLMotorJointTemplate& operator = (const dLMotorJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> &) ODE_DELETE;
 
 protected:
   typedef dJointTemplate<dJointTemplateBase, dWorldTemplateBase, dBodyTemplateBase> dBaseTemplate;
