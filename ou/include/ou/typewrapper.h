@@ -59,7 +59,7 @@ public:
 	_OU_INLINE bool operator !() const { return !m_ctValue; }
 	
 	_OU_INLINE CTypeSimpleWrapper &operator =(const ContainedType &ctValue) { m_ctValue = ctValue; return *this; }
-	_OU_INLINE CTypeSimpleWrapper &operator =(const CTypeSimpleWrapper &twOtherWrapper) { m_ctValue = twOtherWrapper.m_ctValue; return *this; }
+	_OU_INLINE CTypeSimpleWrapper &operator =(const CTypeSimpleWrapper &twOtherWrapper) { if(this != &twOtherWrapper) m_ctValue = twOtherWrapper.m_ctValue; return *this; }
 
 	_OU_INLINE operator const ContainedType &() const { return m_ctValue; }
 	_OU_INLINE operator ContainedType &() { return m_ctValue; }

@@ -95,7 +95,7 @@ public:
     T *data() { return (T*) _data; }
     const T *data() const { return (const T*) _data; }
     T & operator[] (int i) const { return ((T*)_data)[i]; }
-    dArray& operator = (const dArray<T> &x) { equals (x); }
+    dArray& operator = (const dArray<T> &x) { if(this != &x) { equals (x); } }
 
     void push (const T item) {
         if (_size < _anum) _size++; else _setSize (_size+1,sizeof(T));
