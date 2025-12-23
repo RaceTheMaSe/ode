@@ -158,7 +158,7 @@ private:
 };
 
 
-bool dxCondvarWakeup::DoInitializeObject()
+inline bool dxCondvarWakeup::DoInitializeObject()
 {
     dIASSERT(!m_object_initialized);
 
@@ -229,7 +229,7 @@ bool dxCondvarWakeup::DoInitializeObject()
 
 }
 
-void dxCondvarWakeup::DoFinalizeObject()
+inline void dxCondvarWakeup::DoFinalizeObject()
 {
     if (m_object_initialized)
     {
@@ -244,7 +244,7 @@ void dxCondvarWakeup::DoFinalizeObject()
 }
 
 
-void dxCondvarWakeup::ResetWakeup()
+inline void dxCondvarWakeup::ResetWakeup()
 {
     int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
     dICHECK(lock_result == EOK || ((errno = lock_result), false));
@@ -260,7 +260,7 @@ void dxCondvarWakeup::ResetWakeup()
     dICHECK(unlock_result == EOK || ((errno = unlock_result), false));
 }
 
-void dxCondvarWakeup::WakeupAThread()
+inline void dxCondvarWakeup::WakeupAThread()
 {
     int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
     dICHECK(lock_result == EOK || ((errno = lock_result), false));
@@ -283,7 +283,7 @@ void dxCondvarWakeup::WakeupAThread()
     dICHECK(unlock_result == EOK || ((errno = unlock_result), false));
 }
 
-void dxCondvarWakeup::WakeupAllThreads()
+inline void dxCondvarWakeup::WakeupAllThreads()
 {
     int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
     dICHECK(lock_result == EOK || ((errno = lock_result), false));
@@ -303,7 +303,7 @@ void dxCondvarWakeup::WakeupAllThreads()
 }
 
 
-bool dxCondvarWakeup::WaitWakeup(const dThreadedWaitTime *timeout_time_ptr)
+inline bool dxCondvarWakeup::WaitWakeup(const dThreadedWaitTime *timeout_time_ptr)
 {
     bool wait_result;
 
@@ -337,7 +337,7 @@ bool dxCondvarWakeup::WaitWakeup(const dThreadedWaitTime *timeout_time_ptr)
     return wait_result;
 }
 
-bool dxCondvarWakeup::BlockAsAWaiter(const dThreadedWaitTime *timeout_time_ptr)
+inline bool dxCondvarWakeup::BlockAsAWaiter(const dThreadedWaitTime *timeout_time_ptr)
 {
     bool wait_result = false;
 
@@ -392,7 +392,7 @@ bool dxCondvarWakeup::BlockAsAWaiter(const dThreadedWaitTime *timeout_time_ptr)
 }
 
 
-void dxCondvarWakeup::RegisterWaiterInList()
+inline void dxCondvarWakeup::RegisterWaiterInList()
 {
     dIASSERT(m_signal_count <= m_waiter_count);
 
@@ -401,7 +401,7 @@ void dxCondvarWakeup::RegisterWaiterInList()
     dIASSERT(m_waiter_count != 0);
 }
 
-void dxCondvarWakeup::UnregisterWaiterFromList(bool wait_result)
+inline void dxCondvarWakeup::UnregisterWaiterFromList(bool wait_result)
 {
     --m_waiter_count;
 
@@ -439,7 +439,7 @@ private:
 };
 
 
-bool dxMutexMutex::DoInitializeObject()
+inline bool dxMutexMutex::DoInitializeObject()
 {
     dIASSERT(!m_mutex_allocated);
 
@@ -462,7 +462,7 @@ bool dxMutexMutex::DoInitializeObject()
     return init_result;
 }
 
-void dxMutexMutex::DoFinalizeObject()
+inline void dxMutexMutex::DoFinalizeObject()
 {
     if (m_mutex_allocated)
     {
@@ -474,13 +474,13 @@ void dxMutexMutex::DoFinalizeObject()
 }
 
 
-void dxMutexMutex::LockMutex()
+inline void dxMutexMutex::LockMutex()
 {
     int lock_result = pthread_mutex_lock(&m_mutex_instance);
     dICHECK(lock_result == EOK || ((errno = lock_result), false));
 }
 
-bool dxMutexMutex::TryLockMutex()
+inline bool dxMutexMutex::TryLockMutex()
 {
     int trylock_result = pthread_mutex_trylock(&m_mutex_instance);
     dICHECK(trylock_result == EOK || trylock_result == EBUSY || ((errno = trylock_result), false));
@@ -488,7 +488,7 @@ bool dxMutexMutex::TryLockMutex()
     return trylock_result == EOK;
 }
 
-void dxMutexMutex::UnlockMutex()
+inline void dxMutexMutex::UnlockMutex()
 {
     int unlock_result = pthread_mutex_unlock(&m_mutex_instance);
     dICHECK(unlock_result == EOK || ((errno = unlock_result), false));
