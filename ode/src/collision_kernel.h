@@ -209,7 +209,7 @@ struct dxGeom : public dBase {
         if (*first_ptr) (*first_ptr)->tome = &next;
         *first_ptr = this;
     }
-    void spaceRemove() {
+    void spaceRemove() const {
         if (next) next->tome = tome;
         *tome = next;
     }
