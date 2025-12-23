@@ -1111,15 +1111,9 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
     dIASSERT(maxc != 0);
     dVector3 i1,i2,r1,r2; // edges of incident and reference faces respectively
     int contacts=0;
-    if(!CheckSATConvexFaces(cvx1,cvx2,ccso))
-    {
-        return 0;
-    }
-    else if(!CheckSATConvexFaces(cvx2,cvx1,ccso))
-    {
-        return 0;
-    }
-    else if(!CheckSATConvexEdges(cvx1,cvx2,ccso))
+    if(!CheckSATConvexFaces(cvx1,cvx2,ccso) ||
+       !CheckSATConvexFaces(cvx2,cvx1,ccso) ||
+       !CheckSATConvexEdges(cvx1,cvx2,ccso))
     {
         return 0;
     }
