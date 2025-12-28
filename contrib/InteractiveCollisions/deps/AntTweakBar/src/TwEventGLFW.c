@@ -189,7 +189,7 @@ int TW_CALL TwEventCharGLFW(int glfwChar, int glfwAction)
     return 0;
 }
 
-// functions with __cdecl calling convension
+// functions with __cdecl calling convention
 TW_API int TW_CDECL_CALL TwEventMouseButtonGLFWcdecl(int glfwButton, int glfwAction)
 {
     return TwEventMouseButtonGLFW(glfwButton, glfwAction);

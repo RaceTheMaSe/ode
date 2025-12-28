@@ -298,7 +298,7 @@ static int refinePortal(const void *obj1, const void *obj2,
     ccd_support_t v4;
 
     while (1){
-        /* compute direction outside the portal (from v0 throught v1,v2,v3
+        /* compute direction outside the portal (from v0 through v1,v2,v3
            face) */
         if (portalDir(portal, &dir) != 0) {
             return -1;

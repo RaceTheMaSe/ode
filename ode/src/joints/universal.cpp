@@ -101,7 +101,7 @@ dxJointUniversal::getAngles( dReal *angle1, dReal *angle2 )
         dRtoQ( R, qcross );
 
 
-        // This code is essentialy the same as getHingeAngle(), see the comments
+        // This code is essentially the same as getHingeAngle(), see the comments
         // there for details.
 
         // get qrel = relative rotation between node[0] and the cross
@@ -123,7 +123,7 @@ dxJointUniversal::getAngles( dReal *angle1, dReal *angle2 )
         // We need to turn around this vector by 180deg
 
         // The 2 axes should be normalize so to find the vector between the 2.
-        // Add and devide by 2 then normalize or simply normalize
+        // Add and divide by 2 then normalize or simply normalize
         //    ax2
         //    ^
         //    |
@@ -534,7 +534,7 @@ void dJointSetUniversalAxis2Offset( dJointID j, dReal x, dReal y, dReal z,
 
     joint->computeInitialRelativeRotations();
 
-    // It is easier to retreive the 2 axes here since
+    // It is easier to retrieve the 2 axes here since
     // when there is only one body B2 (the axes switch position)
     // Doing this way eliminate the need to write the code differently
     // for both case.

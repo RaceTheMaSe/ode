@@ -24,7 +24,7 @@
     - temporal coherence completed for boxes / all contacts, LSS, etc
     - ray-collider now uses a callback
     - some common "usages" have been introduced (only picking for now)
-    - SPLIT_COMPLETE removed (now implicitely using mLimit = 1)
+    - SPLIT_COMPLETE removed (now implicitly using mLimit = 1)
     - hybrid collision models
     - sweep-and-prune code added, moved from my old Z-Collide lib
     - it now works with meshes made of only 1 triangle (except in mesh-mesh case!)
@@ -84,7 +84,7 @@
     New in Opcode 1.1:
     - stabbing queries
     - sphere queries
-    - abtract base class for colliders
+    - abstract base class for colliders
     - settings validation methods
     - compilation flags now grouped in OPC_Settings.h
     - smaller files, new VC++ virtual dirs (cleaner)

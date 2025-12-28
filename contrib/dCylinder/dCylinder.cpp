@@ -250,7 +250,7 @@ extern "C" int dCylBox (const dVector3 p1, const dMatrix3 R1,
   //used when cylinder edge touches box face
   //there is two ways to compute sQ: sQ21=sqrtf(1.f-Q21*Q21); or sQ21=sqrtf(Q23*Q23+Q22*Q22); 
   //if we did not need Q23 and Q22 the first way might be used to quiken the routine but then it need to 
-  //check if Q21<=1.f, becouse it may slightly exeed 1.f.
+  //check if Q21<=1.f, because it may slightly exceed 1.f.
 
  
   sQ21=sqrtf(Q23*Q23+Q22*Q22);
@@ -336,7 +336,7 @@ tAx[1]=R1[6]*cos-R1[4]*sin;
 tAx[2]=R1[10]*cos-R1[8]*sin;
 
 
-//use cross between tAx and first ax of the box as separating axix 
+//use cross between tAx and first ax of the box as separating axis 
 
 dCROSS114(Ax,=,tAx,R2+0);
 dNormalize3(Ax);
@@ -724,7 +724,7 @@ TEST(p[0]*Ax[0]+p[1]*Ax[1]+p[2]*Ax[2],radius2+cos*hlz1+sin*radius1,Ax[0],Ax[1],A
 //@ circles. But it needs comparatively a lot of computation.
 //@ I use a trick which lets not to solve quadric equation. 
 //@ In the case when cylinder eidges touches the test below rather accurate.
-//@ I still not sure about problems with sepparation but they have not been revealed during testing.
+//@ I still not sure about problems with separation but they have not been revealed during testing.
 dVector3 point;
 {
  dVector3 ca,cb; 
@@ -1148,7 +1148,7 @@ int dCollideCylPlane
  dReal cos1,sin1;
   cos1=dFabs(dDOT14(n,R+1));
 
-cos1=cos1<REAL(1.) ? cos1 : REAL(1.); //cos1 may slightly exeed 1.f
+cos1=cos1<REAL(1.) ? cos1 : REAL(1.); //cos1 may slightly exceed 1.f
 sin1=sqrtf(REAL(1.)-cos1*cos1);
 //////////////////////////////
 
@@ -1326,7 +1326,7 @@ int dCollideCylRay(dxGeom *o1, dxGeom *o2, int flags,
   }
   // check for ray intersection with the caps. k must indicate the cap
   // position to check
-  // perform a ray plan interesection
+  // perform a ray plan intersection
   // R+1 is the plan normal
   q[0] = start[0] - (p[0] + k*R[0*4+1]);
   q[1] = start[1] - (p[1] + k*R[1*4+1]);

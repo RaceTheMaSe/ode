@@ -67,7 +67,7 @@
  *	It seems to me "unsigned long long" is not always available. 
  *	Therefore I find _OU_NAMESPACE::uint64ou a more safe choice.
  *	You have to include <ou/inttypes.h> for it to work.
- *	I do not include the header automaticaly to keep <macros.h>
+ *	I do not include the header automatically to keep <macros.h>
  *	a low-level header.
  */
 

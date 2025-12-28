@@ -128,7 +128,7 @@ static void cu_run_fork(const char *ts_name, cu_test_suite_t *ts)
         exit(-1);
     }
 
-    (void)fprintf(stdout, " -> %s [IN PROGESS]\n", ts_name);
+    (void)fprintf(stdout, " -> %s [IN PROGRESS]\n", ts_name);
     (void)fflush(stdout);
 
     pid = fork();
@@ -162,12 +162,12 @@ static void cu_run_fork(const char *ts_name, cu_test_suite_t *ts)
 
         /* wait for children */
         wait(&status);
-        if (!WIFEXITED(status)){ /* if child process ends up abnormaly */
+        if (!WIFEXITED(status)){ /* if child process ends up abnormally */
             if (WIFSIGNALED(status)){
                 (void)fprintf(stdout, "Test suite was terminated by signal %d (%s).\n",
                         WTERMSIG(status), strsignal(WTERMSIG(status)));
             }else{
-                (void)fprintf(stdout, "Test suite terminated abnormaly!\n");
+                (void)fprintf(stdout, "Test suite terminated abnormally!\n");
             }
 
             /* mark this test suite as failed, because it was terminated
@@ -313,7 +313,7 @@ static void cu_print_results(void)
     fprintf(stdout, "==================================================\n");
     fprintf(stdout, "|               |  failed  |  succeed  |  total  |\n");
     fprintf(stdout, "|------------------------------------------------|\n");
-    fprintf(stdout, "| assertations: |  %6d  |  %7d  |  %5d  |\n",
+    fprintf(stdout, "| assertions:   |  %6d  |  %7d  |  %5d  |\n",
                 cu_fail_checks, cu_success_checks,
                 cu_success_checks+cu_fail_checks);
     fprintf(stdout, "| tests:        |  %6d  |  %7d  |  %5d  |\n",

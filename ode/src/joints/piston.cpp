@@ -194,7 +194,7 @@ dxJointPiston::getInfo1 ( dxJoint::Info1 *info )
     {
         // measure joint position
         const dReal pos = dJointGetPistonPosition ( this );
-        limotP.testRotationalLimit ( pos );     // N.B. The fucntion is ill named
+        limotP.testRotationalLimit ( pos );     // N.B. The function is ill named
     }
 
     // powered Piston or at limits needs an extra constraint row

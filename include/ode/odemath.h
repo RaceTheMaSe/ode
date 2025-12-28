@@ -528,7 +528,7 @@ ODE_API void dNormalize4 (dVector4 a); /* Potentially asserts on zero vec*/
  * that are an orthonormal basis for the plane space perpendicular to n.
  * i.e. this makes p,q such that n,p,q are all perpendicular to each other.
  * q will equal n x p. if n is not unit length then p will be unit length but
- * q wont be.
+ * q won't be.
  */
 
 ODE_API void dPlaneSpace (const dVector3 n, dVector3 p, dVector3 q);

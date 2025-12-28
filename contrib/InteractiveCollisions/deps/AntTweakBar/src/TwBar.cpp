@@ -25,7 +25,7 @@ const char *g_ErrBadValue       = "Bad value";
 const char *g_ErrUnknownType    = "Unknown type";
 const char *g_ErrNotEnum        = "Must be of type Enum";
 
-#undef PERF         // comment to print benchs
+#undef PERF         // comment to print benches
 #define PERF(cmd)
 
 
@@ -1789,7 +1789,7 @@ ERetType CTwVarAtom::GetAttrib(int _AttribID, TwBar *_Bar, CTwVarGroup *_VarPare
                 else if ( it->second.find_first_of("[]")==std::string::npos )
                     outString << '[' << it->second << ']';
                 else
-                    outString << '{' << it->second << '}'; // should not occured (use braces)
+                    outString << '{' << it->second << '}'; // should not occurred (use braces)
             }
             return RET_STRING;
         }
@@ -3763,7 +3763,7 @@ void CTwBar::UpdateColors()
     ColorRGBToHLSf(r, g, b, &h, &l, &s);
     bool lightText = !m_DarkText;
 
-    // Colors independant of m_Color
+    // Colors independent of m_Color
 
     // Highlighted line background ramp
     m_ColHighBg0 = lightText ? Color32FromARGBf(0.4f, 0.9f, 0.9f, 0.9f) : Color32FromARGBf(0.4f, 1.0f, 1.0f, 1.0f);
@@ -3802,7 +3802,7 @@ void CTwBar::UpdateColors()
     m_ColEditSelText = lightText ? COLOR32_BLACK : COLOR32_WHITE;
     m_ColEditSelBg = lightText ? 0xffc7c7c7 : 0xff575757;
 
-    // Colors dependant of m_Colors
+    // Colors dependent of m_Colors
     
     // Bar background
     ColorHLSToRGBf(h, l, s, &r, &g, &b);
@@ -6527,7 +6527,7 @@ CTwVarAtom *CTwVarGroup::FindShortcut(int _Key, int _Modifiers, bool *_DoIncr)
     Mask &= ~(0x1000);  // 0x1000 is the KMOD_NUM value defined in SDL_keysym.h
     Mask &= ~(0x2000);  // 0x2000 is the KMOD_CAPS value defined in SDL_keysym.h
 
-    // complete partial modifiers comming from SDL
+    // complete partial modifiers coming from SDL
     if( _Modifiers & TW_KMOD_SHIFT )
         _Modifiers |= TW_KMOD_SHIFT;
     if( _Modifiers & TW_KMOD_CTRL )

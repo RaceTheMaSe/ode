@@ -4,7 +4,7 @@
 
 
 /******************************************************************
- * CONFIGURATON SETTINGS - you can change these, and then rebuild
+ * CONFIGURATION SETTINGS - you can change these, and then rebuild
  *   ODE to modify the behavior of the library.
  *
  *   dTRIMESH_ENABLED  - enable/disable trimesh support

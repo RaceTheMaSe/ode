@@ -1622,7 +1622,7 @@ void CQuaternionExt::MouseLeaveCB(void *structExtValue, void *clientData, TwBar 
 
 
 //  ---------------------------------------------------------------------------
-//  Convertion between VC++ Debug/Release std::string
+//  Conversion between VC++ Debug/Release std::string
 //  (Needed because VC++ adds some extra info to std::string in Debug mode!)
 //  ---------------------------------------------------------------------------
 
@@ -2019,7 +2019,7 @@ int ANT_CALL TwDraw()
 
     assert(g_TwMgr->m_Bars.size()==g_TwMgr->m_Order.size());
 
-    // For multi-thread savety
+    // For multi-thread safety
     if( !TwFreeAsyncDrawing() )
         return 0;
 
@@ -2154,7 +2154,7 @@ int ANT_CALL TwWindowSize(int _Width, int _Height)
         return 0;
     }
 
-    // For multi-thread savety
+    // For multi-thread safety
     if( !TwFreeAsyncDrawing() )
         return 0;
 
@@ -2898,7 +2898,7 @@ TwBar *ANT_CALL TwNewBar(const char *_Name)
         return NULL; // not initialized
     }
 
-    TwFreeAsyncDrawing(); // For multi-thread savety
+    TwFreeAsyncDrawing(); // For multi-thread safety
 
     if( _Name==NULL || strlen(_Name)<=0 )
     {
@@ -2952,7 +2952,7 @@ int ANT_CALL TwDeleteBar(TwBar *_Bar)
         return 0;
     }
 
-    TwFreeAsyncDrawing(); // For multi-thread savety
+    TwFreeAsyncDrawing(); // For multi-thread safety
 
     vector<TwBar*>::iterator BarIt;
     int i = 0;
@@ -3013,7 +3013,7 @@ int ANT_CALL TwDeleteAllBars()
         return 0; // not initialized
     }
 
-    TwFreeAsyncDrawing(); // For multi-thread savety
+    TwFreeAsyncDrawing(); // For multi-thread safety
 
     int n = 0;
     if( g_TwMgr->m_Terminating || g_TwMgr->m_HelpBar==NULL ) 
@@ -3066,7 +3066,7 @@ int ANT_CALL TwSetTopBar(const TwBar *_Bar)
         return 0;
     }
 
-    TwFreeAsyncDrawing(); // For multi-thread savety
+    TwFreeAsyncDrawing(); // For multi-thread safety
 
     if( _Bar!=g_TwMgr->m_PopupBar && g_TwMgr->m_BarAlwaysOnBottom.length()>0 )
     {
@@ -3139,7 +3139,7 @@ int ANT_CALL TwSetBottomBar(const TwBar *_Bar)
         return 0;
     }
 
-    TwFreeAsyncDrawing(); // For multi-thread savety
+    TwFreeAsyncDrawing(); // For multi-thread safety
 
     if( _Bar!=g_TwMgr->m_PopupBar && g_TwMgr->m_BarAlwaysOnTop.length()>0 )
     {
@@ -3208,7 +3208,7 @@ int ANT_CALL TwSetBarState(TwBar *_Bar, TwState _State)
         return 0;
     }
 
-    TwFreeAsyncDrawing(); // For multi-thread savety
+    TwFreeAsyncDrawing(); // For multi-thread safety
 
     switch( _State )
     {
@@ -3539,7 +3539,7 @@ int ANT_CALL TwSetParam(TwBar *bar, const char *varName, const char *paramName, 
         return 0;
     }
 
-    TwFreeAsyncDrawing(); // For multi-thread savety
+    TwFreeAsyncDrawing(); // For multi-thread safety
 
     if( bar==NULL ) 
         bar = TW_GLOBAL_BAR;
@@ -4272,7 +4272,7 @@ int ANT_CALL TwRemoveVar(TwBar *_Bar, const char *_Name)
         g_TwMgr->m_PopupBar = NULL;
     }
 
-    _Bar->StopEditInPlace();    // desactivate EditInPlace
+    _Bar->StopEditInPlace();    // deactivate EditInPlace
 
     CTwVarGroup *Parent = NULL;
     int Index = -1;
@@ -4320,7 +4320,7 @@ int ANT_CALL TwRemoveAllVars(TwBar *_Bar)
         g_TwMgr->m_PopupBar = NULL;
     }
 
-    _Bar->StopEditInPlace();    // desactivate EditInPlace
+    _Bar->StopEditInPlace();    // deactivate EditInPlace
 
     for( vector<CTwVar*>::iterator it=_Bar->m_VarRoot.m_Vars.begin(); it!=_Bar->m_VarRoot.m_Vars.end(); ++it )
         if( *it != NULL )
@@ -4499,7 +4499,7 @@ int BarVarSetAttrib(CTwBar *_Bar, CTwVar *_Var, CTwVarGroup *_VarParent, int _Va
         return _Bar->SetAttrib(_AttribID, _Value);
     else
         return _Var->SetAttrib(_AttribID, _Value, _Bar, _VarParent, _VarIndex);
-    // don't make _Bar not-up-to-date here, should be done in SetAttrib if needed to avoid too frequent refreshs
+    // don't make _Bar not-up-to-date here, should be done in SetAttrib if needed to avoid too frequent refreshes
 }
  
 
@@ -5487,7 +5487,7 @@ static int KeyPressed(int _Key, int _Modifiers, bool _TestOnly)
         return 0;
     }
 
-    // For multi-thread savety
+    // For multi-thread safety
     if( !TwFreeAsyncDrawing() )
         return 0;
 
@@ -5514,7 +5514,7 @@ static int KeyPressed(int _Key, int _Modifiers, bool _TestOnly)
     _Key = TranslateKey(_Key, _Modifiers);
     if( _Key>' ' && _Key<256 ) // don't test SHIFT if _Key is a common key
         _Modifiers &= ~TW_KMOD_SHIFT;
-    // complete partial modifiers comming from SDL
+    // complete partial modifiers coming from SDL
     if( _Modifiers & TW_KMOD_SHIFT )
         _Modifiers |= TW_KMOD_SHIFT;
     if( _Modifiers & TW_KMOD_CTRL )

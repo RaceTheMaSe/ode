@@ -142,7 +142,7 @@ methods rather than containing that code inline.
 Event handlers, callback interface methods and static callback methods must 
 not have meaningful code within them. Their implementation should validate 
 input arguments, convert them to proper internal types if necessary, and call 
-one or more other methods of the class. These methods must not be declated in
+one or more other methods of the class. These methods must not be declared in
 public section.
 
 

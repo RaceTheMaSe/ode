@@ -676,7 +676,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                     SwapNormals(pen_v, col_v, v1, v2, pen_elt, elt_f1, elt_f2, n, n1, n2);
 
                                     if (dFabs(dCalcVectorDot3(n1, n2)) < REAL(0.01)) {
-                                        // If we reach this point, we have (close to) perpindicular
+                                        // If we reach this point, we have (close to) perpendicular
                                         //  faces, either resting on each other or sliding in a
                                         // direction orthogonal to both surface normals.
                                         if (elt_sum_len < DISTANCE_EPSILON) {
@@ -698,7 +698,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                             }
                                         }
                                         else {
-                                            // The faces are perpindicular, but moving significantly
+                                            // The faces are perpendicular, but moving significantly
                                             //  This can be sliding, or an unusual edge-straddling 
                                             //  penetration.
                                             dVector3 cn;
@@ -781,7 +781,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
 
 
                                 if (badPen && elt_sum_len != REAL(0.0)) {
-                                    // If the direction of motion is perpindicular to both normals
+                                    // If the direction of motion is perpendicular to both normals
                                     if ( (dFabs(dCalcVectorDot3(n1, elt_sum)) < REAL(0.01)) && (dFabs(dCalcVectorDot3(n2, elt_sum)) < REAL(0.01)) ) {
                                         dVector3 esn;
                                         if (pen_v == v1) {
@@ -861,7 +861,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                     //
                                     if (elt_sum_len < VELOCITY_EPSILON) {
 
-                                        // instead of a "contact_elt_length" threshhold, we'll use an
+                                        // instead of a "contact_elt_length" threshold, we'll use an
                                         //  arbitrary, small one
                                         for (int j=0; j<3; j++) {
                                             DEPTH(dp, CoplanarPt, pen_v[j], n);
@@ -1153,7 +1153,7 @@ do {                                              \
 #define POINT_IN_TRI(V0,U0,U1,U2)           \
 do {                                           \
     dReal a,b,c,d0,d1,d2;                     \
-    /* is T1 completly inside T2? */          \
+    /* is T1 completely inside T2? */          \
     /* check if V0 is inside tri(U0,U1,U2) */ \
     a=U1[i1]-U0[i1];                          \
     b=-(U1[i0]-U0[i0]);                       \
@@ -1476,10 +1476,10 @@ static int TriTriIntersectWithIsectLine(dReal V0[3],dReal V1[3],dReal V2[3],
 
 
 
-// Find the intersectiojn point between a coplanar line segement,
+// Find the intersectiojn point between a coplanar line segment,
 // defined by X1 and X2, and a ray defined by X3 and direction N.
 //
-// This forumla for this calculation is:
+// This formula for this calculation is:
 //               (c x b) . (a x b)
 //   Q = x1 + a -------------------
 //                  | a x b | ^2
@@ -1533,7 +1533,7 @@ static int
 }
 #endif
 
-// FindTriSolidIntersection - Clips the input trinagle TRI with the 
+// FindTriSolidIntersection - Clips the input triangle TRI with the 
 //  sides of a convex bounding solid, described by PLANES, returning
 //  the (convex) clipped polygon in CLIPPEDPOLYGON
 //
@@ -1735,7 +1735,7 @@ static void ClipConvexPolygonAgainstPlane( const dVector3 N, dReal C, LineContac
 static int
 ExamineContactPoint(dVector3* v_col, dVector3 in_n, dVector3 in_point)
 {
-    // Cast a ray from in_point, along the collison normal. Does it intersect the
+    // Cast a ray from in_point, along the collision normal. Does it intersect the
     //  collision face.
     dReal t, u, v;
 
@@ -1896,7 +1896,7 @@ GenerateContact(int in_Flags, dContactGeom* in_Contacts, int in_Stride,
                         Perhaps author considered it to be logical that the third normal would 
                         replace the depth in both of initial contacts. 
                         However, I consider it a questionable practice which should not
-                        be applied without deep understanding of underlaying physics.
+                        be applied without deep understanding of underlying physics.
                         Even more, is this situation with close normal triplet acceptable at all?
                         Should not be two initial contacts reduced to one (replaced with the latter)?
                         If you know the answers for these questions, you may want to change this code.

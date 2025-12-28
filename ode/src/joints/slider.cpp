@@ -69,7 +69,7 @@ dReal dJointGetSliderPosition ( dJointID j )
 
         if ( joint->flags & dJOINT_REVERSE )
         {
-            // N.B. it could have been simplier to only inverse the sign of
+            // N.B. it could have been simpler to only inverse the sign of
             //      the dCalcVectorDot3 result but this case is exceptional and doing
             //      the check for all case can decrease the performance.
             ax1[0] = -ax1[0];

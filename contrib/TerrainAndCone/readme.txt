@@ -4,7 +4,7 @@ Support for terrain and cones, collision and drawing.
 Terrains can be with z up (dTerrainZ) or y up (dTerrainY).
 Terrains are defined by a height field.
 Terrains are now placeable.
-Terrains can now be finite or infinite (repeat themselve in the x and (y or z) directions).
+Terrains can now be finite or infinite (repeat themselves in the x and (y or z) directions).
 
 Terrains can potentially collide with everything that collides with planes and rays; 
 see the switch statement.

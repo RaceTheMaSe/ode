@@ -90,7 +90,7 @@ for each collision point, the system must provide matrix equation data
 that is used to compute collision forces. once those forces are computed,
 the system must incorporate the forces into its timestep.
 PROBLEM: what if we intertwine the LCP problems of the two systems - then
-this simple approach wont work.
+this simple approach won't work.
 
 the dynamics world contains two kinds of objects: bodies and joints.
 joints connect two bodies together.

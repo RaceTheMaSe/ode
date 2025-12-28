@@ -74,7 +74,7 @@
 
 <p>The <code>TEST</code> macro contains enough machinery to turn this slightly odd-looking syntax into legal C++, and automatically register the test in a global list. This test list forms the basis of what is executed by <code>RunAllTests()</code>.</p>
 
-<p>If you want to re-use a set of test data for more than one test, or provide setup/teardown for tests, you can use the <code>TEST_FIXTURE</code> macro instead. The macro requires that you pass it a class name that it will instantiate, so any setup and teardown code should be in its constructor and destructor.</p>
+<p>If you want to reuse a set of test data for more than one test, or provide setup/teardown for tests, you can use the <code>TEST_FIXTURE</code> macro instead. The macro requires that you pass it a class name that it will instantiate, so any setup and teardown code should be in its constructor and destructor.</p>
 
 <pre>
   struct SomeFixture

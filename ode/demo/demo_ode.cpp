@@ -89,7 +89,7 @@ static ODE_NORETURN_VOID myMessageFunction (int num, const char *msg, va_list ap
 //****************************************************************************
 // utility stuff
 
-// compare two numbers, within a threshhold, return 1 if approx equal
+// compare two numbers, within a threshold, return 1 if approx equal
 
 static int cmp (dReal a, dReal b)
 {

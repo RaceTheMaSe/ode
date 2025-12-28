@@ -268,7 +268,7 @@ int main (int argc, char **argv)
     // breakable joints contribution
     // the wheels can break
     dJointSetBreakable (joint[i], 1);
-    // the wheels wil break at a specific force
+    // the wheels will break at a specific force
     dJointSetBreakMode (joint[i], dJOINT_BREAK_AT_B1_FORCE|dJOINT_BREAK_AT_B2_FORCE);
     // specify the force for the first body connected to the joint ...
     dJointSetBreakForce (joint[i], 0, 1.5, 1.5, 1.5);

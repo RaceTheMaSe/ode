@@ -324,7 +324,7 @@ int main (int argc, char **argv)
 
     // the wheels can break
     dJointSetBreakable (joint[i], 1);
-    // the wheels wil break at a specific force
+    // the wheels will break at a specific force
     dJointSetBreakMode (joint[i], 
                         dJOINT_BREAK_AT_B1_FORCE |
                         dJOINT_BREAK_AT_B2_FORCE |
@@ -344,7 +344,7 @@ int main (int argc, char **argv)
 	  dJointSetFixed (chain_joint[i]);
 	  // the chain can break
     dJointSetBreakable (chain_joint[i], 1);
-    // the chain wil break at a specific force
+    // the chain will break at a specific force
     dJointSetBreakMode (chain_joint[i], 
       dJOINT_BREAK_AT_B1_FORCE |
       dJOINT_BREAK_AT_B2_FORCE |

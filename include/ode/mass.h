@@ -38,7 +38,7 @@ typedef struct dMass dMass;
  *
  * @param m A mass structure to check
  *
- * @return 1 if both codition are met
+ * @return 1 if both conditions are met
  */
 ODE_API int dMassCheck(const dMass *m);
 

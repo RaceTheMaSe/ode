@@ -82,7 +82,7 @@ INSTRUCTIONS
   
 SANITY CHECKING
 
-A few optional, but recommeded, checks to make sure that everything
+A few optional, but recommended, checks to make sure that everything
 worked properly.
 
   The binaries exist in lib/

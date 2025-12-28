@@ -95,7 +95,7 @@ the rules for this file:
 11/12/2018 Oleh Derevenko
         * The commentary from 11/05/2018 was wrong. The constraints were not
           reset to their natural order and remained randomized.
-          The other thing that was missing was full contraint reorder without 
+          The other thing that was missing was full constraint reorder without 
           separation into independent and dependent ones. The algorithm doesn't
           converge without it well.
 
@@ -194,7 +194,7 @@ the rules for this file:
           while running several worlds in parallel threads.
 
 01/09/2016 Oleh Derevenko
-        * Hinge2 joint corected to avoid faulting asserts when the axes get 
+        * Hinge2 joint corrected to avoid faulting asserts when the axes get 
           temporarily invalid during assignments (suggested by David Mansolino)
 
 01/03/2016 Oleh Derevenko
@@ -587,7 +587,7 @@ the rules for this file:
 
 01/23/09 Remi Ricard (papaDoc)
          * Add new function dJointSetUniversalAxis1Offset and dJointSetUniversalAxis2Offset
-         * Add unittest for those funcitons.
+         * Add unittest for those functions.
 
 01/23/09 Remi Ricard (papaDoc)
          * Fix problem with dJointGetUniversalAngle2 when the joint is attached to
@@ -1102,7 +1102,7 @@ the rules for this file:
 	Vadim Macagon <vadim_mcagon@hotmail.com>
 
 	* disable temporal coherence on trimeshes by default, since
-	it has scaleability issues that don't make it a general clear win.
+	it has scalability issues that don't make it a general clear win.
 
 12/01/03 adam
 
@@ -1234,7 +1234,7 @@ the rules for this file:
 
 03/11/02 russ
 
-	* makefile changes to accomodate OSs with command line length
+	* makefile changes to accommodate OSs with command line length
 	  limitations (thanks to Norman Lin).
 
 01/06/02 russ

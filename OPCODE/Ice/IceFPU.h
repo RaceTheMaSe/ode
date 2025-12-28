@@ -40,7 +40,7 @@
 	#define IS_NEGATIVE_FLOAT(x)	(IR(x)&0x80000000)
 
 	//! Fast fabs for floating-point values. It just clears the sign bit.
-	//! Don't use it blindy, it can be faster or slower than the FPU comparison, depends on the context.
+	//! Don't use it blindly, it can be faster or slower than the FPU comparison, depends on the context.
 	inline_ float FastFabs(float x)
 	{
 		udword FloatBits = IR(x)&0x7fffffff;

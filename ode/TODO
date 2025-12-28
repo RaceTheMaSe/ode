@@ -10,7 +10,7 @@ be more fair.
 
 what happens when a GeomTransform's encapsulated object is manipulated,
 e.g. position changed. should this be disallowed? should a GeomTransform
-behave like a space and propagate dirtyness upwards?
+behave like a space and propagate dirtiness upwards?
 
 make sure that when we are using a large space for static environmental geoms,
 that there is not excessive AABB computation when geoms are added/removed from
@@ -64,7 +64,7 @@ tests:
 	all existing space tests, and more.
 
 demos:
-	test_buggy: make a terrain out of non-moving geoms. use heirarchical
+	test_buggy: make a terrain out of non-moving geoms. use hierarchical
 	groups to get efficient collision, even with the simple space.
 
 go though the new collision docs and make sure the behavior that is described
@@ -135,7 +135,7 @@ this collision rule:
     // no contacts if both geoms on the same body, and the body is not 0
     if (g1->body == g2->body && g1->body) return 0;
 needs to be replaced. sometimes we want no collision when both bodies are 0,
-but this wont work for geomgroup-to-environment. avoid stupid stuff like
+but this won't work for geomgroup-to-environment. avoid stupid stuff like
     dGeomSetBody (geom_group, (dBodyID) 1);
 this also causes "failed-to-report" errors in the space test.
 
@@ -405,7 +405,7 @@ partitioning tests will be needed.
 should we expose body and joint object structures so that the user can
 explicitly allocate them locally, or e.g. on the stack? makes allocating
 temporary contact constraints easier. NO --> helps data hiding and therefore
-library binary compatability.
+library binary compatibility.
 
 joints:
 	hinge & slider - DONE
@@ -458,7 +458,7 @@ more comprehensive random number comparisons between slow and fast methods.
 	- random joint error (make joints then move bodies a bit)
 
 check that J*vnew=c (slow step already does this, but it doesn't equal zero
-for some reason! - actually, when LCP constraint limits are reached, it wont!)
+for some reason! - actually, when LCP constraint limits are reached, it won't!)
 
 tons of things in lcp.cpp (@@@), especially speed optimizations. also, we
 wanted to do index block switching and index block updates to take advantage

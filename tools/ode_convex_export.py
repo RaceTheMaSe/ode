@@ -41,7 +41,7 @@ def WriteMesh(file,ob):
 	# Write Planes
 	file.write("dReal %s_planes[]={\n" % ob.getName())
 	for face in mesh.faces:
-		# d calculated separatelly for code readability
+		# d calculated separately for code readability
 		d = face.no[0]*face.verts[0].co[0]+face.no[1]*face.verts[0].co[1]+face.no[2]*face.verts[0].co[2]
 		file.write("%f,%f,%f,%f,\n" % (face.no[0],face.no[1],face.no[2],d))
 	file.write("};\n");

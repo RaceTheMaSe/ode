@@ -43,7 +43,7 @@
 //the triangle (usually happens with large mass or low FPS), some such
 //contacts can in some cases push the capsule away from the edge instead of
 //away from the two triangles. This shows up as capsule slowing down a bit
-//when hitting an edge while sliding along a flat tesselated grid of
+//when hitting an edge while sliding along a flat tessellated grid of
 //triangles. This is only if capsule is standing upwards.
 
 //Same thing can appear whenever a smooth object (e.g sphere) hits such an

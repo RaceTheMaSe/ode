@@ -2682,7 +2682,7 @@ extern "C" void dJointSetBreakable (dxJoint *joint, int b) {
   }
   else {
     // we want this joint to be unbreakable mut we must first check if
-    // it is alreay unbreakable
+    // it is already unbreakable
     if (joint->breakInfo) {
       // deallocate the dxJointBreakInfo struct
       delete joint->breakInfo;

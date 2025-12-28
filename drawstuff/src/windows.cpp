@@ -827,7 +827,7 @@ void dsPlatformSimLoop(int window_width, int window_height,
             // break;
         }
 
-        // Preapre renderer parameters
+        // Prepare renderer parameters
         RenderingThreadParams rendererParams(initial_pause != 0, windowDC, window_width, window_height, fn);
 
         assignMainWindowRendererParams(mainWindow, &rendererParams);

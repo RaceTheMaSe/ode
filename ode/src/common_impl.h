@@ -139,8 +139,6 @@
 #define dDERIVE_TYPE_UNION_PADDING_ELEMENTS(DataType, ElementType) dDERIVE_SIZE_UNION_PADDING_ELEMENTS(sizeof(DataType), ElementType)
 #define dDERIVE_SIZE_EXTRA_PADDING_ELEMENTS(DataSize, AlignmentSize, ElementType) (((dALIGN_SIZE(DataSize, dMAX(AlignmentSize, sizeof(ElementType))) - (DataSize)) / sizeof(ElementType))
 
-
-
 /* alloca aligned to the EFFICIENT_ALIGNMENT. note that this can waste
  * up to 15 bytes per allocation, depending on what alloca() returns.
  */

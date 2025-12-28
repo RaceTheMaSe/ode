@@ -9,7 +9,7 @@ namespace ODEManaged
 	__gc public class Joint
 	{
 	protected:
-		//Constructor and Destructor Defenition
+		//Constructor and Destructor Definition
 		Joint(void);
 		~Joint(void);
 

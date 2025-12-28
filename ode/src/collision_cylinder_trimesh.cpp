@@ -935,7 +935,7 @@ void sCylinderTrimeshColliderData::_InitCylinderTrimeshData(dxGeom *Cylinder, dx
     const dReal fAngleIncrement = fAngle*REAL(2.0); 
 
     // calculate plane normals
-    // axis dependant code
+    // axis dependent code
     for(int i=0; i<nCYLINDER_CIRCLE_SEGMENTS; i++) 
     {
         m_avCylinderNormals[i][0] = -dCos(fAngle);

@@ -1131,7 +1131,7 @@ ODE_API void  dBodySetAutoDisableDefaults (dBodyID);
 
 
 /**
- * @brief Retrieves the world attached to te given body.
+ * @brief Retrieves the world attached to the given body.
  * @ingroup bodies
  */
 ODE_API dWorldID dBodyGetWorld (dBodyID);
@@ -1157,7 +1157,7 @@ ODE_API void dBodyDestroy (dBodyID);
 /**
  * @brief Set the body's user-data pointer.
  * @ingroup bodies
- * @param data arbitraty pointer
+ * @param data arbitrary pointer
  */
 ODE_API void  dBodySetData (dBodyID, void *data);
 
@@ -1562,7 +1562,7 @@ ODE_API void dBodySetDynamic (dBodyID b);
 ODE_API void dBodySetKinematic (dBodyID b);
 
 /**
- * @brief Check wether a body is in kinematic state.
+ * @brief Check whether a body is in kinematic state.
  * @ingroup bodies
  * @return 1 if a body is kinematic or 0 if it is dynamic.
  */
@@ -1585,7 +1585,7 @@ ODE_API void dBodyEnable (dBodyID b);
 ODE_API void dBodyDisable (dBodyID);
 
 /**
- * @brief Check wether a body is enabled.
+ * @brief Check whether a body is enabled.
  * @ingroup bodies
  * @return 1 if a body is currently enabled or 0 if it is disabled.
  */
@@ -1755,7 +1755,7 @@ ODE_API int dBodyGetGyroscopicMode(dBodyID);
  * @brief Enable/disable the body's gyroscopic term.
  *
  * Disabling the gyroscopic term of a body usually improves
- * stability. It also helps turning spining objects, like cars'
+ * stability. It also helps turning spinning objects, like cars'
  * wheels.
  *
  * @param enabled   nonzero (default) to enable gyroscopic term, 0
@@ -2041,7 +2041,7 @@ ODE_API void dJointEnable (dJointID j);
 ODE_API void dJointDisable (dJointID);
 
 /**
- * @brief Check wether a joint is enabled.
+ * @brief Check whether a joint is enabled.
  * @ingroup joints
  * @return 1 if a joint is currently enabled or 0 if it is disabled.
  */
@@ -2470,11 +2470,11 @@ ODE_API_DEPRECATED ODE_API void dJointSetPUAnchorDelta (dJointID, dReal x, dReal
  * @param x The X position of the anchor point in world frame
  * @param y The Y position of the anchor point in world frame
  * @param z The Z position of the anchor point in world frame
- * @param dx A delta to be substracted to the X position as if the anchor was set
+ * @param dx A delta to be subtracted to the X position as if the anchor was set
  *           when body1 was at current_position[X] - dx
- * @param dy A delta to be substracted to the Y position as if the anchor was set
+ * @param dy A delta to be subtracted to the Y position as if the anchor was set
  *           when body1 was at current_position[Y] - dy
- * @param dz A delta to be substracted to the Z position as if the anchor was set
+ * @param dz A delta to be subtracted to the Z position as if the anchor was set
  *           when body1 was at current_position[Z] - dz
  */
 ODE_API void dJointSetPUAnchorOffset (dJointID j, dReal x, dReal y, dReal z,
@@ -2562,11 +2562,11 @@ ODE_API void dJointSetPistonAnchor (dJointID, dReal x, dReal y, dReal z);
  * @param x The X position of the anchor point in world frame
  * @param y The Y position of the anchor point in world frame
  * @param z The Z position of the anchor point in world frame
- * @param dx A delta to be substracted to the X position as if the anchor was set
+ * @param dx A delta to be subtracted to the X position as if the anchor was set
  *           when body1 was at current_position[X] - dx
- * @param dy A delta to be substracted to the Y position as if the anchor was set
+ * @param dy A delta to be subtracted to the Y position as if the anchor was set
  *           when body1 was at current_position[Y] - dy
- * @param dz A delta to be substracted to the Z position as if the anchor was set
+ * @param dz A delta to be subtracted to the Z position as if the anchor was set
  *           when body1 was at current_position[Z] - dz
  */
 ODE_API void dJointSetPistonAnchorOffset(dJointID j, dReal x, dReal y, dReal z,
@@ -3654,7 +3654,7 @@ ODE_API dJointID dConnectingJoint (dBodyID, dBodyID);
 /**
  * @brief get list of joints that connect the two bodies.
  *
- * Enough storage has to be aquired before calling this function.
+ * Enough storage has to be acquired before calling this function.
  * Non null list is required.
  * @param in_b1 first body
  * @param in_b2 second body

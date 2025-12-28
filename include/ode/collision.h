@@ -262,7 +262,7 @@ ODE_API void dGeomGetAABB (dGeomID geom, dReal aabb[6]);
 
 
 /**
- * @brief Determing if a geom is a space.
+ * @brief Determine if a geom is a space.
  * @param geom the geom to query
  * @returns Non-zero if the geom is a space, zero otherwise.
  * @ingroup collide
@@ -648,7 +648,7 @@ ODE_API void dGeomSetOffsetWorldQuaternion (dGeomID geom, const dQuaternion Q);
  * repositioned at the body's position.  If the geom has no offset,
  * this function does nothing.
  * This is more efficient than calling dGeomSetOffsetPosition(zero)
- * and dGeomSetOffsetRotation(identiy), because this function actually
+ * and dGeomSetOffsetRotation(identity), because this function actually
  * eliminates the offset, rather than leaving it as the identity transform.
  *
  * @param geom the geom to have its offset destroyed.

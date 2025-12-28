@@ -79,12 +79,12 @@ class Hunk:
 
     def checkFloats(self):
         """ This method try to check if only difference between added and
-            deleted lines of this hunk is different precission of floating
+            deleted lines of this hunk is different precision of floating
             point numbers
         """
 
         # If number of added and deleted lines differs, then there is more
-        # differences that precission of floating point numbers
+        # differences that precision of floating point numbers
         if self.numLinesAdded() != self.numLinesDeleted():
             return False
 
@@ -110,7 +110,7 @@ class Hunk:
             if len(nums1) != len(nums2):
                 return False
 
-            # iterate trough all numbers
+            # iterate through all numbers
             for j in xrange(0, len(nums1)):
                 # if numbers do not equal to each other return False
                 if not self.__eq(float(nums1[j]), float(nums2[j])):
@@ -188,7 +188,7 @@ class Parser:
 
         num_lines = 0
         while self.__readNextLine():
-            # beggining of hunk
+            # beginning of hunk
             if self.re_hunk.match(self.line):
                 if self.cur_hunk is not None:
                     self.diff.addHunk(self.cur_hunk)
@@ -300,7 +300,7 @@ def main(files):
 
     for filenames in files:
         if len(filenames[1]) == 0:
-            MSGFAIL("", "===", "Can't compare %s %s, bacause %s does not exist!" % \
+            MSGFAIL("", "===", "Can't compare %s %s, because %s does not exist!" % \
                     (filenames[0], filenames[0][4:], filenames[0][4:]))
             continue
 
@@ -349,8 +349,8 @@ def usage():
     print ""
     print " OPTIONS:"
     print "     --help / -h       none   Print this help"
-    print "     --exact / -e      none   Switch do exact comparasion of files"
-    print "     --not-exact / -n  none   Switch do non exact comparasion of files (default behaviour)"
+    print "     --exact / -e      none   Switch do exact comparison of files"
+    print "     --not-exact / -n  none   Switch do non exact comparison of files (default behaviour)"
     print "     --max-diff-lines  int    Maximum of lines of diff which can be printed (default " + str(MAX_DIFF_LINES) + ")"
     print "     --eps             float  Precision of floating point numbers (epsilon) (default " + str(EPS) + ")"
     print "     --no-progress     none   Turn off progress bar"
@@ -360,7 +360,7 @@ def usage():
     print " You can specify directories which are to be searched for regression files."
     print " In non exact copmarasion mode (which is default), this program tries to compare"
     print " floating point numbers in files with respect to specified precision (see --eps) and"
-    print " those lines which differ only in precission of floating point numbers are omitted."
+    print " those lines which differ only in precision of floating point numbers are omitted."
     print ""
     sys.exit(-1)
 

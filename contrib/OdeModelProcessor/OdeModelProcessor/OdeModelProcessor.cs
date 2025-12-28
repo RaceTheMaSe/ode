@@ -25,7 +25,7 @@
  * 1) Create a space, but only one for all of models.
  * 2) Create a triangle data.
  * 3) Load the model.
- * 4) Retreive the tag from the model.
+ * 4) Retrieve the tag from the model.
  * 6) Build the triangle mesh by calling d.GeomTriMeshDataBuildSimple.
  * 
  * Eg:
@@ -200,7 +200,7 @@ namespace OdeModelProcessor
         }
 
         /*
-         * Convienience method to build the mesh and return it. The triangleData
+         * Convenience method to build the mesh and return it. The triangleData
          * is passed in to allow the calling application to delete it afterwards.
          *
          * Be sure to destroy the returned TriangleMesh in the client application.

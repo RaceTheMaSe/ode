@@ -994,7 +994,7 @@ void dInternalStepIsland_x2 (dxWorld *world, dxBody * const *body, int nb,
 	    cf2[6] += (temp_fb.t2[2] = data2[6]);
 	  }
 	  // if the user requested so we must copy the feedback information to
-	  // the feedback struct that the user suplied.
+	  // the feedback struct that the user supplied.
 	  if (fb) {
 	    // copy temp_fb to fb
 	    fb->f1[0] = temp_fb.f1[0];

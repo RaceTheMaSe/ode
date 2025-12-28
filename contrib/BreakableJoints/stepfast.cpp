@@ -77,7 +77,7 @@ Multiply2_sym_p8p (dReal * A, dReal * B, dReal * C, int p, int Askip)
 	bb = B;
 	for (i = 0; i < p; i++)
 	{
-		//aa is going accross the matrix, ad down
+		//aa is going across the matrix, ad down
 		aa = ad = A;
 		cc = C;
 		for (j = i; j < p; j++)
@@ -107,7 +107,7 @@ MultiplyAdd2_sym_p8p (dReal * A, dReal * B, dReal * C, int p, int Askip)
 	bb = B;
 	for (i = 0; i < p; i++)
 	{
-		//aa is going accross the matrix, ad down
+		//aa is going across the matrix, ad down
 		aa = ad = A;
 		cc = C;
 		for (j = i; j < p; j++)
@@ -619,7 +619,7 @@ dInternalStepFast (dxWorld * world, dxBody * body[2], dReal * GI[2], dReal * Gin
 			cf2[6] = (temp_fb.t2[2] = data2[6]);
 		}
 		// if the user requested so we must copy the feedback information to
-		// the feedback struct that the user suplied.
+		// the feedback struct that the user supplied.
 		if (fb) {
 			// copy temp_fb to fb
 			fb->f1[0] = temp_fb.f1[0];

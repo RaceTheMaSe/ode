@@ -66,7 +66,7 @@ struct GIM_AABB_SET
     aabb3f * m_boxes;
     GUINT32 * m_maxcoords;//!<Upper corners of the boxes, in integer representation
     GIM_RSORT_TOKEN * m_sorted_mincoords;//!< sorted min coords (lower corners), with their coord value as the m_key and m_value as the box index
-    char m_shared;//!< if m_shared == 0 then the memory is allocated and the set must be destroyed, else the pointers are shared and the set should't be destroyed
+    char m_shared;//!< if m_shared == 0 then the memory is allocated and the set must be destroyed, else the pointers are shared and the set shouldn't be destroyed
 };
 //typedef  struct _GIM_AABB_SET GIM_AABB_SET;
 
@@ -110,7 +110,7 @@ void gim_aabbset_self_intersections_sorted(GIM_AABB_SET * aabbset, GDYNAMIC_ARRA
 //! NxN Complete box pruning. Returns a list of overlapping pairs of boxes, each box of the pair belongs to the same set.
 /*!
 \pre aabbset must be allocated, the boxes must be already set.
-\param aabbset Global bound isn't required. Doen't need to be sorted.
+\param aabbset Global bound isn't required. Doesn't need to be sorted.
 \param collision_pairs Array of GIM_PAIR elements. Must be initialized before (Reserve size ~ 100)
 */
 void gim_aabbset_self_intersections_brute_force(GIM_AABB_SET * aabbset, GDYNAMIC_ARRAY * collision_pairs);
@@ -159,7 +159,7 @@ it is convenient to apply brute force approach.
 
 //Use these functions for general initialization
 
-//! Initalizes the set. Sort boxes if needed.
+//! Initializes the set. Sort boxes if needed.
 /*!
 \pre aabbset must be allocated. And the boxes must be already set.
 \post If the set has less of GIM_MIN_SORTED_BIPARTITE_PRUNING_BOXES boxes, only calcs the global box,

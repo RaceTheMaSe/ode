@@ -740,7 +740,7 @@ int main (int argc, char **argv)
     dRFromAxisAndAngle (R, 0,1,0, dReal(REAL(-0.5)*PI));
 
 
-    // Create Body2 (Wiil be attached to the world)
+    // Create Body2 (Will be attached to the world)
     body[BODY2] = dBodyCreate (world);
     // Main axis of cylinder is along X=1
     dMassSetBox (&m, 1, BODY2_SIDES[0], BODY2_SIDES[1], BODY2_SIDES[2]);
@@ -786,7 +786,7 @@ int main (int argc, char **argv)
 
     if ( fixed )
     {
-        // Attache external cylinder to the world
+        // Attach external cylinder to the world
         dJointID fixedJoint = dJointCreateFixed (world,NULL);
         dJointAttach (fixedJoint , NULL, body[BODY2]);
         dJointSetFixed (fixedJoint );

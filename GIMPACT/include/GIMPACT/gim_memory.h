@@ -846,8 +846,8 @@ m_buffer_data will be 0, for access to the elements, you'd need to call lock_arr
 \param array_data Array structure to be filled
 \param buffer_id A GBUFFER_ID structure which this array_daya will refer to
 \param element_count Number of elements
-\param offset element offset, it isn't byte offset. 0 is recomended
-\param byte_stride size of each element. 0 is recomended.
+\param offset element offset, it isn't byte offset. 0 is recommended
+\param byte_stride size of each element. 0 is recommended.
 \post Adds reference to the buffer
 \sa gim_buffer_add_ref
 */
@@ -869,7 +869,7 @@ m_buffer_data will be 0, for access to the elements, you'd need to call lock_arr
 \param array_data Array structure to be filled
 \param buffer_id A GBUFFER_ID structure which this array_daya will refer to
 \param element_count Number of elements
-\param offset element offset, it isn't byte offset. 0 is recomended
+\param offset element offset, it isn't byte offset. 0 is recommended
 \post Adds reference to the buffer
 \sa gim_buffer_add_ref
 */
@@ -932,7 +932,7 @@ void gim_buffer_array_copy_value(GBUFFER_ARRAY * source_data,
 
 //! Destroys an GBUFFER_ARRAY object
 /*!
-\post Attemps to destroy the buffer, decreases reference counting
+\post Attempts to destroy the buffer, decreases reference counting
 */
 void GIM_BUFFER_ARRAY_DESTROY(GBUFFER_ARRAY & array_data);
 

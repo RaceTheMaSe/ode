@@ -339,7 +339,7 @@ namespace GLCore { PFNGLGetProcAddress _glGetProcAddress = NULL; }
     
             int Res = 1;
 
-            // Use wglGetProcAddress to retreive Core functions
+            // Use wglGetProcAddress to retrieve Core functions
             _glGetProcAddress = reinterpret_cast<GLCore::PFNGLGetProcAddress>(GetProcAddress(g_OGLCoreModule, "wglGetProcAddress"));
             if( _glGetProcAddress!=NULL )
                 for(int i=0; i<g_NbOGLCoreFunc; ++i)

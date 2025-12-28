@@ -1505,7 +1505,7 @@ do {\
 \param vorigin A vec3f with the origin of the ray
 \param vdir A vec3f with the direction of the ray
 \param tparam Output parameter
-\param tmax Max lenght of the ray
+\param tmax Max length of the ray
 \param is_intersected 1 if the ray collides the box, else false
 
 */

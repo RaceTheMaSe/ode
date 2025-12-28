@@ -323,7 +323,7 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
                                          dVector3& c1,
                                          dVector3& c2)
 {
-    // s & t were originaly part of the output args, but since
+    // s & t were originally part of the output args, but since
     // we don't really need them, we'll just declare them in here
     dReal s;
     dReal t;
@@ -713,7 +713,7 @@ int dCollideSphereConvex (dxGeom *o1, dxGeom *o2, int flags,
                     temp[1] = (Sphere->final_posr->pos[1]-out[1]);
                     temp[2] = (Sphere->final_posr->pos[2]-out[2]);
                     dist=(temp[0]*temp[0])+(temp[1]*temp[1])+(temp[2]*temp[2]);
-                    // avoid the sqrt unless really necesary
+                    // avoid the sqrt unless really necessary
                     if(dist<(Sphere->radius*Sphere->radius))
                     {
                         // We got an indirect hit
@@ -831,7 +831,7 @@ static inline void ComputeInterval(dxConvex& cvx,dVector4 axis,dReal& min,dReal&
         }
     }
     // *: usually using the distance part of the plane (axis) is
-    // not necesary, however, here we need it in order to know
+    // not necessary, however, here we need it in order to know
     // which face to pick when there are 2 parallel sides.
 }
 
@@ -1146,7 +1146,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
 
         pReferencePoly = cvx1.polygons;
         pIncidentPoly  = cvx2.polygons;
-        // Get Reference plane (We may not have to apply transforms Optimization Oportunity)
+        // Get Reference plane (We may not have to apply transforms Optimization Opportunity)
         // Rotate
         dMultiply0_331(rplane,cvx1.final_posr->R,cvx1.planes+(reference_side*4));
         dNormalize3(rplane);

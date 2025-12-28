@@ -154,7 +154,7 @@ case "$host_os" in
   cygwin* | mingw*)
     if test "x$drawstuff" = x
     then
-       drawstuff="Win32" # if in a Windows enviroment
+       drawstuff="Win32" # if in a Windows environment
     fi
     EXTRA_LIBTOOL_LDFLAGS="-no-undefined"
     ;;
@@ -307,7 +307,7 @@ AC_FUNC_OBSTACK
 AC_TYPE_SIZE_T
 AC_TYPE_UINT32_T
 
-dnl Check for autoscan sugested functions
+dnl Check for autoscan suggested functions
 AC_CHECK_LIB(m, [main])
 AC_CHECK_LIB(sunmath, [main])
 AC_CHECK_LIB(rt, [main])

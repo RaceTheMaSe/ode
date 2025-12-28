@@ -95,7 +95,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
 
                 if (useFlags != NULL)
                 {
-                    // For the last element EdgeRecord::kAbsVertexUsed assignment can be skipped as noone is going to need it anymore
+                    // For the last element EdgeRecord::kAbsVertexUsed assignment can be skipped as no one is going to need it anymore
                     useFlags[currEdge[0].m_triIdx] |= (uint8)(((edges[currEdge[0].m_vertIdx1].m_absVertexFlags & EdgeRecord::AVF_VERTEX_USED) == 0 ? currEdge[0].m_vert1Flags : 0) 
                         | ((edges[currEdge[0].m_vertIdx2].m_absVertexFlags & EdgeRecord::AVF_VERTEX_USED) == 0 ? currEdge[0].m_vert2Flags : 0)
                         | currEdge[0].m_edgeFlags);

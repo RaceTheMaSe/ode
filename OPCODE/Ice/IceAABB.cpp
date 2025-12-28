@@ -277,7 +277,7 @@ const Point* AABB::GetEdgeNormals() const
 
 
 // Original list was made of 7 items, I added an 8th element:
-// - to padd on a cache line
+// - to pad on a cache line
 // - to repeat the first entry to avoid modulos
 //
 // I also replaced original ints with sbytes.

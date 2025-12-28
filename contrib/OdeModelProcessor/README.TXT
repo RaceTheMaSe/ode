@@ -24,7 +24,7 @@ Create triangle meshes as follows:
 1) Create a space, but only one for all of models.
 2) Create a triangle data.
 3) Load the model.
-4) Retreive the tag from the model.
+4) Retrieve the tag from the model.
 6) Build the triangle mesh by calling d.GeomTriMeshDataBuildSimple.
 
 Eg:

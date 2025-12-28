@@ -216,7 +216,7 @@ void gim_aabbset_self_intersections_sorted(GIM_AABB_SET * aabbset, GDYNAMIC_ARRA
 //! NxN Complete box pruning. Returns a list of overlapping pairs of boxes, each box of the pair belongs to the same set.
 /*!
 \pre aabbset must be allocated, the boxes must be already set.
-\param aabbset Global bound isn't required. Doen't need to be sorted.
+\param aabbset Global bound isn't required. Doesn't need to be sorted.
 \param collision_pairs Array of GIM_PAIR elements. Must be initialized before (Reserve size ~ 100)
 */
 void gim_aabbset_self_intersections_brute_force(GIM_AABB_SET * aabbset, GDYNAMIC_ARRAY * collision_pairs)
@@ -274,7 +274,7 @@ void gim_aabbset_bipartite_intersections_sorted(GIM_AABB_SET * aabbset1, GIM_AAB
     aabb3f int_abbb;
     BOXINTERSECTION(aabbset1->m_global_bound,aabbset2->m_global_bound, int_abbb);
 
-    //Clasify set 1
+    //Classify set 1
     GIM_RSORT_TOKEN * classified_tokens1 = (GIM_RSORT_TOKEN *) gim_alloc(sizeof(GIM_RSORT_TOKEN)*count1);
     GUINT32 i,classified_count1 = 0,classified_count2 = 0;
 
@@ -296,7 +296,7 @@ void gim_aabbset_bipartite_intersections_sorted(GIM_AABB_SET * aabbset1, GIM_AAB
         return; // no pairs
     }
 
-    //Clasify set 2
+    //Classify set 2
     GIM_RSORT_TOKEN * classified_tokens2 = (GIM_RSORT_TOKEN *) gim_alloc(sizeof(GIM_RSORT_TOKEN)*count2);
 
     for (i=0;i<count2;i++ )
@@ -366,7 +366,7 @@ void gim_aabbset_bipartite_intersections_brute_force(GIM_AABB_SET * aabbset1,GIM
     aabb3f int_abbb;
     //Find  Set intersection
     BOXINTERSECTION(aabbset1->m_global_bound,aabbset2->m_global_bound, int_abbb);
-    //Clasify set 1
+    //Classify set 1
     GUINT32 i,j;
     GUINT32 classified_count = 0;
 
@@ -413,7 +413,7 @@ void gim_aabbset_bipartite_intersections_brute_force(GIM_AABB_SET * aabbset1,GIM
 }
 
 
-//! Initalizes the set. Sort Boxes if needed.
+//! Initializes the set. Sort Boxes if needed.
 /*!
 \pre aabbset must be allocated. And the boxes must be already set.
 \post If the set has less of GIM_MIN_SORTED_BIPARTITE_PRUNING_BOXES boxes, only calcs the global box,

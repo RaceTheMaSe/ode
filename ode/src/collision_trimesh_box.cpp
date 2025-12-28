@@ -209,7 +209,7 @@ bool sTrimeshBoxColliderData::_cldTestFace(dReal fp0, dReal fp1, dReal fp2, dRea
     const dReal fDepthMin = fR - fMin;
     const dReal fDepthMax = fMax + fR;
 
-    // if we dont't have overlapping interval
+    // if we don't have overlapping interval
     if ( fDepthMin < 0 || fDepthMax < 0 ) {
         // do nothing
         return false;
@@ -276,11 +276,11 @@ bool sTrimeshBoxColliderData::_cldTestEdge(dReal fp0, dReal fp1, dReal fR, dReal
         fMax = fp0;
     }
 
-    // check if we overlapp
+    // check if we overlap
     const dReal fDepthMin = fR - fMin;
     const dReal fDepthMax = fMax + fR;
 
-    // if we don't overlapp
+    // if we don't overlap
     if ( fDepthMin < 0 || fDepthMax < 0 ) {
         // do nothing
         return false;
@@ -814,7 +814,7 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
             avPoints[3][x] = vCenter[x] + (m_vBoxHalfSize[iB1] * vRotCol[x]) + (m_vBoxHalfSize[iB2] * vRotCol2[x]);
         }
 
-        // clip Box face with 4 planes of triangle (1 face plane, 3 egde planes)
+        // clip Box face with 4 planes of triangle (1 face plane, 3 edge planes)
         dVector3 avTempArray1[9];
         dVector3 avTempArray2[9];
         dVector4 plPlane;

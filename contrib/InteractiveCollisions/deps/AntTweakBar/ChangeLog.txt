@@ -52,7 +52,7 @@
   - Fixed ignored double-click in TwEvenWin (Thanks to H. Seungho for this).
 
 * Version 1.13 (2009/04/19)
-  - Now compiles on Mac OSX (Many thanks to Evan F. for rewritting the OS 
+  - Now compiles on Mac OSX (Many thanks to Evan F. for rewriting the OS 
     specific code, and to Tyler S. and Konstantin L. for their feedback).
   - Added functions TwGetBarCount, TwGetBarByIndex, TwGetBarByName, 
     TwRefreshBar.
@@ -81,7 +81,7 @@
     alpha=n text=dark/light.
   - Default color scheme changed (now transparent by default). To reactivate the
     previous scheme, call TwDefine("GLOBAL colorscheme=0") before creating bars.
-  - Added paramters to manage the bar behavior: resizable, movable, iconifiable,
+  - Added parameters to manage the bar behavior: resizable, movable, iconifiable,
     fontresizable, alwaystop, alwaysbottom, visible, iconified (following 
     Jeppe F. B. feedback).
   - Added functions TwSetBottomBar and TwGetBottomBar.
@@ -133,7 +133,7 @@
   - Variables of type string are now handled: 3 types of string added
     TW_TYPE_CSSTRING, TW_TYPE_CDSTRING and TW_STDSTRING.
   - Text selection and copy/paste added.
-  - Position of bar icons is modifiable (cf. TwBar paramters iconPos, iconAlign
+  - Position of bar icons is modifiable (cf. TwBar parameters iconPos, iconAlign
     and iconMargin).
   - Separators can be added in a bar (TwAddSeparator).
   - OpenGL: states related to 3D textures and multitexturing are now saved and

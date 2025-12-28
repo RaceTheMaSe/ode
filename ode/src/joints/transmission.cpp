@@ -172,7 +172,7 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
 
         dIASSERT(m > 0);
         
-        // Caclulate the angle of the contact point relative to the
+        // Calculate the angle of the contact point relative to the
         // baseline.
 
         cosphi = clamp((radii[1] - radii[0]) / m, REAL(-1.0), REAL(1.0)); // Force into range to fix possible computation errors
@@ -391,7 +391,7 @@ void dJointSetTransmissionAxis( dJointID j, dReal x, dReal y, dReal z )
     dUASSERT( joint, "bad joint argument" );
     dUASSERT(joint->mode == dTransmissionParallelAxes ||
              joint->mode == dTransmissionChainDrive ,
-             "axes must be set individualy in current mode" );
+             "axes must be set individually in current mode" );
 
     for (i = 0 ; i < 2 ; i += 1) {
         if (joint->node[i].body) {
@@ -481,7 +481,7 @@ void dJointGetTransmissionAxis( dJointID j, dVector3 result )
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
     dUASSERT(joint->mode == dTransmissionParallelAxes,
-             "axes must be queried individualy in current mode" );
+             "axes must be queried individually in current mode" );
 
     if (joint->node[0].body) {
         dBodyVectorToWorld(joint->node[0].body,

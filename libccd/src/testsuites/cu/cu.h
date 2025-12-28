@@ -72,8 +72,8 @@ extern "C" {
     cu_set_out_prefix(str)
 
 /**
- * Assertations
- * Assertations with suffix 'M' (e.g. assertTrueM) are variations of macros
+ * Assertions
+ * Assertions with suffix 'M' (e.g. assertTrueM) are variations of macros
  * where it is possible to specify error message.
  */
 #define assertTrueM(a, message) \

@@ -630,7 +630,7 @@ void dLCP::transfer_i_from_N_to_C (unsigned i)
     // @@@ TO DO LATER
     // if we just finish here then we'll go back and re-solve for
     // delta_x. but actually we can be more efficient and incrementally
-    // update delta_x here. but if we do this, we wont have ell and Dell
+    // update delta_x here. but if we do this, we won't have ell and Dell
     // to use in updating the factorization later.
 
 # ifdef DEBUG_LCP
@@ -1000,7 +1000,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                 // compute: delta_x(C) = -dir*A(C,C)\A(C,i)
                 lcp.solve1 (delta_x, i, dir_positive);
 
-                // note that delta_x[i] = (dir_positive ? 1 : -1), but we wont bother to set it
+                // note that delta_x[i] = (dir_positive ? 1 : -1), but we won't bother to set it
 
                 // compute: delta_w = A*delta_x ... note we only care about
                 // delta_w(N) and delta_w(i), the rest is ignored

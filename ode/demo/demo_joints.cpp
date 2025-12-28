@@ -37,7 +37,7 @@ flags:
   i: the test is interactive.
   g: turn off graphical display (can't use this with `i').
   e: turn on occasional error perturbations
-  n: performe test XXX
+  n: perform test XXX
 some tests compute and display error values. these values are scaled so
 <1 is good and >1 is bad. other tests just show graphical results which
 you must verify visually.

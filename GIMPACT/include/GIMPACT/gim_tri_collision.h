@@ -139,7 +139,7 @@ int gim_triangle_triangle_overlap(
 							GIM_TRIANGLE_DATA *tri2);
 
 
-//! Fast but inacurate conservative Triangle Triangle overlapping test
+//! Fast but inaccurate conservative Triangle Triangle overlapping test
 int gim_triangle_triangle_overlap_fast(
 							GIM_TRIANGLE_DATA *tri1,
 							GIM_TRIANGLE_DATA *tri2);

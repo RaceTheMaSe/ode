@@ -4,7 +4,7 @@ Breakable Joints
 
 Description:
 This is a small addition to ODE that makes joints breakable. Breakable means
-that if a force on a joint is to high it wil break. I have included a modified
+that if a force on a joint is to high it will break. I have included a modified
 version of test_buggy.cpp (test_breakable.cpp) so you can see it for your self.
 Just drive your buggy into an obstacle and enjoy!
 
@@ -18,7 +18,7 @@ Installation instructions:
 - make ode-lib
 - make ode-test
 You can also use the diffs. The above files will quickly go out of sync with the
-rest of ODE but the diffs wil remain valid longer.
+rest of ODE but the diffs will remain valid longer.
 
 ================================================================================
 
@@ -28,14 +28,14 @@ dJointSetBreakable (dJointID joint, int b)
 	unbreakable.
 
 void dJointSetBreakCallback (dJointID joint, dJointBreakCallback *callbackFunc)
-	Sets the callback function for this joint. If a funtion is set it will be
+	Sets the callback function for this joint. If a function is set it will be
 	called if the joint is broken but before it is actually detached or deleted.
 
 void dJointSetBreakMode (dJointID joint, int mode)
 	Use this functions to set some flags. These flags can be ORred ( | )
 	together; ie. dJointSetBreakMode (someJoint,
 dJOINT_BREAK_AT_B1_FORCE|dJOINT_DELETE_ON_BREAK)
-	dJOINT_DELETE_ON_BREAK    - If the joint breaks it wil be deleted.
+	dJOINT_DELETE_ON_BREAK    - If the joint breaks it will be deleted.
 	dJOINT_BREAK_AT_B1_FORCE  - If the force on body 1 is to high the joint will
 								break
 	dJOINT_BREAK_AT_B1_TORQUE - If the torque on body 1 is to high the joint will

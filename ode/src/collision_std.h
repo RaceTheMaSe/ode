@@ -217,7 +217,7 @@ private:
         // index of extreme vertex corresponding to this polygon
         int vertex;
     };
-    // This is for extrem feature query and not the usual level BSP structure (that comes later)
+    // This is for extreme feature query and not the usual level BSP structure (that comes later)
     struct BSPNode
     {
         // Normal index (interior node), vertex index (leaf node)

@@ -33,7 +33,7 @@ Legend
  
 2008/04/19 oleh_derevenko
 
- [+]  Atomic functions via i486 assembler implementation added (manuall 
+ [+]  Atomic functions via i486 assembler implementation added (manual 
       selection with a preprocessor symbol only).
  
 2008/04/16 oleh_derevenko

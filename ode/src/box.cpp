@@ -537,16 +537,16 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
         Rb = R2; // Rotation of 'b'
         pa = p1; // Center (location) of 'a'
         pb = p2; // Center (location) of 'b'
-        Sa = A;  // Side Lenght of 'a'
-        Sb = B;  // Side Lenght of 'b'
+        Sa = A;  // Side Length of 'a'
+        Sb = B;  // Side Length of 'b'
     }
     else { // One of the faces of box 2 is the reference face
         Ra = R2; // Rotation of 'a'
         Rb = R1; // Rotation of 'b'
         pa = p2; // Center (location) of 'a'
         pb = p1; // Center (location) of 'b'
-        Sa = B;  // Side Lenght of 'a'
-        Sb = A;  // Side Lenght of 'b'
+        Sa = B;  // Side Length of 'a'
+        Sb = A;  // Side Length of 'b'
     }
 
     // nr = normal vector of reference face dotted with axes of incident box.
@@ -572,7 +572,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     anr[1] = dFabs (nr[1]);
     anr[2] = dFabs (nr[2]);
 
-    // find the largest compontent of anr: this corresponds to the normal
+    // find the largest component of anr: this corresponds to the normal
     // for the incident face. the other axis numbers of the incident face
     // are stored in a1,a2.
     int lanr,a1,a2;

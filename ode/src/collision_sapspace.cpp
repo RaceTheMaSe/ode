@@ -51,11 +51,11 @@
 //  Radix Sort Context
 // --------------------------------------------------------------------------
 
-struct RaixSortContext
+struct RadixSortContext
 {
 public:
-    RaixSortContext(): mCurrentSize(0), mCurrentUtilization(0), mRanksValid(false), mRanksBuffer(NULL), mPrimaryRanks(NULL) {}
-    ~RaixSortContext() { FreeRanks(); }
+    RadixSortContext(): mCurrentSize(0), mCurrentUtilization(0), mRanksValid(false), mRanksBuffer(NULL), mPrimaryRanks(NULL) {}
+    ~RadixSortContext() { FreeRanks(); }
 
     // OPCODE's Radix Sorting, returns a list of indices in sorted order
     const uint32* RadixSort( const float* input2, uint32 nb );
@@ -87,7 +87,7 @@ private:
     uint32* mPrimaryRanks;
 };
 
-void RaixSortContext::AllocateRanks(sizeint nNewSize)
+void RadixSortContext::AllocateRanks(sizeint nNewSize)
 {
     dIASSERT(GetCurrentSize() == 0);
 
@@ -97,14 +97,14 @@ void RaixSortContext::AllocateRanks(sizeint nNewSize)
     SetCurrentSize(nNewSize);
 }
 
-void RaixSortContext::FreeRanks()
+void RadixSortContext::FreeRanks()
 {
     SetCurrentSize(0);
 
     delete[] mRanksBuffer;
 }
 
-void RaixSortContext::ReallocateRanksIfNecessary(sizeint nNewSize)
+void RadixSortContext::ReallocateRanksIfNecessary(sizeint nNewSize)
 {
     const sizeint nCurUtilization = GetCurrentUtilization();
 
@@ -204,7 +204,7 @@ private:
     // pruning position array scratch pad
     // NOTE: this is float not dReal because of the OPCODE radix sorter
     dArray< float > poslist;
-    RaixSortContext	sortContext;
+    RadixSortContext	sortContext;
 };
 
 // Creation
@@ -610,7 +610,7 @@ void dxSAPSpace::BoxPruning( int numBoxes, dxGeom** geoms, dArray< Pair >& pairs
     if(CurCount[UniqueVal]==nb)	PerformPass=false
 
 // WARNING ONLY SORTS IEEE FLOATING-POINT VALUES
-const uint32* RaixSortContext::RadixSort( const float* input2, uint32 nb )
+const uint32* RadixSortContext::RadixSort( const float* input2, uint32 nb )
 {
     union _type_cast_union
     {

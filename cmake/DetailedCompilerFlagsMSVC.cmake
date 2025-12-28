@@ -41,7 +41,7 @@ MACRO(APPLY_COMPILER_OPTIONS_MSVC TARGET_NAME)
       /wd5220 # 'name': a non-static data member with a volatile qualified type no longer implies%$N that compiler generated copy/move constructors and copy/move assignment operators are not trivial
     )
   endif()
-  # this oject file does not define anay previously undefined public symbols, so it will not be used by any link operation that consumes this library
+  # this object file does not define anay previously undefined public symbols, so it will not be used by any link operation that consumes this library
   APPEND_LINK_FLAG(STATIC_LIBRARY_FLAGS /ignore:4221)
   APPEND_LINK_FLAG(LINK_FLAGS /ignore:4221)
 ENDMACRO()

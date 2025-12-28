@@ -264,7 +264,7 @@ ODE_API int dGeomTriMeshIsTCEnabled(dGeomID g, int geomClass);
 /*
  * Clears the internal temporal coherence caches. When a geom has its
  * collision checked with a trimesh once, data is stored inside the trimesh.
- * With large worlds with lots of seperate objects this list could get huge.
+ * With large worlds with lots of separate objects this list could get huge.
  * We should be able to do this automagically.
  */
 ODE_API void dGeomTriMeshClearTCCache(dGeomID g);

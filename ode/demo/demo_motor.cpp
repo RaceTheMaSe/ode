@@ -54,8 +54,8 @@ static void start()
   float xyz[3] = {1.0382f,-1.0811f,1.4700f};
   float hpr[3] = {135.0000f,0.0000f,0.0000f};
   dsSetViewpoint (xyz,hpr);
-  printf ("Press 'q,a,z' to control one axis of lmotor connectiong two bodies. (q is +,a is 0, z is -)\n");
-  printf ("Press 'w,e,r' to control one axis of lmotor connectiong first body with world. (w is +,e is 0, r is -)\n");
+  printf ("Press 'q,a,z' to control one axis of lmotor connecting two bodies. (q is +,a is 0, z is -)\n");
+  printf ("Press 'w,e,r' to control one axis of lmotor connecting first body with world. (w is +,e is 0, r is -)\n");
 }
 
 

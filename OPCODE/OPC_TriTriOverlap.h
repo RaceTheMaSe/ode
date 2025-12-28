@@ -49,7 +49,7 @@ do {														\
 //! TO BE DOCUMENTED
 #define POINT_IN_TRI(V0, U0, U1, U2)					\
 do {														\
-	/* is T1 completly inside T2? */					\
+	/* is T1 completely inside T2? */					\
 	/* check if V0 is inside tri(U0,U1,U2) */			\
 	float a  = (U1)[i1] - (U0)[i1];							\
 	float b  = -((U1)[i0] - (U0)[i0]);						\

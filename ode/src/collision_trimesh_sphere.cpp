@@ -363,7 +363,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
             * triangle's plane, allow a contact to be generated.
             * If the center of the sphere made it into the positive halfspace of a
             * back-facing triangle, then the physics update and/or velocity needs
-            * to be adjusted (penetration has occured anyway).
+            * to be adjusted (penetration has occurred anyway).
             */
 
             const dReal side = dCalcVectorDot3(Plane,Position) - dCalcVectorDot3(Plane, v0);

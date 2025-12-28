@@ -17,7 +17,7 @@
 #include <AntTweakBar.h>
 
 int TW_CALL TwEventSDL12(const void *sdlEvent); // implemented in TwEventSDL12.c
-int TW_CALL TwEventSDL13(const void *sdlEvent); // implmeneted in TwEventSDL13.c
+int TW_CALL TwEventSDL13(const void *sdlEvent); // implemented in TwEventSDL13.c
 #ifdef  __cplusplus
     extern "C" { int TW_CALL TwSetLastError(const char *staticErrorMessage); }
 #else

@@ -33,7 +33,7 @@
  *	from the author or something you don't get.
  *
  *	One way to handle it at compile-time would be to use different classes for Point & Vector3, only overloading operator "-" for vectors.
- *	But then, you get a lot of redundant code in thoses classes, and basically it's really a lot of useless work.
+ *	But then, you get a lot of redundant code in those classes, and basically it's really a lot of useless work.
  *
  *	Another way would be to use homogeneous points: w=1 for points, w=0 for vectors. That's why the HPoint class exists. Now, to store
  *	your model's vertices and in most cases, you really want to use Points to save ram.

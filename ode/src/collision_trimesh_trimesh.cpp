@@ -686,10 +686,10 @@ dInvertMatrix4( dMatrix4& B, dMatrix4& Binv )
 #endif
 
 
-// Find the intersection point between a coplanar line segement,
+// Find the intersection point between a coplanar line segment,
 // defined by X1 and X2, and a ray defined by X3 and direction N.
 //
-// This forumla for this calculation is:
+// This formula for this calculation is:
 //               (c x b) . (a x b)
 //   Q = x1 + a -------------------
 //                  | a x b | ^2

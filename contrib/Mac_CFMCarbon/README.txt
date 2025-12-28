@@ -17,7 +17,7 @@ test programs which were posted to the ODE mailing list.
 Compiling Notes:
 
 You'll need to extract the CodeWarrior projects from the 'CW7_projects.sit.bin' archive
-(They're nearly a meg uncompressed so this was done to be bandwith friendly on the CVS).
+(They're nearly a meg uncompressed so this was done to be bandwidth friendly on the CVS).
 
 Projects require CodeWarrior 7 or above (recreating them with earlier versions shouldn't
 be too difficult). The projects use relative paths and are meant to be compiled from

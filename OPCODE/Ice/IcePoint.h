@@ -246,7 +246,7 @@
 									return TRUE;
 								}
 
-		//! Slighty moves the point
+		//! Slightly moves the point
 				void			Tweak(udword coord_mask, udword tweak_mask)
 								{
 									if(coord_mask&1)	{ udword Dummy = IR(x);	Dummy^=tweak_mask;	x = FR(Dummy); }
@@ -256,7 +256,7 @@
 
 		#define TWEAKMASK		0x3fffff
 		#define TWEAKNOTMASK	((udword)~TWEAKMASK)
-		//! Slighty moves the point out
+		//! Slightly moves the point out
 		inline_	void			TweakBigger()
 								{
 									udword	Dummy = (IR(x)&TWEAKNOTMASK);	if(!IS_NEGATIVE_FLOAT(x))	Dummy+=TWEAKMASK+1;	x = FR(Dummy);
@@ -264,7 +264,7 @@
 											Dummy = (IR(z)&TWEAKNOTMASK);	if(!IS_NEGATIVE_FLOAT(z))	Dummy+=TWEAKMASK+1;	z = FR(Dummy);
 								}
 
-		//! Slighty moves the point in
+		//! Slightly moves the point in
 		inline_	void			TweakSmaller()
 								{
 									udword	Dummy = (IR(x)&TWEAKNOTMASK);	if(IS_NEGATIVE_FLOAT(x))	Dummy+=TWEAKMASK+1;	x = FR(Dummy);
@@ -394,7 +394,7 @@
 									return (f>>22)^(f>>12)^(f);
 								}
 
-		//! Stuff magic values in the point, marking it as explicitely not used.
+		//! Stuff magic values in the point, marking it as explicitly not used.
 				void			SetNotUsed();
 		//! Checks the point is marked as not used
 				BOOL			IsNotUsed()							const;

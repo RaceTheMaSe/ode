@@ -808,7 +808,7 @@ static void expandPolytope(ccd_pt_t *pt, ccd_pt_el_t *el,
     /* element can be either segment or triangle */
     if (el->type == CCD_PT_EDGE){
         /* In this case, segment should be replaced by new point.
-           Simpliest case is when segment stands alone and in this case
+           Simplest case is when segment stands alone and in this case
            this segment is replaced by two other segments both connected to
            newv.
            Segment can be also connected to max two faces and in that case

@@ -2381,7 +2381,7 @@ cdef class UniversalJoint(Joint):
     def getAxis1(self):
         """getAxis1() -> 3-tuple of floats
 
-        Get the first univeral axis.
+        Get the first universal axis.
         """
         cdef dVector3 a
         dJointGetUniversalAxis1(self.jid, a)
@@ -2403,7 +2403,7 @@ cdef class UniversalJoint(Joint):
     def getAxis2(self):
         """getAxis2() -> 3-tuple of floats
 
-        Get the second univeral axis.
+        Get the second universal axis.
         """
         cdef dVector3 a
         dJointGetUniversalAxis2(self.jid, a)

@@ -24,7 +24,7 @@
 		n = ((n >>  4) & 0x0f0f0f0f) | ((n <<  4) & 0xf0f0f0f0);
 		n = ((n >>  8) & 0x00ff00ff) | ((n <<  8) & 0xff00ff00);
 		n = ((n >> 16) & 0x0000ffff) | ((n << 16) & 0xffff0000);
-		// Etc for larger intergers (64 bits in Java)
+		// Etc for larger integers (64 bits in Java)
 		// NOTE: the >> operation must be unsigned! (>>> in java)
 	}
 
@@ -32,15 +32,15 @@
 	inline_ udword	CountBits(udword n)
 	{
 		// This relies of the fact that the count of n bits can NOT overflow 
-		// an n bit interger. EG: 1 bit count takes a 1 bit interger, 2 bit counts
-		// 2 bit interger, 3 bit count requires only a 2 bit interger.
+		// an n bit integer. EG: 1 bit count takes a 1 bit integer, 2 bit counts
+		// 2 bit integer, 3 bit count requires only a 2 bit integer.
 		// So we add all bit pairs, then each nible, then each byte etc...
 		n = (n & 0x55555555) + ((n & 0xaaaaaaaa) >> 1);
 		n = (n & 0x33333333) + ((n & 0xcccccccc) >> 2);
 		n = (n & 0x0f0f0f0f) + ((n & 0xf0f0f0f0) >> 4);
 		n = (n & 0x00ff00ff) + ((n & 0xff00ff00) >> 8);
 		n = (n & 0x0000ffff) + ((n & 0xffff0000) >> 16);
-		// Etc for larger intergers (64 bits in Java)
+		// Etc for larger integers (64 bits in Java)
 		// NOTE: the >> operation must be unsigned! (>>> in java)
 		return n;
 	}
@@ -56,7 +56,7 @@
 
 	//! Spread out bits.	EG	00001111  ->   0101010101
 	//! 						00001010  ->   0100010000
-	//! This is used to interleve to intergers to produce a `Morten Key'
+	//! This is used to interleave to integers to produce a `Morten Key'
 	//! used in Space Filling Curves (See DrDobbs Journal, July 1999)
 	//! Order is important.
 	inline_ void	SpreadBits(udword& n)

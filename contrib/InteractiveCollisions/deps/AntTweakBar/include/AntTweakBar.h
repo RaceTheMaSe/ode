@@ -297,7 +297,7 @@ TW_API void     TW_CALL TwHandleErrors(TwErrorHandler errorHandler);
 TW_API int      TW_CALL TwEventSDL(const void *sdlEvent, unsigned char sdlMajorVersion, unsigned char sdlMinorVersion);
 
 // For GLFW event callbacks
-// Define GLFW_CDECL before including AntTweakBar.h if your version of GLFW uses cdecl calling convensions
+// Define GLFW_CDECL before including AntTweakBar.h if your version of GLFW uses cdecl calling conventions
 #ifdef GLFW_CDECL
     TW_API int TW_CDECL_CALL TwEventMouseButtonGLFWcdecl(int glfwButton, int glfwAction);
     TW_API int TW_CDECL_CALL TwEventKeyGLFWcdecl(int glfwKey, int glfwAction);
@@ -352,7 +352,7 @@ TW_COMPILE_TIME_ASSERT(TW_DOUBLE,  sizeof(double)  == 8);
 // Check pointer size on Windows
 #if !defined(_WIN64) && defined(_WIN32)
     // If the following assert failed, the platform is not 32-bit and _WIN64 is not defined.
-    // When targetting 64-bit Windows platform, _WIN64 must be defined.
+    // When targeting 64-bit Windows platform, _WIN64 must be defined.
     TW_COMPILE_TIME_ASSERT(TW_PTR32, sizeof(void*) == 4);
 #elif defined(_WIN64)
     // If the following assert failed, _WIN64 is defined but the targeted platform is not 64-bit.

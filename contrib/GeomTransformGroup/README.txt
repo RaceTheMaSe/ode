@@ -83,7 +83,7 @@ be asked for the body.
 You may now conclude that it is a good idea to unwrap the group encapsulated 
 geoms at the beginning of the nearcallback and use dGeomGetBody(o1) 
 consistently. But keep in mind that this also means not to invoke 
-dCollide(..) on groups at all and therefore not to expoit the capability of 
+dCollide(..) on groups at all and therefore not to exploit the capability of 
 dGeomGroups to speed up collision detection by the creation of bounding boxes 
 around the encapsulated geometry.
 

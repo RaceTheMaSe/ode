@@ -1,7 +1,7 @@
 //  ---------------------------------------------------------------------------
 //
 //  @file       AntPerfTimer.h
-//  @brief      A performance (precision) timer for benchs
+//  @brief      A performance (precision) timer for benches
 //  @author     Philippe Decaudin - http://www.antisphere.com
 //  @license    This file is part of the AntTweakBar library.
 //              For conditions of distribution and use, see License.txt

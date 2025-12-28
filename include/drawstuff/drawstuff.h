@@ -139,7 +139,7 @@ DS_API void dsSimulationLoop (int argc, char **argv,
  * @brief exit with error message.
  * @ingroup drawstuff
  * This function displays an error message then exit.
- * @param msg format strin, like printf, without the newline character.
+ * @param msg format string, like printf, without the newline character.
  */
 DS_API ODE_NORETURN_VOID dsError (const char *msg, ...);
 
@@ -147,7 +147,7 @@ DS_API ODE_NORETURN_VOID dsError (const char *msg, ...);
  * @brief exit with error message and core dump.
  * @ingroup drawstuff
  * this functions tries to dump core or start the debugger.
- * @param msg format strin, like printf, without the newline character.
+ * @param msg format string, like printf, without the newline character.
  */
 DS_API ODE_NORETURN_VOID dsDebug (const char *msg, ...);
 

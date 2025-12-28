@@ -930,7 +930,7 @@ SUITE(JointPR)
 //   |         |--------(_)----|-----|           |  ----->Y
 //   +---------+                -    +-----------+
 //
-// N.B. X is comming out of the page
+// N.B. X is coming out of the page
 ////////////////////////////////////////////////////////////////////////////////
     struct PRGetInfo1_Fixture_3
     {
@@ -1113,7 +1113,7 @@ SUITE(JointPR)
 //                      (_)----|-----|           |  ----->Y
 //                              -    +-----------+
 //
-// N.B. X is comming out of the page
+// N.B. X is coming out of the page
 ////////////////////////////////////////////////////////////////////////////////
     struct PRGetInfo1_Fixture_4
     {

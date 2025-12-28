@@ -10,7 +10,7 @@ through hoops and find a reasonable normal and penetration depth, as i dont
 think anyone will want to use it for dynamics. Just for CD.
 
 It should compile in single and double precision mode, and should be
-platform independant. I hope.
+platform independent. I hope.
 
 The next Tri-Collider release using Opcode 1.1 will also implement a ray
 collision function along with some other not too interesting improvements.

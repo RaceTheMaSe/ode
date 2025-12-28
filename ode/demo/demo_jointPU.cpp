@@ -736,7 +736,7 @@ int main (int argc, char **argv)
 
 
 
-  // Attache the upper box to the world
+  // Attach the upper box to the world
   dJointID fixed = dJointCreateFixed (world,NULL);
   dJointAttach (fixed , NULL, body[W]);
   dJointSetFixed (fixed );

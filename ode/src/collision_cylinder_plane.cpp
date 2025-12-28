@@ -50,10 +50,10 @@ int dCollideCylinderPlane(dxGeom *Cylinder, dxGeom *Plane, int flags, dContactGe
     int GeomCount = 0; // count of used contactgeoms
 
 #ifdef dSINGLE
-    const dReal toleranz = REAL(0.0001);
+    const dReal tolerance = REAL(0.0001);
 #endif
 #ifdef dDOUBLE
-    const dReal toleranz = REAL(0.0000001);
+    const dReal tolerance = REAL(0.0000001);
 #endif
 
     // Get the properties of the cylinder (length+radius)
@@ -89,7 +89,7 @@ int dCollideCylinderPlane(dxGeom *Cylinder, dxGeom *Plane, int flags, dContactGe
         s += REAL(1.0); // is ca. 0, if vDir1 and PlaneNormal are parallel
     else
         s -= REAL(1.0); // is ca. 0, if vDir1 and PlaneNormal are parallel
-    if(s < toleranz && s > (-toleranz))
+    if(s < tolerance && s > (-tolerance))
     {
         // discs are parallel to the plane
 
@@ -121,7 +121,7 @@ int dCollideCylinderPlane(dxGeom *Cylinder, dxGeom *Plane, int flags, dContactGe
 
         // 2. generate a coordinate-system on the disc
         dVector3 V1, V2;
-        if(vDir1[0] < toleranz && vDir1[0] > (-toleranz))
+        if(vDir1[0] < tolerance && vDir1[0] > (-tolerance))
         {
             // not x-axis
             V1[0] = vDir1[0] + REAL(1.0); // random value

@@ -1189,7 +1189,7 @@ if(ODE_DOCUMENTATION)
                 ${ALL_DOCUMENTED_FILES}
                 USE_STAMP_FILE
 				WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc
-                COMMENT "Building Doxygen documention"
+                COMMENT "Building Doxygen documentation"
                 CONFIG_FILE ${DOXYFILE}
             )
 			set(DOCUMENTATION_ZIP doxygen.zip)

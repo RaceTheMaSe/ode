@@ -1166,7 +1166,7 @@ int testBoxesTouch2(const dVector3 p1, const dMatrix3 R1,
                                 for (k = 0; k < 3; k++) vertex1[k] += p1[k];
                                 for (k = 0; k < 3; k++) vertex2[k] += p1[k];
 
-                                // see if vertex1 -> vertex2 interesects face
+                                // see if vertex1 -> vertex2 intersects face
                                 if (edgeIntersectsRect(vertex1, vertex2, fp[0], fp[1], fp[2]))
                                     return 1;
                             }

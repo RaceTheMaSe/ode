@@ -440,7 +440,7 @@ dxGeom* dxQuadTreeSpace::getGeom(int Index){
     //@@@
     dDebug (0,"dxQuadTreeSpace::getGeom() not yet implemented");
 
-    // This doesnt work
+    // This doesn't work
 /*
     if (CurrentIndex == Index){
         // Loop through all objects in the local list

@@ -75,10 +75,10 @@ trimeshindices,
 0 //transformed_reply is 0
 );
 \endcode
-<p>Note that parameter transformed_reply is 0, that means that m_transformed_vertex_buffer is a reference to m_source_vertex on the trimesh, and transformations are not avaliable. Use that configuration if you have to simulate a deformable trimesh like cloth or elastic bodies.</p>
+<p>Note that parameter transformed_reply is 0, that means that m_transformed_vertex_buffer is a reference to m_source_vertex on the trimesh, and transformations are not available. Use that configuration if you have to simulate a deformable trimesh like cloth or elastic bodies.</p>
 <p>When the trimesh is no longer needed, destroy it safely with gim_trimesh_destroy()</p>
 <p><strong>UPDATING TRIMESHES</strong></p>
-<p>On simulation loops, is needed to update trimeshes every time to update vertices althought updating triangle boxes and planes cache. There is two ways to update trimeshes: </p>
+<p>On simulation loops, is needed to update trimeshes every time to update vertices although updating triangle boxes and planes cache. There is two ways to update trimeshes: </p>
 <ul>
 <li> Updating vertices directly. You need to access to the \ref GIM_TRIMESH.m_source_vertex_buffer member; a vertex buffer which has access to the source vertices.
 \code
@@ -111,7 +111,7 @@ gim_trimesh_post_update(&mytrimesh.m_source_vertex_buffer);
 For making trimeshes that allow to update their vertices, use \ref gim_trimesh_create_from_data with parameter <strong>transformed_reply</strong> = 0.
 </ul>
 <ul>
-<li> Aplying a transformation. Simply use \ref gim_trimesh_set_tranform . Remember that with this method trimeshes must be created with \ref gim_trimesh_create_from_data with parameter <strong>transformed_reply</strong> = 1.
+<li> Applying a transformation. Simply use \ref gim_trimesh_set_tranform . Remember that with this method trimeshes must be created with \ref gim_trimesh_create_from_data with parameter <strong>transformed_reply</strong> = 1.
 </ul>
 <p> After updating vertices, you must call \ref gim_trimesh_update()</p>
 <p><strong>TRIMESHES COLLISION</strong></p>
@@ -249,7 +249,7 @@ void gim_trimesh_update_vertices(GIM_TRIMESH * trimesh);
 */
 void gim_trimesh_update_aabbset(GIM_TRIMESH * trimesh);
 
-//! Calls before perfom collisions. Updates the trimesh if needed
+//! Calls before perform collisions. Updates the trimesh if needed
 /*!
 \post If gim_trimesh_needs_update returns 1, then it calls  gim_trimesh_update_vertices and gim_trimesh_update_aabbset
 */
@@ -445,7 +445,7 @@ In each contact
 </ul>
 
 \param trimesh triangle mesh
-\param capsule caspule data
+\param capsule capsule data
 \param contacts A GIM_CONTACT array. Must be initialized
 */
 void gim_trimesh_capsule_collision(GIM_TRIMESH * trimesh, GIM_CAPSULE_DATA * capsule, GDYNAMIC_ARRAY * contacts);

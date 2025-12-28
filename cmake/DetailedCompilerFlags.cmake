@@ -15,7 +15,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         -Wno-used-but-marked-unused # libccd
         -Wno-duplicate-enum
         -Wno-old-style-cast
-        -Wno-cast-align # pointer arithmetics on dContact array - asserts added to check stride
+        -Wno-cast-align # pointer arithmetic on dContact array - asserts added to check stride
         -Wno-zero-as-null-pointer-constant
         -Wno-switch-default # contradicting option -switch-enum
         $<$<COMPILE_LANGUAGE:CXX>:
