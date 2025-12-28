@@ -33,6 +33,7 @@
 
 #include "error.h"
 #include "common_impl.h"
+#include "threaded_solver_ldlt.h"
 
 #if defined(_MSC_VER)
 #pragma warning(push)

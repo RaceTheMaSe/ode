@@ -30,6 +30,8 @@
 #ifndef ODE_FASTLSOLVE_IMPL_H
 #define ODE_FASTLSOLVE_IMPL_H
 
+#include "common_impl.h"
+#include "threaded_solver_ldlt.h"
 
 /* solve L*X=B, with B containing 1 right hand sides.
  * L is an n*n lower triangular matrix with ones on the diagonal.

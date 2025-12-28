@@ -31,6 +31,10 @@
 #ifndef ODE_FASTLTSOLVE_IMPL_H
 #define ODE_FASTLTSOLVE_IMPL_H
 
+#include "ode/common.h"
+#include "common_impl.h"
+#include "threaded_solver_ldlt.h"
+
 
 /* solve L^T * x=b, with b containing 1 right hand side.
  * L is an n*n lower triangular matrix with ones on the diagonal.

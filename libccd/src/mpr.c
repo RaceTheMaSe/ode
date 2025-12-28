@@ -20,6 +20,7 @@
 #include <ccdcustom/vec3.h>
 #include <ccd/simplex.h>
 #include <ccd/dbg.h>
+#include <ccd/vec3.h>
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"

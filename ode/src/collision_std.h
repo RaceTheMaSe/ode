@@ -31,6 +31,7 @@ the standard ODE geometry primitives.
 
 #include <ode/common.h>
 #include "collision_kernel.h"
+#include "ode/odemath.h"
 
 
 // primitive collision functions - these have the dColliderFn interface, i.e.

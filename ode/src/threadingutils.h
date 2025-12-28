@@ -25,6 +25,7 @@
 
 
 #include "odeou.h"
+#include "typedefs.h"
 
 
 #if !defined(dTHREADING_INTF_DISABLED)

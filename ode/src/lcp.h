@@ -50,6 +50,9 @@ to be implemented. the first `nub' variables are assumed to have findex < 0.
 #ifndef ODE_LCP_H
 #define ODE_LCP_H
 
+#include "ode/common.h"
+#include "typedefs.h"
+
 class dxWorldProcessMemArena;
 
 enum dxLCPBXElement

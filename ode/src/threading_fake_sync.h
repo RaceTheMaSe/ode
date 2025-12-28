@@ -36,7 +36,8 @@
 #ifndef ODE_THREADING_FAKE_SYNC_H
 #define ODE_THREADING_FAKE_SYNC_H
 
-
+#include "error.h"
+#include "ode/threading.h"
 #include <ode/odeconfig.h>
 #include <ode/error.h>
 

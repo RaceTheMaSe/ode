@@ -34,6 +34,8 @@
 #ifndef ODE_COLLISION_TRIMESH_H
 #define ODE_COLLISION_TRIMESH_H
 
+#include "ode/common.h"
+#include "ode/odeconfig.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

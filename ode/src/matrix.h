@@ -28,7 +28,7 @@
 #ifndef ODE_PRIVATE_MATRIX_H
 #define ODE_PRIVATE_MATRIX_H
 
-
+#include "typedefs.h"
 #include <ode/matrix.h>
 
 

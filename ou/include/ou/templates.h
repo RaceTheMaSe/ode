@@ -28,6 +28,7 @@
 #define OU_TEMPLATES_H_INCLUDED
 
 
+#include "ou/platform.h"
 #include <ou/macros.h>
 #include <ou/namespace.h>
 

@@ -1,3 +1,5 @@
+#include "ode/common.h"
+
 static unsigned int prism_pointcount = 8;
 static unsigned int prism_planecount = 6;
 static dReal prism_points[24]={

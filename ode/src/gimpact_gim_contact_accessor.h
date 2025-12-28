@@ -24,6 +24,8 @@
 #ifndef ODE_GIMPACT_GIM_CONTACT_ACCESSOR_H
 #define ODE_GIMPACT_GIM_CONTACT_ACCESSOR_H
 
+#include "GIMPACT/gim_contact.h"
+#include "ode/contact.h"
 
 struct dxGIMCContactAccessor
 {

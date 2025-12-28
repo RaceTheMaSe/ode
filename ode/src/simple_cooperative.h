@@ -35,6 +35,7 @@
 
 
 #include "objects.h"
+#include "ode/cooperative.h"
 #include "threading_base.h"
 
 

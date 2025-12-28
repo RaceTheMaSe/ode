@@ -25,6 +25,7 @@
 #ifndef ODE_FASTDOT_IMPL_H
 #define ODE_FASTDOT_IMPL_H
 
+#include "ode/common.h"
 
 template<unsigned b_stride>
 dReal calculateLargeVectorDot (const dReal *a, const dReal *b, unsigned n)

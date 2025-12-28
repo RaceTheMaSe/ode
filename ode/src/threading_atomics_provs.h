@@ -37,6 +37,7 @@
 #define ODE_THREADING_ATOMICS_PROVS_H
 
 
+#include "typedefs.h"
 #include <ode/odeconfig.h>
 #include <ode/error.h>
 

@@ -1,4 +1,6 @@
 // Bunny mesh ripped from Opcode
+#include "ode/common.h"
+
 static const int VertexCount = 453;
 static const int IndexCount = 902 * 3;
 

@@ -4,6 +4,8 @@
    the convex collision detection.
 */
 
+#include "ode/common.h"
+
 #if defined(__clang__)
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wimplicit-float-conversion"

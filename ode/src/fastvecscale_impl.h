@@ -28,6 +28,12 @@
 #ifndef ODE_FASTVECSCALE_IMPL_H
 #define ODE_FASTVECSCALE_IMPL_H
 
+#include "error.h"
+#include "ode/common.h"
+#include "odeou.h"
+#include "typedefs.h"
+#include "threaded_solver_ldlt.h"
+
 template<unsigned int a_stride, unsigned int d_stride>
 void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
 {

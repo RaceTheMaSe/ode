@@ -23,6 +23,7 @@
 #ifndef ODE_COLLISION_TRIMESH_COLLIDERS_H
 #define ODE_COLLISION_TRIMESH_COLLIDERS_H
 
+#include "ode/contact.h"
 
 int dCollideCylinderTrimesh(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip);
 int dCollideTrimeshPlane(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip);

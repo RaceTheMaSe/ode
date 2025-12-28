@@ -23,6 +23,8 @@
 #ifndef LIBCCD_COLLISION_H
 #define LIBCCD_COLLISION_H
 
+#include "collision_kernel.h"
+
 int dCollideCylinderCylinder(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip);
 
 int dCollideBoxCylinderCCD(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip);

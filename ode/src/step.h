@@ -23,6 +23,7 @@
 #ifndef ODE_STEP_H
 #define ODE_STEP_H
 
+#include "typedefs.h"
 #include <ode/common.h>
 
 struct dxStepperProcessingCallContext;
