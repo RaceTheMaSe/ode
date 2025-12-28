@@ -190,7 +190,7 @@ dGeomID dGeomTransformGetGeom (dGeomID g)
 {
     dUASSERT (g && g->type == dGeomTransformClass,
         "argument not a geom transform");
-    dxGeomTransform *tr = (dxGeomTransform*) g;
+    const dxGeomTransform *tr = (dxGeomTransform*) g;
     return tr->obj;
 }
 
@@ -208,7 +208,7 @@ int dGeomTransformGetCleanup (dGeomID g)
 {
     dUASSERT (g && g->type == dGeomTransformClass,
         "argument not a geom transform");
-    dxGeomTransform *tr = (dxGeomTransform*) g;
+    const dxGeomTransform *tr = (dxGeomTransform*) g;
     return tr->cleanup;
 }
 
@@ -226,7 +226,7 @@ int dGeomTransformGetInfo (dGeomID g)
 {
     dUASSERT (g && g->type == dGeomTransformClass,
         "argument not a geom transform");
-    dxGeomTransform *tr = (dxGeomTransform*) g;
+    const dxGeomTransform *tr = (dxGeomTransform*) g;
     return tr->infomode;
 }
 

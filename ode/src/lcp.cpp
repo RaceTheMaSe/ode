@@ -154,7 +154,7 @@ template<bool zero_b>
 inline static
 void transfer_b_to_x(dReal pairsbx[PBX__MAX], unsigned n)
 {
-    dReal *const endbx = pairsbx + (sizeint)n * PBX__MAX;
+    const dReal *const endbx = pairsbx + (sizeint)n * PBX__MAX;
     for (dReal *currbx = pairsbx; currbx != endbx; currbx += PBX__MAX) {
         currbx[PBX_X] = currbx[PBX_B];
         if (zero_b) {
@@ -583,7 +583,7 @@ void dLCP::transfer_i_from_N_to_C (unsigned i)
 
         if (nC > 0) {
             {
-                dReal *const aptr = AROW(i);
+                const dReal *const aptr = AROW(i);
                 dReal *Dell = m_Dell;
                 const unsigned *C = m_C;
 #   ifdef NUB_OPTIMIZATIONS
@@ -703,7 +703,7 @@ void dLCP::pN_equals_ANC_times_qC (dReal *p, dReal *q) const
 void dLCP::pN_plusequals_ANi (dReal *p, unsigned i, bool dir_positive) const
 {
     const unsigned nC = m_nC;
-    dReal *aptr = AROW(i) + nC;
+    const dReal *aptr = AROW(i) + nC;
     dReal *ptgt = p + nC;
     if (dir_positive) {
         const unsigned nN = m_nN;
@@ -719,7 +719,7 @@ template<unsigned p_stride>
 void dLCP::pC_plusequals_s_times_qC (dReal *p, dReal s, dReal *q)
 {
     const unsigned nC = m_nC;
-    dReal *q_end = q + nC;
+    const dReal *q_end = q + nC;
     for (; q != q_end; p += p_stride, ++q) {
         *p += s * (*q);
     }
@@ -747,8 +747,8 @@ void dLCP::solve1 (dReal *a, unsigned i, bool dir_positive, int only_transfer) c
     if (nC > 0) {
         {
             dReal *Dell = m_Dell;
-            unsigned *C = m_C;
-            dReal *aptr = AROW(i);
+            const unsigned*C = m_C;
+            const dReal *aptr = AROW(i);
 #   ifdef NUB_OPTIMIZATIONS
             // if nub>0, initial part of aptr[] is guaranteed unpermuted
             const unsigned nub = m_nub;
@@ -772,12 +772,12 @@ void dLCP::solve1 (dReal *a, unsigned i, bool dir_positive, int only_transfer) c
             }
             solveL1Transposed<1>(m_L, tmp, nC, m_nskip);
             if (dir_positive) {
-                unsigned *C = m_C;
-                dReal *temp = m_tmp;
+                const unsigned*C = m_C;
+                const dReal *temp = m_tmp;
                 for (unsigned j = 0; j < nC; ++j) a[C[j]] = -temp[j];
             } else {
-                unsigned *C = m_C;
-                dReal *temp = m_tmp;
+                const unsigned*C = m_C;
+                const dReal *temp = m_tmp;
                 for (unsigned j = 0; j < nC; ++j) a[C[j]] = temp[j];
             }
         }
@@ -872,8 +872,8 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
 # ifndef dNODEBUG
     {
         // check restrictions on lo and hi
-        dReal *endlh = pairslh + (sizeint)n * PLH__MAX;
-        for (dReal *currlh = pairslh; currlh != endlh; currlh += PLH__MAX) dIASSERT (currlh[PLH_LO] <= 0 && currlh[PLH_HI] >= 0);
+        const dReal *endlh = pairslh + (sizeint)n * PLH__MAX;
+        for (const dReal *currlh = pairslh; currlh != endlh; currlh += PLH__MAX) dIASSERT (currlh[PLH_LO] <= 0 && currlh[PLH_HI] >= 0);
     }
 # endif
 
@@ -967,7 +967,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
         // will never be checked for set changes. this means that the state for
         // these indexes may be incorrect, but that doesn't matter.
 
-        dReal *currlh = pairslh + (sizeint)i * PLH__MAX;
+        const dReal *currlh = pairslh + (sizeint)i * PLH__MAX;
 
         // see if x(i),w(i) is in a valid region
         if (currlh[PLH_LO] == 0 && w[i] >= 0) {
@@ -1047,7 +1047,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                         const unsigned indexN_k = lcp.indexN(k);
                         if (!state[indexN_k] ? delta_w[indexN_k] < 0 : delta_w[indexN_k] > 0) {
                             // don't bother checking if lo=hi=0
-                            dReal *indexlh = pairslh + (sizeint)indexN_k * PLH__MAX;
+                            const dReal *indexlh = pairslh + (sizeint)indexN_k * PLH__MAX;
                             if (indexlh[PLH_LO] == 0 && indexlh[PLH_HI] == 0) continue;
                             const dReal s2 = -w[indexN_k] / delta_w[indexN_k];
                             if (s2 < s) {
@@ -1063,7 +1063,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                     const unsigned numC = lcp.numC();
                     for (unsigned k = adj_nub; k < numC; ++k) {
                         const unsigned indexC_k = lcp.indexC(k);
-                        dReal *indexlh = pairslh + (sizeint)indexC_k * PLH__MAX;
+                        const dReal *indexlh = pairslh + (sizeint)indexC_k * PLH__MAX;
                         if (delta_x[indexC_k] < 0 && indexlh[PLH_LO] > -dInfinity) {
                             const dReal s2 = (indexlh[PLH_LO] - (pairsbx + (sizeint)indexC_k * PBX__MAX)[PBX_X]) / delta_x[indexC_k];
                             if (s2 < s) {

@@ -55,7 +55,7 @@ AABB& AABB::Add(const AABB& aabb)
 float AABB::MakeCube(AABB& cube) const
 {
 	Point Ext;	GetExtents(Ext);
-	float Max = Ext.Max();
+	const float Max = Ext.Max();
 
 	Point Cnt;	GetCenter(Cnt);
 	cube.SetCenterExtents(Cnt, Point(Max, Max, Max));
@@ -118,12 +118,12 @@ bool AABB::ComputePlanes(Plane* planes)	const
 	planes[5].n = Point(0.0f, 0.0f, -1.0f);
 
 	// Compute a point on each plane
-	Point p0 = Point(Center.x+Extents.x, Center.y, Center.z);
-	Point p1 = Point(Center.x-Extents.x, Center.y, Center.z);
-	Point p2 = Point(Center.x, Center.y+Extents.y, Center.z);
-	Point p3 = Point(Center.x, Center.y-Extents.y, Center.z);
-	Point p4 = Point(Center.x, Center.y, Center.z+Extents.z);
-	Point p5 = Point(Center.x, Center.y, Center.z-Extents.z);
+	const Point p0 = Point(Center.x+Extents.x, Center.y, Center.z);
+	const Point p1 = Point(Center.x-Extents.x, Center.y, Center.z);
+	const Point p2 = Point(Center.x, Center.y+Extents.y, Center.z);
+	const Point p3 = Point(Center.x, Center.y-Extents.y, Center.z);
+	const Point p4 = Point(Center.x, Center.y, Center.z+Extents.z);
+	const Point p5 = Point(Center.x, Center.y, Center.z-Extents.z);
 
 	// Compute d
 	planes[0].d = -(planes[0].n|p0);
@@ -357,7 +357,7 @@ const sbyte* AABB::ComputeOutline(const Point& local_eye, sdword& num)	const
 	Point max;	GetMax(max);
 
 	// Compute 6-bit code to classify eye with respect to the 6 defining planes of the bbox
-	int pos = ((local_eye.x < min.x) ?  1 : 0)	// 1 = left
+	const int pos = ((local_eye.x < min.x) ?  1 : 0)	// 1 = left
 			+ ((local_eye.x > max.x) ?  2 : 0)	// 2 = right
 			+ ((local_eye.y < min.y) ?  4 : 0)	// 4 = bottom
 			+ ((local_eye.y > max.y) ?  8 : 0)	// 8 = top

@@ -163,10 +163,10 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
 
     dxTriMesh* TriMesh = (dxTriMesh*)g1;
 
-    dReal Length = dGeomRayGetLength(RayGeom);
+    const dReal Length = dGeomRayGetLength(RayGeom);
     //int FirstContact = dGeomRayGetFirstContact(RayGeom);
     //int BackfaceCull = dGeomRayGetBackfaceCull(RayGeom);
-    int ClosestHit = dGeomRayGetClosestHit(RayGeom);
+    const int ClosestHit = dGeomRayGetClosestHit(RayGeom);
     dVector3 Origin, Direction;
     dGeomRayGet(RayGeom, Origin, Direction);
 

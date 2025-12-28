@@ -586,7 +586,7 @@ dTriMeshDataID dGeomTriMeshDataCreate()
 /*extern */
 void dGeomTriMeshDataDestroy(dTriMeshDataID g)
 {
-    dxTriMeshData *mesh = g;
+    const dxTriMeshData *mesh = g;
     delete mesh;
 }
 
@@ -724,7 +724,7 @@ dGeomID dCreateTriMesh(dSpaceID space,
     dTriArrayCallback* ArrayCallback,
     dTriRayCallback* RayCallback)
 {
-    dxTriMesh *mesh = new dxTriMesh(space, Data, Callback, ArrayCallback, RayCallback);
+    dxTriMesh *const mesh = new dxTriMesh(space, Data, Callback, ArrayCallback, RayCallback);
     return mesh;
 }
 
@@ -745,7 +745,7 @@ const dReal *dGeomTriMeshGetLastTransform(dGeomID g)
     dAASSERT(g);
     dUASSERT(g->type == dTriMeshClass, "The geom is not a trimesh");
 
-    dxTriMesh *mesh = static_cast<dxTriMesh *>(g);
+    const dxTriMesh *mesh = static_cast<dxTriMesh *>(g);
     return mesh->retrieveLastTransform();
 }
 

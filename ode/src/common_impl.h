@@ -198,7 +198,7 @@ private:
 
     void *extractData(sizeint &out_sizeUsed)
     {
-        void *bufferPointer = m_bufferAllocated;
+        void *const bufferPointer = m_bufferAllocated;
 
         if (bufferPointer != NULL)
         {

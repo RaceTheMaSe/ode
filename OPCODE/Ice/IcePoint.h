@@ -181,8 +181,8 @@
 		//!			+ p3 * (t^3 - t^2)/2
 		inline_	Point&			Herp(const Point& p0, const Point& p1, const Point& p2, const Point& p3, float t)
 								{
-									float t2 = t * t;
-									float t3 = t2 * t;
+									const float t2 = t * t;
+									const float t3 = t2 * t;
 									float kp0 = (2.0f * t2 - t3 - t) * 0.5f;
 									float kp1 = (3.0f * t3 - 5.0f * t2 + 2.0f) * 0.5f;
 									float kp2 = (4.0f * t2 - 3.0f * t3 + t) * 0.5f;
@@ -301,7 +301,7 @@
 								{
 									if(limit_length>=0.0f)	// Magnitude must be positive
 									{
-										float CurrentSquareLength = SquareMagnitude();
+										const float CurrentSquareLength = SquareMagnitude();
 
 										if(CurrentSquareLength > limit_length * limit_length)
 										{
@@ -390,7 +390,7 @@
 		inline_	udword			GetHashValue()						const
 								{
 									const udword* h = (const udword*)(this);
-									udword f = (h[0]+h[1]*11-(h[2]*17)) & 0x7fffffff;	// avoid problems with +-0
+									const udword f = (h[0]+h[1]*11-(h[2]*17)) & 0x7fffffff;	// avoid problems with +-0
 									return (f>>22)^(f>>12)^(f);
 								}
 

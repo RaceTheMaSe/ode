@@ -72,14 +72,14 @@ void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned row
 
         if (loopX1RowCount >= 2)
         {
-            dReal p2 = ptrLElement[-1];
+            const dReal p2 = ptrLElement[-1];
             dReal Y21 = ptrBElement[-1 * (ptrdiff_t)b_stride]/* - Z21 */- p2 * Y11;
             ptrBElement[-1 * (ptrdiff_t)b_stride] = Y21;
             
             if (loopX1RowCount > 2)
             {
-                dReal p3 = ptrLElement[-2];
-                dReal p3_1 = (ptrLElement - rowSkip)[-2];
+                const dReal p3 = ptrLElement[-2];
+                const dReal p3_1 = (ptrLElement - rowSkip)[-2];
                 dReal Y31 = ptrBElement[-2 * (ptrdiff_t)b_stride]/* - Z31 */- p3 * Y11 - p3_1 * Y21;
                 ptrBElement[-2 * (ptrdiff_t)b_stride] = Y31;
             }
@@ -372,20 +372,20 @@ void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned row
             ptrBElement[0 * (size_t)b_stride] = Y11;
         }
         {
-            dReal p2 = ptrLElement[-1];
+            const dReal p2 = ptrLElement[-1];
             Y21 = ptrBElement[-1 * (ptrdiff_t)b_stride] - Z21 - p2 * Y11;
             ptrBElement[-1 * (ptrdiff_t)b_stride] = Y21;
         }
         {
-            dReal p3 = ptrLElement[-2];
-            dReal p3_1 = (ptrLElement - rowSkip)[-2];
+            const dReal p3 = ptrLElement[-2];
+            const dReal p3_1 = (ptrLElement - rowSkip)[-2];
             Y31 = ptrBElement[-2 * (ptrdiff_t)b_stride] - Z31 - p3 * Y11 - p3_1 * Y21;
             ptrBElement[-2 * (ptrdiff_t)b_stride] = Y31;
         }
         {
-            dReal p4 = ptrLElement[-3];
-            dReal p4_1 = (ptrLElement - rowSkip)[-3];
-            dReal p4_2 = (ptrLElement - rowSkip * (size_t)2)[-3];
+            const dReal p4 = ptrLElement[-3];
+            const dReal p4_1 = (ptrLElement - rowSkip)[-3];
+            const dReal p4_2 = (ptrLElement - rowSkip * (size_t)2)[-3];
             Y41 = ptrBElement[-3 * (ptrdiff_t)b_stride] - Z41 - p4 * Y11 - p4_1 * Y21 - p4_2 * Y31;
             ptrBElement[-3 * (ptrdiff_t)b_stride] = Y41;
         }
@@ -400,11 +400,11 @@ template<unsigned int block_step>
 sizeint ThreadedEquationSolverLDLT::estimateCooperativelySolvingL1TransposedMemoryRequirement(unsigned rowCount, SolvingL1TransposedMemoryEstimates &ref_solvingMemoryEstimates)
 {
     unsigned blockCount = deriveSolvingL1TransposedBlockCount(rowCount, block_step);
-    sizeint descriptorSizeRequired = dEFFICIENT_SIZE(sizeof(cellindexint) * blockCount);
-    sizeint contextSizeRequired = dEFFICIENT_SIZE(sizeof(SolveL1TransposedCellContext) * (CCI__MAX + 1) * blockCount);
+    const sizeint descriptorSizeRequired = dEFFICIENT_SIZE(sizeof(cellindexint) * blockCount);
+    const sizeint contextSizeRequired = dEFFICIENT_SIZE(sizeof(SolveL1TransposedCellContext) * (CCI__MAX + 1) * blockCount);
     ref_solvingMemoryEstimates.assignData(descriptorSizeRequired, contextSizeRequired);
 
-    sizeint totalSizeRequired = descriptorSizeRequired + contextSizeRequired;
+    const sizeint totalSizeRequired = descriptorSizeRequired + contextSizeRequired;
     return totalSizeRequired;
 }
 
@@ -498,7 +498,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                 {
                     if (completedRowBlock != 0)
                     {
-                        CellContextInstance contextInstance = GET_CELLDESCRIPTOR_CONTEXTINSTANCE(testDescriptor);
+                        const CellContextInstance contextInstance = GET_CELLDESCRIPTOR_CONTEXTINSTANCE(testDescriptor);
                         previousContextInstance = contextInstance;
 
                         const SolveL1TransposedCellContext &sourceContext = buildBlockContextRef(cellContexts, currentBlock, contextInstance);
@@ -536,7 +536,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                 if (completedRowBlock != 0)
                 {
-                    CellContextInstance contextInstance = GET_CELLDESCRIPTOR_CONTEXTINSTANCE(testDescriptor);
+                    const CellContextInstance contextInstance = GET_CELLDESCRIPTOR_CONTEXTINSTANCE(testDescriptor);
                     const SolveL1TransposedCellContext &sourceContext = buildBlockContextRef(cellContexts, currentBlock, contextInstance);
                     sourceContext.loadPrecalculatedZs(Z);
                 }
@@ -687,7 +687,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                             }
 
                             // ...continue if so.
-                            unsigned rowCompletedSoFar = finalRowBlock;
+                            const unsigned rowCompletedSoFar = finalRowBlock;
                             finalRowBlock = dMIN(currentBlock, completedBlocks);
                             rowCounter = finalRowBlock - rowCompletedSoFar;
                         }
@@ -897,7 +897,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                             }
 
                             // ...continue if so.
-                            unsigned rowCompletedSoFar = finalRowBlock;
+                            const unsigned rowCompletedSoFar = finalRowBlock;
                             finalRowBlock = dMIN(currentBlock, completedBlocks);
                             rowCounter = finalRowBlock - rowCompletedSoFar;
                         }
@@ -919,7 +919,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
             if (columnEndReached)
             {
                 // Check whether there is still a need to proceed or if the computation has been taken over by another thread
-                cellindexint oldDescriptor = MAKE_CELLDESCRIPTOR(completedRowBlock, previousContextInstance, true);
+                const cellindexint oldDescriptor = MAKE_CELLDESCRIPTOR(completedRowBlock, previousContextInstance, true);
 
                 if (blockProgressDescriptors[currentBlock] == oldDescriptor)
                 {
@@ -974,7 +974,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                         resultContext.storePrecalculatedZs(Y);
 
                         // Assign the result assignment progress descriptor
-                        cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(currentBlock + 1, CCI__MIN, true);
+                        const cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(currentBlock + 1, CCI__MIN, true);
                         CooperativeAtomics::AtomicCompareExchangeCellindexint(&blockProgressDescriptors[currentBlock], oldDescriptor, newDescriptor); // the result is to be ignored
 
                         // Whether succeeded or not, the result is valid, so go on trying to assign it to the matrix
@@ -995,13 +995,13 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
             {
                 // If the final column has not been reached yet, store current values to the context.
                 // Select the other context instance as the previous one might be read by other threads.
-                CellContextInstance nextContextInstance = buildNextContextInstance(previousContextInstance);
+                const CellContextInstance nextContextInstance = buildNextContextInstance(previousContextInstance);
                 SolveL1TransposedCellContext &destinationContext = buildBlockContextRef(cellContexts, currentBlock, nextContextInstance);
                 destinationContext.storePrecalculatedZs(Z);
 
                 // Unlock the row until more columns can be used
-                cellindexint oldDescriptor = MAKE_CELLDESCRIPTOR(completedRowBlock, previousContextInstance, true);
-                cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(finalRowBlock, nextContextInstance, false);
+                const cellindexint oldDescriptor = MAKE_CELLDESCRIPTOR(completedRowBlock, previousContextInstance, true);
+                const cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(finalRowBlock, nextContextInstance, false);
                 // The descriptor might have been updated by a competing thread
                 if (!CooperativeAtomics::AtomicCompareExchangeCellindexint(&blockProgressDescriptors[currentBlock], oldDescriptor, newDescriptor))
                 {
@@ -1015,7 +1015,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
             if (handleComputationTakenOver)
             {
-                cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
+                const cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
                 // This can only happen if the row was (has become) the uppermost not fully completed one
                 // and the competing thread is at final stage of calculation (i.e., it has reached the currentBlock column).
                 if (existingDescriptor != INVALID_CELLDESCRIPTOR)
@@ -1056,7 +1056,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                     ? adjustedLastBElement - (sizeint)(completedRowBlock * block_step) * b_stride 
                     : lastBElement;
 
-                unsigned finalRowBlock = currentBlock/*std::min(currentBlock, completedBlocks)*/;
+                const unsigned finalRowBlock = currentBlock/*std::min(currentBlock, completedBlocks)*/;
                 dIASSERT(currentBlock == completedBlocks); // Why would we be competing for a row otherwise?
 
                 bool exitInnerLoop = false;
@@ -1190,8 +1190,8 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                     dSASSERT(block_step == 4);
 
                     // Check if the primary solver thread has not made any progress
-                    cellindexint descriptorVerification = blockProgressDescriptors[currentBlock];
-                    unsigned newCompletedRow = GET_CELLDESCRIPTOR_COLUMNINDEX(descriptorVerification);
+                    const cellindexint descriptorVerification = blockProgressDescriptors[currentBlock];
+                    const unsigned newCompletedRow = GET_CELLDESCRIPTOR_COLUMNINDEX(descriptorVerification);
 
                     if (newCompletedRow != lastCompletedRow)
                     {
@@ -1295,7 +1295,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                     // Use atomic memory barrier to make sure memory reads of ptrBElement[] and blockProgressDescriptors[] are not swapped
                     CooperativeAtomics::AtomicReadReorderBarrier();
 
-                    cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
+                    const cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
 
                     if (existingDescriptor == INVALID_CELLDESCRIPTOR)
                     {
@@ -1311,7 +1311,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                     {
                         // The descriptor has not been altered yet - this means the ptrBElement[] values used above were not modified yet 
                         // and the computation result is valid.
-                        cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(currentBlock + 1, CCI__MIN, true); // put the computation at the top so that the evaluation result from the expression above is reused
+                        const cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(currentBlock + 1, CCI__MIN, true); // put the computation at the top so that the evaluation result from the expression above is reused
 
                         // Assign the results to the result context (possibly in parallel with other threads 
                         // that could and ought to be assigning exactly the same values)
@@ -1343,7 +1343,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
         if (goAssigningTheResult)
         {
-            cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
+            const cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
             // Check if the assignment has not been completed yet
             if (existingDescriptor != INVALID_CELLDESCRIPTOR)
             {

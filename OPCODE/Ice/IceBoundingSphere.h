@@ -73,7 +73,7 @@
 									// If our radius is the smallest, we can't possibly contain the other sphere
 									if(mRadius < sphere.mRadius)	return false;
 									// So r is always positive or null now
-									float r = mRadius - sphere.mRadius;
+									const float r = mRadius - sphere.mRadius;
 									return mCenter.SquareDistance(sphere.mCenter) <= r*r;
 								}
 
@@ -88,7 +88,7 @@
 								{
 									// I assume if all 8 box vertices are inside the sphere, so does the whole box.
 									// Sounds ok but maybe there's a better way?
-									float R2 = mRadius * mRadius;
+									const float R2 = mRadius * mRadius;
 #ifdef USE_MIN_MAX
 									const Point& Max = ((ShadowAABB&)&aabb).mMax;
 									const Point& Min = ((ShadowAABB&)&aabb).mMin;
@@ -118,7 +118,7 @@
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline_	bool			Intersect(const Sphere& sphere)	const
 								{
-									float r = mRadius + sphere.mRadius;
+									const float r = mRadius + sphere.mRadius;
 									return mCenter.SquareDistance(sphere.mCenter) <= r*r;
 								}
 

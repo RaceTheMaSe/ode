@@ -321,8 +321,8 @@
 		//! Invert the matrix. Determinant must be different from zero, else matrix can't be inverted.
 				Matrix3x3&		Invert()
 								{
-									float Det = Determinant();	// Must be !=0
-									float OneOverDet = 1.0f / Det;
+									const float Det = Determinant();	// Must be !=0
+									const float OneOverDet = 1.0f / Det;
 
 									Matrix3x3 Temp;
 									Temp.m[0][0] = +(m[1][1] * m[2][2] - m[2][1] * m[1][2]) * OneOverDet;

@@ -108,7 +108,7 @@ bool PlanesCollider::Collide(PlanesCache& cache, const IceMaths::Plane* planes, 
 	// Init collision query
 	if(InitQuery(cache, planes, nb_planes, worldm))	return true;
 
-	udword PlaneMask = (udword)((1<<nb_planes)-1);
+	const udword PlaneMask = (udword)((1<<nb_planes)-1);
 
 	if(!model.HasLeafNodes())
 	{
@@ -209,7 +209,7 @@ BOOL PlanesCollider::InitQuery(PlanesCache& cache, const IceMaths::Plane* planes
 			mTouchedPrimitives->Reset();
 
 			// Perform overlap test between the unique triangle and the planes (and set contact status if needed)
-			udword clip_mask = (udword)((1<<mNbPlanes)-1);
+			const udword clip_mask = (udword)((1<<mNbPlanes)-1);
 			PLANES_PRIM(udword(0), OPC_CONTACT)
 
 			// Return immediately regardless of status
@@ -236,7 +236,7 @@ BOOL PlanesCollider::InitQuery(PlanesCache& cache, const IceMaths::Plane* planes
 				mTouchedPrimitives->Reset();
 
 				// Perform overlap test between the cached triangle and the planes (and set contact status if needed)
-				udword clip_mask = (udword)((1<<mNbPlanes)-1);
+				const udword clip_mask = (udword)((1<<mNbPlanes)-1);
 				PLANES_PRIM(PreviouslyTouchedFace, OPC_TEMPORAL_CONTACT)
 
 				// Return immediately if possible
@@ -553,7 +553,7 @@ bool HybridPlanesCollider::Collide(PlanesCache& cache, const IceMaths::Plane* pl
 	mTouchedBoxes.Reset();
 	mTouchedPrimitives = &mTouchedBoxes;
 
-	udword PlaneMask = (udword)((1<<nb_planes)-1);
+	const udword PlaneMask = (udword)((1<<nb_planes)-1);
 
 	// Now, do the actual query against leaf boxes
 	if(!model.HasLeafNodes())
@@ -631,7 +631,7 @@ bool HybridPlanesCollider::Collide(PlanesCache& cache, const IceMaths::Plane* pl
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = *T++;
+					const udword TriangleIndex = *T++;
 					PLANES_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}
@@ -642,7 +642,7 @@ bool HybridPlanesCollider::Collide(PlanesCache& cache, const IceMaths::Plane* pl
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = BaseIndex++;
+					const udword TriangleIndex = BaseIndex++;
 					PLANES_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}

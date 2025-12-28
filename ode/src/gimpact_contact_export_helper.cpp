@@ -35,7 +35,7 @@ dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dReal *pdepths, u
 
     while (true)
     {
-        dReal firstdepth = REAL(0.5) * (mindepth + maxdepth);
+        const dReal firstdepth = REAL(0.5) * (mindepth + maxdepth);
         dReal lowdepth = maxdepth, highdepth = mindepth;
 
         unsigned marginindex = 0;
@@ -44,11 +44,11 @@ dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dReal *pdepths, u
 
         for (unsigned i = 0; i < contactcount; i++)
         {
-            dReal depth = pdepths[i];
+            const dReal depth = pdepths[i];
 
             if (depth < firstdepth)
             {
-                dReal temp = pdepths[marginindex]; pdepths[highindex++] = temp; pdepths[marginindex++] = depth;
+                const dReal temp = pdepths[marginindex]; pdepths[highindex++] = temp; pdepths[marginindex++] = depth;
                 if (highdepth < depth) { highdepth = depth; }
             }
             else if (depth > firstdepth)
@@ -58,7 +58,7 @@ dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dReal *pdepths, u
             }
         }
 
-        unsigned countabove = highindex - marginindex;
+        const unsigned countabove = highindex - marginindex;
         if (maxcontacts < countabove)
         {
             contactcount = countabove;
@@ -72,7 +72,7 @@ dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dReal *pdepths, u
         }
         else
         {
-            unsigned countbelow = marginindex;
+            const unsigned countbelow = marginindex;
             if (maxcontacts <= contactcount - countbelow)
             {
                 result = firstdepth;

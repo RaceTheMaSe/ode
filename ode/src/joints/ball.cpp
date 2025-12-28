@@ -155,7 +155,7 @@ void dJointSetBallParam( dJointID j, int parameter, dReal value )
 
 dReal dJointGetBallParam( dJointID j, int parameter )
 {
-    dxJointBall* joint = ( dxJointBall* )j;
+    const dxJointBall* joint = ( dxJointBall* )j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Ball );
     return joint->get( parameter );

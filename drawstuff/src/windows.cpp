@@ -116,7 +116,7 @@ struct RenderingThreadParams
 
     void pushBufferedChar(int charCode)
     {
-        int nextHead = (int)(((size_t)m_keyBufferHead + 1) % dARRAY_SIZE(m_keyBufferStorage));
+        const int nextHead = (int)(((size_t)m_keyBufferHead + 1) % dARRAY_SIZE(m_keyBufferStorage));
         if (nextHead != m_keyBufferTail) {
             m_keyBufferStorage[m_keyBufferHead] = charCode;
             m_keyBufferHead = nextHead;
@@ -226,7 +226,7 @@ void performThreadedRendering(RenderingThreadParams *const pRendererParams)
 
     while (!pRendererParams->m_rendererExitRequest) {
         // need to make local copy of renderer_ss to help prevent races
-        bool singleStep = pRendererParams->m_rendererSingleStep;
+        const bool singleStep = pRendererParams->m_rendererSingleStep;
         dsDrawFrame(pRendererParams->m_rendererWidth, pRendererParams->m_rendererHeight, rendererFn, pRendererParams->m_rendererPause && !singleStep);
         if (singleStep) { 
             pRendererParams->m_rendererSingleStep = false;
@@ -235,7 +235,7 @@ void performThreadedRendering(RenderingThreadParams *const pRendererParams)
         // read keys out of ring buffer and feed them to the command function
         for (; pRendererParams->areAnyBufferedChars(); pRendererParams->popBufferedChar()) {
             if (rendererFn->command != NULL) {
-                int nextBufferedChar = pRendererParams->peekBufferedChar();
+                const int nextBufferedChar = pRendererParams->peekBufferedChar();
                 rendererFn->command(nextBufferedChar);
             }
         }
@@ -285,7 +285,7 @@ public:
             }
         }
 
-        bool result = !fault;
+        const bool result = !fault;
         return result;
     }
 
@@ -543,7 +543,7 @@ LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM /*lParam*/)
         case IDM_PAUSE: {
             RenderingThreadParams *pRendererParams = retrieveMainWindowRendererThreadParams(hWnd);
             if (pRendererParams != NULL) {
-                bool rendererPause = (pRendererParams->m_rendererPause = !pRendererParams->m_rendererPause);
+                const bool rendererPause = (pRendererParams->m_rendererPause = !pRendererParams->m_rendererPause);
                 CheckMenuItem(GetMenu(hWnd), IDM_PAUSE, UINT(rendererPause ? MF_CHECKED : MF_UNCHECKED));
                 if (rendererPause) { 
                     pRendererParams->m_rendererSingleStep = false;
@@ -575,7 +575,7 @@ LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM /*lParam*/)
         case IDM_TEXTURES: {
             MainWindowParameters *pWindowParameters = retrieveMainWindowWindowParameters(hWnd);
             if (pWindowParameters != NULL) {
-                bool hideTextures = (pWindowParameters->m_hideTextures = !pWindowParameters->m_hideTextures);
+                const bool hideTextures = (pWindowParameters->m_hideTextures = !pWindowParameters->m_hideTextures);
                 CheckMenuItem(GetMenu(hWnd), IDM_TEXTURES, UINT(hideTextures ? MF_UNCHECKED : MF_CHECKED));
                 dsSetTextures(!hideTextures);
             }
@@ -586,7 +586,7 @@ LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM /*lParam*/)
         case IDM_SHADOWS: {
             MainWindowParameters *pWindowParameters = retrieveMainWindowWindowParameters(hWnd);
             if (pWindowParameters != NULL) {
-                bool hideShadows = (pWindowParameters->m_hideShadows = !pWindowParameters->m_hideShadows);
+                const bool hideShadows = (pWindowParameters->m_hideShadows = !pWindowParameters->m_hideShadows);
                 CheckMenuItem(GetMenu(hWnd), IDM_SHADOWS, UINT(hideShadows ? MF_UNCHECKED : MF_CHECKED));
                 dsSetShadows(!hideShadows);
             }

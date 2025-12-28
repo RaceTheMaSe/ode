@@ -105,7 +105,7 @@ _ccd_inline void ccdQuatCopy(ccd_quat_t *dest, const ccd_quat_t *src)
 
 _ccd_inline int ccdQuatNormalize(ccd_quat_t *q)
 {
-    ccd_real_t len = ccdQuatLen(q);
+    const ccd_real_t len = ccdQuatLen(q);
     if (len < CCD_EPS)
         return 0;
 

@@ -52,7 +52,7 @@ bool dxTriMeshData::preprocessData(bool /*buildUseFlags*//*=false*/, FaceAngleSt
     }
 
     // If this mesh has already been preprocessed, exit
-    bool result = faceAndgesRequirementToUse == ASM__INVALID || retrieveTriangleCount() == 0 
+    const bool result = faceAndgesRequirementToUse == ASM__INVALID || retrieveTriangleCount() == 0 
         || meaningfulPreprocessData(faceAndgesRequirementToUse);
     return result;
 }
@@ -132,7 +132,7 @@ bool dxTriMeshData::meaningfulPreprocessData(FaceAngleStorageMethod faceAndgesRe
 
         const unsigned int numTris = retrieveTriangleCount();
         const unsigned int numVertices = retrieveVertexCount();
-        sizeint numEdges = (sizeint)numTris * dMTV__MAX;
+        const sizeint numEdges = (sizeint)numTris * dMTV__MAX;
         dIASSERT(numVertices <= numEdges); // Edge records are going to be used for vertex data as well
 
         const sizeint recordsMemoryRequired = dEFFICIENT_SIZE(numEdges * sizeof(EdgeRecord));
@@ -148,13 +148,13 @@ bool dxTriMeshData::meaningfulPreprocessData(FaceAngleStorageMethod faceAndgesRe
         EdgeRecord *edges = (EdgeRecord *)tempBuffer;
         VertexRecord *vertices = (VertexRecord *)((uint8 *)tempBuffer + recordsMemoryRequired);
 
-        TrimeshDataVertexIndexAccessor_GIMPACT indexAccessor(this);
+        const TrimeshDataVertexIndexAccessor_GIMPACT indexAccessor(this);
         meaningfulPreprocess_SetupEdgeRecords(edges, numEdges, indexAccessor);
 
         // Sort the edges, so the ones sharing the same verts are beside each other
         std::sort(edges, edges + numEdges);
 
-        TrimeshDataTrianglePointAccessor_GIMPACT pointAccessor(this);
+        const TrimeshDataTrianglePointAccessor_GIMPACT pointAccessor(this);
         const dReal *const externalNormals = retrieveNormals();
         IFaceAngleStorageControl *faceAngles = retrieveFaceAngles();
         meaningfulPreprocess_buildEdgeFlags(NULL, faceAngles, edges, numEdges, vertices, externalNormals, pointAccessor);
@@ -226,8 +226,8 @@ void dxTriMesh::assignMeshData(dxTriMeshData *Data)
     {
         const GUINT32 *triangleVertexIndices = Data->retrieveTriangleVertexIndices();
 
-        sizeint vertexInstanceCount = Data->retrieveVertexCount();
-        sizeint triangleVertexCount = (sizeint)Data->retrieveTriangleCount() * dMTV__MAX;
+        const sizeint vertexInstanceCount = Data->retrieveVertexCount();
+        const sizeint triangleVertexCount = (sizeint)Data->retrieveTriangleCount() * dMTV__MAX;
 
         gim_trimesh_create_from_data(
             m_buffer_managers,

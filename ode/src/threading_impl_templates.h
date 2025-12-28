@@ -912,7 +912,7 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Fr
 
     while (current_info != NULL)
     {
-        dxThreadedJobInfo *info_save = current_info;
+        const dxThreadedJobInfo *info_save = current_info;
         current_info = current_info->m_next_job;
 
         delete info_save;

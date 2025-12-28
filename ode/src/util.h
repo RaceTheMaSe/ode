@@ -138,7 +138,7 @@ public:
 
     void *AllocateBlock(sizeint size)
     {
-        void *arena = m_pAllocCurrentOrNextArena;
+        void *const arena = m_pAllocCurrentOrNextArena;
         m_pAllocCurrentOrNextArena = dOFFSET_EFFICIENTLY(arena, size);
         dIASSERT(m_pAllocCurrentOrNextArena <= m_pAllocEnd);
         dIASSERT(dEFFICIENT_PTR(arena) == arena);
@@ -148,11 +148,11 @@ public:
 
     void *AllocateOveralignedBlock(sizeint size, unsigned alignment)
     {
-        void *arena = m_pAllocCurrentOrNextArena;
+        const void *arena = m_pAllocCurrentOrNextArena;
         m_pAllocCurrentOrNextArena = dOFFSET_OVERALIGNEDLY(arena, size, alignment);
         dIASSERT(m_pAllocCurrentOrNextArena <= m_pAllocEnd);
 
-        void *block = dOVERALIGNED_PTR(arena, alignment);
+        void *const block = dOVERALIGNED_PTR(arena, alignment);
         return block;
     }
 

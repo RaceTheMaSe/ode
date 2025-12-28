@@ -47,7 +47,7 @@ void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
     for (; ptrD != dStepsEnd; ptrA += step * (size_t)a_stride, ptrD += step * (size_t)d_stride) 
     {
         dReal a0 = ptrA[0], a1 = ptrA[1 * (size_t)a_stride], a2 = ptrA[2 * (size_t)a_stride], a3 = ptrA[3 * (size_t)a_stride];
-        dReal d0 = ptrD[0], d1 = ptrD[1 * (size_t)d_stride], d2 = ptrD[2 * (size_t)d_stride], d3 = ptrD[3 * (size_t)d_stride];
+        const dReal d0 = ptrD[0], d1 = ptrD[1 * (size_t)d_stride], d2 = ptrD[2 * (size_t)d_stride], d3 = ptrD[3 * (size_t)d_stride];
         a0 *= d0;
         a1 *= d1;
         a2 *= d2;
@@ -60,24 +60,24 @@ void scaleLargeVector(dReal *aStart, const dReal *dStart, unsigned elementCount)
     {
         case 3:
         {
-            dReal a2 = ptrA[2 * (size_t)a_stride];
-            dReal d2 = ptrD[2 * (size_t)d_stride];
+            const dReal a2 = ptrA[2 * (size_t)a_stride];
+            const dReal d2 = ptrD[2 * (size_t)d_stride];
             ptrA[2 * (size_t)a_stride] = a2 * d2;
             // break; -- proceed to case 2
         }
         ANNOTATE_FALLTHROUGH
         case 2:
         {
-            dReal a1 = ptrA[1 * (size_t)a_stride];
-            dReal d1 = ptrD[1 * (size_t)d_stride];
+            const dReal a1 = ptrA[1 * (size_t)a_stride];
+            const dReal d1 = ptrD[1 * (size_t)d_stride];
             ptrA[1 * (size_t)a_stride] = a1 * d1;
             // break; -- proceed to case 1
         }
         ANNOTATE_FALLTHROUGH
         case 1:
         {
-            dReal a0 = ptrA[0];
-            dReal d0 = ptrD[0];
+            const dReal a0 = ptrA[0];
+            const dReal d0 = ptrD[0];
             ptrA[0] = a0 * d0;
             break;
         }
@@ -115,7 +115,7 @@ void ThreadedEquationSolverLDLT::participateScalingVector(dReal *ptrAStart, cons
         for (; ptrDElement != ptrDBlockEnd; ptrAElement += wrapSize * a_stride, ptrDElement += wrapSize * d_stride)
         {
             dReal a0 = ptrAElement[0], a1 = ptrAElement[1 * a_stride], a2 = ptrAElement[2 * a_stride], a3 = ptrAElement[3 * a_stride];
-            dReal d0 = ptrDElement[0], d1 = ptrDElement[1 * d_stride], d2 = ptrDElement[2 * d_stride], d3 = ptrDElement[3 * d_stride];
+            const dReal d0 = ptrDElement[0], d1 = ptrDElement[1 * d_stride], d2 = ptrDElement[2 * d_stride], d3 = ptrDElement[3 * d_stride];
             a0 *= d0;
             a1 *= d1;
             a2 *= d2;
@@ -134,7 +134,7 @@ void ThreadedEquationSolverLDLT::participateScalingVector(dReal *ptrAStart, cons
         for (; ptrDElement != ptrDBlockEnd; ptrAElement += wrapSize * a_stride, ptrDElement += wrapSize * d_stride)
         {
             dReal a0 = ptrAElement[0], a1 = ptrAElement[1 * a_stride], a2 = ptrAElement[2 * a_stride], a3 = ptrAElement[3 * a_stride];
-            dReal d0 = ptrDElement[0], d1 = ptrDElement[1 * d_stride], d2 = ptrDElement[2 * d_stride], d3 = ptrDElement[3 * d_stride];
+            const dReal d0 = ptrDElement[0], d1 = ptrDElement[1 * d_stride], d2 = ptrDElement[2 * d_stride], d3 = ptrDElement[3 * d_stride];
             a0 *= d0;
             a1 *= d1;
             a2 *= d2;
@@ -163,8 +163,8 @@ void ThreadedEquationSolverLDLT::participateScalingVector(dReal *ptrAStart, cons
             ANNOTATE_FALLTHROUGH
             case 1:
             {
-                dReal a0 = ptrAElement[0];
-                dReal d0 = ptrDElement[0];
+                const dReal a0 = ptrAElement[0];
+                const dReal d0 = ptrDElement[0];
                 ptrAElement[0] = a0 * d0;
                 break;
             }

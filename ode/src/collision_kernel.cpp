@@ -316,7 +316,7 @@ int dCollide (dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip
     o1->recomputePosr();
     o2->recomputePosr();
 
-    dColliderEntry *ce = &colliders[o1->type][o2->type];
+    const dColliderEntry *ce = &colliders[o1->type][o2->type];
     int count = 0;
     if (ce->fn) {
         if (ce->reverse) {
@@ -925,7 +925,7 @@ dxUserGeom::dxUserGeom (int class_num) : dxGeom (NULL,1)
 
 dxUserGeom::~dxUserGeom()
 {
-    dGeomClass *c = &user_classes[type-dFirstUserClass];
+    const dGeomClass *c = &user_classes[type-dFirstUserClass];
     if (c->dtor) c->dtor (this);
     dFree (user_data,(dsizeint)c->bytes);
 }
@@ -939,7 +939,7 @@ void dxUserGeom::computeAABB()
 
 int dxUserGeom::AABBTest (dxGeom *o, dReal box[6])
 {
-    dGeomClass *c = &user_classes[type-dFirstUserClass];
+    const dGeomClass *c = &user_classes[type-dFirstUserClass];
     if (c->aabb_test) return c->aabb_test (this,o,box);
     else return 1;
 }
@@ -1005,7 +1005,7 @@ void * dGeomGetClassData (dxGeom *g)
 {
     dUASSERT (g && g->type >= dFirstUserClass &&
         g->type <= dLastUserClass,"not a custom class");
-    dxUserGeom *user = (dxUserGeom*) g;
+    const dxUserGeom *user = (dxUserGeom*) g;
     return user->user_data;
 }
 

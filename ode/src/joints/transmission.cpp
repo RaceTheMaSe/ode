@@ -459,7 +459,7 @@ void dJointSetTransmissionAnchor2( dJointID j, dReal x, dReal y, dReal z )
 
 void dJointGetTransmissionContactPoint1( dJointID j, dVector3 result )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
 
@@ -468,7 +468,7 @@ void dJointGetTransmissionContactPoint1( dJointID j, dVector3 result )
 
 void dJointGetTransmissionContactPoint2( dJointID j, dVector3 result )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
 
@@ -477,7 +477,7 @@ void dJointGetTransmissionContactPoint2( dJointID j, dVector3 result )
 
 void dJointGetTransmissionAxis( dJointID j, dVector3 result )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
     dUASSERT(joint->mode == dTransmissionParallelAxes,
@@ -494,7 +494,7 @@ void dJointGetTransmissionAxis( dJointID j, dVector3 result )
 
 void dJointGetTransmissionAxis1( dJointID j, dVector3 result )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
 
@@ -509,7 +509,7 @@ void dJointGetTransmissionAxis1( dJointID j, dVector3 result )
 
 void dJointGetTransmissionAxis2( dJointID j, dVector3 result )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
 
@@ -524,7 +524,7 @@ void dJointGetTransmissionAxis2( dJointID j, dVector3 result )
 
 void dJointGetTransmissionAnchor1( dJointID j, dVector3 result )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
 
@@ -539,7 +539,7 @@ void dJointGetTransmissionAnchor1( dJointID j, dVector3 result )
 
 void dJointGetTransmissionAnchor2( dJointID j, dVector3 result )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
 
@@ -572,7 +572,7 @@ void dJointSetTransmissionParam( dJointID j, int parameter, dReal value )
 
 dReal dJointGetTransmissionParam( dJointID j, int parameter )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     switch ( parameter ) {
@@ -599,7 +599,7 @@ void dJointSetTransmissionMode( dJointID j, int mode )
 
 int dJointGetTransmissionMode( dJointID j )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     return joint->mode;
@@ -619,7 +619,7 @@ void dJointSetTransmissionRatio( dJointID j, dReal ratio )
 
 dReal dJointGetTransmissionRatio( dJointID j )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     return joint->ratio;
@@ -627,7 +627,7 @@ dReal dJointGetTransmissionRatio( dJointID j )
 
 dReal dJointGetTransmissionAngle1( dJointID j )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     return joint->phase[0];
@@ -635,7 +635,7 @@ dReal dJointGetTransmissionAngle1( dJointID j )
 
 dReal dJointGetTransmissionAngle2( dJointID j )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     return joint->phase[1];
@@ -643,7 +643,7 @@ dReal dJointGetTransmissionAngle2( dJointID j )
 
 dReal dJointGetTransmissionRadius1( dJointID j )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     return joint->radii[0];
@@ -651,7 +651,7 @@ dReal dJointGetTransmissionRadius1( dJointID j )
 
 dReal dJointGetTransmissionRadius2( dJointID j )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     return joint->radii[1];
@@ -679,7 +679,7 @@ void dJointSetTransmissionRadius2( dJointID j, dReal radius )
 
 dReal dJointGetTransmissionBacklash( dJointID j )
 {
-    dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
+    const dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     return joint->backlash;

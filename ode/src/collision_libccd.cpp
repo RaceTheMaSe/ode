@@ -122,7 +122,7 @@ static void ccdSupportTriangle(const void *obj, const ccd_vec3_t *_dir, ccd_vec3
 #endif
 
 static 
-void ccdGeomToObj(const dGeomID g, ccd_obj_t *o)
+void ccdGeomToObj(dGeomID g, ccd_obj_t *o)
 {
     const dReal *ode_pos;
     dQuaternion ode_rot;
@@ -137,7 +137,7 @@ void ccdGeomToObj(const dGeomID g, ccd_obj_t *o)
 }
 
 static 
-void ccdGeomToBox(const dGeomID g, ccd_box_t *box)
+void ccdGeomToBox(dGeomID g, ccd_box_t *box)
 {
     dVector3 dim;
 
@@ -150,7 +150,7 @@ void ccdGeomToBox(const dGeomID g, ccd_box_t *box)
 }
 
 static 
-void ccdGeomToCap(const dGeomID g, ccd_cap_t *cap)
+void ccdGeomToCap(dGeomID g, ccd_cap_t *cap)
 {
     dReal r, h;
     ccdGeomToObj(g, (ccd_obj_t *)cap);
@@ -167,7 +167,7 @@ void ccdGeomToCap(const dGeomID g, ccd_cap_t *cap)
 }
 
 static 
-void ccdGeomToCyl(const dGeomID g, ccd_cyl_t *cyl)
+void ccdGeomToCyl(dGeomID g, ccd_cyl_t *cyl)
 {
     dReal r, h;
     ccdGeomToObj(g, (ccd_obj_t *)cyl);
@@ -186,14 +186,14 @@ void ccdGeomToCyl(const dGeomID g, ccd_cyl_t *cyl)
 }
 
 static 
-void ccdGeomToSphere(const dGeomID g, ccd_sphere_t *s)
+void ccdGeomToSphere(dGeomID g, ccd_sphere_t *s)
 {
     ccdGeomToObj(g, (ccd_obj_t *)s);
     s->radius = dGeomSphereGetRadius(g);
 }
 
 static 
-void ccdGeomToConvex(const dGeomID g, ccd_convex_t *c)
+void ccdGeomToConvex(dGeomID g, ccd_convex_t *c)
 {
     ccdGeomToObj(g, (ccd_obj_t *)c);
     c->convex = (dxConvex *)g;
@@ -800,7 +800,7 @@ unsigned dCollideConvexTrimeshTrianglesCCD(dxGeom *o1, dxGeom *o2, const int *in
                 --contactCount;
 
                 if (k != contactCount) {
-                    dContactGeom *lastContact = SAFECONTACT(flags, contacts, (int)contactCount, skip);
+                    const dContactGeom *lastContact = SAFECONTACT(flags, contacts, (int)contactCount, skip);
                     *contact = *lastContact;
                 }
 

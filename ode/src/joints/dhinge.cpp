@@ -159,7 +159,7 @@ void dJointSetDHingeAxis( dJointID j, dReal x, dReal y, dReal z )
 
 void dJointGetDHingeAxis( dJointID j, dVector3 result )
 {
-    dxJointDHinge* joint = static_cast<dxJointDHinge*>(j);
+    const dxJointDHinge* joint = static_cast<dxJointDHinge*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     dBodyVectorToWorld(joint->node[0].body, joint->axis1[0], joint->axis1[1], joint->axis1[2], result);

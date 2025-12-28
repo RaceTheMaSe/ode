@@ -91,7 +91,7 @@ void dGeomCapsuleSetParams (dGeomID g, dReal radius, dReal length)
 void dGeomCapsuleGetParams (dGeomID g, dReal *radius, dReal *length)
 {
     dUASSERT (g && g->type == dCapsuleClass,"argument not a ccylinder");
-    dxCapsule *c = (dxCapsule*) g;
+    const dxCapsule *c = (dxCapsule*) g;
     *radius = c->radius;
     *length = c->lz;
 }
@@ -101,7 +101,7 @@ dReal dGeomCapsulePointDepth (dGeomID g, dReal x, dReal y, dReal z)
 {
     dUASSERT (g && g->type == dCapsuleClass,"argument not a ccylinder");
     g->recomputePosr();
-    dxCapsule *c = (dxCapsule*) g;
+    const dxCapsule *c = (dxCapsule*) g;
 
     const dReal* R = g->final_posr->R;
     const dReal* pos = g->final_posr->pos;
@@ -134,8 +134,8 @@ int dCollideCapsuleSphere (dxGeom *o1, dxGeom *o2, int flags,
     (void)flags; (void)skip;
 #endif
 
-    dxCapsule *ccyl = (dxCapsule*) o1;
-    dxSphere *sphere = (dxSphere*) o2;
+    const dxCapsule *ccyl = (dxCapsule*) o1;
+    const dxSphere *sphere = (dxSphere*) o2;
 
     contact->g1 = o1;
     contact->g2 = o2;
@@ -168,7 +168,7 @@ int dCollideCapsuleBox (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT (o2->type == dBoxClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
 
-    dxCapsule *cyl = (dxCapsule*) o1;
+    const dxCapsule *cyl = (dxCapsule*) o1;
     dxBox *box = (dxBox*) o2;
 
     contact->g1 = o1;
@@ -188,8 +188,8 @@ int dCollideCapsuleBox (dxGeom *o1, dxGeom *o2, int flags,
     const dReal radius = cyl->radius;
 
     // copy out box center, rotation matrix, and side array
-    dReal *c = o2->final_posr->pos;
-    dReal *R = o2->final_posr->R;
+    const dReal *c = o2->final_posr->pos;
+    const dReal *R = o2->final_posr->R;
     const dReal *side = box->side;
 
     // get the closest point between the cylinder axis and the box
@@ -245,8 +245,8 @@ int dCollideCapsuleCapsule (dxGeom *o1, dxGeom *o2,
     int i;
     const dReal tolerance = REAL(1e-5);
 
-    dxCapsule *cyl1 = (dxCapsule*) o1;
-    dxCapsule *cyl2 = (dxCapsule*) o2;
+    const dxCapsule *cyl1 = (dxCapsule*) o1;
+    const dxCapsule *cyl2 = (dxCapsule*) o2;
 
     contact->g1 = o1;
     contact->g2 = o2;
@@ -256,8 +256,8 @@ int dCollideCapsuleCapsule (dxGeom *o1, dxGeom *o2,
     // copy out some variables, for convenience
     const dReal lz1 = cyl1->lz * REAL(0.5);
     const dReal lz2 = cyl2->lz * REAL(0.5);
-    dReal *pos1 = o1->final_posr->pos;
-    dReal *pos2 = o2->final_posr->pos;
+    const dReal *pos1 = o1->final_posr->pos;
+    const dReal *pos2 = o2->final_posr->pos;
     dReal axis1[3],axis2[3];
     axis1[0] = o1->final_posr->R[2];
     axis1[1] = o1->final_posr->R[6];
@@ -360,7 +360,7 @@ int dCollideCapsulePlane (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT (o2->type == dPlaneClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
 
-    dxCapsule *ccyl = (dxCapsule*) o1;
+    const dxCapsule *ccyl = (dxCapsule*) o1;
     dxPlane *plane = (dxPlane*) o2;
 
     // collide the deepest capping sphere with the plane

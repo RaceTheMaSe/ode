@@ -43,7 +43,7 @@
 	//! Don't use it blindly, it can be faster or slower than the FPU comparison, depends on the context.
 	inline_ float FastFabs(float x)
 	{
-		udword FloatBits = IR(x)&0x7fffffff;
+		const udword FloatBits = IR(x)&0x7fffffff;
 		return FR(FloatBits);
 	}
 
@@ -56,15 +56,15 @@
 	//! Saturates positive to zero.
 	inline_ float fsat(float f)
 	{
-		udword y = IR(f) & (udword)~(SIR(f) >>31);
+		const udword y = IR(f) & (udword)~(SIR(f) >>31);
 		return FR(y);
 	}
 
 	//! Computes 1.0f / sqrtf(x).
 	inline_ float frsqrt(float f)
 	{
-		float x = f * 0.5f;
-		udword y = 0x5f3759df - (IR(f) >> 1);
+		const float x = f * 0.5f;
+		const udword y = 0x5f3759df - (IR(f) >> 1);
 		// Iteration...
 		const float fy = FR(y);
 		const float result = fy * ( 1.5f - ( x * fy * fy ) );
@@ -101,7 +101,7 @@
 	//! TO BE DOCUMENTED
 	inline_ float fsqrt(float f)
 	{
-		udword y = (udword)( ( SIR(f) - 0x3f800000 ) >> 1 ) + 0x3f800000;
+		const udword y = (udword)( ( SIR(f) - 0x3f800000 ) >> 1 ) + 0x3f800000;
 		// Iteration...?
 		// (float&)y = (3.0f - ((float&)y * (float&)y) / f) * (float&)y * 0.5f;
 		// Result
@@ -111,8 +111,8 @@
 	//! Returns the float ranged espilon value.
 	inline_ float fepsilon(float f)
 	{
-		udword b = IR(f) & 0xff800000;
-		udword a = b | 0x00000001;
+		const udword b = IR(f) & 0xff800000;
+		const udword a = b | 0x00000001;
 		// Result
 		return FR(a) - FR(b);
 	}

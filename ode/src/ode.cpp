@@ -180,7 +180,7 @@ static void checkWorld (dxWorld *w)
         for (int i=0; i<2; i++) {
             if (j->node[i].body) {
                 int ok = 0;
-                for (dxJointNode *jn=j->node[i].body->firstjoint; jn; jn=jn->next) {
+                for (const dxJointNode*jn=j->node[i].body->firstjoint; jn; jn=jn->next) {
                     if (jn->joint == j) ok = 1;
                 }
                 if (ok==0) dDebug (0,"joint not in joint list of attached body");
@@ -190,7 +190,7 @@ static void checkWorld (dxWorld *w)
 
     // check all body joint lists (correct body ptrs)
     for (b=w->firstbody; b; b=(dxBody*)b->next) {
-        for (dxJointNode *jn=b->firstjoint; jn; jn=jn->next) {
+        for (const dxJointNode*jn=b->firstjoint; jn; jn=jn->next) {
             if (&jn->joint->node[0] == jn) {
                 if (jn->joint->node[1].body != b)
                     dDebug (0,"bad body pointer in joint node of body list (1)");
@@ -415,7 +415,7 @@ const dReal * dBodyGetPosition (dBodyID b)
 void dBodyCopyPosition (dBodyID b, dVector3 pos)
 {
     dAASSERT (b);
-    dReal* src = b->posr.pos;
+    const dReal* src = b->posr.pos;
     pos[0] = src[0];
     pos[1] = src[1];
     pos[2] = src[2];
@@ -458,7 +458,7 @@ const dReal * dBodyGetQuaternion (dBodyID b)
 void dBodyCopyQuaternion (dBodyID b, dQuaternion quat)
 {
     dAASSERT (b);
-    dReal* src = b->q;
+    const dReal* src = b->q;
     quat[0] = src[0];
     quat[1] = src[1];
     quat[2] = src[2];
@@ -807,7 +807,7 @@ int dBodyGetNumJoints (dBodyID b)
 {
     dAASSERT (b);
     int count=0;
-    for (dxJointNode *n=b->firstjoint; n; n=n->next, count++);
+    for (const dxJointNode*n=b->firstjoint; n; n=n->next, count++);
     return count;
 }
 
@@ -816,7 +816,7 @@ dJointID dBodyGetJoint (dBodyID b, int index)
 {
     dAASSERT (b);
     int i=0;
-    for (dxJointNode *n=b->firstjoint; n; n=n->next, i++) {
+    for (const dxJointNode*n=b->firstjoint; n; n=n->next, i++) {
         if (i == index) return n->joint;
     }
     return NULL;
@@ -1306,7 +1306,7 @@ void dJointDestroy (dxJoint *j)
 dJointGroupID dJointGroupCreate (int /*max_size*/)
 {
     // not anymore ... dUASSERT (max_size > 0,"max size must be > 0");
-    dxJointGroup *group = new dxJointGroup();
+    dxJointGroup *const group = new dxJointGroup();
     return group;
 }
 
@@ -1514,7 +1514,7 @@ dJointID dConnectingJoint (dBodyID in_b1, dBodyID in_b2)
     }
 
     // look through b1's neighbour list for b2
-    for (dxJointNode *n=b1->firstjoint; n; n=n->next) {
+    for (const dxJointNode*n=b1->firstjoint; n; n=n->next) {
         if (n->body == b2) return n->joint;
     }
 
@@ -1541,7 +1541,7 @@ int dConnectingJointList (dBodyID in_b1, dBodyID in_b2, dJointID* out_list)
 
     // look through b1's neighbour list for b2
     int numConnectingJoints = 0;
-    for (dxJointNode *n=b1->firstjoint; n; n=n->next) {
+    for (const dxJointNode*n=b1->firstjoint; n; n=n->next) {
         if (n->body == b2)
             out_list[numConnectingJoints++] = n->joint;
     }
@@ -1554,7 +1554,7 @@ int dAreConnected (dBodyID b1, dBodyID b2)
 {
     dAASSERT (b1/* && b2*/); // b2 can be NULL to test for connection to environment
     // look through b1's neighbour list for b2
-    for (dxJointNode *n=b1->firstjoint; n; n=n->next) {
+    for (const dxJointNode*n=b1->firstjoint; n; n=n->next) {
         if (n->body == b2) return 1;
     }
     return 0;
@@ -1565,7 +1565,7 @@ int dAreConnectedExcluding (dBodyID b1, dBodyID b2, int joint_type)
 {
     dAASSERT (b1/* && b2*/); // b2 can be NULL to test for connection to environment
     // look through b1's neighbour list for b2
-    for (dxJointNode *n=b1->firstjoint; n; n=n->next) {
+    for (const dxJointNode*n=b1->firstjoint; n; n=n->next) {
         if (dJointGetType (n->joint) != joint_type && n->body == b2) return 1;
     }
     return 0;
@@ -1576,7 +1576,7 @@ int dAreConnectedExcluding (dBodyID b1, dBodyID b2, int joint_type)
 
 dxWorld * dWorldCreate()
 {
-    dxWorld *w = new dxWorld();
+    dxWorld *const w = new dxWorld();
 
     return w;
 }

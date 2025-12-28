@@ -446,7 +446,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
                     int TriIndex = Contact->side1;
 
                     for (int i = 1; i < OutTriCount; i++){
-                        dContactGeom* TempContact = SAFECONTACT(Flags, Contacts, i, Stride);
+                        const dContactGeom* TempContact = SAFECONTACT(Flags, Contacts, i, Stride);
 
                         pos[0] += TempContact->pos[0];
                         pos[1] += TempContact->pos[1];
@@ -498,14 +498,14 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
                 if (OutTriCount != 1 && !((unsigned int)Flags & CONTACTS_UNIMPORTANT)){
                     dVector3 Normal;
 
-                    dContactGeom* FirstContact = SAFECONTACT(Flags, Contacts, 0, Stride);
+                    const dContactGeom* FirstContact = SAFECONTACT(Flags, Contacts, 0, Stride);
                     Normal[0] = FirstContact->normal[0] * FirstContact->depth;
                     Normal[1] = FirstContact->normal[1] * FirstContact->depth;
                     Normal[2] = FirstContact->normal[2] * FirstContact->depth;
                     Normal[3] = FirstContact->normal[3] * FirstContact->depth;
 
                     for (int i = 1; i < OutTriCount; i++){
-                        dContactGeom* Contact = SAFECONTACT(Flags, Contacts, i, Stride);
+                        const dContactGeom* Contact = SAFECONTACT(Flags, Contacts, i, Stride);
 
                         Normal[0] += Contact->normal[0] * Contact->depth;
                         Normal[1] += Contact->normal[1] * Contact->depth;
@@ -556,7 +556,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
 
     dxTriMesh* TriMesh = (dxTriMesh*)g1;
     const dVector3& Position = *(const dVector3*)dGeomGetPosition(SphereGeom);
-    dReal Radius = dGeomSphereGetRadius(SphereGeom);
+    const dReal Radius = dGeomSphereGetRadius(SphereGeom);
     //Create contact list
     GDYNAMIC_ARRAY trimeshcontacts;
     GIM_CREATE_CONTACT_LIST(trimeshcontacts);

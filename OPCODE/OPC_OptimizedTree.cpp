@@ -176,7 +176,7 @@ static void _BuildNoLeafTree(AABBNoLeafNode* linear, const udword box_id, udword
 	else
 	{
 		// Get a new id for positive child
-		udword PosID = current_id++;
+		const udword PosID = current_id++;
 		// Setup box data
 		linear[box_id].mPosData = (size_t)&linear[PosID];
 		// Make sure it's not marked as leaf
@@ -197,7 +197,7 @@ static void _BuildNoLeafTree(AABBNoLeafNode* linear, const udword box_id, udword
 	else
 	{
 		// Get a new id for negative child
-		udword NegID = current_id++;
+		const udword NegID = current_id++;
 		// Setup box data
 		linear[box_id].mNegData = (size_t)&linear[NegID];
 		// Make sure it's not marked as leaf
@@ -338,7 +338,7 @@ bool AABBNoLeafTree::Build(AABBTree* tree)
 	udword NbExistingNodes		= tree->GetNbNodes();
 	if(NbExistingNodes!=NbTriangles*2-1)	return false;
 
-	udword NbNodes = NbTriangles-1;
+	const udword NbNodes = NbTriangles-1;
 	// Get nodes
 	if(mNbNodes!=NbNodes)	// Same number of nodes => keep moving
 	{
@@ -723,7 +723,7 @@ bool AABBQuantizedNoLeafTree::Build(AABBTree* tree)
 	if(NbExistingNodes!=NbTriangles*2-1)	return false;
 
 	// Get nodes
-	udword NbNodes = NbTriangles-1;
+	const udword NbNodes = NbTriangles-1;
 	mNbNodes = NbNodes;
 	DELETEARRAY(mNodes);
 	AABBNoLeafNode* Nodes = new AABBNoLeafNode[NbNodes];

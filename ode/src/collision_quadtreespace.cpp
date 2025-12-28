@@ -414,7 +414,7 @@ dxQuadTreeSpace::dxQuadTreeSpace(dSpaceID _space, const dVector3 Center, const d
 
 dxQuadTreeSpace::~dxQuadTreeSpace(){
     int Depth = 0;
-    Block* Current = &Blocks[0];
+    const Block* Current = &Blocks[0];
     while (Current){
         Depth++;
         Current = Current->mChildren;
@@ -589,7 +589,7 @@ struct DataCallback {
 // Invokes the callback with arguments swapped
 static void swap_callback(void *data, dxGeom *g1, dxGeom *g2)
 {
-    DataCallback *dc = (DataCallback*)data;
+    const DataCallback *dc = (DataCallback*)data;
     dc->callback(dc->data, g2, g1);
 }
 
@@ -603,7 +603,7 @@ void dxQuadTreeSpace::collide2(void* UserData, dxGeom* g2, dNearCallback* Callba
 
     if (g2->parent_space == this){
         // The block the geom is in
-        Block* CurrentGeomBlock = (Block*)g2->tome_ex;
+        const Block* CurrentGeomBlock = (Block*)g2->tome_ex;
 
         // Collide against block and its children
         DataCallback dc = {UserData, Callback};

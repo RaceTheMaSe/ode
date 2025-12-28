@@ -313,7 +313,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                 SUB(elt2, CoplanarPt, old_pos2);
 
                                 SUB(elt_sum, elt1, elt2);  // net motion of the coplanar point
-                                dReal elt_sum_len = LENGTH(elt_sum); // Could be calculated on demand but there is no good place...
+                                const dReal elt_sum_len = LENGTH(elt_sum); // Could be calculated on demand but there is no good place...
 
 
                                 // Calculate how much the vertices of each face moved in the

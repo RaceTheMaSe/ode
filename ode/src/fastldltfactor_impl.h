@@ -610,7 +610,7 @@ void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRo
 template<unsigned int d_stride>
 void scaleAndFactorizeL1FirstRowStripe_1(dReal *ARow, dReal *d)
 {
-    dReal *ptrAElement = ARow;
+    const dReal *ptrAElement = ARow;
     dReal *ptrDElement = d;
 
     const dReal Y11 = ptrAElement[0];
@@ -688,7 +688,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                 {
                     if (completedColumnBlock != 0)
                     {
-                        CellContextInstance contextInstance = GET_CELLDESCRIPTOR_CONTEXTINSTANCE(testDescriptor);
+                        const CellContextInstance contextInstance = GET_CELLDESCRIPTOR_CONTEXTINSTANCE(testDescriptor);
                         previousContextInstance = contextInstance;
 
                         const FactorizationSolveL1StripeCellContext &sourceContext = buildBlockContextRef(cellContexts, currentBlock, contextInstance);
@@ -726,7 +726,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
 
                 if (completedColumnBlock != 0)
                 {
-                    CellContextInstance contextInstance = GET_CELLDESCRIPTOR_CONTEXTINSTANCE(testDescriptor);
+                    const CellContextInstance contextInstance = GET_CELLDESCRIPTOR_CONTEXTINSTANCE(testDescriptor);
                     const FactorizationSolveL1StripeCellContext &sourceContext = buildBlockContextRef(cellContexts, currentBlock, contextInstance);
                     sourceContext.loadPrecalculatedZs(Z);
                 }
@@ -892,7 +892,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                             }
 
                             // ...continue if so.
-                            unsigned columnCompletedSoFar = finalColumnBlock;
+                            const unsigned columnCompletedSoFar = finalColumnBlock;
                             finalColumnBlock = dMIN(currentBlock, completedBlocks);
                             columnCounter = finalColumnBlock - columnCompletedSoFar;
                         }
@@ -910,7 +910,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
             if (rowEndReached)
             {
                 // Check whether there is still a need to proceed or if the computation has been taken over by another thread
-                cellindexint oldDescriptor = MAKE_CELLDESCRIPTOR(completedColumnBlock, previousContextInstance, true);
+                const cellindexint oldDescriptor = MAKE_CELLDESCRIPTOR(completedColumnBlock, previousContextInstance, true);
                 
                 if (blockProgressDescriptors[currentBlock] == oldDescriptor)
                 {
@@ -945,7 +945,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                         resultContext.storePrecalculatedZs(Y);
 
                         // Assign the result assignment progress descriptor
-                        cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(currentBlock + 1, CCI__MIN, true);
+                        const cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(currentBlock + 1, CCI__MIN, true);
                         CooperativeAtomics::AtomicCompareExchangeCellindexint(&blockProgressDescriptors[currentBlock], oldDescriptor, newDescriptor); // the result is to be ignored
 
                         // Whether succeeded or not, the result is valid, so go on trying to assign it to the matrix
@@ -966,13 +966,13 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
             {
                 // If the final column has not been reached yet, store current values to the context.
                 // Select the other context instance as the previous one might be read by other threads.
-                CellContextInstance nextContextInstance = buildNextContextInstance(previousContextInstance);
+                const CellContextInstance nextContextInstance = buildNextContextInstance(previousContextInstance);
                 FactorizationSolveL1StripeCellContext &destinationContext = buildBlockContextRef(cellContexts, currentBlock, nextContextInstance);
                 destinationContext.storePrecalculatedZs(Z);
 
                 // Unlock the row until more columns can be used
-                cellindexint oldDescriptor = MAKE_CELLDESCRIPTOR(completedColumnBlock, previousContextInstance, true);
-                cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(finalColumnBlock, nextContextInstance, false);
+                const cellindexint oldDescriptor = MAKE_CELLDESCRIPTOR(completedColumnBlock, previousContextInstance, true);
+                const cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(finalColumnBlock, nextContextInstance, false);
                 // The descriptor might have been updated by a competing thread
                 if (!CooperativeAtomics::AtomicCompareExchangeCellindexint(&blockProgressDescriptors[currentBlock], oldDescriptor, newDescriptor))
                 {
@@ -985,7 +985,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
 
             if (handleComputationTakenOver)
             {
-                cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
+                const cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
                 // This can only happen if the row was (has become) the uppermost not fully completed one
                 // and the competing thread is at final stage of calculation (i.e., it has reached the currentBlock column).
                 if (existingDescriptor != INVALID_CELLDESCRIPTOR)
@@ -1069,8 +1069,8 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                     dSASSERT(b_rows >= 1 && b_rows <= 2);
 
                     // Check if the primary solver thread has not made any progress
-                    cellindexint descriptorVerification = blockProgressDescriptors[currentBlock];
-                    unsigned newCompletedColumn = GET_CELLDESCRIPTOR_COLUMNINDEX(descriptorVerification);
+                    const cellindexint descriptorVerification = blockProgressDescriptors[currentBlock];
+                    const unsigned newCompletedColumn = GET_CELLDESCRIPTOR_COLUMNINDEX(descriptorVerification);
                     
                     if (newCompletedColumn != lastCompletedColumn)
                     {
@@ -1151,7 +1151,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                     // Use atomic memory barrier to make sure memory reads of ptrBElement[] and blockProgressDescriptors[] are not swapped
                     CooperativeAtomics::AtomicReadReorderBarrier();
 
-                    cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
+                    const cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
 
                     if (existingDescriptor == INVALID_CELLDESCRIPTOR)
                     {
@@ -1167,7 +1167,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                     {
                         // The descriptor has not been altered yet - this means the ptrBElement[] values used above were not modified yet 
                         // and the computation result is valid.
-                        cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(currentBlock + 1, CCI__MIN, true); // put the computation at the top so that the evaluation result from the expression above is reused
+                        const cellindexint newDescriptor = MAKE_CELLDESCRIPTOR(currentBlock + 1, CCI__MIN, true); // put the computation at the top so that the evaluation result from the expression above is reused
 
                         // Assign the results to the result context (possibly in parallel with other threads 
                         // that could and ought to be assigning exactly the same values)
@@ -1199,7 +1199,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
 
         if (goAssigningTheResult)
         {
-            cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
+            const cellindexint existingDescriptor = blockProgressDescriptors[currentBlock];
             // Check if the assignment has not been completed yet
             if (existingDescriptor != INVALID_CELLDESCRIPTOR)
             {
@@ -1491,13 +1491,13 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
         }
     }
 
-    unsigned threadExitIndex = CooperativeAtomics::AtomicDecrementUint32(&factorizationContext->m_threadsRunning);
+    const unsigned threadExitIndex = CooperativeAtomics::AtomicDecrementUint32(&factorizationContext->m_threadsRunning);
     dIASSERT(threadExitIndex + 1U != 0);
 
     if (threadExitIndex == 0)
     {
         // Let the last thread retrieve the sum and perform final computations
-        unsigned sumThreadIndex = factorizationContext->m_sumThreadIndex;
+        const unsigned sumThreadIndex = factorizationContext->m_sumThreadIndex;
         dIASSERT(sumThreadIndex != 0); // The rowIndex was asserted to be not zero, so at least one thread must have done something
 
         const FactorizationFactorizeL1StripeThreadContext &sumContext = factorizationContext->m_threadContexts[sumThreadIndex - 1];
@@ -1518,7 +1518,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
 
         /* factorize 2 x 2 block Y, ptrDElement */
         /* factorize row 1 */
-        dReal dd = dRecip(Y11);
+        const dReal dd = dRecip(Y11);
 
         ptrDElement[0 * d_stride] = dd;
         dIASSERT(ptrDElement == d + (sizeint)factorizationRow * d_stride);
@@ -1526,10 +1526,10 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
         CONST_IF (a_rows >= 2)
         {
             /* factorize row 2 */
-            dReal q2 = Y21 * dd;
+            const dReal q2 = Y21 * dd;
             ptrAElement[rowSkip] = q2;
 
-            dReal sum = Y21 * q2;
+            const dReal sum = Y21 * q2;
             ptrDElement[1 * d_stride] = dRecip(Y22 - sum);
         }
     }

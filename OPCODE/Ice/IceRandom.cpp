@@ -35,6 +35,6 @@ udword IceCore::GetRandomIndex(udword max_index)
         atexit(deleteRandomGenerator);
     }
     // We don't use rand() since it's limited to RAND_MAX
-    udword Index = gRandomGenerator->Randomize();
+    const udword Index = gRandomGenerator->Randomize();
     return Index % max_index;
 }

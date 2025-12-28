@@ -96,7 +96,7 @@ void *dObStack::alloc (sizeint num_bytes)
     }
 
     // allocate an area in the arena
-    char *c = ((char*) m_last) + m_last->m_used;
+    char *const c = ((char*) m_last) + m_last->m_used;
     m_last->m_used += num_bytes;
     ROUND_UP_OFFSET_TO_EFFICIENT_SIZE (m_last,m_last->m_used);
     return c;

@@ -375,7 +375,7 @@ void dJointGetHinge2Anchor2( dJointID j, dVector3 result )
 
 void dJointGetHinge2Axis1( dJointID j, dVector3 result )
 {
-    dxJointHinge2* joint = ( dxJointHinge2* )j;
+    const dxJointHinge2* joint = ( dxJointHinge2* )j;
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
     checktype( joint, Hinge2 );
@@ -393,7 +393,7 @@ void dJointGetHinge2Axis1( dJointID j, dVector3 result )
 
 void dJointGetHinge2Axis2( dJointID j, dVector3 result )
 {
-    dxJointHinge2* joint = ( dxJointHinge2* )j;
+    const dxJointHinge2* joint = ( dxJointHinge2* )j;
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
     checktype( joint, Hinge2 );
@@ -411,7 +411,7 @@ void dJointGetHinge2Axis2( dJointID j, dVector3 result )
 
 dReal dJointGetHinge2Param( dJointID j, int parameter )
 {
-    dxJointHinge2* joint = ( dxJointHinge2* )j;
+    const dxJointHinge2* joint = ( dxJointHinge2* )j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Hinge2 );
     if (( parameter & 0xff00 ) == 0x100 )
@@ -429,7 +429,7 @@ dReal dJointGetHinge2Param( dJointID j, int parameter )
 
 dReal dJointGetHinge2Angle1( dJointID j )
 {
-    dxJointHinge2* joint = ( dxJointHinge2* )j;
+    const dxJointHinge2* joint = ( dxJointHinge2* )j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Hinge2 );
     return joint->measureAngle1();
@@ -438,7 +438,7 @@ dReal dJointGetHinge2Angle1( dJointID j )
 
 dReal dJointGetHinge2Angle2( dJointID j )
 {
-    dxJointHinge2* joint = ( dxJointHinge2* )j;
+    const dxJointHinge2* joint = ( dxJointHinge2* )j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Hinge2 );
     return joint->measureAngle2();
@@ -448,7 +448,7 @@ dReal dJointGetHinge2Angle2( dJointID j )
 
 dReal dJointGetHinge2Angle1Rate( dJointID j )
 {
-    dxJointHinge2* joint = ( dxJointHinge2* )j;
+    const dxJointHinge2* joint = ( dxJointHinge2* )j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Hinge2 );
     if ( joint->node[0].body )
@@ -466,7 +466,7 @@ dReal dJointGetHinge2Angle1Rate( dJointID j )
 
 dReal dJointGetHinge2Angle2Rate( dJointID j )
 {
-    dxJointHinge2* joint = ( dxJointHinge2* )j;
+    const dxJointHinge2* joint = ( dxJointHinge2* )j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Hinge2 );
     if ( joint->node[0].body && joint->node[1].body )
@@ -484,7 +484,7 @@ dReal dJointGetHinge2Angle2Rate( dJointID j )
 
 void dJointAddHinge2Torques( dJointID j, dReal torque1, dReal torque2 )
 {
-    dxJointHinge2* joint = ( dxJointHinge2* )j;
+    const dxJointHinge2* joint = ( dxJointHinge2* )j;
     dVector3 axis1, axis2;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Hinge2 );

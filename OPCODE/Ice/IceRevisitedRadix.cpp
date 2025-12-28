@@ -209,7 +209,7 @@ bool RadixSort::Resize(udword nb)
 
 inline_ void RadixSort::CheckResize(udword nb)
 {
-	udword CurSize = CURRENT_SIZE;
+	const udword CurSize = CURRENT_SIZE;
 	if(nb!=CurSize)
 	{
 		if (nb>CurSize || mRanks==NULL || mRanks2==NULL) Resize(nb);
@@ -317,7 +317,7 @@ RadixSort& RadixSort::Sort(const udword* input, udword nb, RadixHint hint)
 				const udword* IndicesEnd	= &mRanks[nb];
 				while(Indices!=IndicesEnd)
 				{
-					udword id = *Indices++;
+					const udword id = *Indices++;
 //					mRanks2[mOffset[InputBytes[id<<2]]++] = id;
 					*mLink[InputBytes[id<<2]]++ = id;
 				}
@@ -410,7 +410,7 @@ RadixSort& RadixSort::Sort(const float* input2, udword nb)
 					const udword* IndicesEnd	= &mRanks[nb];
 					while(Indices!=IndicesEnd)
 					{
-						udword id = *Indices++;
+						const udword id = *Indices++;
 //						mRanks2[mOffset[InputBytes[id<<2]]++] = id;
 						*mLink[InputBytes[id<<2]]++ = id;
 					}
@@ -446,7 +446,7 @@ RadixSort& RadixSort::Sort(const float* input2, udword nb)
 				{
 					for(udword i=0;i<nb;i++)
 					{
-						udword Radix = input[i]>>24;							// Radix byte, same as above. AND is useless here (udword).
+						const udword Radix = input[i]>>24;							// Radix byte, same as above. AND is useless here (udword).
 						// ### cmp to be killed. Not good. Later.
 //						if(Radix<128)		mRanks2[mOffset[Radix]++] = i;		// Number is positive, same as above
 //						else				mRanks2[--mOffset[Radix]] = i;		// Number is negative, flip the sorting order
@@ -459,7 +459,7 @@ RadixSort& RadixSort::Sort(const float* input2, udword nb)
 				{
 					for(udword i=0;i<nb;i++)
 					{
-						udword Radix = input[mRanks[i]]>>24;							// Radix byte, same as above. AND is useless here (udword).
+						const udword Radix = input[mRanks[i]]>>24;							// Radix byte, same as above. AND is useless here (udword).
 						// ### cmp to be killed. Not good. Later.
 //						if(Radix<128)		mRanks2[mOffset[Radix]++] = mRanks[i];		// Number is positive, same as above
 //						else				mRanks2[--mOffset[Radix]] = mRanks[i];		// Number is negative, flip the sorting order

@@ -93,7 +93,7 @@ void dxJointHinge::getInfo2( dReal worldFPS, dReal worldERP,
     dMultiply0_331( ax1, node[0].body->posr.R, axis1 );
     dPlaneSpace( ax1, p, q );
 
-    dxBody *body1 = node[1].body;
+    const dxBody *body1 = node[1].body;
     
     int currRowSkip = 3 * rowskip;
     dCopyVector3(J1 + currRowSkip + GI2__JA_MIN, p);
@@ -274,7 +274,7 @@ void dJointSetHingeParam( dJointID j, int parameter, dReal value )
 
 dReal dJointGetHingeParam( dJointID j, int parameter )
 {
-    dxJointHinge* joint = ( dxJointHinge* )j;
+    const dxJointHinge* joint = ( dxJointHinge* )j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Hinge );
     return joint->limot.get( parameter );
@@ -303,7 +303,7 @@ dReal dJointGetHingeAngle( dJointID j )
 
 dReal dJointGetHingeAngleRate( dJointID j )
 {
-    dxJointHinge* joint = ( dxJointHinge* )j;
+    const dxJointHinge* joint = ( dxJointHinge* )j;
     dAASSERT( joint );
     checktype( joint, Hinge );
     if ( joint->node[0].body )

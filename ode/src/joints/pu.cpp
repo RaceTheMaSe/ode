@@ -77,7 +77,7 @@ dxJointPU::dxJointPU( dxWorld *w ) :
 
 dReal dJointGetPUPosition( dJointID j )
 {
-    dxJointPU* joint = ( dxJointPU* ) j;
+    const dxJointPU* joint = ( dxJointPU* ) j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, PU );
 
@@ -129,7 +129,7 @@ dReal dJointGetPUPosition( dJointID j )
 
 dReal dJointGetPUPositionRate( dJointID j )
 {
-    dxJointPU* joint = ( dxJointPU* ) j;
+    const dxJointPU* joint = ( dxJointPU* ) j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, PU );
 
@@ -286,7 +286,7 @@ dxJointPU::getInfo2( dReal worldFPS, dReal worldERP,
 
     dCopyVector3( J1 + GI2__JA_MIN, uniPerp );
 
-    dxBody *body1 = node[1].body;
+    const dxBody *body1 = node[1].body;
 
     if ( body1 ) {
         dCopyNegatedVector3( J2 + GI2__JA_MIN , uniPerp );
@@ -710,7 +710,7 @@ void dJointGetPUAxis3( dJointID j, dVector3 result )
 
 dReal dJointGetPUParam( dJointID j, int parameter )
 {
-    dxJointPU* joint = ( dxJointPU* ) j;
+    const dxJointPU* joint = ( dxJointPU* ) j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, PU );
 

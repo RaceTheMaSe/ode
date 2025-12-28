@@ -125,7 +125,7 @@ void dGeomPlaneSetParams (dGeomID g, dReal a, dReal b, dReal c, dReal d)
 void dGeomPlaneGetParams (dGeomID g, dVector4 result)
 {
     dUASSERT (g && g->type == dPlaneClass,"argument not a plane");
-    dxPlane *p = (dxPlane*) g;
+    const dxPlane *p = (dxPlane*) g;
     result[0] = p->p[0];
     result[1] = p->p[1];
     result[2] = p->p[2];
@@ -136,6 +136,6 @@ void dGeomPlaneGetParams (dGeomID g, dVector4 result)
 dReal dGeomPlanePointDepth (dGeomID g, dReal x, dReal y, dReal z)
 {
     dUASSERT (g && g->type == dPlaneClass,"argument not a plane");
-    dxPlane *p = (dxPlane*) g;
+    const dxPlane *p = (dxPlane*) g;
     return p->p[3] - p->p[0]*x - p->p[1]*y - p->p[2]*z;
 }

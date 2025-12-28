@@ -283,7 +283,7 @@ void MeshInterface::FetchTriangleFromSingles(VertexPointers& vp, udword index, C
 	const IceMaths::IndexedTriangle* T = (const IceMaths::IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 
 	const IceMaths::Point* Verts = GetVerts();
-	udword VertexStride = GetVertexStride();
+	const udword VertexStride = GetVertexStride();
 	vp.Vertex[0] = (const IceMaths::Point*)(((const ubyte*)Verts) + T->mVRef[0] * VertexStride);
 	vp.Vertex[1] = (const IceMaths::Point*)(((const ubyte*)Verts) + T->mVRef[1] * VertexStride);
 	vp.Vertex[2] = (const IceMaths::Point*)(((const ubyte*)Verts) + T->mVRef[2] * VertexStride);
@@ -294,7 +294,7 @@ void MeshInterface::FetchTriangleFromDoubles(VertexPointers& vp, udword index, C
 	const IceMaths::IndexedTriangle* T = (const IceMaths::IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 	
 	const IceMaths::Point* Verts = GetVerts();
-	udword VertexStride = GetVertexStride();
+	const udword VertexStride = GetVertexStride();
 
 	for (int i = 0; i < 3; i++){
 		const double* v = (const double*)(((const ubyte*)Verts) + T->mVRef[i] * VertexStride);
@@ -311,17 +311,17 @@ void MeshInterface::FetchExTriangleFromSingles(VertexPointersEx& vpe, udword ind
 	const IceMaths::IndexedTriangle* T = (const IceMaths::IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 
 	const IceMaths::Point* Verts = GetVerts();
-	udword VertexStride = GetVertexStride();
+	const udword VertexStride = GetVertexStride();
 
-	dTriIndex VertIndex0 = T->mVRef[0];
+	const dTriIndex VertIndex0 = T->mVRef[0];
 	vpe.Index[0] = VertIndex0;
 	vpe.vp.Vertex[0] = (const IceMaths::Point*)(((const ubyte*)Verts) + VertIndex0 * VertexStride);
 
-	dTriIndex VertIndex1 = T->mVRef[1];
+	const dTriIndex VertIndex1 = T->mVRef[1];
 	vpe.Index[1] = VertIndex1;
 	vpe.vp.Vertex[1] = (const IceMaths::Point*)(((const ubyte*)Verts) + VertIndex1 * VertexStride);
 
-	dTriIndex VertIndex2 = T->mVRef[2];
+	const dTriIndex VertIndex2 = T->mVRef[2];
 	vpe.Index[2] = VertIndex2;
 	vpe.vp.Vertex[2] = (const IceMaths::Point*)(((const ubyte*)Verts) + VertIndex2 * VertexStride);
 }
@@ -331,10 +331,10 @@ void MeshInterface::FetchExTriangleFromDoubles(VertexPointersEx& vpe, udword ind
 	const IceMaths::IndexedTriangle* T = (const IceMaths::IndexedTriangle*)(((const ubyte*)mTris) + index * mTriStride);
 
 	const IceMaths::Point* Verts = GetVerts();
-	udword VertexStride = GetVertexStride();
+	const udword VertexStride = GetVertexStride();
 
 	for (int i = 0; i < 3; i++){
-		dTriIndex VertIndex = T->mVRef[i];
+		const dTriIndex VertIndex = T->mVRef[i];
 		vpe.Index[i] = VertIndex;
 
 		const double* v = (const double*)(((const ubyte*)Verts) + VertIndex * VertexStride);
@@ -370,7 +370,7 @@ bool MeshInterface::RemapClient(udword nb_indices, const dTriIndex* permutation)
 	CHECKALLOC(Tmp);
 
 	#ifdef OPC_USE_STRIDE
-	udword Stride = mTriStride;
+	const udword Stride = mTriStride;
 	#else
 	udword Stride = sizeof(IndexedTriangle);
 	#endif

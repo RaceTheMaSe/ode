@@ -53,7 +53,7 @@ static inline
 TrimeshCollidersCache *GetTrimeshCollidersCache(unsigned uiTLSKind)
 {
 #if defined(dTLS_ENABLED)
-    EODETLSKIND tkTLSKind = (EODETLSKIND)uiTLSKind;
+    const EODETLSKIND tkTLSKind = (EODETLSKIND)uiTLSKind;
     return COdeTls::GetTrimeshCollidersCache(tkTLSKind);
 #else // dTLS_ENABLED
     (void)uiTLSKind; // unused

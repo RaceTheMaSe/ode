@@ -133,7 +133,7 @@ extern "C" double dsElapsedTime()
   timeval tv ;
 
   gettimeofday(&tv, 0);
-  double curr = (double)tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
+  const double curr = (double)tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
   if (prev == 0.0)
     prev=curr;
   double retval = curr-prev;
@@ -159,7 +159,7 @@ static void osxKeyEventHandler( unsigned char key, int /*x*/, int /*y*/ )
     else
         uppercase = key;
     
-    int modifierMask = osxGetModifierMask();    
+    const int modifierMask = osxGetModifierMask();    
     if (modifierMask == 0)
     {
         if( key >= ' ' && key <= 126 && functions -> command )
@@ -216,7 +216,7 @@ static void osxMouseEventHandler(int button, int state, int x, int y)
             ANNOTATE_FALLTHROUGH
         case GLUT_UP:
             if( button == GLUT_LEFT_BUTTON ){
-                int modifierMask = osxGetModifierMask();
+                const int modifierMask = osxGetModifierMask();
                 if( modifierMask & GLUT_ACTIVE_CTRL ){
                     // Ctrl+button == right
                     button = GLUT_RIGHT_BUTTON;

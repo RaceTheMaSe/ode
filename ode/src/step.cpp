@@ -506,7 +506,7 @@ void dxStepIsland(const dxStepperProcessingCallContext *callContext)
     IFTIMING(dTimerStart("preprocessing"));
 
     dxWorldProcessMemArena *memarena = callContext->m_stepperArena;
-    dxWorld *world = callContext->m_world;
+    const dxWorld *world = callContext->m_world;
     const unsigned int nb = callContext->m_islandBodiesCount;
     const unsigned int _nj = callContext->m_islandJointsCount;
 
@@ -577,7 +577,7 @@ void dxStepIsland_Stage0_Bodies(dxStepperStage0BodiesCallContext *callContext)
 
     if (ThrsafeExchange(&callContext->m_gravityTaken, 1) == 0)
     {
-        dxWorld *world = callContext->m_stepperCallContext->m_world;
+        const dxWorld *world = callContext->m_stepperCallContext->m_world;
 
         // add the gravity force to all bodies
         // since gravity does normally have only one component it's more efficient
@@ -975,7 +975,7 @@ void dxStepIsland_Stage1(dxStepperStage1CallContext *stage1CallContext)
             dxStepIsland_Stage3(stage3CallContext);
         }
         else {
-            dxWorld *world = callContext->m_world;
+            const dxWorld *world = callContext->m_world;
             dCallReleaseeID stage3CallReleasee;
             world->PostThreadedCallForUnawareReleasee(NULL, &stage3CallReleasee, 1, callContext->m_finalReleasee, 
                 NULL, &dxStepIsland_Stage3_Callback, stage3CallContext, 0, "StepIsland Stage3");
@@ -1016,12 +1016,12 @@ void dxStepIsland_Stage2a(dxStepperStage2CallContext *stage2CallContext)
 {
     const dxStepperProcessingCallContext *callContext = stage2CallContext->m_stepperCallContext;
     const dxStepperLocalContext *localContext = stage2CallContext->m_localContext;
-    dJointWithInfo1 *jointinfos = localContext->m_jointinfos;
+    const dJointWithInfo1 *jointinfos = localContext->m_jointinfos;
     const unsigned int nj = localContext->m_nj;
     const unsigned int *mindex = localContext->m_mindex;
 
     const dReal stepsizeRecip = dRecip(callContext->m_stepSize);
-    dxWorld *world = callContext->m_world;
+    const dxWorld *world = callContext->m_world;
 
     {
         int *findex = localContext->m_findex;
@@ -1061,13 +1061,13 @@ void dxStepIsland_Stage2a(dxStepperStage2CallContext *stage2CallContext)
             {
                 dSetZero (JRow, infom * ((sizeint)2 * JME__MAX));
 
-                dReal *const endRhsCfm = rowRhsCfm + (sizeint)(infom * RCE__RHS_CFM_MAX);
+                const dReal *const endRhsCfm = rowRhsCfm + (sizeint)(infom * RCE__RHS_CFM_MAX);
                 for (dReal *currRhsCfm = rowRhsCfm; currRhsCfm != endRhsCfm; currRhsCfm += RCE__RHS_CFM_MAX) {
                     currRhsCfm[RCE_RHS] = REAL(0.0);
                     currRhsCfm[RCE_CFM] = worldCFM;
                 }
 
-                dReal *const endLoHi = rowLoHi + (sizeint)(infom * LHE__LO_HI_MAX);
+                const dReal *const endLoHi = rowLoHi + (sizeint)(infom * LHE__LO_HI_MAX);
                 for (dReal *currLoHi = rowLoHi; currLoHi != endLoHi; currLoHi += LHE__LO_HI_MAX) {
                     currLoHi[LHE_LO] = -dInfinity;
                     currLoHi[LHE_HI] = dInfinity;
@@ -1083,7 +1083,7 @@ void dxStepIsland_Stage2a(dxStepperStage2CallContext *stage2CallContext)
             // findex iteration is compact and is not going to pollute caches - do it first
             {
                 // adjust returned findex values for global index numbering
-                int *const findicesEnd = findexRow + infom;
+                const int *const findicesEnd = findexRow + infom;
                 for (int *findexCurr = findexRow; findexCurr != findicesEnd; ++findexCurr) {
                     const int fival = *findexCurr;
                     if (fival != -1) {
@@ -1092,7 +1092,7 @@ void dxStepIsland_Stage2a(dxStepperStage2CallContext *stage2CallContext)
                 }
             }
             {
-                dReal *const endRhsCfm = rowRhsCfm + (sizeint)(infom * RCE__RHS_CFM_MAX);
+                const dReal *const endRhsCfm = rowRhsCfm + (sizeint)(infom * RCE__RHS_CFM_MAX);
                 for (dReal *currRhsCfm = rowRhsCfm; currRhsCfm != endRhsCfm; currRhsCfm += RCE__RHS_CFM_MAX) {
                     currRhsCfm[RCE_RHS] *= stepsizeRecip;
                     currRhsCfm[RCE_CFM] *= stepsizeRecip;
@@ -1111,7 +1111,7 @@ int dxStepIsland_Stage2aSync_Callback(void *_stage2CallContext, dcallindex_t cal
     const unsigned allowedThreads = callContext->m_stepperAllowedThreads;
 
     dIASSERT(allowedThreads > 1); /*if (allowedThreads > 1) */{ // The allowed thread count is greater than one as otherwise current function would not be scheduled for execution from the previous stage
-        dxWorld *world = callContext->m_world;
+        const dxWorld *world = callContext->m_world;
         world->AlterThreadedCallDependenciesCount(callThisReleasee, (ddependencychange_t)allowedThreads - 1);
         world->PostThreadedCallsGroup(NULL, allowedThreads - 1, callThisReleasee, &dxStepIsland_Stage2b_Callback, stage2CallContext, "StepIsland Stage2b");
     }
@@ -1135,7 +1135,7 @@ void dxStepIsland_Stage2b(dxStepperStage2CallContext *stage2CallContext)
 {
     const dxStepperProcessingCallContext *callContext = stage2CallContext->m_stepperCallContext;
     const dxStepperLocalContext *localContext = stage2CallContext->m_localContext;
-    dJointWithInfo1 *jointinfos = localContext->m_jointinfos;
+    const dJointWithInfo1 *jointinfos = localContext->m_jointinfos;
     const unsigned int nj = localContext->m_nj;
     const unsigned int *mindex = localContext->m_mindex;
 
@@ -1188,9 +1188,9 @@ void dxStepIsland_Stage2b(dxStepperStage2CallContext *stage2CallContext)
             dSetZero(Jdst, (sizeint)(infom * (2 * JIM__MAX)));
 
             const dReal *Jsrc = J + (sizeint)ofsi * ((sizeint)2 * JME__MAX);
-            dxJoint *joint = jointinfos[ji].joint;
+            const dxJoint *joint = jointinfos[ji].joint;
 
-            dxBody *jb0 = joint->node[0].body;
+            const dxBody *jb0 = joint->node[0].body;
             CONST_IF (/* DISABLES CODE */ (true) /*|| jb0 != NULL*/) { // -- always true
                 const dReal body_invMass0 = jb0->invMass;
                 const dReal *body_invI0 = invI + (sizeint)(unsigned int)jb0->tag * dM3E__MAX;
@@ -1202,7 +1202,7 @@ void dxStepIsland_Stage2b(dxStepperStage2CallContext *stage2CallContext)
                 }
             }
 
-            dxBody *jb1 = joint->node[1].body;
+            const dxBody *jb1 = joint->node[1].body;
             if (jb1 != NULL) {
                 const dReal body_invMass1 = jb1->invMass;
                 const dReal *body_invI1 = invI + (sizeint)(unsigned int)jb1->tag * dM3E__MAX;
@@ -1257,7 +1257,7 @@ int dxStepIsland_Stage2bSync_Callback(void *_stage2CallContext, dcallindex_t cal
     const unsigned allowedThreads = callContext->m_stepperAllowedThreads;
 
     dIASSERT(allowedThreads > 1); /*if (allowedThreads > 1) */{ // The allowed thread count is greater than one as otherwise current function would not be scheduled for execution from the previous stage
-        dxWorld *world = callContext->m_world;
+        const dxWorld *world = callContext->m_world;
         world->AlterThreadedCallDependenciesCount(callThisReleasee, (ddependencychange_t)allowedThreads - 1);
         world->PostThreadedCallsGroup(NULL, allowedThreads - 1, callThisReleasee, &dxStepIsland_Stage2c_Callback, stage2CallContext, "StepIsland Stage2c");
     }
@@ -1282,7 +1282,7 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
 {
     //const dxStepperProcessingCallContext *callContext = stage2CallContext->m_stepperCallContext;
     const dxStepperLocalContext *localContext = stage2CallContext->m_localContext;
-    dJointWithInfo1 *jointinfos = localContext->m_jointinfos;
+    const dJointWithInfo1 *jointinfos = localContext->m_jointinfos;
     const unsigned int nj = localContext->m_nj;
     const unsigned int *mindex = localContext->m_mindex;
 
@@ -1309,15 +1309,15 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
 
             dReal *Arow = A + (sizeint)mskip * ofsi;
             const dReal *JinvMRow = JinvM + (sizeint)ofsi * ((sizeint)2 * JIM__MAX);
-            dxJoint *joint = jointinfos[ji].joint;
+            const dxJoint *joint = jointinfos[ji].joint;
 
-            dxBody *jb0 = joint->node[0].body;
+            const dxBody *jb0 = joint->node[0].body;
             CONST_IF (/* DISABLES CODE */ (true) /*|| jb0 != NULL*/) { // -- always true
                 // compute diagonal block of A
                 const dReal *JRow = J + (sizeint)ofsi * ((sizeint)2 * JME__MAX);
                 MultiplyAddJinvMxJToA (Arow + ofsi, JinvMRow, JRow, infom, infom, mskip);
 
-                for (dxJointNode *n0 = (ji != 0 ? jb0->firstjoint : NULL); n0; n0 = n0->next) {
+                for (const dxJointNode *n0 = (ji != 0 ? jb0->firstjoint : NULL); n0; n0 = n0->next) {
                     // if joint was tagged as -1 then it is an inactive (m=0 or disabled)
                     // joint that should not be considered
                     const int j0 = n0->joint->tag;
@@ -1333,7 +1333,7 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
                 }
             }
 
-            dxBody *jb1 = joint->node[1].body;
+            const dxBody *jb1 = joint->node[1].body;
             dIASSERT(jb1 != jb0);
             if (jb1 != NULL) {
                 const dReal *JinvMOther = JinvMRow + (sizeint)(infom * JIM__MAX);
@@ -1341,7 +1341,7 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
                 const dReal *JRow = J + ((sizeint)ofsi * 2 + infom) * JME__MAX;
                 MultiplyAddJinvMxJToA (Arow + ofsi, JinvMOther, JRow, infom, infom, mskip);
 
-                for (dxJointNode *n1 = (ji != 0 ? jb1->firstjoint : NULL); n1; n1 = n1->next) {
+                for (const dxJointNode *n1 = (ji != 0 ? jb1->firstjoint : NULL); n1; n1 = n1->next) {
                     // if joint was tagged as -1 then it is an inactive (m=0 or disabled)
                     // joint that should not be considered
                     const int j1 = n1->joint->tag;
@@ -1368,7 +1368,7 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
         const dReal *J = localContext->m_J;
         const dReal *rhs_tmp = stage2CallContext->m_rhs_tmp;
         dReal *pairsRhsCfm = localContext->m_pairsRhsCfm;
-        atomicord32 *bodyStartJoints = localContext->m_bodyStartJoints;
+        atomicord32 *const bodyStartJoints = localContext->m_bodyStartJoints;
         atomicord32 *bodyJointLinks = localContext->m_bodyJointLinks;
 
         // compute the right hand side `rhs'
@@ -1381,9 +1381,9 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
             dReal *currRhsCfm = pairsRhsCfm + (sizeint)ofsi * RCE__RHS_CFM_MAX;
             const dReal *JRow = J + (sizeint)ofsi * ((sizeint)2 * JME__MAX);
             
-            dxJoint *joint = jointinfos[ji].joint;
+            const dxJoint *joint = jointinfos[ji].joint;
 
-            dxBody *jb0 = joint->node[0].body;
+            const dxBody *jb0 = joint->node[0].body;
             CONST_IF (/* DISABLES CODE */ (true) /*|| jb0 != NULL*/) { // -- always true
                 const unsigned bodyIndex = (unsigned)jb0->tag;
                 MultiplySubJxRhsTmpFromRHS (currRhsCfm, JRow, rhs_tmp + (sizeint)bodyIndex * dDA__MAX, infom);
@@ -1398,7 +1398,7 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
                 }
             }
 
-            dxBody *jb1 = joint->node[1].body;
+            const dxBody *jb1 = joint->node[1].body;
             if (jb1 != NULL) {
                 const unsigned bodyIndex = (unsigned)jb1->tag;
                 MultiplySubJxRhsTmpFromRHS (currRhsCfm, JRow + (sizeint)(infom * JME__MAX), rhs_tmp + (sizeint)bodyIndex * dDA__MAX, infom);
@@ -1478,7 +1478,7 @@ void dxStepIsland_Stage3(dxStepperStage3CallContext *stage3CallContext)
     }
     else {
         dCallReleaseeID finalReleasee = callContext->m_finalReleasee;
-        dxWorld *world = callContext->m_world;
+        const dxWorld *world = callContext->m_world;
         world->AlterThreadedCallDependenciesCount(finalReleasee, (ddependencychange_t)allowedThreads - 1);
         world->PostThreadedCallsGroup(NULL, allowedThreads - 1, finalReleasee, &dxStepIsland_Stage4_Callback, stage4CallContext, "StepIsland Stage4");
         // Note: Adding another dependency for the finalReleasee is not necessary as it already depends on the current call
@@ -1504,13 +1504,13 @@ void dxStepIsland_Stage4(dxStepperStage4CallContext *stage4CallContext)
 
     const dReal stepSize = callContext->m_stepSize;
     dxBody *const *bodies = callContext->m_islandBodiesStart;
-    dReal *invI = localContext->m_invI;
-    dJointWithInfo1 *jointInfos = localContext->m_jointinfos;
-    dReal *J = localContext->m_J;
-    dReal *pairsRhsLambda = localContext->m_pairsRhsCfm;
+    const dReal *invI = localContext->m_invI;
+    const dJointWithInfo1 *jointInfos = localContext->m_jointinfos;
+    const dReal *J = localContext->m_J;
+    const dReal *pairsRhsLambda = localContext->m_pairsRhsCfm;
     const unsigned int *mIndex = localContext->m_mindex;
-    atomicord32 *bodyStartJoints = localContext->m_bodyStartJoints;
-    atomicord32 *bodyJointLinks = localContext->m_bodyJointLinks;
+    const atomicord32 *bodyStartJoints = localContext->m_bodyStartJoints;
+    const atomicord32 *bodyJointLinks = localContext->m_bodyJointLinks;
     const unsigned int nb = callContext->m_islandBodiesCount;
 
     unsigned bi;
@@ -1540,7 +1540,7 @@ void dxStepIsland_Stage4(dxStepperStage4CallContext *stage4CallContext)
             const dReal *JRow = J + (sizeint)ofsi * ((sizeint)2 * JME__MAX);
             const dReal *rowRhsLambda = pairsRhsLambda + (sizeint)ofsi * RLE__RHS_LAMBDA_MAX;
 
-            dxJoint *joint = currJointInfo->joint;
+            const dxJoint *joint = currJointInfo->joint;
             const unsigned int infom = currJointInfo->info.m;
 
             // unsigned jRowExtraOffset = jointBodyIndex * infom * JME__MAX;

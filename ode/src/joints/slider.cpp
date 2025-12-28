@@ -43,7 +43,7 @@ dxJointSlider::dxJointSlider ( dxWorld *w ) :
 
 dReal dJointGetSliderPosition ( dJointID j )
 {
-    dxJointSlider* joint = ( dxJointSlider* ) j;
+    const dxJointSlider* joint = ( dxJointSlider* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Slider );
 
@@ -83,7 +83,7 @@ dReal dJointGetSliderPosition ( dJointID j )
 
 dReal dJointGetSliderPositionRate ( dJointID j )
 {
-    dxJointSlider* joint = ( dxJointSlider* ) j;
+    const dxJointSlider* joint = ( dxJointSlider* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Slider );
 
@@ -159,8 +159,8 @@ dxJointSlider::getInfo2 ( dReal worldFPS, dReal worldERP,
     dVector3 c;
     dReal *pos2 = NULL, *R2 = NULL;
 
-    dReal *pos1 = node[0].body->posr.pos;
-    dReal *R1 = node[0].body->posr.R;
+    const dReal *pos1 = node[0].body->posr.pos;
+    const dReal *R1 = node[0].body->posr.R;
 
     dVector3 ax1; // joint axis in global coordinates (unit length)
     dVector3 p, q; // plane space of ax1
@@ -306,7 +306,7 @@ void dJointSetSliderParam ( dJointID j, int parameter, dReal value )
 
 dReal dJointGetSliderParam ( dJointID j, int parameter )
 {
-    dxJointSlider* joint = ( dxJointSlider* ) j;
+    const dxJointSlider* joint = ( dxJointSlider* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Slider );
     return joint->limot.get ( parameter );

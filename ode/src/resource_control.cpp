@@ -54,7 +54,7 @@ bool dxRequiredResourceContainer::allocateResources(const dxResourceRequirementD
         if (memorySizeRequirement != 0)
         {
             const unsigned memoryAlignmentRequirement = requirementDescriptor.getMemoryAlignmentRequirement();
-            void *allocatedBuffer = m_memoryAllocation.allocAligned(memorySizeRequirement, memoryAlignmentRequirement);
+            const void *allocatedBuffer = m_memoryAllocation.allocAligned(memorySizeRequirement, memoryAlignmentRequirement);
             if (allocatedBuffer == NULL)
             {
                 break;
@@ -135,7 +135,7 @@ dResourceRequirementsID dResourceRequirementsCreate(dCooperativeID cooperative)
 {
     dAASSERT(cooperative != NULL);
 
-    dxSimpleCooperative *cooperativeInstance = decodeCooperativeID(cooperative);
+    const dxSimpleCooperative *cooperativeInstance = decodeCooperativeID(cooperative);
     dxThreadingBase *threading = cooperativeInstance->getRelatedThreading();
 
     dxResourceRequirementDescriptor *requirementsDescriptor = new dxResourceRequirementDescriptor(threading);
@@ -147,7 +147,7 @@ dResourceRequirementsID dResourceRequirementsCreate(dCooperativeID cooperative)
 /*extern ODE_API */
 void dResourceRequirementsDestroy(dResourceRequirementsID requirements)
 {
-    dxResourceRequirementDescriptor *requirementsDescriptor = decodeResourceRequirementsID(requirements);
+    const dxResourceRequirementDescriptor *requirementsDescriptor = decodeResourceRequirementsID(requirements);
 
     delete requirementsDescriptor;
 }
@@ -158,7 +158,7 @@ dResourceRequirementsID dResourceRequirementsClone(/*const */dResourceRequiremen
 {
     dAASSERT(requirements != NULL);
 
-    dxResourceRequirementDescriptor *requirementsDescriptor = decodeResourceRequirementsID(requirements);
+    const dxResourceRequirementDescriptor *requirementsDescriptor = decodeResourceRequirementsID(requirements);
 
     dxResourceRequirementDescriptor *descriptorClone = new dxResourceRequirementDescriptor(*requirementsDescriptor);
 
@@ -173,7 +173,7 @@ void dResourceRequirementsMergeIn(dResourceRequirementsID summaryRequirements, /
     dAASSERT(extraRequirements != NULL);
 
     dxResourceRequirementDescriptor *summaryDescriptor = decodeResourceRequirementsID(summaryRequirements);
-    dxResourceRequirementDescriptor *extraDescriptor = decodeResourceRequirementsID(extraRequirements);
+    const dxResourceRequirementDescriptor *extraDescriptor = decodeResourceRequirementsID(extraRequirements);
 
     summaryDescriptor->mergeAnotherDescriptorIn(*extraDescriptor);
 }
@@ -199,7 +199,7 @@ dResourceContainerID dResourceContainerAcquire(/*const */dResourceRequirementsID
     dxRequiredResourceContainer *containerInstance;
     bool containerAllocated = false;
 
-    dxResourceRequirementDescriptor *requirementsInstance = decodeResourceRequirementsID(requirements);
+    const dxResourceRequirementDescriptor *requirementsInstance = decodeResourceRequirementsID(requirements);
 
     do
     {
@@ -236,7 +236,7 @@ dResourceContainerID dResourceContainerAcquire(/*const */dResourceRequirementsID
 /*extern ODE_API */
 void dResourceContainerDestroy(dResourceContainerID resources)
 {
-    dxRequiredResourceContainer *containerInstance = decodeResourceContainerID(resources);
+    const dxRequiredResourceContainer *containerInstance = decodeResourceContainerID(resources);
 
     delete containerInstance;
 }

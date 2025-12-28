@@ -132,7 +132,7 @@ void ThreadedEquationSolverLDLT::doCooperativelyScaleVectorValidated(
 
     workerContext.init(vectorData, scaleData, elementCount, blockCompletionProgress);
 
-    dxThreadingBase *threading = resourceContainer->getThreadingInstance();
+    const dxThreadingBase *threading = resourceContainer->getThreadingInstance();
     threading->PostThreadedCall(NULL, &calculationFinishReleasee, threadCountToUse - 1, NULL, completionWait, &scaleVector_completion_callback, NULL, 0, "ScaleVector Completion");
     threading->PostThreadedCallsGroup(NULL, threadCountToUse - 1, calculationFinishReleasee, &scaleVector_worker_callback, &workerContext, "ScaleVector Work");
 

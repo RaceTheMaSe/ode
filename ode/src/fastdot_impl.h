@@ -33,12 +33,12 @@ dReal calculateLargeVectorDot (const dReal *a, const dReal *b, unsigned n)
     dReal sum = 0;
     const dReal *a_end = a + (n & (unsigned int)(~3));
     for (; a != a_end; b += 4 * (size_t)b_stride, a += 4) {
-        dReal p0 = a[0], p1 = a[1], p2 = a[2], p3 = a[3];
-        dReal q0 = b[0 * (size_t)b_stride], q1 = b[1 * (size_t)b_stride], q2 = b[2 * (size_t)b_stride], q3 = b[3 * (size_t)b_stride];
-        dReal m0 = p0 * q0;
-        dReal m1 = p1 * q1;
-        dReal m2 = p2 * q2;
-        dReal m3 = p3 * q3;
+        const dReal p0 = a[0], p1 = a[1], p2 = a[2], p3 = a[3];
+        const dReal q0 = b[0 * (size_t)b_stride], q1 = b[1 * (size_t)b_stride], q2 = b[2 * (size_t)b_stride], q3 = b[3 * (size_t)b_stride];
+        const dReal m0 = p0 * q0;
+        const dReal m1 = p1 * q1;
+        const dReal m2 = p2 * q2;
+        const dReal m3 = p3 * q3;
         sum += m0 + m1 + m2 + m3;
     }
     a_end += (n & 3);

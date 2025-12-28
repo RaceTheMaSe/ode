@@ -165,7 +165,7 @@ dxJointContact::getInfo2(dReal worldFPS, dReal worldERP,
         dCopyVector3(normal, contact.geom.normal);
     }
 
-    dxBody *b1 = node[1].body;
+    const dxBody *b1 = node[1].body;
     if (b1) {
         dSubtractVectors3(c2, contact.geom.pos, b1->posr.pos);
         // set Jacobian for b1 normal
@@ -177,7 +177,7 @@ dxJointContact::getInfo2(dReal worldFPS, dReal worldERP,
         }
     }
 
-    dxBody *b0 = node[0].body;
+    const dxBody *b0 = node[0].body;
     dSubtractVectors3(c1, contact.geom.pos, b0->posr.pos);
     // set Jacobian for b0 normal
     dCopyVector3(J1 + (size_t)(ROW_NORMAL * rowskip) + GI2__JL_MIN, normal);

@@ -72,7 +72,7 @@ dCooperativeID dCooperativeCreate(const dThreadingFunctionsInfo *functionInfo/*=
 /*extern ODE_API */
 void dCooperativeDestroy(dCooperativeID cooperative)
 {
-    dxSimpleCooperative *cooperativeInstance = decodeCooperativeID(cooperative);
+    const dxSimpleCooperative *cooperativeInstance = decodeCooperativeID(cooperative);
 
     delete cooperativeInstance;
 }

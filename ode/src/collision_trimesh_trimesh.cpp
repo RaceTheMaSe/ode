@@ -1351,14 +1351,14 @@ int dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int S
     //Collide trimeshes
     gim_trimesh_trimesh_collision(&triMesh1->m_collision_trimesh, &triMesh2->m_collision_trimesh, &trimeshContacts);
 
-    unsigned contactCount = trimeshContacts.m_size;
+    const unsigned contactCount = trimeshContacts.m_size;
 
     if (contactCount != 0)
     {
         GIM_CONTACT *pTriMeshContacts = GIM_DYNARRAY_POINTER(GIM_CONTACT, trimeshContacts);
 
         dxGIMCContactAccessor contactAccessor(pTriMeshContacts, g1, g2);
-        unsigned culledContactCount = dxGImpactContactsExportHelper::ExportMaxDepthGImpactContacts(contactAccessor, contactCount, Flags, Contacts, Stride);
+        const unsigned culledContactCount = dxGImpactContactsExportHelper::ExportMaxDepthGImpactContacts(contactAccessor, contactCount, Flags, Contacts, Stride);
 
         result = (int)culledContactCount;
     }

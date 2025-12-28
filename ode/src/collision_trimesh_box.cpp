@@ -1357,7 +1357,7 @@ int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, 
     {
         dVector3 dv[3];
 
-        int Triint = (int)boxesresult[i];
+        const int Triint = (int)boxesresult[i];
         gim_trimesh_get_triangle_vertices(ptrimesh, (GUINT32)Triint, dv[0], dv[1], dv[2]);
 
         bool bFinishSearching;

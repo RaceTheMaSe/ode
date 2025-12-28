@@ -667,7 +667,7 @@ bool dxThreadingThreadPool::InitializeIndividualThreadInfos(dxThreadPoolThreadIn
 {
     bool any_fault = false;
 
-    dxThreadPoolThreadInfo *const infos_end = thread_infos + thread_count;
+    const dxThreadPoolThreadInfo *const infos_end = thread_infos + thread_count;
     for (dxThreadPoolThreadInfo *current_info = thread_infos; current_info != infos_end; ++current_info)
     {
         if (!InitializeSingleThreadInfo(current_info, stack_size, ode_data_allocate_flags))
@@ -685,7 +685,7 @@ bool dxThreadingThreadPool::InitializeIndividualThreadInfos(dxThreadPoolThreadIn
 
 void dxThreadingThreadPool::FinalizeIndividualThreadInfos(dxThreadPoolThreadInfo *thread_infos, sizeint thread_count)
 {
-    dxThreadPoolThreadInfo *const infos_end = thread_infos + thread_count;
+    const dxThreadPoolThreadInfo *const infos_end = thread_infos + thread_count;
     for (dxThreadPoolThreadInfo *current_info = thread_infos; current_info != infos_end; ++current_info)
     {
         FinalizeSingleThreadInfo(current_info);
@@ -724,7 +724,7 @@ void dxThreadingThreadPool::ServeThreadingImplementation(dThreadingImplementatio
 {
     dxThreadPoolThreadInfo::dxServeImplementationParams params(impl, &m_ready_wait_event);
 
-    dxThreadPoolThreadInfo *const infos_end = m_thread_infos + m_thread_count;
+    const dxThreadPoolThreadInfo *const infos_end = m_thread_infos + m_thread_count;
     for (dxThreadPoolThreadInfo *current_info = m_thread_infos; current_info != infos_end; ++current_info)
     {
         current_info->ExecuteThreadCommand(dxThreadPoolThreadInfo::dxTHREAD_COMMAND_SERVE_IMPLEMENTATION, &params, true);
@@ -736,7 +736,7 @@ void dxThreadingThreadPool::ServeThreadingImplementation(dThreadingImplementatio
 
 void dxThreadingThreadPool::WaitIdleState()
 {
-    dxThreadPoolThreadInfo *const infos_end = m_thread_infos + m_thread_count;
+    const dxThreadPoolThreadInfo *const infos_end = m_thread_infos + m_thread_count;
     for (dxThreadPoolThreadInfo *current_info = m_thread_infos; current_info != infos_end; ++current_info)
     {
         current_info->ExecuteThreadCommand(dxThreadPoolThreadInfo::dxTHREAD_COMMAND_NOOP, NULL, true);
@@ -801,7 +801,7 @@ void dxThreadingThreadPool::WaitIdleState()
 /*extern */void dThreadingFreeThreadPool(dThreadingThreadPoolID pool)
 {
 #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
-    dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
+    const dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     delete thread_pool;
 #else
     (void)pool; // unused

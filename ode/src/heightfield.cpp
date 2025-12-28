@@ -896,7 +896,7 @@ void dGeomHeightfieldSetHeightfieldData( dGeomID g, dHeightfieldDataID d )
 
 dHeightfieldDataID dGeomHeightfieldGetHeightfieldData( dGeomID g )
 {
-    dxHeightfield* geom = (dxHeightfield*) g;
+    const dxHeightfield* geom = (dxHeightfield*) g;
     return geom->m_p_data;
 }
 
@@ -1501,7 +1501,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
 
             for (int i = 0; i < numPlaneContacts; i++)
             {
-                dContactGeom *planeCurrContact = planeContacts + i;
+                const dContactGeom *planeCurrContact = planeContacts + i;
                 // Check if contact point found in plane is inside Triangle.
                 const dVector3 &contactPos = planeCurrContact->pos;
                 
@@ -1510,7 +1510,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
 
                 for (sizeint b = 0; b < planeTriListSize; b++)
                 {
-                    HeightFieldTriangle *testTriangle = itPlane->trianglelist[b];
+                    const HeightFieldTriangle *testTriangle = itPlane->trianglelist[b];
 
                     if (m_p_data->IsOnHeightfield2(testTriangle->vertices[0],
                         triangleTestPos,
@@ -1540,7 +1540,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
                 {
                     for (sizeint b = 0; b < planeTriListSize; b++)
                     {
-                        HeightFieldTriangle *currTriangle = itPlane->trianglelist[b];
+                        const HeightFieldTriangle *currTriangle = itPlane->trianglelist[b];
 
                         // flag Triangles Vertices as collided 
                         // to prevent any collision test of those

@@ -1330,7 +1330,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
                 outside = false;
                 for(int j=0;j<contacts;++j)
                 {
-                    dContactGeom *cur_contact = SAFECONTACT(flags, contact, j, skip);
+                    const dContactGeom *cur_contact = SAFECONTACT(flags, contact, j, skip);
                     if((cur_contact->pos[0] == i1[0]) &&
                         (cur_contact->pos[1] == i1[1]) &&
                         (cur_contact->pos[2] == i1[2]))

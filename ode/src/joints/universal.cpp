@@ -650,7 +650,7 @@ void dJointSetUniversalParam( dJointID j, int parameter, dReal value )
 
 dReal dJointGetUniversalParam( dJointID j, int parameter )
 {
-    dxJointUniversal* joint = ( dxJointUniversal* )j;
+    const dxJointUniversal* joint = ( dxJointUniversal* )j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Universal );
     if (( parameter & 0xff00 ) == 0x100 )

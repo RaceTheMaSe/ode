@@ -116,10 +116,10 @@
 	inline_ char	LittleEndian()						{ int i = 1; return *((char*)&i);			}
 
 	//!< Alternative abs function
-	inline_ udword	abs_(sdword x)					{ sdword y= x >> 31;	return (udword)((x^y)-y);		}
+	inline_ udword	abs_(sdword x)					{ const sdword y= x >> 31;	return (udword)((x^y)-y);		}
 
 	//!< Alternative min function
-	inline_ sdword	min_(sdword a, sdword b)			{ sdword delta = b-a;	return a + (delta&(delta>>31));	}
+	inline_ sdword	min_(sdword a, sdword b)			{ const sdword delta = b-a;	return a + (delta&(delta>>31));	}
 
 	// Determine if one of the bytes in a 4 byte word is zero
 	inline_	BOOL	HasNullByte(udword x)			{ return BOOL((x + 0xfefefeff) & (~x) & 0x80808080);		}
@@ -223,7 +223,7 @@
 	#define IS_ALIGNED_4(x)		(((x)&3)==0)
 	#define IS_ALIGNED_8(x)		(((x)&7)==0)
 
-	inline_ void _prefetch(void const* ptr)		{ char c = *(char const volatile *)ptr; (void)c; }
+	inline_ void _prefetch(void const* ptr)		{ const char c = *(char const volatile *)ptr; (void)c; }
 
 	// Compute implicit coords from an index:
 	// The idea is to get back 2D coords from a 1D index.

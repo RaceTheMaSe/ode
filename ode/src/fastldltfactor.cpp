@@ -246,7 +246,7 @@ void ThreadedEquationSolverLDLT::factotLDLT_solvingCompleteSync(FactorLDLTWorker
 
     dCallReleaseeID blockFactorizingSyncReleasee;
 
-    dxThreadingBase *threading = ref_workerContext.m_threading;
+    const dxThreadingBase *threading = ref_workerContext.m_threading;
     if (solvingBlockIndex != ref_workerContext.m_totalBlockCount - 1)
     {
         threading->PostThreadedCall(NULL, &blockFactorizingSyncReleasee, blockFactorizingThreadCount, NULL, NULL, &factotLDLT_scalingAndFactorizingCompleteSync_callback, &ref_workerContext, 0, "FactorLDLT S'n'F Sync");
@@ -317,7 +317,7 @@ void ThreadedEquationSolverLDLT::factotLDLT_scalingAndFactorizingCompleteSync(Fa
 
     dCallReleaseeID blockSolvingSyncReleasee;
 
-    dxThreadingBase *threading = ref_workerContext.m_threading;
+    const dxThreadingBase *threading = ref_workerContext.m_threading;
     if (blockIndex != ref_workerContext.m_totalBlockCount - 1 || ref_workerContext.m_rowCount % FSL1S_REGULAR_B_ROWS == 0)
     {
         threading->PostThreadedCall(NULL, &blockSolvingSyncReleasee, blockSolvingThreadCount, NULL, NULL, &factotLDLT_solvingCompleteSync_callback, &ref_workerContext, 0, "FactorLDLT Solving Complete Sync");
@@ -391,7 +391,7 @@ void ThreadedEquationSolverLDLT::factotLDLT_solvingFinalSync(FactorLDLTWorkerCon
     dCallReleaseeID blockFactorizingSyncReleasee = ref_workerContext.m_calculationFinishReleasee;
     dIASSERT(solvingBlockIndex == ref_workerContext.m_totalBlockCount - 1);
 
-    dxThreadingBase *threading = ref_workerContext.m_threading;
+    const dxThreadingBase *threading = ref_workerContext.m_threading;
 
     if (blockFactorizingThreadCount > 1)
     {

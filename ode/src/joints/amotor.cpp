@@ -97,7 +97,7 @@ void dJointSetAMotorMode(dJointID j, int mode)
 /*extern */
 int dJointGetAMotorNumAxes(dJointID j)
 {
-    dxJointAMotor* joint = (dxJointAMotor*)j;
+    const dxJointAMotor* joint = (dxJointAMotor*)j;
     dAASSERT(joint != NULL);
     checktype(joint, AMotor);
 
@@ -107,7 +107,7 @@ int dJointGetAMotorNumAxes(dJointID j)
 /*extern */
 void dJointGetAMotorAxis(dJointID j, int anum, dVector3 result)
 {
-    dxJointAMotor* joint = (dxJointAMotor*)j;
+    const dxJointAMotor* joint = (dxJointAMotor*)j;
     dAASSERT(joint != NULL);
     dAASSERT(dIN_RANGE(anum, dSA__MIN, dSA__MAX));
     checktype(joint, AMotor);
@@ -120,7 +120,7 @@ void dJointGetAMotorAxis(dJointID j, int anum, dVector3 result)
 /*extern */
 int dJointGetAMotorAxisRel(dJointID j, int anum)
 {
-    dxJointAMotor* joint = (dxJointAMotor*)j;
+    const dxJointAMotor* joint = (dxJointAMotor*)j;
     dAASSERT(joint != NULL);
     dAASSERT(dIN_RANGE(anum, dSA__MIN, dSA__MAX));
     checktype(joint, AMotor);
@@ -134,7 +134,7 @@ int dJointGetAMotorAxisRel(dJointID j, int anum)
 /*extern */
 dReal dJointGetAMotorAngle(dJointID j, int anum)
 {
-    dxJointAMotor* joint = (dxJointAMotor*)j;
+    const dxJointAMotor* joint = (dxJointAMotor*)j;
     dAASSERT(joint != NULL);
     dAASSERT(dIN_RANGE(anum, dSA__MIN, dSA__MAX));
     checktype(joint, AMotor);
@@ -148,7 +148,7 @@ dReal dJointGetAMotorAngle(dJointID j, int anum)
 /*extern */
 dReal dJointGetAMotorAngleRate(dJointID j, int anum)
 {
-    dxJointAMotor* joint = (dxJointAMotor*)j;
+    const dxJointAMotor* joint = (dxJointAMotor*)j;
     dAASSERT(joint != NULL);
     dAASSERT(dIN_RANGE(anum, dSA__MIN, dSA__MAX));
     checktype(joint, AMotor);
@@ -162,7 +162,7 @@ dReal dJointGetAMotorAngleRate(dJointID j, int anum)
 /*extern */
 dReal dJointGetAMotorParam(dJointID j, int parameter)
 {
-    dxJointAMotor* joint = (dxJointAMotor*)j;
+    const dxJointAMotor* joint = (dxJointAMotor*)j;
     dAASSERT(joint != NULL);
     checktype(joint, AMotor);
 
@@ -179,7 +179,7 @@ dReal dJointGetAMotorParam(dJointID j, int parameter)
 /*extern */
 int dJointGetAMotorMode(dJointID j)
 {
-    dxJointAMotor* joint = (dxJointAMotor*)j;
+    const dxJointAMotor* joint = (dxJointAMotor*)j;
     dAASSERT(joint != NULL);
     checktype(joint, AMotor);
 

@@ -103,13 +103,13 @@ float Matrix4x4::Determinant() const
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Matrix4x4& Matrix4x4::Invert()
 {
-	float Det = Determinant();
+	const float Det = Determinant();
 	Matrix4x4 Temp;
 
 	if(fabsf(Det) < MATRIX4X4_EPSILON)
 		return	*this;		// The matrix is not invertible! Singular case!
 
-	float IDet = 1.0f / Det;
+	const float IDet = 1.0f / Det;
 
 	Temp.m[0][0] = CoFactor(0,0) * IDet;
 	Temp.m[1][0] = CoFactor(0,1) * IDet;

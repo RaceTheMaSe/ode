@@ -155,7 +155,7 @@ void ThreadedEquationSolverLDLT::doCooperativelySolveL1StraightValidated(
 
     workerContext.init(L, b, rowCount, rowSkip, blockCompletionProgress, blockProgressDescriptors, cellContexts);
 
-    dxThreadingBase *threading = resourceContainer->getThreadingInstance();
+    const dxThreadingBase *threading = resourceContainer->getThreadingInstance();
     threading->PostThreadedCall(NULL, &calculationFinishReleasee, threadCountToUse - 1, NULL, completionWait, &solveL1Straight_completion_callback, NULL, 0, "SolveL1Straight Completion");
     threading->PostThreadedCallsGroup(NULL, threadCountToUse - 1, calculationFinishReleasee, &solveL1Straight_worker_callback, &workerContext, "SolveL1Straight Work");
 

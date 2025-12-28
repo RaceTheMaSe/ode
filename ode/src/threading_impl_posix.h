@@ -169,7 +169,7 @@ inline bool dxCondvarWakeup::DoInitializeObject()
 
     do
     {
-        int mutex_result = pthread_mutex_init(&m_wakeup_mutex, NULL);
+        const int mutex_result = pthread_mutex_init(&m_wakeup_mutex, NULL);
         if (mutex_result != EOK)
         {
             errno = mutex_result;
@@ -178,7 +178,7 @@ inline bool dxCondvarWakeup::DoInitializeObject()
 
         mutex_initialized = true;
 
-        int condattr_init_result = pthread_condattr_init(&cond_condattr);
+        const int condattr_init_result = pthread_condattr_init(&cond_condattr);
         if (condattr_init_result != EOK)
         {
             errno = condattr_init_result;
@@ -188,7 +188,7 @@ inline bool dxCondvarWakeup::DoInitializeObject()
         condattr_initialized = true;
 
 #ifdef HAVE_PTHREAD_CONDATTR_SETCLOCK
-        int condattr_clock_result = pthread_condattr_setclock(&cond_condattr, CLOCK_MONOTONIC);
+        const int condattr_clock_result = pthread_condattr_setclock(&cond_condattr, CLOCK_MONOTONIC);
         if (condattr_clock_result != EOK)
         {
             errno = condattr_clock_result;
@@ -196,7 +196,7 @@ inline bool dxCondvarWakeup::DoInitializeObject()
         }
 #endif // #ifdef HAVE_PTHREAD_CONDATTR_SETCLOCK
 
-        int cond_result = pthread_cond_init(&m_wakeup_cond, &cond_condattr);
+        const int cond_result = pthread_cond_init(&m_wakeup_cond, &cond_condattr);
         if (cond_result != EOK)
         {
             errno = cond_result;
@@ -216,11 +216,11 @@ inline bool dxCondvarWakeup::DoInitializeObject()
         {
             if (condattr_initialized)
             {
-                int condattr_destroy_result = pthread_condattr_destroy(&cond_condattr);
+                const int condattr_destroy_result = pthread_condattr_destroy(&cond_condattr);
                 dICHECK(condattr_destroy_result == EOK || ((errno = condattr_destroy_result), false));
             }
 
-            int mutex_destroy_result = pthread_mutex_destroy(&m_wakeup_mutex);
+            const int mutex_destroy_result = pthread_mutex_destroy(&m_wakeup_mutex);
             dICHECK(mutex_destroy_result == EOK || ((errno = mutex_destroy_result), false));
         }
     }
@@ -233,10 +233,10 @@ inline void dxCondvarWakeup::DoFinalizeObject()
 {
     if (m_object_initialized)
     {
-        int cond_result = pthread_cond_destroy(&m_wakeup_cond);
+        const int cond_result = pthread_cond_destroy(&m_wakeup_cond);
         dICHECK(cond_result == EOK || ((errno = cond_result), false));
 
-        int mutex_result = pthread_mutex_destroy(&m_wakeup_mutex);
+        const int mutex_result = pthread_mutex_destroy(&m_wakeup_mutex);
         dICHECK(mutex_result == EOK || ((errno = mutex_result), false));
 
         m_object_initialized = false;
@@ -246,7 +246,7 @@ inline void dxCondvarWakeup::DoFinalizeObject()
 
 inline void dxCondvarWakeup::ResetWakeup()
 {
-    int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
+    const int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
     dICHECK(lock_result == EOK || ((errno = lock_result), false));
 
     if (m_signal_count > m_waiter_count)
@@ -256,13 +256,13 @@ inline void dxCondvarWakeup::ResetWakeup()
 
     m_state_is_permanent = false;
 
-    int unlock_result = pthread_mutex_unlock(&m_wakeup_mutex);
+    const int unlock_result = pthread_mutex_unlock(&m_wakeup_mutex);
     dICHECK(unlock_result == EOK || ((errno = unlock_result), false));
 }
 
 inline void dxCondvarWakeup::WakeupAThread()
 {
-    int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
+    const int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
     dICHECK(lock_result == EOK || ((errno = lock_result), false));
 
     dIASSERT(!m_state_is_permanent); // Wakeup should not be used after permanent signal
@@ -271,7 +271,7 @@ inline void dxCondvarWakeup::WakeupAThread()
     {
         ++m_signal_count;
 
-        int signal_result = pthread_cond_signal(&m_wakeup_cond);
+        const int signal_result = pthread_cond_signal(&m_wakeup_cond);
         dICHECK(signal_result == EOK || ((errno = signal_result), false));
     }
     else if (m_signal_count == m_waiter_count)
@@ -279,13 +279,13 @@ inline void dxCondvarWakeup::WakeupAThread()
         m_signal_count = m_waiter_count + 1;
     }
 
-    int unlock_result = pthread_mutex_unlock(&m_wakeup_mutex);
+    const int unlock_result = pthread_mutex_unlock(&m_wakeup_mutex);
     dICHECK(unlock_result == EOK || ((errno = unlock_result), false));
 }
 
 inline void dxCondvarWakeup::WakeupAllThreads()
 {
-    int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
+    const int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
     dICHECK(lock_result == EOK || ((errno = lock_result), false));
 
     m_state_is_permanent = true;
@@ -294,11 +294,11 @@ inline void dxCondvarWakeup::WakeupAllThreads()
     {
         m_signal_count = m_waiter_count + 1;
 
-        int broadcast_result = pthread_cond_broadcast(&m_wakeup_cond);
+        const int broadcast_result = pthread_cond_broadcast(&m_wakeup_cond);
         dICHECK(broadcast_result == EOK || ((errno = broadcast_result), false));
     }
 
-    int unlock_result = pthread_mutex_unlock(&m_wakeup_mutex);
+    const int unlock_result = pthread_mutex_unlock(&m_wakeup_mutex);
     dICHECK(unlock_result == EOK || ((errno = unlock_result), false));
 }
 
@@ -307,7 +307,7 @@ inline bool dxCondvarWakeup::WaitWakeup(const dThreadedWaitTime *timeout_time_pt
 {
     bool wait_result;
 
-    int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
+    const int lock_result = pthread_mutex_lock(&m_wakeup_mutex);
     dICHECK(lock_result == EOK || ((errno = lock_result), false));
 
     if (m_signal_count <= m_waiter_count)
@@ -331,7 +331,7 @@ inline bool dxCondvarWakeup::WaitWakeup(const dThreadedWaitTime *timeout_time_pt
         wait_result = true;
     }
 
-    int unlock_result = pthread_mutex_unlock(&m_wakeup_mutex);
+    const int unlock_result = pthread_mutex_unlock(&m_wakeup_mutex);
     dICHECK(unlock_result == EOK || ((errno = unlock_result), false));
 
     return wait_result;
@@ -349,7 +349,7 @@ inline bool dxCondvarWakeup::BlockAsAWaiter(const dThreadedWaitTime *timeout_tim
     {
         timespec current_time;
 
-        int clock_result = _condvar_clock_gettime(CLOCK_MONOTONIC, &current_time);
+        const int clock_result = _condvar_clock_gettime(CLOCK_MONOTONIC, &current_time);
         dICHECK(clock_result != -1);
 
         time_t wakeup_sec = current_time.tv_sec + timeout_time_ptr->wait_sec;
@@ -367,7 +367,7 @@ inline bool dxCondvarWakeup::BlockAsAWaiter(const dThreadedWaitTime *timeout_tim
 
     while (true)
     {
-        int cond_result = (timeout_time_ptr != NULL) 
+        const int cond_result = (timeout_time_ptr != NULL) 
             ? pthread_cond_timedwait(&m_wakeup_cond, &m_wakeup_mutex, &wakeup_time) 
             : pthread_cond_wait(&m_wakeup_cond, &m_wakeup_mutex);
         dICHECK(cond_result == EOK || cond_result == ETIMEDOUT || ((errno = cond_result), false));
@@ -447,7 +447,7 @@ inline bool dxMutexMutex::DoInitializeObject()
 
     do
     {
-        int mutex_result = pthread_mutex_init(&m_mutex_instance, NULL);
+        const int mutex_result = pthread_mutex_init(&m_mutex_instance, NULL);
         if (mutex_result != EOK)
         {
             errno = mutex_result;
@@ -466,7 +466,7 @@ inline void dxMutexMutex::DoFinalizeObject()
 {
     if (m_mutex_allocated)
     {
-        int mutex_result = pthread_mutex_destroy(&m_mutex_instance);
+        const int mutex_result = pthread_mutex_destroy(&m_mutex_instance);
         dICHECK(mutex_result == EOK || ((errno = mutex_result), false));
 
         m_mutex_allocated = false;
@@ -476,13 +476,13 @@ inline void dxMutexMutex::DoFinalizeObject()
 
 inline void dxMutexMutex::LockMutex()
 {
-    int lock_result = pthread_mutex_lock(&m_mutex_instance);
+    const int lock_result = pthread_mutex_lock(&m_mutex_instance);
     dICHECK(lock_result == EOK || ((errno = lock_result), false));
 }
 
 inline bool dxMutexMutex::TryLockMutex()
 {
-    int trylock_result = pthread_mutex_trylock(&m_mutex_instance);
+    const int trylock_result = pthread_mutex_trylock(&m_mutex_instance);
     dICHECK(trylock_result == EOK || trylock_result == EBUSY || ((errno = trylock_result), false));
 
     return trylock_result == EOK;
@@ -490,7 +490,7 @@ inline bool dxMutexMutex::TryLockMutex()
 
 inline void dxMutexMutex::UnlockMutex()
 {
-    int unlock_result = pthread_mutex_unlock(&m_mutex_instance);
+    const int unlock_result = pthread_mutex_unlock(&m_mutex_instance);
     dICHECK(unlock_result == EOK || ((errno = unlock_result), false));
 }
 

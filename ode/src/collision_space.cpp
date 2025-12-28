@@ -544,7 +544,7 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
                     const int zend = db[5];
                     for (int zi = zbegin; zi <= zend; (hi = hi + 1U != sz ? hi + 1U : 0UL), zi++) {
                         // search all nodes at this index
-                        for (Node* node = table[hi]; node; node=node->next) {
+                        for (const Node* node = table[hi]; node; node=node->next) {
                             // node points to an AABB that may intersect aabb
                             if (node->aabb == &*aabbIt)
                                 continue;
@@ -602,8 +602,8 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
     // deallocate table
     const HashTable::iterator tableend = table.end();
     for (HashTable::iterator el = table.begin(); el != tableend; ++el)
-        for (Node* node = *el; node; ) {
-            Node* nextNode = node->next;
+        for (const Node* node = *el; node; ) {
+            Node  const*const nextNode = node->next;
             delete node;
             node = nextNode;
         }
@@ -661,7 +661,7 @@ void dHashSpaceGetLevels (dxSpace *space, int *minlevel, int *maxlevel)
 {
     dAASSERT (space);
     dUASSERT (space->type == dHashSpaceClass,"argument must be a hash space");
-    dxHashSpace *hspace = (dxHashSpace*) space;
+    dxHashSpace  const*hspace = (dxHashSpace*) space;
     hspace->getLevels (minlevel,maxlevel);
 }
 
@@ -795,7 +795,7 @@ struct DataCallback {
 // Invokes the callback with arguments swapped
 static void swap_callback(void *data, dxGeom *g1, dxGeom *g2)
 {
-    DataCallback *dc = (DataCallback*)data;
+    const DataCallback *dc = (DataCallback*)data;
     dc->callback(dc->data, g2, g1);
 }
 

@@ -16,7 +16,7 @@ static float OPC_PointTriangleSqrDist(const IceMaths::Point& point, const IceMat
 	float fB0	= kDiff | TriEdge0;
 	float fB1	= kDiff | TriEdge1;
 	float fC	= kDiff.SquareMagnitude();
-	float fDet	= fabsf(fA00*fA11 - fA01*fA01);
+	const float fDet	= fabsf(fA00*fA11 - fA01*fA01);
 	float fS	= fA01*fB1-fA11*fB0;
 	float fT	= fA01*fB0-fA00*fB1;
 	float fSqrDist;
@@ -61,7 +61,7 @@ static float OPC_PointTriangleSqrDist(const IceMaths::Point& point, const IceMat
 			}
 			else
 			{
-				float fInvDet = 1.0f/fDet;
+				const float fInvDet = 1.0f/fDet;
 				fS *= fInvDet;
 				fT *= fInvDet;
 				fSqrDist = fS*(fA00*fS+fA01*fT+2.0f*fB0) + fT*(fA01*fS+fA11*fT+2.0f*fB1)+fC;
@@ -162,7 +162,7 @@ static float OPC_SegmentSegmentSqrDist(const IceMaths::Segment& rkSeg0, const Ic
 	float fA11	= rkSeg1Direction.SquareMagnitude();
 	float fB0	= kDiff.Dot(rkSeg0Direction);
 	float fC	= kDiff.SquareMagnitude();
-	float fDet	= fabsf(fA00*fA11-fA01*fA01);
+	const float fDet	= fabsf(fA00*fA11-fA01*fA01);
 
 	float fB1, fS, fT, fSqrDist, fTmp;
 
@@ -182,7 +182,7 @@ static float OPC_SegmentSegmentSqrDist(const IceMaths::Segment& rkSeg0, const Ic
 					if(fT <= fDet)  // region 0 (interior)
 					{
 						// minimum at two interior points of 3D lines
-						float fInvDet = 1.0f/fDet;
+						const float fInvDet = 1.0f/fDet;
 						fS *= fInvDet;
 						fT *= fInvDet;
 						fSqrDist = fS*(fA00*fS+fA01*fT+2.0f*fB0) + fT*(fA01*fS+fA11*fT+2.0f*fB1)+fC;
@@ -371,10 +371,10 @@ static float OPC_SegmentTriangleSqrDist(const IceMaths::Segment& segment, const 
 	float fB0  = -kDiff.Dot(rkSegDirection);
 	float fB1  = kDiff.Dot(TriEdge0);
 	float fB2  = kDiff.Dot(TriEdge1);
-	float fCof00 = fA11*fA22-fA12*fA12;
-	float fCof01 = fA02*fA12-fA01*fA22;
-	float fCof02 = fA01*fA12-fA02*fA11;
-	float fDet = fA00*fCof00+fA01*fCof01+fA02*fCof02;
+	const float fCof00 = fA11*fA22-fA12*fA12;
+	const float fCof01 = fA02*fA12-fA01*fA22;
+	const float fCof02 = fA01*fA12-fA02*fA11;
+	const float fDet = fA00*fCof00+fA01*fCof01+fA02*fCof02;
 
 	IceMaths::Ray kTriSeg;
 	IceMaths::Point kPt;
@@ -382,17 +382,17 @@ static float OPC_SegmentTriangleSqrDist(const IceMaths::Segment& segment, const 
 
 	if(fabsf(fDet)>=gs_fTolerance)
 	{
-		float fCof11 = fA00*fA22-fA02*fA02;
-		float fCof12 = fA02*fA01-fA00*fA12;
-		float fCof22 = fA00*fA11-fA01*fA01;
-		float fInvDet = 1.0f/fDet;
-		float fRhs0 = -fB0*fInvDet;
-		float fRhs1 = -fB1*fInvDet;
-		float fRhs2 = -fB2*fInvDet;
+		const float fCof11 = fA00*fA22-fA02*fA02;
+		const float fCof12 = fA02*fA01-fA00*fA12;
+		const float fCof22 = fA00*fA11-fA01*fA01;
+		const float fInvDet = 1.0f/fDet;
+		const float fRhs0 = -fB0*fInvDet;
+		const float fRhs1 = -fB1*fInvDet;
+		const float fRhs2 = -fB2*fInvDet;
 
-		float fR = fCof00*fRhs0+fCof01*fRhs1+fCof02*fRhs2;
-		float fS = fCof01*fRhs0+fCof11*fRhs1+fCof12*fRhs2;
-		float fT = fCof02*fRhs0+fCof12*fRhs1+fCof22*fRhs2;
+		const float fR = fCof00*fRhs0+fCof01*fRhs1+fCof02*fRhs2;
+		const float fS = fCof01*fRhs0+fCof11*fRhs1+fCof12*fRhs2;
+		const float fT = fCof02*fRhs0+fCof12*fRhs1+fCof22*fRhs2;
 
 		if ( fR < 0.0f )
 		{

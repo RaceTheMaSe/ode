@@ -16,7 +16,7 @@ using namespace IceMaths;
 static sdword VPlaneSideEps(const Point& v, const Plane& plane, float epsilon)
 {
 	// Compute distance from current vertex to the plane
-	float Dist = plane.Distance(v);
+	const float Dist = plane.Distance(v);
 	// Compute side:
 	// 1	= the vertex is on the positive side of the plane
 	// -1	= the vertex is on the negative side of the plane
@@ -85,7 +85,7 @@ float Triangle::Perimeter()	const
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 float Triangle::Compacity() const
 {
-	float P = Perimeter();
+	const float P = Perimeter();
 	if(P==0.0f)	return 0.0f;
 	return (4.0f*PI*Area()/(P*P));
 }

@@ -684,9 +684,9 @@ const uint32* RadixSortContext::RadixSort( const float* input2, uint32 nb )
         else
         {
             /* Prepare for temporal coherence */
-            uint32* const Ranks1 = GetRanks1();
+            uint32 const* const Ranks1 = GetRanks1();
 
-            uint32* Indices = Ranks1;
+            const uint32* Indices = Ranks1;
             float PrevVal = input2[*Indices];
 
             while(p!=pe)
@@ -722,7 +722,7 @@ const uint32* RadixSortContext::RadixSort( const float* input2, uint32 nb )
     // An efficient way to compute the number of negatives values we'll have to deal with is simply to sum the 128
     // last values of the last histogram. Last histogram because that's the one for the Most Significant Byte,
     // responsible for the sign. 128 last values because the 128 first ones are related to positive numbers.
-    uint32* h3= &mHistogram[768];
+    const uint32* h3= &mHistogram[768];
     for(uint32 i=128;i<256;i++)	NbNegativeValues += h3[i];	// 768 for last histogram, 128 for negative part
 
     // Radix sort, j is the pass number (0=LSB, 3=MSB)
@@ -755,10 +755,10 @@ const uint32* RadixSortContext::RadixSort( const float* input2, uint32 nb )
                 }
                 else
                 {
-                    uint32* const Ranks1 = GetRanks1();
+                    uint32 const* const Ranks1 = GetRanks1();
 
-                    uint32* Indices				= Ranks1;
-                    uint32* const IndicesEnd	= Ranks1 + nb;
+                    const uint32* Indices				= Ranks1;
+                    const uint32* const IndicesEnd	= Ranks1 + nb;
                     while(Indices!=IndicesEnd)
                     {
                         const uint32 id = *Indices++;
@@ -803,7 +803,7 @@ const uint32* RadixSortContext::RadixSort( const float* input2, uint32 nb )
                 }
                 else
                 {
-                    uint32* const Ranks1 = GetRanks1();
+                    const uint32* const Ranks1 = GetRanks1();
 
                     for(uint32 i=0;i<nb;i++)
                     {
@@ -834,7 +834,7 @@ const uint32* RadixSortContext::RadixSort( const float* input2, uint32 nb )
                     }
                     else
                     {
-                        uint32* const Ranks1 = GetRanks1();
+                        const uint32* const Ranks1 = GetRanks1();
                         uint32* const Ranks2 = GetRanks2();
                         for(uint32 i=0;i<nb;i++)	Ranks2[i] = Ranks1[nb-i-1];
                     }
@@ -847,7 +847,7 @@ const uint32* RadixSortContext::RadixSort( const float* input2, uint32 nb )
     }
 
     // Return indices
-    uint32* const Ranks1 = GetRanks1();
+    const uint32* const Ranks1 = GetRanks1();
     return Ranks1;
 }
 

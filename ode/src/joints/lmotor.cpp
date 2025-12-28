@@ -167,7 +167,7 @@ void dJointSetLMotorParam( dJointID j, int parameter, dReal value )
 
 int dJointGetLMotorNumAxes( dJointID j )
 {
-    dxJointLMotor* joint = ( dxJointLMotor* )j;
+    const dxJointLMotor* joint = ( dxJointLMotor* )j;
     dAASSERT( joint );
     checktype( joint, LMotor );
     return joint->num;
@@ -176,7 +176,7 @@ int dJointGetLMotorNumAxes( dJointID j )
 
 void dJointGetLMotorAxis( dJointID j, int anum, dVector3 result )
 {
-    dxJointLMotor* joint = ( dxJointLMotor* )j;
+    const dxJointLMotor* joint = ( dxJointLMotor* )j;
     dAASSERT( joint && anum >= 0 && anum < 3 );
     checktype( joint, LMotor );
     if ( anum < 0 ) anum = 0;
@@ -188,7 +188,7 @@ void dJointGetLMotorAxis( dJointID j, int anum, dVector3 result )
 
 dReal dJointGetLMotorParam( dJointID j, int parameter )
 {
-    dxJointLMotor* joint = ( dxJointLMotor* )j;
+    const dxJointLMotor* joint = ( dxJointLMotor* )j;
     dAASSERT( joint );
     checktype( joint, LMotor );
     int anum = parameter >> 8;

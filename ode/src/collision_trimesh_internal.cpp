@@ -384,7 +384,7 @@ bool dxTriDataBase::allocateFaceAngles(FaceAngleStorageMethod storageMethod)
 
     const unsigned triangleCount = m_triangleCount;
 
-    FAngleStorageAllocProc *allocProc = TAngleStorage::Encode(storageMethod);
+    FAngleStorageAllocProc *const allocProc = TAngleStorage::Encode(storageMethod);
     IFaceAngleStorageControl *storageInstance = allocProc(triangleCount, storageView);
 
     if (storageInstance != NULL)
@@ -758,7 +758,7 @@ void dGeomTriMeshGetTriangle(dGeomID g, int index, dVector3 *v0/*=NULL*/, dVecto
 
     dxTriMesh *mesh = static_cast<dxTriMesh *>(g);
 
-    dVector3 *pv[3] = { v0, v1, v2 };
+    dVector3  *const pv[3] = { v0, v1, v2 };
     mesh->fetchMeshTransformedTriangle(pv, (unsigned int)index);
 }
 
@@ -781,7 +781,7 @@ IFaceAngleStorageView *dxGeomTriMeshGetFaceAngleView(dxGeom *triMeshGeom)
 {
     dUASSERT(triMeshGeom && triMeshGeom->type == dTriMeshClass, "The argument is not a trimesh");
 
-    dxTriMesh *mesh = static_cast<dxTriMesh *>(triMeshGeom);
+    const dxTriMesh *mesh = static_cast<dxTriMesh *>(triMeshGeom);
     return mesh->retrieveFaceAngleView();
 }
 

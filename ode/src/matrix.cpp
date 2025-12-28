@@ -306,7 +306,7 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
         alpha2 = alphanew;
         const dReal k1 = REAL(1.0) - W21*gamma1;
         const dReal k2 = W21*gamma1*W11 - W21;
-        dReal *ll = L + nskip;
+        const dReal *ll = L + nskip;
         for (unsigned p = 1; p < n; ll += nskip, ++p) {
             const dReal Wp = W1[p];
             const dReal ell = *ll;
@@ -397,7 +397,7 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
     else {
         dReal *t = (dReal *)((char *)tmp + LDLTAddTLSize);
         {
-            dReal *Lcurr = L + (size_t)(r*nskip);
+            const dReal *Lcurr = L + (size_t)(r*nskip);
             for (unsigned i = 0; i < r; ++Lcurr, ++i) {
                 dIASSERT(d[i] != dReal(0.0));
                 t[i] = *Lcurr / d[i];
@@ -405,7 +405,7 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
         }
         dReal *a = t + r;
         {
-            dReal *Lcurr = L + (size_t)(r * nskip);
+            const dReal *Lcurr = L + (size_t)(r * nskip);
             const unsigned *pp_r = p + r, p_r = *pp_r;
             const unsigned n2_minus_r = n2 - r;
             for (unsigned i = 0; i < n2_minus_r; Lcurr += nskip, ++i) {
@@ -434,7 +434,7 @@ void dxRemoveRowCol(dReal *A, unsigned n, unsigned nskip, unsigned r)
             const sizeint move_size = (n - r - 1) * sizeof(dReal);
             dReal *Adst = A + r;
             for (unsigned i = 0; i < r; Adst += nskip, ++i) {
-                dReal *Asrc = Adst + 1;
+                const dReal *Asrc = Adst + 1;
                 memmove (Adst, Asrc, move_size);
             }
         }

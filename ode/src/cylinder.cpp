@@ -92,7 +92,7 @@ void dGeomCylinderSetParams (dGeomID cylinder, dReal radius, dReal length)
 void dGeomCylinderGetParams (dGeomID cylinder, dReal *radius, dReal *length)
 {
     dUASSERT (cylinder && cylinder->type == dCylinderClass,"argument not a ccylinder");
-    dxCylinder *c = (dxCylinder*) cylinder;
+    const dxCylinder *c = (dxCylinder*) cylinder;
     *radius = c->radius;
     *length = c->lz;
 }

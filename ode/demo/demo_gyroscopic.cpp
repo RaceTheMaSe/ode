@@ -210,7 +210,7 @@ int main (int argc, char **argv)
     
     space = new dSimpleSpace(NULL);
 
-    dPlane *floor = new dPlane(*space, 0,0,1,0);
+    const dPlane *floor = new dPlane(*space, 0,0,1,0);
 
     top1 = new dBody(*world);
     top2 = new dBody(*world);

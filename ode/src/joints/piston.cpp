@@ -53,7 +53,7 @@ dxJointPiston::dxJointPiston ( dxWorld *w ) :
 
 dReal dJointGetPistonPosition ( dJointID j )
 {
-    dxJointPiston* joint = ( dxJointPiston* ) j;
+    const dxJointPiston* joint = ( dxJointPiston* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Piston );
 
@@ -109,7 +109,7 @@ dReal dJointGetPistonPosition ( dJointID j )
 
 dReal dJointGetPistonPositionRate ( dJointID j )
 {
-    dxJointPiston* joint = ( dxJointPiston* ) j;
+    const dxJointPiston* joint = ( dxJointPiston* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Piston );
 
@@ -154,7 +154,7 @@ dReal dJointGetPistonAngle ( dJointID j )
 
 dReal dJointGetPistonAngleRate ( dJointID j )
 {
-    dxJointPiston* joint = ( dxJointPiston* ) j;
+    const dxJointPiston* joint = ( dxJointPiston* ) j;
     dAASSERT ( joint );
     checktype ( joint, Piston );
 
@@ -234,15 +234,15 @@ dxJointPiston::getInfo2 ( dReal worldFPS, dReal worldERP,
     // 1 bodies anchor is origin
     dVector3 lanchor2 = { 0,0,0 };
 
-    dReal *pos1 = node[0].body->posr.pos;
-    dReal *R1   = node[0].body->posr.R;
-    dReal *R2 = NULL;
+    const dReal *pos1 = node[0].body->posr.pos;
+    const dReal *R1   = node[0].body->posr.R;
+    const dReal *R2 = NULL;
 
     dxBody *body1 = node[1].body;
 
     if ( body1 ) 
     {
-        dReal *pos2 = body1->posr.pos;
+        const dReal *pos2 = body1->posr.pos;
         R2   = body1->posr.R;
 
         dMultiply0_331 ( lanchor2, R2, anchor2 );
@@ -580,7 +580,7 @@ void dJointSetPistonParam ( dJointID j, int parameter, dReal value )
 
 dReal dJointGetPistonParam ( dJointID j, int parameter )
 {
-    dxJointPiston* joint = ( dxJointPiston* ) j;
+    const dxJointPiston* joint = ( dxJointPiston* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Piston );
 

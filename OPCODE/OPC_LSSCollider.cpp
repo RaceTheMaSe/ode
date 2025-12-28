@@ -708,7 +708,7 @@ bool HybridLSSCollider::Collide(LSSCache& cache, const IceMaths::LSS& lss, const
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = *T++;
+					const udword TriangleIndex = *T++;
 					LSS_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}
@@ -719,7 +719,7 @@ bool HybridLSSCollider::Collide(LSSCache& cache, const IceMaths::LSS& lss, const
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = BaseIndex++;
+					const udword TriangleIndex = BaseIndex++;
 					LSS_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}

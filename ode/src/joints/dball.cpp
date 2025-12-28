@@ -202,7 +202,7 @@ void dJointSetDBallAnchor2( dJointID j, dReal x, dReal y, dReal z )
 
 dReal dJointGetDBallDistance(dJointID j)
 {
-    dxJointDBall* joint = static_cast<dxJointDBall*>(j);
+    const dxJointDBall* joint = static_cast<dxJointDBall*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     return joint->targetDistance;
@@ -220,7 +220,7 @@ void dJointSetDBallDistance(dJointID j, dReal dist)
 
 void dJointGetDBallAnchor1( dJointID j, dVector3 result )
 {
-    dxJointDBall* joint = static_cast<dxJointDBall*>(j);
+    const dxJointDBall* joint = static_cast<dxJointDBall*>(j);
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
 
@@ -240,7 +240,7 @@ void dJointGetDBallAnchor1( dJointID j, dVector3 result )
 
 void dJointGetDBallAnchor2( dJointID j, dVector3 result )
 {
-    dxJointDBall* joint = static_cast<dxJointDBall*>(j);
+    const dxJointDBall* joint = static_cast<dxJointDBall*>(j);
     dUASSERT( joint, "bad joint argument" );
     dUASSERT( result, "bad result argument" );
 
@@ -278,7 +278,7 @@ void dJointSetDBallParam( dJointID j, int parameter, dReal value )
 
 dReal dJointGetDBallParam( dJointID j, int parameter )
 {
-    dxJointDBall* joint = static_cast<dxJointDBall*>(j);
+    const dxJointDBall* joint = static_cast<dxJointDBall*>(j);
     dUASSERT( joint, "bad joint argument" );
 
     switch ( parameter ) {

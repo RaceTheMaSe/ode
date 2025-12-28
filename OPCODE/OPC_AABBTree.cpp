@@ -107,17 +107,17 @@ udword AABBTreeNode::Split(udword axis, AABBTreeBuilder* builder)
 	for(udword i=0;i<mNbPrimitives;i++)
 	{
 		// Get index in global list
-		udword Index = mNodePrimitives[i];
+		const udword Index = mNodePrimitives[i];
 
 		// Test against the splitting value. The primitive value is tested against the enclosing-box center.
 		// [We only need an approximate partition of the enclosing box here.]
-		float PrimitiveValue = builder->GetSplittingValue(Index, axis);
+		const float PrimitiveValue = builder->GetSplittingValue(Index, axis);
 
 		// Reorganize the list of indices in this order: positive - negative.
 		if(PrimitiveValue > SplitValue)
 		{
 			// Swap entries
-			udword Tmp = mNodePrimitives[i];
+			const udword Tmp = mNodePrimitives[i];
 			mNodePrimitives[i] = mNodePrimitives[NbPos];
 			mNodePrimitives[NbPos] = (dTriIndex)Tmp;
 			// Count primitives assigned to positive space
@@ -179,7 +179,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 		IceMaths::Point Means(0.0f, 0.0f, 0.0f);
 		for(udword i=0;i<mNbPrimitives;i++)
 		{
-			udword Index = mNodePrimitives[i];
+			const udword Index = mNodePrimitives[i];
 			Means += builder->GetSplittingValues(Index);
 		}
 		Means/=float(mNbPrimitives);
@@ -188,7 +188,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 		IceMaths::Point Vars(0.0f, 0.0f, 0.0f);
 		for(udword i=0;i<mNbPrimitives;i++)
 		{
-			udword Index = mNodePrimitives[i];
+			const udword Index = mNodePrimitives[i];
 			IceMaths::Point Center = builder->GetSplittingValues(Index);
 			IceMaths::Point Delta = Center - Means;
 			Vars += Delta * Delta;
@@ -238,7 +238,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 			{
 				if(Keys[SortedAxis[i]]<Keys[SortedAxis[i+1]])
 				{
-					udword Tmp = SortedAxis[i];
+					const udword Tmp = SortedAxis[i];
 					SortedAxis[i] = SortedAxis[i+1];
 					SortedAxis[i+1] = Tmp;
 				}
@@ -283,7 +283,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 	{
 		// We use a pre-allocated linear pool for complete trees [Opcode 1.3]
 		const AABBTreeNode* Pool = (AABBTreeNode*)builder->mNodeBase;
-		udword Count = builder->GetCount() - 1;	// Count begins to 1...
+		const udword Count = builder->GetCount() - 1;	// Count begins to 1...
 		// Set last bit to tell it shouldn't be freed ### pretty ugly, find a better way. Maybe one bit in mNbPrimitives
 		ASSERT(!(udword(&Pool[Count+0])&1));
 		ASSERT(!(udword(&Pool[Count+1])&1));
@@ -299,7 +299,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 		mPos = (size_t)new AABBTreeNode;	CHECKALLOC(mPos);
 		mNeg = (size_t)new AABBTreeNode;	CHECKALLOC(mNeg);
 #else
-		AABBTreeNode* PosNeg = new AABBTreeNode[2];
+		const AABBTreeNode* PosNeg = new AABBTreeNode[2];
 		CHECKALLOC(PosNeg);
 		mPos = (size_t)PosNeg;
 #endif

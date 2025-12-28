@@ -79,7 +79,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
     const bool negativeAnglesStored = faceAngles != NULL && faceAngles->areNegativeAnglesStored();
 
     // Go through the sorted list of edges and flag all the edges and vertices that we need to use
-    EdgeRecord *const lastEdge = edges + (numEdges - 1);
+    const EdgeRecord *const lastEdge = edges + (numEdges - 1);
     for (EdgeRecord *currEdge = edges; ; ++currEdge)
     {
         // Handle the last edge separately to have an optimizer friendly loop

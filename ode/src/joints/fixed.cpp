@@ -172,7 +172,7 @@ void dJointSetFixedParam ( dJointID j, int parameter, dReal value )
 
 dReal dJointGetFixedParam ( dJointID j, int parameter )
 {
-    dxJointFixed* joint = ( dxJointFixed* ) j;
+    const dxJointFixed* joint = ( dxJointFixed* ) j;
     dUASSERT ( joint, "bad joint argument" );
     checktype ( joint, Fixed );
     return joint->get ( parameter );

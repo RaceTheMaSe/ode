@@ -103,7 +103,7 @@ bool ThrsafeCompareExchange(volatile atomicord32 *paoDestination, atomicord32 ao
 static inline 
 atomicord32 ThrsafeExchange(volatile atomicord32 *paoDestination, atomicord32 aoExchange)
 {
-    atomicord32 aoDestinationValue = *paoDestination;
+    const atomicord32 aoDestinationValue = *paoDestination;
     *paoDestination = aoExchange;
     return aoDestinationValue;
 }
@@ -143,7 +143,7 @@ void ThrsafeAdd(volatile atomicord32 *paoDestination, atomicord32 aoAddend)
 static inline 
 atomicord32 ThrsafeExchangeAdd(volatile atomicord32 *paoDestination, atomicord32 aoAddend)
 {
-    atomicord32 aoDestinationValue = *paoDestination;
+    const atomicord32 aoDestinationValue = *paoDestination;
     *paoDestination = *paoDestination + aoAddend;
     return aoDestinationValue;
 }

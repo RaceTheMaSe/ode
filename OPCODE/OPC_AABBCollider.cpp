@@ -680,7 +680,7 @@ bool HybridAABBCollider::Collide(AABBCache& cache, const CollisionAABB& box, con
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = *T++;
+					const udword TriangleIndex = *T++;
 					AABB_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}
@@ -691,7 +691,7 @@ bool HybridAABBCollider::Collide(AABBCache& cache, const CollisionAABB& box, con
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = BaseIndex++;
+					const udword TriangleIndex = BaseIndex++;
 					AABB_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}

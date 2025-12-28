@@ -61,7 +61,7 @@ dxJointPR::dxJointPR( dxWorld *w ) :
 
 dReal dJointGetPRPosition( dJointID j )
 {
-    dxJointPR* joint = ( dxJointPR* ) j;
+    const dxJointPR* joint = ( dxJointPR* ) j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, PR );
 
@@ -113,7 +113,7 @@ dReal dJointGetPRPosition( dJointID j )
 
 dReal dJointGetPRPositionRate( dJointID j )
 {
-    dxJointPR* joint = ( dxJointPR* ) j;
+    const dxJointPR* joint = ( dxJointPR* ) j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, PR );
     // get axis1 in global coordinates
@@ -158,7 +158,7 @@ dReal dJointGetPRAngle( dJointID j )
 
 dReal dJointGetPRAngleRate( dJointID j )
 {
-    dxJointPR* joint = ( dxJointPR* )j;
+    const dxJointPR* joint = ( dxJointPR* )j;
     dAASSERT( joint );
     checktype( joint, PR );
     if ( joint->node[0].body )
@@ -239,8 +239,8 @@ dxJointPR::getInfo2( dReal worldFPS, dReal worldERP,
 
     dReal *pos2 = NULL, *R2 = NULL;
     
-    dReal *pos1 = node[0].body->posr.pos;
-    dReal *R1 = node[0].body->posr.R;
+    const dReal *pos1 = node[0].body->posr.pos;
+    const dReal *R1 = node[0].body->posr.R;
 
     dxBody *body1 = node[1].body;
 
@@ -541,7 +541,7 @@ void dJointGetPRAxis2( dJointID j, dVector3 result )
 
 dReal dJointGetPRParam( dJointID j, int parameter )
 {
-    dxJointPR* joint = ( dxJointPR* ) j;
+    const dxJointPR* joint = ( dxJointPR* ) j;
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, PR );
     if (( parameter & 0xff00 ) == 0x100 )

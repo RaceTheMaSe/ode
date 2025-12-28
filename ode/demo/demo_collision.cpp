@@ -1029,7 +1029,7 @@ int test_ray_and_plane()
 
 static 
 int edgeIntersectsRect(dVector3 v1, dVector3 const v2,
-    dVector3 p1, dVector3 p2, dVector3 p3)
+    const dVector3 p1, const dVector3 p2, const dVector3 p3)
 {
     int k;
     dVector3 u1, u2, n, tmp;

@@ -103,7 +103,7 @@ void dGeomRaySetLength (dGeomID g, dReal length)
 dReal dGeomRayGetLength (dGeomID g)
 {
     dUASSERT (g && g->type == dRayClass,"argument not a ray");
-    dxRay *r = (dxRay*) g;
+    const dxRay *r = (dxRay*) g;
     return r->length;
 }
 

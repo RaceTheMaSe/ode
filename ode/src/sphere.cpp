@@ -84,7 +84,7 @@ void dGeomSphereSetRadius (dGeomID g, dReal radius)
 dReal dGeomSphereGetRadius (dGeomID g)
 {
     dUASSERT (g && g->type == dSphereClass,"argument not a sphere");
-    dxSphere *s = (dxSphere*) g;
+    const dxSphere *s = (dxSphere*) g;
     return s->radius;
 }
 
@@ -94,8 +94,8 @@ dReal dGeomSpherePointDepth (dGeomID g, dReal x, dReal y, dReal z)
     dUASSERT (g && g->type == dSphereClass,"argument not a sphere");
     g->recomputePosr();
 
-    dxSphere *s = (dxSphere*) g;
-    dReal * pos = s->final_posr->pos;
+    const dxSphere *s = (dxSphere*) g;
+    const dReal *pos = s->final_posr->pos;
     return s->radius - dSqrt ((x-pos[0])*(x-pos[0]) +
         (y-pos[1])*(y-pos[1]) +
         (z-pos[2])*(z-pos[2]));
@@ -115,8 +115,8 @@ int dCollideSphereSphere (dxGeom *o1, dxGeom *o2, int flags,
     (void)flags; (void)skip;
 #endif
 
-    dxSphere *sphere1 = (dxSphere*) o1;
-    dxSphere *sphere2 = (dxSphere*) o2;
+    const dxSphere *sphere1 = (dxSphere*) o1;
+    const dxSphere *sphere2 = (dxSphere*) o2;
 
     contact->g1 = o1;
     contact->g2 = o2;
@@ -149,8 +149,8 @@ int dCollideSphereBox (dxGeom *o1, dxGeom *o2, int flags,
     dReal depth;
     int onborder = 0;
 
-    dxSphere *sphere = (dxSphere*) o1;
-    dxBox *box = (dxBox*) o2;
+    const dxSphere *sphere = (dxSphere*) o1;
+    const dxBox *box = (dxBox*) o2;
 
     contact->g1 = o1;
     contact->g2 = o2;
@@ -233,7 +233,7 @@ int dCollideSpherePlane (dxGeom *o1, dxGeom *o2, int flags,
     (void)flags; (void)skip;
 #endif
 
-    dxSphere *sphere = (dxSphere*) o1;
+    const dxSphere *sphere = (dxSphere*) o1;
     dxPlane *plane = (dxPlane*) o2;
 
     contact->g1 = o1;

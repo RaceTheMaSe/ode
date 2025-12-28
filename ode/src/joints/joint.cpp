@@ -135,7 +135,7 @@ void setBall( dxJoint *joint, dReal fps, dReal erp,
 
     // set right hand side
     const dReal k = fps * erp;
-    dxBody *b0 = joint->node[0].body;
+    const dxBody *b0 = joint->node[0].body;
     if ( b1 )
     {
         dReal *currRhsCfm = pairRhsCfm;
@@ -608,7 +608,7 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
 
         dCopyVector3(J1Used, ax1);
 
-        dxBody *b1 = joint->node[1].body;
+        const dxBody *b1 = joint->node[1].body;
         if ( b1 )
         {
             dCopyNegatedVector3(J2Used, ax1);
@@ -630,7 +630,7 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
         dVector3 ltd = {0,0,0}; // Linear Torque Decoupling vector (a torque)
         if ( !rotational && b1 )
         {
-            dxBody *b0 = joint->node[0].body;
+            const dxBody *b0 = joint->node[0].body;
             dVector3 c;
             c[0] = REAL( 0.5 ) * ( b1->posr.pos[0] - b0->posr.pos[0] );
             c[1] = REAL( 0.5 ) * ( b1->posr.pos[1] - b0->posr.pos[1] );

@@ -250,8 +250,8 @@ void AABBTreeCollider::InitQuery(const IceMaths::Matrix4x4* world0, const IceMat
 	if(world1)	InvertPRMatrix(InvWorld1, *world1);
 	else		InvWorld1.Identity();
 
-	IceMaths::Matrix4x4 World0to1 = world0 ? (*world0 * InvWorld1) : InvWorld1;
-	IceMaths::Matrix4x4 World1to0 = world1 ? (*world1 * InvWorld0) : InvWorld0;
+	const IceMaths::Matrix4x4 World0to1 = world0 ? (*world0 * InvWorld1) : InvWorld1;
+	const IceMaths::Matrix4x4 World1to0 = world1 ? (*world1 * InvWorld0) : InvWorld0;
 
 	mR0to1 = World0to1;		World0to1.GetTrans(mT0to1);
 	mR1to0 = World1to0;		World1to0.GetTrans(mT1to0);

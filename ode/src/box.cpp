@@ -95,7 +95,7 @@ void dGeomBoxSetLengths (dGeomID g, dReal lx, dReal ly, dReal lz)
 void dGeomBoxGetLengths (dGeomID g, dVector3 result)
 {
     dUASSERT (g && g->type == dBoxClass,"argument not a box");
-    dxBox *b = (dxBox*) g;
+    const dxBox *b = (dxBox*) g;
     result[0] = b->side[0];
     result[1] = b->side[1];
     result[2] = b->side[2];
@@ -106,7 +106,7 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
 {
     dUASSERT (g && g->type == dBoxClass,"argument not a box");
     g->recomputePosr();
-    dxBox *b = (dxBox*) g;
+    const dxBox *b = (dxBox*) g;
 
     // Set p = (x,y,z) relative to box center
     //
@@ -211,13 +211,13 @@ static int intersectRectQuad (const dReal h[2], dReal p[8], dReal ret[16])
     // chopped) polygons
     int nq=4,nr=0;
     dReal buffer[16];
-    dReal *q = p;
+    dReal const*q = p;
     dReal *r = ret;
     for (int dir=0; dir <= 1; dir++) {
         // direction notation: xy[0] = x axis, xy[1] = y axis
         for (int sign=-1; sign <= 1; sign += 2) {
             // chop q along the line xy[dir] = sign*h[dir]
-            dReal *pq = q;
+            const dReal *pq = q;
             dReal *pr = r;
             nr = 0;
             for (int i=nq; i > 0; i--) {
@@ -233,7 +233,7 @@ static int intersectRectQuad (const dReal h[2], dReal p[8], dReal ret[16])
                         goto done;
                     }
                 }
-                dReal *nextq = (i > 1) ? pq+2 : q;
+                const dReal *nextq = (i > 1) ? pq+2 : q;
                 if (((dReal)sign*pq[dir] < h[dir]) ^ ((dReal)sign*nextq[dir] < h[dir])) {
                     // this line crosses the chopping line
                     pr[1-dir] = pq[1-dir] + (nextq[1-dir]-pq[1-dir]) /
@@ -769,7 +769,7 @@ int dCollideBoxPlaneOld(dxGeom *o1, dxGeom *o2,
     dIASSERT (o2->type == dPlaneClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
 
-    dxBox *box = (dxBox*) o1;
+    const dxBox *box = (dxBox*) o1;
     dxPlane *plane = (dxPlane*) o2;
 
     contact->g1 = o1;

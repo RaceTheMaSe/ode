@@ -166,7 +166,7 @@ dxWorldProcessMemArena *dxWorldProcessContext::ObtainStepperMemArena()
 
     while (true)
     {
-        dxWorldProcessMemArena *pmaRawArenasHead = GetStepperArenasHead();
+        const dxWorldProcessMemArena *pmaRawArenasHead = GetStepperArenasHead();
         if (pmaRawArenasHead == NULL)
         {
             break;
@@ -790,7 +790,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
                     while (true) {
                         // traverse and tag all body's joints, add untagged connected bodies
                         // to stack
-                        for (dxJointNode *n=b->firstjoint; n; n=n->next) {
+                        for (const dxJointNode *n=b->firstjoint; n; n=n->next) {
                             dxJoint *njoint = n->joint;
                             if (!njoint->tag) {
                                 if (njoint->isEnabled()) {
@@ -847,7 +847,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
     // unconnected joints, and joints that are connected to disabled bodies)
     // were tagged.
     {
-        for (dxBody *b=world->firstbody; b; b=(dxBody*)b->next) {
+        for (const dxBody *b=world->firstbody; b; b=(dxBody*)b->next) {
             if (b->flags & dxBodyDisabled) {
                 if (b->tag > 0) dDebug (0,"disabled body tagged");
             }
@@ -855,7 +855,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
                 if (b->tag <= 0) dDebug (0,"enabled body not tagged");
             }
         }
-        for (dxJoint *j=world->firstjoint; j; j=(dxJoint*)j->next) {
+        for (const dxJoint *j=world->firstjoint; j; j=(dxJoint*)j->next) {
             if ( (( j->node[0].body && (j->node[0].body->flags & dxBodyDisabled)==0 ) ||
                 (j->node[1].body && (j->node[1].body->flags & dxBodyDisabled)==0) )
                 && 
@@ -907,9 +907,9 @@ bool dxProcessIslands (dxWorld *world, const dxWorldProcessIslandsInfo &islandsI
     dxIslandsProcessingCallContext callContext(world, islandsInfo, stepSize, stepper);
 
     do {
-        dxStepWorkingMemory *wmem = world->wmem;
+        const dxStepWorkingMemory *wmem = world->wmem;
         dIASSERT(wmem != NULL);
-        dxWorldProcessContext *context = wmem->GetWorldProcessingContext(); 
+        const dxWorldProcessContext *context = wmem->GetWorldProcessingContext(); 
         dIASSERT(context != NULL);
         dCallWaitID pcwGroupCallWait = context->GetIslandsSteppingWait();
 
@@ -1237,7 +1237,7 @@ dxWorldProcessMemArena *dxAllocateTemporaryWorldProcessMemArena(
 {
     const dxWorldProcessMemoryManager *surememmgr = memmgr ? memmgr : g_WorldProcessMallocMemoryManager;
     const dxWorldProcessMemoryReserveInfo *surereserveinfo = reserveinfo ? reserveinfo : g_WorldProcessDefaultReserveInfo;
-    dxWorldProcessMemArena *arena = dxWorldProcessMemArena::ReallocateMemArena(NULL, memreq, surememmgr, surereserveinfo->m_fReserveFactor, surereserveinfo->m_uiReserveMinimum);
+    dxWorldProcessMemArena *const arena = dxWorldProcessMemArena::ReallocateMemArena(NULL, memreq, surememmgr, surereserveinfo->m_fReserveFactor, surereserveinfo->m_uiReserveMinimum);
     return arena;
 }
 
