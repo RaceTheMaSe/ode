@@ -576,7 +576,8 @@
 
       includedirs { 
         "../ou/include",
-        "../tests/UnitTest++/src"
+        "../tests/UnitTest++/src",
+        "../ode/src/joints",
       }
     
       files { 
