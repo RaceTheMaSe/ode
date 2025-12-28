@@ -166,11 +166,9 @@ AM_CPPFLAGS += -I$(top_srcdir)/libccd/src/custom
 if LIBCCD_INTERNAL
 AM_CPPFLAGS += -I$(top_srcdir)/libccd/src -I$(top_builddir)/libccd/src 
 libode_la_LIBADD += $(top_builddir)/libccd/src/libccd.la
-AM_CPPFLAGS += -DdLIBCCD_INTERNAL
 else
 AM_CPPFLAGS += $(CCD_CFLAGS)
 libode_la_LIBADD += $(CCD_LIBS)
-AM_CPPFLAGS += -DdLIBCCD_SYSTEM
 endif
 
 

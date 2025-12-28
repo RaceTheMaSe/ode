@@ -2373,10 +2373,6 @@ REGISTER_EXTENSION( ODE_EXT_gimpact )
 #if defined(dLIBCCD_ENABLED)
 REGISTER_EXTENSION(ODE_EXT_libccd)
 
-#if defined(dLIBCCD_INTERNAL)
-REGISTER_EXTENSION(ODE_CCD_IMPL_internal)
-#endif
-
 // NOTE: Colliding geometry contractions are ordered lexicographically
 #if defined(dLIBCCD_BOX_CYL)
 REGISTER_EXTENSION(ODE_CCD_COLL_box_cyl)

@@ -651,26 +651,24 @@ if(ODE_WITH_GIMPACT)
 endif()
 
 if(ODE_WITH_LIBCCD)
+	target_compile_definitions(ODE PUBLIC -DdLIBCCD_ENABLED)
+	target_include_directories(
+		ODE
+		PUBLIC
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libccd/src/custom>
+	)
 	if(ODE_WITH_LIBCCD_SYSTEM)
 		find_package(ccd REQUIRED)
-		target_compile_definitions(ODE PUBLIC -DdLIBCCD_ENABLED -DdLIBCCD_SYSTEM)
-		target_include_directories(
-			ODE
-			PRIVATE
-			$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libccd/src/custom>
-		)
 		if(TARGET ccd::ccd)
 			target_link_libraries(ODE PUBLIC ccd::ccd)
 		else()
 			target_link_libraries(ODE PUBLIC ccd)
 		endif()
 	else()
-		target_compile_definitions(ODE PRIVATE -DdLIBCCD_ENABLED -DdLIBCCD_INTERNAL)
 		target_include_directories(
 			ODE
-			PRIVATE
+			PUBLIC
 			$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libccd/src>
-			$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libccd/src/custom>
 		)
 	endif()
 	
