@@ -76,7 +76,7 @@ libode_la_SOURCES =     nextafterf.c \
                         threading_atomics_provs.h \
                         threading_base.cpp threading_base.h \
                         threading_fake_sync.h \
-                        threading_impl.cpp threading_impl.h \
+                        threading_impl.cpp \
                         threading_impl_posix.h \
                         threading_impl_templates.h \
                         threading_impl_win.h \

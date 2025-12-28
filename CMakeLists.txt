@@ -302,7 +302,6 @@ set(
 	ode/src/threading_base.h
 	ode/src/threading_fake_sync.h
 	ode/src/threading_impl.cpp
-	ode/src/threading_impl.h
 	ode/src/threading_impl_posix.h
 	ode/src/threading_impl_templates.h
 	ode/src/threading_impl_win.h
