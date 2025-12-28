@@ -93,6 +93,12 @@
  *	only.
  */
 
+#if defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Warray-bounds" // FIXME: _ou_atomic_CLargeStruct dereference triggers this in GCC11.3 - its emitted on unrelated types no matter if it is valid or not
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 #include <ou/features.h>
 
 
@@ -1894,5 +1900,9 @@ END_NAMESPACE_OU
 
 
 #endif // #if _OU_FEATURE_SET >= _OU_FEATURE_SET_ATOMICS
+
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 #endif // #ifndef OU_ATOMIC_H_INCLUDED

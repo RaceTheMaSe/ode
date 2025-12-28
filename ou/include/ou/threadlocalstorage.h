@@ -27,6 +27,10 @@
 #ifndef _OU_THREADLOCALSTORAGE_H_INCLUDED
 #define _OU_THREADLOCALSTORAGE_H_INCLUDED
 
+#if defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Warray-bounds" // NOTE: ensure that this cannot happen by doing OOB checks - yes its low level, its pointer arithmetics on self managed storage ... dangerous and necessary for this whole TLS
+#endif
 
 #include <ou/features.h>
 
@@ -289,5 +293,8 @@ END_NAMESPACE_OU
 
 #endif // #if _OU_FEATURE_SET >= _OU_FEATURE_SET_TLS
 
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 #endif // #ifndef _OU_THREADLOCALSTORAGE_H_INCLUDED
