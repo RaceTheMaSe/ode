@@ -243,17 +243,17 @@ TEST(mprBoxboxRot)
 
 static void pConf(ccd_box_t *box1, ccd_box_t *box2, const ccd_vec3_t *v)
 {
-    fprintf(stdout, "# box1.pos: [%lf %lf %lf]\n",
+    (void)fprintf(stdout, "# box1.pos: [%lf %lf %lf]\n",
             ccdVec3X(&box1->pos), ccdVec3Y(&box1->pos), ccdVec3Z(&box1->pos));
-    fprintf(stdout, "# box1->quat: [%lf %lf %lf %lf]\n",
+    (void)fprintf(stdout, "# box1->quat: [%lf %lf %lf %lf]\n",
             box1->quat.q[0], box1->quat.q[1], box1->quat.q[2], box1->quat.q[3]);
-    fprintf(stdout, "# box2->pos: [%lf %lf %lf]\n",
+    (void)fprintf(stdout, "# box2->pos: [%lf %lf %lf]\n",
             ccdVec3X(&box2->pos), ccdVec3Y(&box2->pos), ccdVec3Z(&box2->pos));
-    fprintf(stdout, "# box2->quat: [%lf %lf %lf %lf]\n",
+    (void)fprintf(stdout, "# box2->quat: [%lf %lf %lf %lf]\n",
             box2->quat.q[0], box2->quat.q[1], box2->quat.q[2], box2->quat.q[3]);
-    fprintf(stdout, "# sep: [%lf %lf %lf]\n",
+    (void)fprintf(stdout, "# sep: [%lf %lf %lf]\n",
             ccdVec3X(v), ccdVec3Y(v), ccdVec3Z(v));
-    fprintf(stdout, "#\n");
+    (void)fprintf(stdout, "#\n");
 }
 
 TEST(mprBoxboxSeparate)

@@ -67,12 +67,12 @@ static int                      prev_y = 0;
 
 static void printMessage (const char *msg1, const char *msg2, va_list ap)
 {
-  fflush (stderr);
-  fflush (stdout);
-  fprintf (stderr,"\n%s: ",msg1);
-  vfprintf (stderr,msg2,ap);
-  fprintf (stderr,"\n");
-  fflush (stderr);
+  (void)fflush (stderr);
+  (void)fflush (stdout);
+  (void)fprintf (stderr,"\n%s: ",msg1);
+  (void)vfprintf (stderr,msg2,ap);
+  (void)fprintf (stderr,"\n");
+  (void)fflush (stderr);
 }
 
 extern "C" void dsError (const char *msg, ...)
@@ -99,27 +99,27 @@ extern "C" void dsPrint (const char *msg, ...)
 {
   va_list ap;
   va_start (ap,msg);
-  vprintf (msg,ap);
+  (void)vprintf (msg,ap);
   va_end (ap);
 }
 
 static void captureFrame( int num ){
 
-  	fprintf( stderr,"\rcapturing frame %04d", num );
+  	(void)fprintf( stderr,"\rcapturing frame %04d", num );
 	unsigned char* buffer = new unsigned char[windowWidth*windowHeight*3];
 	glReadPixels( 0, 0, windowWidth, windowHeight, GL_RGB, GL_UNSIGNED_BYTE, buffer );
 	char s[100];
-	sprintf (s,"frame%04d.ppm",num);
+	(void)sprintf (s,"frame%04d.ppm",num);
 	FILE *f = fopen (s,"wb");
 	if( !f ){
         delete[] buffer;
 		dsError( "can't open \"%s\" for writing", s );
 	}
-	fprintf( f,"P6\n%d %d\n255\n", windowWidth, windowHeight );
+	(void)fprintf( f,"P6\n%d %d\n255\n", windowWidth, windowHeight );
 	for( int y=windowHeight-1; y>-1; y-- ){
-		fwrite( &buffer[y*windowWidth], 3*(size_t)windowWidth, 1, f );
+		(void)fwrite( &buffer[y*windowWidth], 3*(size_t)windowWidth, 1, f );
 	}
-	fclose (f);	
+	(void)fclose (f);	
     delete[] buffer;
 }
 
@@ -338,7 +338,7 @@ void dsPlatformSimLoop( int window_width, int window_height, dsFunctions *fn, in
 	static bool firsttime=true;
 	if( firsttime )
 	{
-		fprintf
+		(void)fprintf
 		(
 		 stderr,
 		 "\n"

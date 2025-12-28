@@ -140,7 +140,7 @@ static void start()
     float xyz[3] = { -8,0,5 };
     float hpr[3] = { 0.0f,-29.5000f,0.0000f };
     dsSetViewpoint(xyz, hpr);
-    fprintf(stderr, "Press SPACE to reset the simulation1.\n");
+    (void)fprintf(stderr, "Press SPACE to reset the simulation1.\n");
 }
 
 static void reset()

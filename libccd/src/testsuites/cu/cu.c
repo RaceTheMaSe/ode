@@ -98,7 +98,7 @@ void cu_run(int argc, char *argv[])
             }
 
             if (tss->name == NULL || tss->test_suite == NULL){
-                fprintf(stderr, "ERROR: Could not find test suite '%s'\n", argv[i]);
+                (void)fprintf(stderr, "ERROR: Could not find test suite '%s'\n", argv[i]);
             }
         }
 
@@ -128,8 +128,8 @@ static void cu_run_fork(const char *ts_name, cu_test_suite_t *ts)
         exit(-1);
     }
 
-    fprintf(stdout, " -> %s [IN PROGESS]\n", ts_name);
-    fflush(stdout);
+    (void)fprintf(stdout, " -> %s [IN PROGESS]\n", ts_name);
+    (void)fflush(stdout);
 
     pid = fork();
     if (pid < 0){
@@ -164,10 +164,10 @@ static void cu_run_fork(const char *ts_name, cu_test_suite_t *ts)
         wait(&status);
         if (!WIFEXITED(status)){ /* if child process ends up abnormaly */
             if (WIFSIGNALED(status)){
-                fprintf(stdout, "Test suite was terminated by signal %d (%s).\n",
+                (void)fprintf(stdout, "Test suite was terminated by signal %d (%s).\n",
                         WTERMSIG(status), strsignal(WTERMSIG(status)));
             }else{
-                fprintf(stdout, "Test suite terminated abnormaly!\n");
+                (void)fprintf(stdout, "Test suite terminated abnormaly!\n");
             }
 
             /* mark this test suite as failed, because it was terminated
@@ -177,8 +177,8 @@ static void cu_run_fork(const char *ts_name, cu_test_suite_t *ts)
 
         close(fd);
 
-        fprintf(stdout, " -> %s [DONE]\n\n", ts_name);
-        fflush(stdout);
+        (void)fprintf(stdout, " -> %s [DONE]\n\n", ts_name);
+        (void)fflush(stdout);
     }
 
 }

@@ -123,7 +123,7 @@ TEST(cylcylPenetrationEPA)
     ccd_real_t depth;
     ccd_vec3_t dir, pos;
 
-    fprintf(stderr, "\n\n\n---- cylcylPenetration ----\n\n\n");
+    (void)fprintf(stderr, "\n\n\n---- cylcylPenetration ----\n\n\n");
 
     cyl1.radius = 0.35;
     cyl1.height = 0.5;

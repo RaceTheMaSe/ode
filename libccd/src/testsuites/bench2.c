@@ -27,7 +27,7 @@ static void runBench(const void *o1, const void *o2, const ccd_t *ccd)
     timer = cuTimerStop();
     fprintf(stdout, "%02d: %ld %ld\n", bench_num,
                     (long)timer->tv_sec, (long)timer->tv_nsec);
-    fflush(stdout);
+    (void)fflush(stdout);
 
     bench_num++;
 }

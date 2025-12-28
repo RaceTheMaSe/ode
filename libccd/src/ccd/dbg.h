@@ -35,8 +35,8 @@
 
 #if defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 # define DBG(format, ...) do { \
-    fprintf(stderr, DBG_PROLOGUE "%s :: " format "\n", __func__, ## __VA_ARGS__); \
-    fflush(stderr); \
+    (void)fprintf(stderr, DBG_PROLOGUE "%s :: " format "\n", __func__, ## __VA_ARGS__); \
+    (void)fflush(stderr); \
     } while (0)
 #else
 #include "compiler.h"
@@ -51,27 +51,27 @@ _ccd_inline UNUSED_FUNCTION void DBG(const char* format, ...)
     strcat(buffer,"%s :: ");
     strcat(buffer,format);
     strcat(buffer,"\n");
-    fprintf(stderr, buffer, ap);
-    fflush(stderr);
+    (void)fprintf(stderr, buffer, ap);
+    (void)fflush(stderr);
     va_end(ap);
 }
 #endif
 
 # define DBG2(str) do { \
-    fprintf(stderr, DBG_PROLOGUE "%s :: " str "\n", __func__); \
-    fflush(stderr); \
+    (void)fprintf(stderr, DBG_PROLOGUE "%s :: " str "\n", __func__); \
+    (void)fflush(stderr); \
     } while (0)
 
 # define DBG_VEC3(vec, prefix) do {\
-    fprintf(stderr, DBG_PROLOGUE "%s :: %s[%lf %lf %lf]\n", \
+    (void)fprintf(stderr, DBG_PROLOGUE "%s :: %s[%lf %lf %lf]\n", \
             __func__, prefix, ccdVec3X(vec), ccdVec3Y(vec), ccdVec3Z(vec)); \
-    fflush(stderr); \
+    (void)fflush(stderr); \
     } while (0)
 /*
 # define DBG_VEC3(vec, prefix) do {\
-    fprintf(stderr, DBG_PROLOGUE "%s :: %s[%.20lf %.20lf %.20lf]\n", \
+    (void)fprintf(stderr, DBG_PROLOGUE "%s :: %s[%.20lf %.20lf %.20lf]\n", \
             __func__, prefix, ccdVec3X(vec), ccdVec3Y(vec), ccdVec3Z(vec)); \
-    fflush(stderr); \
+    (void)fflush(stderr); \
     } while (0)
 */
 

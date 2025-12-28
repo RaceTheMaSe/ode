@@ -357,7 +357,7 @@ namespace GLCore { PFNGLGetProcAddress _glGetProcAddress = NULL; }
                         if( *(g_OGLCoreFuncRec[i].m_FuncPtr)==NULL )
                         {
                         #ifdef _DEBUG
-                            fprintf(stderr, "AntTweakBar: Cannot load function %s\n", g_OGLCoreFuncRec[i].m_Name);
+                            (void)fprintf(stderr, "AntTweakBar: Cannot load function %s\n", g_OGLCoreFuncRec[i].m_Name);
                         #endif
                             Res = 0; // Error("cannot find OpenGL Core function");
                         }
@@ -414,7 +414,7 @@ namespace GLCore { PFNGLGetProcAddress _glGetProcAddress = NULL; }
         {
             if( g_NbOGLCoreFunc>=ANT_NB_OGL_CORE_FUNC_MAX )
             {
-                fprintf(stderr, "Too many OpenGL Core functions declared. Change ANT_NB_OGL_CORE_FUNC_MAX.");
+                (void)fprintf(stderr, "Too many OpenGL Core functions declared. Change ANT_NB_OGL_CORE_FUNC_MAX.");
                 exit(-1);
             }
     

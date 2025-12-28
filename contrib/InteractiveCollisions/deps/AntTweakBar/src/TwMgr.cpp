@@ -734,7 +734,7 @@ void ANT_CALL CQuaternionExt::SummaryCB(char *_SummaryString, size_t _SummaryMax
     if( ext )
     {
         if( ext->m_AAMode )
-            _snprintf(_SummaryString, _SummaryMaxLength, "V={%.2f,%.2f,%.2f} A=%.0f°", ext->Vx, ext->Vy, ext->Vz, ext->Angle);
+            _snprintf(_SummaryString, _SummaryMaxLength, "V={%.2f,%.2f,%.2f} A=%.0fï¿½", ext->Vx, ext->Vy, ext->Vz, ext->Angle);
         else if( ext->m_IsDir )
         {
             //float d[] = {1, 0, 0};
@@ -2771,7 +2771,7 @@ void ANT_CALL TwGlobalError(const char *_ErrorMessage)  // to be called when g_T
 {
     if( g_ErrorHandler==NULL )
     {
-        fprintf(stderr, "ERROR(AntTweakBar) >> %s\n", _ErrorMessage);
+        (void)fprintf(stderr, "ERROR(AntTweakBar) >> %s\n", _ErrorMessage);
     #ifdef ANT_WINDOWS
         OutputDebugString("ERROR(AntTweakBar) >> ");
         OutputDebugString(_ErrorMessage);
@@ -2801,14 +2801,14 @@ void CTwMgr::SetLastError(const char *_ErrorMessage)    // _ErrorMessage must be
     if( g_ErrorHandler==NULL )
     {
         if( m_CurrentDbgFile!=NULL && strlen(m_CurrentDbgFile)>0 && m_CurrentDbgLine>0 )
-            fprintf(stderr, "%s(%d): ", m_CurrentDbgFile, m_CurrentDbgLine);
-        fprintf(stderr, "ERROR(AntTweakBar) >> %s\n", m_LastError);
+            (void)fprintf(stderr, "%s(%d): ", m_CurrentDbgFile, m_CurrentDbgLine);
+        (void)fprintf(stderr, "ERROR(AntTweakBar) >> %s\n", m_LastError);
     #ifdef ANT_WINDOWS
         if( m_CurrentDbgFile!=NULL && strlen(m_CurrentDbgFile)>0 && m_CurrentDbgLine>0 )
         {
             OutputDebugString(m_CurrentDbgFile);
             char sl[32];
-            sprintf(sl, "(%d): ", m_CurrentDbgLine);
+            (void)sprintf(sl, "(%d): ", m_CurrentDbgLine);
             OutputDebugString(sl);
         }
         OutputDebugString("ERROR(AntTweakBar) >> ");
@@ -6323,7 +6323,7 @@ static XErrorHandler s_PrevErrorHandler = NULL;
 
 static int InactiveErrorHandler(Display *display, XErrorEvent *err)
 {
-    fprintf(stderr, "Ignoring Xlib error: error code %d request code %d\n", err->error_code, err->request_code);
+    (void)fprintf(stderr, "Ignoring Xlib error: error code %d request code %d\n", err->error_code, err->request_code);
     // No exit!
     return 0 ;
 }

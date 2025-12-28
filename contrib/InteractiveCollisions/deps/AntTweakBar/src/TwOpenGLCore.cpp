@@ -32,11 +32,11 @@ extern const char *g_ErrCantUnloadOGL;
         char msg[256];
         while( (err=_glGetError())!=0 )
         {
-            sprintf(msg, "%s(%d) : [%s] GL_CORE_ERROR=0x%x\n", file, line, func, err);
+            (void)sprintf(msg, "%s(%d) : [%s] GL_CORE_ERROR=0x%x\n", file, line, func, err);
             #ifdef ANT_WINDOWS
                 OutputDebugString(msg);
             #endif
-            fprintf(stderr, msg);
+            (void)fprintf(stderr, msg);
         }
     }
 #   ifdef __FUNCTION__

@@ -2243,7 +2243,7 @@ void CTwVarAtom::Increment(int _Step)
             }
         }
         else
-            fprintf(stderr, "CTwVarAtom::Increment : unknown or unimplemented type\n");
+            (void)fprintf(stderr, "CTwVarAtom::Increment : unknown or unimplemented type\n");
     }
 }
 

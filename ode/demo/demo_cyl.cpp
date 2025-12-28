@@ -78,7 +78,7 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
     return;
   }
 
-//  fprintf(stderr,"testing geoms %p %p\n", o1, o2);
+//  (void)fprintf(stderr,"testing geoms %p %p\n", o1, o2);
 
   const int N = 32;
   dContact contact[N];

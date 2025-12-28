@@ -60,7 +60,7 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
 
   if (dGeomIsSpace(o1) || dGeomIsSpace(o2))
   {
-      fprintf(stderr,"testing space %p %p\n", (void*)o1, (void*)o2);
+      (void)fprintf(stderr,"testing space %p %p\n", (void*)o1, (void*)o2);
     // colliding a space with something
     dSpaceCollide2(o1,o2,data,&nearCallback);
     // Note we do not want to test intersections within a space,
@@ -68,7 +68,7 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
     return;
   }
 
-//  fprintf(stderr,"testing geoms %p %p\n", o1, o2);
+//  (void)fprintf(stderr,"testing geoms %p %p\n", o1, o2);
 
   const int N = 32;
   dContact contact[N];
@@ -145,7 +145,7 @@ static void simLoop (int pause)
   const double dt = dsElapsedTime();
 
   const int nrofsteps = (int) ceilf((float)(dt/simstep));
-//  fprintf(stderr, "dt=%f, nr of steps = %d\n", dt, nrofsteps);
+//  (void)fprintf(stderr, "dt=%f, nr of steps = %d\n", dt, nrofsteps);
 
   for (int i=0; i<nrofsteps && !pause; i++)
   {
@@ -222,7 +222,7 @@ int main (int argc, char **argv)
   printf("numv=%d, numi=%d\n", numv, numi);
   dTriMeshDataID Data = dGeomTriMeshDataCreate();
 
-//  fprintf(stderr,"Building Single Precision Mesh\n");
+//  (void)fprintf(stderr,"Building Single Precision Mesh\n");
 
   dGeomTriMeshDataBuildSingle
   (

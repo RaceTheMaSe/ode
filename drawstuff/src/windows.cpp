@@ -719,7 +719,7 @@ void promptAKeyToExit()
     if (consoleInput != INVALID_HANDLE_VALUE && consoleInput != NULL) {
         FlushConsoleInputBuffer(consoleInput);
 
-        fprintf(stderr, "Press any key to close this window . . .");
+        (void)fprintf(stderr, "Press any key to close this window . . .");
 
         INPUT_RECORD inputEvent;
         for (DWORD eventsRead = 0; ReadConsoleInput(consoleInput, &inputEvent, 1, &eventsRead); eventsRead = 0) {

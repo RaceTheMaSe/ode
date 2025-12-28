@@ -49,12 +49,12 @@
 
 static void printMessage (const char *msg1, const char *msg2, va_list ap)
 {
-  fflush (stderr);
-  fflush (stdout);
-  fprintf (stderr,"\n%s: ",msg1);
-  vfprintf (stderr,msg2,ap);
-  fprintf (stderr,"\n");
-  fflush (stderr);
+  (void)fflush (stderr);
+  (void)fflush (stdout);
+  (void)fprintf (stderr,"\n%s: ",msg1);
+  (void)vfprintf (stderr,msg2,ap);
+  (void)fprintf (stderr,"\n");
+  (void)fflush (stderr);
 }
 
 
@@ -83,7 +83,7 @@ extern "C" void dsPrint (const char *msg, ...)
 {
   va_list ap;
   va_start (ap,msg);
-  vprintf (msg,ap);
+  (void)vprintf (msg,ap);
   va_end (ap);
 }
 

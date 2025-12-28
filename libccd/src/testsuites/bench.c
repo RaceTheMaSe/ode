@@ -25,16 +25,16 @@ static void runBench(const void *o1, const void *o2, const ccd_t *ccd)
         res = ccdGJKPenetration(o1, o2, ccd, &depth, &dir, &pos);
     }
     timer = cuTimerStop();
-    fprintf(stdout, "%02d: %ld %ld\n", bench_num,
+    (void)fprintf(stdout, "%02d: %ld %ld\n", bench_num,
                     (long)timer->tv_sec, (long)timer->tv_nsec);
-    fflush(stdout);
+    (void)fflush(stdout);
 
     bench_num++;
 }
 
 static void boxbox(void)
 {
-    fprintf(stdout, "%s:\n", __func__);
+    (void)fprintf(stdout, "%s:\n", __func__);
 
     ccd_t ccd;
     CCD_BOX(box1);
@@ -118,12 +118,12 @@ static void boxbox(void)
     runBench(&box2, &box1, &ccd);
 
 
-    fprintf(stdout, "\n----\n\n");
+    (void)fprintf(stdout, "\n----\n\n");
 }
 
 void cylcyl(void)
 {
-    fprintf(stdout, "%s:\n", __func__);
+    (void)fprintf(stdout, "%s:\n", __func__);
 
     ccd_t ccd;
     CCD_CYL(cyl1);
@@ -170,12 +170,12 @@ void cylcyl(void)
     runBench(&cyl1, &cyl2, &ccd);
     runBench(&cyl2, &cyl1, &ccd);
 
-    fprintf(stdout, "\n----\n\n");
+    (void)fprintf(stdout, "\n----\n\n");
 }
 
 void boxcyl(void)
 {
-    fprintf(stdout, "%s:\n", __func__);
+    (void)fprintf(stdout, "%s:\n", __func__);
 
     ccd_t ccd;
     CCD_BOX(box);
@@ -237,7 +237,7 @@ void boxcyl(void)
     runBench(&box, &cyl, &ccd);
     runBench(&cyl, &box, &ccd);
 
-    fprintf(stdout, "\n----\n\n");
+    (void)fprintf(stdout, "\n----\n\n");
 }
 
 int main(int argc, char *argv[])
@@ -246,8 +246,8 @@ int main(int argc, char *argv[])
         cycles = atol(argv[1]);
     }
 
-    fprintf(stdout, "Cycles: %zu\n", cycles);
-    fprintf(stdout, "\n");
+    (void)fprintf(stdout, "Cycles: %zu\n", cycles);
+    (void)fprintf(stdout, "\n");
 
     boxbox();
     cylcyl();

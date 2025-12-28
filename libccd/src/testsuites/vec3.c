@@ -269,5 +269,5 @@ TEST(vec3PointTriDist)
     assertTrue(ccdEq(dist, 0.5));
     ccdVec3Set(&P0, -.5, .5, 0.);
     assertTrue(ccdVec3Eq(&w, &P0));
-    //fprintf(stderr, "dist: %lf\n", dist);
+    //(void)fprintf(stderr, "dist: %lf\n", dist);
 }
