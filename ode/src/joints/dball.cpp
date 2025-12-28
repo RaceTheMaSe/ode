@@ -312,5 +312,30 @@ dxJointDBall::setRelativeValues()
     updateTargetDistance();
 }
 
+void dxJointDBall::set( int num, dReal value )
+{
+    switch ( num )
+    {
+    case dParamCFM:
+        cfm = value;
+        break;
+    case dParamERP:
+        erp = value;
+        break;
+    default:
+        break;
+    }
+}
 
-
+dReal dxJointDBall::get( int num ) const
+{
+    switch ( num )
+    {
+    case dParamCFM:
+        return cfm;
+    case dParamERP:
+        return erp;
+    default:
+        return 0;
+    }
+}

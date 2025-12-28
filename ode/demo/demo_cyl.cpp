@@ -139,14 +139,8 @@ static void reset_state(void)
 
 static void command (int cmd)
 {
-  switch (cmd) 
-  {
-    case ' ':
+  if(cmd == ' ')
 	  reset_state();
-      break;
-    default:
-      break;
-  }
 }
 
 

@@ -53,7 +53,9 @@ using namespace IceMaths;
 
 int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contacts, int skip )
 {
+#if defined(dLIBCCD_ENABLED) && (defined(dTRIMESH_OPCODE) || defined(dTRIMESH_GIMPACT))
     int contactcount = 0;
+#endif
     dIASSERT( skip >= (int)sizeof( dContactGeom ) );
     dIASSERT( o1->type == dConvexClass );
     dIASSERT( o2->type == dTriMeshClass );
@@ -119,13 +121,14 @@ int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* cont
     GIM_DYNARRAY_DESTROY(collision_result);
 #else
     (void)contacts;
+    const int contactcount = 0;
 #endif // dTRIMESH_GIMPACT
+    return contactcount;
 
 #else
     (void)contacts;
+    return 0;
 #endif // dLIBCCD_ENABLED
-
-    return contactcount;
 }
 
 #endif // dTRIMESH_ENABLED

@@ -123,13 +123,7 @@ static void start()
 
 static void command (int cmd)
 {
-  switch (cmd) 
-  {
-    case ' ':
-      break;
-    default:
-      break;
-  }
+  (void)cmd;
 }
 
 

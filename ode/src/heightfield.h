@@ -218,13 +218,13 @@ struct dxHeightfield : public dxGeom
     static inline sizeint AlignBufferSize(sizeint value, sizeint alignment) { dIASSERT((alignment & (alignment - 1)) == 0); return (value + (alignment - 1)) & ~(alignment - 1); }
 
     void  allocateTriangleBuffer(sizeint numTri);
-    void  resetTriangleBuffer();
+    void  resetTriangleBuffer() const;
     void  allocatePlaneBuffer(sizeint numTri);
-    void  resetPlaneBuffer();
+    void  resetPlaneBuffer() const;
     void  allocateHeightBuffer(sizeint numX, sizeint numZ);
-    void  resetHeightBuffer();
+    void  resetHeightBuffer() const;
 
-    void  sortPlanes(const sizeint numPlanes);
+    void  sortPlanes(sizeint numPlanes) const;
 
     HeightFieldPlane    **tempPlaneBuffer;
     HeightFieldPlane    *tempPlaneInstances;

@@ -217,7 +217,7 @@ static void start()
 
 static char locase (char c)
 {
-  if (c >= 'A' && c <= 'Z') return c - ('a'-'A');
+  if (c >= 'A' && c <= 'Z') return (char)(c - ('a'-'A'));
   else return c;
 }
 
@@ -231,7 +231,7 @@ static void command (int cmdIn)
     dMass m;
     bool setBody = false;
 
-    char cmd = locase ((char)cmdIn);
+    const char cmd = locase ((char)cmdIn);
     if (cmd == 'b' || cmd == 's' || cmd == 'c' || cmd == 'x' || cmd == 'm' || cmd == 'y' || cmd == 'v') {
         if (num < NUM) {
             i = num;
@@ -295,7 +295,7 @@ static void command (int cmdIn)
             dMassSetCylinder (&m,DENSITY,3,sides[0],sides[1]);
             obj[i].geom[0] = dCreateCylinder (space,sides[0],sides[1]);
         }
-	      else if (cmd == 's') {
+        else if (cmd == 's') {
             sides[0] *= REAL(0.5);
             dMassSetSphere (&m,DENSITY,sides[0]);
             obj[i].geom[0] = dCreateSphere (space,sides[0]);

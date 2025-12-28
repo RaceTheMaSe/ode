@@ -82,8 +82,9 @@ dReal & dMatrix::operator () (int i, int j)
 }
 
 
-void dMatrix::operator= (const dMatrix &a)
+dMatrix& dMatrix::operator= (const dMatrix &a)
 {
+    if(this == &a) return *this;
     if (data) dFree (data,(size_t)(n*m)*sizeof(dReal));
     n = a.n;
     m = a.m;
@@ -92,12 +93,14 @@ void dMatrix::operator= (const dMatrix &a)
         memcpy (data,a.data,(size_t)(n*m)*sizeof(dReal));
     }
     else data = NULL;
+    return *this;
 }
 
 
-void dMatrix::operator= (dReal a)
+dMatrix& dMatrix::operator= (dReal a)
 {
     for (int i=0; i<n*m; i++) data[i] = a;
+    return *this;
 }
 
 

@@ -623,7 +623,7 @@ void dxThreadingThreadPool::WaitIdleState()
     dAASSERT(thread_count != 0);
 
 #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
-    dxThreadingThreadPool *thread_pool = new dxThreadingThreadPool();
+    dThreadingThreadPoolID thread_pool = new dxThreadingThreadPool();
     if (thread_pool != NULL)
     {
         unsigned restricted_thread_count = dMIN(thread_count, dTHREADING_MAX_SUPPORTED_POOL_THREADS);
@@ -644,7 +644,7 @@ void dxThreadingThreadPool::WaitIdleState()
     (void)ode_data_allocate_flags;
 #endif // #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
 
-    return (dThreadingThreadPoolID)thread_pool;
+    return thread_pool;
 }
 
 /*extern */void dThreadingThreadPoolServeMultiThreadedImplementation(dThreadingThreadPoolID pool, dThreadingImplementationID impl)

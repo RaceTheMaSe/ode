@@ -1606,7 +1606,8 @@ void dxQuickStepIsland_Stage2a(dxQuickStepperStage2CallContext *stage2CallContex
                             dSASSERT((unsigned)JCE__J2_COUNT == JME__J2_COUNT);
                             dSASSERT(JCE__J1_COUNT + JCE__J2_COUNT == JCE__MAX);
                         
-                            if ((JCurr += JME__MAX) == JEnd) {
+                            JCurr += JME__MAX;
+                            if (JCurr == JEnd) {
                                 break;
                             }
                         }

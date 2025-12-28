@@ -274,7 +274,7 @@ private:
     };
 
     bool controlGeometry_SetMergeSphereContacts(int dataValue);
-    bool controlGeometry_GetMergeSphereContacts(int &returnValue);
+    bool controlGeometry_GetMergeSphereContacts(int &returnValue) const;
 
 private:
     dxTriMeshData *getMeshData() const { return static_cast<dxTriMeshData *>(dxTriMesh_Parent::getMeshData()); }

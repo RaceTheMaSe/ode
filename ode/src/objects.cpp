@@ -51,7 +51,7 @@ dObject::~dObject()
 }
 
 
-dxAutoDisable::dxAutoDisable(void *):
+dxAutoDisable::dxAutoDisable(void * /*deprecated*/):
     idle_time(REAL(0.0)),
     idle_steps(10),
     average_samples(1), // Default is 1 sample => Instantaneous velocity
@@ -60,7 +60,7 @@ dxAutoDisable::dxAutoDisable(void *):
 {
 }
 
-dxDampingParameters::dxDampingParameters(void *):
+dxDampingParameters::dxDampingParameters(void * /*deprecated*/):
     linear_scale(REAL(0.0)),
     angular_scale(REAL(0.0)),
     linear_threshold(REAL(0.01) * REAL(0.01)),
@@ -75,7 +75,7 @@ static const dReal g_QuickStepParameters_marginalDeltaValuesInitializer[/*MDK__M
 };
 dSASSERT(dARRAY_SIZE(g_QuickStepParameters_marginalDeltaValuesInitializer) == MDK__MAX);
 
-dxQuickStepParameters::dxQuickStepParameters(void *) :
+dxQuickStepParameters::dxQuickStepParameters(void * /*deprecated*/) :
     m_iterationCount(dWORLDQUICKSTEP_ITERATION_COUNT_DEFAULT),
     m_maxExtraIterationCount(DeriveExtraIterationCount(dWORLDQUICKSTEP_ITERATION_COUNT_DEFAULT, dWORLDQUICKSTEP_MAXIMAL_EXTRA_ITERATION_COUNT_FACTOR_DEFAULT)),
     m_maxExtraIterationsFactor(dWORLDQUICKSTEP_MAXIMAL_EXTRA_ITERATION_COUNT_FACTOR_DEFAULT),
@@ -90,7 +90,7 @@ dxQuickStepParameters::dxQuickStepParameters(void *) :
     UpdateDynamicIterationCountAdjustmentEnabledState();
 }
 
-dxContactParameters::dxContactParameters(void *):
+dxContactParameters::dxContactParameters(void * /*deprecated*/):
     max_vel(dInfinity),
     min_depth(REAL(0.0))
 {

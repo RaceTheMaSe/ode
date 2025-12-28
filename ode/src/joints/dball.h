@@ -36,7 +36,7 @@ struct dxJointDBall : public dxJoint
     dReal targetDistance;
 
     void set( int num, dReal value );
-    dReal get( int num );
+    dReal get( int num ) const;
 
     void updateTargetDistance();
 

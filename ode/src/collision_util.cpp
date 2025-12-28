@@ -113,7 +113,7 @@ void dClosestLineSegmentPoints (const dVector3 a1, const dVector3 a2,
     dVector3 a1a2,b1b2,a1b1,a1b2,a2b1,a2b2,n;
     dReal la,lb,k,da1,da2,da3,da4,db1,db2,db3,db4,det;
 
-#define SET2(a,b) a[0]=b[0]; a[1]=b[1]; a[2]=b[2]
+#define SET2(a,b) (a)[0]=(b)[0]; (a)[1]=(b)[1]; (a)[2]=(b)[2]
 #define SET3(a,b,op,c) a[0]=b[0] op c[0]; a[1]=b[1] op c[1]; a[2]=b[2] op c[2]
 
     // check vertex-vertex features

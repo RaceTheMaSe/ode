@@ -216,7 +216,7 @@ static void command(int cmdIn)
     dMass m;
     bool setBody = false;
 
-    char cmd = locase((char)cmdIn);
+    const char cmd = locase((char)cmdIn);
     if (cmd == 'b' || cmd == 's' || cmd == 'c' || cmd == 'x' || cmd == 'y' || cmd == 'v') {
         if (num < NUM) {
             // new object to be created

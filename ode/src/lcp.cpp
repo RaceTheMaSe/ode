@@ -418,14 +418,14 @@ struct dLCP {
     dReal AiC_times_qC (unsigned i, dReal *q) const { return calculateLargeVectorDot<q_stride> (AROW(i), q, m_nC); }
     template<unsigned q_stride>
     dReal AiN_times_qN (unsigned i, dReal *q) const { return calculateLargeVectorDot<q_stride> (AROW(i) + m_nC, q + (sizeint)m_nC * q_stride, m_nN); }
-    void pN_equals_ANC_times_qC (dReal *p, dReal *q);
-    void pN_plusequals_ANi (dReal *p, unsigned i, bool dir_positive);
+    void pN_equals_ANC_times_qC (dReal *p, dReal *q) const;
+    void pN_plusequals_ANi (dReal *p, unsigned i, bool dir_positive) const;
     template<unsigned p_stride>
     void pC_plusequals_s_times_qC (dReal *p, dReal s, dReal *q);
-    void pN_plusequals_s_times_qN (dReal *p, dReal s, dReal *q);
-    void solve1 (dReal *a, unsigned i, bool dir_positive, int only_transfer=0);
-    void unpermute_X();
-    void unpermute_W();
+    void pN_plusequals_s_times_qN (dReal *p, dReal s, dReal *q) const;
+    void solve1 (dReal *a, unsigned i, bool dir_positive, int only_transfer=0) const;
+    void unpermute_X() const;
+    void unpermute_W() const;
 };
 
 
@@ -687,7 +687,7 @@ void dLCP::transfer_i_from_C_to_N (unsigned i, void *tmpbuf)
 }
 
 
-void dLCP::pN_equals_ANC_times_qC (dReal *p, dReal *q)
+void dLCP::pN_equals_ANC_times_qC (dReal *p, dReal *q) const
 {
     // we could try to make this matrix-vector multiplication faster using
     // outer product matrix tricks, e.g. with the dMultidotX() functions.
@@ -703,7 +703,7 @@ void dLCP::pN_equals_ANC_times_qC (dReal *p, dReal *q)
 }
 
 
-void dLCP::pN_plusequals_ANi (dReal *p, unsigned i, bool dir_positive)
+void dLCP::pN_plusequals_ANi (dReal *p, unsigned i, bool dir_positive) const
 {
     const unsigned nC = m_nC;
     dReal *aptr = AROW(i) + nC;
@@ -728,7 +728,7 @@ void dLCP::pC_plusequals_s_times_qC (dReal *p, dReal s, dReal *q)
     }
 }
 
-void dLCP::pN_plusequals_s_times_qN (dReal *p, dReal s, dReal *q)
+void dLCP::pN_plusequals_s_times_qN (dReal *p, dReal s, dReal *q) const
 {
     const unsigned nC = m_nC;
     dReal *ptgt = p + nC, *qsrc = q + nC;
@@ -738,7 +738,7 @@ void dLCP::pN_plusequals_s_times_qN (dReal *p, dReal s, dReal *q)
     }
 }
 
-void dLCP::solve1 (dReal *a, unsigned i, bool dir_positive, int only_transfer)
+void dLCP::solve1 (dReal *a, unsigned i, bool dir_positive, int only_transfer) const
 {
     // the `Dell' and `ell' that are computed here are saved. if index i is
     // later added to the factorization then they can be reused.
@@ -788,7 +788,7 @@ void dLCP::solve1 (dReal *a, unsigned i, bool dir_positive, int only_transfer)
 }
 
 
-void dLCP::unpermute_X()
+void dLCP::unpermute_X() const
 {
     unsigned *p = m_p;
     dReal *pairsbx = m_pairsbx;
@@ -813,7 +813,7 @@ void dLCP::unpermute_X()
     }
 }
 
-void dLCP::unpermute_W()
+void dLCP::unpermute_W() const
 {
     memcpy (m_tmp, m_w, m_n * sizeof(dReal));
 
@@ -1017,10 +1017,14 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                 int cmd = 1;		// index switching command
                 unsigned si = 0;		// si = index to switch if cmd>3
 
-                dReal s = delta_w[i] != REAL(0.0)
-                    ? -w[i] / delta_w[i]
-                    : (w[i] != REAL(0.0) ? dCopySign(dInfinity, -w[i]) : REAL(0.0));
-                    
+                dReal s;
+                if(delta_w[i] != REAL(0.0))
+                    s = -w[i] / delta_w[i];
+                else if(w[i] != REAL(0.0))
+                    s = dCopySign(dInfinity, -w[i]);
+                else
+                    s = REAL(0.0);
+
                 if (dir_positive) {
                     if (currlh[PLH_HI] < dInfinity) {
                         const dReal s2 = (currlh[PLH_HI] - currbx[PBX_X]);	// was (hi[i]-x[i])/dirf	// step to x(i)=hi(i)

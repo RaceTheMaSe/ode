@@ -60,7 +60,7 @@
     (myRay).final_posr->R[2] = (MyVector)[0];       \
     (myRay).final_posr->R[6] = (MyVector)[1];       \
     (myRay).final_posr->R[10] = (MyVector)[2];      \
-    dGeomMoved (&myRay);                        \
+    dGeomMoved (&(myRay));                        \
             } while(0)
 
 #define dGeomPlaneSetNoNormalize(MyPlane, MyPlaneDef) do { \
@@ -641,7 +641,7 @@ void dxHeightfield::allocateTriangleBuffer(sizeint numTri)
     tempTriangleBuffer = new HeightFieldTriangle[alignedNumTri];
 }
 
-void dxHeightfield::resetTriangleBuffer()
+void dxHeightfield::resetTriangleBuffer() const
 {
     delete[] tempTriangleBuffer;
 }
@@ -661,7 +661,7 @@ void dxHeightfield::allocatePlaneBuffer(sizeint numTri)
     }
 }
 
-void dxHeightfield::resetPlaneBuffer()
+void dxHeightfield::resetPlaneBuffer() const
 {
     delete[] tempPlaneInstances;
     delete[] tempPlaneBuffer;
@@ -685,7 +685,7 @@ void dxHeightfield::allocateHeightBuffer(sizeint numX, sizeint numZ)
     }
 }
 
-void dxHeightfield::resetHeightBuffer()
+void dxHeightfield::resetHeightBuffer() const
 {
     delete[] tempHeightInstances;
     delete[] tempHeightBuffer;
@@ -934,7 +934,7 @@ static inline bool DescendingPlaneSort(const HeightFieldPlane * const A, const H
     return ((A->maxAAAB - B->maxAAAB) > dEpsilon);
 }
 
-void dxHeightfield::sortPlanes(const sizeint numPlanes)
+void dxHeightfield::sortPlanes(const sizeint numPlanes) const
 {
     bool has_swapped = true;
     do

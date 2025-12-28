@@ -225,7 +225,7 @@ int dGeomRayGetClosestHit (dxGeom *g)
 
 // if mode==1 then use the sphere exit contact, not the entry contact
 
-static int ray_sphere_helper (dxRay *ray, dVector3 sphere_pos, dReal radius,
+static int ray_sphere_helper (dxRay *ray, dVector3 const sphere_pos, dReal radius,
                               dContactGeom *contact, int mode)
 {
     dVector3 q;

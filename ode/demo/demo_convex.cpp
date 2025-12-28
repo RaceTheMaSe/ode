@@ -136,14 +136,8 @@ static void reset()
 
 static void command(int cmd)
 {
-	switch (cmd) 
-	{
-		case ' ':
-			reset();
-			break;
-		default:
-			break;
-	}
+	if(cmd == ' ')
+		reset();
 }
 
 

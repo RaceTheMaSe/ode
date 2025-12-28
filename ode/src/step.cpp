@@ -923,7 +923,7 @@ void dxStepIsland_Stage1(dxStepperStage1CallContext *stage1CallContext)
 
     // if there are constraints, compute constrForce
     if (m > 0) {
-        mindex = memarena->AllocateArray<unsigned int>((sizeint)(nj + 1));
+        mindex = memarena->AllocateArray<unsigned int>((sizeint)nj + 1);
         {
             unsigned int *mcurr = mindex;
             unsigned int moffs = 0;

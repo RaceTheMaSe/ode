@@ -278,7 +278,7 @@ typedef dReal dQuaternion[dQUE__MAX];
 /* precision dependent scalar math functions */
 
 #if defined(dSINGLE)
-
+#define SINGLE_TO_REAL(x) (x)
 #define REAL(x) (x##f)					/* form a constant */
 #define dRecip(x) ((1.0f/(x)))				/* reciprocal */
 #if defined(__cplusplus) || (defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L)
@@ -321,7 +321,7 @@ typedef dReal dQuaternion[dQUE__MAX];
 #endif
 
 #elif defined(dDOUBLE)
-
+#define SINGLE_TO_REAL(x) dReal(x)
 #define REAL(x) (x)
 #define dRecip(x) (1.0/(x))
 #define dSqrt(x) sqrt(x)

@@ -597,7 +597,7 @@ bool dxJointLimitMotor::testRotationalLimit( dReal angle )
 
 bool dxJointLimitMotor::addLimot( dxJoint *joint,
     dReal fps, dReal *J1, dReal *J2, dReal *pairRhsCfm, dReal *pairLoHi,
-    const dVector3 ax1, int rotational )
+    const dVector3 ax1, int rotational ) const
 {
     // if the joint is powered, or has joint limits, add in the extra row
     int powered = fmax > 0;
@@ -796,7 +796,7 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
 */
 bool dxJointLimitMotor::addTwoPointLimot( dxJoint *joint, dReal fps,
     dReal *J1, dReal *J2, dReal *pairRhsCfm, dReal *pairLoHi,
-    const dVector3 ax1, const dVector3 pt1, const dVector3 pt2 )
+    const dVector3 ax1, const dVector3 pt1, const dVector3 pt2 ) const
 {
     // if the joint is powered, or has joint limits, add in the extra row
     int powered = fmax > 0;

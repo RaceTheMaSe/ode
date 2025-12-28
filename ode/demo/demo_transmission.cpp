@@ -207,28 +207,23 @@ static void drawGeom(dGeomID g)
     const dReal *pos = dGeomGetPosition(g);
     const dReal *rot = dGeomGetRotation(g);
 
-    switch (gclass) {
-        case dCylinderClass:
-        {
-            dReal length, radius;
+	if (gclass == dCylinderClass) {
+		dReal length, radius;
 
-	    if (g == geom1) {
+		if (g == geom1) {
 		dsSetColorAlpha(1, 0, 0, 1);
-	    } else {
+		} else {
 		dsSetColorAlpha(0, 1, 0, 1);
-	    }
+		}
 
-            dsSetTexture (DS_WOOD);
-            dGeomCylinderGetParams(g, &radius, &length);
-            dsDrawCylinder(pos, rot, (float)length, (float)radius);
-            break;
-        }
-        
-        default:
-	{
-	    abort();
+		dsSetTexture (DS_WOOD);
+		dGeomCylinderGetParams(g, &radius, &length);
+		dsDrawCylinder(pos, rot, (float)length, (float)radius);
 	}
-    }
+	else
+	{
+		abort();
+	}
 }
 
 static void simLoop(int pause)

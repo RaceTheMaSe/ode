@@ -35,7 +35,7 @@ struct dxJointFixed : public dxJoint
     dReal erp;          // error reduction parameter
     dReal cfm;          // constraint force mix-in
     void  set ( int num, dReal value );
-    dReal get ( int num );
+    dReal get ( int num ) const;
 
     dxJointFixed ( dxWorld *w );
     virtual void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;

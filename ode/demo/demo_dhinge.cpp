@@ -111,22 +111,15 @@ static void drawGeom(dGeomID g)
     const dReal *pos = dGeomGetPosition(g);
     const dReal *rot = dGeomGetRotation(g);
 
-    switch (gclass) {
-        case dBoxClass:
-        {
-            dVector3 lengths;
-            if (applyForce)
-                dsSetColor(1, .5, 0);
-            else
-                dsSetColor(1, 1, 0);
-            dsSetTexture (DS_WOOD);
-            dGeomBoxGetLengths(g, lengths);
-            dsDrawBox(pos, rot, lengths);
-            break;
-        }
-        
-        default:
-        {}
+    if(gclass == dBoxClass) {
+        dVector3 lengths;
+        if (applyForce)
+            dsSetColor(1, .5, 0);
+        else
+            dsSetColor(1, 1, 0);
+        dsSetTexture (DS_WOOD);
+        dGeomBoxGetLengths(g, lengths);
+        dsDrawBox(pos, rot, lengths);
     }
 }
 

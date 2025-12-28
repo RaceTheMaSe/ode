@@ -149,7 +149,7 @@ void dxJointFixed::set ( int num, dReal value )
 }
 
 
-dReal dxJointFixed::get ( int num )
+dReal dxJointFixed::get ( int num ) const
 {
     switch ( num )
     {

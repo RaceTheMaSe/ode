@@ -458,7 +458,7 @@ void getWorldOffsetPosr(const dxPosR& body_posr, const dxPosR& world_posr, dxPos
     dMultiply0_331(offset_posr.pos, inv_body, world_offset);
 }
 
-void dxGeom::computePosr()
+void dxGeom::computePosr() const
 {
     // should only be recalced if we need to - ie offset from a body
     dIASSERT(offset_posr);  

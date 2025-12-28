@@ -169,14 +169,8 @@ static void reset()
 
 static void command(int cmd)
 {
-    switch (cmd)
-    {
-        case ' ':
-            reset();
-            break;
-        default:
-            break;
-    }
+    if(cmd == ' ')
+        reset();
 }
 
 static void simLoop(int pause)
@@ -221,19 +215,19 @@ static void simLoop(int pause)
             for (unsigned int j = 0; j < odeIndsCount[i] / 3; j++)
             {
                 const dVector3 v0 = {
-                    dReal(odeVerts[i][odeInds[i][j * 3 + 0] * 3]),
-                    dReal(odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 1]),
-                    dReal(odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 2])
+                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 0] * 3]),
+                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 1]),
+                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 2])
                 };
                 const dVector3 v1 = {
-                    dReal(odeVerts[i][odeInds[i][j * 3 + 1] * 3]),
-                    dReal(odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 1]),
-                    dReal(odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 2])
+                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 1] * 3]),
+                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 1]),
+                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 2])
                 };
                 const dVector3 v2 = {
-                    dReal(odeVerts[i][odeInds[i][j * 3 + 2] * 3]),
-                    dReal(odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 1]),
-                    dReal(odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 2])
+                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 2] * 3]),
+                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 1]),
+                    SINGLE_TO_REAL(odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 2])
                 };
                 dsDrawTriangle(Pos, Rot, v0, v1, v2, 1);
             }

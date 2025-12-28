@@ -411,8 +411,9 @@ enum EOUTLSFEATURE
 	OHF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, CFeatureTestProcedure> TAfnTlsFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnTlsFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestTls_Initialization, // OHF_INITIALIZATION
 	&TestTls_GetSetValue, // OHF_GETSETVALUE,
@@ -420,10 +421,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, C
 	&TestTls_CleanupDestructor, // OHF_CLEANUPDESTRUCTOR,
 	&TestTls_Finalization, // OHF_FINALIZATION,
 };
-static const CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, CFeatureTestProcedure> g_afnTlsFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, const char *> TAszTlsFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszTlsFeatureTestNames::m_aetElementArray[] =
 {
 	"API Initialization", // OHF_INITIALIZATION
 	"Get.../SetStorageValue", // OHF_GETSETVALUE,
@@ -431,12 +432,11 @@ const char *const CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, const char 
 	"Storage Cleanup/Value Destructors", // OHF_CLEANUPDESTRUCTOR,
 	"API Finalization", // OHF_FINALIZATION,
 };
-static const CEnumUnsortedElementArray<EOUTLSFEATURE, OHF__MAX, const char *> g_aszTlsFeatureTestNames;
 
 
 static bool TestTLS(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	bool bResult = TestSubsystem(nOutSuccessCount, nOutTestCount, OHF__MAX, g_aszTlsFeatureTestNames.GetStoragePointer(), g_afnTlsFeatureTestProcedures.GetStoragePointer());
+	bool bResult = TestSubsystem(nOutSuccessCount, nOutTestCount, OHF__MAX, TAszTlsFeatureTestNames::GetStoragePointer(), TAfnTlsFeatureTestProcedures::GetStoragePointer());
 
 	if (g_bTestTLSAPIInitialized)
 	{
@@ -974,8 +974,9 @@ enum EOUATOMICFEATURE
 	OOF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX, CFeatureTestProcedure> TAfnAtomicFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnAtomicFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestAtomic_Increment, // OOF_INCREMENT,
 	&TestAtomic_Decrement, // OOF_DECREMENT,
@@ -994,10 +995,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX
 	&TestAtomic_ExchangePointer, // OOF_EXCHANGEPOINTER,
 	&TestAtomic_CompareExchangePointer, // OOF_COMPAREEXCHANGEPOINTER,
 };
-static const CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX, CFeatureTestProcedure> g_afnAtomicFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX, const char *> TAszAtomicFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszAtomicFeatureTestNames::m_aetElementArray[] =
 {
 	"AtomicIncrement", // OOF_INCREMENT,
 	"AtomicDecrement", // OOF_DECREMENT,
@@ -1016,7 +1017,6 @@ const char *const CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX, const ch
 	"AtomicExchangePointer", // OOF_EXCHANGEPOINTER,
 	"AtomicCompareExchangePointer", // OOF_COMPAREEXCHANGEPOINTER,
 };
-static const CEnumUnsortedElementArray<EOUATOMICFEATURE, OOF__MAX, const char *> g_aszAtomicFeatureTestNames;
 
 
 static bool TestAtomic(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
@@ -1036,7 +1036,7 @@ static bool TestAtomic(unsigned int &nOutSuccessCount, unsigned int &nOutTestCou
 		
 		bAPIInitialized = true;
 
-		if (!TestSubsystem(nOutSuccessCount, nOutTestCount, OOF__MAX, g_aszAtomicFeatureTestNames.GetStoragePointer(), g_afnAtomicFeatureTestProcedures.GetStoragePointer()))
+		if (!TestSubsystem(nOutSuccessCount, nOutTestCount, OOF__MAX, TAszAtomicFeatureTestNames::GetStoragePointer(), TAfnAtomicFeatureTestProcedures::GetStoragePointer()))
 		{
 			break;
 		}
@@ -2107,8 +2107,9 @@ enum EOUATOMICFLAGSFEATURE
 	OAF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF__MAX, CFeatureTestProcedure> TAfnAtomicFlagsFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnAtomicFlagsFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestAtomicFlags_Constructors, // OAF_CONSTRUCTORS
 	&TestAtomicFlags_AssignFlagsAllValues, // OAF_ASSIGNFLAGSALLVALUES,
@@ -2139,10 +2140,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF
 	&TestAtomicFlags_StoreFlagsEnumeratedValue, // OAF_STOREFLAGSENUMERATEDVALUE,
 	&TestAtomicFlags_RetrieveFlagsEnumeratedValue, // OAF_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF__MAX, CFeatureTestProcedure> g_afnAtomicFlagsFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF__MAX, const char *> TAszAtomicFlagsFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszAtomicFlagsFeatureTestNames::m_aetElementArray[] =
 {
 	"Constructors", // OAF_CONSTRUCTORS
 	"AssignFlagsAllValues", // OAF_ASSIGNFLAGSALLVALUES,
@@ -2173,7 +2174,6 @@ const char *const CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF__MAX, con
 	"StoreFlagsEnumeratedValue", // OAF_STOREFLAGSENUMERATEDVALUE,
 	"RetrieveFlagsEnumeratedValue", // OAF_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUATOMICFLAGSFEATURE, OAF__MAX, const char *> g_aszAtomicFlagsFeatureTestNames;
 
 
 static bool TestAtomicFlags(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
@@ -2193,7 +2193,7 @@ static bool TestAtomicFlags(unsigned int &nOutSuccessCount, unsigned int &nOutTe
 		
 		bAPIInitialized = true;
 		
-		if (!TestSubsystem(nOutSuccessCount, nOutTestCount, OAF__MAX, g_aszAtomicFlagsFeatureTestNames.GetStoragePointer(), g_afnAtomicFlagsFeatureTestProcedures.GetStoragePointer()))
+		if (!TestSubsystem(nOutSuccessCount, nOutTestCount, OAF__MAX, TAszAtomicFlagsFeatureTestNames::GetStoragePointer(), TAfnAtomicFlagsFeatureTestProcedures::GetStoragePointer()))
 		{
 			break;
 		}
@@ -3264,8 +3264,9 @@ enum EOUSIMPLEFLAGSFEATURE64
 	OSF64__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, OSF64__MAX, CFeatureTestProcedure> TAfnSimpleFlags64FeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, OSF64__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnSimpleFlags64FeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestSimpleFlags64_Constructors, // OSF64_CONSTRUCTORS
 	&TestSimpleFlags64_AssignFlagsAllValues, // OSF64_ASSIGNFLAGSALLVALUES,
@@ -3296,10 +3297,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, O
 	&TestSimpleFlags64_StoreFlagsEnumeratedValue, // OSF64_STOREFLAGSENUMERATEDVALUE,
 	&TestSimpleFlags64_RetrieveFlagsEnumeratedValue, // OSF64_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, OSF64__MAX, CFeatureTestProcedure> g_afnSimpleFlags64FeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, OSF64__MAX, const char *> TAszSimpleFlags64FeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, OSF64__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszSimpleFlags64FeatureTestNames::m_aetElementArray[] =
 {
 	"Constructors", // OSF64_CONSTRUCTORS
 	"AssignFlagsAllValues", // OSF64_ASSIGNFLAGSALLVALUES,
@@ -3330,12 +3331,11 @@ const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, OSF64__MAX,
 	"StoreFlagsEnumeratedValue", // OSF64_STOREFLAGSENUMERATEDVALUE,
 	"RetrieveFlagsEnumeratedValue", // OSF64_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE64, OSF64__MAX, const char *> g_aszSimpleFlags64FeatureTestNames;
 
 
 static bool TestSimpleFlags64(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF64__MAX, g_aszSimpleFlags64FeatureTestNames.GetStoragePointer(), g_afnSimpleFlags64FeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF64__MAX, TAszSimpleFlags64FeatureTestNames::GetStoragePointer(), TAfnSimpleFlags64FeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -4389,8 +4389,9 @@ enum EOUSIMPLEFLAGSFEATURE32
 	OSF32__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, OSF32__MAX, CFeatureTestProcedure> TAfnSimpleFlags32FeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, OSF32__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnSimpleFlags32FeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestSimpleFlags32_Constructors, // OSF32_CONSTRUCTORS
 	&TestSimpleFlags32_AssignFlagsAllValues, // OSF32_ASSIGNFLAGSALLVALUES,
@@ -4421,10 +4422,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, O
 	&TestSimpleFlags32_StoreFlagsEnumeratedValue, // OSF32_STOREFLAGSENUMERATEDVALUE,
 	&TestSimpleFlags32_RetrieveFlagsEnumeratedValue, // OSF32_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, OSF32__MAX, CFeatureTestProcedure> g_afnSimpleFlags32FeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, OSF32__MAX, const char *> TAszSimpleFlags32FeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, OSF32__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszSimpleFlags32FeatureTestNames::m_aetElementArray[] =
 {
 	"Constructors", // OSF32_CONSTRUCTORS
 	"AssignFlagsAllValues", // OSF32_ASSIGNFLAGSALLVALUES,
@@ -4455,12 +4456,11 @@ const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, OSF32__MAX,
 	"StoreFlagsEnumeratedValue", // OSF32_STOREFLAGSENUMERATEDVALUE,
 	"RetrieveFlagsEnumeratedValue", // OSF32_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE32, OSF32__MAX, const char *> g_aszSimpleFlags32FeatureTestNames;
 
 
 static bool TestSimpleFlags32(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF32__MAX, g_aszSimpleFlags32FeatureTestNames.GetStoragePointer(), g_afnSimpleFlags32FeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF32__MAX, TAszSimpleFlags32FeatureTestNames::GetStoragePointer(), TAfnSimpleFlags32FeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -5514,8 +5514,9 @@ enum EOUSIMPLEFLAGSFEATURE16
 	OSF16__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, OSF16__MAX, CFeatureTestProcedure> TAfnSimpleFlags16FeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, OSF16__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnSimpleFlags16FeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestSimpleFlags16_Constructors, // OSF16_CONSTRUCTORS
 	&TestSimpleFlags16_AssignFlagsAllValues, // OSF16_ASSIGNFLAGSALLVALUES,
@@ -5546,10 +5547,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, O
 	&TestSimpleFlags16_StoreFlagsEnumeratedValue, // OSF16_STOREFLAGSENUMERATEDVALUE,
 	&TestSimpleFlags16_RetrieveFlagsEnumeratedValue, // OSF16_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, OSF16__MAX, CFeatureTestProcedure> g_afnSimpleFlags16FeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, OSF16__MAX, const char *> TAszSimpleFlags16FeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, OSF16__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszSimpleFlags16FeatureTestNames::m_aetElementArray[] =
 {
 	"Constructors", // OSF16_CONSTRUCTORS
 	"AssignFlagsAllValues", // OSF16_ASSIGNFLAGSALLVALUES,
@@ -5580,12 +5581,11 @@ const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, OSF16__MAX,
 	"StoreFlagsEnumeratedValue", // OSF16_STOREFLAGSENUMERATEDVALUE,
 	"RetrieveFlagsEnumeratedValue", // OSF16_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE16, OSF16__MAX, const char *> g_aszSimpleFlags16FeatureTestNames;
 
 
 static bool TestSimpleFlags16(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF16__MAX, g_aszSimpleFlags16FeatureTestNames.GetStoragePointer(), g_afnSimpleFlags16FeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF16__MAX, TAszSimpleFlags16FeatureTestNames::GetStoragePointer(), TAfnSimpleFlags16FeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -6639,8 +6639,9 @@ enum EOUSIMPLEFLAGSFEATURE8
 	OSF8__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OSF8__MAX, CFeatureTestProcedure> TAfnSimpleFlags8FeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OSF8__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnSimpleFlags8FeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestSimpleFlags8_Constructors, // OSF8_CONSTRUCTORS
 	&TestSimpleFlags8_AssignFlagsAllValues, // OSF8_ASSIGNFLAGSALLVALUES,
@@ -6671,8 +6672,8 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OS
 	&TestSimpleFlags8_StoreFlagsEnumeratedValue, // OSF8_STOREFLAGSENUMERATEDVALUE,
 	&TestSimpleFlags8_RetrieveFlagsEnumeratedValue, // OSF8_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OSF8__MAX, CFeatureTestProcedure> g_afnSimpleFlags8FeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OSF8__MAX, const char *> TAszSimpleFlags8FeatureTestNames;
 template<>
 const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OSF8__MAX, const char *>::m_aetElementArray[] =
 {
@@ -6705,12 +6706,11 @@ const char *const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OSF8__MAX, c
 	"StoreFlagsEnumeratedValue", // OSF8_STOREFLAGSENUMERATEDVALUE,
 	"RetrieveFlagsEnumeratedValue", // OSF8_RETRIEVEFLAGSENUMERATEDVALUE,
 };
-static const CEnumUnsortedElementArray<EOUSIMPLEFLAGSFEATURE8, OSF8__MAX, const char *> g_aszSimpleFlags8FeatureTestNames;
 
 
 static bool TestSimpleFlags8(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF8__MAX, g_aszSimpleFlags8FeatureTestNames.GetStoragePointer(), g_afnSimpleFlags8FeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OSF8__MAX, TAszSimpleFlags8FeatureTestNames::GetStoragePointer(), TAfnSimpleFlags8FeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -6991,29 +6991,30 @@ enum EOUFLAGSDEFINESFEATURE
 	OFF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUFLAGSDEFINESFEATURE, OFF__MAX, CFeatureTestProcedure> TAfnFlagsDefineFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUFLAGSDEFINESFEATURE, OFF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnFlagsDefineFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestFlagsDefines_EnumFlagsMask, // OFF_ENUMFLAGS_MASK,
 	&TestFlagsDefines_EnumFlagsStartValid, // OFF_ENUMFLAGS_START_VALID,
 	&TestFlagsDefines_StoreEnumValueInMask, // OFF_STOREENUM_VALUE_IN_MASK,
 	&TestFlagsDefines_FlagIsSingle, // OFF_FLAG_IS_SINGLE,
 };
-static const CEnumUnsortedElementArray<EOUFLAGSDEFINESFEATURE, OFF__MAX, CFeatureTestProcedure> g_afnFlagsDefineFeatureTestProcedures;
 
-template<>const char *const CEnumUnsortedElementArray<EOUFLAGSDEFINESFEATURE, OFF__MAX, const char *>::m_aetElementArray[] =
+typedef CEnumUnsortedElementArray<EOUFLAGSDEFINESFEATURE, OFF__MAX, const char *> TAszFlagsDefineFeatureTestNames;
+template<>
+const char *const TAszFlagsDefineFeatureTestNames::m_aetElementArray[] =
 {
 	"ENUMFLAGS_MASK", // OFF_ENUMFLAGS_MASK = OFF__MIN,
 	"ENUMFLAGS_START_VALID", // OFF_ENUMFLAGS_START_VALID,
 	"STOREENUM_VALUE_IN_MASK", // OFF_STOREENUM_VALUE_IN_MASK,
 	"FLAG_IS_SINGLE", // OFF_FLAG_IS_SINGLE,
 };
-static const CEnumUnsortedElementArray<EOUFLAGSDEFINESFEATURE, OFF__MAX, const char *> g_aszFlagsDefineFeatureTestNames;
 
 
 static bool TestFlagsDefines(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OFF__MAX, g_aszFlagsDefineFeatureTestNames.GetStoragePointer(), g_afnFlagsDefineFeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OFF__MAX, TAszFlagsDefineFeatureTestNames::GetStoragePointer(), TAfnFlagsDefineFeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -7030,6 +7031,7 @@ enum EENUMARRAYTESTENUM
 	ATE__MAX
 };
 
+typedef CEnumUnsortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, int> TAi_IntUnsortedArray;
 template<>
 const int CEnumUnsortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, int>::m_aetElementArray[] =
 {
@@ -7037,16 +7039,15 @@ const int CEnumUnsortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, int>::m_aetEle
 	3, // ATE_SECONDELEMENT,
 	2, // ATE_THIRDELEMENT,
 };
-static const CEnumUnsortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, int> g_ai_IntUnsortedArray;
 
+typedef CEnumSortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, int> TAi_IntSortedArray;
 template<>
-const int CEnumSortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, int>::m_aetElementArray[] =
+const int TAi_IntSortedArray::m_aetElementArray[] =
 {
 	1, // ATE_FIRSTELEMENT,
 	2, // ATE_SECONDELEMENT,
 	3, // ATE_THIRDELEMENT,
 };
-static const CEnumSortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, int> g_ai_IntSortedArray;
 
 struct ConstCharPtrEq
 {
@@ -7064,23 +7065,23 @@ struct ConstCharPtrLess
 	}
 };
 
+typedef CEnumUnsortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, const char *, 0, ConstCharPtrEq> TAszStringUnsortedArray;
 template<>
-const char *const CEnumUnsortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, const char *, 0, ConstCharPtrEq>::m_aetElementArray[] =
+const char *const TAszStringUnsortedArray::m_aetElementArray[] =
 {
 	"first",
 	"third",
 	"second",
 };
-static const CEnumUnsortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, const char *, 0, ConstCharPtrEq> g_aszStringUnsortedArray;
 
+typedef CEnumSortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, const char *, 0, ConstCharPtrLess> TAszStringSortedArray;
 template<>
-const char *const CEnumSortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, const char *, 0, ConstCharPtrLess>::m_aetElementArray[] =
+const char *const TAszStringSortedArray::m_aetElementArray[] =
 {
 	"first",
 	"second",
 	"third",
 };
-static const CEnumSortedElementArray<EENUMARRAYTESTENUM, ATE__MAX, const char *, 0, ConstCharPtrLess> g_aszStringSortedArray;
 
 
 static bool TestEnumArrays_UnsortedArray()
@@ -7089,34 +7090,34 @@ static bool TestEnumArrays_UnsortedArray()
 	
 	for (; teEnumCurrent != ATE__MAX; ++teEnumCurrent)
 	{
-		int iCurrentValue = g_ai_IntUnsortedArray.Encode(teEnumCurrent);
-		EENUMARRAYTESTENUM teIntDecodeCheck = g_ai_IntUnsortedArray.Decode(iCurrentValue);
+		const int iCurrentValue = TAi_IntUnsortedArray::Encode(teEnumCurrent);
+		EENUMARRAYTESTENUM teIntDecodeCheck = TAi_IntUnsortedArray::Decode(iCurrentValue);
 		
-		if (!g_ai_IntUnsortedArray.IsValidDecode(teIntDecodeCheck) || teIntDecodeCheck != teEnumCurrent)
+		if (!TAi_IntUnsortedArray::IsValidDecode(teIntDecodeCheck) || teIntDecodeCheck != teEnumCurrent)
 		{
 			break;
 		}
 
-		if (g_ai_IntUnsortedArray.GetStoragePointer()[teEnumCurrent] != iCurrentValue)
+		if (TAi_IntUnsortedArray::GetStoragePointer()[teEnumCurrent] != iCurrentValue)
 		{
 			break;
 		}
 
-		const char *szCurrentString = g_aszStringUnsortedArray.Encode(teEnumCurrent);
-		EENUMARRAYTESTENUM teStringDecodeCheck = g_aszStringUnsortedArray.Decode(szCurrentString);
+		const char *szCurrentString = TAszStringUnsortedArray::Encode(teEnumCurrent);
+		EENUMARRAYTESTENUM teStringDecodeCheck = TAszStringUnsortedArray::Decode(szCurrentString);
 		
-		if (!g_aszStringUnsortedArray.IsValidDecode(teStringDecodeCheck) || teStringDecodeCheck != teEnumCurrent)
+		if (!TAszStringUnsortedArray::IsValidDecode(teStringDecodeCheck) || teStringDecodeCheck != teEnumCurrent)
 		{
 			break;
 		}
 
-		if (strcmp(g_aszStringUnsortedArray.GetStoragePointer()[teEnumCurrent], szCurrentString) != 0)
+		if (strcmp(TAszStringUnsortedArray::GetStoragePointer()[teEnumCurrent], szCurrentString) != 0)
 		{
 			break;
 		}
 
-		EENUMARRAYTESTENUM teInvalidDecodeCheck = g_aszStringUnsortedArray.Decode(szCurrentString + 1);
-		if (teInvalidDecodeCheck != ATE__MAX || g_aszStringUnsortedArray.IsValidDecode(teInvalidDecodeCheck))
+		EENUMARRAYTESTENUM teInvalidDecodeCheck = TAszStringUnsortedArray::Decode(szCurrentString + 1);
+		if (teInvalidDecodeCheck != ATE__MAX || TAszStringUnsortedArray::IsValidDecode(teInvalidDecodeCheck))
 		{
 			break;
 		}
@@ -7132,34 +7133,34 @@ static bool TestEnumArrays_SortedArray()
 	
 	for (; teEnumCurrent != ATE__MAX; ++teEnumCurrent)
 	{
-		int iCurrentValue = g_ai_IntSortedArray.Encode(teEnumCurrent);
-		EENUMARRAYTESTENUM teIntDecodeCheck = g_ai_IntSortedArray.Decode(iCurrentValue);
+		int iCurrentValue = TAi_IntSortedArray::Encode(teEnumCurrent);
+		EENUMARRAYTESTENUM teIntDecodeCheck = TAi_IntSortedArray::Decode(iCurrentValue);
 		
-		if (!g_ai_IntSortedArray.IsValidDecode(teIntDecodeCheck) || teIntDecodeCheck != teEnumCurrent)
+		if (!TAi_IntSortedArray::IsValidDecode(teIntDecodeCheck) || teIntDecodeCheck != teEnumCurrent)
 		{
 			break;
 		}
 
-		if (g_ai_IntSortedArray.GetStoragePointer()[teEnumCurrent] != iCurrentValue)
+		if (TAi_IntSortedArray::GetStoragePointer()[teEnumCurrent] != iCurrentValue)
 		{
 			break;
 		}
 
-		const char *szCurrentString = g_aszStringSortedArray.Encode(teEnumCurrent);
-		EENUMARRAYTESTENUM teStringDecodeCheck = g_aszStringSortedArray.Decode(szCurrentString);
+		const char *szCurrentString = TAszStringSortedArray::Encode(teEnumCurrent);
+		EENUMARRAYTESTENUM teStringDecodeCheck = TAszStringSortedArray::Decode(szCurrentString);
 		
-		if (!g_aszStringSortedArray.IsValidDecode(teStringDecodeCheck) || teStringDecodeCheck != teEnumCurrent)
+		if (!TAszStringSortedArray::IsValidDecode(teStringDecodeCheck) || teStringDecodeCheck != teEnumCurrent)
 		{
 			break;
 		}
 
-		if (strcmp(g_aszStringSortedArray.GetStoragePointer()[teEnumCurrent], szCurrentString) != 0)
+		if (strcmp(TAszStringSortedArray::GetStoragePointer()[teEnumCurrent], szCurrentString) != 0)
 		{
 			break;
 		}
 
-		EENUMARRAYTESTENUM teInvalidDecodeCheck = g_aszStringSortedArray.Decode(szCurrentString + 1);
-		if (teInvalidDecodeCheck != ATE__MAX || g_aszStringSortedArray.IsValidDecode(teInvalidDecodeCheck))
+		EENUMARRAYTESTENUM teInvalidDecodeCheck = TAszStringSortedArray::Decode(szCurrentString + 1);
+		if (teInvalidDecodeCheck != ATE__MAX || TAszStringSortedArray::IsValidDecode(teInvalidDecodeCheck))
 		{
 			break;
 		}
@@ -7180,26 +7181,26 @@ enum EOUENUMARRAYSFEATURE
 	ORF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUENUMARRAYSFEATURE, ORF__MAX, CFeatureTestProcedure> TAfnEnumArrayFeatureTestProcedures;
 template<>
 CFeatureTestProcedure const CEnumUnsortedElementArray<EOUENUMARRAYSFEATURE, ORF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
 {
 	&TestEnumArrays_UnsortedArray, // ORF_UNSORTEDARRAY,
 	&TestEnumArrays_SortedArray, // ORF_SORTEDARRAY,
 };
-static const CEnumUnsortedElementArray<EOUENUMARRAYSFEATURE, ORF__MAX, CFeatureTestProcedure> g_afnEnumArrayFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUENUMARRAYSFEATURE, ORF__MAX, const char *> TAszEnumArrayFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUENUMARRAYSFEATURE, ORF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszEnumArrayFeatureTestNames::m_aetElementArray[] =
 {
 	"Unsorted Array", // ORF_UNSORTEDARRAY,
 	"Sorted Array", // ORF_SORTEDARRAY,
 };
-static const CEnumUnsortedElementArray<EOUENUMARRAYSFEATURE, ORF__MAX, const char *> g_aszEnumArrayFeatureTestNames;
 
 
 static bool TestEnumArrays(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, ORF__MAX, g_aszEnumArrayFeatureTestNames.GetStoragePointer(), g_afnEnumArrayFeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, ORF__MAX, TAszEnumArrayFeatureTestNames::GetStoragePointer(), TAfnEnumArrayFeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -7424,8 +7425,9 @@ enum EOUTEMPLATESFEATURE
 	OTF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__MAX, CFeatureTestProcedure> TAfnTemplateFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnTemplateFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestTemplates_PrefixIncrement, // OTF_PREFIXINCREMENT,
 	&TestTemplates_PostfixIncrement, // OTF_POSTFIXINCREMENT,
@@ -7433,10 +7435,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__
 	&TestTemplates_PostfixDecrement, // OTF_POSTFIXDECREMENT,
 	&TestTemplates_IsEmptySz, // OTF_ISEMPTYSZ,
 };
-static const CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__MAX, CFeatureTestProcedure> g_afnTemplateFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__MAX, const char *> TAszTemplateFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszTemplateFeatureTestNames::m_aetElementArray[] =
 {
 	"Prefix Increment", // OTF_PREFIXINCREMENT,
 	"Postfix Increment", // OTF_POSTFIXINCREMENT,
@@ -7444,12 +7446,11 @@ const char *const CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__MAX, const
 	"Postfix Decrement", // OTF_POSTFIXDECREMENT,
 	"IsEmptySz", // OTF_ISEMPTYSZ,
 };
-static const CEnumUnsortedElementArray<EOUTEMPLATESFEATURE, OTF__MAX, const char *> g_aszTemplateFeatureTestNames;
 
 
 static bool TestTemplates(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OTF__MAX, g_aszTemplateFeatureTestNames.GetStoragePointer(), g_afnTemplateFeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OTF__MAX, TAszTemplateFeatureTestNames::GetStoragePointer(), TAfnTemplateFeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -7695,8 +7696,9 @@ enum EOUTYPEWRAPPERFEATURE
 	OWF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF__MAX, CFeatureTestProcedure> TAfnTypeWrapperFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnTypeWrapperFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestTypeWrappers_Constructors, // OWF_CONSTRUCTORS,
 	&TestTypeWrappers_Comparison, // OWF_COMPARISON,
@@ -7705,10 +7707,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF
 	&TestTypeWrappers_DataCast, // OWF_DATACAST,
 	&TestTypeWrappers_DataComparison, // OWF_DATACOMPARISON,
 };
-static const CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF__MAX, CFeatureTestProcedure> g_afnTypeWrapperFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF__MAX, const char *> TAszTypeWrapperFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszTypeWrapperFeatureTestNames::m_aetElementArray[] =
 {
 	"Constructors", // OWF_CONSTRUCTORS,
 	"Comparison Operators", // OWF_COMPARISON,
@@ -7717,12 +7719,11 @@ const char *const CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF__MAX, con
 	"Data Cast", // OWF_DATACAST,
 	"Data Comparisons", // OWF_DATACOMPARISON,
 };
-static const CEnumUnsortedElementArray<EOUTYPEWRAPPERFEATURE, OWF__MAX, const char *> g_aszTypeWrapperFeatureTestNames;
 
 
 static bool TestTypeWrapper(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OWF__MAX, g_aszTypeWrapperFeatureTestNames.GetStoragePointer(), g_afnTypeWrapperFeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OWF__MAX, TAszTypeWrapperFeatureTestNames::GetStoragePointer(), TAfnTypeWrapperFeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -7896,26 +7897,26 @@ enum EOUCUSTOMIZATIONFEATURE
 	OCF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUCUSTOMIZATIONFEATURE, OCF__MAX, CFeatureTestProcedure> TAfnCustomizationFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUCUSTOMIZATIONFEATURE, OCF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnCustomizationFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestCustomizations_Asserts, // OCF_ASSERTS,
 	&TestCustomizations_MemMgr, // OCF_MEMMGR,
 };
-static const CEnumUnsortedElementArray<EOUCUSTOMIZATIONFEATURE, OCF__MAX, CFeatureTestProcedure> g_afnCustomizationFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUCUSTOMIZATIONFEATURE, OCF__MAX, const char *> TAszCustomizationFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUCUSTOMIZATIONFEATURE, OCF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszCustomizationFeatureTestNames::m_aetElementArray[] =
 {
 	"Asserts", // OCF_ASSERTS,
 	"Memory Manager", // OCF_MEMMGR,
 };
-static const CEnumUnsortedElementArray<EOUCUSTOMIZATIONFEATURE, OCF__MAX, const char *> g_aszCustomizationFeatureTestNames;
 
 
 static bool TestCustomization(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OCF__MAX, g_aszCustomizationFeatureTestNames.GetStoragePointer(), g_afnCustomizationFeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OCF__MAX, TAszCustomizationFeatureTestNames::GetStoragePointer(), TAfnCustomizationFeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -7997,28 +7998,28 @@ enum EOUMALLOCFEATURE
 	OLF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUMALLOCFEATURE, OLF__MAX, CFeatureTestProcedure> TAfnMallocFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUMALLOCFEATURE, OLF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnMallocFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestMallocs_Allocate, // OLF_ALLOCATE,
 	&TestMallocs_Reallocate, // OLF_REALLOCATE,
 	&TestMallocs_Deallocate, // OLF_DEALLOCATE,
 };
-static const CEnumUnsortedElementArray<EOUMALLOCFEATURE, OLF__MAX, CFeatureTestProcedure> g_afnMallocFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUMALLOCFEATURE, OLF__MAX, const char *> TAszMallocFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUMALLOCFEATURE, OLF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszMallocFeatureTestNames::m_aetElementArray[] =
 {
 	"AllocateMemoryBlock", // OLF_ALLOCATE,
 	"ReallocateMemoryBlock", // OLF_REALLOCATE,
 	"FreeMemoryBlock", // OLF_DEALLOCATE,
 };
-static const CEnumUnsortedElementArray<EOUMALLOCFEATURE, OLF__MAX, const char *> g_aszMallocFeatureTestNames;
 
 
 static bool TestMalloc(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OLF__MAX, g_aszMallocFeatureTestNames.GetStoragePointer(), g_afnMallocFeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OLF__MAX, TAszMallocFeatureTestNames::GetStoragePointer(), TAfnMallocFeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -8113,29 +8114,29 @@ enum EOUASSERTFEATURE
 	OEF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUASSERTFEATURE, OEF__MAX, CFeatureTestProcedure> TAfnAssertFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUASSERTFEATURE, OEF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnAssertFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestAsserts_Assert, // OEF_ASSERT,
 	&TestAsserts_Verify, // OEF_VERIFY,
 	&TestAsserts_Check, // OEF_CHECK,
 		
 };
-static const CEnumUnsortedElementArray<EOUASSERTFEATURE, OEF__MAX, CFeatureTestProcedure> g_afnAssertFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUASSERTFEATURE, OEF__MAX, const char *> TAszAssertFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUASSERTFEATURE, OEF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszAssertFeatureTestNames::m_aetElementArray[] =
 {
 	"OU_ASSERT", // OEF_ASSERT,
 	"OU_VERIFY", // OEF_VERIFY,
 	"OU_CHECK", // OEF_CHECK,
 };
-static const CEnumUnsortedElementArray<EOUASSERTFEATURE, OEF__MAX, const char *> g_aszAssertFeatureTestNames;
 
 
 static bool TestAssert(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OEF__MAX, g_aszAssertFeatureTestNames.GetStoragePointer(), g_afnAssertFeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OEF__MAX, TAszAssertFeatureTestNames::GetStoragePointer(), TAfnAssertFeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -8490,8 +8491,9 @@ enum EOUINTTYPEFEATURE
 	OIF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MAX, CFeatureTestProcedure> TAfnIntTypeFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnIntTypeFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestIntTypes_Int8, // OIF_INT8,
 	&TestIntTypes_UInt8, // OIF_UINT8,
@@ -8503,10 +8505,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MA
 	&TestIntTypes_UInt64, // OIF_UINT64,
 
 };
-static const CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MAX, CFeatureTestProcedure> g_afnIntTypeFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MAX, const char *> TAszIntTypeFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszIntTypeFeatureTestNames::m_aetElementArray[] =
 {
 	"int8ou", // OIF_INT8,
 	"uint8ou", // OIF_UINT8,
@@ -8517,12 +8519,11 @@ const char *const CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MAX, const c
 	"int64ou", // OIF_INT64,
 	"uint64ou", // OIF_UINT64,
 };
-static const CEnumUnsortedElementArray<EOUINTTYPEFEATURE, OIF__MAX, const char *> g_aszIntTypeFeatureTestNames;
 
 
 static bool TestIntTypes(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OIF__MAX, g_aszIntTypeFeatureTestNames.GetStoragePointer(), g_afnIntTypeFeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OIF__MAX, TAszIntTypeFeatureTestNames::GetStoragePointer(), TAfnIntTypeFeatureTestProcedures::GetStoragePointer());
 }
 
 
@@ -8740,8 +8741,9 @@ enum EOUMACROFEATURE
 	OMF__MAX
 };
 
+typedef CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX, CFeatureTestProcedure> TAfnMacroFeatureTestProcedures;
 template<>
-CFeatureTestProcedure const CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX, CFeatureTestProcedure>::m_aetElementArray[] =
+CFeatureTestProcedure const TAfnMacroFeatureTestProcedures::m_aetElementArray[] =
 {
 	&TestMacros_OffsetOf, // OMF_OFFSETOF,
 	&TestMacros_AlignedSize, // OMF_ALIGNEDSIZE,
@@ -8750,10 +8752,10 @@ CFeatureTestProcedure const CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX,
 	&TestMacros_InI64Range, // OMF_INI64RANGE,
 	&TestMacros_InSizetRange, // OMF_INSIZETRANGE,
 };
-static const CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX, CFeatureTestProcedure> g_afnMacroFeatureTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX, const char *> TAszMacroFeatureTestNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszMacroFeatureTestNames::m_aetElementArray[] =
 {
 	"offsetof", // OMF_OFFSETOF,
 	"OU_ALIGNED_SIZE", // OMF_ALIGNEDSIZE,
@@ -8762,20 +8764,20 @@ const char *const CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX, const cha
 	"OU_IN_I64_RANGE", // OMF_INI64RANGE,
 	"OU_IN_SIZET_RANGE", // OMF_INSIZETRANGE,
 };
-static const CEnumUnsortedElementArray<EOUMACROFEATURE, OMF__MAX, const char *> g_aszMacroFeatureTestNames;
 
 
 static bool TestMacros(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	return TestSubsystem(nOutSuccessCount, nOutTestCount, OMF__MAX, g_aszMacroFeatureTestNames.GetStoragePointer(), g_afnMacroFeatureTestProcedures.GetStoragePointer());
+	return TestSubsystem(nOutSuccessCount, nOutTestCount, OMF__MAX, TAszMacroFeatureTestNames::GetStoragePointer(), TAfnMacroFeatureTestProcedures::GetStoragePointer());
 }
 
 
 //////////////////////////////////////////////////////////////////////////
 
 // Verifies that target order is not changed
+typedef CEnumSortedElementArray<int, _OU_TARGET_OS__MAX - 1, int, 100> TAi_TargetOrderCheck;
 template<>
-int const CEnumSortedElementArray<int, _OU_TARGET_OS__MAX - 1, int, 100>::m_aetElementArray[] =
+int const TAi_TargetOrderCheck::m_aetElementArray[] =
 {
 	_OU_TARGET_OS_GENUNIX, // _OU_TARGET_OS_GENUNIX
 	_OU_TARGET_OS_WINDOWS, // _OU_TARGET_OS_WINDOWS
@@ -8785,10 +8787,10 @@ int const CEnumSortedElementArray<int, _OU_TARGET_OS__MAX - 1, int, 100>::m_aetE
 	_OU_TARGET_OS_SUNOS, // _OU_TARGET_OS_SUNOS
 	_OU_TARGET_OS_IOS, // _OU_TARGET_OS_IOS
 };
-static const CEnumSortedElementArray<int, _OU_TARGET_OS__MAX - 1, int, 100> g_ai_TargetOrderCheck;
 
+typedef CEnumUnsortedElementArray<int, _OU_TARGET_OS__MAX - 1, const char *, 100> TAszOSNames;
 template<>
-const char *const CEnumUnsortedElementArray<int, _OU_TARGET_OS__MAX - 1, const char *, 100>::m_aetElementArray[] =
+const char *const TAszOSNames::m_aetElementArray[] =
 {
 	"GENERIC UNIX", // _OU_TARGET_OS_GENUNIX
 	"WINDOWS", // _OU_TARGET_OS_WINDOWS
@@ -8798,28 +8800,28 @@ const char *const CEnumUnsortedElementArray<int, _OU_TARGET_OS__MAX - 1, const c
 	"SunOS", // _OU_TARGET_OS_SUNOS
 	"iOS", // _OU_TARGET_OS_IOS
 };
-static const CEnumUnsortedElementArray<int, _OU_TARGET_OS__MAX - 1, const char *, 100> g_aszOSNames;
 
 // Verifies that bits order is not changed
+typedef CEnumSortedElementArray<int, _OU_TARGET_BITS__MAX - 1, int, 101> TAi_BitsOrderCheck;
 template<>
-int const CEnumSortedElementArray<int, _OU_TARGET_BITS__MAX - 1, int, 101>::m_aetElementArray[] =
+int const TAi_BitsOrderCheck::m_aetElementArray[] =
 {
 	_OU_TARGET_BITS_32, // _OU_TARGET_BITS_32
 	_OU_TARGET_BITS_64, // _OU_TARGET_BITS_64
 };
-static const CEnumSortedElementArray<int, _OU_TARGET_BITS__MAX - 1, int, 101> g_ai_BitsOrderCheck;
 
+typedef CEnumUnsortedElementArray<int, _OU_TARGET_BITS__MAX - 1, const char *, 101> TAszBitsNames;
 template<>
-const char *const CEnumUnsortedElementArray<int, _OU_TARGET_BITS__MAX - 1, const char *, 101>::m_aetElementArray[] =
+const char *const TAszBitsNames::m_aetElementArray[] =
 {
 	"32", // _OU_TARGET_BITS_32
 	"64", // _OU_TARGET_BITS_64
 };
-static const CEnumUnsortedElementArray<int, _OU_TARGET_BITS__MAX - 1, const char *, 101> g_aszBitsNames;
 
 // Verifies that architectures order is not changed
+typedef CEnumSortedElementArray<int, _OU_TARGET_ARCH__MAX - 1, int, 102> TAi_ArchitecturesOrderCheck;
 template<>
-int const CEnumSortedElementArray<int, _OU_TARGET_ARCH__MAX - 1, int, 102>::m_aetElementArray[] =
+int const TAi_ArchitecturesOrderCheck::m_aetElementArray[] =
 {
 	_OU_TARGET_ARCH_OTHER, // _OU_TARGET_ARCH_OTHER
 	_OU_TARGET_ARCH_X86, // _OU_TARGET_ARCH_X86
@@ -8829,10 +8831,10 @@ int const CEnumSortedElementArray<int, _OU_TARGET_ARCH__MAX - 1, int, 102>::m_ae
 	_OU_TARGET_ARCH_SPARC, // _OU_TARGET_ARCH_SPARC
 	_OU_TARGET_ARCH_ARM, // _OU_TARGET_ARCH_ARM
 };
-static const CEnumSortedElementArray<int, _OU_TARGET_ARCH__MAX - 1, int, 102> g_ai_ArchitecturesOrderCheck;
 
+typedef CEnumUnsortedElementArray<int, _OU_TARGET_ARCH__MAX - 1, const char *, 102> TAszArchitecturesNames;
 template<>
-const char *const CEnumUnsortedElementArray<int, _OU_TARGET_ARCH__MAX - 1, const char *, 102>::m_aetElementArray[] =
+const char *const TAszArchitecturesNames::m_aetElementArray[] =
 {
 	"OTHER", // _OU_TARGET_ARCH_OTHER
 	"x86", // _OU_TARGET_ARCH_X86
@@ -8842,45 +8844,44 @@ const char *const CEnumUnsortedElementArray<int, _OU_TARGET_ARCH__MAX - 1, const
 	"Sparc", // _OU_TARGET_ARCH_SPARC
 	"ARM", // _OU_TARGET_ARCH_ARM
 };
-static const CEnumUnsortedElementArray<int, _OU_TARGET_ARCH__MAX - 1, const char *, 102> g_aszArchitecturesNames;
 
 // Verifies that compilers order is not changed
+typedef CEnumSortedElementArray<int, _OU_COMPILER__MAX - 1, int, 103> TAi_CompilersOrderCheck;
 template<>
-int const CEnumSortedElementArray<int, _OU_COMPILER__MAX - 1, int, 103>::m_aetElementArray[] =
+int const TAi_CompilersOrderCheck::m_aetElementArray[] =
 {
 	_OU_COMPILER__OTHER, // _OU_COMPILER__OTHER,
 	_OU_COMPILER_GCC, // _OU_COMPILER_GCC,
 	_OU_COMPILER_MSVC, // _OU_COMPILER_MSVC,
 };
-static const CEnumSortedElementArray<int, _OU_COMPILER__MAX - 1, int, 103> g_ai_CompilersOrderCheck;
 
+typedef CEnumUnsortedElementArray<int, _OU_COMPILER__MAX - 1, const char *, 103> TAszCompilersNames;
 template<>
-const char *const CEnumUnsortedElementArray<int, _OU_COMPILER__MAX - 1, const char *, 103>::m_aetElementArray[] =
+const char *const TAszCompilersNames::m_aetElementArray[] =
 {
 	"UNKNOWN", // _OU_COMPILER__OTHER,
 	"GCC", // _OU_COMPILER_GCC,
 	"MSVC", // _OU_COMPILER_MSVC,
 };
-static const CEnumUnsortedElementArray<int, _OU_COMPILER__MAX - 1, const char *, 103> g_aszCompilersNames;
 
 // Verifies that compiler versions order is not changed
+typedef CEnumSortedElementArray<int, _OU_COMPILER_VERSION__MAX - 1, int, 104> TAi_CompilersVersionOrderCheck;
 template<>
-int const CEnumSortedElementArray<int, _OU_COMPILER_VERSION__MAX - 1, int, 104>::m_aetElementArray[] =
+int const TAi_CompilersVersionOrderCheck::m_aetElementArray[] =
 {
 	_OU_COMPILER_VERSION__OTHER, // _OU_COMPILER_VERSION__OTHER,
 	_OU_COMPILER_VERSION_MSVC1998, // _OU_COMPILER_VERSION_MSVC1998,
 	_OU_COMPILER_VERSION_GCCLT4, // _OU_COMPILER_VERSION_GCCLT4,
 };
-static const CEnumSortedElementArray<int, _OU_COMPILER_VERSION__MAX - 1, int, 104> g_ai_CompilersVersionOrderCheck;
 
+typedef CEnumUnsortedElementArray<int, _OU_COMPILER_VERSION__MAX - 1, const char *, 104> TAszCompilerVersionNames;
 template<>
-const char *const CEnumUnsortedElementArray<int, _OU_COMPILER_VERSION__MAX - 1, const char *, 104>::m_aetElementArray[] =
+const char *const TAszCompilerVersionNames::m_aetElementArray[] =
 {
 	"OTHER", // _OU_COMPILER_VERSION__OTHER,
 	"MSVC1998", // _OU_COMPILER_VERSION_MSVC1998,
 	"GCC LESS THAN 4.0", // _OU_COMPILER_VERSION_GCCLT4,
 };
-static const CEnumUnsortedElementArray<int, _OU_COMPILER_VERSION__MAX - 1, const char *, 104> g_aszCompilerVersionNames;
 
 
 #define _TESTPLATFORM_DEFINITION_TEXT(Definition) #Definition
@@ -8888,11 +8889,11 @@ static const CEnumUnsortedElementArray<int, _OU_COMPILER_VERSION__MAX - 1, const
 
 static bool TestPlatform(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	const char *szOSName = g_aszOSNames.Encode(_OU_TARGET_OS - 1);
-	const char *szBitsName = g_aszBitsNames.Encode(_OU_TARGET_BITS - 1);
-	const char *szArchitectureName = g_aszArchitecturesNames.Encode(_OU_TARGET_ARCH - 1);
-	const char *szCompilerName = g_aszCompilersNames.Encode(_OU_COMPILER - 1);
-	const char *szCompilerVersion = g_aszCompilerVersionNames.Encode(_OU_COMPILER_VERSION - 1);
+	const char *szOSName = TAszOSNames::Encode(_OU_TARGET_OS - 1);
+	const char *szBitsName = TAszBitsNames::Encode(_OU_TARGET_BITS - 1);
+	const char *szArchitectureName = TAszArchitecturesNames::Encode(_OU_TARGET_ARCH - 1);
+	const char *szCompilerName = TAszCompilersNames::Encode(_OU_COMPILER - 1);
+	const char *szCompilerVersion = TAszCompilerVersionNames::Encode(_OU_COMPILER_VERSION - 1);
 	
 	printf("Target OS:                   %s\n", szOSName);
 	printf("Target Bits:                 %s\n", szBitsName);
@@ -8948,8 +8949,9 @@ enum EOUSUBSYSTEMTEST
 
 typedef bool (*COUSubsystemTestProcedure)(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount);
 
+typedef CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST__MAX, COUSubsystemTestProcedure> TAfnOUSubsystemTestProcedures;
 template<>
-COUSubsystemTestProcedure const CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST__MAX, COUSubsystemTestProcedure>::m_aetElementArray[] =
+COUSubsystemTestProcedure const TAfnOUSubsystemTestProcedures::m_aetElementArray[] =
 {
 	&TestIntTypes, // OST_INTTYPES,
 	&TestMacros, // OST_MACROS,
@@ -8975,10 +8977,10 @@ COUSubsystemTestProcedure const CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST_
 #endif
 	&TestPlatform, // OST_PLATFORM,
 };
-static const CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST__MAX, COUSubsystemTestProcedure> g_afnOUSubsystemTestProcedures;
 
+typedef CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST__MAX, const char *> TAszOUSubsystemNames;
 template<>
-const char *const CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszOUSubsystemNames::m_aetElementArray[] =
 {
 	"IntTypes", // OST_INTTYPES,
 	"Macros", // OST_MACROS,
@@ -9004,7 +9006,6 @@ const char *const CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST__MAX, const ch
 #endif
 	"Platform", // OST_PLATFORM,
 };
-static const CEnumUnsortedElementArray<EOUSUBSYSTEMTEST, OST__MAX, const char *> g_aszOUSubsystemNames;
 
 
 static bool ProcessOUCoverageTests(unsigned int &nOutFailureCount)
@@ -9013,13 +9014,13 @@ static bool ProcessOUCoverageTests(unsigned int &nOutFailureCount)
 
 	for (EOUSUBSYSTEMTEST stSubsystemTest = OST__MIN; stSubsystemTest != OST__MAX; ++stSubsystemTest)
 	{
-		const char *szSubsystemName = g_aszOUSubsystemNames.Encode(stSubsystemTest);
+		const char *szSubsystemName = TAszOUSubsystemNames::Encode(stSubsystemTest);
 		printf("\nTesting subsystem \"%s\"\n", szSubsystemName);
 		printf("---------------------------------------------------\n");
 
 		unsigned int nSubsysytemSuccessCount = 0, nSubsystemTestCount = 1;
 
-		COUSubsystemTestProcedure fnTestProcedure = g_afnOUSubsystemTestProcedures.Encode(stSubsystemTest);
+		COUSubsystemTestProcedure fnTestProcedure = TAfnOUSubsystemTestProcedures::Encode(stSubsystemTest);
 		if (fnTestProcedure(nSubsysytemSuccessCount, nSubsystemTestCount) && nSubsysytemSuccessCount == nSubsystemTestCount)
 		{
 			nSuccessCount += 1;
@@ -9046,4 +9047,3 @@ int main(int /*argc*/, char* /*argv*/[])
 
 	return (int)nFailureCount;
 }
-

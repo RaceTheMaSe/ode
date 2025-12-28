@@ -127,9 +127,9 @@ struct sTrimeshCapsuleColliderData
         uint8 flags, bool &bOutFinishSearching);
 
 #if OPTIMIZE_CONTACTS
-    void _OptimizeLocalContacts();
+    void _OptimizeLocalContacts() const;
 #endif
-    int	_ProcessLocalContacts(dContactGeom *contact, dxTriMesh *TriMesh, dxGeom *Capsule);
+    int	_ProcessLocalContacts(dContactGeom *contact, dxTriMesh *TriMesh, dxGeom *Capsule) const;
 
     static BOOL _cldClipEdgeToPlane(dVector3 &vEpnt0, dVector3 &vEpnt1, const dVector4& plPlane);
     BOOL _cldTestAxis(const dVector3 &v0, const dVector3 &v1, const dVector3 &v2, 
@@ -222,7 +222,7 @@ inline static int _IsBetter(sLocalContactData& c1,sLocalContactData& c2)
 }
 
 // iterate through gLocalContacts and filtered out "near contact"
-void sTrimeshCapsuleColliderData::_OptimizeLocalContacts()
+void sTrimeshCapsuleColliderData::_OptimizeLocalContacts() const
 {
     const int nContacts = (int)m_ctContacts;
 
@@ -253,7 +253,7 @@ void sTrimeshCapsuleColliderData::_OptimizeLocalContacts()
 #endif // OPTIMIZE_CONTACTS
 
 int	sTrimeshCapsuleColliderData::_ProcessLocalContacts(dContactGeom *contact,
-                                                       dxTriMesh *TriMesh, dxGeom *Capsule)
+                                                       dxTriMesh *TriMesh, dxGeom *Capsule) const
 {
 #if OPTIMIZE_CONTACTS
     if (m_ctContacts > 1 && !(m_iFlags & CONTACTS_UNIMPORTANT))

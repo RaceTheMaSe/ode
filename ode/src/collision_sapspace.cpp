@@ -350,7 +350,7 @@ void dxSAPSpace::remove( dxGeom* g )
     }
 
     g->tome_ex = NULL;
-    dUASSERT((g->next_ex = NULL, true), "Needed for an assertion check only");
+    g->next_ex = NULL;
 
     dxSpace::remove(g);
 }

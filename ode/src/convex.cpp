@@ -227,8 +227,8 @@ void dGeomSetConvex (dGeomID g,const dReal *_planes,unsigned int _planecount,
 //****************************************************************************
 // function prototypes
 static bool IntersectSegmentPlane(dVector3 a,
-                           dVector3 b,
-                           dVector4 p,
+                           dVector3 const b,
+                           dVector4 const p,
                            dReal &t,
                            dVector3 q);
 // static bool CheckEdgeIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,int& curc,
@@ -249,9 +249,9 @@ static int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
   \param q returns the intersection point
   \return true if there is an intersection, otherwise false.
 */
-bool IntersectSegmentPlane(dVector3 a,
-                           dVector3 b,
-                           dVector4 p,
+static bool IntersectSegmentPlane(dVector3 a,
+                           dVector3 const b,
+                           dVector4 const p,
                            dReal &t,
                            dVector3 q)
 {
@@ -498,7 +498,7 @@ inline bool IsPointInConvex(dVector3 p,
   \param out the closest point in the polygon if the point is not inside
   \return true if the point lies inside of the polygon, false if not.
 */
-static inline bool IsPointInPolygon(dVector3 p,
+static inline bool IsPointInPolygon(dVector3 const p,
                              const unsigned int *polygon,
                              dReal *plane,
                              dxConvex *convex,

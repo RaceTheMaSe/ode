@@ -44,8 +44,8 @@ public:
 
     // data movement
     dReal & operator () (int i, int j);	// reference an element
-    void operator= (const dMatrix &);	// matrix = matrix
-    void operator= (dReal);		// matrix = scalar
+    dMatrix& operator= (const dMatrix &);	// matrix = matrix
+    dMatrix& operator= (dReal);		// matrix = scalar
     dMatrix transpose();			// return transposed matrix
     // return a permuted submatrix of this matrix, made up of the rows in p
     // and the columns in q. p has np elements, q has nq elements.

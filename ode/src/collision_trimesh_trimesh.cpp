@@ -65,7 +65,7 @@ struct LineContactSet
 // static inline void dMakeMatrix4(const dVector3 Position, const dMatrix3 Rotation, dMatrix4 &B);
 //static void dInvertMatrix4( dMatrix4& B, dMatrix4& Binv );
 //static int IntersectLineSegmentRay(dVector3, dVector3, dVector3, dVector3,  dVector3);
-static void ClipConvexPolygonAgainstPlane( const dVector3, dReal, LineContactSet& );
+static void ClipConvexPolygonAgainstPlane( const dVector3 N, dReal C, LineContactSet& contacts);
 static void PlaneClipSegment( const dVector3  s1, const dVector3  s2, const dVector3  N, dReal C, dVector3  clipped);
 static bool BuildPlane(const dVector3 s0, const dVector3 s1, const dVector3 s2, dVector3 Normal, dReal & Dist);
 // static bool BuildEdgesDir(const dVector3 s0, const dVector3 s1,

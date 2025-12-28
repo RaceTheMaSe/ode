@@ -370,7 +370,7 @@ struct dxHashSpace : public dxSpace {
 
     explicit dxHashSpace (dSpaceID _space);
     void setLevels (int minlevel, int maxlevel);
-    void getLevels (int *minlevel, int *maxlevel);
+    void getLevels (int *minlevel, int *maxlevel) const;
     void cleanGeoms() ODE_OVERRIDE;
     void collide (void *data, dNearCallback *callback) ODE_OVERRIDE;
     void collide2 (void *data, dxGeom *geom, dNearCallback *callback) ODE_OVERRIDE;
@@ -393,7 +393,7 @@ void dxHashSpace::setLevels (int minlevel, int maxlevel)
 }
 
 
-void dxHashSpace::getLevels (int *minlevel, int *maxlevel)
+void dxHashSpace::getLevels (int *minlevel, int *maxlevel) const
 {
     if (minlevel) *minlevel = global_minlevel;
     if (maxlevel) *maxlevel = global_maxlevel;

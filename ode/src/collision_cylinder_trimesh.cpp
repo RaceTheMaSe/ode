@@ -60,10 +60,10 @@ struct sCylinderTrimeshColliderData
     sCylinderTrimeshColliderData(int flags, int skip): m_iFlags(flags), m_iSkip(skip), m_nContacts(0), m_gLocalContacts(NULL) {}
 
 #ifdef OPTIMIZE_CONTACTS
-    void _OptimizeLocalContacts();
+    void _OptimizeLocalContacts() const;
 #endif
     void _InitCylinderTrimeshData(dxGeom *Cylinder, dxTriMesh *Trimesh);
-    int	_ProcessLocalContacts(dContactGeom *contact, dxGeom *Cylinder, dxTriMesh *Trimesh);
+    int	_ProcessLocalContacts(dContactGeom *contact, dxGeom *Cylinder, dxTriMesh *Trimesh) const;
 
     bool _cldTestAxis(const dVector3 &v0, const dVector3 &v1, const dVector3 &v2, 
         dVector3& vAxis, int iAxis, bool bNoFlip = false);
@@ -159,7 +159,7 @@ static inline int _IsBetter(sLocalContactData& c1,sLocalContactData& c2)
 }
 
 // iterate through gLocalContacts and filtered out "near contact"
-void sCylinderTrimeshColliderData::_OptimizeLocalContacts()
+void sCylinderTrimeshColliderData::_OptimizeLocalContacts() const
 {
     const int nContacts = m_nContacts;
 
@@ -190,7 +190,7 @@ void sCylinderTrimeshColliderData::_OptimizeLocalContacts()
 #endif // OPTIMIZE_CONTACTS
 
 int	sCylinderTrimeshColliderData::_ProcessLocalContacts(dContactGeom *contact, 
-                                                        dxGeom *Cylinder, dxTriMesh *Trimesh)
+                                                        dxGeom *Cylinder, dxTriMesh *Trimesh) const
 {
 #ifdef OPTIMIZE_CONTACTS
     if (m_nContacts > 1 && !((unsigned int)m_iFlags & CONTACTS_UNIMPORTANT))

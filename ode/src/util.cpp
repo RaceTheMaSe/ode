@@ -380,7 +380,7 @@ struct dxIslandsProcessingCallContext
     void ThreadedProcessIslandSearch(dxSingleIslandCallContext *stepperCallContext);
 
     static int ThreadedProcessIslandStepper_Callback(void *callContext, dcallindex_t callInstanceIndex, dCallReleaseeID callThisReleasee);
-    void ThreadedProcessIslandStepper(dxSingleIslandCallContext *stepperCallContext);
+    void ThreadedProcessIslandStepper(dxSingleIslandCallContext *stepperCallContext) const;
 
     sizeint ObtainNextIslandToBeProcessed(sizeint islandsCount);
 
@@ -421,7 +421,7 @@ struct dxSingleIslandCallContext
     dxBody *const *GetSelectedIslandBodiesEnd() const { return m_stepperCallContext.GetSelectedIslandBodiesEnd(); }
     dxJoint *const *GetSelectedIslandJointsEnd() const { return m_stepperCallContext.GetSelectedIslandJointsEnd(); }
     
-    void RestoreSavedMemArenaStateForStepper()
+    void RestoreSavedMemArenaStateForStepper() const
     {
         m_stepperArena->RestoreState(m_arenaInitialState);
     }
@@ -1079,7 +1079,7 @@ int dxIslandsProcessingCallContext::ThreadedProcessIslandStepper_Callback(void *
     return true;
 }
 
-void dxIslandsProcessingCallContext::ThreadedProcessIslandStepper(dxSingleIslandCallContext *stepperCallContext)
+void dxIslandsProcessingCallContext::ThreadedProcessIslandStepper(dxSingleIslandCallContext *stepperCallContext) const
 {
     m_stepper(&stepperCallContext->m_stepperCallContext);
 }

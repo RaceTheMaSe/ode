@@ -94,7 +94,7 @@ static void start()
 
 static char locase (char c)
 {
-  if (c >= 'A' && c <= 'Z') return c - ('a'-'A');
+  if (c >= 'A' && c <= 'Z') return (char)(c - ('a'-'A'));
   else return c;
 }
 
@@ -105,7 +105,7 @@ static void tilt();
 
 static void command (int cmdIn)
 {
-    char cmd = locase ((char)cmdIn);
+    const char cmd = locase ((char)cmdIn);
     if (cmd == ' ')
     {
         reset();       

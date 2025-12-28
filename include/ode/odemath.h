@@ -70,7 +70,7 @@ ODE_PURE_INLINE void dZeroMatrix4(dMatrix4 res)
 }
 
 /* Some vector math */
-ODE_PURE_INLINE void dAddVectors3(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dAddVectors3(dReal *res, const dReal* const a, const dReal* const b)
 {
   const dReal res_0 = a[0] + b[0];
   const dReal res_1 = a[1] + b[1];
@@ -79,7 +79,7 @@ ODE_PURE_INLINE void dAddVectors3(dReal *res, const dReal *a, const dReal *b)
   res[0] = res_0; res[1] = res_1; res[2] = res_2;
 }
 
-ODE_PURE_INLINE void dSubtractVectors3(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dSubtractVectors3(dReal *res, const dReal* const a, const dReal* const b)
 {
   const dReal res_0 = a[0] - b[0];
   const dReal res_1 = a[1] - b[1];
@@ -88,7 +88,7 @@ ODE_PURE_INLINE void dSubtractVectors3(dReal *res, const dReal *a, const dReal *
   res[0] = res_0; res[1] = res_1; res[2] = res_2;
 }
 
-ODE_PURE_INLINE void dAddVectorScaledVector3(dReal *res, const dReal *a, const dReal *b, dReal b_scale)
+ODE_PURE_INLINE void dAddVectorScaledVector3(dReal *res, const dReal* const a, const dReal* const b, dReal b_scale)
 {
     const dReal res_0 = a[0] + b_scale * b[0];
     const dReal res_1 = a[1] + b_scale * b[1];
@@ -97,7 +97,7 @@ ODE_PURE_INLINE void dAddVectorScaledVector3(dReal *res, const dReal *a, const d
     res[0] = res_0; res[1] = res_1; res[2] = res_2;
 }
 
-ODE_PURE_INLINE void dAddScaledVectors3(dReal *res, const dReal *a, const dReal *b, dReal a_scale, dReal b_scale)
+ODE_PURE_INLINE void dAddScaledVectors3(dReal *res, const dReal* const a, const dReal* const b, dReal a_scale, dReal b_scale)
 {
   const dReal res_0 = a_scale * a[0] + b_scale * b[0];
   const dReal res_1 = a_scale * a[1] + b_scale * b[1];
@@ -106,7 +106,7 @@ ODE_PURE_INLINE void dAddScaledVectors3(dReal *res, const dReal *a, const dReal 
   res[0] = res_0; res[1] = res_1; res[2] = res_2;
 }
 
-ODE_PURE_INLINE void dAddThreeScaledVectors3(dReal *res, const dReal *a, const dReal *b, const dReal *c, dReal a_scale, dReal b_scale, dReal c_scale)
+ODE_PURE_INLINE void dAddThreeScaledVectors3(dReal *res, const dReal* const a, const dReal* const b, const dReal* const c, dReal a_scale, dReal b_scale, dReal c_scale)
 {
     const dReal res_0 = a_scale * a[0] + b_scale * b[0] + c_scale * c[0];
     const dReal res_1 = a_scale * a[1] + b_scale * b[1] + c_scale * c[1];
@@ -129,7 +129,7 @@ ODE_PURE_INLINE void dNegateVector3(dReal *res)
   res[2] = -res[2];
 }
 
-ODE_PURE_INLINE void dCopyVector3(dReal *res, const dReal *a)
+ODE_PURE_INLINE void dCopyVector3(dReal *res, const dReal* const a)
 {
   const dReal res_0 = a[0];
   const dReal res_1 = a[1];
@@ -138,7 +138,7 @@ ODE_PURE_INLINE void dCopyVector3(dReal *res, const dReal *a)
   res[0] = res_0; res[1] = res_1; res[2] = res_2;
 }
 
-ODE_PURE_INLINE void dCopyScaledVector3(dReal *res, const dReal *a, dReal nScale)
+ODE_PURE_INLINE void dCopyScaledVector3(dReal *res, const dReal* const a, dReal nScale)
 {
   const dReal res_0 = a[0] * nScale;
   const dReal res_1 = a[1] * nScale;
@@ -147,7 +147,7 @@ ODE_PURE_INLINE void dCopyScaledVector3(dReal *res, const dReal *a, dReal nScale
   res[0] = res_0; res[1] = res_1; res[2] = res_2;
 }
 
-ODE_PURE_INLINE void dCopyNegatedVector3(dReal *res, const dReal *a)
+ODE_PURE_INLINE void dCopyNegatedVector3(dReal *res, const dReal* const a)
 {
   const dReal res_0 = -a[0];
   const dReal res_1 = -a[1];
@@ -156,7 +156,7 @@ ODE_PURE_INLINE void dCopyNegatedVector3(dReal *res, const dReal *a)
   res[0] = res_0; res[1] = res_1; res[2] = res_2;
 }
 
-ODE_PURE_INLINE void dCopyVector4(dReal *res, const dReal *a)
+ODE_PURE_INLINE void dCopyVector4(dReal *res, const dReal* const a)
 {
   const dReal res_0 = a[0];
   const dReal res_1 = a[1];
@@ -166,21 +166,21 @@ ODE_PURE_INLINE void dCopyVector4(dReal *res, const dReal *a)
   res[0] = res_0; res[1] = res_1; res[2] = res_2; res[3] = res_3;
 }
 
-ODE_PURE_INLINE void dCopyMatrix4x4(dReal *res, const dReal *a)
+ODE_PURE_INLINE void dCopyMatrix4x4(dReal *res, const dReal* const a)
 {
   dCopyVector4(res + 0, a + 0);
   dCopyVector4(res + 4, a + 4);
   dCopyVector4(res + 8, a + 8);
 }
 
-ODE_PURE_INLINE void dCopyMatrix4x3(dReal *res, const dReal *a)
+ODE_PURE_INLINE void dCopyMatrix4x3(dReal *res, const dReal* const a)
 {
   dCopyVector3(res + 0, a + 0);
   dCopyVector3(res + 4, a + 4);
   dCopyVector3(res + 8, a + 8);
 }
 
-ODE_PURE_INLINE void dGetMatrixColumn3(dReal *res, const dReal *a, unsigned n)
+ODE_PURE_INLINE void dGetMatrixColumn3(dReal *res, const dReal* const a, unsigned n)
 {
   const dReal res_0 = a[n + 0];
   const dReal res_1 = a[n + 4];
@@ -199,7 +199,7 @@ ODE_PURE_INLINE dReal dCalcVectorLengthSquare3(const dReal *a)
   return (a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
 }
 
-ODE_PURE_INLINE dReal dCalcPointDepth3(const dReal *test_p, const dReal *plane_p, const dReal *plane_n)
+ODE_PURE_INLINE dReal dCalcPointDepth3(const dReal* const test_p, const dReal* const plane_p, const dReal* const plane_n)
 {
   return (plane_p[0] - test_p[0]) * plane_n[0] + (plane_p[1] - test_p[1]) * plane_n[1] + (plane_p[2] - test_p[2]) * plane_n[2];
 }
@@ -210,19 +210,19 @@ ODE_PURE_INLINE dReal dCalcPointDepth3(const dReal *test_p, const dReal *plane_p
 * step_a and step_b indexes apart respectively. dCalcVectorDot3() means dDot311.
 */
 
-ODE_PURE_INLINE dReal _dCalcVectorDot3(const dReal *a, const dReal *b, unsigned step_a, unsigned step_b)
+ODE_PURE_INLINE dReal _dCalcVectorDot3(const dReal* const a, const dReal* const b, unsigned step_a, unsigned step_b)
 {
   return a[0] * b[0] + a[step_a] * b[step_b] + a[2 * step_a] * b[2 * step_b];
 }
 
 
-ODE_PURE_INLINE dReal dCalcVectorDot3    (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,1,1); }
-ODE_PURE_INLINE dReal dCalcVectorDot3_13 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,1,3); }
-ODE_PURE_INLINE dReal dCalcVectorDot3_31 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,3,1); }
-ODE_PURE_INLINE dReal dCalcVectorDot3_33 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,3,3); }
-ODE_PURE_INLINE dReal dCalcVectorDot3_14 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,1,4); }
-ODE_PURE_INLINE dReal dCalcVectorDot3_41 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,4,1); }
-ODE_PURE_INLINE dReal dCalcVectorDot3_44 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,4,4); }
+ODE_PURE_INLINE dReal dCalcVectorDot3    (const dReal* const a, const dReal* const b) { return _dCalcVectorDot3(a,b,1,1); }
+ODE_PURE_INLINE dReal dCalcVectorDot3_13 (const dReal* const a, const dReal* const b) { return _dCalcVectorDot3(a,b,1,3); }
+ODE_PURE_INLINE dReal dCalcVectorDot3_31 (const dReal* const a, const dReal* const b) { return _dCalcVectorDot3(a,b,3,1); }
+ODE_PURE_INLINE dReal dCalcVectorDot3_33 (const dReal* const a, const dReal* const b) { return _dCalcVectorDot3(a,b,3,3); }
+ODE_PURE_INLINE dReal dCalcVectorDot3_14 (const dReal* const a, const dReal* const b) { return _dCalcVectorDot3(a,b,1,4); }
+ODE_PURE_INLINE dReal dCalcVectorDot3_41 (const dReal* const a, const dReal* const b) { return _dCalcVectorDot3(a,b,4,1); }
+ODE_PURE_INLINE dReal dCalcVectorDot3_44 (const dReal* const a, const dReal* const b) { return _dCalcVectorDot3(a,b,4,4); }
 
 
 /*
@@ -231,7 +231,7 @@ ODE_PURE_INLINE dReal dCalcVectorDot3_44 (const dReal *a, const dReal *b) { retu
  * dCalcVectorCross3() means dCross3111. 
  */
 
-ODE_PURE_INLINE void _dCalcVectorCross3(dReal *res, const dReal *a, const dReal *b, unsigned step_res, unsigned step_a, unsigned step_b)
+ODE_PURE_INLINE void _dCalcVectorCross3(dReal *res, const dReal* const a, const dReal* const b, unsigned step_res, unsigned step_a, unsigned step_b)
 {
   const dReal res_0 = a[  step_a]*b[2*step_b] - a[2*step_a]*b[  step_b];
   const dReal res_1 = a[2*step_a]*b[       0] - a[       0]*b[2*step_b];
@@ -242,23 +242,23 @@ ODE_PURE_INLINE void _dCalcVectorCross3(dReal *res, const dReal *a, const dReal 
   res[2*step_res] = res_2;
 }
 
-ODE_PURE_INLINE void dCalcVectorCross3    (dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 1, 1, 1); }
-ODE_PURE_INLINE void dCalcVectorCross3_114(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 1, 1, 4); }
-ODE_PURE_INLINE void dCalcVectorCross3_141(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 1, 4, 1); }
-ODE_PURE_INLINE void dCalcVectorCross3_144(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 1, 4, 4); }
-ODE_PURE_INLINE void dCalcVectorCross3_411(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 4, 1, 1); }
-ODE_PURE_INLINE void dCalcVectorCross3_414(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 4, 1, 4); }
-ODE_PURE_INLINE void dCalcVectorCross3_441(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 4, 4, 1); }
-ODE_PURE_INLINE void dCalcVectorCross3_444(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 4, 4, 4); }
+ODE_PURE_INLINE void dCalcVectorCross3    (dReal *res, const dReal* const a, const dReal* const b) { _dCalcVectorCross3(res, a, b, 1, 1, 1); }
+ODE_PURE_INLINE void dCalcVectorCross3_114(dReal *res, const dReal* const a, const dReal* const b) { _dCalcVectorCross3(res, a, b, 1, 1, 4); }
+ODE_PURE_INLINE void dCalcVectorCross3_141(dReal *res, const dReal* const a, const dReal* const b) { _dCalcVectorCross3(res, a, b, 1, 4, 1); }
+ODE_PURE_INLINE void dCalcVectorCross3_144(dReal *res, const dReal* const a, const dReal* const b) { _dCalcVectorCross3(res, a, b, 1, 4, 4); }
+ODE_PURE_INLINE void dCalcVectorCross3_411(dReal *res, const dReal* const a, const dReal* const b) { _dCalcVectorCross3(res, a, b, 4, 1, 1); }
+ODE_PURE_INLINE void dCalcVectorCross3_414(dReal *res, const dReal* const a, const dReal* const b) { _dCalcVectorCross3(res, a, b, 4, 1, 4); }
+ODE_PURE_INLINE void dCalcVectorCross3_441(dReal *res, const dReal* const a, const dReal* const b) { _dCalcVectorCross3(res, a, b, 4, 4, 1); }
+ODE_PURE_INLINE void dCalcVectorCross3_444(dReal *res, const dReal* const a, const dReal* const b) { _dCalcVectorCross3(res, a, b, 4, 4, 4); }
 
-ODE_PURE_INLINE void dAddVectorCross3(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dAddVectorCross3(dReal *res, const dReal* const a, const dReal* const b)
 {
   dReal tmp[3];
   dCalcVectorCross3(tmp, a, b);
   dAddVectors3(res, res, tmp);
 }
 
-ODE_PURE_INLINE void dSubtractVectorCross3(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dSubtractVectorCross3(dReal *res, const dReal* const a, const dReal* const b)
 {
   dReal tmp[3];
   dCalcVectorCross3(tmp, a, b);
@@ -274,7 +274,7 @@ ODE_PURE_INLINE void dSubtractVectorCross3(dReal *res, const dReal *a, const dRe
  * if (plus,minus) is (-,+) then a negative version will be written.
  */
 
-ODE_PURE_INLINE void dSetCrossMatrixPlus(dReal *res, const dReal *a, unsigned skip)
+ODE_PURE_INLINE void dSetCrossMatrixPlus(dReal *res, const dReal* const a, unsigned skip)
 {
   const dReal a_0 = a[0], a_1 = a[1], a_2 = a[2];
   res[1] = -a_2;
@@ -285,7 +285,7 @@ ODE_PURE_INLINE void dSetCrossMatrixPlus(dReal *res, const dReal *a, unsigned sk
   res[2*skip+1] = +a_0;
 }
 
-ODE_PURE_INLINE void dSetCrossMatrixMinus(dReal *res, const dReal *a, unsigned skip)
+ODE_PURE_INLINE void dSetCrossMatrixMinus(dReal *res, const dReal* const a, unsigned skip)
 {
   const dReal a_0 = a[0], a_1 = a[1], a_2 = a[2];
   res[1] = +a_2;
@@ -301,7 +301,7 @@ ODE_PURE_INLINE void dSetCrossMatrixMinus(dReal *res, const dReal *a, unsigned s
  * compute the distance between two 3D-vectors
  */
 
-ODE_PURE_INLINE dReal dCalcPointsDistance3(const dReal *a, const dReal *b)
+ODE_PURE_INLINE dReal dCalcPointsDistance3(const dReal* const a, const dReal* const b)
 {
   dReal res;
   dReal tmp[3];
@@ -314,7 +314,7 @@ ODE_PURE_INLINE dReal dCalcPointsDistance3(const dReal *a, const dReal *b)
  * special case matrix multiplication, with operator selection
  */
 
-ODE_PURE_INLINE void _dMultiplyHelper0_331(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void _dMultiplyHelper0_331(dReal *res, const dReal* const a, const dReal* const b)
 {
   const dReal res_0 = dCalcVectorDot3(a, b);
   const dReal res_1 = dCalcVectorDot3(a + 4, b);
@@ -323,7 +323,7 @@ ODE_PURE_INLINE void _dMultiplyHelper0_331(dReal *res, const dReal *a, const dRe
   res[0] = res_0; res[1] = res_1; res[2] = res_2;
 }
 
-ODE_PURE_INLINE void _dMultiplyHelper1_331(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void _dMultiplyHelper1_331(dReal *res, const dReal* const a, const dReal* const b)
 {
   const dReal res_0 = dCalcVectorDot3_41(a, b);
   const dReal res_1 = dCalcVectorDot3_41(a + 1, b);
@@ -332,12 +332,12 @@ ODE_PURE_INLINE void _dMultiplyHelper1_331(dReal *res, const dReal *a, const dRe
   res[0] = res_0; res[1] = res_1; res[2] = res_2;
 }
 
-ODE_PURE_INLINE void _dMultiplyHelper0_133(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void _dMultiplyHelper0_133(dReal *res, const dReal* const a, const dReal* const b)
 {
   _dMultiplyHelper1_331(res, b, a);
 }
 
-ODE_PURE_INLINE void _dMultiplyHelper1_133(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void _dMultiplyHelper1_133(dReal *res, const dReal* const a, const dReal* const b)
 {
   const dReal res_0 = dCalcVectorDot3_44(a, b);
   const dReal res_1 = dCalcVectorDot3_44(a + 1, b);
@@ -351,64 +351,64 @@ Note: NEVER call any of these functions/macros with the same variable for A and 
 it is not equivalent to A*=B.
 */
 
-ODE_PURE_INLINE void dMultiply0_331(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiply0_331(dReal *res, const dReal* const a, const dReal* const b)
 {
   _dMultiplyHelper0_331(res, a, b);
 }
 
-ODE_PURE_INLINE void dMultiply1_331(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiply1_331(dReal *res, const dReal* const a, const dReal* const b)
 {
   _dMultiplyHelper1_331(res, a, b);
 }
 
-ODE_PURE_INLINE void dMultiply0_133(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiply0_133(dReal *res, const dReal* const a, const dReal* const b)
 {
   _dMultiplyHelper0_133(res, a, b);
 }
 
-ODE_PURE_INLINE void dMultiply0_333(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiply0_333(dReal *res, const dReal* const a, const dReal* const b)
 {
   _dMultiplyHelper0_133(res + 0, a + 0, b);
   _dMultiplyHelper0_133(res + 4, a + 4, b);
   _dMultiplyHelper0_133(res + 8, a + 8, b);
 }
 
-ODE_PURE_INLINE void dMultiply1_333(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiply1_333(dReal *res, const dReal* const a, const dReal* const b)
 {
   _dMultiplyHelper1_133(res + 0, b, a + 0);
   _dMultiplyHelper1_133(res + 4, b, a + 1);
   _dMultiplyHelper1_133(res + 8, b, a + 2);
 }
 
-ODE_PURE_INLINE void dMultiply2_333(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiply2_333(dReal *res, const dReal* const a, const dReal* const b)
 {
   _dMultiplyHelper0_331(res + 0, b, a + 0);
   _dMultiplyHelper0_331(res + 4, b, a + 4);
   _dMultiplyHelper0_331(res + 8, b, a + 8);
 }
 
-ODE_PURE_INLINE void dMultiplyAdd0_331(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiplyAdd0_331(dReal *res, const dReal* const a, const dReal* const b)
 {
   dReal tmp[3];
   _dMultiplyHelper0_331(tmp, a, b);
   dAddVectors3(res, res, tmp);
 }
 
-ODE_PURE_INLINE void dMultiplyAdd1_331(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiplyAdd1_331(dReal *res, const dReal* const a, const dReal* const b)
 {
   dReal tmp[3];
   _dMultiplyHelper1_331(tmp, a, b);
   dAddVectors3(res, res, tmp);
 }
 
-ODE_PURE_INLINE void dMultiplyAdd0_133(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiplyAdd0_133(dReal *res, const dReal* const a, const dReal* const b)
 {
   dReal tmp[3];
   _dMultiplyHelper0_133(tmp, a, b);
   dAddVectors3(res, res, tmp);
 }
 
-ODE_PURE_INLINE void dMultiplyAdd0_333(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiplyAdd0_333(dReal *res, const dReal* const a, const dReal* const b)
 {
   dReal tmp[3];
   _dMultiplyHelper0_133(tmp, a + 0, b);
@@ -419,7 +419,7 @@ ODE_PURE_INLINE void dMultiplyAdd0_333(dReal *res, const dReal *a, const dReal *
   dAddVectors3(res + 8, res + 8, tmp);
 }
 
-ODE_PURE_INLINE void dMultiplyAdd1_333(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiplyAdd1_333(dReal *res, const dReal* const a, const dReal* const b)
 {
   dReal tmp[3];
   _dMultiplyHelper1_133(tmp, b, a + 0);
@@ -430,7 +430,7 @@ ODE_PURE_INLINE void dMultiplyAdd1_333(dReal *res, const dReal *a, const dReal *
   dAddVectors3(res + 8, res + 8, tmp);
 }
 
-ODE_PURE_INLINE void dMultiplyAdd2_333(dReal *res, const dReal *a, const dReal *b)
+ODE_PURE_INLINE void dMultiplyAdd2_333(dReal *res, const dReal* const a, const dReal* const b)
 {
   dReal tmp[3];
   _dMultiplyHelper0_331(tmp, b, a + 0);
@@ -441,7 +441,7 @@ ODE_PURE_INLINE void dMultiplyAdd2_333(dReal *res, const dReal *a, const dReal *
   dAddVectors3(res + 8, res + 8, tmp);
 }
 
-ODE_PURE_INLINE dReal dCalcMatrix3Det( const dReal* mat )
+ODE_PURE_INLINE dReal dCalcMatrix3Det( const dReal* const mat )
 {
     dReal det;
 
@@ -460,7 +460,7 @@ ODE_PURE_INLINE dReal dCalcMatrix3Det( const dReal* mat )
   returns 0 and does nothing
   if the matrix is singular.
 */
-ODE_PURE_INLINE dReal dInvertMatrix3(dReal *dst, const dReal *ma)
+ODE_PURE_INLINE dReal dInvertMatrix3(dReal *dst, const dReal* const ma)
 {
     dReal det;  
     dReal detRecip;

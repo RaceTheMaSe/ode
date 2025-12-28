@@ -48,23 +48,21 @@ using _OU_NAMESPACE::CMemoryManagerCustomization;
 using _OU_NAMESPACE::CAssertionCheckCustomization;
 
 
+typedef CEnumUnsortedElementArray<EASSERTIONFAILURESEVERITY, AFS__MAX, const char *> TAszAssertionFailureSeverityNames;
 BEGIN_NAMESPACE_OU
 template<>
-const char *const CEnumUnsortedElementArray<EASSERTIONFAILURESEVERITY, AFS__MAX, const char *>::m_aetElementArray[] =
+const char *const TAszAssertionFailureSeverityNames::m_aetElementArray[] =
 {
     "assert", // AFS_ASSERT,
     "check", // AFS_CHECK,
 };
 END_NAMESPACE_OU
 
-static const CEnumUnsortedElementArray<EASSERTIONFAILURESEVERITY, AFS__MAX, const char *> g_aszAssertionFailureSeverityNames;
-
-
 static ODE_NORETURN_VOID _OU_CONVENTION_CALLBACK ForwardOUAssertionFailure(EASSERTIONFAILURESEVERITY fsFailureSeverity, 
                                                               const char *szAssertionExpression, const char *szAssertionFileName, unsigned int uiAssertionSourceLine)
 {
     dDebug(d_ERR_IASSERT, "Assertion failure in OU Library. Kind: %s, expression: \"%s\", file: \"%s\", line: %u",
-        g_aszAssertionFailureSeverityNames.Encode(fsFailureSeverity), 
+        TAszAssertionFailureSeverityNames::Encode(fsFailureSeverity), 
         szAssertionExpression, szAssertionFileName, uiAssertionSourceLine);
 }
 

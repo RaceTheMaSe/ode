@@ -58,10 +58,10 @@ public:
 
     void Create(dReal MinX, dReal MaxX, dReal MinZ, dReal MaxZ, Block* Parent, int Depth, Block*& Blocks);
 
-    void Collide(void* UserData, dNearCallback* Callback);
-    void Collide(dGeomID g1, dGeomID g2, void* UserData, dNearCallback* Callback);
+    void Collide(void* UserData, dNearCallback* Callback) const;
+    void Collide(dGeomID g1, dGeomID g2, void* UserData, dNearCallback* Callback) const;
 
-    void CollideLocal(dGeomID g2, void* UserData, dNearCallback* Callback);
+    void CollideLocal(dGeomID g2, void* UserData, dNearCallback* Callback) const;
 
     void AddObject(dGeomID Object);
     void DelObject(dGeomID Object);
@@ -175,7 +175,7 @@ void Block::Create(const dReal MinX, const dReal MaxX, const dReal MinZ, const d
     else mChildren = NULL;
 }
 
-void Block::Collide(void* UserData, dNearCallback* Callback){
+void Block::Collide(void* UserData, dNearCallback* Callback) const {
 #ifdef DRAWBLOCKS
     DrawBlock(this);
 #endif
@@ -191,7 +191,7 @@ void Block::Collide(void* UserData, dNearCallback* Callback){
     // Recurse for children
     if (mChildren){
         for (int i = 0; i < SPLITS; i++){
-            Block &CurrentChild = mChildren[i];
+            const Block &CurrentChild = mChildren[i];
             if (CurrentChild.mGeomCount <= 1){	// Early out
                 continue;
             }
@@ -201,7 +201,7 @@ void Block::Collide(void* UserData, dNearCallback* Callback){
 }
 
 // Note: g2 is assumed to be in this Block
-void Block::Collide(dxGeom* g1, dxGeom* g2, void* UserData, dNearCallback* Callback){
+void Block::Collide(dxGeom* g1, dxGeom* g2, void* UserData, dNearCallback* Callback) const {
 #ifdef DRAWBLOCKS
     DrawBlock(this);
 #endif
@@ -216,7 +216,7 @@ void Block::Collide(dxGeom* g1, dxGeom* g2, void* UserData, dNearCallback* Callb
     // Collide against children
     if (mChildren){
         for (int i = 0; i < SPLITS; i++){
-            Block &CurrentChild = mChildren[i];
+            const Block &CurrentChild = mChildren[i];
             // Early out for empty blocks
             if (CurrentChild.mGeomCount == 0){
                 continue;
@@ -238,7 +238,7 @@ void Block::Collide(dxGeom* g1, dxGeom* g2, void* UserData, dNearCallback* Callb
     }
 }
 
-void Block::CollideLocal(dxGeom* g2, void* UserData, dNearCallback* Callback){
+void Block::CollideLocal(dxGeom* g2, void* UserData, dNearCallback* Callback) const {
     // Collide against local list
     dxGeom* g1 = mFirst;
     while (g1){
@@ -289,7 +289,7 @@ void Block::DelObject(dGeomID Object){
     }
 
     Object->tome_ex = NULL;
-    dUASSERT((Object->next_ex = NULL, true), "Needed for an assertion check only");
+    Object->next_ex = NULL;
 
     // Now traverse upwards to tell that we have lost a geom
     Block* Block = this;

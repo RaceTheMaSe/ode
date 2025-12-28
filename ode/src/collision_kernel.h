@@ -159,7 +159,7 @@ struct dxGeom : public dBase {
     }
 
     // calculate our new final position from our offset and body
-    void computePosr();
+    void computePosr() const;
 
     bool checkControlValueSizeValidity(void *dataValue, int *dataSize, int iRequiresSize)
     {

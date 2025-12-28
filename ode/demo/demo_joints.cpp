@@ -88,7 +88,7 @@ static dReal max_error = 0;
 //****************************************************************************
 // utility stuff
 
-static dReal length (dVector3 a)
+static dReal length (dVector3 const a)
 {
   return dSqrt (a[0]*a[0] + a[1]*a[1] + a[2]*a[2]);
 }

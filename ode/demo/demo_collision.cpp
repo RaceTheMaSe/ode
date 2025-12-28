@@ -1028,7 +1028,7 @@ int test_ray_and_plane()
 // return 1 if edge v1 -> v2 hits the rectangle described by p1,p2,p3
 
 static 
-int edgeIntersectsRect(dVector3 v1, dVector3 v2,
+int edgeIntersectsRect(dVector3 v1, dVector3 const v2,
     dVector3 p1, dVector3 p2, dVector3 p3)
 {
     int k;

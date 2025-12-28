@@ -130,7 +130,7 @@ static void start()
 
 static char locase( char c )
 {
-	if ( c >= 'A' && c <= 'Z' ) return c - ( 'a'-'A' );
+	if ( c >= 'A' && c <= 'Z' ) return (char)(c - ( 'a'-'A' ));
 	else return c;
 }
 
@@ -142,7 +142,7 @@ static void command( int cmdIn )
 	dReal sides[3];
 	dMass m;
 
-	char cmd = locase( (char)cmdIn );
+	const char cmd = locase( (char)cmdIn );
 	if ( cmd == 'v' || cmd == 'b' || cmd == 'c' || cmd == 's' || cmd == 'y')
 	{
 		if ( num < NUM )
@@ -201,10 +201,10 @@ static void command( int cmdIn )
 			dMassSetCapsule( &m,DENSITY,3,sides[0],sides[1] );
 			obj[i].geom[0] = dCreateCapsule( space,sides[0],sides[1] );
 		}
-        else if (cmd == 'y') {
-            dMassSetCylinder (&m,DENSITY,3,sides[0],sides[1]);
-            obj[i].geom[0] = dCreateCylinder (space,sides[0],sides[1]);
-        }
+		else if (cmd == 'y') {
+			dMassSetCylinder (&m,DENSITY,3,sides[0],sides[1]);
+			obj[i].geom[0] = dCreateCylinder (space,sides[0],sides[1]);
+		}
 		else if ( cmd == 's' )
 		{
 			sides[0] *= REAL(0.5);
@@ -292,11 +292,11 @@ static void drawGeom( dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
 	{
 		dsDrawSphere( pos,R,(float)dGeomSphereGetRadius( g ) );
 	}
-    else if (type == dCylinderClass) {
-        dReal radius,length;
-        dGeomCylinderGetParams (g,&radius,&length);
-        dsDrawCylinder (pos,R,(float)length,(float)radius);
-    }
+	else if (type == dCylinderClass) {
+		dReal radius,length;
+		dGeomCylinderGetParams (g,&radius,&length);
+		dsDrawCylinder (pos,R,(float)length,(float)radius);
+	}
 	else if ( type == dCapsuleClass )
 	{
 		dReal radius,length;

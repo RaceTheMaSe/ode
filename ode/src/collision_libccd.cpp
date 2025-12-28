@@ -82,12 +82,12 @@ struct _ccd_triangle_t {
 typedef struct _ccd_triangle_t ccd_triangle_t;
 
 /** Transforms geom to ccd struct */
-static void ccdGeomToObj(const dGeomID g, ccd_obj_t *);
-static void ccdGeomToBox(const dGeomID g, ccd_box_t *);
-static void ccdGeomToCap(const dGeomID g, ccd_cap_t *);
-static void ccdGeomToCyl(const dGeomID g, ccd_cyl_t *);
-static void ccdGeomToSphere(const dGeomID g, ccd_sphere_t *);
-static void ccdGeomToConvex(const dGeomID g, ccd_convex_t *);
+static void ccdGeomToObj(/*const*/ dGeomID g, ccd_obj_t * o);
+static void ccdGeomToBox(/*const*/ dGeomID g, ccd_box_t * b);
+static void ccdGeomToCap(/*const*/ dGeomID g, ccd_cap_t * c);
+static void ccdGeomToCyl(/*const*/ dGeomID g, ccd_cyl_t * c);
+static void ccdGeomToSphere(/*const*/ dGeomID g, ccd_sphere_t * s);
+static void ccdGeomToConvex(/*const*/ dGeomID g, ccd_convex_t * c);
 
 /** Support functions */
 static void ccdSupportBox(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v);

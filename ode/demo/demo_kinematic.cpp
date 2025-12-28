@@ -184,15 +184,10 @@ simLoop(int pause)
 #endif
 }
 
-static void command(int c)
+static void command(int cmd)
 {
-    switch (c) {
-        case ' ':
-            dropBox();
-            break;
-        default:
-            break;
-    }
+    if(cmd == ' ')
+        dropBox();
 }
 
 int main(int argc, char **argv)

@@ -197,18 +197,18 @@ int dCollideCapsuleBox (dxGeom *o1, dxGeom *o2, int flags,
     const dReal *side = box->side;
 
     // get the closest point between the cylinder axis and the box
-    dVector3 pl,pb;
-    dClosestLineBoxPoints (p1,p2,c,R,side,pl,pb);
+    dVector3 pline,pbox;
+    dClosestLineBoxPoints (p1,p2,c,R,side,pline,pbox);
 
     // if the capsule is penetrated further than radius 
-    //  then pl and pb are equal (up to mindist) -> unknown normal
+    //  then pline and pbox are equal (up to mindist) -> unknown normal
     // use normal vector of closest box surface
 #ifdef dSINGLE
     const dReal mindist = REAL(1e-6);
 #else
     const dReal mindist = REAL(1e-15);
 #endif
-    if (dCalcPointsDistance3(pl, pb)<mindist) {
+    if (dCalcPointsDistance3(pline, pbox)<mindist) {
         // consider capsule as box
         dVector3 normal;
         dReal depth;
@@ -233,7 +233,7 @@ int dCollideCapsuleBox (dxGeom *o1, dxGeom *o2, int flags,
         return num;
     } else {
         // generate contact point
-        return dCollideSpheres (pl,radius,pb,0,contact);
+        return dCollideSpheres (pline,radius,pbox,0,contact);
     }
 }
 

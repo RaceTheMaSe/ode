@@ -147,8 +147,8 @@ static int write_world = 0;
 
 static dReal heightfield_callback( void* /*data*/, int x, int z )
 {
-    const dReal fx = ( ((dReal)x) - ( HFIELD_WSTEP-1 )/2 ) / (dReal)( HFIELD_WSTEP-1 );
-    const dReal fz = ( ((dReal)z) - ( HFIELD_DSTEP-1 )/2 ) / (dReal)( HFIELD_DSTEP-1 );
+    const dReal fx = ( (dReal)x - (dReal)( HFIELD_WSTEP-1 )/2 ) / (dReal)( HFIELD_WSTEP-1 );
+    const dReal fz = ( (dReal)z - (dReal)( HFIELD_DSTEP-1 )/2 ) / (dReal)( HFIELD_DSTEP-1 );
 
     // Create an interesting 'hump' shape
     const dReal h = REAL( 1.0 ) + ( REAL( -16.0 ) * ( fx*fx*fx + fz*fz*fz ) );
@@ -243,7 +243,7 @@ static void command(int cmdIn)
     dMass m;
     bool setBody = false;
 
-    char cmd = locase ((char)cmdIn);
+    const char cmd = locase ((char)cmdIn);
 
 
     //

@@ -132,7 +132,7 @@ void dxJointBall::set( int num, dReal value )
 }
 
 
-dReal dxJointBall::get( int num )
+dReal dxJointBall::get( int num ) const
 {
     switch ( num )
     {

@@ -126,14 +126,8 @@ static void reset_ball(void)
 
 static void command (int cmd)
 {
-  switch (cmd) 
-  {
-    case ' ':
+  if(cmd == ' ')
 	  reset_ball();
-      break;
-    default:
-      break;
-  }
 }
 
 

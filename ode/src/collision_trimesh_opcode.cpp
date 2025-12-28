@@ -458,7 +458,7 @@ bool dxTriMesh::controlGeometry_SetMergeSphereContacts(int dataValue)
     return true;
 }
 
-bool dxTriMesh::controlGeometry_GetMergeSphereContacts(int &returnValue)
+bool dxTriMesh::controlGeometry_GetMergeSphereContacts(int &returnValue) const
 {
     if (m_SphereContactsMergeOption == DONT_MERGE_CONTACTS) {
         returnValue = dGeomColliderMergeContactsValue_None;

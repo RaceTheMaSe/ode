@@ -34,7 +34,7 @@ struct dxJointBall : public dxJoint
     dReal erp;          // error reduction
     dReal cfm;          // constraint force mix in
     void set( int num, dReal value );
-    dReal get( int num );
+    dReal get( int num ) const;
 
     dxJointBall( dxWorld *w );
     virtual void getSureMaxInfo( SureMaxInfo* info ) ODE_OVERRIDE;

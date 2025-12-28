@@ -229,7 +229,7 @@ static void start()
 
 static char locase (char c)
 {
-    if (c >= 'A' && c <= 'Z') return c - ('a'-'A');
+    if (c >= 'A' && c <= 'Z') return (char)(c - ('a'-'A'));
     else return c;
 }
 
@@ -242,7 +242,7 @@ static void command (int cmdIn)
     dReal sides[3];
     dMass m;
   
-    char cmd = locase ((char)cmdIn);
+    const char cmd = locase ((char)cmdIn);
     if (cmd == 'b' || cmd == 's' || cmd == 'c' || cmd == 'y')
         {
             if (num < NUM) {

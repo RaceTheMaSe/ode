@@ -202,16 +202,16 @@ void dJointAddAMotorTorques(dJointID j, dReal torque1, dReal torque2, dReal torq
 
 //****************************************************************************
 
+typedef CEnumUnsortedElementArray<dSpaceAxis, dSA__MAX, dJointBodyRelativity, 0x160703D5> TAbrEulerAxisAllowedBodyRelativities;
 BEGIN_NAMESPACE_OU
 template<>
-const dJointBodyRelativity CEnumUnsortedElementArray<dSpaceAxis, dSA__MAX, dJointBodyRelativity, 0x160703D5>::m_aetElementArray[] =
+const dJointBodyRelativity TAbrEulerAxisAllowedBodyRelativities::m_aetElementArray[] =
 {
     dJBR_BODY1, // dSA_X,
     dJBR_GLOBAL, // dSA_Y,
     dJBR_BODY2, // dSA_Z,
 };
 END_NAMESPACE_OU
-static const CEnumUnsortedElementArray<dSpaceAxis, dSA__MAX, dJointBodyRelativity, 0x160703D5> g_abrEulerAxisAllowedBodyRelativities;
 
 static inline 
 dSpaceAxis EncodeJointConnectedBodyEulerAxis(dJointConnectedBody cbBodyIndex)
@@ -395,7 +395,7 @@ void dxJointAMotor::setAxisValue(unsigned anum, dJointBodyRelativity rel,
     dReal x, dReal y, dReal z)
 {
     dAASSERT(dIN_RANGE(anum, dSA__MIN, dSA__MAX));
-    dAASSERT(m_mode != dAMotorEuler || !dJBREncodeBodyRelativityStatus(rel) || rel == g_abrEulerAxisAllowedBodyRelativities.Encode((dSpaceAxis)anum));
+    dAASSERT(m_mode != dAMotorEuler || !dJBREncodeBodyRelativityStatus(rel) || rel == TAbrEulerAxisAllowedBodyRelativities::Encode((dSpaceAxis)anum));
 
     // x,y,z is always in global coordinates regardless of rel, so we may have
     // to convert it to be relative to a body
