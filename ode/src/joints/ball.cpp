@@ -21,8 +21,6 @@
  *************************************************************************/
 
 
-#include <ode/odeconfig.h>
-#include "config.h"
 #include "ball.h"
 #include "joint_internal.h"
 

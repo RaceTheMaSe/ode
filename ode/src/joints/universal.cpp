@@ -21,8 +21,7 @@
  *************************************************************************/
 
 
-#include <ode/odeconfig.h>
-#include "config.h"
+#include <math.h>
 #include "universal.h"
 #include "joint_internal.h"
 

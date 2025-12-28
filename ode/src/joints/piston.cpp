@@ -22,7 +22,6 @@
 
 
 #include <ode/odeconfig.h>
-#include "config.h"
 #include "piston.h"
 #include "joint_internal.h"
 

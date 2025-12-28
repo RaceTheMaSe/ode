@@ -22,9 +22,7 @@
 
 
 #include <ode/odeconfig.h>
-#include "config.h"
 #include "null.h"
-#include "joint_internal.h"
 
 
 

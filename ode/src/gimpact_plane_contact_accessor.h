@@ -24,6 +24,8 @@
 #ifndef ODE_GIMPACT_PLANE_CONTACT_ACCESSOR_H
 #define ODE_GIMPACT_PLANE_CONTACT_ACCESSOR_H
 
+#if defined(dTRIMESH_GIMPACT)
+
 #include "GIMPACT/gim_geometry.h"
 #include "ode/contact.h"
 
@@ -60,5 +62,6 @@ struct dxPlaneContactAccessor
     dGeomID         m_g1, m_g2;
 };
 
+#endif
 
 #endif	//ODE_GIMPACT_PLANE_CONTACT_ACCESSOR_H

@@ -20,8 +20,6 @@
  *                                                                       *
  *************************************************************************/
 
-#include <ode/collision.h>
-#include "config.h"
 
 
 #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)

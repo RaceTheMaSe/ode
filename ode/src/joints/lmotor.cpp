@@ -21,8 +21,6 @@
  *************************************************************************/
 
 
-#include <ode/odeconfig.h>
-#include "config.h"
 #include "lmotor.h"
 #include "joint_internal.h"
 
@@ -32,7 +30,7 @@
 dxJointLMotor::dxJointLMotor( dxWorld *w ) :
     dxJoint( w )
 {
-    int i;
+    int i = 0;
     num = 0;
     for ( i = 0;i < 3;i++ )
     {

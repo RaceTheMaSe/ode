@@ -20,14 +20,12 @@
  *                                                                       *
  *************************************************************************/
 
-#include <ode/ode.h>
-#include "config.h"
 #include "util.h"
 #include "objects.h"
 #include "joints/joint.h"
+#include "ode/odemath.h"
+#include "ode/rotation.h"
 #include "threadingutils.h"
-
-#include <new>
 
 //****************************************************************************
 // Malloc based world stepping memory manager

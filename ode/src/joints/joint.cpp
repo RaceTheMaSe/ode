@@ -29,9 +29,9 @@ transform is the identity.
 
 */
 
+#include <math.h>
 #include <ode/ode.h>
 #include <ode/rotation.h>
-#include "config.h"
 #include "matrix.h"
 #include "odemath.h"
 #include "joint.h"

@@ -24,9 +24,6 @@
 
 #include <ode/collision.h>
 #include <ode/rotation.h>
-#include "config.h"
-#include "matrix.h"
-#include "odemath.h"
 
 
 #include "collision_trimesh_internal.h"
@@ -36,9 +33,6 @@ dxMeshBase::~dxMeshBase() {}
 
 #if defined(dTRIMESH_ENABLED)
 #include "odeou.h"
-
-#include <algorithm>
-
 
 
 //////////////////////////////////////////////////////////////////////////

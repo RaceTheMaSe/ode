@@ -27,7 +27,6 @@
 
 #include "collision_kernel.h"
 #include "collision_util.h"
-#include "util.h"
 
 
 #ifndef ALLOCA

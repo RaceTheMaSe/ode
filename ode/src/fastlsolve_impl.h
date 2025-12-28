@@ -1608,5 +1608,4 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
     }
 }
 
-
 #endif

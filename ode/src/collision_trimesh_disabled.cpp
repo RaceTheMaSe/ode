@@ -21,9 +21,6 @@
  *************************************************************************/
 
 #include <ode/collision.h>
-#include "config.h"
-#include "matrix.h"
-
 
 #if !defined(dTRIMESH_ENABLED)
 
@@ -53,7 +50,7 @@ public:
     }
     ~dxDisabledTriMesh() ODE_OVERRIDE {}
 
-    virtual void computeAABB() ODE_OVERRIDE; // This is an abstract method in the base class
+    void computeAABB() ODE_OVERRIDE; // This is an abstract method in the base class
 };
 
 /*virtual */

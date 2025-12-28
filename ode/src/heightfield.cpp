@@ -30,10 +30,6 @@
 
 #include <ode/common.h>
 #include <ode/collision.h>
-#include <ode/rotation.h>
-#include "config.h"
-#include "matrix.h"
-#include "odemath.h"
 #include "collision_kernel.h"
 #include "collision_std.h"
 #include "collision_util.h"
@@ -1146,7 +1142,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
         return numTerrainContacts;
     }
 
-    /* -- This block is invalid as per Martijn Buijs <buijs512@planet.nl>
+    /* -- This block is invalid as per Martijn Buijs <buijs512 at planet.nl>
 
     The problem seems to be based on the erroneously assumption that if two of 
     the four vertices of a 'grid' are at the same height, the entire grid can be

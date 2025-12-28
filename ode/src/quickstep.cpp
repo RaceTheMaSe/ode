@@ -21,22 +21,15 @@
  *************************************************************************/
 
 #include <ode/common.h>
-#include <ode/rotation.h>
-#include <ode/timer.h>
-#include <ode/error.h>
 #include <ode/misc.h>
-#include "config.h"
 #include "matrix.h"
-#include "odemath.h"
 #include "objects.h"
 #include "joints/joint.h"
 #include "lcp.h"
+#include "ode/odemath.h"
 #include "util.h"
 #include "threadingutils.h"
 #include "quickstep.h"
-
-#include <new>
-
 
 #define PRINT_DYNAMIC_ADJUSTMENT_STATS   0
 

@@ -25,14 +25,10 @@
 
 #include <ode/collision.h>
 #include <ode/rotation.h>
-#include "config.h"
-#include "matrix.h"
-#include "odemath.h"
 
 
 #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE)
 
-#include "collision_util.h"
 #include "collision_trimesh_opcode.h"
 #include "collision_trimesh_internal_impl.h"
 #include <algorithm>

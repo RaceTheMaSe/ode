@@ -30,6 +30,7 @@
 #define ODE_COLLISION_TRIMESH_OPCODE_H
 
 
+#include "array.h"
 #if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE)
 
 //****************************************************************************
@@ -37,7 +38,6 @@
 
 
 #include "collision_kernel.h"
-#include "collision_trimesh_colliders.h"
 #include "collision_util.h"
 #include <ode/collision_trimesh.h>
 

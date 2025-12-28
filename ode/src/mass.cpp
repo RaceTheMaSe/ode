@@ -22,7 +22,6 @@
 
 #include <ode/odeconfig.h>
 #include <ode/mass.h>
-#include "config.h"
 #include "matrix.h"
 #include "odemath.h"
 

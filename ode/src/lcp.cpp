@@ -111,12 +111,9 @@ rows/columns and manipulate C.
 #include <ode/common.h>
 #include <ode/misc.h>
 #include <ode/timer.h>		// for testing
-#include "config.h"
 #include "lcp.h"
 #include "util.h"
 #include "matrix.h"
-#include "mat.h"		// for testing
-#include "threaded_solver_ldlt.h"
 
 #include "fastdot_impl.h"
 #include "fastldltfactor_impl.h"

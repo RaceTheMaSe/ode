@@ -30,9 +30,7 @@
  */
 
 
-#include <ode/common.h>
 #include <ode/cooperative.h>
-#include "config.h"
 #include "simple_cooperative.h"
 #include "default_threading.h"
 

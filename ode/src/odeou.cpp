@@ -34,7 +34,6 @@ ODE interface to OU library implementation.
 
 #include <ode/common.h>
 #include <ode/memory.h>
-#include "config.h"
 #include "odeou.h"
 
 

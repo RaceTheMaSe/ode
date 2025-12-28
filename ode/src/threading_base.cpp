@@ -30,8 +30,6 @@
  */
 
 
-#include <ode/common.h>
-#include "config.h"
 #include "error.h"
 #include "threading_base.h"
 

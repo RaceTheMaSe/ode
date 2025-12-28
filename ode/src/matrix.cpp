@@ -21,10 +21,8 @@
  *************************************************************************/
 
 #include <ode/common.h>
-#include "config.h"
 #include "matrix.h"
-#include "objects.h"
-#include "threaded_solver_ldlt.h"
+#include "common_impl.h"
 
 #include <ode/memory.h>
 

@@ -21,20 +21,14 @@
  *************************************************************************/
 
 #include <ode/odeconfig.h>
-#include <ode/rotation.h>
-#include <ode/timer.h>
-#include <ode/error.h>
-#include "config.h"
-#include "odemath.h"
 #include "matrix.h"
 #include "objects.h"
 #include "joints/joint.h"
 #include "lcp.h"
+#include "ode/odemath.h"
 #include "util.h"
 #include "threadingutils.h"
 #include "step.h"
-
-#include <new>
 
 //****************************************************************************
 // misc defines

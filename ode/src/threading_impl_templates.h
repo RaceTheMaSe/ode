@@ -41,8 +41,6 @@
 
 #include "objects.h"
 
-#include <new>
-
 
 #define dMAKE_JOBINSTANCE_RELEASEE(job_instance) ((dCallReleaseeID)(job_instance))
 #define dMAKE_RELEASEE_JOBINSTANCE(releasee) ((dxThreadedJobInfo *)(releasee))

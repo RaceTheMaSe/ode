@@ -35,12 +35,11 @@ ODE Thread Local Storage access stub interface.
 #ifndef ODE_ODETLS_H
 #define ODE_ODETLS_H
 
-
-#include "odeou.h"
 #include "typedefs.h"
 
 
 #if defined(dTLS_ENABLED)
+#include "odeou.h"
 
 
 using _OU_NAMESPACE::tlsvaluetype;

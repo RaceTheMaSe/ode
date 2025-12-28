@@ -31,7 +31,6 @@
 #include <cstring>
 #include <cstdarg>
 #include "config.h"
-#include "common_impl.h"
 
 #ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>

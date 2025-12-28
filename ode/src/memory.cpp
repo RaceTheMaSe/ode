@@ -20,10 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#include <ode/odeconfig.h>
+#include "typedefs.h"
 #include <ode/memory.h>
-#include <ode/error.h>
-#include "config.h"
 
 
 static dAllocFunction *allocfn = NULL;

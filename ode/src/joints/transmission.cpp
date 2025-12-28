@@ -21,8 +21,8 @@
  *************************************************************************/
 
 
+#include <math.h>
 #include <ode/odeconfig.h>
-#include "config.h"
 #include "transmission.h"
 #include "joint_internal.h"
 
@@ -40,7 +40,7 @@ namespace {
 dxJointTransmission::dxJointTransmission(dxWorld* w) :
     dxJoint(w)
 {
-    int i;
+    int i = 0;
     
     flags |= dJOINT_TWOBODIES;
     mode = dTransmissionParallelAxes;
@@ -88,7 +88,7 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
     dVector3 a[2], n[2], l[2], r[2], c[2] = {}, s, t, O, d, z, u, v;
     dReal theta, delta, nn, na_0, na_1, cosphi, sinphi, m;
     const dReal *p[2], *omega[2];
-    int i;
+    int i = 0;
 
     // Transform all needed quantities to the global frame.
 
@@ -386,7 +386,7 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
 void dJointSetTransmissionAxis( dJointID j, dReal x, dReal y, dReal z )
 {
     dxJointTransmission* joint = static_cast<dxJointTransmission*>(j);
-    int i;
+    int i = 0;
     
     dUASSERT( joint, "bad joint argument" );
     dUASSERT(joint->mode == dTransmissionParallelAxes ||

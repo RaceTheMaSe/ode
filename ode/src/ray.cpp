@@ -31,13 +31,9 @@ dContactGeom::g1 and dContactGeom::g2.
 
 #include <ode/common.h>
 #include <ode/collision.h>
-#include <ode/rotation.h>
-#include "config.h"
-#include "matrix.h"
 #include "odemath.h"
 #include "collision_kernel.h"
 #include "collision_std.h"
-#include "collision_util.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable:4291)  // for VC++, no complaints about "no matching operator delete found"

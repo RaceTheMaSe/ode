@@ -20,10 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#include <ode/common.h>
 #include <ode/error.h>
 #include <ode/memory.h>
-#include "config.h"
 #include "obstack.h"
 
 

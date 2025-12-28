@@ -27,12 +27,7 @@ ODE initialization/finalization code
 */
 
 #include "util.h"
-#include <ode/common.h>
 #include <ode/odeinit.h>
-// <ode/objects.h> included for dWorldQuickStepCleanup()
-#include <ode/objects.h>
-#include "config.h"
-#include "odemath.h"
 #include "collision_kernel.h"
 #include "collision_trimesh_internal.h"
 #include "odetls.h"

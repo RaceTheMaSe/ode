@@ -24,12 +24,9 @@
 
 
 #include <ode/common.h>
-#include <ode/threading_impl.h>
 #include <ode/objects.h>
-#include "config.h"
 #include "objects.h"
 #include "default_threading.h"
-#include "threading_impl.h"
 #include "matrix.h"
 #include "util.h"
 

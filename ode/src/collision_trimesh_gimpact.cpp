@@ -24,13 +24,13 @@
 
 #include <ode/collision.h>
 #include <ode/rotation.h>
+
+#if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
+
 #include "config.h"
 #include "matrix.h"
 #include "odemath.h"
 #include "util.h"
-
-
-#if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_GIMPACT)
 
 #include "collision_util.h"
 #include "collision_trimesh_gimpact.h"

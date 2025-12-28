@@ -29,16 +29,13 @@
  */
 
 
-#include <ode/common.h>
 #include <ode/threading_impl.h>
-#include "config.h"
 #include "threading_impl_posix.h"
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable: 4702) // 'unreachable code' with dxFakeLull
 #endif
 #include "threading_impl_win.h"
-#include "threading_impl.h"
 
 
 static dMutexGroupID AllocMutexGroup(dThreadingImplementationID impl, dmutexindex_t Mutex_count, const char *const *Mutex_names_ptr/*=NULL*/);

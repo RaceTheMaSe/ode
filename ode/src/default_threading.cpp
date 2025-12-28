@@ -30,11 +30,10 @@
  */
 
 
-#include <ode/common.h>
 #include <ode/threading_impl.h>
-#include "config.h"
 #include "default_threading.h"
 #include "error.h"
+#include "ode/common.h"
 
 
 /*static */dThreadingImplementationID DefaultThreadingHolder::m_defaultThreadingImpl = NULL;

@@ -32,7 +32,6 @@
 #include "objects.h"
 #include "ode/cooperative.h"
 #include "threading_base.h"
-#include "odeou.h"
 #include "common_impl.h"
 #include "error.h"
 

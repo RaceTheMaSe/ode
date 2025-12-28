@@ -30,7 +30,6 @@
 #include <ode/ode.h>
 #include <ode/memory.h>
 #include <ode/error.h>
-#include "config.h"
 #include "matrix.h"
 #include "odemath.h"
 #include "objects.h"
@@ -38,7 +37,6 @@
 #include "step.h"
 #include "quickstep.h"
 #include "util.h"
-#include "odetls.h"
 
 //****************************************************************************
 // function prototypes

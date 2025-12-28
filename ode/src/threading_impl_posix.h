@@ -34,7 +34,7 @@
 
 
 #include <ode/common.h>
-
+#include "config.h"
 
 #if !defined(_WIN32)
 

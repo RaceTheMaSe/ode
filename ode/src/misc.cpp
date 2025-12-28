@@ -22,8 +22,6 @@
 
 #include <ode/odeconfig.h>
 #include <ode/misc.h>
-#include "config.h"
-#include "matrix.h"
 #include "error.h"
 #include "odeou.h"
 

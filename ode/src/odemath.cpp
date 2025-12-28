@@ -21,7 +21,6 @@
  *************************************************************************/
 
 #include <ode/common.h>
-#include "config.h"
 #include "odemath.h"
 
 

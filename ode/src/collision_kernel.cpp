@@ -30,15 +30,13 @@ for geometry objects
 #include <ode/common.h>
 #include <ode/rotation.h>
 #include <ode/objects.h>
-#include "config.h"
+#include "collision_trimesh_colliders.h"
 #include "matrix.h"
-#include "odemath.h"
 #include "collision_kernel.h"
 #include "collision_util.h"
 #include "collision_std.h"
 #include "collision_transform.h"
 #include "collision_trimesh_internal.h"
-#include "collision_space_internal.h"
 #include "odeou.h"
 
 #ifdef dLIBCCD_ENABLED

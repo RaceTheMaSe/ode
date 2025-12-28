@@ -28,7 +28,6 @@
 #define ODE_COOP_MATRIX_TYPES_H
 
 
-
 #include "threadingutils.h"
 #include "common_impl.h"
 #include "error.h"

@@ -24,7 +24,6 @@
 #include <ccd/ccd.h>
 #include "ccdcustom/vec3.h"
 #include "ccdcustom/quat.h"
-#include "config.h"
 #include "odemath.h"
 #include "collision_libccd.h"
 #include "collision_trimesh_internal.h"

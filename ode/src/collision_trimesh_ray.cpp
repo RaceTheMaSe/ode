@@ -24,14 +24,13 @@
 
 #include <ode/collision.h>
 #include <ode/rotation.h>
-#include "config.h"
-#include "matrix.h"
 #include "odemath.h"
 
 #if defined(dTRIMESH_ENABLED)
 
 #include "collision_util.h"
 #include "collision_trimesh_internal.h"
+#include "collision_trimesh_colliders.h"
 
 #if defined(dTRIMESH_OPCODE)
 int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, int Stride){

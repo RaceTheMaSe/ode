@@ -29,7 +29,6 @@
 #include <ode/common.h>
 #include <ode/matrix.h>
 #include <ode/matrix_coop.h>
-#include "config.h"
 #include "threaded_solver_ldlt.h"
 #include "threading_base.h"
 #include "resource_control.h"

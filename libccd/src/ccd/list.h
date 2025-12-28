@@ -18,7 +18,6 @@
 #ifndef CCD_LIST_H
 #define CCD_LIST_H
 
-#include <string.h>
 #include <ccd/compiler.h>
 
 #ifdef __cplusplus

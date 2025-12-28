@@ -24,21 +24,14 @@
 
 #include <ode/collision.h>
 #include <ode/rotation.h>
-#include "config.h"
-#include "matrix.h"
-#include "odemath.h"
 
-
-#if defined(dTRIMESH_ENABLED)
+// Classic Implementation
+#if defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE) && defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
 
 #include "collision_util.h"
 #include "collision_trimesh_internal.h"
-
-
-#if defined(dTRIMESH_OPCODE)
-
-// Classic Implementation
-#if defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)
+#include "collision_trimesh_colliders.h"
+#include "matrix.h"
 
 #define SMALL_ELT           REAL(2.5e-4)
 #define EXPANDED_ELT_THRESH REAL(1.0e-3)
@@ -1939,10 +1932,4 @@ GenerateContact(int in_Flags, dContactGeom* in_Contacts, int in_Stride,
 }
 
 
-#endif // dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER
-
-
-#endif // dTRIMESH_OPCODE
-
-
-#endif // dTRIMESH_ENABLED
+#endif // defined(dTRIMESH_ENABLED) && defined(dTRIMESH_OPCODE) && defined(dTRIMESH_OPCODE_USE_OLD_TRIMESH_TRIMESH_COLLIDER)

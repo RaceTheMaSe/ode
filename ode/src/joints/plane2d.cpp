@@ -21,8 +21,6 @@
  *************************************************************************/
 
 
-#include <ode/odeconfig.h>
-#include "config.h"
 #include "plane2d.h"
 #include "joint_internal.h"
 
@@ -32,7 +30,7 @@
 // Plane2D
 /*
 This code is part of the Plane2D ODE joint
-by psero@gmx.de
+by psero at gmx.de
 Wed Apr 23 18:53:43 CEST 2003
 */
 

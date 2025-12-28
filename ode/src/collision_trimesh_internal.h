@@ -35,12 +35,9 @@
 
 
 #include "collision_kernel.h"
-#include "collision_trimesh_colliders.h"
-#include "collision_util.h"
 #include <ode/collision_trimesh.h>
 
 #if defined(dTLS_ENABLED)
-#include "ou/namespace.h"
 #include "odetls.h"
 #endif
 
@@ -378,8 +375,12 @@ public:
 IFaceAngleStorageView *dxGeomTriMeshGetFaceAngleView(dxGeom *triMeshGeom);
 
 
+#if defined(dTRIMESH_GIMPACT)
 #include "collision_trimesh_gimpact.h"
+#endif
+#if defined(dTRIMESH_OPCODE)
 #include "collision_trimesh_opcode.h"
+#endif
 
 
 #endif	//ODE_COLLISION_TRIMESH_INTERNAL_H

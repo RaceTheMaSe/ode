@@ -23,7 +23,6 @@
 #include <ode/odeconfig.h>
 #include <ode/memory.h>
 #include <ode/error.h>
-#include "config.h"
 #include "array.h"
 
 

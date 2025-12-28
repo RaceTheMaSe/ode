@@ -35,8 +35,6 @@
 #include <ode/error.h>
 #include <ode/threading_impl.h>
 #include <ode/odeinit.h>
-#include "config.h"
-#include "objects.h"
 #include "threading_impl_templates.h"
 
 

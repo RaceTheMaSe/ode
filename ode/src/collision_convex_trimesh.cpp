@@ -22,9 +22,6 @@
 
 #include <ode/collision.h>
 #include <ode/rotation.h>
-#include "config.h"
-#include "matrix.h"
-#include "odemath.h"
 
 
 typedef struct _sLocalContactData
@@ -39,9 +36,8 @@ typedef struct _sLocalContactData
 
 #if defined(dTRIMESH_ENABLED)
 
-#include "collision_util.h"
-#include "collision_std.h"
 #include "collision_trimesh_internal.h"
+#include "collision_trimesh_colliders.h"
 #if defined(dLIBCCD_ENABLED)
 #include "collision_libccd.h"
 #endif
