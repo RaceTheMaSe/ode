@@ -1,7 +1,7 @@
 #ifndef SPHERE_SPHERE
 #define SPHERE_SPHERE
 
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 TEST(spheresphereSetUp);
 TEST(spheresphereTearDown);

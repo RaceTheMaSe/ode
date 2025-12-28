@@ -1,7 +1,7 @@
 #ifndef MPR_CYL_CYL
 #define MPR_CYL_CYL
 
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 TEST(mprCylcylAlignedX);
 TEST(mprCylcylAlignedY);

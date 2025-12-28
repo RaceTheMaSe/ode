@@ -1,7 +1,7 @@
 #ifndef TEST_POLYTOPE_H
 #define TEST_POLYTOPE_H
 
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 TEST(ptSetUp);
 TEST(ptTearDown);

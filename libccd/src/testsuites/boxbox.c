@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 #include <ccd/ccd.h>
 #include "support.h"

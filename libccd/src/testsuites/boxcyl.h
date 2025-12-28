@@ -1,7 +1,7 @@
 #ifndef TEST_BOXCYL_H
 #define TEST_BOXCYL_H
 
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 TEST(boxcylIntersect);
 TEST(boxcylPenEPA);

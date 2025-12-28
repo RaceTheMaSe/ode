@@ -1,7 +1,7 @@
 #ifndef MPR_BOX_BOX
 #define MPR_BOX_BOX
 
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 TEST(mprBoxboxAlignedX);
 TEST(mprBoxboxAlignedY);

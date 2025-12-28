@@ -1,5 +1,5 @@
 #define CU_ENABLE_TIMER
-#include <cu/cu.h>
+#include "cu/cu.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ccd/ccd.h>

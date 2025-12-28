@@ -1,7 +1,7 @@
 #ifndef CYL_CYL
 #define CYL_CYL
 
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 TEST(cylcylSetUp);
 TEST(cylcylTearDown);

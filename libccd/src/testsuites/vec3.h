@@ -1,7 +1,7 @@
 #ifndef TEST_VEC3_H
 #define TEST_VEC3_H
 
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 TEST(vec3SetUp);
 TEST(vec3TearDown);

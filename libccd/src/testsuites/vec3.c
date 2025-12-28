@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <cu/cu.h>
+#include "cu/cu.h"
 #include <ccd/vec3.h>
 
 TEST(vec3SetUp)

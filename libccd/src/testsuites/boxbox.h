@@ -1,7 +1,7 @@
 #ifndef BOX_BOX
 #define BOX_BOX
 
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 TEST(boxboxSetUp);
 TEST(boxboxTearDown);

@@ -1,7 +1,7 @@
 #ifndef MPR_TEST_BOXCYL_H
 #define MPR_TEST_BOXCYL_H
 
-#include <cu/cu.h>
+#include "cu/cu.h"
 
 TEST(mprBoxcylIntersect);
 TEST(mprBoxcylPen);
