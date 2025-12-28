@@ -36,7 +36,7 @@ typical errors for each test cycle are about 1e-5 ... 1e-4.
 */
 
 
-#include <time.h>
+#include <ctime>
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"

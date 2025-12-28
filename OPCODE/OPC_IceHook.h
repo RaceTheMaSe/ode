@@ -20,10 +20,10 @@
 
 	#include <stdio.h>
 	#include <stdlib.h>
-	#include <assert.h>
+	#include <cassert>
 	#include <string.h>
 	#include <float.h>
-	#include <math.h>
+	#include <cmath>
 
 	#ifndef ASSERT
 		#define	ASSERT(exp)	{} do{} while(0)

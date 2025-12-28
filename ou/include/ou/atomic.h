@@ -398,7 +398,7 @@ END_NAMESPACE_OU
 
 
 #include <windows.h>
-#include <stddef.h>
+#include <cstddef>
 
 
 BEGIN_NAMESPACE_OU

@@ -27,9 +27,9 @@
 // Not thoroughly tested and is certain to contain deficiencies and bugs
 
 #include <ode/odeconfig.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
+#include <cstdlib>
+#include <cstring>
+#include <cstdarg>
 #include "config.h"
 #include "common_impl.h"
 

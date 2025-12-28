@@ -27,7 +27,7 @@ email: projectileman@yahoo.com
 */
 
 
-#include <assert.h>
+#include <cassert>
 #include "GIMPACT/gim_trimesh.h"
 
 GUINT32 gim_trimesh_get_triangle_count(GIM_TRIMESH * trimesh)

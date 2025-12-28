@@ -157,7 +157,7 @@
 
 #else // #if !defined(NDEBUG)
 
-#include <assert.h>
+#include <cassert>
 
 
 #define OU__ASSERT_HANDLER(Condition) (false || (Condition) \

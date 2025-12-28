@@ -40,7 +40,7 @@
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include "texturepath.h"
 
 // select correct drawing functions

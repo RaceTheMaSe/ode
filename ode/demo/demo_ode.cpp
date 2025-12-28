@@ -20,7 +20,7 @@
  *                                                                       *
  *************************************************************************/
 
-#include <setjmp.h>
+#include <csetjmp>
 #include <ode/ode.h>
 
 //****************************************************************************
@@ -1056,7 +1056,7 @@ static void testRotationFunctions()
 
 //****************************************************************************
 
-#include <assert.h>
+#include <cassert>
 
 template<class T>
 class simplevector

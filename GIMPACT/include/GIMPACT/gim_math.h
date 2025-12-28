@@ -33,7 +33,7 @@ email: projectileman@yahoo.com
 
 #include "config.h"
 
-#include <math.h>
+#include <cmath>
 #include <float.h>
 #if HAVE_SYS_TYPES_H
 #include <sys/types.h>

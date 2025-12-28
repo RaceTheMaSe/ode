@@ -33,7 +33,7 @@
 #include "internal.h"
 
 #include <tchar.h>
-#include <assert.h>
+#include <cassert>
 
 
  //***************************************************************************

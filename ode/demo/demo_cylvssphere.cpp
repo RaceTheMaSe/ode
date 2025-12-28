@@ -23,7 +23,7 @@
 // Test for cylinder vs sphere, by Bram Stolk
 
 #include <ode/odeconfig.h>
-#include <assert.h>
+#include <cassert>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif

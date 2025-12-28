@@ -23,9 +23,9 @@
 // Test my Plane2D constraint.
 // Uses ode-0.35 collision API.
 
-# include       <stdio.h>
-# include       <stdlib.h>
-# include       <math.h>
+# include       <cstdio>
+# include       <cstdlib>
+# include       <cmath>
 # include       <ode/ode.h>
 # include       <drawstuff/drawstuff.h>
 #include "texturepath.h"

@@ -27,7 +27,7 @@ email: projectileman@yahoo.com
 */
 
 
-#include <assert.h>
+#include <cassert>
 #include <stdlib.h>
 #include "GIMPACT/gim_memory.h"
 #include <ode/odeconfig.h>

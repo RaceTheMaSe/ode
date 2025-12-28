@@ -24,7 +24,7 @@
  // Serves as a test for the collision of trimesh geometries.
  // By Davy (Dawei) Chen.
 
-#include <assert.h>
+#include <cassert>
 #ifdef HAVE_UNISTD_H
 #	include <unistd.h>
 #endif

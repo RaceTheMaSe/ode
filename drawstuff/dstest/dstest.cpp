@@ -20,8 +20,8 @@
  *                                                                       *
  *************************************************************************/
 
-#include <stdio.h>
-#include <math.h>
+#include <cstdio>
+#include <cmath>
 #include <drawstuff/drawstuff.h>
 
 

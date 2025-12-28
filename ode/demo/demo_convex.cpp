@@ -24,7 +24,7 @@
 // Serves as a test for the convex geometry.
 // By Bram Stolk.
 
-#include <assert.h>
+#include <cassert>
 #ifdef HAVE_UNISTD_H
 #	include <unistd.h>
 #endif

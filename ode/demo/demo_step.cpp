@@ -26,7 +26,7 @@
 //
 // @@@ report MAX error
 
-#include <time.h>
+#include <ctime>
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"

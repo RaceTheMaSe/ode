@@ -37,8 +37,8 @@
 #include <ou/templates.h>
 #include <ou/inttypes.h>
 
-#include <string.h>
-#include <errno.h>
+#include <cstring>
+#include <cerrno>
 #include <new>
 
 #if !defined(EOK) && _OU_TARGET_OS != _OU_TARGET_OS_WINDOWS
