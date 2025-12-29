@@ -155,7 +155,43 @@ struct RenderingThreadParams
 };
 
 
-static void performThreadedRendering(RenderingThreadParams *const pRendererParams);
+static 
+void performThreadedRendering(RenderingThreadParams *const pRendererParams)
+{
+    dsFunctions *const rendererFn = pRendererParams->m_rendererFn;
+
+    dsStartGraphics(pRendererParams->m_rendererWidth, pRendererParams->m_rendererHeight, rendererFn);
+
+    if (rendererFn->start != NULL) {
+        rendererFn->start();
+    }
+
+    while (!pRendererParams->m_rendererExitRequest) {
+        // need to make local copy of renderer_ss to help prevent races
+        const bool singleStep = pRendererParams->m_rendererSingleStep;
+        dsDrawFrame(pRendererParams->m_rendererWidth, pRendererParams->m_rendererHeight, rendererFn, pRendererParams->m_rendererPause && !singleStep);
+        if (singleStep) { 
+            pRendererParams->m_rendererSingleStep = false;
+        }
+
+        // read keys out of ring buffer and feed them to the command function
+        for (; pRendererParams->areAnyBufferedChars(); pRendererParams->popBufferedChar()) {
+            if (rendererFn->command != NULL) {
+                const int nextBufferedChar = pRendererParams->peekBufferedChar();
+                rendererFn->command(nextBufferedChar);
+            }
+        }
+
+        // swap buffers
+        SwapBuffers(pRendererParams->m_rendererDC);
+    }
+
+    if (rendererFn->stop != NULL) {
+        rendererFn->stop();
+    }
+
+    dsStopGraphics();
+}
 
 static 
 unsigned CALLBACK renderingThread(LPVOID lpParam)
@@ -211,44 +247,6 @@ unsigned CALLBACK renderingThread(LPVOID lpParam)
     }
 
     return (unsigned int)executionSucceeded;
-}
-
-static 
-void performThreadedRendering(RenderingThreadParams *const pRendererParams)
-{
-    dsFunctions *const rendererFn = pRendererParams->m_rendererFn;
-
-    dsStartGraphics(pRendererParams->m_rendererWidth, pRendererParams->m_rendererHeight, rendererFn);
-
-    if (rendererFn->start != NULL) {
-        rendererFn->start();
-    }
-
-    while (!pRendererParams->m_rendererExitRequest) {
-        // need to make local copy of renderer_ss to help prevent races
-        const bool singleStep = pRendererParams->m_rendererSingleStep;
-        dsDrawFrame(pRendererParams->m_rendererWidth, pRendererParams->m_rendererHeight, rendererFn, pRendererParams->m_rendererPause && !singleStep);
-        if (singleStep) { 
-            pRendererParams->m_rendererSingleStep = false;
-        }
-
-        // read keys out of ring buffer and feed them to the command function
-        for (; pRendererParams->areAnyBufferedChars(); pRendererParams->popBufferedChar()) {
-            if (rendererFn->command != NULL) {
-                const int nextBufferedChar = pRendererParams->peekBufferedChar();
-                rendererFn->command(nextBufferedChar);
-            }
-        }
-
-        // swap buffers
-        SwapBuffers(pRendererParams->m_rendererDC);
-    }
-
-    if (rendererFn->stop != NULL) {
-        rendererFn->stop();
-    }
-
-    dsStopGraphics();
 }
 
 
