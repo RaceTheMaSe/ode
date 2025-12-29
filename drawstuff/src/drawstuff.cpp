@@ -133,6 +133,8 @@ class Image {
     byte *image_data;
 public:
     explicit Image(char *filename);
+    Image(const Image&); // disabled
+    Image& operator=(const Image&); // disabled
     // load from PPM file
     ~Image();
     int width() const { return image_width; }
@@ -243,6 +245,8 @@ class Texture {
     GLuint name;
 public:
     explicit Texture(char *filename);
+    Texture(const Texture&); // disabled - due to missing GL resource management
+    Texture& operator=(const Texture&); // disabled - due to missing GL resource management
     ~Texture();
     void bind(int modulate) const;
 };

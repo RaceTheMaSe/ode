@@ -124,8 +124,8 @@ public:
     explicit dxQuickStepParameters(void *);
 
 private:
-    ODE_NORETURN_CONSTRUCTOR_DBG dxQuickStepParameters(const dxQuickStepParameters &/*anotherInstance*/) { dIASSERT(false); } // disabled
-    dxQuickStepParameters &operator =(const dxQuickStepParameters &anotherInstance) { if(this != &anotherInstance) dIASSERT(false); return *this; } // disabled
+    ODE_NORETURN_CONSTRUCTOR_DBG dxQuickStepParameters(const dxQuickStepParameters &/*anotherInstance*/); // disabled
+    dxQuickStepParameters &operator =(const dxQuickStepParameters &anotherInstance); // disabled
 
 public:
     void AssignNumIterations(unsigned iterationCount)
