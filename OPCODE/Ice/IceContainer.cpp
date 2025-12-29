@@ -143,7 +143,7 @@ bool Container::Resize(udword needed)
 	}
 
 	// Get more entries
-	udword NewMaxNbEntries = mMaxNbEntries ? udword(mMaxNbEntries * mGrowthFactor) : 2;	// Default nb Entries = 2
+	udword NewMaxNbEntries = mMaxNbEntries ? (mMaxNbEntries * mGrowthFactor) : 2;	// Default nb Entries = 2
 	
 	if (NewMaxNbEntries <= mMaxNbEntries) NewMaxNbEntries = MAX_UDWORD - mMaxNbEntries < MAX_RESERVE_GROWTH_SIZE ? MAX_UDWORD : mMaxNbEntries + MAX_RESERVE_GROWTH_SIZE;
 	else if (NewMaxNbEntries - mMaxNbEntries > MAX_RESERVE_GROWTH_SIZE) NewMaxNbEntries = mMaxNbEntries + MAX_RESERVE_GROWTH_SIZE;	

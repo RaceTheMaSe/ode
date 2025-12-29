@@ -231,7 +231,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 		// Sort axis
 		IceMaths::Point Extents;	mBV.GetExtents(Extents);	// Box extents
 		udword SortedAxis[] = { 0, 1, 2 };
-		const float* Keys = (float*)&Extents.x;
+		const float* Keys = &Extents.x;
 		for(udword j=0;j<3;j++)
 		{
 			for(udword i=0;i<2;i++)
