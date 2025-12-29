@@ -156,7 +156,7 @@ static void penEPAPos(const ccd_pt_t *pt, const ccd_pt_el_t *nearest,
         vs[i++] = v;
     }
 
-    qsort(vs, len, sizeof(ccd_pt_vertex_t *), penEPAPosCmp);
+    qsort((void*)vs, len, sizeof(ccd_pt_vertex_t *), penEPAPosCmp);
 
     ccdVec3Set(pos, CCD_ZERO, CCD_ZERO, CCD_ZERO);
     scale = CCD_ZERO;
@@ -170,7 +170,7 @@ static void penEPAPos(const ccd_pt_t *pt, const ccd_pt_el_t *nearest,
     }
     ccdVec3Scale(pos, CCD_ONE / scale);
 
-    free(vs);
+    free((void*)vs);
 }
 
 int ccdGJKPenetration(const void *obj1, const void *obj2, const ccd_t *ccd,
