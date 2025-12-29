@@ -78,7 +78,7 @@ static CTLSStorageInstance *g_apsiStorageGlobalInstances[SIK__MAX] = { NULL };
 static HTLSKEYVALUE* g_ahkvStorageGlobalKeyValues[SIK__MAX] = { NULL };
 
 
-static inline size_t DecodeInstanceKindFromKeySelector(const HTLSKEYSELECTOR &hksKeySelector)
+static _OU_INLINE size_t DecodeInstanceKindFromKeySelector(const HTLSKEYSELECTOR &hksKeySelector)
 {
 	for(size_t i=0;i<SIK__MAX;++i)
 	{
@@ -88,7 +88,7 @@ static inline size_t DecodeInstanceKindFromKeySelector(const HTLSKEYSELECTOR &hk
 	return 0;
 }
 
-static inline HTLSKEYSELECTOR EncodeKeySelectorFromStorageKind(ESTORAGEINSTANCEKIND ikInstanceKind)
+static _OU_INLINE HTLSKEYSELECTOR EncodeKeySelectorFromStorageKind(ESTORAGEINSTANCEKIND ikInstanceKind)
 {
 	return g_ahkvStorageGlobalKeyValues[ikInstanceKind];
 }
@@ -130,14 +130,14 @@ private:
 #endif // #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 	
 public:
-	static inline size_t GetHeaderSize() { return OU_ALIGNED_SIZE(sizeof(CTLSStorageArray), CTLSStorageBlock::TSB_LARGEST_ALIGNMENT); }
+	static _OU_INLINE size_t GetHeaderSize() { return OU_ALIGNED_SIZE(sizeof(CTLSStorageArray), CTLSStorageBlock::TSB_LARGEST_ALIGNMENT); }
 
 	static CTLSStorageArray *AllocateInstance(tlsindextype iValueCount);
 	void FreeInstance(tlsindextype iValueCount);
 
 protected:
-	inline CTLSStorageArray(); // Use AllocateInstance()
-	inline ~CTLSStorageArray(); // Use FreeInstance()
+	_OU_INLINE CTLSStorageArray(); // Use AllocateInstance()
+	_OU_INLINE ~CTLSStorageArray(); // Use FreeInstance()
 
 public:
 	void FreeStorageBlockOnThreadExit(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
@@ -161,11 +161,11 @@ private:
 	static void FinalizeStorageSingleBlock(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
 
 	void AssignAllBlocksHostArray(tlsindextype iValueCount);
-	inline void AssignSingleBlockHostArray(CTLSStorageBlock *psbStorageBlock);
+	_OU_INLINE void AssignSingleBlockHostArray(CTLSStorageBlock *psbStorageBlock);
 	
-	inline CTLSStorageBlock *GetStorageBlockPointer(unsigned int nBlockIndex, tlsindextype iValueCount);
-	inline unsigned int GetStorageBlockIndex(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
-	inline static void ZeroStorageBlockMemory(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
+	_OU_INLINE CTLSStorageBlock *GetStorageBlockPointer(unsigned int nBlockIndex, tlsindextype iValueCount);
+	_OU_INLINE unsigned int GetStorageBlockIndex(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
+	_OU_INLINE static void ZeroStorageBlockMemory(CTLSStorageBlock *psbStorageBlock, tlsindextype iValueCount);
 
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 
@@ -179,17 +179,17 @@ private:
 	
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 	
-	inline void SetBlockThreadHandle(unsigned int nBlockIndex, HANDLE hValue)
+	_OU_INLINE void SetBlockThreadHandle(unsigned int nBlockIndex, HANDLE hValue)
 	{
 		m_haBlockThreads[nBlockIndex] = hValue;
 	}
 
-	inline HANDLE GetBlockThreadHandle(unsigned int nBlockIndex) const
+	_OU_INLINE HANDLE GetBlockThreadHandle(unsigned int nBlockIndex) const
 	{
 		return m_haBlockThreads[nBlockIndex];
 	}
 	
-	inline const HANDLE *GetBlockThreadHandlesStorage() const
+	_OU_INLINE const HANDLE *GetBlockThreadHandlesStorage() const
 	{
 		return m_haBlockThreads;
 	}
@@ -197,12 +197,12 @@ private:
 #endif // #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 
 public:
-	inline void SetNextArray(CTLSStorageArray *psaInstance)
+	_OU_INLINE void SetNextArray(CTLSStorageArray *psaInstance)
 	{
 		m_psaNextArray = (atomicptr)psaInstance;
 	}
 	
-	inline CTLSStorageArray *GetNextArray() const
+	_OU_INLINE CTLSStorageArray *GetNextArray() const
 	{
 		return (CTLSStorageArray *)m_psaNextArray;
 	}
@@ -216,37 +216,37 @@ private:
 		FL_ARRAY_LOCKED				= FL_OCCUPANCY_FLAGS__END
 	};
 
-	inline bool GetAreAllBlocksOccupied() const
+	_OU_INLINE bool GetAreAllBlocksOccupied() const
 	{
 		return m_afOccupancyFlags.EnumAllQueryEnumeratedFlags(FL_OCCUPANCY_FLAGS__START, TLS_ARRAY_ELEMENT__MAX) == OU_FLAGS_ENUMFLAGS_MASK(COccupancyFlagsType::value_type, FL_OCCUPANCY_FLAGS__START, TLS_ARRAY_ELEMENT__MAX);
 	}
 
-	inline bool GetIsAnyBlockOccupied() const
+	_OU_INLINE bool GetIsAnyBlockOccupied() const
 	{
 		return m_afOccupancyFlags.EnumAnyGetEnumeratedFlagValue(FL_OCCUPANCY_FLAGS__START, TLS_ARRAY_ELEMENT__MAX);
 	}
 
-	inline bool SetBlockOccupiedFlag(unsigned int nBlockIndex)
+	_OU_INLINE bool SetBlockOccupiedFlag(unsigned int nBlockIndex)
 	{
 		return m_afOccupancyFlags.EnumModifyEnumeratedFlagValue(FL_OCCUPANCY_FLAGS__START, nBlockIndex, TLS_ARRAY_ELEMENT__MAX, true);
 	}
 
-	inline void ResetBlockOccupiedFlag(unsigned int nBlockIndex)
+	_OU_INLINE void ResetBlockOccupiedFlag(unsigned int nBlockIndex)
 	{
 		m_afOccupancyFlags.EnumDropEnumeratedFlagValue(FL_OCCUPANCY_FLAGS__START, nBlockIndex, TLS_ARRAY_ELEMENT__MAX);
 	}
 
-	inline bool GetBlockOccupiedFlag(unsigned int nBlockIndex) const
+	_OU_INLINE bool GetBlockOccupiedFlag(unsigned int nBlockIndex) const
 	{
 		return m_afOccupancyFlags.EnumGetEnumeratedFlagValue(FL_OCCUPANCY_FLAGS__START, nBlockIndex, TLS_ARRAY_ELEMENT__MAX);
 	}
 
-	inline bool SetArrayLockedFlag()
+	_OU_INLINE bool SetArrayLockedFlag()
 	{
 		return m_afOccupancyFlags.ModifySingleFlagValue(FL_ARRAY_LOCKED, true);
 	}
 	
-	inline void ResetArrayLockedFlag()
+	_OU_INLINE void ResetArrayLockedFlag()
 	{
 		m_afOccupancyFlags.DropFlagsMaskValue(FL_ARRAY_LOCKED);
 	}
@@ -283,11 +283,11 @@ private:
 	void Finit();
 
 public:
-	inline const HTLSKEYVALUE &RetrieveStorageKey() const { return GetStorageKey(); }
-	inline tlsindextype RetrieveValueCount() const { return GetValueCount(); }
-	inline unsigned int RetrieveInitializationFlags() const { return GetInitializationFlags(); }
+	_OU_INLINE const HTLSKEYVALUE &RetrieveStorageKey() const { return GetStorageKey(); }
+	_OU_INLINE tlsindextype RetrieveValueCount() const { return GetValueCount(); }
+	_OU_INLINE unsigned int RetrieveInitializationFlags() const { return GetInitializationFlags(); }
 	
-	inline bool GetIsThreadManualCleanup() const { return GetThreadManualCleanupFlag(); }
+	_OU_INLINE bool GetIsThreadManualCleanup() const { return GetThreadManualCleanupFlag(); }
 
 	void FreeStorageBlockOnThreadExit(CTLSStorageBlock *psbStorageBlock);
 
@@ -318,20 +318,20 @@ private:
 	CTLSStorageArray *AllocateStorageArray();
 	void FreeStorageArrayList(CTLSStorageArray *psaStorageArrayList);
 	
-	inline bool TrySettingStorageArrayList(CTLSStorageArray *psaInstance, CTLSStorageArray *psaCurrentList)
+	_OU_INLINE bool TrySettingStorageArrayList(CTLSStorageArray *psaInstance, CTLSStorageArray *psaCurrentList)
 	{
 		return AtomicCompareExchangePointer(&m_psaStorageList, (atomicptr)psaCurrentList, (atomicptr)psaInstance);
 	}
 
-	inline CTLSStorageArray *GetStorageArrayList() const
+	_OU_INLINE CTLSStorageArray *GetStorageArrayList() const
 	{
 		return (CTLSStorageArray *)m_psaStorageList;
 	}
 
-	inline void SetStorageKey(const HTLSKEYVALUE &hskValue) { m_hskStorageKey = hskValue; }
-	inline const HTLSKEYVALUE &GetStorageKey() const { return m_hskStorageKey; }
+	_OU_INLINE void SetStorageKey(const HTLSKEYVALUE &hskValue) { m_hskStorageKey = hskValue; }
+	_OU_INLINE const HTLSKEYVALUE &GetStorageKey() const { return m_hskStorageKey; }
 
-	inline tlsindextype GetValueCount() const { return m_iValueCount; }
+	_OU_INLINE tlsindextype GetValueCount() const { return m_iValueCount; }
 
 	enum
 	{
@@ -343,14 +343,14 @@ private:
 		FL_INITIALIZATION_THREAD_MANUAL_CLEANUP = CTLSInitialization::SIF_MANUAL_CLEANUP_ON_THREAD_EXIT << FLS_INITIALIZATION_FLAGS_SHIFT
 	};
 
-	inline void SetStorageKeyValidFlag() { m_sfInstanceFlags.SignalFlagsMaskValue(FL_STORAGE_KEY_VALID); }
-	inline void ResetStorageKeyValidFlag() { m_sfInstanceFlags.DropFlagsMaskValue(FL_STORAGE_KEY_VALID); }
-	inline bool GetStorageKeyValidFlag() const { return m_sfInstanceFlags.GetFlagsMaskValue(FL_STORAGE_KEY_VALID); }
+	_OU_INLINE void SetStorageKeyValidFlag() { m_sfInstanceFlags.SignalFlagsMaskValue(FL_STORAGE_KEY_VALID); }
+	_OU_INLINE void ResetStorageKeyValidFlag() { m_sfInstanceFlags.DropFlagsMaskValue(FL_STORAGE_KEY_VALID); }
+	_OU_INLINE bool GetStorageKeyValidFlag() const { return m_sfInstanceFlags.GetFlagsMaskValue(FL_STORAGE_KEY_VALID); }
 
-	inline void SetInitializationFlags(unsigned int uiValue) { m_sfInstanceFlags.StoreFlagsEnumeratedValue(FLM_INITIALIZATION_FLAGS_MASK, FLS_INITIALIZATION_FLAGS_SHIFT, uiValue); }
-	inline unsigned int GetInitializationFlags() const { return m_sfInstanceFlags.RetrieveFlagsEnumeratedValue(FLM_INITIALIZATION_FLAGS_MASK, FLS_INITIALIZATION_FLAGS_SHIFT); }
+	_OU_INLINE void SetInitializationFlags(unsigned int uiValue) { m_sfInstanceFlags.StoreFlagsEnumeratedValue(FLM_INITIALIZATION_FLAGS_MASK, FLS_INITIALIZATION_FLAGS_SHIFT, uiValue); }
+	_OU_INLINE unsigned int GetInitializationFlags() const { return m_sfInstanceFlags.RetrieveFlagsEnumeratedValue(FLM_INITIALIZATION_FLAGS_MASK, FLS_INITIALIZATION_FLAGS_SHIFT); }
 
-	inline bool GetThreadManualCleanupFlag() const { return m_sfInstanceFlags.GetFlagsMaskValue(FL_INITIALIZATION_THREAD_MANUAL_CLEANUP); }
+	_OU_INLINE bool GetThreadManualCleanupFlag() const { return m_sfInstanceFlags.GetFlagsMaskValue(FL_INITIALIZATION_THREAD_MANUAL_CLEANUP); }
 
 	volatile atomicptr	m_psaStorageList; // CTLSStorageArray *
 	HTLSKEYVALUE		m_hskStorageKey;

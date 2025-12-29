@@ -102,12 +102,12 @@ public:
 		TSB_LARGEST_ALIGNMENT = sizeof(void *) > sizeof(tlsvaluetype) ? sizeof(void *) : sizeof(tlsvaluetype)
 	};
 	
-	static inline size_t GetRequiredSize(tlsindextype iValueCount)
+	static _OU_INLINE size_t GetRequiredSize(tlsindextype iValueCount)
 	{
 		return OU_ALIGNED_SIZE(iValueCount * (sizeof(tlsvaluetype) + sizeof(CTLSValueDestructor)) + TSB_RESERVEDPOINTER__MAX * sizeof(void *), TSB_LARGEST_ALIGNMENT);
 	}
 
-	static inline size_t GetZeroOffset(tlsindextype iValueCount)
+	static _OU_INLINE size_t GetZeroOffset(tlsindextype iValueCount)
 	{
 		// Since pointers and values are stored in different directions,
 		// alignment correction must fall entirely to either side and 
@@ -115,32 +115,32 @@ public:
 		return OU_ALIGNED_SIZE(iValueCount * sizeof(CTLSValueDestructor) + TSB_RESERVEDPOINTER__MAX * sizeof(void *), TSB_LARGEST_ALIGNMENT);
 	}
 
-	inline void SetValueData(tlsindextype iValueIndex, tlsvaluetype vValueData)
+	_OU_INLINE void SetValueData(tlsindextype iValueIndex, tlsvaluetype vValueData)
 	{
 		un.m_av_ValueDatas[iValueIndex] = vValueData;
 	}
 
-	inline tlsvaluetype GetValueData(tlsindextype iValueIndex) const
+	_OU_INLINE tlsvaluetype GetValueData(tlsindextype iValueIndex) const
 	{
 		return un.m_av_ValueDatas[iValueIndex];
 	}
 
-	inline void SetHostArray(CTLSStorageArray *psaInstance)
+	_OU_INLINE void SetHostArray(CTLSStorageArray *psaInstance)
 	{
 		un.m_asaHostArrays[(ptrdiff_t)0 - (1 + TSB_RESERVEDPOINTER_HOSTARRAY)] = psaInstance;
 	}
 	
-	inline CTLSStorageArray *GetHostArray() const
+	_OU_INLINE CTLSStorageArray *GetHostArray() const
 	{
 		return un.m_asaHostArrays[(ptrdiff_t)0 - (1 + TSB_RESERVEDPOINTER_HOSTARRAY)];
 	}
 
-	inline void SetValueDestructor(tlsindextype iValueIndex, CTLSValueDestructor fvValue)
+	_OU_INLINE void SetValueDestructor(tlsindextype iValueIndex, CTLSValueDestructor fvValue)
 	{
 		un.m_afnValueDestructors[-((ptrdiff_t)iValueIndex) - (1 + TSB_RESERVEDPOINTER__MAX)] = fvValue;
 	}
 	
-	inline CTLSValueDestructor GetValueDestructor(tlsindextype iValueIndex) const
+	_OU_INLINE CTLSValueDestructor GetValueDestructor(tlsindextype iValueIndex) const
 	{
 		return un.m_afnValueDestructors[-((ptrdiff_t)iValueIndex) - (1 + TSB_RESERVEDPOINTER__MAX)];
 	}
@@ -225,7 +225,7 @@ private:
 	
 	friend class CTLSInitialization;
 	
-	static inline void _OU_CONVENTION_API SetKeyStorageBlock(const HTLSKEYSELECTOR &hskStorageKey, CTLSStorageBlock *psbInstance)
+	static _OU_INLINE void _OU_CONVENTION_API SetKeyStorageBlock(const HTLSKEYSELECTOR &hskStorageKey, CTLSStorageBlock *psbInstance)
 	{
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 		
@@ -240,7 +240,7 @@ private:
 #endif // #if _OU_TARGET_OS == ...
 	}
 
-	static inline CTLSStorageBlock *_OU_CONVENTION_API GetKeyStorageBlock(const HTLSKEYSELECTOR &hskStorageKey)
+	static _OU_INLINE CTLSStorageBlock *_OU_CONVENTION_API GetKeyStorageBlock(const HTLSKEYSELECTOR &hskStorageKey)
 	{
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 		
