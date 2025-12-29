@@ -191,6 +191,7 @@ int readNumber(char *filename, FILE *f)
 
 Image::Image(char *filename)
 {
+    if(!filename) dsError("No filename provided");
     FILE *f = fopen(filename, "rb");
     if (!f) dsError("Can't open image file `%s'", filename);
 
@@ -929,6 +930,7 @@ void dsStartGraphics(int /*width*/, int /*height*/, dsFunctions *fn)
     const char *prefix = DEFAULT_PATH_TO_TEXTURES;
     if (fn->version >= 2 && fn->path_to_textures) prefix = fn->path_to_textures;
     char *s = (char*)malloc(strlen(prefix) + 20);
+    if(!s) dsError("Failed to allocate string of length %u",strlen(prefix) + 20);
 
     strcpy(s, prefix);
     strcat(s, "/sky.ppm");

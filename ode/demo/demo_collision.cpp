@@ -1400,6 +1400,7 @@ void do_tests(int argc, char **argv)
         int n = 0;
         for (int i = 0; i < MAX_TESTS; i++) if (testslot[i].name) n++;
         TestSlot **ts = (TestSlot**)malloc((size_t)n * sizeof(TestSlot*));
+        if(!ts) dsError("Failed to allocate memory");
         int j = 0;
         for (int i = 0; i < MAX_TESTS; i++) if (testslot[i].name) ts[j++] = testslot + i;
         if (j != n) dDebug(0, "internal");
