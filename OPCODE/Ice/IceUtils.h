@@ -116,10 +116,10 @@
 	inline_ char	LittleEndian()						{ int i = 1; return *((char*)&i);			}
 
 	//!< Alternative abs function
-	inline_ udword	abs_(sdword x)					{ const sdword y= x >> 31;	return (udword)((x^y)-y);		}
+	inline_ udword	abs_(sdword x)					{ const sdword y= (sdword)((udword)x >> 31);	return (udword)((x^y)-y);		}
 
 	//!< Alternative min function
-	inline_ sdword	min_(sdword a, sdword b)			{ const sdword delta = b-a;	return a + (delta&(delta>>31));	}
+	inline_ sdword	min_(sdword a, sdword b)			{ const sdword delta = b-a;	return a + (delta&((sdword)((udword)delta>>31)));	}
 
 	// Determine if one of the bytes in a 4 byte word is zero
 	inline_	BOOL	HasNullByte(udword x)			{ return BOOL((x + 0xfefefeff) & (~x) & 0x80808080);		}
@@ -174,9 +174,9 @@
 //		ASSERT(abs(x) < (int)((1<<31u)-32767));
 
 		int delta = 32767 - x;
-		x += (delta>>31) & delta;
+		x += (int)((unsigned)delta>>31) & delta;
 		delta = x + 32768;
-		x -= (delta>>31) & delta;
+		x -= (int)((unsigned)delta>>31) & delta;
 		return x;
 	}
 

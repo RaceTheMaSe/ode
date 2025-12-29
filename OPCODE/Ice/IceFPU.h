@@ -56,7 +56,7 @@
 	//! Saturates positive to zero.
 	inline_ float fsat(float f)
 	{
-		const udword y = IR(f) & (udword)~(SIR(f) >>31);
+		const udword y = IR(f) & (udword)~(IR(f) >>31);
 		return FR(y);
 	}
 
@@ -243,12 +243,12 @@
 
 	inline_ int ConvertToSortable(float f)
 	{
-		int Fi = SIR(f);
-		int Fmask = (Fi>>31);
+		unsigned int Fi = IR(f);
+		unsigned int Fmask = (Fi>>31);
 		Fi ^= Fmask;
 		Fmask &= ~(1u<<31);
 		Fi -= Fmask;
-		return Fi;
+		return (int)Fi;
 	}
 
 	enum FPUMode
