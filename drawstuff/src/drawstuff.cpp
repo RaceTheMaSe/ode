@@ -1261,10 +1261,10 @@ void setupDrawingMode()
             glEnable(GL_TEXTURE_GEN_T);
             glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
             glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-            static GLfloat s_params[4] = { 1.0f,1.0f,0.0f,1 };
-            static GLfloat t_params[4] = { 0.817f,-0.817f,0.817f,1 };
-            glTexGenfv(GL_S, GL_OBJECT_PLANE, s_params);
-            glTexGenfv(GL_T, GL_OBJECT_PLANE, t_params);
+            static GLfloat s_params_[4] = { 1.0f,1.0f,0.0f,1 };
+            static GLfloat t_params_[4] = { 0.817f,-0.817f,0.817f,1 };
+            glTexGenfv(GL_S, GL_OBJECT_PLANE, s_params_);
+            glTexGenfv(GL_T, GL_OBJECT_PLANE, t_params_);
         }
         else {
             glDisable(GL_TEXTURE_2D);
