@@ -602,7 +602,7 @@ void dJointAddPistonForce ( dJointID j, dReal force )
     checktype ( joint, Piston );
 
     if ( joint->flags & dJOINT_REVERSE )
-        force -= force;
+        force = -force;
 
     dVector3 axis;
     getAxis ( joint, axis, joint->axis1 );
