@@ -186,10 +186,8 @@ dxJointContact::getInfo2(dReal worldFPS, dReal worldERP,
         // calculate outgoing velocity (-ve for incoming contact)
         outgoing += dCalcVectorDot3(J1 + (size_t)(ROW_NORMAL * rowskip) + GI2__JA_MIN, node[0].body->avel)
             + dCalcVectorDot3(normal, node[0].body->lvel);
-    }
-
-    // deal with bounce
-    if (apply_bounce) {
+    
+        // deal with bounce
         const dReal negated_outgoing = motionN - outgoing;
         // only apply bounce if the outgoing velocity is greater than the
         // threshold, and if the resulting c[rowNormal] exceeds what we already have.
