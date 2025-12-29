@@ -79,7 +79,7 @@ static void place_cards()
 {
     ncards = getncards(levels);
     // destroy removed cards (if any)
-    size_t oldcards = cards.size();
+    const size_t oldcards = cards.size();
     for (size_t i=ncards; i<oldcards; ++i)
         delete cards[i];
     cards.resize(ncards);
@@ -90,20 +90,20 @@ static void place_cards()
     // for each level
     size_t c = 0;
     dMatrix3 right, left, hrot;
-    dReal angle = (dReal)(20*M_PI/180.);
+    const dReal angle = (dReal)(20*M_PI/180.);
     dRFromAxisAndAngle(right, 1, 0, 0, -angle);
     dRFromAxisAndAngle(left, 1, 0, 0, angle);
 
     dRFromAxisAndAngle(hrot, 1, 0, 0, (dReal)(91*M_PI/180.));
     
-    dReal eps = REAL(0.05);
-    dReal vstep = dCos(angle)*clength + eps;
-    dReal hstep = dSin(angle)*clength + eps;
+    const dReal eps = REAL(0.05);
+    const dReal vstep = dCos(angle)*clength + eps;
+    const dReal hstep = dSin(angle)*clength + eps;
     
     for (size_t lvl=0; lvl<levels; ++lvl) {
         // there are 3*(levels-lvl)-1 cards in each level, except last
-        size_t n = (levels-lvl);
-        dReal height = (dReal)(lvl)*vstep + vstep/2;
+        const size_t n = (levels-lvl);
+        const dReal height = (dReal)(lvl)*vstep + vstep/2;
         // inclined cards
         for (size_t i=0; i<2*n; ++i, ++c) {
             dBodySetPosition(cards[c]->body, 
@@ -150,7 +150,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     const int MAX_CONTACTS = 8;
     dContact contact[MAX_CONTACTS];
     
-    int numc = dCollide (o1, o2, MAX_CONTACTS,
+    const int numc = dCollide (o1, o2, MAX_CONTACTS,
                         &contact[0].geom,
                         sizeof(dContact));
     

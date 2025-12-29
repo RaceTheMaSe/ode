@@ -184,7 +184,7 @@ int dCollideSphereBox (dxGeom *o1, dxGeom *o2, int flags,
         dReal min_distance = l[0] - dFabs(t[0]);
         int mini = 0;
         for (int i=1; i<3; i++) {
-            dReal face_distance = l[i] - dFabs(t[i]);
+            const dReal face_distance = l[i] - dFabs(t[i]);
             if (face_distance < min_distance) {
                 min_distance = face_distance;
                 mini = i;
@@ -244,8 +244,8 @@ int dCollideSpherePlane (dxGeom *o1, dxGeom *o2, int flags,
     contact->side1 = -1;
     contact->side2 = -1;
 
-    dReal k = dCalcVectorDot3 (o1->final_posr->pos,plane->p);
-    dReal depth = plane->p[3] - k + sphere->radius;
+    const dReal k = dCalcVectorDot3 (o1->final_posr->pos,plane->p);
+    const dReal depth = plane->p[3] - k + sphere->radius;
     if (depth >= 0) {
         contact->normal[0] = plane->p[0];
         contact->normal[1] = plane->p[1];

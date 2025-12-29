@@ -140,11 +140,11 @@ int main (int argc, char **argv)
   world->setGravity (0,0,-0.5);
   dWorldSetCFM (world->id(),REAL(1e-5));
   {
-    dPlane plane (*space,0,0,1,0);
+    const dPlane plane (*space,0,0,1,0);
 
     for (i=0; i<NUM; i++) {
       body[i]->create (*world);
-      dReal k = (dReal)i*SIDE;
+      const dReal k = (dReal)i*SIDE;
       body[i]->setPosition (k,k,(k+REAL(0.4)));
       dMass m;
       m.setBox (1,SIDE,SIDE,SIDE);
@@ -158,7 +158,7 @@ int main (int argc, char **argv)
     for (i=0; i<(NUM-1); i++) {
       joint[i]->create (*world);
       joint[i]->attach (*body[i],*body[i+1]);
-      dReal k = ((dReal)i+REAL(0.5))*SIDE;
+      const dReal k = ((dReal)i+REAL(0.5))*SIDE;
       joint[i]->setAnchor (k,k,k+REAL(0.4));
     }
 

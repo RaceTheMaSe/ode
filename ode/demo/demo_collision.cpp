@@ -133,7 +133,7 @@ void draw_all_objects(dSpaceID space)
 
     draw_all_objects_called = 1;
     if (!graphical_test) return;
-    int n = dSpaceGetNumGeoms(space);
+    const int n = dSpaceGetNumGeoms(space);
 
     // draw all contact points
     dsSetColor(0, 1, 1);
@@ -147,7 +147,7 @@ void draw_all_objects(dSpaceID space)
             dVector3 origin, dir;
             dGeomRayGet(g, origin, dir);
             origin[2] += Z_OFFSET;
-            dReal length = dGeomRayGetLength(g);
+            const dReal length = dGeomRayGetLength(g);
             for (j = 0; j < 3; j++) dir[j] = dir[j] * length + origin[j];
             dsDrawLine(origin, dir);
             dsSetColor(0, 0, 1);
@@ -168,7 +168,7 @@ void draw_all_objects(dSpaceID space)
 
         case dSphereClass: {
             dsSetColorAlpha(1, 0, 0, 0.8f);
-            dReal radius = dGeomSphereGetRadius(g);
+            const dReal radius = dGeomSphereGetRadius(g);
             dsDrawSphere(pos, dGeomGetRotation(g), (float)radius);
             break;
         }
@@ -232,7 +232,7 @@ int test_sphere_point_depth()
     dMatrix3 R;
     dReal r, d;
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID sphere = dCreateSphere(NULL, 1);
     dSpaceAdd(space, sphere);
 
@@ -277,7 +277,7 @@ int test_box_point_depth()
     dMatrix3 R;
     dReal ss, d;		// ss = smallest side
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID box = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, box);
 
@@ -347,7 +347,7 @@ int test_ccylinder_point_depth()
     dMatrix3 R;
     dReal r, l, beta, x, y, d;
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID ccyl = dCreateCapsule(NULL, 1, 1);
     dSpaceAdd(space, ccyl);
 
@@ -434,7 +434,7 @@ int test_plane_point_depth()
     dVector3 n, p, q, a, b;	// n = plane normal
     dReal d;
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID plane = dCreatePlane(NULL, 0, 0, 1, 0);
     dSpaceAdd(space, plane);
 
@@ -486,7 +486,7 @@ int test_ray_and_sphere()
     dMatrix3 R;
     dReal r, k;
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(NULL, 0);
     dGeomID sphere = dCreateSphere(NULL, 1);
     dSpaceAdd(space, ray);
@@ -630,7 +630,7 @@ int test_ray_and_box()
     dMatrix3 R;
     dReal k;
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(NULL, 0);
     dGeomID box = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, ray);
@@ -759,7 +759,7 @@ int test_ray_and_ccylinder()
     dMatrix3 R;
     dReal r, l, k, x, y;
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(NULL, 0);
     dGeomID ccyl = dCreateCapsule(NULL, 1, 1);
     dSpaceAdd(space, ray);
@@ -872,7 +872,7 @@ int test_ray_and_cylinder()
 {
     dVector3 a, b;
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(space, 4);
 
     // The first thing that happens is the ray is
@@ -924,7 +924,7 @@ int test_ray_and_plane()
     dMatrix3 R;
     dReal d;
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(NULL, 0);
     dGeomID plane = dCreatePlane(NULL, 0, 0, 1, 0);
     dSpaceAdd(space, ray);
@@ -1041,8 +1041,8 @@ int edgeIntersectsRect(dVector3 v1, dVector3 v2,
     for (k = 0; k < 3; k++) u1[k] = p3[k] - p1[k];
     for (k = 0; k < 3; k++) u2[k] = p2[k] - p1[k];
 
-    dReal d1 = dSqrt(dCalcVectorDot3(u1, u1));
-    dReal d2 = dSqrt(dCalcVectorDot3(u2, u2));
+    const dReal d1 = dSqrt(dCalcVectorDot3(u1, u1));
+    const dReal d2 = dSqrt(dCalcVectorDot3(u2, u2));
     dNormalize3(u1);
     dNormalize3(u2);
 
@@ -1060,7 +1060,7 @@ int edgeIntersectsRect(dVector3 v1, dVector3 v2,
 
     for (k = 0; k < 3; k++) tmp[k] = v2[k] - v1[k];
 
-    dReal d = -dCalcVectorDot3(n, p1);
+    const dReal d = -dCalcVectorDot3(n, p1);
 
     error = dFabs(dCalcVectorDot3(n, p1) + d);
     if (error > pEpsilon) dDebug(0, "bad n wrt p1");
@@ -1071,7 +1071,7 @@ int edgeIntersectsRect(dVector3 v1, dVector3 v2,
     error = dFabs(dCalcVectorDot3(n, p3) + d);
     if (error > pEpsilon) dDebug(0, "bad n wrt p3");
 
-    dReal alpha = -(d + dCalcVectorDot3(n, v1)) / dCalcVectorDot3(n, tmp);
+    const dReal alpha = -(d + dCalcVectorDot3(n, v1)) / dCalcVectorDot3(n, tmp);
     for (k = 0; k < 3; k++) tmp[k] = v1[k] + alpha * (v2[k] - v1[k]);
 
     error = dFabs(dCalcVectorDot3(n, tmp) + d);
@@ -1081,8 +1081,8 @@ int edgeIntersectsRect(dVector3 v1, dVector3 v2,
     if (alpha > 1) return 0;
     
     for (k = 0; k < 3; k++) tmp[k] -= p1[k];
-    dReal a1 = dCalcVectorDot3(u1, tmp);
-    dReal a2 = dCalcVectorDot3(u2, tmp);
+    const dReal a1 = dCalcVectorDot3(u1, tmp);
+    const dReal a2 = dCalcVectorDot3(u2, tmp);
     if (a1<0 || a2<0 || a1>d1 || a2>d2) return 0;
     
     return 1;
@@ -1108,7 +1108,7 @@ int box1inside2(const dVector3 p1, const dMatrix3 R1,
                 vv[1] += p1[1] - p2[1];
                 vv[2] += p1[2] - p2[2];
                 for (int axis = 0; axis < 3; axis++) {
-                    dReal z = dCalcVectorDot3_14(vv, R2 + axis);
+                    const dReal z = dCalcVectorDot3_14(vv, R2 + axis);
                     if (z < (-side2[axis] * REAL(0.5)) || z >(side2[axis] * REAL(0.5))) return 0;
                 }
             }
@@ -1197,7 +1197,7 @@ int test_dBoxTouchesBox()
     dVector3 p1, p2, side1, side2;
     dMatrix3 R1, R2;
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID box1 = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, box1);
     dGeomID box2 = dCreateBox(NULL, 1, 1, 1);
@@ -1220,8 +1220,8 @@ int test_dBoxTouchesBox()
     dGeomSetRotation(box2, R2);
     draw_all_objects(space);
 
-    int t1 = testBoxesTouch2(p1, R1, side1, p2, R2, side2);
-    int t2 = testBoxesTouch2(p2, R2, side2, p1, R1, side1);
+    const int t1 = testBoxesTouch2(p1, R1, side1, p2, R2, side2);
+    const int t2 = testBoxesTouch2(p2, R2, side2, p1, R1, side1);
     bt1 = t1 || t2;
     bt2 = dBoxTouchesBox(p1, R1, side1, p2, R2, side2);
 
@@ -1253,7 +1253,7 @@ int test_dBoxBox()
     int code;
     dContactGeom contact[48];
 
-    dSimpleSpace space(NULL);
+    const dSimpleSpace space(NULL);
     dGeomID box1 = dCreateBox(NULL, 1, 1, 1);
     dSpaceAdd(space, box1);
     dGeomID box2 = dCreateBox(NULL, 1, 1, 1);
@@ -1352,7 +1352,7 @@ void simLoop(int /*pause*/)
 {
     do {
         draw_all_objects_called = 0;
-        unsigned long seed = dRandGetSeed();
+        const unsigned long seed = dRandGetSeed();
         testslot[graphical_test].test_fn();
         if (draw_all_objects_called) {
             if (space_pressed) space_pressed = 0; else dRandSetSeed(seed);
@@ -1417,7 +1417,7 @@ void do_tests(int argc, char **argv)
         for (i = 0; i < n; i++) ts[i]->failcount = 0;
         int total_reps = 0;
         for (int batch = 0; batch < 2; batch++) {
-            int reps = (batch == 0) ? TEST_REPS1 : TEST_REPS2;
+            const int reps = (batch == 0) ? TEST_REPS1 : TEST_REPS2;
             total_reps += reps;
             printf("testing batch %d (%d reps)...\n", batch + 1, reps);
 

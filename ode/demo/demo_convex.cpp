@@ -53,8 +53,8 @@ static dGeomID hgeom[ halton_numc ];
 
 static dJointGroupID contactgroup;
 
-static bool drawpos=false;
-static bool solidkernel=false;
+static const bool drawpos=false;
+static const bool solidkernel=false;
 
 
 // this is called by dSpaceCollide when two objects in space are
@@ -75,7 +75,7 @@ static void nearCallback(void *data, dGeomID o1, dGeomID o2)
 
 	const int N = 32;
 	dContact contact[N];
-	int n = dCollide (o1,o2,N,&(contact[0].geom),sizeof(dContact));
+	const int n = dCollide (o1,o2,N,&(contact[0].geom),sizeof(dContact));
 	if (n > 0) 
 	{
 		for (int i=0; i<n; i++) 
@@ -150,8 +150,8 @@ static void command(int cmd)
 
 static void simLoop(int pause)
 {
-	double simstep = 1/240.0;
-	double dt = dsElapsedTime();
+	const double simstep = 1/240.0;
+	const double dt = dsElapsedTime();
 
 	int nrofsteps = (int) ceilf((float)(dt/simstep));
 	nrofsteps = nrofsteps > 8 ? 8 : nrofsteps;
@@ -274,8 +274,8 @@ int main (int argc, char **argv)
 			dBodyID body = dBodyCreate(world);
 			hbody[i] = body;
 			dBodySetPosition(body, x,y,z+H);
-			dReal volu = halton_volu[i];
-			dReal rad = (dReal)pow( (double)(volu * 3) / (double)(4*M_PI), double(1/3.0) );
+			const dReal volu = halton_volu[i];
+			const dReal rad = (dReal)pow( (double)(volu * 3) / (double)(4*M_PI), double(1/3.0) );
 			dMassSetSphere( &m,5,rad );
 			dBodySetMass( body,&m );
 #if 1

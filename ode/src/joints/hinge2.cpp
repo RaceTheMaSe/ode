@@ -47,8 +47,8 @@ dxJointHinge2::measureAngle1() const
     else
         dCopyVector3(q, p);
 
-    dReal x = dCalcVectorDot3( v1, q );
-    dReal y = dCalcVectorDot3( v2, q );
+    const dReal x = dCalcVectorDot3( v1, q );
+    const dReal y = dCalcVectorDot3( v2, q );
     return -dAtan2( y, x );
 }
 
@@ -67,8 +67,8 @@ dxJointHinge2::measureAngle2() const
     else
         dCopyVector3(q, p);
 
-    dReal x = dCalcVectorDot3( w1, q );
-    dReal y = dCalcVectorDot3( w2, q );
+    const dReal x = dCalcVectorDot3( w1, q );
+    const dReal y = dCalcVectorDot3( w2, q );
     return -dAtan2( y, x );
 }
 
@@ -118,7 +118,7 @@ dxJointHinge2::getInfo1( dxJoint::Info1 *info )
     if (( (double)limot1.lostop >= -M_PI || (double)limot1.histop <= M_PI ) &&
         limot1.lostop <= limot1.histop )
     {
-        dReal angle = measureAngle1();
+        const dReal angle = measureAngle1();
         limot1.testRotationalLimit( angle );
     }
     if ( limot1.limit || limot1.fmax > 0 ) info->m++;
@@ -195,7 +195,7 @@ dxJointHinge2::getInfo2( dReal worldFPS, dReal worldERP,
     // where c = cos(theta), s = sin(theta)
     //       c0 = cos(theta0), s0 = sin(theta0)
 
-    dReal k = worldFPS * worldERP;
+    const dReal k = worldFPS * worldERP;
 
     int currPairSkip = 3 * pairskip;
     pairRhsCfm[currPairSkip + GI2_RHS] = k * ( c0 * s - this->s0 * c );
@@ -225,7 +225,7 @@ dxJointHinge2::makeV1andV2()
         dMultiply0_331( ax2, node[1].body->posr.R, axis2 );
 
         // modify axis 2 so it's perpendicular to axis 1
-        dReal k = dCalcVectorDot3( ax1, ax2 );
+        const dReal k = dCalcVectorDot3( ax1, ax2 );
         dAddVectorScaledVector3(ax2, ax2, ax1, -k);
         
         if (dxSafeNormalize3( ax2 )) {
@@ -253,7 +253,7 @@ dxJointHinge2::makeW1andW2()
         dMultiply0_331( ax2, node[1].body->posr.R, axis2 );
 
         // modify axis 1 so it's perpendicular to axis 2
-        dReal k = dCalcVectorDot3( ax2, ax1 );
+        const dReal k = dCalcVectorDot3( ax2, ax1 );
         dAddVectorScaledVector3(ax1, ax1, ax2, -k);
         
         if (dxSafeNormalize3( ax1 )) {

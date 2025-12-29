@@ -169,13 +169,13 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     static const dReal ss[3] = {REAL(0.02),REAL(0.02),REAL(0.02)};
 
     dContact contact[MAX_CONTACTS];
-    int numc = dCollide (o1, o2, MAX_CONTACTS,
+    const int numc = dCollide (o1, o2, MAX_CONTACTS,
                          &contact[0].geom, sizeof(dContact));
 
     if (numc)
         dRSetIdentity(RI);
 
-    bool isplatform = (o1 == platform) || (o2 == platform);
+    const bool isplatform = (o1 == platform) || (o2 == platform);
 
     for (int i=0; i< numc; i++) {
         contact[i].surface.mode = dContactBounce;
@@ -353,7 +353,7 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
     if (!pos) pos = dGeomGetPosition (g);
     if (!R) R = dGeomGetRotation (g);
 
-    int type = dGeomGetClass (g);
+    const int type = dGeomGetClass (g);
     if (type == dBoxClass) {
         dVector3 sides;
         dGeomBoxGetLengths (g,sides);

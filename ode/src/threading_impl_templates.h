@@ -182,7 +182,7 @@ struct dxThreadedJobInfo:
 
     bool InvokeCallFunction()
     {
-        int call_result = m_call_function(m_call_context, m_call_index, dMAKE_JOBINSTANCE_RELEASEE(this));
+        const int call_result = m_call_function(m_call_context, m_call_index, dMAKE_JOBINSTANCE_RELEASEE(this));
         return call_result != 0;
     }
 
@@ -599,7 +599,7 @@ bool dxtemplateMutexGroup<tThreadMutex>::InitializeMutexArray(dmutexindex_t Mute
         FinalizeMutexArray(mutex_index);
     }
 
-    bool init_result = !any_fault;
+    const bool init_result = !any_fault;
     return init_result;
 }
 
@@ -714,7 +714,7 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Re
             break;
         }
 
-        int call_fault = current_job->m_call_fault;
+        const int call_fault = current_job->m_call_fault;
 
         // Assign the accumulated fault state first...
         if (current_job->m_fault_accumulator_ptr)
@@ -779,7 +779,7 @@ dxThreadedJobInfo *dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomic
 template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::QueueJobForProcessing(dxThreadedJobInfo *job_instance)
 {
-    bool job_is_ready = job_instance->m_dependencies_count == 0;
+    const bool job_is_ready = job_instance->m_dependencies_count == 0;
 
     {
         dxMutexLockHelper list_access(m_list_access_lock);
@@ -990,7 +990,7 @@ bool dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Do
 
     m_info_pool = (atomicptr_t)info_pool;
 
-    bool result = !allocation_failure;
+    const bool result = !allocation_failure;
     return result;
 }
 

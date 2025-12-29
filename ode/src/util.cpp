@@ -162,7 +162,7 @@ dxWorldProcessMemArena *dxWorldProcessContext::ObtainStepperMemArena()
         dxMutexGroupLockHelper lhLockHelper(m_pswObjectsAllocWorld, m_pmgStepperMutexGroup, dxPCM_STEPPER_ARENA_OBTAIN);
 
         dxWorldProcessMemArena *pmaArenasHead = GetStepperArenasHead(); // Arenas head must be re-extracted after mutex has been locked
-        bool bExchangeResult = pmaArenasHead != NULL && TryExtractingStepperArenasHead(pmaArenasHead);
+        const bool bExchangeResult = pmaArenasHead != NULL && TryExtractingStepperArenasHead(pmaArenasHead);
 
         lhLockHelper.UnlockMutex();
 
@@ -282,7 +282,7 @@ bool dxWorldProcessContext::ReallocateStepperMemArenas(
 
     SetStepperArenasList(pmaRebuiltArenasHead);
 
-    bool bResult = nArenasToProcess == 0;
+    const bool bResult = nArenasToProcess == 0;
     return bResult;
 }
 
@@ -504,7 +504,7 @@ void dInternalHandleAutoDisabling (dxWorld *world, dReal stepsize)
                 }
 
                 // make average
-                dReal r1 = dReal( 1.0 ) / dReal( bb->adis.average_samples );
+                const dReal r1 = dReal( 1.0 ) / dReal( bb->adis.average_samples );
 
                 average_lvel[0] *= r1;
                 average_avel[0] *= r1;
@@ -605,7 +605,7 @@ void dxStepBody (dxBody *b, dReal h)
             // split the angular velocity vector into a component along the finite
             // rotation axis, and a component orthogonal to it.
             dVector3 frv;		// finite rotation vector
-            dReal k = dCalcVectorDot3 (b->finite_rot_axis,b->avel);
+            const dReal k = dCalcVectorDot3 (b->finite_rot_axis,b->avel);
             frv[0] = b->finite_rot_axis[0] * k;
             frv[1] = b->finite_rot_axis[1] * k;
             frv[2] = b->finite_rot_axis[2] * k;
@@ -616,21 +616,21 @@ void dxStepBody (dxBody *b, dReal h)
             // make a rotation quaternion q that corresponds to frv * h.
             // compare this with the full-finite-rotation case below.
             h *= REAL(0.5);
-            dReal theta = k * h;
+            const dReal theta = k * h;
             q[0] = dCos(theta);
-            dReal s = sinc(theta) * h;
+            const dReal s = sinc(theta) * h;
             q[1] = frv[0] * s;
             q[2] = frv[1] * s;
             q[3] = frv[2] * s;
         }
         else {
             // make a rotation quaternion q that corresponds to w * h
-            dReal wlen = dSqrt (b->avel[0]*b->avel[0] + b->avel[1]*b->avel[1] +
+            const dReal wlen = dSqrt (b->avel[0]*b->avel[0] + b->avel[1]*b->avel[1] +
                 b->avel[2]*b->avel[2]);
             h *= REAL(0.5);
-            dReal theta = wlen * h;
+            const dReal theta = wlen * h;
             q[0] = dCos(theta);
-            dReal s = sinc(theta) * h;
+            const dReal s = sinc(theta) * h;
             q[1] = b->avel[0] * s;
             q[2] = b->avel[1] * s;
             q[3] = b->avel[2] * s;
@@ -708,14 +708,14 @@ static sizeint EstimateIslandProcessingMemoryRequirements(dxWorld *world)
 {
     sizeint res = 0;
 
-    sizeint islandcounts = dEFFICIENT_SIZE((sizeint)(unsigned)world->nb * 2 * sizeof(int));
+    const sizeint islandcounts = dEFFICIENT_SIZE((sizeint)(unsigned)world->nb * 2 * sizeof(int));
     res += islandcounts;
 
-    sizeint bodiessize = dEFFICIENT_SIZE((sizeint)(unsigned)world->nb * sizeof(dxBody*));
-    sizeint jointssize = dEFFICIENT_SIZE((sizeint)(unsigned)world->nj * sizeof(dxJoint*));
+    const sizeint bodiessize = dEFFICIENT_SIZE((sizeint)(unsigned)world->nb * sizeof(dxBody*));
+    const sizeint jointssize = dEFFICIENT_SIZE((sizeint)(unsigned)world->nj * sizeof(dxJoint*));
     res += bodiessize + jointssize;
 
-    sizeint sesize = (bodiessize < jointssize) ? bodiessize : jointssize;
+    const sizeint sesize = (bodiessize < jointssize) ? bodiessize : jointssize;
     res += sesize;
 
     return res;
@@ -730,7 +730,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
     // handle auto-disabling of bodies
     dInternalHandleAutoDisabling (world,stepsize);
 
-    unsigned int nb = (unsigned int)world->nb, nj = (unsigned int)world->nj;
+    const unsigned int nb = (unsigned int)world->nb, nj = (unsigned int)world->nj;
     // Make array for island body/joint counts
     unsigned int *islandsizes = memarena->AllocateArray<unsigned int>(2 * (sizeint)nb);
     unsigned int *sizescurr;
@@ -744,7 +744,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
         // the stack can be the lesser of the number of bodies or joints, because
         // new bodies are only ever added to the stack by going through untagged
         // joints. all the bodies in the stack must be tagged!
-        unsigned int stackalloc = (nj < nb) ? nj : nb;
+        const unsigned int stackalloc = (nj < nb) ? nj : nb;
         dxBody **stack = memarena->AllocateArray<dxBody *>(stackalloc);
 
         {
@@ -805,8 +805,8 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
                         *bodycurr++ = b;	// put body on body list
                     }
 
-                    unsigned int bcount = (unsigned int)(bodycurr - bodystart);
-                    unsigned int jcount = (unsigned int)(jointcurr - jointstart);
+                    const unsigned int bcount = (unsigned int)(bodycurr - bodystart);
+                    const unsigned int jcount = (unsigned int)(jointcurr - jointstart);
                     dIASSERT((sizeint)(bodycurr - bodystart) <= (sizeint)UINT_MAX);
                     dIASSERT((sizeint)(jointcurr - jointstart) <= (sizeint)UINT_MAX);
 
@@ -814,7 +814,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
                     sizescurr[dxISE_JOINTS_COUNT] = jcount;
                     sizescurr += dxISE__MAX;
 
-                    sizeint islandreq = stepperestimate(bodystart, bcount, jointstart, jcount);
+                    const sizeint islandreq = stepperestimate(bodystart, bcount, jointstart, jcount);
                     maxreq = (maxreq > islandreq) ? maxreq : islandreq;
 
                     bodystart = bodycurr;
@@ -853,7 +853,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
     }
 # endif
 
-    sizeint islandcount = ((sizeint)(sizescurr - islandsizes) / dxISE__MAX);
+const sizeint islandcount = ((sizeint)(sizescurr - islandsizes) / dxISE__MAX);
     islandsinfo.AssignInfo(islandcount, islandsizes, body, joint);
 
     return maxreq;
@@ -862,10 +862,10 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
 static unsigned EstimateIslandProcessingSimultaneousCallsMaximumCount(unsigned activeThreadCount, unsigned islandsAllowedThreadCount, 
     unsigned steppingAllowedThreadCount, unsigned lcpAllowedThreadCount, dmaxcallcountestimate_fn_t maxCallCountEstimator)
 {
-    unsigned stepperCallsMaximum = maxCallCountEstimator(activeThreadCount, steppingAllowedThreadCount, lcpAllowedThreadCount);
-    unsigned islandsIntermediateCallsMaximum = (1 + 2); // ThreadedProcessIslandSearch_Callback + (ThreadedProcessIslandStepper_Callback && ThreadedProcessIslandSearch_Callback)
+    const unsigned stepperCallsMaximum = maxCallCountEstimator(activeThreadCount, steppingAllowedThreadCount, lcpAllowedThreadCount);
+    const unsigned islandsIntermediateCallsMaximum = (1 + 2); // ThreadedProcessIslandSearch_Callback + (ThreadedProcessIslandStepper_Callback && ThreadedProcessIslandSearch_Callback)
 
-    unsigned result = 
+    const unsigned result = 
         1 // ThreadedProcessGroup_Callback
         + islandsAllowedThreadCount * dMAX(stepperCallsMaximum, islandsIntermediateCallsMaximum)
         + dMIN(islandsAllowedThreadCount, (unsigned)(activeThreadCount - islandsAllowedThreadCount)) // ThreadedProcessJobStart_Callback
@@ -904,10 +904,10 @@ bool dxProcessIslands (dxWorld *world, const dxWorldProcessIslandsInfo &islandsI
         dIASSERT(islandsAllowedThreadCount != 0);
         dIASSERT(activeThreadCount >= islandsAllowedThreadCount);
 
-        unsigned stepperAllowedThreadCount = world->calculatePerIslandSteppingMaxThreadCount();
-        unsigned lcpAllowedThreadCount = world->calculatePerIslandSolvingMaxThreadCount();
+        const unsigned stepperAllowedThreadCount = world->calculatePerIslandSteppingMaxThreadCount();
+        const unsigned lcpAllowedThreadCount = world->calculatePerIslandSolvingMaxThreadCount();
 
-        unsigned simultaneousCallsCount = EstimateIslandProcessingSimultaneousCallsMaximumCount(activeThreadCount, islandsAllowedThreadCount, stepperAllowedThreadCount, lcpAllowedThreadCount, maxCallCountEstimator);
+        const unsigned simultaneousCallsCount = EstimateIslandProcessingSimultaneousCallsMaximumCount(activeThreadCount, islandsAllowedThreadCount, stepperAllowedThreadCount, lcpAllowedThreadCount, maxCallCountEstimator);
         if (!world->PreallocateResourcesForThreadedCalls(simultaneousCallsCount)) {
             break;
         }
@@ -998,7 +998,7 @@ void dxIslandsProcessingCallContext::ThreadedProcessIslandSearch(dxSingleIslandC
     unsigned int const *islandSizes = islandsInfo.GetIslandSizes();
 
     const sizeint islandsCount = islandsInfo.GetIslandsCount();
-    sizeint islandToProcess = ObtainNextIslandToBeProcessed(islandsCount);
+    const sizeint islandToProcess = ObtainNextIslandToBeProcessed(islandsCount);
 
     if (islandToProcess != islandsCount) {
         // First time, the counts are zeros and on next passes, adding counts will skip island that has just been processed by stepper
@@ -1007,8 +1007,8 @@ void dxIslandsProcessingCallContext::ThreadedProcessIslandSearch(dxSingleIslandC
         sizeint islandIndex = stepperCallContext->m_islandIndex;
 
         for (; ; ++islandIndex) {
-            unsigned int bcount = islandSizes[islandIndex * dxISE__MAX + dxISE_BODIES_COUNT];
-            unsigned int jcount = islandSizes[islandIndex * dxISE__MAX + dxISE_JOINTS_COUNT];
+            const unsigned int bcount = islandSizes[islandIndex * dxISE__MAX + dxISE_BODIES_COUNT];
+            const unsigned int jcount = islandSizes[islandIndex * dxISE__MAX + dxISE_JOINTS_COUNT];
 
             if (islandIndex == islandToProcess) {
                 // Store selected island details
@@ -1086,7 +1086,7 @@ dxWorldProcessMemArena *dxWorldProcessMemArena::ReallocateMemArena (
     void *pOldArenaBuffer = NULL;
 
     do {
-        sizeint oldmemsize = oldarena ? oldarena->GetMemorySize() : 0;
+        const sizeint oldmemsize = oldarena ? oldarena->GetMemorySize() : 0;
         if (oldarena == NULL || oldmemsize < memreq) {
             nOldArenaSize = oldarena ? dxWorldProcessMemArena::MakeArenaSize(oldmemsize) : 0;
             pOldArenaBuffer = oldarena ? oldarena->m_pArenaBegin : NULL;
@@ -1095,9 +1095,9 @@ dxWorldProcessMemArena *dxWorldProcessMemArena::ReallocateMemArena (
                 break;
             }
 
-            sizeint arenareq = dxWorldProcessMemArena::MakeArenaSize(memreq);
-            sizeint arenareq_with_reserve = AdjustArenaSizeForReserveRequirements(arenareq, rsrvfactor, rsrvminimum);
-            sizeint memreq_with_reserve = memreq + (arenareq_with_reserve - arenareq);
+            const sizeint arenareq = dxWorldProcessMemArena::MakeArenaSize(memreq);
+            const sizeint arenareq_with_reserve = AdjustArenaSizeForReserveRequirements(arenareq, rsrvfactor, rsrvminimum);
+            const sizeint memreq_with_reserve = memreq + (arenareq_with_reserve - arenareq);
 
             if (oldarena != NULL) {
                 oldarena->m_pArenaMemMgr->m_fnFree(pOldArenaBuffer, nOldArenaSize);
@@ -1143,8 +1143,8 @@ dxWorldProcessMemArena *dxWorldProcessMemArena::ReallocateMemArena (
 
 void dxWorldProcessMemArena::FreeMemArena (dxWorldProcessMemArena *arena)
 {
-    sizeint memsize = arena->GetMemorySize();
-    sizeint arenasize = dxWorldProcessMemArena::MakeArenaSize(memsize);
+    const sizeint memsize = arena->GetMemorySize();
+    const sizeint arenasize = dxWorldProcessMemArena::MakeArenaSize(memsize);
 
     void *pArenaBegin = arena->m_pArenaBegin;
     arena->m_pArenaMemMgr->m_fnFree(pArenaBegin, arenasize);
@@ -1153,9 +1153,9 @@ void dxWorldProcessMemArena::FreeMemArena (dxWorldProcessMemArena *arena)
 
 sizeint dxWorldProcessMemArena::AdjustArenaSizeForReserveRequirements(sizeint arenareq, float rsrvfactor, unsigned rsrvminimum)
 {
-    float scaledarena = (float)arenareq * rsrvfactor;
-    sizeint adjustedarena = (scaledarena < (float)SIZE_MAX) ? (sizeint)scaledarena : SIZE_MAX;
-    sizeint boundedarena = (adjustedarena > rsrvminimum) ? adjustedarena : (sizeint)rsrvminimum;
+    const float scaledarena = (float)arenareq * rsrvfactor;
+    const sizeint adjustedarena = (scaledarena < (float)SIZE_MAX) ? (sizeint)scaledarena : SIZE_MAX;
+    const sizeint boundedarena = (adjustedarena > rsrvminimum) ? adjustedarena : (sizeint)rsrvminimum;
     return dEFFICIENT_SIZE(boundedarena);
 }
 
@@ -1187,7 +1187,7 @@ bool dxReallocateWorldProcessContext (dxWorld *world, dxWorldProcessIslandsInfo 
         const dxWorldProcessMemoryReserveInfo *reserveInfo = wmem->SureGetMemoryReserveInfo();
         const dxWorldProcessMemoryManager *memmgr = wmem->SureGetMemoryManager();
 
-        sizeint islandsReq = EstimateIslandProcessingMemoryRequirements(world);
+        const sizeint islandsReq = EstimateIslandProcessingMemoryRequirements(world);
         dIASSERT(islandsReq == dEFFICIENT_SIZE(islandsReq));
 
         dxWorldProcessMemArena *islandsArena = context->ReallocateIslandsMemArena(islandsReq, memmgr, 1.0f, reserveInfo->m_uiReserveMinimum);
@@ -1197,12 +1197,12 @@ bool dxReallocateWorldProcessContext (dxWorld *world, dxWorldProcessIslandsInfo 
         }
         dIASSERT(islandsArena->IsStructureValid());
 
-        sizeint stepperReq = BuildIslandsAndEstimateStepperMemoryRequirements(islandsInfo, islandsArena, world, stepSize, stepperEstimate);
+        const sizeint stepperReq = BuildIslandsAndEstimateStepperMemoryRequirements(islandsInfo, islandsArena, world, stepSize, stepperEstimate);
         dIASSERT(stepperReq == dEFFICIENT_SIZE(stepperReq));
 
-        sizeint stepperReqWithCallContext = stepperReq + dEFFICIENT_SIZE(sizeof(dxSingleIslandCallContext));
+        const sizeint stepperReqWithCallContext = stepperReq + dEFFICIENT_SIZE(sizeof(dxSingleIslandCallContext));
 
-        unsigned islandThreadsCount = world->calculateIslandIterationMaxThreadCount();
+        const unsigned islandThreadsCount = world->calculateIslandIterationMaxThreadCount();
         if (!context->ReallocateStepperMemArenas(world, islandThreadsCount, stepperReqWithCallContext, 
             memmgr, reserveInfo->m_fReserveFactor, reserveInfo->m_uiReserveMinimum))
         {

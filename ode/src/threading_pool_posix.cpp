@@ -88,7 +88,7 @@ bool dxEventObject::InitializeObject(bool manual_reset, bool initial_state)
 
     do 
     {
-        int cond_result = pthread_cond_init(&m_event_cond, NULL);
+        const int cond_result = pthread_cond_init(&m_event_cond, NULL);
         if (cond_result != EOK)
         {
             errno = cond_result;
@@ -97,7 +97,7 @@ bool dxEventObject::InitializeObject(bool manual_reset, bool initial_state)
 
         cond_allocated = true;
 
-        int mutex_result = pthread_mutex_init(&m_event_mutex, NULL);
+        const int mutex_result = pthread_mutex_init(&m_event_mutex, NULL);
         if (mutex_result != EOK)
         {
             errno = mutex_result;
@@ -115,7 +115,7 @@ bool dxEventObject::InitializeObject(bool manual_reset, bool initial_state)
     {
         if (cond_allocated)
         {
-            int cond_destroy_result = pthread_cond_destroy(&m_event_cond);
+            const int cond_destroy_result = pthread_cond_destroy(&m_event_cond);
             dIVERIFY(cond_destroy_result == EOK);
         }
     }
@@ -127,10 +127,10 @@ void dxEventObject::FinalizeObject()
 {
     if (m_event_allocated)
     {
-        int mutex_destroy_result = pthread_mutex_destroy(&m_event_mutex);
+        const int mutex_destroy_result = pthread_mutex_destroy(&m_event_mutex);
         dICHECK(mutex_destroy_result == EOK); // Why would mutex be unable to be destroyed?
 
-        int cond_destroy_result = pthread_cond_destroy(&m_event_cond);
+        const int cond_destroy_result = pthread_cond_destroy(&m_event_cond);
         dICHECK(cond_destroy_result == EOK); // Why would condvar be unable to be destroyed?
 
         m_event_allocated = false;
@@ -141,7 +141,7 @@ bool dxEventObject::WaitInfinitely()
 {
     bool result = false;
 
-    int lock_result = pthread_mutex_lock(&m_event_mutex);
+    const int lock_result = pthread_mutex_lock(&m_event_mutex);
     dICHECK(lock_result == EOK);
 
     int wait_result = EOK;
@@ -163,7 +163,7 @@ bool dxEventObject::WaitInfinitely()
         result = true;
     }
 
-    int unlock_result = pthread_mutex_unlock(&m_event_mutex);
+    const int unlock_result = pthread_mutex_unlock(&m_event_mutex);
     dICHECK(unlock_result == EOK);
 
     return result;
@@ -171,7 +171,7 @@ bool dxEventObject::WaitInfinitely()
 
 void dxEventObject::SetEvent()
 {
-    int lock_result = pthread_mutex_lock(&m_event_mutex);
+    const int lock_result = pthread_mutex_lock(&m_event_mutex);
     dICHECK(lock_result == EOK);
 
     if (!m_event_value)
@@ -179,22 +179,22 @@ void dxEventObject::SetEvent()
         m_event_value = true;
 
         // NOTE! Event only releases a single thread even for manual mode to simplify implementation.
-        int signal_result = pthread_cond_signal(&m_event_cond);
+        const int signal_result = pthread_cond_signal(&m_event_cond);
         dICHECK(signal_result == EOK);
     }
 
-    int unlock_result = pthread_mutex_unlock(&m_event_mutex);
+    const int unlock_result = pthread_mutex_unlock(&m_event_mutex);
     dICHECK(unlock_result == EOK);
 }
 
 void dxEventObject::ResetEvent()
 {
-    int lock_result = pthread_mutex_lock(&m_event_mutex);
+    const int lock_result = pthread_mutex_lock(&m_event_mutex);
     dICHECK(lock_result == EOK);
 
     m_event_value = false;
 
-    int unlock_result = pthread_mutex_unlock(&m_event_mutex);
+    const int unlock_result = pthread_mutex_unlock(&m_event_mutex);
     dICHECK(unlock_result == EOK);
 }
 
@@ -313,7 +313,7 @@ bool dxThreadPoolThreadInfo::Initialize(sizeint stack_size, unsigned int ode_dat
             break;
         }
 
-        int thread_create_result = pthread_create(&m_thread_handle, &thread_attr, &ThreadProcedure_Callback, (void *)this);
+        const int thread_create_result = pthread_create(&m_thread_handle, &thread_attr, &ThreadProcedure_Callback, (void *)this);
 
         FinalizeThreadAttributes(&thread_attr);
 
@@ -323,7 +323,7 @@ bool dxThreadPoolThreadInfo::Initialize(sizeint stack_size, unsigned int ode_dat
             break;
         }
 
-        bool thread_init_result = WaitInitStatus();
+        const bool thread_init_result = WaitInitStatus();
         if (!thread_init_result)
         {
             WaitAndCloseThreadHandle(m_thread_handle);
@@ -359,7 +359,7 @@ bool dxThreadPoolThreadInfo::InitializeThreadAttributes(pthread_attr_t *thread_a
 
     do 
     {
-        int init_result = pthread_attr_init(thread_attr);
+        const int init_result = pthread_attr_init(thread_attr);
         if (init_result != EOK)
         {
             errno = init_result;
@@ -390,7 +390,7 @@ bool dxThreadPoolThreadInfo::InitializeThreadAttributes(pthread_attr_t *thread_a
     {
         if (attr_inited)
         {
-            int destroy_result = pthread_attr_destroy(thread_attr);
+            const int destroy_result = pthread_attr_destroy(thread_attr);
             dIVERIFY(destroy_result == EOK);
         }
     }
@@ -400,18 +400,18 @@ bool dxThreadPoolThreadInfo::InitializeThreadAttributes(pthread_attr_t *thread_a
 
 void dxThreadPoolThreadInfo::FinalizeThreadAttributes(pthread_attr_t *thread_attr)
 {
-    int destroy_result = pthread_attr_destroy(thread_attr);
+    const int destroy_result = pthread_attr_destroy(thread_attr);
     dIVERIFY(destroy_result == EOK);
 }
 
 bool dxThreadPoolThreadInfo::WaitInitStatus()
 {
-    bool acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
+    const bool acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
     dICHECK(acknowledgement_wait_result);
 
-    int error_code = (int)(sizeint)m_command_param;
+    const int error_code = (int)(sizeint)m_command_param;
 
-    bool init_status = error_code == EOK ? true : (static_cast<void>((errno = error_code)), false);
+    const bool init_status = error_code == EOK ? true : (static_cast<void>((errno = error_code)), false);
     return init_status;
 }
 
@@ -431,13 +431,13 @@ void dxThreadPoolThreadInfo::Finalize()
 
 void dxThreadPoolThreadInfo::WaitAndCloseThreadHandle(pthread_t thread_handle)
 {
-    int join_result = pthread_join(thread_handle, NULL);
+    const int join_result = pthread_join(thread_handle, NULL);
     dICHECK(join_result == EOK);
 }
 
 void dxThreadPoolThreadInfo::ExecuteThreadCommand(dxTHREADCOMMAND command, void *param, bool wait_response)
 {
-    bool acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
+    const bool acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
     dICHECK(acknowledgement_wait_result);
 
     m_acknowledgement_event.ResetEvent();
@@ -449,7 +449,7 @@ void dxThreadPoolThreadInfo::ExecuteThreadCommand(dxTHREADCOMMAND command, void 
 
     if (wait_response)
     {
-        bool new_acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
+        const bool new_acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
         dICHECK(new_acknowledgement_wait_result);
     }
 }
@@ -464,7 +464,7 @@ void *dxThreadPoolThreadInfo::ThreadProcedure_Callback(void *thread_param)
 
 void dxThreadPoolThreadInfo::ThreadProcedure()
 {
-    bool init_result = dAllocateODEDataForThread(m_ode_data_allocate_flags) != 0
+    const bool init_result = dAllocateODEDataForThread(m_ode_data_allocate_flags) != 0
         && DisableSignalHandlers();
 
     ReportInitStatus(init_result);
@@ -505,7 +505,7 @@ void dxThreadPoolThreadInfo::RunCommandHandlingLoop()
 
     while (!exit_requested)
     {
-        bool command_wait_result = m_command_event.WaitInfinitely();
+        const bool command_wait_result = m_command_event.WaitInfinitely();
         dICHECK(command_wait_result);
 
         const dxTHREADCOMMAND command_code = m_command_code;
@@ -658,7 +658,7 @@ void dxThreadingThreadPool::FinalizeThreads()
     dxThreadPoolThreadInfo *thread_infos = m_thread_infos;
     if (thread_infos != NULL)
     {
-        sizeint thread_count = m_thread_count;
+        const sizeint thread_count = m_thread_count;
 
         FinalizeIndividualThreadInfos(thread_infos, thread_count);
         dFree(thread_infos, thread_count * sizeof(dxThreadPoolThreadInfo));
@@ -684,7 +684,7 @@ bool dxThreadingThreadPool::InitializeIndividualThreadInfos(dxThreadPoolThreadIn
         }
     }
 
-    bool result = !any_fault;
+    const bool result = !any_fault;
     return result;
 }
 
@@ -734,7 +734,7 @@ void dxThreadingThreadPool::ServeThreadingImplementation(dThreadingImplementatio
     {
         current_info->ExecuteThreadCommand(dxThreadPoolThreadInfo::dxTHREAD_COMMAND_SERVE_IMPLEMENTATION, &params, true);
 
-        bool ready_wait_result = m_ready_wait_event.WaitInfinitely();
+        const bool ready_wait_result = m_ready_wait_event.WaitInfinitely();
         dICHECK(ready_wait_result);
     }
 }
@@ -761,7 +761,7 @@ void dxThreadingThreadPool::WaitIdleState()
     dxThreadingThreadPool *thread_pool = new dxThreadingThreadPool();
     if (thread_pool != NULL)
     {
-        unsigned restricted_thread_count = dMIN(thread_count, dTHREADING_MAX_SUPPORTED_POOL_THREADS);
+        const unsigned restricted_thread_count = dMIN(thread_count, dTHREADING_MAX_SUPPORTED_POOL_THREADS);
         if (thread_pool->InitializeThreads(restricted_thread_count, stack_size, ode_data_allocate_flags))
         {
             // do nothing

@@ -237,9 +237,9 @@ void dRfromQ (dMatrix3 R, const dQuaternion q)
 {
     dAASSERT (q && R);
     // q = (s,vx,vy,vz)
-    dReal qq1 = 2*q[1]*q[1];
-    dReal qq2 = 2*q[2]*q[2];
-    dReal qq3 = 2*q[3]*q[3];
+    const dReal qq1 = 2*q[1]*q[1];
+    const dReal qq2 = 2*q[2]*q[2];
+    const dReal qq3 = 2*q[3]*q[3];
     _R(0,0) = 1 - qq2 - qq3;
     _R(0,1) = 2*(q[1]*q[2] - q[0]*q[3]);
     _R(0,2) = 2*(q[1]*q[3] + q[0]*q[2]);

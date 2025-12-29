@@ -103,8 +103,8 @@ static void     track_to_pos (dBody &body, dJointID joint_id,
                               dReal target_x, dReal target_y)
 /************************************************************************/
 {
-    dReal  curr_x = body.getPosition()[0];
-    dReal  curr_y = body.getPosition()[1];
+    const dReal curr_x = body.getPosition()[0];
+    const dReal curr_y = body.getPosition()[1];
 
     dJointSetPlane2DXParam (joint_id, dParamVel, 1 * (target_x - curr_x));
     dJointSetPlane2DYParam (joint_id, dParamVel, 1 * (target_y - curr_y));
@@ -237,10 +237,10 @@ extern int      main
     // dynamic bodies
     for (b = 0; b < N_BODIES; b ++)
     {
-        int     l = (int) (1 + sqrt ((double) N_BODIES));
-        dReal  x = dReal( (0.5 + (b / l)) / l * STAGE_SIZE );
-        dReal  y = dReal( (0.5 + (b % l)) / l * STAGE_SIZE );
-        dReal  z = REAL( 1.0 ) + REAL( 0.1 ) * (dReal)drand48();
+        const int    l = (int) (1 + sqrt ((double) N_BODIES));
+        const dReal  x = dReal( (0.5 + (b / l)) / l * STAGE_SIZE );
+        const dReal  y = dReal( (0.5 + (b % l)) / l * STAGE_SIZE );
+        const dReal  z = REAL( 1.0 ) + REAL( 0.1 ) * (dReal)drand48();
 
         g_globals_ptr->bodies_sides[b][0] = dReal( 5 * (0.2 + 0.7*drand48()) / sqrt((double)N_BODIES) );
         g_globals_ptr->bodies_sides[b][1] = dReal( 5 * (0.2 + 0.7*drand48()) / sqrt((double)N_BODIES) );

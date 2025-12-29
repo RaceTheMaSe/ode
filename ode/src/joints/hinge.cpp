@@ -65,7 +65,7 @@ dxJointHinge::getInfo1( dxJoint::Info1 *info )
     if (( (double)limot.lostop >= -M_PI || (double)limot.histop <= M_PI ) &&
         limot.lostop <= limot.histop )
     {
-        dReal angle = getHingeAngle( node[0].body,
+        const dReal angle = getHingeAngle( node[0].body,
             node[1].body,
             axis1, qrel );
         if ( limot.testRotationalLimit( angle ) )
@@ -134,7 +134,7 @@ void dxJointHinge::getInfo2( dReal worldFPS, dReal worldERP,
         dCalcVectorCross3( b, ax1, axis2 );
     }
 
-    dReal k = worldFPS * worldERP;
+    const dReal k = worldFPS * worldERP;
     int currPairSkip = 3 * pairskip;
     pairRhsCfm[currPairSkip + GI2_RHS] = k * dCalcVectorDot3( b, p );
     currPairSkip += pairskip;
@@ -290,7 +290,7 @@ dReal dJointGetHingeAngle( dJointID j )
     checktype( joint, Hinge );
     if ( joint->node[0].body )
     {
-        dReal ang = getHingeAngle( joint->node[0].body,
+        const dReal ang = getHingeAngle( joint->node[0].body,
             joint->node[1].body,
             joint->axis1,
             joint->qrel );

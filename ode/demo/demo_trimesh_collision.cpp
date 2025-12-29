@@ -109,7 +109,7 @@ static void nearCallback(void *data, dGeomID o1, dGeomID o2)
 
     const int N = 32;
     dContact contact[N];
-    int n = dCollide(o1, o2, N, &(contact[0].geom), sizeof(dContact));
+    const int n = dCollide(o1, o2, N, &(contact[0].geom), sizeof(dContact));
     if (n > 0)
     {
         for (int i = 0; i<n; i++)
@@ -181,8 +181,8 @@ static void command(int cmd)
 
 static void simLoop(int pause)
 {
-    double simstep = 1/240.0;
-    double dt = dsElapsedTime();
+    const double simstep = 1/240.0;
+    const double dt = dsElapsedTime();
 
     int nrofsteps = (int)ceilf((float)(dt/simstep));
     nrofsteps = nrofsteps > 8 ? 8 : nrofsteps;
@@ -194,7 +194,7 @@ static void simLoop(int pause)
         {
             const dReal *pos = dBodyGetPosition(bodyId[j]);
             // Calculate force tensity according to distance from world center
-            dReal length = dCalcVectorLengthSquare3(pos);
+            const dReal length = dCalcVectorLengthSquare3(pos);
             dReal pos1[3];
             dCopyVector3(pos1, pos);
             dNegateVector3(pos1);
@@ -243,7 +243,7 @@ static void simLoop(int pause)
 
 int main(int argc, char **argv)
 {
-    dMass m;
+    const dMass m;
 
     // setup pointers to drawstuff callback functions
     dsFunctions fn;
@@ -277,10 +277,10 @@ int main(int argc, char **argv)
     // Generate TriMesh geometries and bodies
     for (unsigned int i = 0; i < HULLS_COUNT; i++)
     {
-        unsigned int hullSize = HULL_SIZES[i];
+        const unsigned int hullSize = HULL_SIZES[i];
         // Vertices
-        unsigned int odeVertsCount1 = hullSize * 3 * 2;
-        unsigned int odeVertsCount = odeVertsCount1 + 2 * 3;
+        const unsigned int odeVertsCount1 = hullSize * 3 * 2;
+        const unsigned int odeVertsCount = odeVertsCount1 + 2 * 3;
         odeVerts[i] = new dReal[odeVertsCount];
         for (unsigned int j = 0; j < hullSize; j++)
         {
@@ -302,15 +302,15 @@ int main(int argc, char **argv)
         odeVerts[i][odeVertsCount1 + 3 + 1] = REAL(0.0);
         odeVerts[i][odeVertsCount1 + 3 + 2] = TRIMESH_HEIGHT;
         // Indices
-        unsigned int odeIndsCount1 = hullSize * 6;
+        const unsigned int odeIndsCount1 = hullSize * 6;
         odeIndsCount[i] = odeIndsCount1 * 2;
         odeInds[i] = new dTriIndex[odeIndsCount[i]];
         for (unsigned int j = 0; j < hullSize; j++)
         {
             // Wall triangles
             // Wrap around index
-            unsigned int n1 = j + 1 < hullSize ? j + 1 : 0;
-            unsigned int n2 = hullSize + n1;
+            const unsigned int n1 = j + 1 < hullSize ? j + 1 : 0;
+            const unsigned int n2 = hullSize + n1;
             odeInds[i][j * 6] = (dTriIndex)j;
             odeInds[i][j * 6 + 1] = (dTriIndex)n1;
             odeInds[i][j * 6 + 2] = (dTriIndex)(hullSize + j);
@@ -340,7 +340,7 @@ int main(int argc, char **argv)
             REAL(0.0));
         dBodySetRotation(bodyId[i], R);
 
-        size_t index = 0;
+        const size_t index = 0;
         dBodySetData(bodyId[i], (void *)index);
 
         dMass m1;

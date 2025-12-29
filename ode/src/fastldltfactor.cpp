@@ -44,7 +44,7 @@ void ThreadedEquationSolverLDLT::estimateCooperativeFactoringLDLTResourceRequire
     unsigned allowedThreadCount, unsigned rowCount)
 {
     dxThreadingBase *threading = summaryRequirementsDescriptor->getrelatedThreading();
-    unsigned limitedThreadCount = restrictFactoringLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount);
+    const unsigned limitedThreadCount = restrictFactoringLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount);
 
     if (limitedThreadCount > 1)
     {
@@ -60,7 +60,7 @@ void ThreadedEquationSolverLDLT::cooperativelyFactorLDLT(
     dAASSERT(rowCount != 0);
 
     dxThreadingBase *threading = resourceContainer->getThreadingInstance();
-    unsigned limitedThreadCount = restrictFactoringLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount);
+    const unsigned limitedThreadCount = restrictFactoringLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount);
 
     if (limitedThreadCount <= 1)
     {
@@ -81,7 +81,7 @@ unsigned ThreadedEquationSolverLDLT::restrictFactoringLDLTAllowedThreadCount(
 
 #if defined(dCOOPERATIVE_ENABLED)
     const unsigned int solvingBlockStep = FSL1S_BLOCK_SIZE; // Required by the implementation
-    unsigned solvingMaximalBlockCount = deriveSolvingL1StripeBlockCount(rowCount, solvingBlockStep);
+    const unsigned solvingMaximalBlockCount = deriveSolvingL1StripeBlockCount(rowCount, solvingBlockStep);
     dIASSERT(deriveSolvingL1StripeThreadCount(FLDLT_COOPERATIVE_BLOCK_COUNT_MINIMUM - 1, 2) > 1);
 
     if (solvingMaximalBlockCount >= FLDLT_COOPERATIVE_BLOCK_COUNT_MINIMUM)
@@ -101,28 +101,28 @@ void ThreadedEquationSolverLDLT::doEstimateCooperativeFactoringLDLTResourceRequi
     unsigned allowedThreadCount, unsigned rowCount)
 {
     const unsigned int solvingBlockStep = FSL1S_BLOCK_SIZE; // Required by the implementation
-    unsigned solvingTotalBlockCount = deriveSolvingL1StripeBlockCount(rowCount, solvingBlockStep);
+    const unsigned solvingTotalBlockCount = deriveSolvingL1StripeBlockCount(rowCount, solvingBlockStep);
     dIASSERT(solvingTotalBlockCount >= 1);
 
-    unsigned solvingLastBlockIndex = solvingTotalBlockCount - 1;
+    const unsigned solvingLastBlockIndex = solvingTotalBlockCount - 1;
 
     const unsigned factorizingBlockARows = FFL1S_REGULAR_A_ROWS;
-    unsigned factorizingMaximalBlockCount = deriveScalingAndFactorizingL1StripeBlockCountFromSolvingBlockIndex(solvingLastBlockIndex, solvingBlockStep, factorizingBlockARows);
+    const unsigned factorizingMaximalBlockCount = deriveScalingAndFactorizingL1StripeBlockCountFromSolvingBlockIndex(solvingLastBlockIndex, solvingBlockStep, factorizingBlockARows);
 
-    unsigned blockSolvingMaximumThreads = deriveSolvingL1StripeThreadCount(solvingLastBlockIndex, allowedThreadCount);
-    unsigned blockFactorizingMaximumThreads = deriveScalingAndFactorizingL1StripeThreadCount(factorizingMaximalBlockCount, allowedThreadCount);
-    unsigned simultaneousCallCount = 1 // Final synchronization point
+    const unsigned blockSolvingMaximumThreads = deriveSolvingL1StripeThreadCount(solvingLastBlockIndex, allowedThreadCount);
+    const unsigned blockFactorizingMaximumThreads = deriveScalingAndFactorizingL1StripeThreadCount(factorizingMaximalBlockCount, allowedThreadCount);
+    const unsigned simultaneousCallCount = 1 // Final synchronization point
         + 2 // intermediate synchronization points
         + dMAX(blockSolvingMaximumThreads, blockFactorizingMaximumThreads);
 
     FactorizationSolvingL1StripeMemoryEstimates solvingMemoryEstimates;
     FactorizationScalingAndFactorizingL1StripeMemoryEstimates scalingAndFactorizingEstimates;
-    sizeint solvingMemoryRequired = estimateCooperativelySolvingL1Stripe_XMemoryRequirement(solvingTotalBlockCount, solvingMemoryEstimates);
-    sizeint factorizingMemoryRequired = estimateCooperativelyScalingAndFactorizingL1Stripe_XMemoryRequirement(blockFactorizingMaximumThreads, scalingAndFactorizingEstimates);
-    sizeint totalSizeRequired = solvingMemoryRequired + factorizingMemoryRequired;
+    const sizeint solvingMemoryRequired = estimateCooperativelySolvingL1Stripe_XMemoryRequirement(solvingTotalBlockCount, solvingMemoryEstimates);
+    const sizeint factorizingMemoryRequired = estimateCooperativelyScalingAndFactorizingL1Stripe_XMemoryRequirement(blockFactorizingMaximumThreads, scalingAndFactorizingEstimates);
+    const sizeint totalSizeRequired = solvingMemoryRequired + factorizingMemoryRequired;
     const unsigned memoryAlignmentRequired = ALLOCATION_DEFAULT_ALIGNMENT;
 
-    unsigned featureRequirement = dxResourceRequirementDescriptor::STOCK_CALLWAIT_REQUIRED;
+    const unsigned featureRequirement = dxResourceRequirementDescriptor::STOCK_CALLWAIT_REQUIRED;
     summaryRequirementsDescriptor->mergeAnotherDescriptorIn(totalSizeRequired, memoryAlignmentRequired, simultaneousCallCount, featureRequirement);
 }
 
@@ -134,24 +134,24 @@ void ThreadedEquationSolverLDLT::doCooperativelyFactorLDLTValidated(
     dIASSERT(allowedThreadCount > 1);
 
     const unsigned int solvingBlockStep = FSL1S_BLOCK_SIZE; // Required by the implementation
-    unsigned solvingTotalBlockCount = deriveSolvingL1StripeBlockCount(rowCount, solvingBlockStep);
+    const unsigned solvingTotalBlockCount = deriveSolvingL1StripeBlockCount(rowCount, solvingBlockStep);
     dIASSERT(solvingTotalBlockCount >= 1);
 
-    unsigned solvingLastBlockIndex = solvingTotalBlockCount - 1;
+    const unsigned solvingLastBlockIndex = solvingTotalBlockCount - 1;
 
     const unsigned factorizingBlockARows = FFL1S_REGULAR_A_ROWS;
-    unsigned factorizingMaximalBlockCount = deriveScalingAndFactorizingL1StripeBlockCountFromSolvingBlockIndex(solvingLastBlockIndex, solvingBlockStep, factorizingBlockARows);
+    const unsigned factorizingMaximalBlockCount = deriveScalingAndFactorizingL1StripeBlockCountFromSolvingBlockIndex(solvingLastBlockIndex, solvingBlockStep, factorizingBlockARows);
 
-    unsigned blockFactorizingMaximumThreads = deriveScalingAndFactorizingL1StripeThreadCount(factorizingMaximalBlockCount, allowedThreadCount);
+    const unsigned blockFactorizingMaximumThreads = deriveScalingAndFactorizingL1StripeThreadCount(factorizingMaximalBlockCount, allowedThreadCount);
 
     dCallWaitID completionWait = resourceContainer->getStockCallWait();
     dAASSERT(completionWait != NULL);
 
     FactorizationSolvingL1StripeMemoryEstimates solvingMemoryEstimates;
     FactorizationScalingAndFactorizingL1StripeMemoryEstimates scalingAndFactorizingEstimates;
-    sizeint solvingMemoryRequired = estimateCooperativelySolvingL1Stripe_XMemoryRequirement(solvingTotalBlockCount, solvingMemoryEstimates);
-    sizeint factorizingMemoryRequired = estimateCooperativelyScalingAndFactorizingL1Stripe_XMemoryRequirement(blockFactorizingMaximumThreads, scalingAndFactorizingEstimates);
-    sizeint totalSizeRequired = solvingMemoryRequired + factorizingMemoryRequired;
+    const sizeint solvingMemoryRequired = estimateCooperativelySolvingL1Stripe_XMemoryRequirement(solvingTotalBlockCount, solvingMemoryEstimates);
+    const sizeint factorizingMemoryRequired = estimateCooperativelyScalingAndFactorizingL1Stripe_XMemoryRequirement(blockFactorizingMaximumThreads, scalingAndFactorizingEstimates);
+    const sizeint totalSizeRequired = solvingMemoryRequired + factorizingMemoryRequired;
     dIASSERT(totalSizeRequired <= resourceContainer->getMemoryBufferSize());
 
     void *bufferAllocated = resourceContainer->getMemoryBufferPointer();
@@ -188,7 +188,7 @@ void ThreadedEquationSolverLDLT::doCooperativelyFactorLDLTValidated(
     dIASSERT(blockIndex == workerContext.m_solvingBlockIndex);
 
     initializeCooperativelySolvingL1Stripe_XMemoryStructures(blockIndex, solvingBlockCompletionProgress, solvingBlockProgressDescriptors, solvingCellContexts);
-    unsigned secondBlockSolvingThreadCount = deriveSolvingL1StripeThreadCount(blockIndex, allowedThreadCount);
+    const unsigned secondBlockSolvingThreadCount = deriveSolvingL1StripeThreadCount(blockIndex, allowedThreadCount);
 
     dCallReleaseeID secondBlockSolvingSyncReleasee;
     threading->PostThreadedCall(NULL, &secondBlockSolvingSyncReleasee, secondBlockSolvingThreadCount, NULL, NULL, &factotLDLT_solvingCompleteSync_callback, &workerContext, 0, "FactorLDLT Solving Complete Sync");
@@ -236,13 +236,13 @@ int ThreadedEquationSolverLDLT::factotLDLT_solvingCompleteSync_callback(void *ca
 /*static */
 void ThreadedEquationSolverLDLT::factotLDLT_solvingCompleteSync(FactorLDLTWorkerContext &ref_workerContext)
 {
-    unsigned solvingBlockIndex = ref_workerContext.m_solvingBlockIndex;
+    const unsigned solvingBlockIndex = ref_workerContext.m_solvingBlockIndex;
     FactorizationFactorizeL1StripeContext *factorizingFactorizationContext = ref_workerContext.m_factorizingFactorizationContext;
 
     const unsigned int solvingBlockStep = FSL1S_BLOCK_SIZE;
     const unsigned factorizingBlockARows = FFL1S_REGULAR_A_ROWS;
-    unsigned factorizingBlockCount = deriveScalingAndFactorizingL1StripeBlockCountFromSolvingBlockIndex(solvingBlockIndex, solvingBlockStep, factorizingBlockARows);
-    unsigned blockFactorizingThreadCount = deriveScalingAndFactorizingL1StripeThreadCount(factorizingBlockCount, ref_workerContext.m_allowedThreadCount);
+    const unsigned factorizingBlockCount = deriveScalingAndFactorizingL1StripeBlockCountFromSolvingBlockIndex(solvingBlockIndex, solvingBlockStep, factorizingBlockARows);
+    const unsigned blockFactorizingThreadCount = deriveScalingAndFactorizingL1StripeThreadCount(factorizingBlockCount, ref_workerContext.m_allowedThreadCount);
     initializeCooperativelyScalingAndFactorizingL1Stripe_XMemoryStructures(factorizingFactorizationContext, blockFactorizingThreadCount);
 
     dCallReleaseeID blockFactorizingSyncReleasee;
@@ -285,7 +285,7 @@ int ThreadedEquationSolverLDLT::factotLDLT_scalingAndFactorizingComplete_callbac
 /*static */
 void ThreadedEquationSolverLDLT::factotLDLT_scalingAndFactorizingComplete(FactorLDLTWorkerContext &ref_workerContext, unsigned ownThreadIndex)
 {
-    unsigned factorizationRow = ref_workerContext.m_solvingBlockIndex * FSL1S_BLOCK_SIZE;
+    const unsigned factorizationRow = ref_workerContext.m_solvingBlockIndex * FSL1S_BLOCK_SIZE;
     participateScalingAndFactorizingL1Stripe_X<FFL1S_REGULAR_A_ROWS, FLDLT_D_STRIDE>(ref_workerContext.m_ARow, ref_workerContext.m_d, factorizationRow, 
         ref_workerContext.m_rowSkip, ref_workerContext.m_factorizingFactorizationContext, ownThreadIndex);
 }
@@ -306,7 +306,7 @@ void ThreadedEquationSolverLDLT::factotLDLT_scalingAndFactorizingCompleteSync(Fa
 {
     ref_workerContext.incrementForNextBlock();
 
-    unsigned blockIndex = ref_workerContext.m_solvingBlockIndex;
+    const unsigned blockIndex = ref_workerContext.m_solvingBlockIndex;
     dIASSERT(blockIndex < ref_workerContext.m_totalBlockCount);
 
     atomicord32 &refSolvingBlockCompletionProgress = ref_workerContext.m_refSolvingBlockCompletionProgress;
@@ -314,7 +314,7 @@ void ThreadedEquationSolverLDLT::factotLDLT_scalingAndFactorizingCompleteSync(Fa
     FactorizationSolveL1StripeCellContext *solvingCellContexts = ref_workerContext.m_solvingCellContexts;
 
     initializeCooperativelySolvingL1Stripe_XMemoryStructures(blockIndex, refSolvingBlockCompletionProgress, solvingBlockProgressDescriptors, solvingCellContexts);
-    unsigned blockSolvingThreadCount = deriveSolvingL1StripeThreadCount(blockIndex, ref_workerContext.m_allowedThreadCount);
+    const unsigned blockSolvingThreadCount = deriveSolvingL1StripeThreadCount(blockIndex, ref_workerContext.m_allowedThreadCount);
 
     dCallReleaseeID blockSolvingSyncReleasee;
 
@@ -380,13 +380,13 @@ int ThreadedEquationSolverLDLT::factotLDLT_solvingFinalSync_callback(void *callC
 /*static */
 void ThreadedEquationSolverLDLT::factotLDLT_solvingFinalSync(FactorLDLTWorkerContext &ref_workerContext)
 {
-    unsigned solvingBlockIndex = ref_workerContext.m_solvingBlockIndex;
+    const unsigned solvingBlockIndex = ref_workerContext.m_solvingBlockIndex;
     FactorizationFactorizeL1StripeContext *factorizingFactorizationContext = ref_workerContext.m_factorizingFactorizationContext;
 
     const unsigned int solvingBlockStep = FSL1S_BLOCK_SIZE;
     const unsigned factorizingBlockARows = FFL1S_FINAL_A_ROWS;
-    unsigned factorizingBlockCount = deriveScalingAndFactorizingL1StripeBlockCountFromSolvingBlockIndex(solvingBlockIndex, solvingBlockStep, factorizingBlockARows);
-    unsigned blockFactorizingThreadCount = deriveScalingAndFactorizingL1StripeThreadCount(factorizingBlockCount, ref_workerContext.m_allowedThreadCount);
+    const unsigned factorizingBlockCount = deriveScalingAndFactorizingL1StripeBlockCountFromSolvingBlockIndex(solvingBlockIndex, solvingBlockStep, factorizingBlockARows);
+    const unsigned blockFactorizingThreadCount = deriveScalingAndFactorizingL1StripeThreadCount(factorizingBlockCount, ref_workerContext.m_allowedThreadCount);
     initializeCooperativelyScalingAndFactorizingL1Stripe_XMemoryStructures(factorizingFactorizationContext, blockFactorizingThreadCount);
 
     dCallReleaseeID blockFactorizingSyncReleasee = ref_workerContext.m_calculationFinishReleasee;
@@ -418,7 +418,7 @@ int ThreadedEquationSolverLDLT::factotLDLT_scalingAndFactorizingFinal_callback(v
 /*static */
 void ThreadedEquationSolverLDLT::factotLDLT_scalingAndFactorizingFinal(FactorLDLTWorkerContext &ref_workerContext, unsigned ownThreadIndex)
 {
-    unsigned factorizationRow = ref_workerContext.m_solvingBlockIndex * FSL1S_BLOCK_SIZE;
+    const unsigned factorizationRow = ref_workerContext.m_solvingBlockIndex * FSL1S_BLOCK_SIZE;
     participateScalingAndFactorizingL1Stripe_X<FFL1S_FINAL_A_ROWS, FLDLT_D_STRIDE>(ref_workerContext.m_ARow, ref_workerContext.m_d, factorizationRow, 
         ref_workerContext.m_rowSkip, ref_workerContext.m_factorizingFactorizationContext, ownThreadIndex);
 }

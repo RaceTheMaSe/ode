@@ -62,7 +62,7 @@ int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* conta
     //
 
     Opcode::VertexPointersEx VPE;
-    Opcode::VertexPointers &VP = VPE.vp;
+    const Opcode::VertexPointers &VP = VPE.vp;
     Opcode::ConversionArea VC;
     dReal alpha;
     dVector3 vertex;
@@ -88,7 +88,7 @@ int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* conta
     for ( int t = 0; t < tri_count; ++t )
     {
         // Get triangle, which should also use callback.
-        bool ex_avail = meshData->m_Mesh.GetExTriangle( VPE, (udword)t, VC);
+        const bool ex_avail = meshData->m_Mesh.GetExTriangle( VPE, (udword)t, VC);
 
         // For each vertex.
         for ( int v = 0; v < 3; ++v )
@@ -96,7 +96,7 @@ int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* conta
             // point already used ?
             if (cache_status && ex_avail)
             {
-                unsigned VIndex = VPE.Index[v];
+                const unsigned VIndex = VPE.Index[v];
                 if (vertex_use_cache.getVertexUSEDFlag(VIndex))
                     continue;
                 // mark this point as used

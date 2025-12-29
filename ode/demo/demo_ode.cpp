@@ -166,7 +166,7 @@ static void testCrossProduct()
     dSetCrossMatrixPlus(B,b,4);
     dMultiply0 (a2,B,c,3,3,1);
 
-    dReal diff = dMaxDifference(a1,a2,3,1);
+    const dReal diff = dMaxDifference(a1,a2,3,1);
     printf ("\t%s\n", diff > tol ? "FAILED" : "passed");
 }
 
@@ -326,7 +326,7 @@ static void testSmallMatrixMultiply()
 
 static void testCholeskyFactorization()
 {
-    dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
+    const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *B = (dReal *)dAlloc(matrixSize), *C = (dReal *)dAlloc(matrixSize), diff;
 
     HEADER;
@@ -349,7 +349,7 @@ static void testCholeskyFactorization()
 
 static void testCholeskySolve()
 {
-    dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
+    const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize);
     dReal *b = (dReal *)dAlloc(vectorSize), *x = (dReal *)dAlloc(vectorSize), *btest = (dReal *)dAlloc(vectorSize), diff;
 
@@ -389,7 +389,7 @@ static void testCholeskySolve()
 static void testInvertPDMatrix()
 {
     unsigned i,j,ok;
-    dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
+    const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *Ainv = (dReal *)dAlloc(matrixSize), *I = (dReal *)dAlloc(matrixSize);
 
     HEADER;
@@ -423,7 +423,7 @@ static void testInvertPDMatrix()
 
 static void testIsPositiveDefinite()
 {
-    dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
+    const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *B = (dReal *)dAlloc(matrixSize);
 
     HEADER;
@@ -441,7 +441,7 @@ static void testIsPositiveDefinite()
 static void testFastLDLTFactorization()
 {
     unsigned i,j;
-    dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
+    const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), *DL = (dReal *)dAlloc(matrixSize),
         *ATEST = (dReal *)dAlloc(matrixSize), *d = (dReal *)dAlloc(vectorSize), diff;
 
@@ -480,7 +480,7 @@ static void testCoopLDLTFactorization()
 
     const dsizeint COOP_MSIZE = MSIZE * 51, COOP_MSIZE4 = (dsizeint)dALIGN_SIZE(COOP_MSIZE, 4);
 
-    dsizeint matrixSize = sizeof(dReal) * COOP_MSIZE4 * COOP_MSIZE, vectorSize = sizeof(dReal) * COOP_MSIZE;
+    const dsizeint matrixSize = sizeof(dReal) * COOP_MSIZE4 * COOP_MSIZE, vectorSize = sizeof(dReal) * COOP_MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), *DL = (dReal *)dAlloc(matrixSize),
         *ATEST = (dReal *)dAlloc(matrixSize), *d = (dReal *)dAlloc(vectorSize), diff;
 
@@ -546,7 +546,7 @@ static void testCoopLDLTFactorization()
 
 static void testSolveLDLT()
 {
-    dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
+    const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
         *d = (dReal *)dAlloc(vectorSize), *x = (dReal *)dAlloc(vectorSize), 
         *b = (dReal *)dAlloc(vectorSize), *btest = (dReal *)dAlloc(vectorSize), diff;
@@ -580,7 +580,7 @@ static void testCoopSolveLDLT()
 {
     const dsizeint COOP_MSIZE = MSIZE * 51, COOP_MSIZE4 = (dsizeint)dALIGN_SIZE(COOP_MSIZE, 4);
 
-    dsizeint matrixSize = sizeof(dReal) * COOP_MSIZE4 * COOP_MSIZE, vectorSize = sizeof(dReal) * COOP_MSIZE;
+    const dsizeint matrixSize = sizeof(dReal) * COOP_MSIZE4 * COOP_MSIZE, vectorSize = sizeof(dReal) * COOP_MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
         *d = (dReal *)dAlloc(vectorSize), *x = (dReal *)dAlloc(vectorSize), 
         *b = (dReal *)dAlloc(vectorSize), *btest = (dReal *)dAlloc(vectorSize), diff;
@@ -648,7 +648,7 @@ static void testCoopSolveLDLT()
 static void testLDLTAddTL()
 {
     unsigned i,j;
-    dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
+    const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
         *DL = (dReal *)dAlloc(matrixSize), *ATEST = (dReal *)dAlloc(matrixSize), 
         *d = (dReal *)dAlloc(vectorSize), *a = (dReal *)dAlloc(vectorSize), diff;
@@ -695,7 +695,7 @@ static void testLDLTAddTL()
 static void testLDLTRemove()
 {
     unsigned i,j,r;
-    dsizeint intVectorSize = sizeof(int) * MSIZE, matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
+    const dsizeint intVectorSize = sizeof(int) * MSIZE, matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     int *p = (int *)dAlloc(intVectorSize);
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
         *L2 = (dReal *)dAlloc(matrixSize), *DL2 = (dReal *)dAlloc(matrixSize), 
@@ -943,7 +943,7 @@ static void makeRandomRotation (dMatrix3 R)
     dMakeRandomVector (u1,3,1.0);
     dNormalize3 (u1);
     dMakeRandomVector (u2,3,1.0);
-    dReal d = dCalcVectorDot3(u1,u2);
+    const dReal d = dCalcVectorDot3(u1,u2);
     u2[0] -= d*u1[0];
     u2[1] -= d*u1[1];
     u2[2] -= d*u1[2];
@@ -982,7 +982,7 @@ static void testRtoQandQtoR()
         makeRandomRotation (R);
         dRtoQ (R,q);
         dQtoR (q,R2);
-        dReal diff = dMaxDifference (R,R2,3,3);
+        const dReal diff = dMaxDifference (R,R2,3,3);
         if (diff > maxdiff) maxdiff = diff;
     }
     printf ("\tmaximum difference = %e - %s (3)\n",(double)maxdiff,
@@ -1148,7 +1148,7 @@ dReal dMatrixComparison::nextMatrix (dReal *A, int n, int m, int lower_tri,
                                      const char *name, ...)
 {
     if (A==NULL || n < 1 || m < 1 || name==NULL) dDebug (false,"bad args to nextMatrix");
-    unsigned num = (unsigned)n*dPAD(m);
+    const unsigned num = (unsigned)n*dPAD(m);
 
     if (afterfirst==0) {
         dMatInfo *mi = (dMatInfo*) dAlloc (sizeof(dMatInfo));
@@ -1254,7 +1254,7 @@ static void dTestMatrixComparison()
     dReal A[50*50];
 
     // make first sequence
-    unsigned long seed = dRandGetSeed();
+    const unsigned long seed = dRandGetSeed();
     for (i=1; i<49;) {
         dMakeRandomMatrix (A,i,i+1,1.0);
         mc.nextMatrix (A,i,i+1,0,"A%d",i);

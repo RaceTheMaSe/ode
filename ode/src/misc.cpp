@@ -63,7 +63,7 @@ void dRandSetSeed (unsigned long s)
 
 int dTestRand()
 {
-    unsigned long oldseed = seed;
+    const unsigned long oldseed = seed;
     int ret = 1;
     seed = 0;
     if (dRand() != 0x3c6ef35f || dRand() != 0x47502932 ||
@@ -80,10 +80,10 @@ int dRandInt (int n)
     int result;
     // Since there is no memory barrier macro in ODE assign via volatile variable 
     // to prevent compiler reusing seed as value of `r'
-    volatile unsigned long raw_r = dRand();
+    volatile const unsigned long raw_r = dRand();
     duint32 r = (duint32)raw_r;
     
-    duint32 un = (duint32)n;
+    const duint32 un = (duint32)n;
     dSASSERT(sizeof(n) == sizeof(un));
 
     // note: probably more aggressive than it needs to be -- might be
@@ -149,7 +149,7 @@ dReal dRandReal()
 
 void dPrintMatrix (const dReal *A, int n, int m, const char *fmt, FILE *f)
 {
-    int skip = (int)dPAD(m);
+    const int skip = (int)dPAD(m);
     const dReal *Arow = A;
     for (int i=0; i<n; Arow+=skip, ++i) {
         for (int j=0; j<m; ++j) fprintf (f,fmt,(double)Arow[j]);
@@ -167,7 +167,7 @@ void dMakeRandomVector (dReal *A, int n, dReal range)
 
 void dMakeRandomMatrix (dReal *A, int n, int m, dReal range)
 {
-    int skip = (int)dPAD(m);
+    const int skip = (int)dPAD(m);
     //  dSetZero (A,n*skip);
     dReal *Arow = A;
     for (int i=0; i<n; Arow+=skip, ++i) {
@@ -178,7 +178,7 @@ void dMakeRandomMatrix (dReal *A, int n, int m, dReal range)
 
 void dClearUpperTriangle (dReal *A, int n)
 {
-    int skip = (int)dPAD(n);
+    const int skip = (int)dPAD(n);
     dReal *Arow = A;
     for (int i=0; i<n; Arow+=skip, ++i) {
         for (int j=i+1; j<n; ++j) Arow[j] = 0;
@@ -188,12 +188,12 @@ void dClearUpperTriangle (dReal *A, int n)
 
 dReal dMaxDifference (const dReal *A, const dReal *B, int n, int m)
 {
-    int skip = (int)dPAD(m);
+    const int skip = (int)dPAD(m);
     dReal max = REAL(0.0);
     const dReal *Arow = A, *Brow = B;
     for (int i=0; i<n; Arow+=skip, Brow +=skip, ++i) {
         for (int j=0; j<m; ++j) {
-            dReal diff = dFabs(Arow[j] - Brow[j]);
+            const dReal diff = dFabs(Arow[j] - Brow[j]);
             if (diff > max) max = diff;
         }
     }
@@ -203,12 +203,12 @@ dReal dMaxDifference (const dReal *A, const dReal *B, int n, int m)
 
 dReal dMaxDifferenceLowerTriangle (const dReal *A, const dReal *B, int n)
 {
-    int skip = (int)dPAD(n);
+    const int skip = (int)dPAD(n);
     dReal max = REAL(0.0);
     const dReal *Arow = A, *Brow = B;
     for (int i=0; i<n; Arow+=skip, Brow+=skip, ++i) {
         for (int j=0; j<=i; ++j) {
-            dReal diff = dFabs(Arow[j] - Brow[j]);
+            const dReal diff = dFabs(Arow[j] - Brow[j]);
             if (diff > max) max = diff;
         }
     }

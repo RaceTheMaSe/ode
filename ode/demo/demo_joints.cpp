@@ -519,7 +519,7 @@ static dReal doStuffAndGetError (int n)
     // check the orientations are the same
     const dReal *R1 = dBodyGetRotation (body[0]);
     const dReal *R2 = dBodyGetRotation (body[1]);
-    dReal err1 = dMaxDifference (R1,R2,3,3);
+    const dReal err1 = dMaxDifference (R1,R2,3,3);
     // check the body offset is correct
     dVector3 p,pp;
     const dReal *p1 = dBodyGetPosition (body[0]);
@@ -535,7 +535,7 @@ static dReal doStuffAndGetError (int n)
     addOscillatingTorque (REAL(0.1));
 
     // check the orientation is the identity
-    dReal err1 = cmpIdentity (dBodyGetRotation (body[0]));
+    const dReal err1 = cmpIdentity (dBodyGetRotation (body[0]));
 
     // check the body offset is correct
     dVector3 p;
@@ -588,7 +588,7 @@ static dReal doStuffAndGetError (int n)
     dBodyAddTorque (body[0],0,0,REAL( 0.01));
     dBodyAddTorque (body[1],0,0,REAL(-0.01));
     if (iteration == 40) {
-      dReal a = dJointGetHingeAngle (joint);
+      const dReal a = dJointGetHingeAngle (joint);
       if (a > REAL(0.5) && a < 1) return 0; else return 10;
     }
     return 0;
@@ -597,9 +597,9 @@ static dReal doStuffAndGetError (int n)
     static dReal last_angle = 0;
     dBodyAddTorque (body[0],0,0,REAL( 0.01));
     dBodyAddTorque (body[1],0,0,REAL(-0.01));
-    dReal a = dJointGetHingeAngle (joint);
-    dReal r = dJointGetHingeAngleRate (joint);
-    dReal er = (a-last_angle)/STEPSIZE;		// estimated rate
+    const dReal a = dJointGetHingeAngle (joint);
+    const dReal r = dJointGetHingeAngleRate (joint);
+    const dReal er = (a-last_angle)/STEPSIZE;		// estimated rate
     last_angle = a;
     return dFabs(r-er) * REAL(4e4);
   }
@@ -607,7 +607,7 @@ static dReal doStuffAndGetError (int n)
   case 230:			// hinge motor rate (and polarity) test
   case 231: {			// ...with stops
     static dReal a = 0;
-    dReal r = dJointGetHingeAngleRate (joint);
+    const dReal r = dJointGetHingeAngleRate (joint);
     dReal err = dFabs (dCos(a) - r);
     if (a==0) err = 0;
     a += REAL(0.03);
@@ -628,7 +628,7 @@ static dReal doStuffAndGetError (int n)
     dBodyAddForce (body[0],0,0,REAL(0.1));
     dBodyAddForce (body[1],0,0,REAL(-0.1));
     if (iteration == 40) {
-      dReal a = dJointGetSliderPosition (joint);
+      const dReal a = dJointGetSliderPosition (joint);
       if (a > REAL(0.2) && a < REAL(0.5))
           return 0;
       else
@@ -640,9 +640,9 @@ static dReal doStuffAndGetError (int n)
     static dReal last_pos = 0;
     dBodyAddForce (body[0],0,0,REAL( 0.1));
     dBodyAddForce (body[1],0,0,REAL(-0.1));
-    dReal p = dJointGetSliderPosition (joint);
-    dReal r = dJointGetSliderPositionRate (joint);
-    dReal er = (p-last_pos)/STEPSIZE;	// estimated rate (almost exact)
+    const dReal p = dJointGetSliderPosition (joint);
+    const dReal r = dJointGetSliderPositionRate (joint);
+    const dReal er = (p-last_pos)/STEPSIZE;	// estimated rate (almost exact)
     last_pos = p;
     return dFabs(r-er) * REAL(1e9);
   }
@@ -650,7 +650,7 @@ static dReal doStuffAndGetError (int n)
   case 330:			// slider motor rate (and polarity) test
   case 331: {			// ...with stops
     static dReal a = 0;
-    dReal r = dJointGetSliderPositionRate (joint);
+    const dReal r = dJointGetSliderPositionRate (joint);
     dReal err = dFabs (REAL(0.7)*dCos(a) - r);
     if (a < REAL(0.04)) err = 0;
     a += REAL(0.03);
@@ -665,7 +665,7 @@ static dReal doStuffAndGetError (int n)
     dBodyAddTorque (body[0],0,0,REAL( 0.01));
     dBodyAddTorque (body[1],0,0,REAL(-0.01));
     if (iteration == 40) {
-      dReal a = dJointGetHinge2Angle1 (joint);
+      const dReal a = dJointGetHinge2Angle1 (joint);
       if (a > REAL(0.5) && a < REAL(0.6)) return 0; else return 10;
     }
     return 0;
@@ -674,9 +674,9 @@ static dReal doStuffAndGetError (int n)
     static dReal last_angle = 0;
     dBodyAddTorque (body[0],0,0,REAL( 0.01));
     dBodyAddTorque (body[1],0,0,REAL(-0.01));
-    dReal a = dJointGetHinge2Angle1 (joint);
-    dReal r = dJointGetHinge2Angle1Rate (joint);
-    dReal er = (a-last_angle)/STEPSIZE;		// estimated rate
+    const dReal a = dJointGetHinge2Angle1 (joint);
+    const dReal r = dJointGetHinge2Angle1Rate (joint);
+    const dReal er = (a-last_angle)/STEPSIZE;		// estimated rate
     last_angle = a;
     return dFabs(r-er)*REAL(2e4);
   }
@@ -684,7 +684,7 @@ static dReal doStuffAndGetError (int n)
   case 430:			// hinge 2 steering motor rate (+polarity) test
   case 431: {			// ...with stops
     static dReal a = 0;
-    dReal r = dJointGetHinge2Angle1Rate (joint);
+    const dReal r = dJointGetHinge2Angle1Rate (joint);
     dReal err = dFabs (dCos(a) - r);
     if (a==0) err = 0;
     a += REAL(0.03);
@@ -695,7 +695,7 @@ static dReal doStuffAndGetError (int n)
 
   case 432: {			// hinge 2 wheel motor rate (+polarity) test
     static dReal a = 0;
-    dReal r = dJointGetHinge2Angle2Rate (joint);
+    const dReal r = dJointGetHinge2Angle2Rate (joint);
     dReal err = dFabs (dCos(a) - r);
     if (a==0) err = 0;
     a += REAL(0.03);
@@ -710,9 +710,9 @@ static dReal doStuffAndGetError (int n)
     static dReal a1,a2,a3;
 
     // find actual euler angles
-    dReal aa1 = dJointGetAMotorAngle (joint,0);
-    dReal aa2 = dJointGetAMotorAngle (joint,1);
-    dReal aa3 = dJointGetAMotorAngle (joint,2);
+    const dReal aa1 = dJointGetAMotorAngle (joint,0);
+    const dReal aa2 = dJointGetAMotorAngle (joint,1);
+    const dReal aa3 = dJointGetAMotorAngle (joint,2);
     // printf ("actual  = %.4f %.4f %.4f\n\n",aa1,aa2,aa3);
 
     dReal err = dInfinity;
@@ -760,12 +760,12 @@ static dReal doStuffAndGetError (int n)
     static dReal last_angle = 0;
     addOscillatingTorque (REAL(0.1));
     dampRotationalMotion (REAL(0.1));
-    dReal a = dJointGetUniversalAngle1(joint);
-    dReal r = dJointGetUniversalAngle1Rate(joint);
+    const dReal a = dJointGetUniversalAngle1(joint);
+    const dReal r = dJointGetUniversalAngle1Rate(joint);
     dReal diff = a - last_angle;
     if (diff > (dReal)M_PI) diff -= dReal(2*M_PI);
     if (diff < (dReal)-M_PI) diff += dReal(2*M_PI);
-    dReal er = diff / STEPSIZE;    // estimated rate
+    const dReal er = diff / STEPSIZE;    // estimated rate
     last_angle = a;
     // I'm not sure why the error is so large here.
     return dFabs(r - er) * REAL(1e1);
@@ -775,12 +775,12 @@ static dReal doStuffAndGetError (int n)
     static dReal last_angle = 0;
     addOscillatingTorque (REAL(0.1));
     dampRotationalMotion (REAL(0.1));
-    dReal a = dJointGetUniversalAngle2(joint);
-    dReal r = dJointGetUniversalAngle2Rate(joint);
+    const dReal a = dJointGetUniversalAngle2(joint);
+    const dReal r = dJointGetUniversalAngle2Rate(joint);
     dReal diff = a - last_angle;
     if (diff > (dReal)M_PI) diff -= dReal(2*M_PI);
     if (diff < (dReal)-M_PI) diff += dReal(2*M_PI);
-    dReal er = diff / STEPSIZE;    // estimated rate
+    const dReal er = diff / STEPSIZE;    // estimated rate
     last_angle = a;
     // I'm not sure why the error is so large here.
     return dFabs(r - er) * REAL(1e1);
@@ -799,12 +799,12 @@ static dReal doStuffAndGetError (int n)
     static dReal last_angle = 0;
     addOscillatingTorqueAbout (REAL(0.1), 1, 1, 0);
     dampRotationalMotion (REAL(0.1));
-    dReal a = dJointGetUniversalAngle1(joint);
-    dReal r = dJointGetUniversalAngle1Rate(joint);
+    const dReal a = dJointGetUniversalAngle1(joint);
+    const dReal r = dJointGetUniversalAngle1Rate(joint);
     dReal diff = a - last_angle;
     if (diff > (dReal)M_PI) diff -= dReal(2*M_PI);
     if (diff < (dReal)-M_PI) diff += dReal(2*M_PI);
-    dReal er = diff / STEPSIZE;    // estimated rate
+    const dReal er = diff / STEPSIZE;    // estimated rate
     last_angle = a;
     return dFabs(r - er) * REAL(1e10);
   }
@@ -813,12 +813,12 @@ static dReal doStuffAndGetError (int n)
     static dReal last_angle = 0;
     addOscillatingTorqueAbout (REAL(0.1), 1, 1, 0);
     dampRotationalMotion (REAL(0.1));
-    dReal a = dJointGetUniversalAngle2(joint);
-    dReal r = dJointGetUniversalAngle2Rate(joint);
+    const dReal a = dJointGetUniversalAngle2(joint);
+    const dReal r = dJointGetUniversalAngle2Rate(joint);
     dReal diff = a - last_angle;
     if (diff > (dReal)M_PI) diff -= dReal(2*M_PI);
     if (diff < (dReal)-M_PI) diff += dReal(2*M_PI);
-    dReal er = diff / STEPSIZE;    // estimated rate
+    const dReal er = diff / STEPSIZE;    // estimated rate
     last_angle = a;
     return dFabs(r - er) * REAL(1e10);
   }
@@ -838,12 +838,12 @@ static dReal doStuffAndGetError (int n)
     dJointGetUniversalAxis1(joint, ax1);
     addOscillatingTorqueAbout (REAL(0.1), ax1[0], ax1[1], ax1[2]);
     dampRotationalMotion (REAL(0.1));
-    dReal a = dJointGetUniversalAngle1(joint);
-    dReal r = dJointGetUniversalAngle1Rate(joint);
+    const dReal a = dJointGetUniversalAngle1(joint);
+    const dReal r = dJointGetUniversalAngle1Rate(joint);
     dReal diff = a - last_angle;
     if (diff > (dReal)M_PI) diff -= dReal(2*M_PI);
     if (diff < (dReal)-M_PI) diff += dReal(2*M_PI);
-    dReal er = diff / STEPSIZE;    // estimated rate
+    const dReal er = diff / STEPSIZE;    // estimated rate
     last_angle = a;
     return dFabs(r - er) * REAL(2e3);
   }
@@ -854,12 +854,12 @@ static dReal doStuffAndGetError (int n)
     dJointGetUniversalAxis1(joint, ax1);
     addOscillatingTorqueAbout (REAL(0.1), ax1[0], ax1[1], ax1[2]);
     dampRotationalMotion (REAL(0.1));
-    dReal a = dJointGetUniversalAngle2(joint);
-    dReal r = dJointGetUniversalAngle2Rate(joint);
+    const dReal a = dJointGetUniversalAngle2(joint);
+    const dReal r = dJointGetUniversalAngle2Rate(joint);
     dReal diff = a - last_angle;
     if (diff > (dReal)M_PI) diff -= dReal(2*M_PI);
     if (diff < (dReal)-M_PI) diff += dReal(2*M_PI);
-    dReal er = diff / STEPSIZE;    // estimated rate
+    const dReal er = diff / STEPSIZE;    // estimated rate
     last_angle = a;
     return dFabs(r - er) * REAL(1e10);
   }
@@ -879,12 +879,12 @@ static dReal doStuffAndGetError (int n)
     dJointGetUniversalAxis2(joint, ax2);
     addOscillatingTorqueAbout (REAL(0.1), ax2[0], ax2[1], ax2[2]);
     dampRotationalMotion (REAL(0.1));
-    dReal a = dJointGetUniversalAngle1(joint);
-    dReal r = dJointGetUniversalAngle1Rate(joint);
+    const dReal a = dJointGetUniversalAngle1(joint);
+    const dReal r = dJointGetUniversalAngle1Rate(joint);
     dReal diff = a - last_angle;
     if (diff > (dReal)M_PI) diff -= dReal(2*M_PI);
     if (diff < (dReal)-M_PI) diff += dReal(2*M_PI);
-    dReal er = diff / STEPSIZE;    // estimated rate
+    const dReal er = diff / STEPSIZE;    // estimated rate
     last_angle = a;
     return dFabs(r - er) * REAL(1e10);
   }
@@ -895,12 +895,12 @@ static dReal doStuffAndGetError (int n)
     dJointGetUniversalAxis2(joint, ax2);
     addOscillatingTorqueAbout (REAL(0.1), ax2[0], ax2[1], ax2[2]);
     dampRotationalMotion (REAL(0.1));
-    dReal a = dJointGetUniversalAngle2(joint);
-    dReal r = dJointGetUniversalAngle2Rate(joint);
+    const dReal a = dJointGetUniversalAngle2(joint);
+    const dReal r = dJointGetUniversalAngle2Rate(joint);
     dReal diff = a - last_angle;
     if (diff > (dReal)M_PI) diff -= dReal(2*M_PI);
     if (diff < (dReal)-M_PI) diff += dReal(2*M_PI);
-    dReal er = diff / STEPSIZE;    // estimated rate
+    const dReal er = diff / STEPSIZE;    // estimated rate
     last_angle = a;
     return dFabs(r - er) * REAL(1e4);
   }
@@ -961,7 +961,7 @@ static void simLoop (int pause)
 
   if (!pause) {
     // do stuff for this test and check to see if the joint is behaving well
-    dReal error = doStuffAndGetError (test_num);
+    const dReal error = doStuffAndGetError (test_num);
     if (error > max_error) max_error = error;
     if (cmd_interactive && error < dInfinity) {
       printf ("scaled error = %.4e\n",(double)error);
@@ -1072,7 +1072,7 @@ int main (int argc, char **argv)
     else if ( argv[i][0]=='-' && argv[i][1]=='e' && argv[i][2]==0) cmd_occasional_error = 0;
     else if ( argv[i][0]=='-' && argv[i][1]=='n' && isdigit(argv[i][2]) ) {
       char *endptr;
-      long int n = strtol (&(argv[i][2]),&endptr,10);
+      const long int n = strtol (&(argv[i][2]),&endptr,10);
 			if (*endptr == 0) cmd_test_num = (int)n;
 		}
     else

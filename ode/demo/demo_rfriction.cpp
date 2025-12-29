@@ -83,7 +83,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
         contact[ii].surface.mu = mu;
         contact[ii].surface.rho = rho;
     }
-    if (int numc = dCollide (o1,o2,3,&contact[0].geom,sizeof(dContact))) {
+    if (const int numc = dCollide (o1,o2,3,&contact[0].geom,sizeof(dContact))) {
         for (i=0; i<numc; i++) {
             dJointID c = dJointCreateContact (world,contactgroup,contact+i);
             dJointAttach (c,b1,b2);
@@ -144,12 +144,12 @@ static void reset()
     for (int ii=0;ii<RAMP_COUNT;++ii) {
         dQuaternion q;
 
-        dReal angle = dReal(ii+1)*rampInc;
-        dReal cosA = dCos(angle);
-        dReal sinA = dSin(angle);
-        dReal rampW = rampX/cosA; // Box width that preserves ground distance
+        const dReal angle = dReal(ii+1)*rampInc;
+        const dReal cosA = dCos(angle);
+        const dReal sinA = dSin(angle);
+        const dReal rampW = rampX/cosA; // Box width that preserves ground distance
         dReal zPos = REAL(0.5)*(sinA*rampW-cosA*rampZ); // Position that makes end meet ground
-        dReal yPos = dReal(ii)*REAL(1.25)*rampY;
+        const dReal yPos = dReal(ii)*REAL(1.25)*rampY;
         dReal xPos = 0;
     
     

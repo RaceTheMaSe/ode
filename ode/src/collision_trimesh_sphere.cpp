@@ -52,16 +52,16 @@ static bool GetContactData(const dVector3& Center, dReal Radius, const dVector3 
     Diff[2] = Origin[2] - Center[2];
     Diff[3] = Origin[3] - Center[3];
 
-    dReal A00 = dCalcVectorDot3(Edge0, Edge0);
-    dReal A01 = dCalcVectorDot3(Edge0, Edge1);
-    dReal A11 = dCalcVectorDot3(Edge1, Edge1);
+    const dReal A00 = dCalcVectorDot3(Edge0, Edge0);
+    const dReal A01 = dCalcVectorDot3(Edge0, Edge1);
+    const dReal A11 = dCalcVectorDot3(Edge1, Edge1);
 
-    dReal B0 = dCalcVectorDot3(Diff, Edge0);
-    dReal B1 = dCalcVectorDot3(Diff, Edge1);
+    const dReal B0 = dCalcVectorDot3(Diff, Edge0);
+    const dReal B1 = dCalcVectorDot3(Diff, Edge1);
 
-    dReal C = dCalcVectorDot3(Diff, Diff);
+    const dReal C = dCalcVectorDot3(Diff, Diff);
 
-    dReal Det = dFabs(A00 * A11 - A01 * A01);
+    const dReal Det = dFabs(A00 * A11 - A01 * A01);
     u = A01 * B1 - A11 * B0;
     v = A01 * B0 - A00 * B1;
 
@@ -136,7 +136,7 @@ static bool GetContactData(const dVector3& Center, dReal Radius, const dVector3 
                 DistSq = (dReal)FLT_MAX;
             }
             else{
-                dReal InvDet = REAL(1.0) / Det;
+                const dReal InvDet = REAL(1.0) / Det;
                 u *= InvDet;
                 v *= InvDet;
                 DistSq = u * (A00 * u + A01 * v + REAL(2.0) * B0) + v * (A01 * u + A11 * v + REAL(2.0) * B1) + C;
@@ -265,7 +265,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
     MakeMatrix(ZeroVector3, TLRotation, MeshMatrix);
 
     const dVector3& Position = *(const dVector3*)dGeomGetPosition(SphereGeom);
-    dReal Radius = dGeomSphereGetRadius(SphereGeom);
+    const dReal Radius = dGeomSphereGetRadius(SphereGeom);
 
     dVector3 OffsetPosition;
     dSubtractVectors3(OffsetPosition, Position, TLPosition);
@@ -309,7 +309,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
     }
 
     // get results
-    int TriCount = (int)Collider.GetNbTouchedPrimitives();
+    const int TriCount = (int)Collider.GetNbTouchedPrimitives();
     const int* Triangles = (const int*)Collider.GetTouchedPrimitives();
     dIASSERT(Triangles != NULL);
     
@@ -332,9 +332,9 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
 
             TriMesh->fetchMeshTriangle(dv, (unsigned int)TriIndex, TLPosition, TLRotation);
 
-            dVector3& v0 = dv[0];
-            dVector3& v1 = dv[1];
-            dVector3& v2 = dv[2];
+            const dVector3& v0 = dv[0];
+            const dVector3& v1 = dv[1];
+            const dVector3& v2 = dv[2];
 
             dVector3 vu;
             vu[0] = v1[0] - v0[0];
@@ -366,7 +366,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
             * to be adjusted (penetration has occured anyway).
             */
 
-            dReal side = dCalcVectorDot3(Plane,Position) - dCalcVectorDot3(Plane, v0);
+            const dReal side = dCalcVectorDot3(Plane,Position) - dCalcVectorDot3(Plane, v0);
 
             if(side < REAL(0.0)) {
                 continue;
@@ -384,7 +384,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
 
             dVector3 ContactPos;
 
-            dReal w = REAL(1.0) - u - v;
+            const dReal w = REAL(1.0) - u - v;
             ContactPos[0] = (v0[0] * w) + (v1[0] * u) + (v2[0] * v);
             ContactPos[1] = (v0[1] * w) + (v1[1] * u) + (v2[1] * v);
             ContactPos[2] = (v0[2] * w) + (v1[2] * u) + (v2[2] * v);
@@ -396,7 +396,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
             dir[0] = Position[0]-ContactPos[0];
             dir[1] = Position[1]-ContactPos[1];
             dir[2] = Position[2]-ContactPos[2];
-            dReal dirProj = dCalcVectorDot3(dir, Plane) / dSqrt(dCalcVectorDot3(dir, dir));
+            const dReal dirProj = dCalcVectorDot3(dir, Plane) / dSqrt(dCalcVectorDot3(dir, dir));
 
             // Since Depth already had a requirement to be non-negative,
             // negative direction projections should not be allowed as well,
@@ -479,7 +479,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
                     // The maximum of the adjusted depths is our newly merged depth value - Bram.
 
                     dReal mergedDepth = REAL(0.0);
-                    dReal minEffectiveness = REAL(0.5);
+                    const dReal minEffectiveness = REAL(0.5);
                     for ( int i = 0; i < OutTriCount; ++i )
                     {
                         dContactGeom* TempContact = SAFECONTACT(Flags, Contacts, i, Stride);
@@ -488,7 +488,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
                             return OutTriCount; // Cannot merge this pathological case
                         // Cap our adjustment for the new normal to a factor 2, meaning a 60 deg change in normal.
                         effectiveness = ( effectiveness < minEffectiveness ) ? minEffectiveness : effectiveness;
-                        dReal adjusted = TempContact->depth / effectiveness;
+                        const dReal adjusted = TempContact->depth / effectiveness;
                         mergedDepth = ( mergedDepth < adjusted ) ? adjusted : mergedDepth;
                     }
                     Contact->depth = mergedDepth;

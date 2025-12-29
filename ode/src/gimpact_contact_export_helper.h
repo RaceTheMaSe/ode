@@ -44,7 +44,7 @@ public:
     {
         unsigned result;
 
-        unsigned maxcontacts = (unsigned)(Flags & NUMC_MASK);
+        const unsigned maxcontacts = (unsigned)(Flags & NUMC_MASK);
         if (contactcount > maxcontacts)
         {
             ExportExcesssiveContacts(srccontacts, contactcount, Flags, Contacts, Stride);
@@ -138,7 +138,7 @@ dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dxGImpactContactA
 
         if (depth < firstdepth)
         {
-            dReal temp = pdepths[marginindex]; pdepths[highindex++] = temp; pdepths[marginindex++] = depth;
+            const dReal temp = pdepths[marginindex]; pdepths[highindex++] = temp; pdepths[marginindex++] = depth;
             if (depth < mindepth) { mindepth = depth; }
         }
         else if (depth > firstdepth)
@@ -148,7 +148,7 @@ dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dxGImpactContactA
         }
     }
 
-    unsigned countabove = highindex - marginindex;
+    const unsigned countabove = highindex - marginindex;
     if (maxcontacts < countabove)
     {
         result = FindContactsMarginalDepth(pdepths + marginindex, countabove, maxcontacts, firstdepth, maxdepth);
@@ -159,7 +159,7 @@ dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dxGImpactContactA
     }
     else
     {
-        unsigned countbelow = marginindex;
+        const unsigned countbelow = marginindex;
         if (maxcontacts <= contactcount - countbelow)
         {
             result = firstdepth;

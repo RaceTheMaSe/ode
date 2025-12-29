@@ -82,7 +82,7 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
 
   const int N = 32;
   dContact contact[N];
-  int n = dCollide (o1,o2,N,&(contact[0].geom),sizeof(dContact));
+  const int n = dCollide (o1,o2,N,&(contact[0].geom),sizeof(dContact));
   if (n > 0) 
   {
     for (int i=0; i<n; i++) 
@@ -117,7 +117,7 @@ static void start()
 
 static void reset_state(void)
 {
-  float sx=-4, sy=-4, sz=2;
+  const float sx=-4, sy=-4, sz=2;
   dQuaternion q;
   dQFromAxisAndAngle (q,1,0,0,dReal(M_PI*0.5));
 #ifdef BOX
@@ -155,9 +155,9 @@ static void command (int cmd)
 
 static void simLoop (int pause)
 {
-  double simstep = 0.005; // 5ms simulation steps
-  double dt = dsElapsedTime();
-  int nrofsteps = (int) ceilf((float)(dt/simstep));
+  const double simstep = 0.005; // 5ms simulation steps
+  const double dt = dsElapsedTime();
+  const int nrofsteps = (int) ceilf((float)(dt/simstep));
   for (int i=0; i<nrofsteps && !pause; i++)
   {
     dSpaceCollide (space,NULL,&nearCallback);
@@ -205,16 +205,16 @@ static void simLoop (int pause)
   const dReal* Rot = dGeomGetRotation(world_mesh);
   float rot[12] = { static_cast<float>(Rot[0]), static_cast<float>(Rot[1]), static_cast<float>(Rot[2]), static_cast<float>(Rot[3]), static_cast<float>(Rot[4]), static_cast<float>(Rot[5]), static_cast<float>(Rot[6]), static_cast<float>(Rot[7]), static_cast<float>(Rot[8]), static_cast<float>(Rot[9]), static_cast<float>(Rot[10]), static_cast<float>(Rot[11]) };
 
-  int numi = sizeof(world_indices)  / sizeof(dTriIndex);
+  const int numi = sizeof(world_indices)  / sizeof(dTriIndex);
 
   for (int i=0; i<numi/3; i++)
   {
-    int i0 = (int)world_indices[i*3+0];
-    int i1 = (int)world_indices[i*3+1];
-    int i2 = (int)world_indices[i*3+2];
-    float *v0 = world_vertices+i0*3;
-    float *v1 = world_vertices+i1*3;
-    float *v2 = world_vertices+i2*3;
+    const int i0 = (int)world_indices[i*3+0];
+    const int i1 = (int)world_indices[i*3+1];
+    const int i2 = (int)world_indices[i*3+2];
+    const float *v0 = world_vertices+i0*3;
+    const float *v1 = world_vertices+i1*3;
+    const float *v2 = world_vertices+i2*3;
     dsDrawTriangle(pos, rot, v0,v1,v2, true); // single precision draw
   }
 }
@@ -244,8 +244,8 @@ int main (int argc, char **argv)
 
 
   // Create a static world using a triangle mesh that we can collide with.
-  int numv = sizeof(world_vertices)/(3*sizeof(float));
-  int numi = sizeof(world_indices)/ sizeof(dTriIndex);
+  const int numv = sizeof(world_vertices)/(3*sizeof(float));
+  const int numi = sizeof(world_indices)/ sizeof(dTriIndex);
   printf("numv=%d, numi=%d\n", numv, numi);
   dTriMeshDataID Data = dGeomTriMeshDataCreate();
 

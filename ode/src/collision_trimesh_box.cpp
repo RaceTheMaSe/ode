@@ -144,11 +144,11 @@ bool sTrimeshBoxColliderData::_cldTestNormal(dReal fp0, dReal fR, dVector3 vNorm
     }
 
     // calculate normal's length
-    dReal fLength = LENGTHOF(vNormal);
+    const dReal fLength = LENGTHOF(vNormal);
     // if long enough
     if ( fLength > REAL(0.0) ) {
 
-        dReal fOneOverLength = REAL(1.0)/fLength;
+        const dReal fOneOverLength = REAL(1.0)/fLength;
         // normalize depth
         fDepth = fDepth*fOneOverLength;
 
@@ -206,8 +206,8 @@ bool sTrimeshBoxColliderData::_cldTestFace(dReal fp0, dReal fp1, dReal fp2, dRea
     }
 
     // calculate minimum and maximum depth
-    dReal fDepthMin = fR - fMin;
-    dReal fDepthMax = fMax + fR;
+    const dReal fDepthMin = fR - fMin;
+    const dReal fDepthMax = fMax + fR;
 
     // if we dont't have overlapping interval
     if ( fDepthMin < 0 || fDepthMax < 0 ) {
@@ -277,8 +277,8 @@ bool sTrimeshBoxColliderData::_cldTestEdge(dReal fp0, dReal fp1, dReal fR, dReal
     }
 
     // check if we overlapp
-    dReal fDepthMin = fR - fMin;
-    dReal fDepthMax = fMax + fR;
+    const dReal fDepthMin = fR - fMin;
+    const dReal fDepthMax = fMax + fR;
 
     // if we don't overlapp
     if ( fDepthMin < 0 || fDepthMax < 0 ) {
@@ -304,13 +304,13 @@ bool sTrimeshBoxColliderData::_cldTestEdge(dReal fp0, dReal fp1, dReal fR, dReal
     }
 
     // calculate normal's length
-    dReal fLength = LENGTHOF(vNormal);
+    const dReal fLength = LENGTHOF(vNormal);
 
     // if long enough
     if ( fLength > REAL(0.0) ) {
 
         // normalize depth
-        dReal fOneOverLength = REAL(1.0)/fLength;
+        const dReal fOneOverLength = REAL(1.0)/fLength;
         fDepth = fDepth*fOneOverLength;
         // fD*=fOneOverLength;
 
@@ -345,8 +345,8 @@ static void _cldClipPolyToPlane( dVector3 avArrayIn[], int ctIn,
 
 
         // calculate distance of edge points to plane
-        dReal fDistance0 = POINTDISTANCE( plPlane ,avArrayIn[i0] );
-        dReal fDistance1 = POINTDISTANCE( plPlane ,avArrayIn[i1] );
+        const dReal fDistance0 = POINTDISTANCE( plPlane ,avArrayIn[i0] );
+        const dReal fDistance1 = POINTDISTANCE( plPlane ,avArrayIn[i1] );
 
 
         // if first point is in front of plane
@@ -395,7 +395,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     dCalcVectorCross3(m_vN,m_vE0,m_vE1);
 
     // calculate length of face normal
-    dReal fNLen = LENGTHOF(m_vN);
+    const dReal fNLen = LENGTHOF(m_vN);
 
     // Even though all triangles might be initially valid, 
     // a triangle may degenerate into a segment after applying 
@@ -411,9 +411,9 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     GETCOL(m_mHullBoxRot,2,vA2);
 
     // box halfsizes
-    dReal fa0 = m_vBoxHalfSize[0];
-    dReal fa1 = m_vBoxHalfSize[1];
-    dReal fa2 = m_vBoxHalfSize[2];
+    const dReal fa0 = m_vBoxHalfSize[0];
+    const dReal fa1 = m_vBoxHalfSize[1];
+    const dReal fa2 = m_vBoxHalfSize[2];
 
     // calculate relative position between box and triangle
     dVector3 vD;
@@ -641,9 +641,9 @@ static bool _cldClosestPointOnTwoLines(
     // calculate denominator
     dVector3 vp;
     SUBTRACT(vPoint2,vPoint1,vp);
-    dReal fuaub  = dCalcVectorDot3(vLenVec1,vLenVec2);
-    dReal fq1    = dCalcVectorDot3(vLenVec1,vp);
-    dReal fq2    = -dCalcVectorDot3(vLenVec2,vp);
+    const dReal fuaub  = dCalcVectorDot3(vLenVec1,vLenVec2);
+    const dReal fq1    = dCalcVectorDot3(vLenVec1,vp);
+    const dReal fq2    = -dCalcVectorDot3(vLenVec2,vp);
     dReal fd     = REAL(1.0) - fuaub * fuaub;
 
     // if denominator is positive
@@ -680,14 +680,14 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
         for( int i=0; i<3; i++) {
             dVector3 vRotCol;
             GETCOL(m_mHullBoxRot,(unsigned int)i,vRotCol);
-            dReal fSign = dCalcVectorDot3(m_vBestNormal,vRotCol) > 0 ? REAL(1.0) : REAL(-1.0);
+            const dReal fSign = dCalcVectorDot3(m_vBestNormal,vRotCol) > 0 ? REAL(1.0) : REAL(-1.0);
 
             vPa[0] += fSign * m_vBoxHalfSize[i] * vRotCol[0];
             vPa[1] += fSign * m_vBoxHalfSize[i] * vRotCol[1];
             vPa[2] += fSign * m_vBoxHalfSize[i] * vRotCol[2];
         }
 
-        int iEdge = (m_iBestAxis-5)%3;
+        const int iEdge = (m_iBestAxis-5)%3;
 
         // decide which edge is on triangle
         if ( iEdge == 0 ) {
@@ -709,7 +709,7 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
 
         // setup direction parameter for box edge
         dVector3 vua;
-        int col=(m_iBestAxis-5)/3;
+        const int col=(m_iBestAxis-5)/3;
         GETCOL(m_mHullBoxRot,(unsigned int)col,vua);
 
         // find two closest points on both edges
@@ -1280,7 +1280,7 @@ int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, 
     }
 
     // Retrieve data
-    int TriCount = (int)Collider.GetNbTouchedPrimitives();
+    const int TriCount = (int)Collider.GetNbTouchedPrimitives();
     const int* Triangles = (const int*)Collider.GetTouchedPrimitives();
     dIASSERT(Triangles != NULL);
 

@@ -316,7 +316,7 @@ static void nearCallback(void * /*data*/, dGeomID a, dGeomID b)
 
         int closest_point = i;
         for (int j=0; j<new_n; ++j) {
-            dReal alignment = dCalcVectorDot3(contacts[i].geom.normal, contacts[j].geom.normal);
+            const dReal alignment = dCalcVectorDot3(contacts[i].geom.normal, contacts[j].geom.normal);
             if (alignment > REAL(0.99) // about 8 degrees of difference
                 &&
                 dCalcPointsDistance3(contacts[i].geom.pos, contacts[j].geom.pos) < epsilon) {
@@ -398,7 +398,7 @@ static void command (int cmd)
 
 static void drawGeom(dGeomID g)
 {
-    int gclass = dGeomGetClass(g);
+    const int gclass = dGeomGetClass(g);
     const dReal *pos = dGeomGetPosition(g);
     const dReal *rot = dGeomGetRotation(g);
 
@@ -419,7 +419,7 @@ static void drawGeom(dGeomID g)
         }
         case dTriMeshClass: 
         {
-            int numi = dGeomTriMeshGetTriangleCount(g);
+            const int numi = dGeomTriMeshGetTriangleCount(g);
 
             for (int i=0; i<numi; ++i) {
                 dVector3 v0, v1, v2;
@@ -463,7 +463,7 @@ static void simLoop (int pause)
     }
     
     // now we draw everything
-    unsigned ngeoms = (unsigned)dSpaceGetNumGeoms(space);
+    const unsigned ngeoms = (unsigned)dSpaceGetNumGeoms(space);
     for (unsigned i=0; i<ngeoms; ++i) {
         dGeomID g = dSpaceGetGeom(space, (int)i);
 

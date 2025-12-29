@@ -426,7 +426,7 @@ static void command (int cmd)
     case ',':
     case '<' :
     {
-        dReal vel = joint->getParam (dParamVel) - VEL_INC;
+        const dReal vel = joint->getParam (dParamVel) - VEL_INC;
         joint->setParam (dParamVel, vel);
         std::cout<<"Velocity = "<<vel<<"  FMax = 2"<<'\n';
     }
@@ -435,7 +435,7 @@ static void command (int cmd)
     case '.':
     case '>' :
     {
-        dReal vel = joint->getParam (dParamVel) + VEL_INC;
+        const dReal vel = joint->getParam (dParamVel) + VEL_INC;
         joint->setParam (dParamVel, vel);
         std::cout<<"Velocity = "<<vel<<"  FMax = 2"<<'\n';
     }
@@ -448,13 +448,13 @@ static void command (int cmd)
         {
         case dJointTypeSlider :
         {
-            dSliderJoint *sj = static_cast<dSliderJoint *> (joint);
+            const dSliderJoint *sj = static_cast<dSliderJoint *> (joint);
             std::cout<<"Position ="<<sj->getPosition() <<"\n";
         }
         break;
         case dJointTypePiston :
         {
-            dPistonJoint *rj = static_cast<dPistonJoint *> (joint);
+            const dPistonJoint *rj = static_cast<dPistonJoint *> (joint);
             std::cout<<"Position ="<<rj->getPosition() <<"\n";
         }
         break;
@@ -549,8 +549,8 @@ static void simLoop (int pause)
 
     if (!pause)
     {
-        double simstep = 0.01; // 1ms simulation steps
-        double dt = dsElapsedTime();
+        const double simstep = 0.01; // 1ms simulation steps
+        const double dt = dsElapsedTime();
 
         int nrofsteps = (int) ceilf ((float)(dt/simstep));
         if (!nrofsteps)
@@ -687,7 +687,7 @@ int main (int argc, char **argv)
 
                 if ( 0 == strcmp ("-t", argv[i]) || 0 == strcmp ("--texture-path", argv[i]) )
                 {
-                    int j = i+1;
+                    const int j = i+1;
                     if ( j >= argc      ||  // Check if we have enough arguments
                             argv[j][0] == '\0' ||  // We should have a path here
                             argv[j][0] == '-' ) // We should have a path not a command line

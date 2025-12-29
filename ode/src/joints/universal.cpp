@@ -140,7 +140,7 @@ dxJointUniversal::getAngles( dReal *angle1, dReal *angle2 )
         qrel[2] = ax1[1] + ax2[1];
         qrel[3] = ax1[2] + ax2[2];
 
-        dReal l = dRecip( dSqrt( qrel[1] * qrel[1] + qrel[2] * qrel[2] + qrel[3] * qrel[3] ) );
+        const dReal l = dRecip( dSqrt( qrel[1] * qrel[1] + qrel[2] * qrel[2] + qrel[3] * qrel[3] ) );
         qrel[1] *= l;
         qrel[2] *= l;
         qrel[3] *= l;
@@ -268,9 +268,9 @@ dxJointUniversal::getInfo1( dxJoint::Info1 *info )
     info->nub = 4;
     info->m = 4;
 
-    bool limiting1 = ( (double)limot1.lostop >= -M_PI || (double)limot1.histop <= M_PI ) &&
+    const bool limiting1 = ( (double)limot1.lostop >= -M_PI || (double)limot1.histop <= M_PI ) &&
         limot1.lostop <= limot1.histop;
-    bool limiting2 = ( (double)limot2.lostop >= -M_PI || (double)limot2.histop <= M_PI ) &&
+    const bool limiting2 = ( (double)limot2.lostop >= -M_PI || (double)limot2.histop <= M_PI ) &&
         limot2.lostop <= limot2.histop;
 
     // We need to call testRotationLimit() even if we're motored, since it
@@ -320,7 +320,7 @@ dxJointUniversal::getInfo2( dReal worldFPS, dReal worldERP,
     // and in the plane of axis1 and axis2
     getAxes( ax1, ax2 );
 
-    dReal k = dCalcVectorDot3( ax1, ax2 );
+    const dReal k = dCalcVectorDot3( ax1, ax2 );
 
     dVector3 ax2_temp;
     dAddVectorScaledVector3(ax2_temp, ax2, ax1, -k);
@@ -405,7 +405,7 @@ dxJointUniversal::buildFirstBodyTorqueVector(dVector3 torqueVector, dReal torque
 {
     if (this->flags & dJOINT_REVERSE)
     {
-        dReal temp = torque1;
+        const dReal temp = torque1;
         torque1 = -torque2;
         torque2 = -temp;
     }

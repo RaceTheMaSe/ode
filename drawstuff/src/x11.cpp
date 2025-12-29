@@ -320,13 +320,13 @@ static void captureFrame (int num)
   fprintf (f,"P6\n%d %d\n255\n",width,height);
   XImage *image = XGetImage (display,win,0,0,(unsigned)width,(unsigned)height,~0UL,ZPixmap);
 
-  int rshift = 7 - getHighBitIndex ((unsigned int)image->red_mask);
-  int gshift = 7 - getHighBitIndex ((unsigned int)image->green_mask);
-  int bshift = 7 - getHighBitIndex ((unsigned int)image->blue_mask);
+  const int rshift = 7 - getHighBitIndex ((unsigned int)image->red_mask);
+  const int gshift = 7 - getHighBitIndex ((unsigned int)image->green_mask);
+  const int bshift = 7 - getHighBitIndex ((unsigned int)image->blue_mask);
 
   for (int y=0; y<height; y++) {
     for (int x=0; x<width; x++) {
-      unsigned long pixel = XGetPixel (image,x,y);
+      const unsigned long pixel = XGetPixel (image,x,y);
       unsigned char b[3];
       b[0] = (unsigned char)SHIFTL(pixel & image->red_mask,rshift);
       b[1] = (unsigned char)SHIFTL(pixel & image->green_mask,gshift);
@@ -428,7 +428,7 @@ void dsPlatformSimLoop (int window_width, int window_height, dsFunctions *fn,
     
 #if HAVE_GETTIMEOFDAY
     gettimeofday(&tv, NULL);
-    double curr = (double)tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
+    const double curr = (double)tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
     if (curr-prev >= 1.0/60.0)
     {
       prev = curr;
@@ -461,7 +461,7 @@ extern "C" double dsElapsedTime()
   timeval tv ;
 
   gettimeofday(&tv, NULL);
-  double curr = (double)tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
+  const double curr = (double)tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
   if (prev == 0.0)
     prev=curr;
   double retval = curr-prev;

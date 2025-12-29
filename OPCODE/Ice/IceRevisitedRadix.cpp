@@ -136,7 +136,7 @@ using namespace IceCore;
 
 #define CHECK_PASS_VALIDITY(pass)															\
 	/* Shortcut to current counters */														\
-	udword* CurCount = &mHistogram[pass<<8];												\
+	const udword* CurCount = &mHistogram[pass<<8];											\
 																							\
 	/* Reset flag. The sorting pass is supposed to be performed. (default) */				\
 	bool PerformPass = true;																\
@@ -261,7 +261,7 @@ RadixSort& RadixSort::Sort(const udword* input, udword nb, RadixHint hint)
 		// An efficient way to compute the number of negatives values we'll have to deal with is simply to sum the 128
 		// last values of the last histogram. Last histogram because that's the one for the Most Significant Byte,
 		// responsible for the sign. 128 last values because the 128 first ones are related to positive numbers.
-		udword* h3= &mHistogram[768];
+		const udword* h3= &mHistogram[768];
 		for(udword i=128;i<256;i++)	NbNegativeValues += h3[i];	// 768 for last histogram, 128 for negative part
 	}
 
@@ -313,8 +313,8 @@ RadixSort& RadixSort::Sort(const udword* input, udword nb, RadixHint hint)
 			}
 			else
 			{
-				udword* Indices		= mRanks;
-				udword* IndicesEnd	= &mRanks[nb];
+				const udword* Indices		= mRanks;
+				const udword* IndicesEnd	= &mRanks[nb];
 				while(Indices!=IndicesEnd)
 				{
 					udword id = *Indices++;
@@ -375,7 +375,7 @@ RadixSort& RadixSort::Sort(const float* input2, udword nb)
 	// An efficient way to compute the number of negatives values we'll have to deal with is simply to sum the 128
 	// last values of the last histogram. Last histogram because that's the one for the Most Significant Byte,
 	// responsible for the sign. 128 last values because the 128 first ones are related to positive numbers.
-	udword* h3= &mHistogram[768];
+	const udword* h3= &mHistogram[768];
 	for(udword i=128;i<256;i++)	NbNegativeValues += h3[i];	// 768 for last histogram, 128 for negative part
 
 	// Radix sort, j is the pass number (0=LSB, 3=MSB)
@@ -406,8 +406,8 @@ RadixSort& RadixSort::Sort(const float* input2, udword nb)
 				}
 				else
 				{
-					udword* Indices		= mRanks;
-					udword* IndicesEnd	= &mRanks[nb];
+					const udword* Indices		= mRanks;
+					const udword* IndicesEnd	= &mRanks[nb];
 					while(Indices!=IndicesEnd)
 					{
 						udword id = *Indices++;

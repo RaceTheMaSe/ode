@@ -35,7 +35,7 @@ bool dxSafeNormalize4 (dVector4 a);
 ODE_PURE_INLINE 
 void dxNormalize3(dVector3 a)
 {
-    bool bSafeNormalize3Fault = !dxSafeNormalize3(a);
+    const bool bSafeNormalize3Fault = !dxSafeNormalize3(a);
     if (bSafeNormalize3Fault)
     {
         dIVERIFY(!bSafeNormalize3Fault);
@@ -47,7 +47,7 @@ void dxNormalize3(dVector3 a)
 ODE_PURE_INLINE 
 void dxNormalize4(dVector4 a)
 {
-    bool bSafeNormalize4Fault = !dxSafeNormalize4(a);
+    const bool bSafeNormalize4Fault = !dxSafeNormalize4(a);
     if (bSafeNormalize4Fault)
     {
         dIVERIFY(!bSafeNormalize4Fault);

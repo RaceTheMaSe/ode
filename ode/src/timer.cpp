@@ -346,8 +346,8 @@ void dStopwatchStop  (dStopwatch *s)
     unsigned long cc[2];
     serialize();
     getClockCount (cc);
-    double t1 = loadClockCount (s->cc);
-    double t2 = loadClockCount (cc);
+    const double t1 = loadClockCount (s->cc);
+    const double t2 = loadClockCount (cc);
     s->time += t2-t1;
 }
 
@@ -451,7 +451,7 @@ void dTimerReport (FILE *fout, int average)
 {
     int i;
     sizeint maxl;
-    double ccunit = 1.0/dTimerTicksPerSecond();
+    const double ccunit = 1.0/dTimerTicksPerSecond();
     fprintf (fout,"\nTimer Report (");
     fprintDoubleWithPrefix (fout,ccunit,"%.2f ");
     fprintf (fout,"s resolution)\n------------\n");
@@ -460,21 +460,21 @@ void dTimerReport (FILE *fout, int average)
     // get maximum description length
     maxl = 0;
     for (i=0; i<num; i++) {
-        sizeint l = strlen (event[i].description);
+        const sizeint l = strlen (event[i].description);
         if (l > maxl) maxl = l;
     }
 
     // calculate total time
-    double t1 = loadClockCount (event[0].cc);
-    double t2 = loadClockCount (event[num-1].cc);
+    const double t1 = loadClockCount (event[0].cc);
+    const double t2 = loadClockCount (event[num-1].cc);
     double total = t2 - t1;
     if (total <= 0) total = 1;
 
     // compute time difference for all slots except the last one. update totals
     double *times = (double*) ALLOCA ((size_t)num * sizeof(double));
     for (i=0; i < (num-1); i++) {
-        double timer1 = loadClockCount (event[i].cc);
-        double timer2 = loadClockCount (event[i+1].cc);
+        const double timer1 = loadClockCount (event[i].cc);
+        const double timer2 = loadClockCount (event[i+1].cc);
         times[i] = timer2 - timer1;
         event[i].count++;
         event[i].total_t += times[i];

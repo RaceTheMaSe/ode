@@ -86,8 +86,8 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
   int i;
 
   // only collide things with the ground
-  int g1 = (o1 == ground);
-  int g2 = (o2 == ground);
+  const int g1 = (o1 == ground);
+  const int g2 = (o2 == ground);
   if (!(g1 ^ g2)) return;
 
   dBodyID b1 = dGeomGetBody(o1);
@@ -99,7 +99,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     contact[i].surface.mu = MU;
     contact[i].surface.soft_cfm = REAL(0.01);
   }
-  if (int numc = dCollide (o1,o2,3,&contact[0].geom,sizeof(dContact))) {
+  if (const int numc = dCollide (o1,o2,3,&contact[0].geom,sizeof(dContact))) {
     for (i=0; i<numc; i++) {
       dJointID c = dJointCreateContact (world,contactgroup,contact+i);
       dJointAttach (c,b1,b2);

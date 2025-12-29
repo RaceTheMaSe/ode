@@ -67,13 +67,13 @@ int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* cont
 #if defined(dTRIMESH_OPCODE)
     const dVector3 &meshPosition = *(const dVector3 *)dGeomGetPosition(o2);
     // Find convex OBB in trimesh coordinates
-    Point convexAABBMin(o1->aabb[0] - meshPosition[0], o1->aabb[2] - meshPosition[1], o1->aabb[4] - meshPosition[2]);
-    Point convexAABBMax(o1->aabb[1] - meshPosition[0], o1->aabb[3] - meshPosition[1], o1->aabb[5] - meshPosition[2]);
+    const Point convexAABBMin(o1->aabb[0] - meshPosition[0], o1->aabb[2] - meshPosition[1], o1->aabb[4] - meshPosition[2]);
+    const Point convexAABBMax(o1->aabb[1] - meshPosition[0], o1->aabb[3] - meshPosition[1], o1->aabb[5] - meshPosition[2]);
     
     const Point convexCenter = 0.5f * (convexAABBMax + convexAABBMin);
     const Point convexExtents = 0.5f * (convexAABBMax - convexAABBMin);
     const Matrix3x3 convexRotation(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-    OBB convexOOB(convexCenter, convexExtents, convexRotation);
+    const OBB convexOOB(convexCenter, convexExtents, convexRotation);
 
     Matrix4x4 meshTransformation;
     const dMatrix3 &meshRotation = *(const dMatrix3 *)dGeomGetRotation(o2);
@@ -88,7 +88,7 @@ int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* cont
     OBBCache cache;
     dxTriMesh *trimesh = (dxTriMesh *)o2;
     if (collider.Collide(cache, convexOOB, trimesh->retrieveMeshBVTreeRef(), null, &meshTransformation)) {
-        unsigned int triCount = (unsigned int)collider.GetNbTouchedPrimitives();
+        const unsigned int triCount = (unsigned int)collider.GetNbTouchedPrimitives();
         if (triCount > 0) {
             const int* triangles = (const int*)collider.GetTouchedPrimitives();
             contactcount = (int)dCollideConvexTrimeshTrianglesCCD(o1, o2, triangles, triCount, flags, contacts, skip);

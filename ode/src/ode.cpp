@@ -156,7 +156,7 @@ static void checkWorld (dxWorld *w)
     if (w->nj != n) dDebug (0,"joint count incorrect");
 
     // set all tag values to a known value
-    int count = generateWorldCheckTag();
+    const int count = generateWorldCheckTag();
     for (b=w->firstbody; b; b=(dxBody*)b->next) b->tag = count;
     for (j=w->firstjoint; j; j=(dxJoint*)j->next) j->tag = count;
 
@@ -360,7 +360,7 @@ void dBodySetRotation (dBodyID b, const dMatrix3 R)
 
     memcpy(b->posr.R, R, sizeof(dMatrix3));
     
-    bool bOrthogonalizeResult = dxOrthogonalizeR(b->posr.R);
+    const bool bOrthogonalizeResult = dxOrthogonalizeR(b->posr.R);
     dAVERIFY(bOrthogonalizeResult);
 
     dRtoQ (R, b->q);
@@ -1338,7 +1338,7 @@ void dJointGroupEmpty (dJointGroupID group)
             // added (at the top of the stack). this helps ensure that the various
             // linked lists are not traversed too much, as the joints will hopefully
             // be at the start of those lists.
-            sizeint num_exported = group->exportJoints(jlist);
+            const sizeint num_exported = group->exportJoints(jlist);
             dIVERIFY(num_exported == num_joints);
 
             for (sizeint i = num_joints; i != 0; ) {
@@ -1609,7 +1609,7 @@ void dWorldDestroy (dxWorld *w)
         }
         else {
             // TODO: shouldn't we call dJointDestroy()?
-            sizeint sz = j->size();
+            const sizeint sz = j->size();
             j->~dxJoint();
             dFree (j,sz);
         }
@@ -1685,7 +1685,7 @@ void dWorldSetSteppingThreadingParameters(dWorldID w, const dWorldSteppingThread
     dAASSERT(w);
     dAASSERT(ptr_params);
 
-    unsigned param_set = ptr_params->param_set;
+    const unsigned param_set = ptr_params->param_set;
 
     if ((param_set & dWSTP_WorldIslandsIterationMaxThreads) != 0)
     {
@@ -1705,7 +1705,7 @@ void dWorldSetSteppingThreadingParameters(dWorldID w, const dWorldSteppingThread
 
 void dWorldGetSteppingThreadingParameters(dWorldID w, dWorldSteppingThreadingParameters *ptr_params)
 {
-    unsigned param_set = ptr_params->param_set;
+    const unsigned param_set = ptr_params->param_set;
 
     if ((param_set & dWSTP_WorldIslandsIterationMaxThreads) != 0)
     {
@@ -2270,7 +2270,7 @@ extern "C" ODE_API void dTestDataStructures()
             dBodyID b1 = body [dRand() % (unsigned long)nb];
             dBodyID b2 = body [dRand() % (unsigned long)nb];
             if (b1 != b2) {
-                int k = (int)(dRand() % (unsigned long)nj);
+                const int k = (int)(dRand() % (unsigned long)nj);
                 DO(printf ("reattaching joint %p\n",joint[k]));
                 dJointAttach (joint[k],b1,b2);
                 checkWorld (w);

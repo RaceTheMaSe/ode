@@ -224,7 +224,7 @@ inline static int _IsBetter(sLocalContactData& c1,sLocalContactData& c2)
 // iterate through gLocalContacts and filtered out "near contact"
 void sTrimeshCapsuleColliderData::_OptimizeLocalContacts()
 {
-    int nContacts = (int)m_ctContacts;
+    const int nContacts = (int)m_ctContacts;
 
     for (int i = 0; i < nContacts-1; i++)
     {
@@ -303,8 +303,8 @@ BOOL sTrimeshCapsuleColliderData::_cldClipEdgeToPlane(
     dVector3 &vEpnt0, dVector3 &vEpnt1, const dVector4& plPlane)
 {
     // calculate distance of edge points to plane
-    dReal fDistance0 = POINTDISTANCE( plPlane, vEpnt0 );
-    dReal fDistance1 = POINTDISTANCE( plPlane, vEpnt1 );
+    const dReal fDistance0 = POINTDISTANCE( plPlane, vEpnt0 );
+    const dReal fDistance1 = POINTDISTANCE( plPlane, vEpnt1 );
 
     // if both points are behind the plane
     if ( fDistance0 < 0 && fDistance1 < 0 ) 
@@ -348,7 +348,7 @@ BOOL sTrimeshCapsuleColliderData::_cldTestAxis(
 {
 
     // calculate length of separating axis vector
-    dReal fL = LENGTHOF(vAxis);
+    const dReal fL = LENGTHOF(vAxis);
     // if not long enough
     // TODO : dReal epsilon please
     if ( fL < REAL(1e-5) ) 
@@ -362,7 +362,7 @@ BOOL sTrimeshCapsuleColliderData::_cldTestAxis(
     dNormalize3(vAxis);
 
     // project capsule on vAxis
-    dReal frc = dFabs(dCalcVectorDot3(m_vCapsuleAxis,vAxis))*(m_fCapsuleSize*REAL(0.5)-m_vCapsuleRadius) + m_vCapsuleRadius;
+    const dReal frc = dFabs(dCalcVectorDot3(m_vCapsuleAxis,vAxis))*(m_fCapsuleSize*REAL(0.5)-m_vCapsuleRadius) + m_vCapsuleRadius;
 
     // project triangle on vAxis
     dReal afv[3];
@@ -389,9 +389,9 @@ BOOL sTrimeshCapsuleColliderData::_cldTestAxis(
     }
 
     // find triangle's center of interval on axis
-    dReal fCenter = (fMin+fMax)*REAL(0.5);
+    const dReal fCenter = (fMin+fMax)*REAL(0.5);
     // calculate triangles half interval 
-    dReal fTriangleRadius = (fMax-fMin)*REAL(0.5);
+    const dReal fTriangleRadius = (fMax-fMin)*REAL(0.5);
 
     // if they do not overlap, 
     if (dFabs(fCenter) > ( frc + fTriangleRadius ))
@@ -401,7 +401,7 @@ BOOL sTrimeshCapsuleColliderData::_cldTestAxis(
     }
 
     // calculate depth 
-    dReal fDepth = dFabs(fCenter) - (frc+fTriangleRadius);
+    const dReal fDepth = dFabs(fCenter) - (frc+fTriangleRadius);
 
     // if greater then best found so far
     if ( fDepth > m_fBestDepth ) 
@@ -746,12 +746,12 @@ void sTrimeshCapsuleColliderData::_cldTestOneTriangleVSCapsule(
     }
 
     // create plane from triangle
-    dReal plDistance = -dCalcVectorDot3(v0,m_vN);
+    const dReal plDistance = -dCalcVectorDot3(v0,m_vN);
     dVector4 plTrianglePlane;
     CONSTRUCTPLANE(plTrianglePlane,m_vN,plDistance);
 
     // calculate capsule distance to plane
-    dReal fDistanceCapsuleCenterToPlane = POINTDISTANCE(plTrianglePlane,m_vCapsulePosition);
+    const dReal fDistanceCapsuleCenterToPlane = POINTDISTANCE(plTrianglePlane,m_vCapsulePosition);
 
     // Capsule must be over positive side of triangle
     if (fDistanceCapsuleCenterToPlane < 0 && !bDoubleSided) 
@@ -1055,7 +1055,7 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
     if (Collider.GetContactStatus()) 
     {
         // Retrieve data
-        int TriCount = (int)Collider.GetNbTouchedPrimitives();
+        const int TriCount = (int)Collider.GetNbTouchedPrimitives();
 
         if (TriCount != 0)
         {
@@ -1082,7 +1082,7 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
                 dVector3 dv[3];
                 TriMesh->fetchMeshTriangle(dv, (unsigned int)Triint, cData.m_vTriMeshPos, cData.m_mTriMeshRot);
 
-                uint8 meshFlags = useFlags != NULL ? useFlags[Triint] : (uint8)dxTriMeshData::CUF__USE_ALL_COMPONENTS;
+                const uint8 meshFlags = useFlags != NULL ? useFlags[Triint] : (uint8)dxTriMeshData::CUF__USE_ALL_COMPONENTS;
 
                 bool bFinishSearching;
                 ctContacts0 = (unsigned int)cData.TestCollisionForSingleTriangle((int)ctContacts0, Triint, dv, meshFlags, bFinishSearching);

@@ -134,7 +134,7 @@ void setBall( dxJoint *joint, dReal fps, dReal erp,
     }
 
     // set right hand side
-    dReal k = fps * erp;
+    const dReal k = fps * erp;
     dxBody *b0 = joint->node[0].body;
     if ( b1 )
     {
@@ -189,8 +189,8 @@ void setBall2( dxJoint *joint, dReal fps, dReal erp,
     dAddVectors3(a1, a1, b0->posr.pos);
 
     // set right hand side - measure error along (axis,q1,q2)
-    dReal k1 = fps * erp1;
-    dReal k = fps * erp;
+    const dReal k1 = fps * erp1;
+    const dReal k = fps * erp;
 
     dxBody *b1 = joint->node[1].body;
     if ( b1 )
@@ -277,7 +277,7 @@ void setFixedOrientation( dxJoint *joint, dReal fps, dReal erp,
         qerr[3] = -qerr[3];
     }
     dMultiply0_331( e, b0->posr.R, qerr + 1 );  // @@@ bad SIMD padding!
-    dReal k_mul_2 = fps * erp * REAL(2.0);
+    const dReal k_mul_2 = fps * erp * REAL(2.0);
     pairRhsCfm[dxJoint::GI2_RHS] = k_mul_2 * e[dSA_X];
     pairRhsCfm[pairskip + dxJoint::GI2_RHS] = k_mul_2 * e[dSA_Y];
     pairRhsCfm[2 * pairskip + dxJoint::GI2_RHS] = k_mul_2 * e[dSA_Z];
@@ -443,8 +443,8 @@ dReal getHingeAngleFromRelativeQuat( dQuaternion qrel, dVector3 axis )
 
     // extract the angle from the quaternion. cost2 = cos(theta/2),
     // sint2 = |sin(theta/2)|
-    dReal cost2 = qrel[0];
-    dReal sint2 = dSqrt( qrel[1] * qrel[1] + qrel[2] * qrel[2] + qrel[3] * qrel[3] );
+    const dReal cost2 = qrel[0];
+    const dReal sint2 = dSqrt( qrel[1] * qrel[1] + qrel[2] * qrel[2] + qrel[3] * qrel[3] );
     dReal theta = ( dCalcVectorDot3( qrel + 1, axis ) >= 0 ) ? // @@@ padding assumptions
         ( 2 * dAtan2( sint2, cost2 ) ) :  // if u points in direction of axis
         ( 2 * dAtan2( sint2, -cost2 ) );  // if u points in opposite direction
@@ -671,7 +671,7 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
                 if (( limit == 1 && vel > 0 ) || ( limit == 2 && vel < 0 ) ) fm *= fudge_factor;
 
                 
-                dReal fm_ax1_0 = fm*ax1[0], fm_ax1_1 = fm*ax1[1], fm_ax1_2 = fm*ax1[2];
+                const dReal fm_ax1_0 = fm*ax1[0], fm_ax1_1 = fm*ax1[1], fm_ax1_2 = fm*ax1[2];
                 
                 dxBody *b0 = joint->node[0].body;
                 dxWorldProcessContext *world_process_context = b0->world->unsafeGetWorldProcessingContext(); 
@@ -694,7 +694,7 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
                     if ( body1 != NULL )
                     {
                         // linear limot torque decoupling step: refer to above discussion
-                        dReal neg_fm_ltd_0 = -fm*ltd[0], neg_fm_ltd_1 = -fm*ltd[1], neg_fm_ltd_2 = -fm*ltd[2];
+                        const dReal neg_fm_ltd_0 = -fm*ltd[0], neg_fm_ltd_1 = -fm*ltd[1], neg_fm_ltd_2 = -fm*ltd[2];
                         dBodyAddTorque( b0, neg_fm_ltd_0, neg_fm_ltd_1, neg_fm_ltd_2 );
                         dBodyAddTorque( body1, neg_fm_ltd_0, neg_fm_ltd_1, neg_fm_ltd_2 );
 
@@ -710,7 +710,7 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
 
         if ( limit )
         {
-            dReal k = fps * stop_erp;
+            const dReal k = fps * stop_erp;
             pairRhsCfm[GI2_RHS] = -k * limit_err;
             pairRhsCfm[GI2_CFM] = stop_cfm;
 
@@ -760,7 +760,7 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
                         // low limit
                         if ( velocity < 0 )
                         {
-                            dReal newc = -bounce * velocity;
+                            const dReal newc = -bounce * velocity;
                             if ( newc > pairRhsCfm[GI2_RHS] ) pairRhsCfm[GI2_RHS] = newc;
                         }
                     }
@@ -769,7 +769,7 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
                         // high limit - all those computations are reversed
                         if ( velocity > 0 )
                         {
-                            dReal newc = -bounce * velocity;
+                            const dReal newc = -bounce * velocity;
                             if ( newc < pairRhsCfm[GI2_RHS] ) pairRhsCfm[GI2_RHS] = newc;
                         }
                     }
@@ -860,7 +860,7 @@ bool dxJointLimitMotor::addTwoPointLimot( dxJoint *joint, dReal fps,
 
         if ( limit )
         {
-            dReal k = fps * stop_erp;
+            const dReal k = fps * stop_erp;
             pairRhsCfm[GI2_RHS] = -k * limit_err;
             pairRhsCfm[GI2_CFM] = stop_cfm;
 
@@ -905,7 +905,7 @@ bool dxJointLimitMotor::addTwoPointLimot( dxJoint *joint, dReal fps,
                         // low limit
                         if ( velocity < 0 )
                         {
-                            dReal newc = -bounce * velocity;
+                            const dReal newc = -bounce * velocity;
                             if ( newc > pairRhsCfm[GI2_RHS] ) pairRhsCfm[GI2_RHS] = newc;
                         }
                     }
@@ -914,7 +914,7 @@ bool dxJointLimitMotor::addTwoPointLimot( dxJoint *joint, dReal fps,
                         // high limit - all those computations are reversed
                         if ( velocity > 0 )
                         {
-                            dReal newc = -bounce * velocity;
+                            const dReal newc = -bounce * velocity;
                             if ( newc < pairRhsCfm[GI2_RHS] ) pairRhsCfm[GI2_RHS] = newc;
                         }
                     }

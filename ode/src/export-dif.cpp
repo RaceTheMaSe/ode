@@ -243,7 +243,7 @@ static void printSlider (PrintingContext &c, dxJoint *j)
 static void printContact (PrintingContext &c, dxJoint *j)
 {
     dxJointContact *ct = (dxJointContact*) j;
-    int mode = ct->contact.surface.mode;
+    const int mode = ct->contact.surface.mode;
     c.print ("pos",ct->contact.geom.pos);
     c.print ("normal",ct->contact.geom.normal);
     c.print ("depth",ct->contact.geom.depth);
@@ -489,7 +489,7 @@ static void printPlane (PrintingContext &c, dxGeom *g)
 
 static void printRay (PrintingContext &c, dxGeom *g)
 {
-    dReal length = dGeomRayGetLength (g);
+    const dReal length = dGeomRayGetLength (g);
     c.print ("type","ray");
     c.print ("length",length);
 }
@@ -522,12 +522,12 @@ static void printHeightfieldClass (PrintingContext &c, dxGeom * /*g*/)
 
 static void printGeom (PrintingContext &c, dxGeom *g)
 {
-    unsigned long category = dGeomGetCategoryBits (g);
+    const unsigned long category = dGeomGetCategoryBits (g);
     if (category != ~(unsigned long)0) {
         c.printIndent();
         fprintf (c.file,"category_bits = %lu\n",category);
     }
-    unsigned long collide = dGeomGetCollideBits (g);
+    const unsigned long collide = dGeomGetCollideBits (g);
     if (collide != ~(unsigned long)0) {
         c.printIndent();
         fprintf (c.file,"collide_bits = %lu\n",collide);

@@ -62,7 +62,7 @@ public:
     {
         dIASSERT(getrelatedThreading() == anotherDescriptor.getrelatedThreading()); // m_simultaneousCallRequirement typically depends on threading used
 
-        CSimpleFlags::value_type allOtherFeatureFlags = anotherDescriptor.queryAllFeatureFlags();
+        const CSimpleFlags::value_type allOtherFeatureFlags = anotherDescriptor.queryAllFeatureFlags();
         mergeAnotherDescriptorIn(anotherDescriptor.m_memorySizeRequirement, anotherDescriptor.m_memoryAlignmentRequirement, anotherDescriptor.m_simultaneousCallRequirement, allOtherFeatureFlags);
     }
 

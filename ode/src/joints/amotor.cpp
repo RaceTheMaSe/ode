@@ -82,7 +82,7 @@ void dJointSetAMotorParam(dJointID j, int parameter, dReal value)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    int limotParam = parameter & 0xff;
+    const int limotParam = parameter & 0xff;
     joint->setLimotParameter((unsigned int)anum, limotParam, value);
 }
 
@@ -129,7 +129,7 @@ int dJointGetAMotorAxisRel(dJointID j, int anum)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    int result = joint->getAxisBodyRelativity((unsigned int)anum);
+    const int result = joint->getAxisBodyRelativity((unsigned int)anum);
     return result;
 }
 
@@ -143,7 +143,7 @@ dReal dJointGetAMotorAngle(dJointID j, int anum)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    dReal result = joint->getAngleValue((unsigned int)anum);
+    const dReal result = joint->getAngleValue((unsigned int)anum);
     return result;
 }
 
@@ -157,7 +157,7 @@ dReal dJointGetAMotorAngleRate(dJointID j, int anum)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    dReal result = joint->calculateAngleRate((unsigned int)anum);
+    const dReal result = joint->calculateAngleRate((unsigned int)anum);
     return result;
 }
 
@@ -173,8 +173,8 @@ dReal dJointGetAMotorParam(dJointID j, int parameter)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    int limotParam = parameter & 0xff;
-    dReal result = joint->getLimotParameter((unsigned int)anum, limotParam);
+    const int limotParam = parameter & 0xff;
+    const dReal result = joint->getLimotParameter((unsigned int)anum, limotParam);
     return result;
 }
 
@@ -185,7 +185,7 @@ int dJointGetAMotorMode(dJointID j)
     dAASSERT(joint != NULL);
     checktype(joint, AMotor);
 
-    int result = joint->getOperationMode();
+    const int result = joint->getOperationMode();
     return result;
 }
 
@@ -559,14 +559,14 @@ dReal dxJointAMotor::calculateAngleRate(unsigned anum) const
     }
 
     // Negating the rate for reverse joints creates an effect of body swapping
-    dReal result = !GetIsJointReverse() ? rate : -rate;
+    const dReal result = !GetIsJointReverse() ? rate : -rate;
     return result;
 }
 
 
 void dxJointAMotor::addTorques(dReal torque1, dReal torque2, dReal torque3)
 {
-    unsigned num = (unsigned)getNumAxes();
+    const unsigned num = (unsigned)getNumAxes();
     dAASSERT(dIN_RANGE(num, dSA__MIN, dSA__MAX + 1));
 
     dVector3 sum = {};
@@ -662,7 +662,7 @@ void dxJointAMotor::computeGlobalAxes(dVector3 ax[dSA__MAX]) const
 
 void dxJointAMotor::doComputeGlobalUserAxes(dVector3 ax[dSA__MAX]) const
 {
-    unsigned num = m_num;
+    const unsigned num = m_num;
     for (unsigned i = 0; i != num; ++i)
     {
         bool assigned = false;
@@ -695,10 +695,10 @@ void dxJointAMotor::doComputeGlobalEulerAxes(dVector3 ax[dSA__MAX]) const
 {
     // special handling for Euler mode
     
-    dSpaceAxis firstBodyAxis = BuildFirstBodyEulerAxis();
+    const dSpaceAxis firstBodyAxis = BuildFirstBodyEulerAxis();
     dMultiply0_331(ax[firstBodyAxis], this->node[0].body->posr.R, m_axis[firstBodyAxis]);
 
-    dSpaceAxis secondBodyAxis = EncodeOtherEulerAxis(firstBodyAxis);
+    const dSpaceAxis secondBodyAxis = EncodeOtherEulerAxis(firstBodyAxis);
 
     if (this->node[1].body != NULL)
     {
@@ -742,7 +742,7 @@ void dxJointAMotor::computeEulerAngles(dVector3 ax[dSA__MAX])
 
     // get q perpendicular to both ax[0] and ref1, get first euler angle
     dVector3 q;
-    dJointConnectedBody firstAxisBody = BuildFirstEulerAxisBody();
+    const dJointConnectedBody firstAxisBody = BuildFirstEulerAxisBody();
 
     dCalcVectorCross3(q, ax[dSA_X], refs[firstAxisBody]);
     m_angle[dSA_X] = -dAtan2(dCalcVectorDot3(ax[dSA_Z], q), dCalcVectorDot3(ax[dSA_Z], refs[firstAxisBody]));
@@ -751,7 +751,7 @@ void dxJointAMotor::computeEulerAngles(dVector3 ax[dSA__MAX])
     dCalcVectorCross3(q, ax[dSA_X], ax[dSA_Y]);
     m_angle[dSA_Y] = -dAtan2(dCalcVectorDot3(ax[dSA_Z], ax[dSA_X]), dCalcVectorDot3(ax[dSA_Z], q));
 
-    dJointConnectedBody secondAxisBody = EncodeJointOtherConnectedBody(firstAxisBody);
+    const dJointConnectedBody secondAxisBody = EncodeJointOtherConnectedBody(firstAxisBody);
 
     // get q perpendicular to both ax[1] and ax[2], get third euler angle
     dCalcVectorCross3(q, ax[dSA_Y], ax[dSA_Z]);
@@ -774,11 +774,11 @@ void dxJointAMotor::setEulerReferenceVectors()
 
         dVector3 r;  // axis[2] and axis[0] in global coordinates
 
-        dSpaceAxis firstBodyAxis = BuildFirstBodyEulerAxis();
+        const dSpaceAxis firstBodyAxis = BuildFirstBodyEulerAxis();
         dMultiply0_331(r, this->node[0].body->posr.R, m_axis[firstBodyAxis]);
         dMultiply1_331(m_references[dJCB_SECOND_BODY], this->node[1].body->posr.R, r);
 
-        dSpaceAxis secondBodyAxis = EncodeOtherEulerAxis(firstBodyAxis);
+        const dSpaceAxis secondBodyAxis = EncodeOtherEulerAxis(firstBodyAxis);
         dMultiply0_331(r, this->node[1].body->posr.R, m_axis[secondBodyAxis]);
         dMultiply1_331(m_references[dJCB_FIRST_BODY], this->node[0].body->posr.R, r);
     } 
@@ -788,10 +788,10 @@ void dxJointAMotor::setEulerReferenceVectors()
         // Replace missing node.R with identity
         if (this->node[0].body != NULL) 
         {
-            dSpaceAxis firstBodyAxis = BuildFirstBodyEulerAxis();
+            const dSpaceAxis firstBodyAxis = BuildFirstBodyEulerAxis();
             dMultiply0_331(m_references[dJCB_SECOND_BODY], this->node[0].body->posr.R, m_axis[firstBodyAxis]);
 
-            dSpaceAxis secondBodyAxis = EncodeOtherEulerAxis(firstBodyAxis);
+            const dSpaceAxis secondBodyAxis = EncodeOtherEulerAxis(firstBodyAxis);
             dMultiply1_331(m_references[dJCB_FIRST_BODY], this->node[0].body->posr.R, m_axis[secondBodyAxis]);
         } 
     }

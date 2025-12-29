@@ -151,7 +151,7 @@ int dCollideTransform (dxGeom *o1, dxGeom *o2, int flags,
     tr->obj->body = o1->body;
 
     // do the collision
-    int n = dCollide (tr->obj,o2,flags,contact,skip);
+    const int n = dCollide (tr->obj,o2,flags,contact,skip);
 
     // if required, adjust the 'g1' values in the generated contacts so that
     // thay indicated the GeomTransform object instead of the encapsulated

@@ -80,8 +80,8 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
   int i,n;
 
   // only collide things with the ground
-  int g1 = (o1 == ground || o1 == ground_box);
-  int g2 = (o2 == ground || o2 == ground_box);
+  const int g1 = (o1 == ground || o1 == ground_box);
+  const int g2 = (o2 == ground || o2 == ground_box);
   if (!(g1 ^ g2)) return;
 
   const int N = 10;

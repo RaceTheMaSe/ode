@@ -231,7 +231,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 		// Sort axis
 		IceMaths::Point Extents;	mBV.GetExtents(Extents);	// Box extents
 		udword SortedAxis[] = { 0, 1, 2 };
-		float* Keys = (float*)&Extents.x;
+		const float* Keys = (float*)&Extents.x;
 		for(udword j=0;j<3;j++)
 		{
 			for(udword i=0;i<2;i++)
@@ -282,7 +282,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 	if(builder->mNodeBase)
 	{
 		// We use a pre-allocated linear pool for complete trees [Opcode 1.3]
-		AABBTreeNode* Pool = (AABBTreeNode*)builder->mNodeBase;
+		const AABBTreeNode* Pool = (AABBTreeNode*)builder->mNodeBase;
 		udword Count = builder->GetCount() - 1;	// Count begins to 1...
 		// Set last bit to tell it shouldn't be freed ### pretty ugly, find a better way. Maybe one bit in mNbPrimitives
 		ASSERT(!(udword(&Pool[Count+0])&1));
@@ -524,7 +524,7 @@ bool AABBTree::Refit2(AABBTreeBuilder* builder)
 	udword Index = mTotalNbNodes;
 	while(Index--)
 	{
-		AABBTreeNode& Current = mPool[Index];
+		const AABBTreeNode& Current = mPool[Index];
 
 		if(Current.IsLeaf())
 		{

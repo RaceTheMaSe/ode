@@ -179,7 +179,7 @@ void ccdGeomToCyl(const dGeomID g, ccd_cyl_t *cyl)
     ccdQuatRotVec(&cyl->axis, &cyl->o.rot);
     ccdVec3Copy(&cyl->p1, &cyl->axis);
     ccdVec3Copy(&cyl->p2, &cyl->axis);
-    int cylAxisNormalizationResult = ccdVec3SafeNormalize(&cyl->axis);
+    const int cylAxisNormalizationResult = ccdVec3SafeNormalize(&cyl->axis);
     dUVERIFY(cylAxisNormalizationResult == 0, "Invalid cylinder has been passed");
     ccdVec3Scale(&cyl->p2, -1.0);
     ccdVec3Add(&cyl->p1, &cyl->o.pos);
@@ -243,7 +243,7 @@ void ccdSupportCyl(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v)
     ccd_vec3_t dir;
     ccd_real_t len;
     
-    ccd_real_t dot = ccdVec3Dot(_dir, &cyl->axis);
+    const ccd_real_t dot = ccdVec3Dot(_dir, &cyl->axis);
     if (dot > REAL(0.0)){
         ccdVec3Copy(v, &cyl->p1);
     } else{
@@ -318,7 +318,7 @@ int ccdCollide(
     int res;
     ccd_real_t depth;
     ccd_vec3_t dir, pos;
-    int max_contacts = (flags & NUMC_MASK);
+    const int max_contacts = (flags & NUMC_MASK);
 
     if (max_contacts < 1)
         return 0;
@@ -487,7 +487,7 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
 
     maxContacts = maxContacts > 8 ? 8 : maxContacts;
     
-    dReal axesProd = dFabs((dReal)ccdVec3Dot(&cyl1->axis, &cyl2->axis));
+    const dReal axesProd = dFabs((dReal)ccdVec3Dot(&cyl1->axis, &cyl2->axis));
     // Check if cylinders' axes are in line
     if (REAL(1.0) - axesProd < REAL(1e-3)) {
         ccd_vec3_t p, proj;
@@ -513,14 +513,14 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
             r1IsMin = false;
         }
 
-        dReal lSum = l1 + l2;
+        const dReal lSum = l1 + l2;
 
         ccdVec3Copy(&p, &minCyl->o.pos);
         ccdVec3Sub(&p, &maxCyl->o.pos);
-        dReal dot = (dReal)ccdVec3Dot(&p, &maxCyl->axis);
+        const dReal dot = (dReal)ccdVec3Dot(&p, &maxCyl->axis);
         
         // Maximum possible contact depth
-        dReal depth_v = lSum - dFabs(dot) + dSqrt(dMax(0, REAL(1.0) - axesProd * axesProd)) * rmin;
+        const dReal depth_v = lSum - dFabs(dot) + dSqrt(dMax(0, REAL(1.0) - axesProd * axesProd)) * rmin;
         if (depth_v < 0) {
             return 0;
         }
@@ -529,8 +529,8 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
         ccdVec3Copy(&proj, &maxCyl->axis);
         ccdVec3Scale(&proj, -dot);
         ccdVec3Add(&proj, &p);
-        dReal radiiDiff = (dReal)sqrt(ccdVec3Len2(&proj));
-        dReal depth_h = r1 + r2 - radiiDiff;
+        const dReal radiiDiff = (dReal)sqrt(ccdVec3Len2(&proj));
+        const dReal depth_h = r1 + r2 - radiiDiff;
 
         // Check the distance between cylinders' centers
         if (depth_h < 0) {
@@ -540,22 +540,22 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
         // Check if "vertical" contact depth is less than "horizontal" contact depth
         if (depth_v < depth_h) {
             int contactCount = 0;
-            dReal dot2 = (dReal)-ccdVec3Dot(&p, &minCyl->axis);
+            const dReal dot2 = (dReal)-ccdVec3Dot(&p, &minCyl->axis);
             // lmin, lmax - distances from cylinders' centers to potential contact points relative to cylinders' axes
             dReal lmax = r1IsMin ? l2 : l1;
             dReal lmin = r1IsMin ? l1 : l2;
             lmin = dot2 < 0 ? -lmin : lmin;
             lmax = dot < 0 ? -lmax : lmax;
             // Contact normal direction, relative to o1's axis
-            dReal normaldir = (dot < 0) != r1IsMin ? REAL(1.0) : -REAL(1.0);
+            const dReal normaldir = (dot < 0) != r1IsMin ? REAL(1.0) : -REAL(1.0);
             
             if (rmin + radiiDiff <= rmax) {
                 // Case 1: The smaller disc is fully contained within the larger one
                 // Simply generate N points on the rim of the smaller disc
-                dReal maxContactsRecip = (dReal)(0 < maxContacts ? (2.0 * M_PI / maxContacts) : (2.0 * M_PI)); // The 'else' value does not matter. Just try helping the optimizer.
+                const dReal maxContactsRecip = (dReal)(0 < maxContacts ? (2.0 * M_PI / maxContacts) : (2.0 * M_PI)); // The 'else' value does not matter. Just try helping the optimizer.
                 for (int i = 0; i < maxContacts; i++) {
                     dReal depth;
-                    dReal a = maxContactsRecip * (dReal)i;
+                    const dReal a = maxContactsRecip * (dReal)i;
                     if (testAndPrepareDiscContactForAngle(a, rmin, lmin, lSum, minCyl, maxCyl, p, depth)) {
                         contactCount = addCylCylContact(o1, o2, &maxCyl->axis, contacts, &p, normaldir, depth, contactCount, flags, skip);
                         if (((unsigned int)flags & CONTACTS_UNIMPORTANT) != 0) {
@@ -573,25 +573,25 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                 ccd_vec3_t proj2;
                 ccdVec3Copy(&proj2, &proj);
                 ccdQuatRotVec(&proj, &maxCyl->o.rot_inv);
-                dReal d = dSqrt((dReal)(ccdVec3X(&proj) * ccdVec3X(&proj) + ccdVec3Y(&proj) * ccdVec3Y(&proj)));
+                const dReal d = dSqrt((dReal)(ccdVec3X(&proj) * ccdVec3X(&proj) + ccdVec3Y(&proj) * ccdVec3Y(&proj)));
                 dIASSERT(d != REAL(0.0));
                 
-                dReal dRecip = REAL(1.0) / d;
-                dReal rmaxSquare = rmax * rmax, rminSquare = rmin * rmin, dSquare = d * d;
+                const dReal dRecip = REAL(1.0) / d;
+                const dReal rmaxSquare = rmax * rmax, rminSquare = rmin * rmin, dSquare = d * d;
 
                 dReal minA, diffA, minB, diffB;
 
                 {
-                    dReal l = (rmaxSquare - rminSquare + dSquare) * (REAL(0.5) * dRecip);
-                    dReal h = dSqrt(rmaxSquare - l * l);
-                    dReal divLbyD = l * dRecip, divHbyD = h * dRecip;
-                    dReal x1 = (dReal)(divLbyD * ccdVec3X(&proj) + divHbyD * ccdVec3Y(&proj));
-                    dReal y1 = (dReal)(divLbyD * ccdVec3Y(&proj) - divHbyD * ccdVec3X(&proj));
-                    dReal x2 = (dReal)(divLbyD * ccdVec3X(&proj) - divHbyD * ccdVec3Y(&proj));
-                    dReal y2 = (dReal)(divLbyD * ccdVec3Y(&proj) + divHbyD * ccdVec3X(&proj));
+                    const dReal l = (rmaxSquare - rminSquare + dSquare) * (REAL(0.5) * dRecip);
+                    const dReal h = dSqrt(rmaxSquare - l * l);
+                    const dReal divLbyD = l * dRecip, divHbyD = h * dRecip;
+                    const dReal x1 = (dReal)(divLbyD * ccdVec3X(&proj) + divHbyD * ccdVec3Y(&proj));
+                    const dReal y1 = (dReal)(divLbyD * ccdVec3Y(&proj) - divHbyD * ccdVec3X(&proj));
+                    const dReal x2 = (dReal)(divLbyD * ccdVec3X(&proj) - divHbyD * ccdVec3Y(&proj));
+                    const dReal y2 = (dReal)(divLbyD * ccdVec3Y(&proj) + divHbyD * ccdVec3X(&proj));
                     // Map the intersection points to angles
-                    dReal ap1 = dAtan2(y1, x1);
-                    dReal ap2 = dAtan2(y2, x2);
+                    const dReal ap1 = dAtan2(y1, x1);
+                    const dReal ap2 = dAtan2(y2, x2);
                     minA = dMin(ap1, ap2);
                     dReal maxA = dMax(ap1, ap2);
                     // If the segment connecting cylinders' centers does not intersect the arc, change the angles
@@ -610,15 +610,15 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                 ccdQuatRotVec(&proj, &minCyl->o.rot_inv);
                 
                 {
-                    dReal l = (rminSquare - rmaxSquare + dSquare) * (REAL(0.5) * dRecip);
-                    dReal h = dSqrt(rminSquare - l * l);
-                    dReal divLbyD = l * dRecip, divHbyD = h * dRecip;
-                    dReal x1 = (dReal)(divLbyD * ccdVec3X(&proj) + divHbyD * ccdVec3Y(&proj));
-                    dReal y1 = (dReal)(divLbyD * ccdVec3Y(&proj) - divHbyD * ccdVec3X(&proj));
-                    dReal x2 = (dReal)(divLbyD * ccdVec3X(&proj) - divHbyD * ccdVec3Y(&proj));
-                    dReal y2 = (dReal)(divLbyD * ccdVec3Y(&proj) + divHbyD * ccdVec3X(&proj));
-                    dReal ap1 = dAtan2(y1, x1);
-                    dReal ap2 = dAtan2(y2, x2);
+                    const dReal l = (rminSquare - rmaxSquare + dSquare) * (REAL(0.5) * dRecip);
+                    const dReal h = dSqrt(rminSquare - l * l);
+                    const dReal divLbyD = l * dRecip, divHbyD = h * dRecip;
+                    const dReal x1 = (dReal)(divLbyD * ccdVec3X(&proj) + divHbyD * ccdVec3Y(&proj));
+                    const dReal y1 = (dReal)(divLbyD * ccdVec3Y(&proj) - divHbyD * ccdVec3X(&proj));
+                    const dReal x2 = (dReal)(divLbyD * ccdVec3X(&proj) - divHbyD * ccdVec3Y(&proj));
+                    const dReal y2 = (dReal)(divLbyD * ccdVec3Y(&proj) + divHbyD * ccdVec3X(&proj));
+                    const dReal ap1 = dAtan2(y1, x1);
+                    const dReal ap2 = dAtan2(y2, x2);
                     minB = dMin(ap1, ap2);
                     dReal maxB = dMax(ap1, ap2);
                     dReal a = dAtan2((dReal)ccdVec3Y(&proj), (dReal)ccdVec3X(&proj));
@@ -631,7 +631,7 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                 }
 
                 // Find contact point distribution ratio based on arcs lengths
-                dReal ratio = diffA * rmax  / (diffA * rmax + diffB  * rmin);
+                const dReal ratio = diffA * rmax  / (diffA * rmax + diffB  * rmin);
                 dIASSERT(ratio <= REAL(1.0)); 
                 dIASSERT(ratio >= REAL(0.0));
 
@@ -649,10 +649,10 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                 }
 
                 // Smaller disc first, skipping the overlapping points
-                dReal nMinRecip = 0 < nMin ? diffB / (dReal)(nMin + 1) : diffB; // The 'else' value does not matter. Just try helping the optimizer.
+                const dReal nMinRecip = 0 < nMin ? diffB / (dReal)(nMin + 1) : diffB; // The 'else' value does not matter. Just try helping the optimizer.
                 for (int i = 1; i <= nMin; i++) {
                     dReal depth;
-                    dReal a = minB + nMinRecip * (dReal)i;
+                    const dReal a = minB + nMinRecip * (dReal)i;
                     if (testAndPrepareDiscContactForAngle(a, rmin, lmin, lSum, minCyl, maxCyl, p, depth)) {
                         contactCount = addCylCylContact(o1, o2, &maxCyl->axis, contacts, &p, normaldir, depth, contactCount, flags, skip);
                         if (((unsigned int)flags & CONTACTS_UNIMPORTANT) != 0) {
@@ -665,12 +665,12 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                 if (contactCount == 0 || ((unsigned int)flags & CONTACTS_UNIMPORTANT) == 0) {
                     // Then the larger disc, + additional point as the start/end points of arcs overlap
                     // (or a single contact at the arc middle point if just one is required)
-                    dReal nMaxRecip = nMax > 1 ? diffA / (dReal)(nMax - 1) : diffA; // The 'else' value does not matter. Just try helping the optimizer.
-                    dReal adjustedMinA = nMax == 1 ? minA + REAL(0.5) * diffA : minA;
+                    const dReal nMaxRecip = nMax > 1 ? diffA / (dReal)(nMax - 1) : diffA; // The 'else' value does not matter. Just try helping the optimizer.
+                    const dReal adjustedMinA = nMax == 1 ? minA + REAL(0.5) * diffA : minA;
 
                     for (int i = 0; i < nMax; i++) {
                         dReal depth;
-                        dReal a = adjustedMinA + nMaxRecip * (dReal)i;
+                        const dReal a = adjustedMinA + nMaxRecip * (dReal)i;
                         if (testAndPrepareDiscContactForAngle(a, rmax, lmax, lSum, maxCyl, minCyl, p, depth)) {
                             contactCount = addCylCylContact(o1, o2, &maxCyl->axis, contacts, &p, normaldir, depth, contactCount, flags, skip);
                             if (((unsigned int)flags & CONTACTS_UNIMPORTANT) != 0) {
@@ -699,7 +699,7 @@ bool testAndPrepareDiscContactForAngle(dReal angle, dReal radius, dReal length, 
     ccdVec3Add(&p, &priCyl->o.pos);
     ccdVec3Copy(&p2, &p);
     ccdVec3Sub(&p2, &secCyl->o.pos);
-    dReal depth = lSum - dFabs((dReal)ccdVec3Dot(&p2, &secCyl->axis));
+    const dReal depth = lSum - dFabs((dReal)ccdVec3Dot(&p2, &secCyl->axis));
 
     if (depth >= 0) {
         ccdVec3Copy(&p2, &priCyl->axis);
@@ -750,7 +750,7 @@ unsigned dCollideConvexTrimeshTrianglesCCD(dxGeom *o1, dxGeom *o2, const int *in
     ccd_convex_t c1;
     ccd_triangle_t c2;
     dVector3 triangle[dMTV__MAX];
-    unsigned maxContacts = (unsigned int)(flags & NUMC_MASK);
+    const unsigned maxContacts = (unsigned int)(flags & NUMC_MASK);
     unsigned contactCount = 0;
     ccdGeomToConvex(o1, &c1);
     ccdGeomToObj(o2, (ccd_obj_t *)&c2);
@@ -822,7 +822,7 @@ unsigned addTrianglePerturbedContacts(dxGeom *o1, dxGeom *o2, IFaceAngleStorageV
     const int *indices, unsigned numIndices, int flags, dContactGeom *contacts, int skip,
     ccd_convex_t *c1, ccd_triangle_t *c2, dVector3 *triangle, dContactGeom *contact, unsigned contacCount)
 {
-    unsigned maxContacts = (unsigned int)(flags & NUMC_MASK);
+    const unsigned maxContacts = (unsigned int)(flags & NUMC_MASK);
     
     dVector3 pos;
     dCopyVector3(pos, contact->pos);
@@ -946,13 +946,13 @@ bool correctTriangleContactNormal(ccd_triangle_t *t, dContactGeom *contact,
             if (ccdVec3Dot(&edgeNormal, &v) > 0) {
                 // This is an edge contact
     
-                ccd_real_t x = ccdVec3Dot(&triNormal, &cntNormal);
-                ccd_real_t y = ccdVec3Dot(&edgeNormal, &cntNormal);
-                ccd_real_t contactNormalToTriangleNormalAngle = CCD_ATAN2(y, x);
+                const ccd_real_t x = ccdVec3Dot(&triNormal, &cntNormal);
+                const ccd_real_t y = ccdVec3Dot(&edgeNormal, &cntNormal);
+                const ccd_real_t contactNormalToTriangleNormalAngle = CCD_ATAN2(y, x);
 
                 dReal angleValueAsDRead;
-                FaceAngleDomain angleDomain = meshFaceAngleView->retrieveFacesAngleFromStorage(angleValueAsDRead, (unsigned int)contact->side2, (dMeshTriangleVertex)testEdgeIndex);
-                ccd_real_t angleValue = (ccd_real_t)angleValueAsDRead;
+                const FaceAngleDomain angleDomain = meshFaceAngleView->retrieveFacesAngleFromStorage(angleValueAsDRead, (unsigned int)contact->side2, (dMeshTriangleVertex)testEdgeIndex);
+                const ccd_real_t angleValue = (ccd_real_t)angleValueAsDRead;
 
                 ccd_real_t targetAngle=CCD_ZERO;
                 contactGenerated = false; // re-assign to make optimizer's task easier
@@ -1004,7 +1004,7 @@ bool correctTriangleContactNormal(ccd_triangle_t *t, dContactGeom *contact,
         contact->depth *= (dReal)CCD_FMAX(0.0, ccdVec3Dot(&cntOrigNormal, &cntNormalToUse));
     }
 
-    bool result = !anyFault;
+    const bool result = !anyFault;
     return result;
 }
 
@@ -1016,7 +1016,7 @@ unsigned addUniqueContact(dContactGeom *contacts, dContactGeom *c, unsigned cont
     unsigned index = contactcount;
     bool isDuplicate = false;
 
-    dReal c_posX = c->pos[dV3E_X], c_posY = c->pos[dV3E_Y], c_posZ = c->pos[dV3E_Z];
+    const dReal c_posX = c->pos[dV3E_X], c_posY = c->pos[dV3E_Y], c_posZ = c->pos[dV3E_Z];
     for (unsigned k = 0; k != contactcount; k++) {
         dContactGeom* pc = SAFECONTACT(flags, contacts, (int)k, skip);
         

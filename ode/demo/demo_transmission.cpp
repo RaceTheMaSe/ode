@@ -203,7 +203,7 @@ static void stop()
 
 static void drawGeom(dGeomID g)
 {
-    int gclass = dGeomGetClass(g);
+    const int gclass = dGeomGetClass(g);
     const dReal *pos = dGeomGetPosition(g);
     const dReal *rot = dGeomGetRotation(g);
 
@@ -265,7 +265,7 @@ static void simLoop(int pause)
 #endif
 
     // now we draw everything
-    unsigned ngeoms = (unsigned)dSpaceGetNumGeoms(space);
+    const unsigned ngeoms = (unsigned)dSpaceGetNumGeoms(space);
     for (unsigned i=0; i<ngeoms; ++i) {
         dGeomID g = dSpaceGetGeom(space, (int)i);
 

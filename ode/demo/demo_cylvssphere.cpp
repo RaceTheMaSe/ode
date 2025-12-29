@@ -79,7 +79,7 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
 
   const int N = 32;
   dContact contact[N];
-  int n = dCollide (o1,o2,N,&(contact[0].geom),sizeof(dContact));
+  const int n = dCollide (o1,o2,N,&(contact[0].geom),sizeof(dContact));
   if (n > 0) 
   {
     for (int i=0; i<n; i++) 
@@ -95,9 +95,9 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
         const dReal ss[3] = {REAL(0.12),REAL(0.12),REAL(0.12)};
         dsSetColorAlpha (0,0,1,0.5);
         dsDrawBox (contact[i].geom.pos,RI,ss);
-        dReal *pos  = contact[i].geom.pos;
-        dReal depth = contact[i].geom.depth;
-        dReal *norm = contact[i].geom.normal;
+        const dReal *pos  = contact[i].geom.pos;
+        const dReal depth = contact[i].geom.depth;
+        const dReal *norm = contact[i].geom.normal;
         dReal endp[3] = {pos[0]+depth*norm[0], pos[1]+depth*norm[1], pos[2]+depth*norm[2]};
         dsSetColorAlpha (1,1,1,1);
         dsDrawLine (contact[i].geom.pos, endp);

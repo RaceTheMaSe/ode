@@ -184,7 +184,7 @@ void sCylinderBoxData::_cldInitCylinderBox()
     dReal fAngle = (dReal) (M_PI/nCYLINDER_SEGMENT);
 
     // calculate angle increment
-    dReal fAngleIncrement = fAngle * REAL(2.0); 
+    const dReal fAngleIncrement = fAngle * REAL(2.0); 
 
     // calculate nCYLINDER_SEGMENT-gon points
     for(i = 0; i < nCYLINDER_SEGMENT; i++) 
@@ -207,7 +207,7 @@ void sCylinderBoxData::_cldInitCylinderBox()
 int sCylinderBoxData::_cldTestAxis( dVector3& vInputNormal, int iAxis ) 
 {
     // check length of input normal
-    dReal fL = dVector3Length(vInputNormal);
+    const dReal fL = dVector3Length(vInputNormal);
     // if not long enough
     if ( fL < REAL(1e-5) ) 
     {
@@ -219,7 +219,7 @@ int sCylinderBoxData::_cldTestAxis( dVector3& vInputNormal, int iAxis )
     dNormalize3(vInputNormal);
 
     // project box and Cylinder on mAxis
-    dReal fdot1 = dVector3Dot(m_vCylinderAxis, vInputNormal);
+    const dReal fdot1 = dVector3Dot(m_vCylinderAxis, vInputNormal);
 
     dReal frc;
 
@@ -251,7 +251,7 @@ int sCylinderBoxData::_cldTestAxis( dVector3& vInputNormal, int iAxis )
     frb += dFabs(dVector3Dot(vTemp1,vInputNormal))*m_vBoxHalfSize[2];
 
     // project their distance on separating axis
-    dReal fd  = dVector3Dot(m_vDiff,vInputNormal);
+    const dReal fd  = dVector3Dot(m_vDiff,vInputNormal);
 
     // get depth 
 
@@ -301,7 +301,7 @@ int sCylinderBoxData::_cldTestEdgeCircleAxis(
     dVector3Copy(vVx0,vEStart);
 
     // calculate angle cosine between cylinder axis and edge
-    dReal fdot2 = dVector3Dot (vDirEdge,m_vCylinderAxis);
+    const dReal fdot2 = dVector3Dot (vDirEdge,m_vCylinderAxis);
 
     // if edge is perpendicular to cylinder axis
     if(dFabs(fdot2) < REAL(1e-5)) 
@@ -313,7 +313,7 @@ int sCylinderBoxData::_cldTestEdgeCircleAxis(
     // find point of intersection between edge line and circle plane
     dVector3 vTemp1;
     dVector3Subtract(vCenterPoint,vEStart,vTemp1);
-    dReal fdot1 = dVector3Dot(vTemp1,m_vCylinderAxis);
+    const dReal fdot1 = dVector3Dot(vTemp1,m_vCylinderAxis);
     dVector3 vpnt;
     vpnt[0]= vEStart[0] + vDirEdge[0] * (fdot1/fdot2);
     vpnt[1]= vEStart[1] + vDirEdge[1] * (fdot1/fdot2);
@@ -580,7 +580,7 @@ int sCylinderBoxData::_cldClipCylinderToBox()
 
     // calculate that vector perpendicular to cylinder axis which closes lowest angle with collision normal
     dVector3 vN;
-    dReal fTemp1 = dVector3Dot(m_vCylinderAxis,m_vNormal);
+    const dReal fTemp1 = dVector3Dot(m_vCylinderAxis,m_vNormal);
     vN[0]	=	m_vNormal[0] - m_vCylinderAxis[0]*fTemp1;
     vN[1]	=	m_vNormal[1] - m_vCylinderAxis[1]*fTemp1;
     vN[2]	=	m_vNormal[2] - m_vCylinderAxis[2]*fTemp1;
@@ -1004,7 +1004,7 @@ int sCylinderBoxData::PerformCollisionChecking()
         return 0;
     }
 
-    dReal fdot = dVector3Dot(m_vNormal,m_vCylinderAxis);
+    const dReal fdot = dVector3Dot(m_vNormal,m_vCylinderAxis);
     // choose which clipping method are we going to apply
     if (dFabs(fdot) < REAL(0.9) ) 
     {

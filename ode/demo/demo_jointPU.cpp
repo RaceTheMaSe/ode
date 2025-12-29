@@ -277,7 +277,7 @@ case 'h' : case 'H' : case '?' :
 
       // Velocity of joint
   case ',': case '<' : {
-      dReal vel = joint->getParam (dParamVel3) - VEL_INC;
+      const dReal vel = joint->getParam (dParamVel3) - VEL_INC;
       joint->setParam (dParamVel3, vel);
 	  joint->setParam (dParamFMax3, 2);
       std::cout<<"Velocity = "<<vel<<"  FMax = 2"<<'\n';
@@ -285,7 +285,7 @@ case 'h' : case 'H' : case '?' :
     break;
 
   case '.': case '>' : {
-      dReal vel = joint->getParam (dParamVel3) + VEL_INC;
+      const dReal vel = joint->getParam (dParamVel3) + VEL_INC;
       joint->setParam (dParamVel3, vel);
 	  joint->setParam (dParamFMax3, 2);
       std::cout<<"Velocity = "<<vel<<"  FMax = 2"<<'\n';
@@ -424,7 +424,7 @@ static void drawBox (dGeomID id, int R, int G, int B)
 // simulation loop
 static void simLoop (int pause)
 {
-  static bool todo = false;
+  static const bool todo = false;
   if ( todo ) { // DEBUG
     static int cnt = 0;
     ++cnt;
@@ -439,8 +439,8 @@ static void simLoop (int pause)
 
 
   if (!pause) {
-    double simstep = 0.01; // 10ms simulation steps
-    double dt = dsElapsedTime();
+    const double simstep = 0.01; // 10ms simulation steps
+    const double dt = dsElapsedTime();
 
     int nrofsteps = (int) ceilf ((float)(dt/simstep));
     if (!nrofsteps)
@@ -474,7 +474,7 @@ static void simLoop (int pause)
     dVector3 axisP = {}, axisR1, axisR2;
 
     if ( dJointTypePU == type ) {
-      dPUJoint *pu = static_cast<dPUJoint *> (joint);
+      const dPUJoint *pu = static_cast<dPUJoint *> (joint);
       if(pu)
       {
         ang1 = pu->getAngle1();
@@ -487,7 +487,7 @@ static void simLoop (int pause)
       }
     }
     else if ( dJointTypePR == type ) {
-      dPRJoint *pr = static_cast<dPRJoint *> (joint);
+      const dPRJoint *pr = static_cast<dPRJoint *> (joint);
       if(pr)
       {
         pr->getAxis1 (axisP);
@@ -614,7 +614,7 @@ int main (int argc, char **argv)
         type = dJointTypePR;
 
       if (0 == strcmp ("-t", argv[i]) || 0 == strcmp ("--texture-path", argv[i]) ) {
-        int j = i+1;
+        const int j = i+1;
         if ( j >= argc      ||  // Check if we have enough arguments
              argv[j][0] == '\0' ||  // We should have a path here
              argv[j][0] == '-' ) // We should have a path not a command line

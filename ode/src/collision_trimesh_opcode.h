@@ -89,7 +89,7 @@ public:
     bool resizeAndResetVertexUSEDFlags(unsigned VertexCount)
     {
         bool Result = false;
-        sizeint VertexNewElements = (VertexCount + 7) / 8;
+        const sizeint VertexNewElements = (VertexCount + 7) / 8;
         if (VertexNewElements <= m_VertexUseElements || reallocVertexUSEDFlags(VertexNewElements)) {
             memset(m_VertexUseBits, 0, VertexNewElements);
             Result = true;

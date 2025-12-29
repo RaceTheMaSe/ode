@@ -126,7 +126,7 @@ void dMassSetSphereTotal (dMass *m, dReal total_mass, dReal radius)
     dAASSERT (m);
     dMassSetZero (m);
     m->mass = total_mass;
-    dReal II = REAL(0.4) * total_mass * radius*radius;
+    const dReal II = REAL(0.4) * total_mass * radius*radius;
     m->_I(0,0) = II;
     m->_I(1,1) = II;
     m->_I(2,2) = II;
@@ -240,7 +240,7 @@ void dMassSetTrimesh( dMass *m, dReal density, dGeomID g )
 #if defined(dTRIMESH_ENABLED)
 
     dxTriMesh *TriMesh = static_cast<dxTriMesh *>(g);
-    unsigned int triangles = TriMesh->getMeshTriangleCount();
+    const unsigned int triangles = TriMesh->getMeshTriangleCount();
 
     dReal nx, ny, nz;
     unsigned int i, A, B, C;
@@ -445,7 +445,7 @@ void dMassSetTrimeshTotal( dMass *m, dReal total_mass, dGeomID g)
 void dMassAdjust (dMass *m, dReal newmass)
 {
     dAASSERT (m);
-    dReal scale = newmass / m->mass;
+    const dReal scale = newmass / m->mass;
     m->mass = newmass;
     for (int i=0; i<3; i++) for (int j=0; j<3; j++) m->_I(i,j) *= scale;
 
@@ -538,7 +538,7 @@ void dMassAdd (dMass *a, const dMass *b)
 {
     int i;
     dAASSERT (a && b);
-    dReal denom = dRecip (a->mass + b->mass);
+    const dReal denom = dRecip (a->mass + b->mass);
     for (i=0; i<3; i++) a->c[i] = (a->c[i]*a->mass + b->c[i]*b->mass)*denom;
     a->mass += b->mass;
     for (i=0; i<12; i++) a->I[i] += b->I[i];

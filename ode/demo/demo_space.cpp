@@ -95,8 +95,8 @@ static void init_test()
 
   for (i=0; i < NUM; i++) {
     for (j=i+1; j < NUM; j++) {
-      dReal *bounds1 = &bounds[i][0];
-      dReal *bounds2 = &bounds[j][0];
+      const dReal *bounds1 = &bounds[i][0];
+      const dReal *bounds2 = &bounds[j][0];
       if (bounds1[0] > bounds2[1] ||
 	  bounds1[1] < bounds2[0] ||
 	  bounds1[2] > bounds2[3] ||

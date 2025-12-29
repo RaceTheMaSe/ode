@@ -109,7 +109,7 @@ static bool AllocateThreadBasicDataIfNecessary(EODEINITMODE imInitMode)
     do
     {
 #if defined(dTLS_ENABLED)
-        EODETLSKIND tkTlsKind = g_atkTLSKindsByInitMode[imInitMode];
+        const EODETLSKIND tkTlsKind = g_atkTLSKindsByInitMode[imInitMode];
 
         const unsigned uDataAllocationFlags = COdeTls::GetDataAllocationFlags(tkTlsKind);
 
@@ -139,7 +139,7 @@ static void FreeThreadBasicDataOnFailureIfNecessary(EODEINITMODE imInitMode)
 
     if (imInitMode == OIM_MANUALTLSCLEANUP)
     {
-        EODETLSKIND tkTlsKind = g_atkTLSKindsByInitMode[imInitMode];
+        const EODETLSKIND tkTlsKind = g_atkTLSKindsByInitMode[imInitMode];
 
         const unsigned uDataAllocationFlags = COdeTls::GetDataAllocationFlags(tkTlsKind);
 
@@ -192,7 +192,7 @@ static bool AllocateThreadCollisionDataIfNecessary(EODEINITMODE imInitMode, bool
     do 
     {
 #if defined(dTLS_ENABLED)
-        EODETLSKIND tkTlsKind = g_atkTLSKindsByInitMode[imInitMode];
+        const EODETLSKIND tkTlsKind = g_atkTLSKindsByInitMode[imInitMode];
 
         const unsigned uDataAllocationFlags = COdeTls::GetDataAllocationFlags(tkTlsKind);
 
@@ -220,7 +220,7 @@ static void FreeThreadCollisionData(EODEINITMODE imInitMode)
 {
 #if defined(dTLS_ENABLED)
 
-    EODETLSKIND tkTlsKind = g_atkTLSKindsByInitMode[imInitMode];
+    const EODETLSKIND tkTlsKind = g_atkTLSKindsByInitMode[imInitMode];
 
     COdeTls::DestroyTrimeshCollidersCache(tkTlsKind);
 
@@ -242,7 +242,7 @@ static bool InitODEForMode(EODEINITMODE imInitMode)
     bool bAtomicsInitialized = false;
 #endif
 #if defined(dTLS_ENABLED)
-    EODETLSKIND tkTLSKindToInit = g_atkTLSKindsByInitMode[imInitMode];
+    const EODETLSKIND tkTLSKindToInit = g_atkTLSKindsByInitMode[imInitMode];
     bool bTlsInitialized = false;
 #else
     (void)imInitMode; // unused
@@ -252,7 +252,7 @@ static bool InitODEForMode(EODEINITMODE imInitMode)
 
     do
     {
-        bool bAnyModeAlreadyInitialized = IsODEAnyModeInitialized();
+        const bool bAnyModeAlreadyInitialized = IsODEAnyModeInitialized();
 
         if (!bAnyModeAlreadyInitialized)
         {
@@ -385,7 +385,7 @@ static bool AllocateODEDataForThreadForMode(EODEINITMODE imInitMode, unsigned in
 
 static void CloseODEForMode(EODEINITMODE imInitMode)
 {
-    bool bAnyModeStillInitialized = IsODEAnyModeInitialized();
+    const bool bAnyModeStillInitialized = IsODEAnyModeInitialized();
 
     if (!bAnyModeStillInitialized)
     {
@@ -409,7 +409,7 @@ static void CloseODEForMode(EODEINITMODE imInitMode)
     }
 
 #if defined(dTLS_ENABLED)
-    EODETLSKIND tkTLSKindToFinalize = g_atkTLSKindsByInitMode[imInitMode];
+    const EODETLSKIND tkTLSKindToFinalize = g_atkTLSKindsByInitMode[imInitMode];
     COdeTls::Finalize(tkTLSKindToFinalize);
 #else
     (void)imInitMode; // unused
@@ -437,7 +437,7 @@ static bool InternalInitODE(unsigned int uiInitFlags)
 
     do 
     {
-        EODEINITMODE imInitMode = (uiInitFlags & dInitFlagManualThreadCleanup) ? OIM_MANUALTLSCLEANUP : OIM_AUTOTLSCLEANUP;
+        const EODEINITMODE imInitMode = (uiInitFlags & dInitFlagManualThreadCleanup) ? OIM_MANUALTLSCLEANUP : OIM_AUTOTLSCLEANUP;
 
         if (!IsODEModeInitialized(imInitMode))
         {
@@ -489,7 +489,7 @@ static bool InternalAllocateODEDataForThread(unsigned int uiAllocateFlags)
         }
     }
 
-    bool bResult = !bAnyFailure;
+    const bool bResult = !bAnyFailure;
     return bResult;
 }
 
@@ -506,10 +506,10 @@ static void InternalCleanupODEAllDataForThread()
 
 void dInitODE()
 {
-    int bInitResult = InternalInitODE(0);
+    const int bInitResult = InternalInitODE(0);
     dIVERIFY(bInitResult);
 
-    int ibAllocResult = InternalAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
+    const int ibAllocResult = InternalAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
     dIVERIFY(ibAllocResult);
 }
 
@@ -553,7 +553,7 @@ int dAllocateODEDataForThread(unsigned int uiAllocateFlags)
 {
     dUASSERT(g_uiODEInitCounter != 0, "Call dInitODE2 first");
 
-    bool bResult = InternalAllocateODEDataForThread(uiAllocateFlags);
+    const bool bResult = InternalAllocateODEDataForThread(uiAllocateFlags);
     return bResult;
 }
 

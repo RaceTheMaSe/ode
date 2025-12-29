@@ -164,7 +164,7 @@ public:
         dIASSERT((alignmentRequired & (alignmentRequired - 1)) == 0);
         dIASSERT(alignmentRequired <= SIZE_MAX - sizeRequired);
 
-        sizeint sizeToUse = sizeRequired + alignmentRequired;
+        const sizeint sizeToUse = sizeRequired + alignmentRequired;
         void *bufferPointer = dAlloc(sizeToUse);
         void *userAreaPointer = bufferPointer != NULL && alignmentRequired != 0 ? dALIGN_PTR(bufferPointer, alignmentRequired) : bufferPointer;
         assignData(userAreaPointer, bufferPointer, sizeToUse);

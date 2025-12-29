@@ -161,7 +161,7 @@ static inline int _IsBetter(sLocalContactData& c1,sLocalContactData& c2)
 // iterate through gLocalContacts and filtered out "near contact"
 void sCylinderTrimeshColliderData::_OptimizeLocalContacts()
 {
-    int nContacts = m_nContacts;
+    const int nContacts = m_nContacts;
 
     for (int i = 0; i < nContacts-1; i++)
     {
@@ -242,7 +242,7 @@ bool sCylinderTrimeshColliderData::_cldTestAxis(
 {
 
     // calculate length of separating axis vector
-    dReal fL = dVector3Length(vAxis);
+    const dReal fL = dVector3Length(vAxis);
     // if not long enough
     if ( fL < REAL(1e-5) )
     {
@@ -255,7 +255,7 @@ bool sCylinderTrimeshColliderData::_cldTestAxis(
     vAxis[1] /= fL;
     vAxis[2] /= fL;
 
-    dReal fdot1 = dVector3Dot(m_vCylinderAxis,vAxis);
+    const dReal fdot1 = dVector3Dot(m_vCylinderAxis,vAxis);
     // project capsule on vAxis
     dReal frc;
 
@@ -302,9 +302,9 @@ bool sCylinderTrimeshColliderData::_cldTestAxis(
     }
 
     // find capsule's center of interval on axis
-    dReal fCenter = (fMin+fMax)* REAL(0.5);
+    const dReal fCenter = (fMin+fMax)* REAL(0.5);
     // calculate triangles halfinterval 
-    dReal fTriangleRadius = (fMax-fMin)*REAL(0.5);
+    const dReal fTriangleRadius = (fMax-fMin)*REAL(0.5);
 
     // if they do not overlap, 
     if( dFabs(fCenter) > (frc+fTriangleRadius) ) 
@@ -314,7 +314,7 @@ bool sCylinderTrimeshColliderData::_cldTestAxis(
     }
 
     // calculate depth 
-    dReal fDepth = -(dFabs(fCenter) - (frc + fTriangleRadius ) );
+    const dReal fDepth = -(dFabs(fCenter) - (frc + fTriangleRadius ) );
 
     // if greater then best found so far
     if ( fDepth < m_fBestDepth ) 
@@ -352,7 +352,7 @@ bool sCylinderTrimeshColliderData::_cldTestCircleToEdgeAxis(
     dVector3Copy(vVx0,vol);
 
     // calculate angle cosine between cylinder axis and edge
-    dReal fdot2 = dVector3Dot(vkl , vCylinderAxis1);
+    const dReal fdot2 = dVector3Dot(vkl , vCylinderAxis1);
 
     // if edge is perpendicular to cylinder axis
     if(dFabs(fdot2)<REAL(1e-5))
@@ -364,7 +364,7 @@ bool sCylinderTrimeshColliderData::_cldTestCircleToEdgeAxis(
     // find point of intersection between edge line and circle plane
     dVector3 vTemp;
     dVector3Subtract(vCenterPoint,vol,vTemp);
-    dReal fdot1 = dVector3Dot(vTemp,vCylinderAxis1);
+    const dReal fdot1 = dVector3Dot(vTemp,vCylinderAxis1);
     dVector3 vpnt;// = vol + vkl * (fdot1/fdot2);
     vpnt[0] = vol[0] + vkl[0] * fdot1/fdot2;
     vpnt[1] = vol[1] + vkl[1] * fdot1/fdot2;
@@ -641,9 +641,9 @@ bool sCylinderTrimeshColliderData::_cldClipCylinderEdgeToTriangle(
     // calculate depths for both contact points
     dVector3 vTemp;
     dVector3Subtract(vCEdgePoint0,m_vCylinderPos, vTemp);
-    dReal fRestDepth0 = -dVector3Dot(vTemp,m_vContactNormal) + m_fBestrt;
+    const dReal fRestDepth0 = -dVector3Dot(vTemp,m_vContactNormal) + m_fBestrt;
     dVector3Subtract(vCEdgePoint1,m_vCylinderPos, vTemp);
-    dReal fRestDepth1 = -dVector3Dot(vTemp,m_vContactNormal) + m_fBestrt;
+    const dReal fRestDepth1 = -dVector3Dot(vTemp,m_vContactNormal) + m_fBestrt;
 
     dReal fDepth0 = m_fBestDepth - (fRestDepth0);
     dReal fDepth1 = m_fBestDepth - (fRestDepth1);
@@ -837,12 +837,12 @@ void sCylinderTrimeshColliderData::TestOneTriangleVsCylinder(
 
     // create plane from triangle
     //Plane4f plTrianglePlane = Plane4f( vPolyNormal, v0 ); 
-    dReal plDistance = -dVector3Dot(v0, m_vNormal);
+    const dReal plDistance = -dVector3Dot(v0, m_vNormal);
     dVector4 plTrianglePlane;
     dConstructPlane( m_vNormal,plDistance,plTrianglePlane);
 
     // calculate sphere distance to plane
-    dReal fDistanceCylinderCenterToPlane = dPointPlaneDistance(m_vCylinderPos , plTrianglePlane);
+    const dReal fDistanceCylinderCenterToPlane = dPointPlaneDistance(m_vCylinderPos , plTrianglePlane);
 
     // Sphere must be over positive side of triangle
     if(fDistanceCylinderCenterToPlane < 0 && !bDoubleSided) 
@@ -887,7 +887,7 @@ void sCylinderTrimeshColliderData::TestOneTriangleVsCylinder(
         return;
     }
 
-    dReal fdot = dVector3Dot( m_vContactNormal , m_vCylinderAxis );
+    const dReal fdot = dVector3Dot( m_vContactNormal , m_vCylinderAxis );
 
     // choose which clipping method are we going to apply
     if (dFabs(fdot) < REAL(0.9) ) 
@@ -932,7 +932,7 @@ void sCylinderTrimeshColliderData::_InitCylinderTrimeshData(dxGeom *Cylinder, dx
     // calculate basic angle for 8-gon
     dReal fAngle = (dReal) (M_PI / nCYLINDER_CIRCLE_SEGMENTS);
     // calculate angle increment
-    dReal fAngleIncrement = fAngle*REAL(2.0); 
+    const dReal fAngleIncrement = fAngle*REAL(2.0); 
 
     // calculate plane normals
     // axis dependant code
@@ -1052,7 +1052,7 @@ int dCollideCylinderTrimesh(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *con
     dQueryCTLPotentialCollisionTriangles(Collider, cData, Cylinder, Trimesh, pccColliderCache->m_DefaultBoxCache);
 
     // Retrieve data
-    int TriCount = (int)Collider.GetNbTouchedPrimitives();
+    const int TriCount = (int)Collider.GetNbTouchedPrimitives();
 
     if (TriCount != 0)
     {

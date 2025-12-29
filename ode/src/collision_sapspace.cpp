@@ -108,11 +108,11 @@ void RaixSortContext::FreeRanks()
 
 void RaixSortContext::ReallocateRanksIfNecessary(sizeint nNewSize)
 {
-    sizeint nCurUtilization = GetCurrentUtilization();
+    const sizeint nCurUtilization = GetCurrentUtilization();
 
     if (nNewSize != nCurUtilization)
     {
-        sizeint nCurSize = GetCurrentSize();
+        const sizeint nCurSize = GetCurrentSize();
 
         if ( nNewSize > nCurSize )
         {
@@ -293,7 +293,7 @@ dxSAPSpace::~dxSAPSpace()
 dxGeom* dxSAPSpace::getGeom( int i )
 {
     dUASSERT( i >= 0 && i < count, "index out of range" );
-    int dirtySize = DirtyList.size();
+    const int dirtySize = DirtyList.size();
     if( i < dirtySize )
         return DirtyList[i];
     else
@@ -322,8 +322,8 @@ void dxSAPSpace::remove( dxGeom* g )
     dUASSERT(g->parent_space == this,"object is not in this space");
 
     // remove
-    int dirtyIdx = GEOM_GET_DIRTY_IDX(g);
-    int geomIdx = GEOM_GET_GEOM_IDX(g);
+    const int dirtyIdx = GEOM_GET_DIRTY_IDX(g);
+    const int geomIdx = GEOM_GET_GEOM_IDX(g);
     // must be in one list, not in both
     dUASSERT(
         (dirtyIdx==GEOM_INVALID_IDX && geomIdx>=0 && geomIdx<GeomList.size()) ||
@@ -331,7 +331,7 @@ void dxSAPSpace::remove( dxGeom* g )
         "geom indices messed up" );
     if( dirtyIdx != GEOM_INVALID_IDX ) {
         // we're in dirty list, remove
-        int dirtySize = DirtyList.size();
+        const int dirtySize = DirtyList.size();
         if (dirtyIdx != dirtySize-1) {
             dxGeom* lastG = DirtyList[dirtySize-1];
             DirtyList[dirtyIdx] = lastG;
@@ -341,7 +341,7 @@ void dxSAPSpace::remove( dxGeom* g )
         DirtyList.setSize( dirtySize-1 );
     } else {
         // we're in geom list, remove
-        int geomSize = GeomList.size();
+        const int geomSize = GeomList.size();
         if (geomIdx != geomSize-1) {
             dxGeom* lastG = GeomList[geomSize-1];
             GeomList[geomIdx] = lastG;
@@ -363,15 +363,15 @@ void dxSAPSpace::dirty( dxGeom* g )
     dUASSERT(g->parent_space == this, "object is not in this space");
 
     // check if already dirtied
-    int dirtyIdx = GEOM_GET_DIRTY_IDX(g);
+    const int dirtyIdx = GEOM_GET_DIRTY_IDX(g);
     if( dirtyIdx != GEOM_INVALID_IDX )
         return;
 
-    int geomIdx = GEOM_GET_GEOM_IDX(g);
+    const int geomIdx = GEOM_GET_GEOM_IDX(g);
     dUASSERT( geomIdx>=0 && geomIdx<GeomList.size(), "geom indices messed up" );
 
     // remove from geom list, place last in place of this
-    int geomSize = GeomList.size();
+    const int geomSize = GeomList.size();
     if (geomIdx != geomSize-1) {
         dxGeom* lastG = GeomList[geomSize-1];
         GeomList[geomIdx] = lastG;
@@ -392,7 +392,7 @@ void dxSAPSpace::computeAABB()
 
 void dxSAPSpace::cleanGeoms()
 {
-    int dirtySize = DirtyList.size();
+    const int dirtySize = DirtyList.size();
     if( !dirtySize )
         return;
 
@@ -400,7 +400,7 @@ void dxSAPSpace::cleanGeoms()
     // remove from dirty list, place into geom list
     lock_count++;
 
-    int geomSize = GeomList.size();
+    const int geomSize = GeomList.size();
     GeomList.setSize( geomSize + dirtySize ); // ensure space in geom list
 
     for( int i = 0; i < dirtySize; ++i ) {
@@ -434,13 +434,13 @@ void dxSAPSpace::collide( void *userData, dNearCallback *callback )
     cleanGeoms();
 
     // by now all geoms are in GeomList, and DirtyList must be empty
-    int geom_count = GeomList.size();
+    const int geom_count = GeomList.size();
     dUASSERT( geom_count == count, "geom counts messed up" );
 
     // separate all ENABLED geoms into infinite AABBs and normal AABBs
     TmpGeomList.setSize(0);
     TmpInfGeomList.setSize(0);
-    int axis0max = (int)ax0idx + 1;
+    const int axis0max = (int)ax0idx + 1;
     for( int i = 0; i < geom_count; ++i ) {
         dxGeom* g = GeomList[i];
         if( !GEOM_ENABLED(g) ) // skip disabled ones
@@ -454,7 +454,7 @@ void dxSAPSpace::collide( void *userData, dNearCallback *callback )
 
     // do SAP on normal AABBs
     dArray< Pair > overlapBoxes;
-    int tmp_geom_count = TmpGeomList.size();
+    const int tmp_geom_count = TmpGeomList.size();
     if ( tmp_geom_count > 0 )
     {
         // Generate a list of overlapping boxes
@@ -462,7 +462,7 @@ void dxSAPSpace::collide( void *userData, dNearCallback *callback )
     }
 
     // collide overlapping
-    int overlapCount = overlapBoxes.size();
+    const int overlapCount = overlapBoxes.size();
     for( int j = 0; j < overlapCount; ++j )
     {
         const Pair& pair = overlapBoxes[ j ];
@@ -471,8 +471,8 @@ void dxSAPSpace::collide( void *userData, dNearCallback *callback )
         collideGeomsNoAABBs( g1, g2, userData, callback );
     }
 
-    int infSize = TmpInfGeomList.size();
-    int normSize = TmpGeomList.size();
+    const int infSize = TmpInfGeomList.size();
+    const int normSize = TmpGeomList.size();
     int m, n;
 
     for ( m = 0; m < infSize; ++m )
@@ -507,7 +507,7 @@ void dxSAPSpace::collide2( void *userData, dxGeom *geom, dNearCallback *callback
     geom->recomputeAABB();
 
     // intersect bounding boxes
-    int geom_count = GeomList.size();
+    const int geom_count = GeomList.size();
     for ( int i = 0; i < geom_count; ++i ) {
         dxGeom* g = GeomList[i];
         if ( GEOM_ENABLED(g) )
@@ -606,7 +606,7 @@ void dxSAPSpace::BoxPruning( int numBoxes, dxGeom** geoms, dArray< Pair >& pairs
     /* for words and O(n) for bytes. Running time for floats depends on actual values... */	\
     \
     /* Get first byte */																	\
-    uint8 UniqueVal = *(((const uint8*)input)+pass);										\
+    const uint8 UniqueVal = *(((const uint8*)input)+pass);									\
     \
     /* Check that byte's counter */															\
     if(CurCount[UniqueVal]==nb)	PerformPass=false
@@ -664,7 +664,7 @@ const uint32* RaixSortContext::RadixSort( const float* input2, uint32 nb )
             while(p!=pe)
             {
                 /* Read input input2 in previous sorted order */
-                float Val = *Running++;
+                const float Val = *Running++;
                 /* Check whether already sorted or not */
                 if(Val<PrevVal)	{ AlreadySorted = false; break; } /* Early out */
                 /* Update for next iteration */
@@ -695,7 +695,7 @@ const uint32* RaixSortContext::RadixSort( const float* input2, uint32 nb )
             while(p!=pe)
             {
                 /* Read input input2 in previous sorted order */
-                float Val = input2[*Indices++];
+                const float Val = input2[*Indices++];
                 /* Check whether already sorted or not */
                 if(Val<PrevVal)	{ AlreadySorted = false; break; } /* Early out */
                 /* Update for next iteration */
@@ -764,7 +764,7 @@ const uint32* RaixSortContext::RadixSort( const float* input2, uint32 nb )
                     uint32* const IndicesEnd	= Ranks1 + nb;
                     while(Indices!=IndicesEnd)
                     {
-                        uint32 id = *Indices++;
+                        const uint32 id = *Indices++;
                         *mLink[InputBytes[id<<2]]++ = id;
                     }
                 }
@@ -796,7 +796,7 @@ const uint32* RaixSortContext::RadixSort( const float* input2, uint32 nb )
                 {
                     for(uint32 i=0;i<nb;i++)
                     {
-                        uint32 Radix = input[i]>>24;							// Radix byte, same as above. AND is useless here (uint32).
+                        const uint32 Radix = input[i]>>24;							// Radix byte, same as above. AND is useless here (uint32).
                         // ### cmp to be killed. Not good. Later.
                         if(Radix<128)		*mLink[Radix]++ = i;		// Number is positive, same as above
                         else				*(--mLink[Radix]) = i;		// Number is negative, flip the sorting order
@@ -810,7 +810,7 @@ const uint32* RaixSortContext::RadixSort( const float* input2, uint32 nb )
 
                     for(uint32 i=0;i<nb;i++)
                     {
-                        uint32 Radix = input[Ranks1[i]]>>24;							// Radix byte, same as above. AND is useless here (uint32).
+                        const uint32 Radix = input[Ranks1[i]]>>24;							// Radix byte, same as above. AND is useless here (uint32).
                         // ### cmp to be killed. Not good. Later.
                         if(Radix<128)		*mLink[Radix]++ = Ranks1[i];		// Number is positive, same as above
                         else				*(--mLink[Radix]) = Ranks1[i];		// Number is negative, flip the sorting order

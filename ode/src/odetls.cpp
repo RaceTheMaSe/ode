@@ -100,7 +100,7 @@ void COdeTls::CleanupForThread()
 
 bool COdeTls::AssignDataAllocationFlags(EODETLSKIND tkTLSKind, unsigned uInitializationFlags)
 {
-    bool bResult = CThreadLocalStorage::SetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS, (tlsvaluetype)(sizeint)uInitializationFlags);
+    const bool bResult = CThreadLocalStorage::SetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS, (tlsvaluetype)(sizeint)uInitializationFlags);
     return bResult;
 }
 
@@ -109,7 +109,7 @@ bool COdeTls::AssignTrimeshCollidersCache(EODETLSKIND tkTLSKind, TrimeshCollider
 {
     dIASSERT(!CThreadLocalStorage::GetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_TRIMESH_TRIMESH_COLLIDER_CACHE));
 
-    bool bResult = CThreadLocalStorage::SetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_TRIMESH_TRIMESH_COLLIDER_CACHE, (tlsvaluetype)pccInstance, &COdeTls::FreeTrimeshCollidersCache_Callback);
+    const bool bResult = CThreadLocalStorage::SetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_TRIMESH_TRIMESH_COLLIDER_CACHE, (tlsvaluetype)pccInstance, &COdeTls::FreeTrimeshCollidersCache_Callback);
     return bResult;
 }
 

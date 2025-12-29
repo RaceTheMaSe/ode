@@ -80,7 +80,7 @@ public:
     {
         bool exchange_result = false;
 
-        atomicord_t original_value = *value_storage_ptr;
+        const atomicord_t original_value = *value_storage_ptr;
 
         if (original_value == comparand_value)
         {
@@ -118,7 +118,7 @@ public:
 template<>
 inline sizeint dxFakeAtomicsProvider::AddValueToTarget<sizeof(dxFakeAtomicsProvider::atomicord_t)>(volatile void *value_accumulator_ptr, diffint value_addend)
 {
-    atomicord_t original_value = *(volatile atomicord_t *)value_accumulator_ptr;
+    const atomicord_t original_value = *(volatile atomicord_t *)value_accumulator_ptr;
 
     *(volatile atomicord_t *)value_accumulator_ptr = (atomicord_t)((diffint)original_value + value_addend);
 

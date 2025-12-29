@@ -118,7 +118,7 @@ static void space_geom_collider (void *data, dxGeom *o1, dxGeom *o2)
 {
     SpaceGeomColliderData *d = (SpaceGeomColliderData*) data;
     if (d->flags & NUMC_MASK) {
-        int n = dCollide (o1,o2,d->flags,d->contact,d->skip);
+        const int n = dCollide (o1,o2,d->flags,d->contact,d->skip);
         d->contact = CONTACT (d->contact,d->skip*n);
         d->flags -= n;
     }
@@ -331,7 +331,7 @@ int dCollide (dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int skip
                 dxGeom *tmp = c->g1;
                 c->g1 = c->g2;
                 c->g2 = tmp;
-                int tmpint = c->side1;
+                const int tmpint = c->side1;
                 c->side1 = c->side2;
                 c->side2 = tmpint;
             }
@@ -893,7 +893,7 @@ int dGeomLowLevelControl (dxGeom *g, int controlClass, int controlCode, void *da
         return false;
     }
 
-    bool result = g->controlGeometry(controlClass, controlCode, dataValue, dataSize);
+    const bool result = g->controlGeometry(controlClass, controlCode, dataValue, dataSize);
     return result;
 }
 
@@ -919,7 +919,7 @@ struct dxUserGeom : public dxGeom {
 dxUserGeom::dxUserGeom (int class_num) : dxGeom (NULL,1)
 {
     type = class_num;
-    int size = user_classes[type-dFirstUserClass].bytes;
+    const int size = user_classes[type-dFirstUserClass].bytes;
     user_data = dAlloc ((dsizeint)size);
     memset (user_data,0,(size_t)size);
 }
@@ -954,8 +954,8 @@ static int dCollideUserGeomWithGeom (dxGeom *o1, dxGeom *o2, int flags, dContact
     // function and then set the colliders array so that the correct function is
     // called directly the next time around.
 
-    int t1 = o1->type;	// note that o1 is a user geom
-    int t2 = o2->type;	// o2 *may* be a user geom
+    const int t1 = o1->type;	// note that o1 is a user geom
+    const int t2 = o2->type;	// o2 *may* be a user geom
 
     // find the collider function to use. if o1 does not know how to collide with
     // o2, then o2 might know how to collide with o1 (provided that it is a user
@@ -991,7 +991,7 @@ int dCreateGeomClass (const dGeomClass *c)
             "recompile ODE");
     }
     user_classes[num_user_classes] = *c;
-    int class_number = num_user_classes + dFirstUserClass;
+    const int class_number = num_user_classes + dFirstUserClass;
     setAllColliders (class_number,&dCollideUserGeomWithGeom);
 
     num_user_classes++;

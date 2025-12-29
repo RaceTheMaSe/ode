@@ -388,14 +388,14 @@ dReal dxHeightfieldData::GetHeight( int x, int z )
 // returns height at given coordinates
 dReal dxHeightfieldData::GetHeight( dReal x, dReal z )
 {
-    dReal dnX = dFloor( x * m_fInvSampleWidth );
-    dReal dnZ = dFloor( z * m_fInvSampleDepth );
+    const dReal dnX = dFloor( x * m_fInvSampleWidth );
+    const dReal dnZ = dFloor( z * m_fInvSampleDepth );
 
-    dReal dx = ( x - ( dnX * m_fSampleWidth ) ) * m_fInvSampleWidth;
-    dReal dz = ( z - ( dnZ * m_fSampleDepth ) ) * m_fInvSampleDepth;
+    const dReal dx = ( x - ( dnX * m_fSampleWidth ) ) * m_fInvSampleWidth;
+    const dReal dz = ( z - ( dnZ * m_fSampleDepth ) ) * m_fInvSampleDepth;
 
-    int nX = int( dnX );
-    int nZ = int( dnZ );
+    const int nX = int( dnX );
+    const int nZ = int( dnZ );
 
     //dIASSERT( ( dx + dEpsilon >= 0.0f ) && ( dx - dEpsilon <= 1.0f ) );
     //dIASSERT( ( dz + dEpsilon >= 0.0f ) && ( dz - dEpsilon <= 1.0f ) );
@@ -636,7 +636,7 @@ dxHeightfield::~dxHeightfield()
 
 void dxHeightfield::allocateTriangleBuffer(sizeint numTri)
 {
-    sizeint alignedNumTri = AlignBufferSize(numTri, TEMP_TRIANGLE_BUFFER_ELEMENT_COUNT_ALIGNMENT);
+    const sizeint alignedNumTri = AlignBufferSize(numTri, TEMP_TRIANGLE_BUFFER_ELEMENT_COUNT_ALIGNMENT);
     tempTriangleBufferSize = alignedNumTri;
     tempTriangleBuffer = new HeightFieldTriangle[alignedNumTri];
 }
@@ -648,7 +648,7 @@ void dxHeightfield::resetTriangleBuffer()
 
 void dxHeightfield::allocatePlaneBuffer(sizeint numTri)
 {
-    sizeint alignedNumTri = AlignBufferSize(numTri, TEMP_PLANE_BUFFER_ELEMENT_COUNT_ALIGNMENT);
+    const sizeint alignedNumTri = AlignBufferSize(numTri, TEMP_PLANE_BUFFER_ELEMENT_COUNT_ALIGNMENT);
     tempPlaneBufferSize = alignedNumTri;
     tempPlaneBuffer = new HeightFieldPlane *[alignedNumTri];
     tempPlaneInstances = new HeightFieldPlane[alignedNumTri];
@@ -669,12 +669,12 @@ void dxHeightfield::resetPlaneBuffer()
 
 void dxHeightfield::allocateHeightBuffer(sizeint numX, sizeint numZ)
 {
-    sizeint alignedNumX = AlignBufferSize(numX, TEMP_HEIGHT_BUFFER_ELEMENT_COUNT_ALIGNMENT_X);
-    sizeint alignedNumZ = AlignBufferSize(numZ, TEMP_HEIGHT_BUFFER_ELEMENT_COUNT_ALIGNMENT_Z);
+    const sizeint alignedNumX = AlignBufferSize(numX, TEMP_HEIGHT_BUFFER_ELEMENT_COUNT_ALIGNMENT_X);
+    const sizeint alignedNumZ = AlignBufferSize(numZ, TEMP_HEIGHT_BUFFER_ELEMENT_COUNT_ALIGNMENT_Z);
     tempHeightBufferSizeX = alignedNumX;
     tempHeightBufferSizeZ = alignedNumZ;
     tempHeightBuffer = new HeightFieldVertex *[alignedNumX];
-    sizeint numCells = alignedNumX * alignedNumZ;
+    const sizeint numCells = alignedNumX * alignedNumZ;
     tempHeightInstances = new HeightFieldVertex [numCells];
 
     HeightFieldVertex *ptrHeightMatrix = tempHeightInstances;
@@ -1254,11 +1254,11 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
     // no further passes are needed in case of ray class
     if (!needFurtherPasses && o2->type != dRayClass)
     {
-        dReal xratio = (o2->aabb[1] - o2->aabb[0]) * m_p_data->m_fInvSampleWidth;
+        const dReal xratio = (o2->aabb[1] - o2->aabb[0]) * m_p_data->m_fInvSampleWidth;
         needFurtherPasses = xratio > REAL(1.5);
         if(!needFurtherPasses)
         {
-            dReal zratio = (o2->aabb[5] - o2->aabb[4]) * m_p_data->m_fInvSampleDepth;
+            const dReal zratio = (o2->aabb[5] - o2->aabb[4]) * m_p_data->m_fInvSampleDepth;
             needFurtherPasses = zratio > REAL(1.5);
         }
     }
@@ -1487,7 +1487,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
         The maximum of contacts in flags would then be set to minimum of contacts
         remaining and HEIGHTFIELDMAXCONTACTPERCELL.
         */
-        int planeTestFlags = (flags & ~NUMC_MASK) | HEIGHTFIELDMAXCONTACTPERCELL;
+        const int planeTestFlags = (flags & ~NUMC_MASK) | HEIGHTFIELDMAXCONTACTPERCELL;
         dSASSERT((HEIGHTFIELDMAXCONTACTPERCELL & ~NUMC_MASK) == 0);
 
         for (unsigned int k = 0; k < numPlanes; k++)
@@ -1580,7 +1580,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
         dReal depth = dReal(0);
 
         // Only one contact is necessary for ray test
-        int rayTestFlags = (flags & ~NUMC_MASK) | 1;
+        const int rayTestFlags = (flags & ~NUMC_MASK) | 1;
         dSASSERT((1 & ~NUMC_MASK) == 0);
         //
         // Find Contact Penetration Depth of each vertices
@@ -1604,7 +1604,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
                 bool vertexCollided = false;
                 const dVector3 &triVertex = vertex->vertex;
                 
-                bool depthGetterAvailable = false; // geomNDepthGetter != NULL;
+                const bool depthGetterAvailable = false; // geomNDepthGetter != NULL;
                 dIASSERT(geomNDepthGetter == NULL);
 
                 if (depthGetterAvailable)
@@ -1743,7 +1743,7 @@ int dCollideHeightfield( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contac
     // if ((flags & NUMC_MASK) == 0) -- An assertion check is made on entry
     //	{ flags = (flags & ~NUMC_MASK) | 1; dSASSERT((1 & ~NUMC_MASK) == 0); }
 
-    int numMaxTerrainContacts = (flags & NUMC_MASK);
+    const int numMaxTerrainContacts = (flags & NUMC_MASK);
 
     dxHeightfield *terrain = (dxHeightfield*) o1;
 

@@ -151,11 +151,11 @@ static int write_world = 0;
 
 static dReal heightfield_callback( void* /*data*/, int x, int z )
 {
-    dReal fx = ( ((dReal)x) - ( HFIELD_WSTEP-1 )/2 ) / (dReal)( HFIELD_WSTEP-1 );
-    dReal fz = ( ((dReal)z) - ( HFIELD_DSTEP-1 )/2 ) / (dReal)( HFIELD_DSTEP-1 );
+    const dReal fx = ( ((dReal)x) - ( HFIELD_WSTEP-1 )/2 ) / (dReal)( HFIELD_WSTEP-1 );
+    const dReal fz = ( ((dReal)z) - ( HFIELD_DSTEP-1 )/2 ) / (dReal)( HFIELD_DSTEP-1 );
 
     // Create an interesting 'hump' shape
-    dReal h = REAL( 1.0 ) + ( REAL( -16.0 ) * ( fx*fx*fx + fz*fz*fz ) );
+    const dReal h = REAL( 1.0 ) + ( REAL( -16.0 ) * ( fx*fx*fx + fz*fz*fz ) );
 
     return h;
 }
@@ -186,7 +186,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
         contact[i].surface.bounce_vel = REAL(0.1);
         contact[i].surface.soft_cfm = REAL(0.01);
     }
-    if (int numc = dCollide(o1,o2,MAX_CONTACTS,&contact[0].geom,
+    if (const int numc = dCollide(o1,o2,MAX_CONTACTS,&contact[0].geom,
                             sizeof(dContact))) {
         dMatrix3 RI;
         dRSetIdentity(RI);
@@ -364,7 +364,7 @@ static void command(int cmd)
     
             for (k=0; k<GPB; k++) {
                 if (k==0) {
-                    dReal radius = dRandReal()*REAL(0.25)+REAL(0.05);
+                    const dReal radius = dRandReal()*REAL(0.25)+REAL(0.05);
                     obj[i].geom[k] = dCreateSphere (space,radius);
                     dMassSetSphere (&m2,DENSITY,radius);
                 }
@@ -372,8 +372,8 @@ static void command(int cmd)
                     obj[i].geom[k] = dCreateBox(space,sides[0],sides[1],sides[2]);
                     dMassSetBox(&m2,DENSITY,sides[0],sides[1],sides[2]);
                 } else {
-                    dReal radius = dRandReal()*REAL(0.1)+REAL(0.05);
-                    dReal length = dRandReal()*REAL(1.0)+REAL(0.1);
+                    const dReal radius = dRandReal()*REAL(0.1)+REAL(0.05);
+                    const dReal length = dRandReal()*REAL(1.0)+REAL(0.1);
                     obj[i].geom[k] = dCreateCapsule(space,radius,length);
                     dMassSetCapsule(&m2,DENSITY,3,radius,length);
                 }
@@ -462,7 +462,7 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
     if (!R)
         R = dGeomGetRotation(g);
 
-    int type = dGeomGetClass(g);
+    const int type = dGeomGetClass(g);
     if (type == dBoxClass) {
 
         dVector3 sides;
@@ -496,7 +496,7 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
 
     } else if (type == dTriMeshClass) {
 
-        dTriIndex* triIndices = (dTriIndex*)::Indices;
+        const dTriIndex* triIndices = (dTriIndex*)::Indices;
 
         // assume all trimeshes are drawn as bunnies
         for (int ii = 0; ii < IndexCount / 3; ii++) {
@@ -517,8 +517,8 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
     } else if (type == dHeightfieldClass) {
 
         // Set ox and oz to zero for DHEIGHTFIELD_CORNER_ORIGIN mode.
-        int ox = (int) ( -HFIELD_WIDTH/2 );
-        int oz = (int) ( -HFIELD_DEPTH/2 );
+        const int ox = (int) ( -HFIELD_WIDTH/2 );
+        const int oz = (int) ( -HFIELD_DEPTH/2 );
 
         //	for ( int tx = -1; tx < 2; ++tx )
         //	for ( int tz = -1; tz < 2; ++tz )

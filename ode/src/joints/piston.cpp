@@ -128,7 +128,7 @@ dReal dJointGetPistonPositionRate ( dJointID j )
     }
     else
     {
-        dReal rate = dCalcVectorDot3 ( ax, joint->node[0].body->lvel );
+        const dReal rate = dCalcVectorDot3 ( ax, joint->node[0].body->lvel );
         return ( (joint->flags & dJOINT_REVERSE) ? -rate : rate);
     }
 }
@@ -142,7 +142,7 @@ dReal dJointGetPistonAngle ( dJointID j )
 
     if ( joint->node[0].body )
     {
-        dReal ang = getHingeAngle ( joint->node[0].body, joint->node[1].body, joint->axis1,
+        const dReal ang = getHingeAngle ( joint->node[0].body, joint->node[1].body, joint->axis1,
             joint->qrel );
         if ( joint->flags & dJOINT_REVERSE )
             return -ang;
@@ -193,7 +193,7 @@ dxJointPiston::getInfo1 ( dxJoint::Info1 *info )
         limotP.lostop <= limotP.histop )
     {
         // measure joint position
-        dReal pos = dJointGetPistonPosition ( this );
+        const dReal pos = dJointGetPistonPosition ( this );
         limotP.testRotationalLimit ( pos );     // N.B. The fucntion is ill named
     }
 
@@ -207,7 +207,7 @@ dxJointPiston::getInfo1 ( dxJoint::Info1 *info )
         limotR.lostop <= limotR.histop )
     {
         // measure joint position
-        dReal angle = getHingeAngle ( node[0].body, node[1].body, axis1,
+        const dReal angle = getHingeAngle ( node[0].body, node[1].body, axis1,
             qrel );
         limotR.testRotationalLimit ( angle );
     }

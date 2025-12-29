@@ -59,7 +59,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     dBodyID b2 = dGeomGetBody(o2);
 
     dContact contact[MAX_CONTACTS];
-    int numc = dCollide (o1,o2,MAX_CONTACTS,&contact[0].geom,
+    const int numc = dCollide (o1,o2,MAX_CONTACTS,&contact[0].geom,
 			    sizeof(dContact));
 
     for (i=0; i<numc; i++) {

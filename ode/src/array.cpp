@@ -52,7 +52,7 @@ void dArrayBase::_setSize (int newsize, int sizeofT)
             // this is a no-no, because constructLocalArray() was called
             dDebug (0,"setSize() out of space in LOCAL array");
         }
-        int newanum = roundUpToPowerOfTwo (newsize);
+        const int newanum = roundUpToPowerOfTwo (newsize);
         if (_data) _data = dRealloc (_data, (dsizeint)(_anum*sizeofT), (dsizeint)(newanum*sizeofT));
         else _data = dAlloc ((dsizeint)(newanum*sizeofT));
         _anum = newanum;

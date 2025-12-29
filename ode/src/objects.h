@@ -179,7 +179,7 @@ private:
         dIASSERT(iterationCount != 0);
         dIASSERT(extraIterationCountFactor >= 0);
 
-        dReal extraIterationCount = (dReal)iterationCount * extraIterationCountFactor;
+        const dReal extraIterationCount = (dReal)iterationCount * extraIterationCountFactor;
         return (unsigned)extraIterationCount < UINT_MAX ? (unsigned)extraIterationCount : UINT_MAX;
     }
 
@@ -259,7 +259,7 @@ public:
     unsigned calculateIslandIterationMaxThreadCount(unsigned *ptrOut_activeThreadCount = NULL) const
     {
         unsigned activeThreadCount=0, *ptrActiveThreadCountToUse = ptrOut_activeThreadCount != NULL ? &activeThreadCount : NULL;
-        unsigned limitedCount = calculateThreadingLimitedThreadCount(islands_max_threads, false, ptrActiveThreadCountToUse);
+        const unsigned limitedCount = calculateThreadingLimitedThreadCount(islands_max_threads, false, ptrActiveThreadCountToUse);
         if (ptrOut_activeThreadCount != NULL) {
             *ptrOut_activeThreadCount = dMAX(activeThreadCount, 1U);
         }
@@ -268,13 +268,13 @@ public:
 
     unsigned calculatePerIslandSteppingMaxThreadCount() const
     {
-        unsigned limitedCount = calculateThreadingLimitedThreadCount(stepping_max_threads, false);
+        const unsigned limitedCount = calculateThreadingLimitedThreadCount(stepping_max_threads, false);
         return dMAX(limitedCount, 1U);
     }
 
     unsigned calculatePerIslandSolvingMaxThreadCount() const
     {
-        unsigned limitedCount = calculateThreadingLimitedThreadCount(solving_max_threads, false);
+        const unsigned limitedCount = calculateThreadingLimitedThreadCount(solving_max_threads, false);
         return dMAX(limitedCount, 1U);
     }
 

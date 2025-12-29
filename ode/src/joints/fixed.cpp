@@ -73,7 +73,7 @@ dxJointFixed::getInfo2 ( dReal worldFPS, dReal worldERP,
     J1[rowskip + GI2_JLY] = 1;
     J1[2 * rowskip + GI2_JLZ] = 1;
 
-    dReal k = worldFPS * this->erp;
+    const dReal k = worldFPS * this->erp;
     dxBody *b0 = node[0].body, *b1 = node[1].body;
 
     dVector3 ofs;

@@ -103,7 +103,7 @@ void dMatrix::operator= (dReal a)
 
 dMatrix dMatrix::transpose()
 {
-    dMatrix r (m,n);
+    const dMatrix r (m,n);
     for (int i=0; i<n; i++) {
         for (int j=0; j<m; j++) r.data[j*n+i] = data[i*m+j];
     }
@@ -114,7 +114,7 @@ dMatrix dMatrix::transpose()
 dMatrix dMatrix::select (int np, int *p, int nq, int *q)
 {
     if (np < 1 || nq < 1) dDebug (0,"Matrix select, bad index array sizes");
-    dMatrix r (np,nq);
+    const dMatrix r (np,nq);
     for (int i=0; i<np; i++) {
         for (int j=0; j<nq; j++) {
             if (p[i] < 0 || p[i] >= n || q[i] < 0 || q[i] >= m)
@@ -129,7 +129,7 @@ dMatrix dMatrix::select (int np, int *p, int nq, int *q)
 dMatrix dMatrix::operator + (const dMatrix &a)
 {
     if (n != a.n || m != a.m) dDebug (0,"matrix +, mismatched sizes");
-    dMatrix r (n,m);
+    const dMatrix r (n,m);
     for (int i=0; i<n*m; i++) r.data[i] = data[i] + a.data[i];
     return r;
 }
@@ -138,7 +138,7 @@ dMatrix dMatrix::operator + (const dMatrix &a)
 dMatrix dMatrix::operator - (const dMatrix &a)
 {
     if (n != a.n || m != a.m) dDebug (0,"matrix -, mismatched sizes");
-    dMatrix r (n,m);
+    const dMatrix r (n,m);
     for (int i=0; i<n*m; i++) r.data[i] = data[i] - a.data[i];
     return r;
 }
@@ -146,7 +146,7 @@ dMatrix dMatrix::operator - (const dMatrix &a)
 
 dMatrix dMatrix::operator - ()
 {
-    dMatrix r (n,m);
+    const dMatrix r (n,m);
     for (int i=0; i<n*m; i++) r.data[i] = -data[i];
     return r;
 }
@@ -155,7 +155,7 @@ dMatrix dMatrix::operator - ()
 dMatrix dMatrix::operator * (const dMatrix &a)
 {
     if (m != a.n) dDebug (0,"matrix *, mismatched sizes");
-    dMatrix r (n,a.m);
+    const dMatrix r (n,a.m);
     for (int i=0; i<n; i++) {
         for (int j=0; j<a.m; j++) {
             dReal sum = 0;
@@ -223,7 +223,7 @@ dReal dMatrix::maxDifference (const dMatrix &a)
     dReal max = 0;
     for (int i=0; i<n; i++) {
         for (int j=0; j<m; j++) {
-            dReal diff = dFabs(data[i*m+j] - a.data[i*m+j]);
+            const dReal diff = dFabs(data[i*m+j] - a.data[i*m+j]);
             if (diff > max) max = diff;
         }
     }

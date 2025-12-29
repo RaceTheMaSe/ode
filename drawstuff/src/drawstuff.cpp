@@ -114,9 +114,9 @@ void normalizeVector3(float v[3])
 static
 void crossProduct3(float res[3], const float a[3], const float b[3])
 {
-    float res_0 = a[1] * b[2] - a[2] * b[1];
-    float res_1 = a[2] * b[0] - a[0] * b[2];
-    float res_2 = a[0] * b[1] - a[1] * b[0];
+    const float res_0 = a[1] * b[2] - a[2] * b[1];
+    const float res_1 = a[2] * b[0] - a[0] * b[2];
+    const float res_2 = a[0] * b[1] - a[1] * b[0];
     // Only assign after all the calculations are over to avoid incurring memory aliasing
     res[0] = res_0;
     res[1] = res_1;
@@ -135,8 +135,8 @@ public:
     Image(char *filename);
     // load from PPM file
     ~Image();
-    int width() { return image_width; }
-    int height() { return image_height; }
+    int width() const { return image_width; }
+    int height() const { return image_height; }
     byte *data() { return image_data; }
 };
 
@@ -202,7 +202,7 @@ Image::Image(char *filename)
     skipWhiteSpace(filename, f);
     image_height = readNumber(filename, f);
     skipWhiteSpace(filename, f);
-    int max_value = readNumber(filename, f);
+    const int max_value = readNumber(filename, f);
 
     // check values
     if (image_width < 1 || image_height < 1)
@@ -244,7 +244,7 @@ class Texture {
 public:
     Texture(char *filename);
     ~Texture();
-    void bind(int modulate);
+    void bind(int modulate) const;
 };
 
 
@@ -285,7 +285,7 @@ Texture::~Texture()
 }
 
 
-void Texture::bind(int modulate)
+void Texture::bind(int modulate) const
 {
     glBindTexture(GL_TEXTURE_2D, name);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,
@@ -413,7 +413,7 @@ void drawConvex(const float *_planes, unsigned int _planecount,
     unsigned int polyindex = 0;
     for (unsigned int i = 0; i < _planecount; ++i)
     {
-        unsigned int pointcount = _polygons[polyindex];
+        const unsigned int pointcount = _polygons[polyindex];
         polyindex++;
         glBegin(GL_POLYGON);
         glNormal3f(_planes[(i * 4) + 0],
@@ -438,7 +438,7 @@ void drawConvexD(const double *_planes, unsigned int _planecount,
     unsigned int polyindex = 0;
     for (unsigned int i = 0; i < _planecount; ++i)
     {
-        unsigned int pointcount = _polygons[polyindex];
+        const unsigned int pointcount = _polygons[polyindex];
         polyindex++;
         glBegin(GL_POLYGON);
         glNormal3d(_planes[(i * 4) + 0],
@@ -458,9 +458,9 @@ void drawConvexD(const double *_planes, unsigned int _planecount,
 static
 void drawBox(const float sides[3])
 {
-    float lx = sides[0] * 0.5f;
-    float ly = sides[1] * 0.5f;
-    float lz = sides[2] * 0.5f;
+    const float lx = sides[0] * 0.5f;
+    const float ly = sides[1] * 0.5f;
+    const float lz = sides[2] * 0.5f;
 
     // sides
     glBegin(GL_TRIANGLE_STRIP);
@@ -517,9 +517,9 @@ void drawPatch(float p1[3], float p2[3], float p3[3], int level)
             q2[i] = 0.5f*(p2[i] + p3[i]);
             q3[i] = 0.5f*(p3[i] + p1[i]);
         }
-        float length1 = (float)(REAL(1.0) / (dReal)sqrt(q1[0] * q1[0] + q1[1] * q1[1] + q1[2] * q1[2]));
-        float length2 = (float)(REAL(1.0) / (dReal)sqrt(q2[0] * q2[0] + q2[1] * q2[1] + q2[2] * q2[2]));
-        float length3 = (float)(REAL(1.0) / (dReal)sqrt(q3[0] * q3[0] + q3[1] * q3[1] + q3[2] * q3[2]));
+        const float length1 = (float)(REAL(1.0) / (dReal)sqrt(q1[0] * q1[0] + q1[1] * q1[1] + q1[2] * q1[2]));
+        const float length2 = (float)(REAL(1.0) / (dReal)sqrt(q2[0] * q2[0] + q2[1] * q2[1] + q2[2] * q2[2]));
+        const float length3 = (float)(REAL(1.0) / (dReal)sqrt(q3[0] * q3[0] + q3[1] * q3[1] + q3[2] * q3[2]));
         for (i = 0; i < 3; i++) {
             q1[i] *= length1;
             q2[i] *= length2;
@@ -566,7 +566,7 @@ void drawSphere()
       {-ICZ, -ICX, 0}
     };
 
-    static int index[20][3] = {
+    const static int index[20][3] = {
       {0, 4, 1},	  {0, 9, 4},
       {9, 5, 4},	  {4, 5, 8},
       {4, 8, 1},	  {8, 10, 1},
@@ -619,13 +619,13 @@ void drawSphereShadow(float px, float py, float pz, float radius)
     glBegin(GL_TRIANGLE_FAN);
     for (int i = 0; i < 24; i++) {
         // for all points on circle, scale to elongated rotated shadow and draw
-        float x2 = (LIGHTX*x*scale - LIGHTY * y)*len1 + px;
-        float y2 = (LIGHTY*x*scale + LIGHTX * y)*len1 + py;
+        const float x2 = (LIGHTX*x*scale - LIGHTY * y)*len1 + px;
+        const float y2 = (LIGHTY*x*scale + LIGHTX * y)*len1 + py;
         glTexCoord2f(x2*ground_scale + ground_ofsx, y2*ground_scale + ground_ofsy);
         glVertex3f(x2, y2, 0);
 
         // rotate [x,y] vector
-        float xtmp = kx * x - ky * y;
+        const float xtmp = kx * x - ky * y;
         y = ky * x + kx * y;
         x = xtmp;
     }
@@ -713,8 +713,8 @@ void drawCapsule(float l, float r)
     start_ny = 1;
     for (j = 0; j < (n / 4); j++) {
         // get start_n2 = rotated start_n
-        float start_nx2 = ca * start_nx + sa * start_ny;
-        float start_ny2 = -sa * start_nx + ca * start_ny;
+        const float start_nx2 = ca * start_nx + sa * start_ny;
+        const float start_ny2 = -sa * start_nx + ca * start_ny;
         // get n=start_n and n2=start_n2
         nx = start_nx; ny = start_ny; nz = 0;
         float nx2 = start_nx2, ny2 = start_ny2, nz2 = 0;
@@ -742,8 +742,8 @@ void drawCapsule(float l, float r)
     start_ny = 1;
     for (j = 0; j < (n / 4); j++) {
         // get start_n2 = rotated start_n
-        float start_nx2 = ca * start_nx - sa * start_ny;
-        float start_ny2 = sa * start_nx + ca * start_ny;
+        const float start_nx2 = ca * start_nx - sa * start_ny;
+        const float start_ny2 = sa * start_nx + ca * start_ny;
         // get n=start_n and n2=start_n2
         nx = start_nx; ny = start_ny; nz = 0;
         float nx2 = start_nx2, ny2 = start_ny2, nz2 = 0;
@@ -878,10 +878,10 @@ void wrapCameraAngles()
 /*extern */
 void dsMotion(int mode, int deltax, int deltay)
 {
-    float side = 0.01f * float(deltax);
-    float fwd = (mode == dsMOTIONMODE_RBUTTONDOWN) ? (0.01f * float(deltay)) : 0.0f;
-    float s = (float)sin((double)view_hpr[0] * DEG_TO_RAD);
-    float c = (float)cos((double)view_hpr[0] * DEG_TO_RAD);
+    const float side = 0.01f * float(deltax);
+    const float fwd = (mode == dsMOTIONMODE_RBUTTONDOWN) ? (0.01f * float(deltay)) : 0.0f;
+    const float s = (float)sin((double)view_hpr[0] * DEG_TO_RAD);
+    const float c = (float)cos((double)view_hpr[0] * DEG_TO_RAD);
 
     if (mode == dsMOTIONMODE_LBUTTONDOWN) {
         view_hpr[0] += float(deltax) * 0.5f;
@@ -1007,8 +1007,8 @@ void drawSky(float view_pos[3])
     const float ssize = 1000.0f;
     static float offset = 0.0f;
 
-    float x = ssize * sky_scale;
-    float z = view_pos[2] + sky_height;
+    const float x = ssize * sky_scale;
+    const float z = view_pos[2] + sky_height;
 
     glBegin(GL_QUADS);
     glNormal3f(0, 0, -1);
@@ -1147,11 +1147,11 @@ void dsDrawFrame(int width, int height, dsFunctions *fn, int pause)
     const float vfar = 100.0f;
     const float k = 0.8f;     // view scale, 1 = +/- 45 degrees
     if (width >= height) {
-        float k2 = float(height) / float(width);
+        const float k2 = float(height) / float(width);
         glFrustum((GLdouble)(-vnear * k), (GLdouble)(vnear*k), (GLdouble)(-vnear * k*k2), (GLdouble)(vnear*k*k2), (GLdouble)vnear, (GLdouble)vfar);
     }
     else {
-        float k2 = float(width) / float(height);
+        const float k2 = float(width) / float(height);
         glFrustum((GLdouble)(-vnear * k*k2), (GLdouble)(vnear*k*k2), (GLdouble)(-vnear * k), (GLdouble)(vnear*k), (GLdouble)vnear, (GLdouble)vfar);
     }
 

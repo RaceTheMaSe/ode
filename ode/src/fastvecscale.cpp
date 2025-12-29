@@ -44,7 +44,7 @@ void ThreadedEquationSolverLDLT::estimateCooperativeScalingVectorResourceRequire
     unsigned allowedThreadCount, unsigned elementCount)
 {
     dxThreadingBase *threading = summaryRequirementsDescriptor->getrelatedThreading();
-    unsigned limitedThreadCount = restrictScalingVectorAllowedThreadCount(threading, allowedThreadCount, elementCount);
+    const unsigned limitedThreadCount = restrictScalingVectorAllowedThreadCount(threading, allowedThreadCount, elementCount);
 
     if (limitedThreadCount > 1)
     {
@@ -59,7 +59,7 @@ void ThreadedEquationSolverLDLT::cooperativelyScaleVector(dxRequiredResourceCont
     dAASSERT(elementCount != 0);
 
     dxThreadingBase *threading = resourceContainer->getThreadingInstance();
-    unsigned limitedThreadCount = restrictScalingVectorAllowedThreadCount(threading, allowedThreadCount, elementCount);
+    const unsigned limitedThreadCount = restrictScalingVectorAllowedThreadCount(threading, allowedThreadCount, elementCount);
 
     if (limitedThreadCount <= 1)
     {
@@ -79,7 +79,7 @@ unsigned ThreadedEquationSolverLDLT::restrictScalingVectorAllowedThreadCount(
 
 #if defined(dCOOPERATIVE_ENABLED)
     const unsigned int blockStep = SV_BLOCK_SIZE; // Required by the implementation
-    unsigned scalingBlockCount = deriveScalingVectorBlockCount(elementCount, blockStep);
+    const unsigned scalingBlockCount = deriveScalingVectorBlockCount(elementCount, blockStep);
     dIASSERT(deriveScalingVectorThreadCount(SV_COOPERATIVE_BLOCK_COUNT_MINIMUM - 1, 2) > 1);
 
     if (scalingBlockCount >= SV_COOPERATIVE_BLOCK_COUNT_MINIMUM)
@@ -98,12 +98,12 @@ void ThreadedEquationSolverLDLT::doEstimateCooperativeScalingVectorResourceRequi
     dxResourceRequirementDescriptor *summaryRequirementsDescriptor,
     unsigned allowedThreadCount, unsigned /*elementCount*/)
 {
-    unsigned simultaneousCallCount = 1 + (allowedThreadCount - 1);
+    const unsigned simultaneousCallCount = 1 + (allowedThreadCount - 1);
 
-    sizeint scalingMemoryRequired = 0;
+    const sizeint scalingMemoryRequired = 0;
     const unsigned scalingAlignmentRequired = 0;
 
-    unsigned featureRequirement = dxResourceRequirementDescriptor::STOCK_CALLWAIT_REQUIRED;
+    const unsigned featureRequirement = dxResourceRequirementDescriptor::STOCK_CALLWAIT_REQUIRED;
     summaryRequirementsDescriptor->mergeAnotherDescriptorIn(scalingMemoryRequired, scalingAlignmentRequired, simultaneousCallCount, featureRequirement);
 }
 
@@ -115,10 +115,10 @@ void ThreadedEquationSolverLDLT::doCooperativelyScaleVectorValidated(
     dIASSERT(allowedThreadCount > 1);
 
     const unsigned int blockStep = SV_BLOCK_SIZE; // Required by the implementation
-    unsigned scalingBlockCount = deriveScalingVectorBlockCount(elementCount, blockStep);
+    const unsigned scalingBlockCount = deriveScalingVectorBlockCount(elementCount, blockStep);
     dIASSERT(scalingBlockCount > 0U);
 
-    unsigned threadCountToUse = deriveScalingVectorThreadCount(scalingBlockCount - 1, allowedThreadCount);
+    const unsigned threadCountToUse = deriveScalingVectorThreadCount(scalingBlockCount - 1, allowedThreadCount);
     dIASSERT(threadCountToUse > 1);
 
     dCallWaitID completionWait = resourceContainer->getStockCallWait();

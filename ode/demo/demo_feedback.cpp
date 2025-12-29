@@ -81,7 +81,7 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
 
   const int N = 32;
   dContact contact[N];
-  int n = dCollide (o1,o2,N,&(contact[0].geom),sizeof(dContact));
+  const int n = dCollide (o1,o2,N,&(contact[0].geom),sizeof(dContact));
   if (n > 0) 
   {
     for (int i=0; i<n; i++) 
@@ -122,7 +122,7 @@ static void drawGeom (dGeomID g)
   const dReal *pos = dGeomGetPosition(g);
   const dReal *R   = dGeomGetRotation(g);
 
-  int type = dGeomGetClass (g);
+  const int type = dGeomGetClass (g);
   if (type == dBoxClass)
   {
     dVector3 sides;
@@ -147,8 +147,8 @@ static void inspectJoints(void)
     if (dJointGetBody(hinges[i], 0))
     {
       // This joint has not snapped already... inspect it.
-      dReal l0 = dCalcVectorLength3(jfeedbacks[i].f1);
-      dReal l1 = dCalcVectorLength3(jfeedbacks[i].f2);
+      const dReal l0 = dCalcVectorLength3(jfeedbacks[i].f1);
+      const dReal l1 = dCalcVectorLength3(jfeedbacks[i].f2);
       colours[i+0] = REAL(0.95)*colours[i+0] + REAL(0.05) * l0/forcelimit;
       colours[i+1] = REAL(0.95)*colours[i+1] + REAL(0.05) * l1/forcelimit;
       if (l0 > forcelimit || l1 > forcelimit)
@@ -173,9 +173,9 @@ static void simLoop (int pause)
 {
   int i;
 
-  double simstep = 0.002; // 2ms simulation steps
-  double dt = dsElapsedTime();
-  int nrofsteps = (int) ceilf((float)(dt/simstep));
+  const double simstep = 0.002; // 2ms simulation steps
+  const double dt = dsElapsedTime();
+  const int nrofsteps = (int) ceilf((float)(dt/simstep));
   for (i=0; i<nrofsteps && !pause; i++)
   {
     dSpaceCollide (space,NULL,&nearCallback);

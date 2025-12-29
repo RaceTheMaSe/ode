@@ -76,9 +76,9 @@ static void dropBox()
     Box *box = new Box();
     if(box)
     {
-        dReal px = ((dReal)rand() / dReal(RAND_MAX)) * 2 - 1;
-        dReal py = ((dReal)rand() / dReal(RAND_MAX)) * 2 - 1;
-        dReal pz = REAL(2.5);
+        const dReal px = ((dReal)rand() / dReal(RAND_MAX)) * 2 - 1;
+        const dReal py = ((dReal)rand() / dReal(RAND_MAX)) * 2 - 1;
+        const dReal pz = REAL(2.5);
         box->body.setPosition(px, py, pz);
         
         boxes.insert(box);
@@ -121,7 +121,7 @@ static void nearCallback(void * /*data*/, dGeomID g1, dGeomID g2)
 
     const int MAX_CONTACTS = 10;
     dContact contact[MAX_CONTACTS];
-    int n = dCollide(g1, g2, MAX_CONTACTS, &contact[0].geom, sizeof(dContact));
+    const int n = dCollide(g1, g2, MAX_CONTACTS, &contact[0].geom, sizeof(dContact));
     for (int i=0; i<n; ++i) {
         contact[i].surface.mode = 0;
         contact[i].surface.mu = 1;

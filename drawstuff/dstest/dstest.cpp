@@ -48,12 +48,12 @@ static void simLoop (int pause)
 
   if (!pause) a += 0.02f;
   if (a > (float)(2*M_PI)) a -= (float) (2*M_PI);
-  float ca =  std::cos(a);
-  float sa =  std::sin(a);
+  const float ca =  std::cos(a);
+  const float sa =  std::sin(a);
 
   dsSetTexture (DS_WOOD);
 
-  float b = (a > (float)M_PI) ? (2*(a-(float)M_PI)) : a*2;
+  const float b = (a > (float)M_PI) ? (2*(a-(float)M_PI)) : a*2;
   pos[0] = -0.3f;
   pos[1] = 0;
   pos[2] = (0.1f*((float)(2*M_PI)*b - b*b) + 0.65f);
@@ -77,10 +77,10 @@ static void simLoop (int pause)
 
   dsSetTexture (DS_WOOD);
 
-  float r = 0.3f;		      // cylinder radius
-  float d = std::cos(a*2) * 0.4f;
-  float cd = std::cos(-d/r);
-  float sd = std::sin(-d/r);
+  const float r = 0.3f;		      // cylinder radius
+  const float d = std::cos(a*2) * 0.4f;
+  const float cd = std::cos(-d/r);
+  const float sd = std::sin(-d/r);
   pos[0] = -0.2f;
   pos[1] = -1 + d;
   pos[2] = 0.3f;

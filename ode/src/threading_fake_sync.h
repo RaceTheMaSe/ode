@@ -72,7 +72,7 @@ private:
 bool dxSelfWakeup::WaitWakeup(const dThreadedWaitTime *timeout_time_ptr)
 {
     (void)timeout_time_ptr; // unused
-    bool wait_result = m_wakeup_state;
+    const bool wait_result = m_wakeup_state;
 
     if (m_wakeup_state)
     {

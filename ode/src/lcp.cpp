@@ -556,8 +556,8 @@ void dLCP::transfer_i_to_C (unsigned i)
             dReal *const Ltgt = m_L + (sizeint)m_nskip * nC, *ell = m_ell;
             memcpy(Ltgt, ell, nC * sizeof(dReal));
 
-            dReal ell_Dell_dot = dxDot(m_ell, m_Dell, nC);
-            dReal AROW_i_i = AROW(i)[i] != ell_Dell_dot ? AROW(i)[i] : dNextAfter(AROW(i)[i], dInfinity); // A hack to avoid getting a zero in the denominator
+            const dReal ell_Dell_dot = dxDot(m_ell, m_Dell, nC);
+            const dReal AROW_i_i = AROW(i)[i] != ell_Dell_dot ? AROW(i)[i] : dNextAfter(AROW(i)[i], dInfinity); // A hack to avoid getting a zero in the denominator
             m_d[nC] = dRecip (AROW_i_i - ell_Dell_dot);
         }
         else {
@@ -605,12 +605,13 @@ void dLCP::transfer_i_from_N_to_C (unsigned i)
             dReal *const Ltgt = m_L + (sizeint)m_nskip * nC;
             dReal *ell = m_ell, *Dell = m_Dell, *d = m_d;
             for (unsigned j = 0; j < nC; ++j) {
-                dReal ell_j, Dell_j = Dell[j];
+                dReal ell_j;
+                const dReal Dell_j = Dell[j];
                 Ltgt[j] = ell[j] = ell_j = Dell_j * d[j];
                 ell_Dell_dot += ell_j * Dell_j;
             }
             
-            dReal AROW_i_i = AROW(i)[i] != ell_Dell_dot ? AROW(i)[i] : dNextAfter(AROW(i)[i], dInfinity); // A hack to avoid getting a zero in the denominator
+            const dReal AROW_i_i = AROW(i)[i] != ell_Dell_dot ? AROW(i)[i] : dNextAfter(AROW(i)[i], dInfinity); // A hack to avoid getting a zero in the denominator
             m_d[nC] = dRecip (AROW_i_i - ell_Dell_dot);
         }
         else {
@@ -800,7 +801,7 @@ void dLCP::unpermute_X()
             for (;;) {
                 dxSwap(x_j, (pairsbx + (sizeint)k * PBX__MAX)[PBX_X]);
 
-                unsigned orig_k = p[k];
+                const unsigned orig_k = p[k];
                 p[k] = k;
                 if (orig_k == j) {
                     break;
@@ -820,7 +821,7 @@ void dLCP::unpermute_W()
     dReal *w = m_w, *tmp = m_tmp;
     const unsigned n = m_n;
     for (unsigned j = 0; j < n; ++j) {
-        unsigned k = p[j];
+        const unsigned k = p[j];
         w[k] = tmp[j];
     }
 }
@@ -858,7 +859,7 @@ void dxSolveLCP_AllUnbounded (dxWorldProcessMemArena * /*memarena*/, unsigned n,
 
     transfer_b_to_x<true>(pairsbx, n);    
 
-    unsigned nskip = (unsigned)dPAD(n);
+    const unsigned nskip = (unsigned)dPAD(n);
     factorMatrixAsLDLT<PBX__MAX> (A, pairsbx + PBX_B, n, nskip);
     solveEquationSystemWithLDLT<PBX__MAX, PBX__MAX> (A, pairsbx + PBX_B, pairsbx + PBX_X, n, nskip);
 }
@@ -915,7 +916,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
     // when that happens.
 
     bool hit_first_friction_index = false;
-    unsigned adj_nub = lcp.getNub();
+    const unsigned adj_nub = lcp.getNub();
     for (unsigned i = adj_nub; i < n; ++i) {
         bool s_error = false;
         // the index i is the driving index and indexes i+1..n-1 are "dont care",
@@ -938,7 +939,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
             // set lo and hi values
             for (unsigned k = i; k < n; ++k) {
                 dReal *currlh = pairslh + (sizeint)k * PLH__MAX;
-                dReal wfk = delta_w[findex[k]];
+                const dReal wfk = delta_w[findex[k]];
                 if (wfk == 0) {
                     currlh[PLH_HI] = 0;
                     currlh[PLH_LO] = 0;
@@ -953,7 +954,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
 
         // thus far we have not even been computing the w values for indexes
         // greater than i, so compute w[i] now.
-        dReal wPrep = lcp.AiC_times_qC<PBX__MAX> (i, pairsbx + PBX_X) + lcp.AiN_times_qN<PBX__MAX> (i, pairsbx + PBX_X);
+        const dReal wPrep = lcp.AiC_times_qC<PBX__MAX> (i, pairsbx + PBX_X) + lcp.AiN_times_qN<PBX__MAX> (i, pairsbx + PBX_X);
 
         dReal *currbx = pairsbx + (sizeint)i * PBX__MAX;
 
@@ -994,7 +995,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
             // we must push x(i) and w(i)
             for (;;) {
                 // find direction to push on x(i)
-                bool dir_positive = (w[i] <= 0);
+                const bool dir_positive = (w[i] <= 0);
 
                 // compute: delta_x(C) = -dir*A(C,C)\A(C,i)
                 lcp.solve1 (delta_x, i, dir_positive);
@@ -1022,7 +1023,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                     
                 if (dir_positive) {
                     if (currlh[PLH_HI] < dInfinity) {
-                        dReal s2 = (currlh[PLH_HI] - currbx[PBX_X]);	// was (hi[i]-x[i])/dirf	// step to x(i)=hi(i)
+                        const dReal s2 = (currlh[PLH_HI] - currbx[PBX_X]);	// was (hi[i]-x[i])/dirf	// step to x(i)=hi(i)
                         if (s2 < s) {
                             s = s2;
                             cmd = 3;
@@ -1031,7 +1032,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                 }
                 else {
                     if (currlh[PLH_LO] > -dInfinity) {
-                        dReal s2 = (currbx[PBX_X] - currlh[PLH_LO]); // was (lo[i]-x[i])/dirf	// step to x(i)=lo(i)
+                        const dReal s2 = (currbx[PBX_X] - currlh[PLH_LO]); // was (lo[i]-x[i])/dirf	// step to x(i)=lo(i)
                         if (s2 < s) {
                             s = s2;
                             cmd = 2;
@@ -1047,7 +1048,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                             // don't bother checking if lo=hi=0
                             dReal *indexlh = pairslh + (sizeint)indexN_k * PLH__MAX;
                             if (indexlh[PLH_LO] == 0 && indexlh[PLH_HI] == 0) continue;
-                            dReal s2 = -w[indexN_k] / delta_w[indexN_k];
+                            const dReal s2 = -w[indexN_k] / delta_w[indexN_k];
                             if (s2 < s) {
                                 s = s2;
                                 cmd = 4;
@@ -1063,7 +1064,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                         const unsigned indexC_k = lcp.indexC(k);
                         dReal *indexlh = pairslh + (sizeint)indexC_k * PLH__MAX;
                         if (delta_x[indexC_k] < 0 && indexlh[PLH_LO] > -dInfinity) {
-                            dReal s2 = (indexlh[PLH_LO] - (pairsbx + (sizeint)indexC_k * PBX__MAX)[PBX_X]) / delta_x[indexC_k];
+                            const dReal s2 = (indexlh[PLH_LO] - (pairsbx + (sizeint)indexC_k * PBX__MAX)[PBX_X]) / delta_x[indexC_k];
                             if (s2 < s) {
                                 s = s2;
                                 cmd = 5;
@@ -1071,7 +1072,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                             }
                         }
                         if (delta_x[indexC_k] > 0 && indexlh[PLH_HI] < dInfinity) {
-                            dReal s2 = (indexlh[PLH_HI] - (pairsbx + (sizeint)indexC_k * PBX__MAX)[PBX_X]) / delta_x[indexC_k];
+                            const dReal s2 = (indexlh[PLH_HI] - (pairsbx + (sizeint)indexC_k * PBX__MAX)[PBX_X]) / delta_x[indexC_k];
                             if (s2 < s) {
                                 s = s2;
                                 cmd = 6;
@@ -1179,7 +1180,7 @@ sizeint dxEstimateSolveLCPMemoryReq(unsigned n, bool outer_w_avail)
     res += dEFFICIENT_SIZE(sizeof(bool) * n); // for state
 
     // Use n instead of nC as nC varies at runtime while n is greater or equal to nC
-    sizeint lcp_transfer_req = dLCP::estimate_transfer_i_from_C_to_N_mem_req(n, nskip);
+    const sizeint lcp_transfer_req = dLCP::estimate_transfer_i_from_C_to_N_mem_req(n, nskip);
     res += dEFFICIENT_SIZE(lcp_transfer_req); // for dLCP::transfer_i_from_C_to_N
 
     return res;
@@ -1210,14 +1211,15 @@ extern "C" ODE_API int dTestSolveLCP()
 {
     const unsigned n = 100;
 
-    sizeint memreq = EstimateTestSolveLCPMemoryReq(n);
+    const sizeint memreq = EstimateTestSolveLCPMemoryReq(n);
     dxWorldProcessMemArena *arena = dxAllocateTemporaryWorldProcessMemArena(memreq, NULL, NULL);
     if (arena == NULL) {
         return 0;
     }
     arena->ResetState();
 
-    unsigned i,nskip = dPAD(n);
+    unsigned i;
+    const unsigned nskip = dPAD(n);
 #ifdef dDOUBLE
     const dReal tol = REAL(1e-9);
 #endif
@@ -1252,7 +1254,7 @@ extern "C" ODE_API int dTestSolveLCP()
             for (i=0; i<n; i++) b[i] += (dRandReal()*REAL(0.2))-REAL(0.1);
 
             // choose `nub' in the range 0..n-1
-            unsigned nub = 50; //dRandInt (n);
+            const unsigned nub = 50; //dRandInt (n);
 
             // make limits
             for (i=0; i<nub; i++) lo[i] = -dInfinity;
@@ -1299,9 +1301,9 @@ extern "C" ODE_API int dTestSolveLCP()
             dxSolveLCP (arena,n,A2,pairsbx,w,nub,pairslh,NULL);
 
             dStopwatchStop (&sw);
-            double time = dStopwatchTime(&sw);
+            const double time = dStopwatchTime(&sw);
             total_time += time;
-            double average = total_time / double(count+1) * 1000.0;
+            const double average = total_time / double(count+1) * 1000.0;
 
             for (i = 0; i != n; ++i) {
                 const dReal *currbx = pairsbx + i * PBX__MAX;
@@ -1312,7 +1314,7 @@ extern "C" ODE_API int dTestSolveLCP()
 
             dMultiply0 (tmp1,A,x,n,n,1);
             for (i=0; i<n; i++) tmp2[i] = b[i] + w[i];
-            dReal diff = dMaxDifference (tmp1,tmp2,n,1);
+            const dReal diff = dMaxDifference (tmp1,tmp2,n,1);
             // printf ("\tA*x = b+w, maximum difference = %.6e - %s (1)\n",diff,
             //	    diff > tol ? "FAILED" : "passed");
             if (diff > tol) dDebug (0,"A*x = b+w, maximum difference = %.6e",(double)diff);

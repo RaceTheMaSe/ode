@@ -50,11 +50,11 @@ bool dxRequiredResourceContainer::allocateResources(const dxResourceRequirementD
 
     do
     {
-        sizeint memorySizeRequirement = requirementDescriptor.getMemorySizeRequirement();
+        const sizeint memorySizeRequirement = requirementDescriptor.getMemorySizeRequirement();
         
         if (memorySizeRequirement != 0)
         {
-            unsigned memoryAlignmentRequirement = requirementDescriptor.getMemoryAlignmentRequirement();
+            const unsigned memoryAlignmentRequirement = requirementDescriptor.getMemoryAlignmentRequirement();
             void *allocatedBuffer = m_memoryAllocation.allocAligned(memorySizeRequirement, memoryAlignmentRequirement);
             if (allocatedBuffer == NULL)
             {
@@ -66,7 +66,7 @@ bool dxRequiredResourceContainer::allocateResources(const dxResourceRequirementD
         dxThreadingBase *relatedThreading = requirementDescriptor.getrelatedThreading();
         dIASSERT(relatedThreading != NULL);
 
-        unsigned simultaneousCallRequirement = requirementDescriptor.getSimultaneousCallRequirement();
+        const unsigned simultaneousCallRequirement = requirementDescriptor.getSimultaneousCallRequirement();
         if (simultaneousCallRequirement != 0)
         {
             if (!relatedThreading->PreallocateResourcesForThreadedCalls(simultaneousCallRequirement))

@@ -261,7 +261,7 @@ static void osxCreateMainWindow( int width, int height )
 {
     int argc = 1;
     char* argv[2];
-    argv[0] = (char*)"";
+    argv[0] = 0;
     argv[1] = NULL;
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);

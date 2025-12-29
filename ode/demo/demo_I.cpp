@@ -106,8 +106,8 @@ static void reset_test()
   int i;
   dMass m,anchor_m;
   dReal q[NUM][3], pm[NUM];	// particle positions and masses
-  dReal pos1[3] = {1,0,1};	// point of reference (POR)
-  dReal pos2[3] = {-1,0,1};	// point of reference (POR)
+  const dReal pos1[3] = {1,0,1};	// point of reference (POR)
+  const dReal pos2[3] = {-1,0,1};	// point of reference (POR)
 
   // make random particle positions (relative to POR) and masses
   for (i=0; i<NUM; i++) {

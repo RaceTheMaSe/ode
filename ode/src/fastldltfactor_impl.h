@@ -234,16 +234,16 @@ void solveL1Stripe_2(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
 
         /* finish computing the X(i) block */
         
-        dReal Y11 = ptrBElement[0] - Z11;
-        dReal Y12 = ptrBElement[rowSkip] - Z12;
+        const dReal Y11 = ptrBElement[0] - Z11;
+        const dReal Y12 = ptrBElement[rowSkip] - Z12;
 
-        dReal p2 = ptrLElement[rowSkip];
+        const dReal p2 = ptrLElement[rowSkip];
 
         ptrBElement[0] = Y11;
         ptrBElement[rowSkip] = Y12;
 
-        dReal Y21 = ptrBElement[1] - Z21 - p2 * Y11;
-        dReal Y22 = ptrBElement[1 + rowSkip] - Z22 - p2 * Y12;
+        const dReal Y21 = ptrBElement[1] - Z21 - p2 * Y11;
+        const dReal Y22 = ptrBElement[1 + rowSkip] - Z22 - p2 * Y12;
 
         ptrBElement[1] = Y21;
         ptrBElement[1 + rowSkip] = Y22;
@@ -354,22 +354,22 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
     }
 
     /* solve for diagonal 2 x 2 block at A(i,i) */
-    dReal Y11 = ptrAElement[0] - Z11;
-    dReal Y21 = ptrAElement[rowSkip] - Z21;
-    dReal Y22 = ptrAElement[1 + rowSkip] - Z22;
+    const dReal Y11 = ptrAElement[0] - Z11;
+    const dReal Y21 = ptrAElement[rowSkip] - Z21;
+    const dReal Y22 = ptrAElement[1 + rowSkip] - Z22;
 
     /* factorize 2 x 2 block Y, ptrDElement */
     /* factorize row 1 */
-    dReal dd = dRecip(Y11);
+    const dReal dd = dRecip(Y11);
 
     ptrDElement[0 * d_stride] = dd;
     dIASSERT(ptrDElement == d + (sizeint)factorizationRow * d_stride);
 
     /* factorize row 2 */
-    dReal q2 = Y21 * dd;
+    const dReal q2 = Y21 * dd;
     ptrAElement[rowSkip] = q2;
 
-    dReal sum = Y21 * q2;
+    const dReal sum = Y21 * q2;
     ptrDElement[1 * d_stride] = dRecip(Y22 - sum);
 }
 
@@ -380,22 +380,22 @@ void scaleAndFactorizeL1FirstRowStripe_2(dReal *ARow, dReal *d, unsigned rowSkip
     dReal *ptrDElement = d;
 
     /* solve for diagonal 2 x 2 block at A(0,0) */
-    dReal Y11 = ptrAElement[0]/* - Z11*/;
-    dReal Y21 = ptrAElement[rowSkip]/* - Z21*/;
-    dReal Y22 = ptrAElement[1 + rowSkip]/* - Z22*/;
+    const dReal Y11 = ptrAElement[0]/* - Z11*/;
+    const dReal Y21 = ptrAElement[rowSkip]/* - Z21*/;
+    const dReal Y22 = ptrAElement[1 + rowSkip]/* - Z22*/;
 
     /* factorize 2 x 2 block Y, ptrDElement */
     /* factorize row 1 */
-    dReal dd = dRecip(Y11);
+    const dReal dd = dRecip(Y11);
 
     ptrDElement[0 * d_stride] = dd;
     dIASSERT(ptrDElement == d/* + (sizeint)factorizationRow * d_stride*/);
 
     /* factorize row 2 */
-    dReal q2 = Y21 * dd;
+    const dReal q2 = Y21 * dd;
     ptrAElement[rowSkip] = q2;
 
-    dReal sum = Y21 * q2;
+    const dReal sum = Y21 * q2;
     ptrDElement[1 * d_stride] = dRecip(Y22 - sum);
 }
 
@@ -516,10 +516,10 @@ void solveStripeL1_1(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
         }
         
         /* finish computing the X(i) block */
-        dReal p2 = ptrLElement[rowSkip];
+        const dReal p2 = ptrLElement[rowSkip];
 
-        dReal Y11 = ptrBElement[0] - Z11;
-        dReal Y21 = ptrBElement[1] - Z21 - p2 * Y11;
+        const dReal Y11 = ptrBElement[0] - Z11;
+        const dReal Y21 = ptrBElement[1] - Z21 - p2 * Y11;
 
         ptrBElement[0] = Y11;
         ptrBElement[1] = Y21;
@@ -593,7 +593,7 @@ void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRo
         }
     }
 
-    dReal Y11 = ptrAElement[0] - (Z11 + Z22);
+    const dReal Y11 = ptrAElement[0] - (Z11 + Z22);
 
     /* solve for diagonal 1 x 1 block at A(i,i) */
     dIASSERT(ptrDElement == d + (sizeint)factorizationRow * d_stride);
@@ -608,7 +608,7 @@ void scaleAndFactorizeL1FirstRowStripe_1(dReal *ARow, dReal *d)
     dReal *ptrAElement = ARow;
     dReal *ptrDElement = d;
 
-    dReal Y11 = ptrAElement[0];
+    const dReal Y11 = ptrAElement[0];
 
     /* solve for diagonal 1 x 1 block at A(0,0) */
     /* factorize 1 x 1 block Y, ptrDElement */

@@ -41,7 +41,7 @@ int dCollideSpheres (dVector3 p1, dReal r1,
     // printf ("d=%.2f  (%.2f %.2f %.2f) (%.2f %.2f %.2f) r1=%.2f r2=%.2f\n",
     //	  d,p1[0],p1[1],p1[2],p2[0],p2[1],p2[2],r1,r2);
 
-    dReal d = dCalcPointsDistance3(p1,p2);
+    const dReal d = dCalcPointsDistance3(p1,p2);
     if (d > (r1 + r2)) return 0;
     if (d <= 0) {
         c->pos[0] = p1[0];
@@ -53,11 +53,11 @@ int dCollideSpheres (dVector3 p1, dReal r1,
         c->depth = r1 + r2;
     }
     else {
-        dReal d1 = dRecip (d);
+        const dReal d1 = dRecip (d);
         c->normal[0] = (p1[0]-p2[0])*d1;
         c->normal[1] = (p1[1]-p2[1])*d1;
         c->normal[2] = (p1[2]-p2[2])*d1;
-        dReal k = REAL(0.5) * (r2 - r1 - d);
+        const dReal k = REAL(0.5) * (r2 - r1 - d);
         c->pos[0] = p1[0] + c->normal[0]*k;
         c->pos[1] = p1[1] + c->normal[1]*k;
         c->pos[2] = p1[2] + c->normal[2]*k;
@@ -75,9 +75,9 @@ void dLineClosestApproach (const dVector3 pa, const dVector3 ua,
     p[0] = pb[0] - pa[0];
     p[1] = pb[1] - pa[1];
     p[2] = pb[2] - pa[2];
-    dReal uaub = dCalcVectorDot3(ua,ub);
-    dReal q1 =  dCalcVectorDot3(ua,p);
-    dReal q2 = -dCalcVectorDot3(ub,p);
+    const dReal uaub = dCalcVectorDot3(ua,ub);
+    const dReal q1 =  dCalcVectorDot3(ua,p);
+    const dReal q2 = -dCalcVectorDot3(ub,p);
     dReal d = 1-uaub*uaub;
     if (d <= REAL(0.0001)) {
         // @@@ this needs to be made more robust
@@ -213,8 +213,8 @@ void dClosestLineSegmentPoints (const dVector3 a1, const dVector3 a2,
         return;
     }
     det = dRecip (det);
-    dReal alpha = (lb*da1 -  k*db1) * det;
-    dReal beta  = ( k*da1 - la*db1) * det;
+    const dReal alpha = (lb*da1 -  k*db1) * det;
+    const dReal beta  = ( k*da1 - la*db1) * det;
     SET3 (cp1,a1,+,alpha*a1a2);
     SET3 (cp2,b1,+,beta*b1b2);
 
@@ -350,7 +350,7 @@ void dClosestLineBoxPoints (const dVector3 p1, const dVector3 p2,
 
         // if the sign of d|d|^2/dt has changed, solution = the crossover point
         if (next_dd2dt >= 0) {
-            dReal m = (next_dd2dt-dd2dt)/(next_t - t);
+            const dReal m = (next_dd2dt-dd2dt)/(next_t - t);
             t -= dd2dt/m;
             goto got_answer;
         }
@@ -471,8 +471,8 @@ int dBoxTouchesBox (const dVector3 p1, const dMatrix3 R1,
 int dClipEdgeToPlane( dVector3 &vEpnt0, dVector3 &vEpnt1, const dVector4& plPlane)
 {
     // calculate distance of edge points to plane
-    dReal fDistance0 = dPointPlaneDistance(  vEpnt0 ,plPlane );
-    dReal fDistance1 = dPointPlaneDistance(  vEpnt1 ,plPlane );
+    const dReal fDistance0 = dPointPlaneDistance(  vEpnt0 ,plPlane );
+    const dReal fDistance1 = dPointPlaneDistance(  vEpnt1 ,plPlane );
 
     // if both points are behind the plane
     if ( fDistance0 < 0 && fDistance1 < 0 ) 
@@ -523,8 +523,8 @@ void		 dClipPolyToPlane( const dVector3 avArrayIn[], const int ctIn,
 
 
         // calculate distance of edge points to plane
-        dReal fDistance0 = dPointPlaneDistance(  avArrayIn[i0],plPlane );
-        dReal fDistance1 = dPointPlaneDistance(  avArrayIn[i1],plPlane );
+        const dReal fDistance0 = dPointPlaneDistance(  avArrayIn[i0],plPlane );
+        const dReal fDistance1 = dPointPlaneDistance(  avArrayIn[i1],plPlane );
 
         // if first point is in front of plane
         if( fDistance0 >= 0 ) {
@@ -570,8 +570,8 @@ void		 dClipPolyToCircle(const dVector3 avArrayIn[], const int ctIn,
     for (int i1=0; i1<ctIn; i0=i1, i1++) 
     {
         // calculate distance of edge points to plane
-        dReal fDistance0 = dPointPlaneDistance(  avArrayIn[i0],plPlane );
-        dReal fDistance1 = dPointPlaneDistance(  avArrayIn[i1],plPlane );
+        const dReal fDistance0 = dPointPlaneDistance(  avArrayIn[i0],plPlane );
+        const dReal fDistance1 = dPointPlaneDistance(  avArrayIn[i1],plPlane );
 
         // if first point is in front of plane
         if( fDistance0 >= 0 ) 

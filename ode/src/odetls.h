@@ -88,13 +88,13 @@ public:
 
     static void SignalDataAllocationFlags(EODETLSKIND tkTLSKind, unsigned uFlagsMask)
     {
-        unsigned uCurrentFlags = (unsigned)(sizeint)CThreadLocalStorage::UnsafeGetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
+        const unsigned uCurrentFlags = (unsigned)(sizeint)CThreadLocalStorage::UnsafeGetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
         CThreadLocalStorage::UnsafeSetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS, (tlsvaluetype)(sizeint)(uCurrentFlags | uFlagsMask));
     }
 
     static void DropDataAllocationFlags(EODETLSKIND tkTLSKind, unsigned uFlagsMask)
     {
-        unsigned uCurrentFlags = (unsigned)(sizeint)CThreadLocalStorage::UnsafeGetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
+        const unsigned uCurrentFlags = (unsigned)(sizeint)CThreadLocalStorage::UnsafeGetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS);
         CThreadLocalStorage::UnsafeSetStorageValue(m_ahtkStorageKeys[tkTLSKind], OTI_DATA_ALLOCATION_FLAGS, (tlsvaluetype)(sizeint)(uCurrentFlags & ~uFlagsMask));
     }
 

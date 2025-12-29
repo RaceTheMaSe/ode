@@ -154,7 +154,7 @@ int dxFactorCholesky(dReal *A, unsigned n, void *tmpBuf/*[n]*/)
                 failure = true;
                 break;
             }
-            dReal sumsqrt = dSqrt(sum);
+            const dReal sumsqrt = dSqrt(sum);
             *cc = sumsqrt;
             recip[i] = dRecip (sumsqrt);
         }
@@ -211,9 +211,9 @@ int dxInvertPDMatrix(const dReal *A, dReal *Ainv, unsigned n, void *tmpBuf/*[nsk
     dAASSERT (n > 0 && A && Ainv);
     bool success = false;
 
-    sizeint choleskyFactorSize = dxEstimateFactorCholeskyTmpbufSize(n);
-    sizeint choleskySolveSize = dxEstimateSolveCholeskyTmpbufSize(n);
-    sizeint choleskyMaxSize = dMAX(choleskyFactorSize, choleskySolveSize);
+    const sizeint choleskyFactorSize = dxEstimateFactorCholeskyTmpbufSize(n);
+    const sizeint choleskySolveSize = dxEstimateSolveCholeskyTmpbufSize(n);
+    const sizeint choleskyMaxSize = dMAX(choleskyFactorSize, choleskySolveSize);
     dIASSERT(choleskyMaxSize % sizeof(dReal) == 0);
 
     const unsigned nskip = dPAD (n);
@@ -252,7 +252,7 @@ int dxIsPositiveDefinite(const dReal *A, unsigned n, void *tmpBuf/*[nskip*(n+1)]
 {
     dAASSERT (n > 0 && A);
 
-    sizeint choleskyFactorSize = dxEstimateFactorCholeskyTmpbufSize(n);
+    const sizeint choleskyFactorSize = dxEstimateFactorCholeskyTmpbufSize(n);
     dIASSERT(choleskyFactorSize % sizeof(dReal) == 0);
 
     const unsigned nskip = dPAD (n);
@@ -263,7 +263,7 @@ int dxIsPositiveDefinite(const dReal *A, unsigned n, void *tmpBuf/*[nskip*(n+1)]
 
     dReal *Acopy = (dReal *)((char *)tmp + choleskyFactorSize);
     memcpy(Acopy, A, nskip_mul_n * sizeof(dReal));
-    int factorResult = dxFactorCholesky (Acopy, n, tmp);
+    const int factorResult = dxFactorCholesky (Acopy, n, tmp);
 
     FREE_TEMPORARY_BUFFER(tmp);
 
@@ -288,8 +288,8 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
     for (unsigned j = 1; j < n; ++j) {
         W1[j] = W2[j] = (dReal) ((double)a[j] * M_SQRT1_2);
     }
-    dReal W11 = (dReal) ((0.5*(double)a[0]+1)*M_SQRT1_2);
-    dReal W21 = (dReal) ((0.5*(double)a[0]-1)*M_SQRT1_2);
+    const dReal W11 = (dReal) ((0.5*(double)a[0]+1)*M_SQRT1_2);
+    const dReal W21 = (dReal) ((0.5*(double)a[0]-1)*M_SQRT1_2);
 
     dReal alpha1 = REAL(1.0);
     dReal alpha2 = REAL(1.0);
@@ -299,19 +299,19 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
         dReal alphanew = alpha1 + (W11*W11)*dee;
         dIASSERT(alphanew != dReal(0.0));
         dee /= alphanew;
-        dReal gamma1 = W11 * dee;
+        const dReal gamma1 = W11 * dee;
         dee *= alpha1;
         alpha1 = alphanew;
         alphanew = alpha2 - (W21*W21)*dee;
         // dee /= alphanew;
         //dReal gamma2 = W21 * dee;
         alpha2 = alphanew;
-        dReal k1 = REAL(1.0) - W21*gamma1;
-        dReal k2 = W21*gamma1*W11 - W21;
+        const dReal k1 = REAL(1.0) - W21*gamma1;
+        const dReal k2 = W21*gamma1*W11 - W21;
         dReal *ll = L + nskip;
         for (unsigned p = 1; p < n; ll += nskip, ++p) {
-            dReal Wp = W1[p];
-            dReal ell = *ll;
+            const dReal Wp = W1[p];
+            const dReal ell = *ll;
             W1[p] =    Wp - W11*ell;
             W2[p] = k1*Wp +  k2*ell;
         }
@@ -319,19 +319,19 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
 
     dReal *ll = L + (nskip + 1);
     for (unsigned j = 1; j < n; ll += nskip + 1, ++j) {
-        dReal k1 = W1[j];
-        dReal k2 = W2[j];
+        const dReal k1 = W1[j];
+        const dReal k2 = W2[j];
 
         dReal dee = d[j];
         dReal alphanew = alpha1 + (k1*k1)*dee;
         dIASSERT(alphanew != dReal(0.0));
         dee /= alphanew;
-        dReal gamma1 = k1 * dee;
+        const dReal gamma1 = k1 * dee;
         dee *= alpha1;
         alpha1 = alphanew;
         alphanew = alpha2 - (k2*k2)*dee;
         dee /= alphanew;
-        dReal gamma2 = k2 * dee;
+        const dReal gamma2 = k2 * dee;
         dee *= alpha2;
         d[j] = dee;
         alpha2 = alphanew;
@@ -381,7 +381,7 @@ void dxLDLTRemove(dReal **A, const unsigned *p, dReal *L, dReal *d,
         return;		// deleting the last row/col is easy
     }
 
-    sizeint LDLTAddTLSize = dxEstimateLDLTAddTLTmpbufSize(nskip);
+    const sizeint LDLTAddTLSize = dxEstimateLDLTAddTLTmpbufSize(nskip);
     dIASSERT(LDLTAddTLSize % sizeof(dReal) == 0);
     
     dReal* tmp = (dReal*)tmpBuf;
@@ -443,7 +443,7 @@ void dxRemoveRowCol(dReal *A, unsigned n, unsigned nskip, unsigned r)
         {
             const sizeint cpy_size = r * sizeof(dReal);
             dReal *Adst = A + (sizeint)nskip * r;
-            unsigned n1 = n - 1;
+            const unsigned n1 = n - 1;
             for (unsigned i = r; i < n1; ++i) {
                 dReal *Asrc = Adst + nskip;
                 memcpy (Adst, Asrc, cpy_size);
@@ -454,7 +454,7 @@ void dxRemoveRowCol(dReal *A, unsigned n, unsigned nskip, unsigned r)
     {
         const sizeint cpy_size = (n - r - 1) * sizeof(dReal);
         dReal *Adst = A + (sizeint)(nskip + 1) * r;
-        unsigned n1 = n - 1;
+        const unsigned n1 = n - 1;
         for (unsigned i = r; i < n1; ++i) {
             dReal *Asrc = Adst + (nskip + 1);
             memcpy (Adst, Asrc, cpy_size);

@@ -102,7 +102,7 @@ static void reset()
   dBodySetMass( impGyroBody, &boxMass );
 
   // Try to avoid collisions.
-  dReal sep = dCalcVectorLength3(sides);
+  const dReal sep = dCalcVectorLength3(sides);
   dBodySetPosition( noGyroBody , -sep, 0, sep);
   dBodySetPosition( expGyroBody,    0, 0, sep);
   dBodySetPosition( impGyroBody,  sep, 0, sep);

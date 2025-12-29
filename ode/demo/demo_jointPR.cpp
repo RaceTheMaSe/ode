@@ -204,11 +204,11 @@ static void command (int cmd)
     {
         dVector3 anchor;
         dJointGetPRAnchor(joint[0], anchor);
-        dReal angle = dJointGetPRAngle(joint[0]);
-        dReal w = dJointGetPRAngleRate(joint[0]);
+        const dReal angle = dJointGetPRAngle(joint[0]);
+        const dReal w = dJointGetPRAngleRate(joint[0]);
 
-        dReal l = dJointGetPRPosition(joint[0]);
-        dReal v = dJointGetPRPositionRate(joint[0]);
+        const dReal l = dJointGetPRPosition(joint[0]);
+        const dReal v = dJointGetPRPositionRate(joint[0]);
 
         printf("Anchor: [%6.4f, %6.4f, %6.4f]\n", (double)anchor[0], (double)anchor[1], (double)anchor[2]);
         printf("Position: %7.4f, Rate: %7.4f\n", (double)l, (double)v);
@@ -327,7 +327,7 @@ int main (int argc, char **argv)
 
             if (0 == strcmp("-t", argv[i]) || 0 == strcmp("--texture-path", argv[i]))
             {
-                int j = i+1;
+                const int j = i+1;
                 if ( j >= argc      ||  // Check if we have enough arguments
                         argv[j][0] == '\0' ||  // We should have a path here
                         argv[j][0] == '-' ) // We should have a path not a command line

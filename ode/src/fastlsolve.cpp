@@ -43,7 +43,7 @@ void ThreadedEquationSolverLDLT::estimateCooperativeSolvingL1StraightResourceReq
     unsigned allowedThreadCount, unsigned rowCount)
 {
     dxThreadingBase *threading = summaryRequirementsDescriptor->getrelatedThreading();
-    unsigned limitedThreadCount = restrictSolvingL1StraightAllowedThreadCount(threading, allowedThreadCount, rowCount);
+    const unsigned limitedThreadCount = restrictSolvingL1StraightAllowedThreadCount(threading, allowedThreadCount, rowCount);
 
     if (limitedThreadCount > 1)
     {
@@ -59,7 +59,7 @@ void ThreadedEquationSolverLDLT::cooperativelySolveL1Straight(
     dAASSERT(rowCount != 0);
 
     dxThreadingBase *threading = resourceContainer->getThreadingInstance();
-    unsigned limitedThreadCount = restrictSolvingL1StraightAllowedThreadCount(threading, allowedThreadCount, rowCount);
+    const unsigned limitedThreadCount = restrictSolvingL1StraightAllowedThreadCount(threading, allowedThreadCount, rowCount);
 
     if (limitedThreadCount <= 1)
     {
@@ -80,7 +80,7 @@ unsigned ThreadedEquationSolverLDLT::restrictSolvingL1StraightAllowedThreadCount
 
 #if defined(dCOOPERATIVE_ENABLED)
     const unsigned int blockStep = SL1S_BLOCK_SIZE; // Required by the implementation
-    unsigned solvingBlockCount = deriveSolvingL1StraightBlockCount(rowCount, blockStep);
+    const unsigned solvingBlockCount = deriveSolvingL1StraightBlockCount(rowCount, blockStep);
     dIASSERT(deriveSolvingL1StraightThreadCount(SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM, 2) > 1);
 
     if (solvingBlockCount >= SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM)
@@ -100,19 +100,19 @@ void ThreadedEquationSolverLDLT::doEstimateCooperativeSolvingL1StraightResourceR
     unsigned allowedThreadCount, unsigned rowCount)
 {
     const unsigned int blockStep = SL1S_BLOCK_SIZE; // Required by the implementation
-    unsigned blockCount = deriveSolvingL1StraightBlockCount(rowCount, blockStep);
+    const unsigned blockCount = deriveSolvingL1StraightBlockCount(rowCount, blockStep);
     dIASSERT(blockCount >= 1);
 
-    unsigned threadCountToUse = deriveSolvingL1StraightThreadCount(blockCount, allowedThreadCount);
+    const unsigned threadCountToUse = deriveSolvingL1StraightThreadCount(blockCount, allowedThreadCount);
     dIASSERT(threadCountToUse > 1);
 
-    unsigned simultaneousCallCount = 1 + (threadCountToUse - 1);
+    const unsigned simultaneousCallCount = 1 + (threadCountToUse - 1);
 
     SolvingL1StraightMemoryEstimates solvingMemoryEstimates;
-    sizeint solvingMemoryRequired = estimateCooperativelySolvingL1StraightMemoryRequirement<blockStep>(rowCount, solvingMemoryEstimates);
+    const sizeint solvingMemoryRequired = estimateCooperativelySolvingL1StraightMemoryRequirement<blockStep>(rowCount, solvingMemoryEstimates);
     const unsigned solvingAlignmentRequired = ALLOCATION_DEFAULT_ALIGNMENT;
 
-    unsigned featureRequirement = dxResourceRequirementDescriptor::STOCK_CALLWAIT_REQUIRED;
+    const unsigned featureRequirement = dxResourceRequirementDescriptor::STOCK_CALLWAIT_REQUIRED;
     summaryRequirementsDescriptor->mergeAnotherDescriptorIn(solvingMemoryRequired, solvingAlignmentRequired, simultaneousCallCount, featureRequirement);
 }
 
@@ -124,10 +124,10 @@ void ThreadedEquationSolverLDLT::doCooperativelySolveL1StraightValidated(
     dIASSERT(allowedThreadCount > 1);
 
     const unsigned int blockStep = SL1S_BLOCK_SIZE; // Required by the implementation
-    unsigned blockCount = deriveSolvingL1StraightBlockCount(rowCount, blockStep);
+    const unsigned blockCount = deriveSolvingL1StraightBlockCount(rowCount, blockStep);
     dIASSERT(blockCount >= 1);
 
-    unsigned threadCountToUse = deriveSolvingL1StraightThreadCount(blockCount, allowedThreadCount);
+    const unsigned threadCountToUse = deriveSolvingL1StraightThreadCount(blockCount, allowedThreadCount);
     dIASSERT(threadCountToUse > 1);
 
     dCallWaitID completionWait = resourceContainer->getStockCallWait();
@@ -138,7 +138,7 @@ void ThreadedEquationSolverLDLT::doCooperativelySolveL1StraightValidated(
     SolveL1StraightCellContext *cellContexts;
 
     SolvingL1StraightMemoryEstimates solvingMemoryEstimates;
-    sizeint solvingMemoryRequired = estimateCooperativelySolvingL1StraightMemoryRequirement<blockStep>(rowCount, solvingMemoryEstimates);
+    const sizeint solvingMemoryRequired = estimateCooperativelySolvingL1StraightMemoryRequirement<blockStep>(rowCount, solvingMemoryEstimates);
     dIASSERT(solvingMemoryRequired <= resourceContainer->getMemoryBufferSize());
 
     void *bufferAllocated = resourceContainer->getMemoryBufferPointer();

@@ -74,7 +74,7 @@ int dCollideCylinderSphere(dxGeom* Cylinder, dxGeom* Sphere,
     // get the data from the geoms
     dReal radius, length;
     dGeomCylinderGetParams(Cylinder, &radius, &length);
-    dVector3 &cylpos = Cylinder->final_posr->pos;
+    const dVector3 &cylpos = Cylinder->final_posr->pos;
     //const dReal* pfRot1 = dGeomGetRotation(Cylinder);
 
     dReal radius2;

@@ -91,7 +91,7 @@ dxTriMeshData::~dxTriMeshData()
 {
     if ( m_InternalUseFlags != NULL )
     {
-        sizeint flagsMemoryRequired = calculateUseFlagsMemoryRequirement();
+        const sizeint flagsMemoryRequired = calculateUseFlagsMemoryRequirement();
         dFree(m_InternalUseFlags, flagsMemoryRequired);
     }
 }
@@ -116,9 +116,9 @@ void dxTriMeshData::buildData(const IceMaths::Point *Vertices, int VertexStide, 
     // used in ODE, why?
     //Settings.mRules = SPLIT_BEST_AXIS;
     // best compromise?
-    Opcode::BuildSettings Settings(Opcode::SPLIT_BEST_AXIS | Opcode::SPLIT_SPLATTER_POINTS | Opcode::SPLIT_GEOM_CENTER);
+    const Opcode::BuildSettings Settings(Opcode::SPLIT_BEST_AXIS | Opcode::SPLIT_SPLATTER_POINTS | Opcode::SPLIT_GEOM_CENTER);
 
-    Opcode::OPCODECREATE TreeBuilder(&m_Mesh, Settings, true, false);
+    const Opcode::OPCODECREATE TreeBuilder(&m_Mesh, Settings, true, false);
 
     m_BVTree.Build(TreeBuilder);
 
@@ -196,7 +196,7 @@ bool dxTriMeshData::preprocessData(bool buildUseFlags/*=false*/, FaceAngleStorag
     }
 
     // If this mesh has already been preprocessed, exit
-    bool result = (!buildUseFlagsToUse && faceAndgesRequirementToUse == ASM__INVALID) || m_Mesh.GetNbTriangles() == 0 
+    const bool result = (!buildUseFlagsToUse && faceAndgesRequirementToUse == ASM__INVALID) || m_Mesh.GetNbTriangles() == 0 
         || meaningfulPreprocessData(buildUseFlagsToUse, faceAndgesRequirementToUse);
     return result;
 }
@@ -294,7 +294,7 @@ bool dxTriMeshData::meaningfulPreprocessData(bool buildUseFlags/*=false*/, FaceA
 
         const unsigned int numTris = m_Mesh.GetNbTriangles();
         const unsigned int numVertices = m_Mesh.GetNbVertices();
-        sizeint numEdges = (sizeint)numTris * dMTV__MAX;
+        const sizeint numEdges = (sizeint)numTris * dMTV__MAX;
         dIASSERT(numVertices <= numEdges); // Edge records are going to be used for vertex data as well
 
         const sizeint recordsMemoryRequired = dEFFICIENT_SIZE(numEdges * sizeof(EdgeRecord));
@@ -317,14 +317,14 @@ bool dxTriMeshData::meaningfulPreprocessData(bool buildUseFlags/*=false*/, FaceA
         }
 
         const IceMaths::IndexedTriangle *triIndicesBegin = m_Mesh.GetTris();
-        unsigned triStride = m_Mesh.GetTriStride();
-        TrimeshDataVertexIndexAccessor_OPCODE indexAccessor(triIndicesBegin, triStride);
+        const unsigned triStride = m_Mesh.GetTriStride();
+        const TrimeshDataVertexIndexAccessor_OPCODE indexAccessor(triIndicesBegin, triStride);
         meaningfulPreprocess_SetupEdgeRecords(edges, numEdges, indexAccessor);
 
         // Sort the edges, so the ones sharing the same verts are beside each other
         std::sort(edges, edges + numEdges);
 
-        TrimeshDataTrianglePointAccessor_OPCODE pointAccessor(m_Mesh);
+        const TrimeshDataTrianglePointAccessor_OPCODE pointAccessor(m_Mesh);
         const dReal *const externalNormals = retrieveNormals();
         IFaceAngleStorageControl *faceAngles = retrieveFaceAngles();
         meaningfulPreprocess_buildEdgeFlags(useFlags, faceAngles, edges, numEdges, vertices, externalNormals, pointAccessor);
@@ -488,13 +488,13 @@ void dxTriMesh::computeAABB()
 
     dMultiply0_331( c, R, meshData->m_AABBCenter );
 
-    dReal xrange = dFabs(R[0] * meshData->m_AABBExtents[0]) +
+    const dReal xrange = dFabs(R[0] * meshData->m_AABBExtents[0]) +
         dFabs(R[1] * meshData->m_AABBExtents[1]) + 
         dFabs(R[2] * meshData->m_AABBExtents[2]);
-    dReal yrange = dFabs(R[4] * meshData->m_AABBExtents[0]) +
+    const dReal yrange = dFabs(R[4] * meshData->m_AABBExtents[0]) +
         dFabs(R[5] * meshData->m_AABBExtents[1]) + 
         dFabs(R[6] * meshData->m_AABBExtents[2]);
-    dReal zrange = dFabs(R[8] * meshData->m_AABBExtents[0]) +
+    const dReal zrange = dFabs(R[8] * meshData->m_AABBExtents[0]) +
         dFabs(R[9] * meshData->m_AABBExtents[1]) + 
         dFabs(R[10] * meshData->m_AABBExtents[2]);
 

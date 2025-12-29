@@ -62,11 +62,11 @@ void dxBox::computeAABB()
     const dMatrix3& R = final_posr->R;
     const dVector3& pos = final_posr->pos;
 
-    dReal xrange = REAL(0.5) * (dFabs (R[0] * side[0]) +
+    const dReal xrange = REAL(0.5) * (dFabs (R[0] * side[0]) +
         dFabs (R[1] * side[1]) + dFabs (R[2] * side[2]));
-    dReal yrange = REAL(0.5) * (dFabs (R[4] * side[0]) +
+    const dReal yrange = REAL(0.5) * (dFabs (R[4] * side[0]) +
         dFabs (R[5] * side[1]) + dFabs (R[6] * side[2]));
-    dReal zrange = REAL(0.5) * (dFabs (R[8] * side[0]) +
+    const dReal zrange = REAL(0.5) * (dFabs (R[8] * side[0]) +
         dFabs (R[9] * side[1]) + dFabs (R[10] * side[2]));
     aabb[0] = pos[0] - xrange;
     aabb[1] = pos[0] + xrange;
@@ -137,7 +137,7 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
     unsigned int sideIndex;
 
     for (sideIndex = 0; sideIndex != 3; ++sideIndex) {
-        dReal side = b->side[sideIndex] * REAL(0.5);
+        const dReal side = b->side[sideIndex] * REAL(0.5);
 
         dist[sideIndex] = side - q[sideIndex];
         if (dist[sideIndex] < 0) {
@@ -166,15 +166,15 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
         dReal squaredDistance = 0;
 
         for (++sideIndex; sideIndex != 3; ++sideIndex) {
-            dReal side = b->side[sideIndex] * REAL(0.5);
+            const dReal side = b->side[sideIndex] * REAL(0.5);
 
-            dReal positiveDirectionDistance = side - q[sideIndex];
+            const dReal positiveDirectionDistance = side - q[sideIndex];
             if (positiveDirectionDistance < 0) {
                 squaredDistance += lastOuterOffset * lastOuterOffset;
                 lastOuterOffset = positiveDirectionDistance;
             }
             else {
-                dReal negativeDirectionDistance = side + q[sideIndex];
+                const dReal negativeDirectionDistance = side + q[sideIndex];
                 if (negativeDirectionDistance < 0) {
                     squaredDistance += lastOuterOffset * lastOuterOffset;
                     lastOuterOffset = negativeDirectionDistance;
@@ -182,7 +182,7 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
             }
         }
 
-        dReal outerDistance = squaredDistance != 0 ? -dSqrt(squaredDistance + lastOuterOffset * lastOuterOffset) : lastOuterOffset;
+        const dReal outerDistance = squaredDistance != 0 ? -dSqrt(squaredDistance + lastOuterOffset * lastOuterOffset) : lastOuterOffset;
         return outerDistance;
     }
 
@@ -639,10 +639,10 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     m21 = dCalcVectorDot3_44 (Ra+code2,Rb+a1);
     m22 = dCalcVectorDot3_44 (Ra+code2,Rb+a2);
     {
-        dReal k1 = m11*Sb[a1];
-        dReal k2 = m21*Sb[a1];
-        dReal k3 = m12*Sb[a2];
-        dReal k4 = m22*Sb[a2];
+        const dReal k1 = m11*Sb[a1];
+        const dReal k2 = m21*Sb[a1];
+        const dReal k3 = m12*Sb[a2];
+        const dReal k4 = m22*Sb[a2];
         quad[0] = c1 - k1 - k3;
         quad[1] = c2 - k2 - k4;
         quad[2] = c1 - k1 + k3;
@@ -660,7 +660,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
 
     // intersect the incident and reference faces
     dReal ret[16];
-    int n = intersectRectQuad (rect,quad,ret);
+    const int n = intersectRectQuad (rect,quad,ret);
     if (n < 1) return 0;		// this should never happen
 
     // convert the intersection points into reference-face coordinates,
@@ -669,15 +669,15 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     // the 'ret' array as necessary so that 'point' and 'ret' correspond.
     dReal point[3*8];		// penetrating contact points
     dReal dep[8];			// depths for those points
-    dReal det1 = dRecip(m11*m22 - m12*m21);
+    const dReal det1 = dRecip(m11*m22 - m12*m21);
     m11 *= det1;
     m12 *= det1;
     m21 *= det1;
     m22 *= det1;
     int cnum = 0;			// number of penetrating contact points found
     for (j=0; j < n; j++) {
-        dReal k1 =  m22*(ret[j*2]-c1) - m12*(ret[j*2+1]-c2);
-        dReal k2 = -m21*(ret[j*2]-c1) + m11*(ret[j*2+1]-c2);
+        const dReal k1 =  m22*(ret[j*2]-c1) - m12*(ret[j*2+1]-c2);
+        const dReal k2 = -m21*(ret[j*2]-c1) + m11*(ret[j*2+1]-c2);
         for (i=0; i<3; i++) point[cnum*3+i] =
             center[i] + k1*Rb[i*4+a1] + k2*Rb[i*4+a2];
         dep[cnum] = Sa[codeN] - dCalcVectorDot3(normal2,point+cnum*3);
@@ -750,7 +750,7 @@ int dCollideBoxBox (dxGeom *o1, dxGeom *o2, int flags,
     int code;
     dxBox *b1 = (dxBox*) o1;
     dxBox *b2 = (dxBox*) o2;
-    int num = dBoxBox (o1->final_posr->pos,o1->final_posr->R,b1->side, o2->final_posr->pos,o2->final_posr->R,b2->side,
+    const int num = dBoxBox (o1->final_posr->pos,o1->final_posr->R,b1->side, o2->final_posr->pos,o2->final_posr->R,b2->side,
         normal,&depth,&code,flags,contact,skip);
     for (int i=0; i<num; i++) {
         dContactGeom *currContact = CONTACT(contact,i*skip);
@@ -788,18 +788,18 @@ int dCollideBoxPlaneOld(dxGeom *o1, dxGeom *o2,
     const dReal *n = plane->p;		// normal vector
 
     // project sides lengths along normal vector, get absolute values
-    dReal Q1 = dCalcVectorDot3_14(n,R+0);
-    dReal Q2 = dCalcVectorDot3_14(n,R+1);
-    dReal Q3 = dCalcVectorDot3_14(n,R+2);
-    dReal A1 = box->side[0] * Q1;
-    dReal A2 = box->side[1] * Q2;
-    dReal A3 = box->side[2] * Q3;
-    dReal B1 = dFabs(A1);
-    dReal B2 = dFabs(A2);
-    dReal B3 = dFabs(A3);
+    const dReal Q1 = dCalcVectorDot3_14(n,R+0);
+    const dReal Q2 = dCalcVectorDot3_14(n,R+1);
+    const dReal Q3 = dCalcVectorDot3_14(n,R+2);
+    const dReal A1 = box->side[0] * Q1;
+    const dReal A2 = box->side[1] * Q2;
+    const dReal A3 = box->side[2] * Q3;
+    const dReal B1 = dFabs(A1);
+    const dReal B2 = dFabs(A2);
+    const dReal B3 = dFabs(A3);
 
     // early exit test
-    dReal depth = plane->p[3] + REAL(0.5)*(B1+B2+B3) - dCalcVectorDot3(n,o1->final_posr->pos);
+    const dReal depth = plane->p[3] + REAL(0.5)*(B1+B2+B3) - dCalcVectorDot3(n,o1->final_posr->pos);
     if (depth < 0) return 0;
 
     // find number of contacts requested
@@ -876,7 +876,7 @@ done:
     if (maxc == 4 && ret == 3) { // If user requested 4 contacts, and the first 3 were created...
         // Combine contacts 2 and 3 (vectorial sum) and get the fourth one
         // Result: if a box face is completely inside a plane, contacts are created for all the 4 vertices
-        dReal d4 = CONTACT(contact,1*skip)->depth + CONTACT(contact,2*skip)->depth - depth;  // depth is the depth for first contact
+        const dReal d4 = CONTACT(contact,1*skip)->depth + CONTACT(contact,2*skip)->depth - depth;  // depth is the depth for first contact
         if (d4 > 0) {
             CONTACT(contact,3*skip)->pos[0] = CONTACT(contact,1*skip)->pos[0] + CONTACT(contact,2*skip)->pos[0] - p[0]; // p is the position of first contact
             CONTACT(contact,3*skip)->pos[1] = CONTACT(contact,1*skip)->pos[1] + CONTACT(contact,2*skip)->pos[1] - p[1];
@@ -954,7 +954,7 @@ int dCollideBoxPlane(dxGeom *o1, dxGeom *o2,
         //
         // The depth of the deepest vertex is achieved when the choice of + or - is opposite the
         // corresponding sgn() function. That will lead to the depth of the deepest vertex being:
-        dReal firstContactDepth = centerDepth + REAL(0.5) * (B[0] + B[1] + B[2]);
+        const dReal firstContactDepth = centerDepth + REAL(0.5) * (B[0] + B[1] + B[2]);
 
         // If that isn't below the plane, there is no collision and we can return immediately.
         if (firstContactDepth < 0)
@@ -1061,7 +1061,7 @@ int dCollideBoxPlane(dxGeom *o1, dxGeom *o2,
         // the requested number of contacts.
 #define ADD_VERTEX_IF_INSIDE(op1, op2, op3)                                                                                                              \
 {                                                                                                                                                        \
-    dReal contactDepth = (centerDepth - REAL(0.5) * (op3 orderedB[2] op2 orderedB[1] op1 orderedB[0]));                                                  \
+    const dReal contactDepth = (centerDepth - REAL(0.5) * (op3 orderedB[2] op2 orderedB[1] op1 orderedB[0]));                                                  \
     if (contactDepth < REAL(0.0))                                                                                                                              \
     {                                                                                                                                                    \
         break;                                                                                                                                           \
@@ -1137,7 +1137,7 @@ do {} while (0) // END OF MACRO DEFINITION
         finishBoxPlaneContacts(nContactsFound, contact, skip, box, plane, normal);
     }
 
-    int retVal = (int)nContactsFound;
+    const int retVal = (int)nContactsFound;
     return retVal;
 }
 

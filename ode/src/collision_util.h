@@ -214,7 +214,7 @@ dReal dMatrix3Det( const dMatrix3& mat )
 static inline 
 void dMatrix3Inv( const dMatrix3& ma, dMatrix3& dst )
 {
-    dReal det = dMatrix3Det( ma );
+    const dReal det = dMatrix3Det( ma );
 
     if ( dFabs( det ) < REAL(0.0005) )
     {
@@ -222,7 +222,7 @@ void dMatrix3Inv( const dMatrix3& ma, dMatrix3& dst )
         return;
     }
 
-    double detRecip = 1.0 / (double)det;
+    const double detRecip = 1.0 / (double)det;
 
     dst[0] =  (dReal)((double)( ma[5]*ma[10] - ma[6]*ma[9]  ) * detRecip);
     dst[1] =  (dReal)((double)( ma[9]*ma[2]  - ma[1]*ma[10] ) * detRecip);
@@ -242,10 +242,10 @@ void dQuatTransform(const dQuaternion& quat,const dVector3& source,dVector3& des
 {
 
     // Nguyen Binh : this code seem to be the fastest.
-    dReal x0 = 	source[0] * quat[0] + source[2] * quat[2] - source[1] * quat[3];
-    dReal x1 = 	source[1] * quat[0] + source[0] * quat[3] - source[2] * quat[1];
-    dReal x2 = 	source[2] * quat[0] + source[1] * quat[1] - source[0] * quat[2];
-    dReal x3 = 	source[0] * quat[1] + source[1] * quat[2] + source[2] * quat[3];
+    const dReal x0 = 	source[0] * quat[0] + source[2] * quat[2] - source[1] * quat[3];
+    const dReal x1 = 	source[1] * quat[0] + source[0] * quat[3] - source[2] * quat[1];
+    const dReal x2 = 	source[2] * quat[0] + source[1] * quat[1] - source[0] * quat[2];
+    const dReal x3 = 	source[0] * quat[1] + source[1] * quat[2] + source[2] * quat[3];
 
     dest[0]  = 	quat[0] * x0 + quat[1] * x3 + quat[2] * x2 - quat[3] * x1;
     dest[1]  = 	quat[0] * x1 + quat[2] * x3 + quat[3] * x0 - quat[1] * x2;
@@ -275,7 +275,7 @@ static inline
 void dQuatInvTransform(const dQuaternion& quat,const dVector3& source,dVector3& dest)
 {
 
-    dReal norm = quat[0]*quat[0] + quat[1]*quat[1] + quat[2]*quat[2] + quat[3]*quat[3];
+    const dReal norm = quat[0]*quat[0] + quat[1]*quat[1] + quat[2]*quat[2] + quat[3]*quat[3];
 
     if (norm > REAL(0.0))
     {
@@ -324,11 +324,11 @@ void dGetEulerAngleFromRot(const dMatrix3& mRot,dReal& rX,dReal& rY,dReal& rZ)
 static inline
 void dQuatInv(const dQuaternion& source, dQuaternion& dest)
 {
-    dReal norm = source[0]*source[0] + source[1]*source[1] + source[2]*source[2] + source[3]*source[3];
+    const dReal norm = source[0]*source[0] + source[1]*source[1] + source[2]*source[2] + source[3]*source[3];
 
     if (norm > REAL(0.0))
     {
-        dReal neg_norm_recip = -REAL(1.0) / norm;
+        const dReal neg_norm_recip = -REAL(1.0) / norm;
         dest[0] = -source[0] * neg_norm_recip;
         dest[1] = source[1] * neg_norm_recip;
         dest[2] = source[2] * neg_norm_recip;
@@ -347,7 +347,7 @@ void dQuatInv(const dQuaternion& source, dQuaternion& dest)
 // Finds barycentric
 static inline 
 void GetPointFromBarycentric(const dVector3 dv[3], dReal u, dReal v, dVector3 Out){
-    dReal w = REAL(1.0) - u - v;
+    const dReal w = REAL(1.0) - u - v;
 
     Out[0] = (dv[0][0] * w) + (dv[1][0] * u) + (dv[2][0] * v);
     Out[1] = (dv[0][1] * w) + (dv[1][1] * u) + (dv[2][1] * v);

@@ -129,7 +129,7 @@ dxJointSlider::getInfo1 ( dxJoint::Info1 *info )
         limot.lostop <= limot.histop )
     {
         // measure joint position
-        dReal pos = dJointGetSliderPosition ( this );
+        const dReal pos = dJointGetSliderPosition ( this );
         if ( pos <= limot.lostop )
         {
             limot.limit = 1;
@@ -215,7 +215,7 @@ dxJointSlider::getInfo2 ( dReal worldFPS, dReal worldERP,
 
     // compute last two elements of right hand side. we want to align the offset
     // point (in body 2's frame) with the center of body 1.
-    dReal k = worldFPS * worldERP;
+    const dReal k = worldFPS * worldERP;
 
     if ( body1 )
     {

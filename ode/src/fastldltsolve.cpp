@@ -43,7 +43,7 @@ void ThreadedEquationSolverLDLT::estimateCooperativeSolvingLDLTResourceRequireme
 {
     unsigned stageBlockCountSifficiencyMask;
     dxThreadingBase *threading = summaryRequirementsDescriptor->getrelatedThreading();
-    unsigned limitedThreadCount = restrictSolvingLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount, stageBlockCountSifficiencyMask);
+    const unsigned limitedThreadCount = restrictSolvingLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount, stageBlockCountSifficiencyMask);
 
     if (limitedThreadCount > 1)
     {
@@ -74,7 +74,7 @@ void ThreadedEquationSolverLDLT::cooperativelySolveLDLT(
     unsigned stageBlockCountSifficiencyMask;
 
     dxThreadingBase *threading = resourceContainer->getThreadingInstance();
-    unsigned limitedThreadCount = restrictSolvingLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount, stageBlockCountSifficiencyMask);
+    const unsigned limitedThreadCount = restrictSolvingLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount, stageBlockCountSifficiencyMask);
 
     if (limitedThreadCount <= 1)
     {
@@ -96,7 +96,7 @@ unsigned ThreadedEquationSolverLDLT::restrictSolvingLDLTAllowedThreadCount(
 #if defined(dCOOPERATIVE_ENABLED)
     {
         const unsigned int blockStep = SL1S_BLOCK_SIZE; // Required by the implementation
-        unsigned solvingStraightBlockCount = deriveSolvingL1StraightBlockCount(rowCount, blockStep);
+        const unsigned solvingStraightBlockCount = deriveSolvingL1StraightBlockCount(rowCount, blockStep);
         dIASSERT(deriveSolvingL1StraightThreadCount(SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM, 2) > 1);
 
         if (solvingStraightBlockCount >= SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM)
@@ -107,7 +107,7 @@ unsigned ThreadedEquationSolverLDLT::restrictSolvingLDLTAllowedThreadCount(
 
     {
         const unsigned int blockStep = SV_BLOCK_SIZE; // Required by the implementation
-        unsigned scalingBlockCount = deriveScalingVectorBlockCount(rowCount, blockStep);
+        const unsigned scalingBlockCount = deriveScalingVectorBlockCount(rowCount, blockStep);
         dIASSERT(deriveScalingVectorThreadCount(SV_COOPERATIVE_BLOCK_COUNT_MINIMUM - 1, 2) > 1);
 
         if (scalingBlockCount >= SV_COOPERATIVE_BLOCK_COUNT_MINIMUM)
@@ -118,7 +118,7 @@ unsigned ThreadedEquationSolverLDLT::restrictSolvingLDLTAllowedThreadCount(
 
     {
         const unsigned int blockStep = SL1T_BLOCK_SIZE; // Required by the implementation
-        unsigned solvingTransposedBlockCount = deriveSolvingL1TransposedBlockCount(rowCount, blockStep);
+        const unsigned solvingTransposedBlockCount = deriveSolvingL1TransposedBlockCount(rowCount, blockStep);
         dIASSERT(deriveSolvingL1TransposedThreadCount(SL1T_COOPERATIVE_BLOCK_COUNT_MINIMUM, 2) > 1);
 
         if (solvingTransposedBlockCount >= SL1T_COOPERATIVE_BLOCK_COUNT_MINIMUM)

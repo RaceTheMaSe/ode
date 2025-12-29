@@ -32,13 +32,13 @@ TEST(test_collision_trimesh_sphere_exact)
            +----+
            0    1
          */
-        float vertices[VertexCount * 3] = {
+        const float vertices[VertexCount * 3] = {
             -1,-1,0,
             1,-1,0,
             1,1,0,
             -1,1,0
         };
-        dTriIndex indices[IndexCount] = {
+        const dTriIndex indices[IndexCount] = {
             0,1,2,
             0,2,3
         };
@@ -114,7 +114,7 @@ TEST(test_collision_heightfield_ray_fail)
     {
         // Create quick heightfield with dummy data
         dHeightfieldDataID heightfieldData = dGeomHeightfieldDataCreate();
-        unsigned char dataBuffer[16+1] = "1234567890123456";
+        const unsigned char dataBuffer[16+1] = "1234567890123456";
         dGeomHeightfieldDataBuildByte(heightfieldData, dataBuffer, 0, 4, 4, 4, 4, 1, 0, 0, 0);
         dGeomHeightfieldDataSetBounds(heightfieldData, '0', '9');
 	    dGeomID height = dCreateHeightfield(NULL, heightfieldData, 1);

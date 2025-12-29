@@ -293,12 +293,12 @@ static inline bool ClosestPointInRay(const dVector3 Origin1,
     dVector3 w = {Origin1[0]-Origin2[0],
         Origin1[1]-Origin2[1],
         Origin1[2]-Origin2[2]};
-    dReal a = dCalcVectorDot3(Direction1 , Direction1);
-    dReal b = dCalcVectorDot3(Direction1 , Direction2);
-    dReal c = dCalcVectorDot3(Direction2 , Direction2);
-    dReal d = dCalcVectorDot3(Direction1 , w);
-    dReal e = dCalcVectorDot3(Direction2 , w);
-    dReal denominator = (a*c)-(b*b);
+    const dReal a = dCalcVectorDot3(Direction1 , Direction1);
+    const dReal b = dCalcVectorDot3(Direction1 , Direction2);
+    const dReal c = dCalcVectorDot3(Direction2 , Direction2);
+    const dReal d = dCalcVectorDot3(Direction1 , w);
+    const dReal e = dCalcVectorDot3(Direction2 , w);
+    const dReal denominator = (a*c)-(b*b);
     if(denominator==REAL(0.0))
     {
         return false;
@@ -336,9 +336,9 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
     dVector3 r  = {p1[0] - p2[0],
         p1[1] - p2[1],
         p1[2] - p2[2]};
-    dReal a = dCalcVectorDot3(d1, d1);
-    dReal e = dCalcVectorDot3(d2, d2);
-    dReal f = dCalcVectorDot3(d2, r);
+    const dReal a = dCalcVectorDot3(d1, d1);
+    const dReal e = dCalcVectorDot3(d2, d2);
+    const dReal f = dCalcVectorDot3(d2, r);
     // Check if either or both segments degenerate into points
     if (a <= dEpsilon && e <= dEpsilon)
     {
@@ -357,7 +357,7 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
     }
     else
     {
-        dReal c = dCalcVectorDot3(d1, r);
+        const dReal c = dCalcVectorDot3(d1, r);
         if (e <= dEpsilon)
         {
             // Second segment degenerates into a point
@@ -367,8 +367,8 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
         else
         {
             // The general non degenerate case starts here
-            dReal b = dCalcVectorDot3(d1, d2);
-            dReal denom = a*e-b*b; // Always nonnegative
+            const dReal b = dCalcVectorDot3(d1, d2);
+            const dReal denom = a*e-b*b; // Always nonnegative
 
             // If segments not parallel, compute closest point on L1 to L2, and
             // clamp to segment S1. Else pick arbitrary s (here 0)
@@ -393,7 +393,7 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
                 s = dxClamp((b - c) / a, REAL(0.0), REAL(1.0));
             }
 #else
-            dReal tnom = b*s + f;
+            const dReal tnom = b*s + f;
             if (tnom < REAL(0.0))
             {
                 t = REAL(0.0);
@@ -446,7 +446,7 @@ static inline bool IntersectPlanes(const dVector4 p1, const dVector4 p2, dVector
     dCalcVectorCross3(d,p1,p2);
     // If d is (near) zero, the planes are parallel (and separated)
     // or coincident, so they're not considered intersecting
-    dReal denom = dCalcVectorDot3(d, d);
+    const dReal denom = dCalcVectorDot3(d, d);
     if (denom < dEpsilon) return false;
     dVector3 n;
     n[0]=p1[3]*p2[0] - p2[3]*p1[0];
@@ -516,7 +516,7 @@ static inline bool IsPointInPolygon(dVector3 p,
     dVector3 ap;
     dVector3 v;
 
-    unsigned pointcount=polygon[0];
+    const unsigned pointcount=polygon[0];
     dIASSERT(pointcount != 0);
     polygon++; // skip past pointcount
 
@@ -548,8 +548,8 @@ static inline bool IsPointInPolygon(dVector3 p,
 
         if (dCalcVectorDot3(ap, v) > REAL(0.0))
         {
-            dReal ab_m2 = dCalcVectorDot3(ab, ab);
-            dReal s = ab_m2 != REAL(0.0) ? dCalcVectorDot3(ab, ap) / ab_m2 : REAL(0.0);
+            const dReal ab_m2 = dCalcVectorDot3(ab, ab);
+            const dReal s = ab_m2 != REAL(0.0) ? dCalcVectorDot3(ab, ap) / ab_m2 : REAL(0.0);
 
             if (s <= REAL(0.0))
             {
@@ -588,7 +588,7 @@ int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
     dxConvex *Convex = (dxConvex*) o1;
     dxPlane *Plane = (dxPlane*) o2;
     unsigned int contacts=0;
-    unsigned int maxc = (unsigned int)(flags & NUMC_MASK);
+    const unsigned int maxc = (unsigned int)(flags & NUMC_MASK);
     dVector3 v2;
 
 #define LTEQ_ZERO	0x10000000
@@ -603,7 +603,7 @@ int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
         dVector3Add(Convex->final_posr->pos, v2, v2);
 
         unsigned int distance2sign = GTEQ_ZERO;
-        dReal distance2 = dVector3Dot(Plane->p, v2) - Plane->p[3]; // Ax + By + Cz - D
+        const dReal distance2 = dVector3Dot(Plane->p, v2) - Plane->p[3]; // Ax + By + Cz - D
         if((distance2 <= REAL(0.0)))
         {
             distance2sign = (unsigned int)(distance2 != REAL(0.0) ? LTEQ_ZERO : BOTH_SIGNS);
@@ -838,7 +838,7 @@ static inline void ComputeInterval(dxConvex& cvx,dVector4 axis,dReal& min,dReal&
 bool CheckEdgeIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,int& curc,
                            dContactGeom *contact, int skip)
 {
-    int maxc = flags & NUMC_MASK;
+    const int maxc = flags & NUMC_MASK;
     dIASSERT(maxc != 0);
     dVector3 e1,e2,q;
     dVector4 plane,depthplane;
@@ -889,7 +889,7 @@ bool CheckEdgeIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,int& curc,
                             ((plane[0] * cvx2.final_posr->pos[0]) +
                             (plane[1] * cvx2.final_posr->pos[1]) +
                             (plane[2] * cvx2.final_posr->pos[2]));
-                        dReal depth = (dVector3Dot(depthplane, target->pos) - depthplane[3]); // Ax + By + Cz - D
+                        const dReal depth = (dVector3Dot(depthplane, target->pos) - depthplane[3]); // Ax + By + Cz - D
                         if((fabs(depth)<fabs(target->depth))&&((depth<-dEpsilon)||(depth>dEpsilon)))
                         {
                             target->depth=depth;
@@ -980,10 +980,10 @@ static inline bool CheckSATConvexEdges(dxConvex& cvx1,
     dVector3 e1,e2,e1a,e1b,e2a,e2b;
     dVector3 dist;
     dVector3Copy(ccso.dist,dist);
-    unsigned int s1 = cvx1.SupportIndex(dist);
+    const unsigned int s1 = cvx1.SupportIndex(dist);
     // invert direction
     dVector3Inv(dist);
-    unsigned int s2 = cvx2.SupportIndex(dist);
+    const unsigned int s2 = cvx2.SupportIndex(dist);
     for(unsigned int i = 0;i<cvx1.edgecount;++i)
     {
         // Skip edge if it doesn't contain the extremal vertex
@@ -1107,7 +1107,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
     ccso.depth_type=0; // no type
     // precompute distance vector
     dSubtractVectors3(ccso.dist, cvx2.final_posr->pos, cvx1.final_posr->pos);
-    int maxc = flags & NUMC_MASK;
+    const int maxc = flags & NUMC_MASK;
     dIASSERT(maxc != 0);
     dVector3 i1,i2,r1,r2; // edges of incident and reference faces respectively
     int contacts=0;
@@ -1375,7 +1375,7 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
 
         dContactGeom *target = SAFECONTACT(flags, contact, contacts, skip);
         dSubtractVectors3(target->normal, c2, c1);
-        dReal depth_square = dCalcVectorLengthSquare3(target->normal);
+        const dReal depth_square = dCalcVectorLengthSquare3(target->normal);
 
         if (dxSafeNormalize3(target->normal))
         {

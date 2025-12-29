@@ -47,11 +47,11 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
     TrimeshCollidersCache *pccColliderCache = GetTrimeshCollidersCache(uiTLSKind);
     Opcode::RayCollider& Collider = pccColliderCache->m_RayCollider;
 
-    dReal Length = dGeomRayGetLength(RayGeom);
+    const dReal Length = dGeomRayGetLength(RayGeom);
 
-    int FirstContact = dGeomRayGetFirstContact(RayGeom);
-    int BackfaceCull = dGeomRayGetBackfaceCull(RayGeom);
-    int ClosestHit = dGeomRayGetClosestHit(RayGeom);
+    const int FirstContact = dGeomRayGetFirstContact(RayGeom);
+    const int BackfaceCull = dGeomRayGetBackfaceCull(RayGeom);
+    const int ClosestHit = dGeomRayGetClosestHit(RayGeom);
 
     Collider.SetFirstContact(FirstContact != 0);
     Collider.SetClosestHit(ClosestHit != 0);
@@ -126,7 +126,7 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
                     // If there would be a custom typedef for distance type it could be used 
                     // instead of dReal. However using float directly is the loss of abstraction 
                     // and possible loss of precision in future.
-                    /*float*/ dReal T = (dReal)Faces[i].mDistance;
+                    const /*float*/ dReal T = (dReal)Faces[i].mDistance;
                     Contact->pos[0] = Origin[0] + (Direction[0] * T);
                     Contact->pos[1] = Origin[1] + (Direction[1] * T);
                     Contact->pos[2] = Origin[2] + (Direction[2] * T);

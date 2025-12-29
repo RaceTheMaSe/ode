@@ -453,10 +453,10 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
             box.level = level;
             if (level > maxlevel) maxlevel = level;
             // cellsize = 2^level
-            dReal cellSizeRecip = dRecip((dReal)ldexp(REAL(1.0), level)); // No computational errors here!
+            const dReal cellSizeRecip = dRecip((dReal)ldexp(REAL(1.0), level)); // No computational errors here!
             // discretize AABB position to cell size
             for (i=0; i < 6; i++) {
-                dReal aabbBound = geom->aabb[i] * cellSizeRecip; // No computational errors so far!
+                const dReal aabbBound = geom->aabb[i] * cellSizeRecip; // No computational errors so far!
                 dICHECK(aabbBound >= dMinIntExact && aabbBound </*=*/ dMaxIntExact); // Otherwise the scene is too large for integer types used 
 
                 box.dbounds[i] = (int) dFloor(aabbBound);
@@ -473,12 +473,12 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
         }
     }
 
-    sizeint n = hash_boxes.size(); // number of AABBs in main list
+    const sizeint n = hash_boxes.size(); // number of AABBs in main list
 
     // for `n' objects, an n*n array of bits is used to record if those objects
     // have been intersection-tested against each other yet. this array can
     // grow large with high n, but oh well...
-    int tested_rowsize = (int)((n+7) >> 3);	// number of bytes needed for n bits
+    const int tested_rowsize = (int)((n+7) >> 3);	// number of bytes needed for n bits
     std::vector<uint8> tested(n * (sizeint)tested_rowsize);
 
     // create a hash table to store all AABBs. each AABB may take up to 8 cells.
@@ -507,7 +507,7 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
         for (int xi = dbounds[0]; xi <= xend; xi++) {
             const int yend = dbounds[3];
             for (int yi = dbounds[2]; yi <= yend; yi++) {
-                int zbegin = dbounds[4];
+                const int zbegin = dbounds[4];
                 unsigned long hi = (getVirtualAddressBase((unsigned int)aabbIt->level,(unsigned int)xi,(unsigned int)yi) + (unsigned long)zbegin) % sz;
                 const int zend = dbounds[5];
                 for (int zi = zbegin; zi <= zend; (hi = hi + 1U != sz ? hi + 1U : 0UL), zi++) {
@@ -540,7 +540,7 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
             for (int xi = db[0]; xi <= xend; xi++) {
                 const int yend = db[3];
                 for (int yi = db[2]; yi <= yend; yi++) {
-                    int zbegin = db[4];
+                    const int zbegin = db[4];
                     // get the hash index
                     unsigned long hi = (getVirtualAddressBase((unsigned int)level, (unsigned int)xi, (unsigned int)yi) + (unsigned long)zbegin) % sz;
                     const int zend = db[5];
@@ -813,8 +813,8 @@ void dSpaceCollide2 (dxGeom *g1, dxGeom *g2, void *data,
     if (IS_SPACE(g2)) s2 = (dxSpace*) g2; else s2 = NULL;
 
     if (s1 && s2) {
-        int l1 = s1->getSublevel();
-        int l2 = s2->getSublevel();
+        const int l1 = s1->getSublevel();
+        const int l2 = s2->getSublevel();
         if (l1 != l2) {
             if (l1 > l2) {
                 s2 = NULL;

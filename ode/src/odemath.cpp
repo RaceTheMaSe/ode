@@ -99,9 +99,9 @@ bool dxSafeNormalize3 (dVector3 a)
     bool ret = false;
 
     do {
-        dReal abs_a0 = dFabs(a[dV3E_X]);
-        dReal abs_a1 = dFabs(a[dV3E_Y]);
-        dReal abs_a2 = dFabs(a[dV3E_Z]);
+        const dReal abs_a0 = dFabs(a[dV3E_X]);
+        const dReal abs_a1 = dFabs(a[dV3E_Y]);
+        const dReal abs_a2 = dFabs(a[dV3E_Z]);
 
         dVec3Element idx;
 
@@ -128,28 +128,28 @@ bool dxSafeNormalize3 (dVector3 a)
         }
 
         if (idx == dV3E_X) {
-            dReal aa0_recip = dRecip(abs_a0);
-            dReal a1 = a[dV3E_Y] * aa0_recip;
-            dReal a2 = a[dV3E_Z] * aa0_recip;
-            dReal l = dRecipSqrt(REAL(1.0) + a1 * a1 + a2 * a2);
+            const dReal aa0_recip = dRecip(abs_a0);
+            const dReal a1 = a[dV3E_Y] * aa0_recip;
+            const dReal a2 = a[dV3E_Z] * aa0_recip;
+            const dReal l = dRecipSqrt(REAL(1.0) + a1 * a1 + a2 * a2);
             a[dV3E_Y] = a1 * l;
             a[dV3E_Z] = a2 * l;
             a[dV3E_X] = dCopySign(l, a[dV3E_X]);
         }
         else if (idx == dV3E_Y) {
-            dReal aa1_recip = dRecip(abs_a1);
-            dReal a0 = a[dV3E_X] * aa1_recip;
-            dReal a2 = a[dV3E_Z] * aa1_recip;
-            dReal l = dRecipSqrt(REAL(1.0) + a0 * a0 + a2 * a2);
+            const dReal aa1_recip = dRecip(abs_a1);
+            const dReal a0 = a[dV3E_X] * aa1_recip;
+            const dReal a2 = a[dV3E_Z] * aa1_recip;
+            const dReal l = dRecipSqrt(REAL(1.0) + a0 * a0 + a2 * a2);
             a[dV3E_X] = a0 * l;
             a[dV3E_Z] = a2 * l;
             a[dV3E_Y] = dCopySign(l, a[dV3E_Y]);
         }
         else {
-            dReal aa2_recip = dRecip(abs_a2);
-            dReal a0 = a[dV3E_X] * aa2_recip;
-            dReal a1 = a[dV3E_Y] * aa2_recip;
-            dReal l = dRecipSqrt(REAL(1.0) + a0 * a0 + a1 * a1);
+            const dReal aa2_recip = dRecip(abs_a2);
+            const dReal a0 = a[dV3E_X] * aa2_recip;
+            const dReal a1 = a[dV3E_Y] * aa2_recip;
+            const dReal l = dRecipSqrt(REAL(1.0) + a0 * a0 + a1 * a1);
             a[dV3E_X] = a0 * l;
             a[dV3E_Y] = a1 * l;
             a[dV3E_Z] = dCopySign(l, a[dV3E_Z]);
@@ -226,8 +226,8 @@ void dxPlaneSpace (const dVector3 n, dVector3 p, dVector3 q)
     dAASSERT (n && p && q);
     if ((double)dFabs(n[2]) > M_SQRT1_2) {
         // choose p in y-z plane
-        dReal a = n[1]*n[1] + n[2]*n[2];
-        dReal k = dRecipSqrt (a);
+        const dReal a = n[1]*n[1] + n[2]*n[2];
+        const dReal k = dRecipSqrt (a);
         p[0] = 0;
         p[1] = -n[2]*k;
         p[2] = n[1]*k;
@@ -238,8 +238,8 @@ void dxPlaneSpace (const dVector3 n, dVector3 p, dVector3 q)
     }
     else {
         // choose p in x-y plane
-        dReal a = n[0]*n[0] + n[1]*n[1];
-        dReal k = dRecipSqrt (a);
+        const dReal a = n[0]*n[0] + n[1]*n[1];
+        const dReal k = dRecipSqrt (a);
         p[0] = -n[1]*k;
         p[1] = n[0]*k;
         p[2] = 0;
@@ -266,12 +266,12 @@ bool dxOrthogonalizeR(dMatrix3 m)
             break;
         }
 
-        dReal n0 = dCalcVectorLengthSquare3(m + dM3E__X_MIN);
+        const dReal n0 = dCalcVectorLengthSquare3(m + dM3E__X_MIN);
 
         dVector3 row2_store;
         dReal *row2 = m + dM3E__Y_MIN;
         // project row[0] on row[1], should be zero
-        dReal proj = dCalcVectorDot3(m + dM3E__X_MIN, m + dM3E__Y_MIN);
+        const dReal proj = dCalcVectorDot3(m + dM3E__X_MIN, m + dM3E__Y_MIN);
         if (proj != 0) {
             // Gram-Schmidt step on row[1]
             dReal proj_div_n0 = proj / n0;
@@ -286,13 +286,13 @@ bool dxOrthogonalizeR(dMatrix3 m)
         }
 
         if (n0 != REAL(1.0)) {
-            bool row0_norm_fault = !dxSafeNormalize3(m + dM3E__X_MIN);
+            const bool row0_norm_fault = !dxSafeNormalize3(m + dM3E__X_MIN);
             dIVERIFY(!row0_norm_fault);
         }
 
-        dReal n1 = dCalcVectorLengthSquare3(row2);
+        const dReal n1 = dCalcVectorLengthSquare3(row2);
         if (n1 != REAL(1.0)) {
-            bool row1_norm_fault = !dxSafeNormalize3(row2);
+            const bool row1_norm_fault = !dxSafeNormalize3(row2);
             dICHECK(!row1_norm_fault);
         }
 

@@ -59,11 +59,11 @@ int dCollideCylinderPlane(dxGeom *Cylinder, dxGeom *Plane, int flags, dContactGe
     // Get the properties of the cylinder (length+radius)
     dReal radius, length;
     dGeomCylinderGetParams(Cylinder, &radius, &length);
-    dVector3 &cylpos = Cylinder->final_posr->pos;
+    const dVector3 &cylpos = Cylinder->final_posr->pos;
     // and the plane
     dVector4 planevec;
     dGeomPlaneGetParams(Plane, planevec);
-    dVector3 PlaneNormal = {planevec[0],planevec[1],planevec[2]};
+    const dVector3 PlaneNormal = {planevec[0],planevec[1],planevec[2]};
     //dVector3 PlanePos = {planevec[0] * planevec[3],planevec[1] * planevec[3],planevec[2] * planevec[3]};
 
     dVector3 G1Pos1, G1Pos2, vDir1;
@@ -216,7 +216,7 @@ int dCollideCylinderPlane(dxGeom *Cylinder, dxGeom *Plane, int flags, dContactGe
     }
     else
     {
-        dReal t = dVector3Dot(PlaneNormal, vDir1);
+        const dReal t = dVector3Dot(PlaneNormal, vDir1);
         C[0] = vDir1[0] * t - PlaneNormal[0];
         C[1] = vDir1[1] * t - PlaneNormal[1];
         C[2] = vDir1[2] * t - PlaneNormal[2];

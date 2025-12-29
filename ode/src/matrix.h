@@ -128,9 +128,9 @@ ODE_PURE_INLINE sizeint dxEstimateSolveCholeskyTmpbufSize(unsigned n)
 
 ODE_PURE_INLINE sizeint dxEstimateInvertPDMatrixTmpbufSize(unsigned n)
 {
-    sizeint FactorCholesky_size = dxEstimateFactorCholeskyTmpbufSize(n);
-    sizeint SolveCholesky_size = dxEstimateSolveCholeskyTmpbufSize(n);
-    sizeint MaxCholesky_size = FactorCholesky_size > SolveCholesky_size ? FactorCholesky_size : SolveCholesky_size;
+    const sizeint FactorCholesky_size = dxEstimateFactorCholeskyTmpbufSize(n);
+    const sizeint SolveCholesky_size = dxEstimateSolveCholeskyTmpbufSize(n);
+    const sizeint MaxCholesky_size = FactorCholesky_size > SolveCholesky_size ? FactorCholesky_size : SolveCholesky_size;
     return (sizeint)dPAD(n) * (n + 1) * sizeof(dReal) + MaxCholesky_size;
 }
 

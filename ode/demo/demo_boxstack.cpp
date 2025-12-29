@@ -147,7 +147,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
         contact[i].surface.bounce_vel = REAL(0.1);
         contact[i].surface.soft_cfm = REAL(0.01);
     }
-    if (int numc = dCollide(o1,o2,MAX_CONTACTS,&contact[0].geom,
+    if (const int numc = dCollide(o1,o2,MAX_CONTACTS,&contact[0].geom,
                             sizeof(dContact))) {
         dMatrix3 RI;
         dRSetIdentity (RI);
@@ -322,15 +322,15 @@ static void command(int cmd)
     
             for (k=0; k<GPB; k++) {
                 if (k==0) {
-                    dReal radius = dRandReal()*REAL(0.25)+REAL(0.05);
+                    const dReal radius = dRandReal()*REAL(0.25)+REAL(0.05);
                     obj[i].geom[k] = dCreateSphere (space,radius);
                     dMassSetSphere (&m2,DENSITY,radius);
                 } else if (k==1) {
                     obj[i].geom[k] = dCreateBox(space,sides[0],sides[1],sides[2]);
                     dMassSetBox(&m2,DENSITY,sides[0],sides[1],sides[2]);
                 } else {
-                    dReal radius = dRandReal()*REAL(0.1)+REAL(0.05);
-                    dReal length = dRandReal()*REAL(1.0)+REAL(0.10);
+                    const dReal radius = dRandReal()*REAL(0.1)+REAL(0.05);
+                    const dReal length = dRandReal()*REAL(1.0)+REAL(0.10);
                     obj[i].geom[k] = dCreateCapsule(space,radius,length);
                     dMassSetCapsule(&m2,DENSITY,3,radius,length);
                 }
@@ -430,7 +430,7 @@ static void drawGeom(dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
     if (!R)
         R = dGeomGetRotation(g);
 
-    int type = dGeomGetClass(g);
+    const int type = dGeomGetClass(g);
     if (type == dBoxClass) {
 
         dVector3 sides;
@@ -527,7 +527,7 @@ static void simLoop(int pause)
             dVector3 sum = {0, 0, 0};
             printf("\n");
             for (int i=0; i<fbnum; i++) {
-                dReal* f = feedbacks[i].first?feedbacks[i].fb.f1:feedbacks[i].fb.f2;
+                const dReal* f = feedbacks[i].first?feedbacks[i].fb.f1:feedbacks[i].fb.f2;
                 printf("%f %f %f\n", (double)f[0], (double)f[1], (double)f[2]);
                 sum[0] += f[0];
                 sum[1] += f[1];

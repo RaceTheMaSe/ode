@@ -201,7 +201,7 @@ dReal dJointGetPUPositionRate( dJointID j )
         }
         else
         {
-            dReal rate = dCalcVectorDot3( axP1, lvel1 );
+            const dReal rate = dCalcVectorDot3( axP1, lvel1 );
             return ( (joint->flags & dJOINT_REVERSE) ? -rate : rate);
         }
     }
@@ -233,16 +233,16 @@ dxJointPU::getInfo1( dxJoint::Info1 *info )
         limotP.lostop <= limotP.histop )
     {
         // measure joint position
-        dReal pos = dJointGetPUPosition( this );
+        const dReal pos = dJointGetPUPosition( this );
         limotP.testRotationalLimit( pos );  // N.B. The function is ill named
     }
 
     if ( limotP.limit || limotP.fmax > 0 ) info->m++;
 
 
-    bool limiting1 = ( (double)limot1.lostop >= -M_PI || (double)limot1.histop <= M_PI ) &&
+    const bool limiting1 = ( (double)limot1.lostop >= -M_PI || (double)limot1.histop <= M_PI ) &&
         limot1.lostop <= limot1.histop;
-    bool limiting2 = ( (double)limot2.lostop >= -M_PI || (double)limot2.histop <= M_PI ) &&
+    const bool limiting2 = ( (double)limot2.lostop >= -M_PI || (double)limot2.histop <= M_PI ) &&
         limot2.lostop <= limot2.histop;
 
     // We need to call testRotationLimit() even if we're motored, since it
@@ -292,7 +292,7 @@ dxJointPU::getInfo2( dReal worldFPS, dReal worldERP,
         dCopyNegatedVector3( J2 + GI2__JA_MIN , uniPerp );
     }
     // Corrective velocity attempting to keep uni axes perpendicular
-    dReal val = dCalcVectorDot3( ax1, ax2 );
+    const dReal val = dCalcVectorDot3( ax1, ax2 );
     // Small angle approximation : 
     // theta = asin(val)
     // theta is approximately val when val is near zero.

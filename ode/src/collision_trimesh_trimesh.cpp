@@ -307,7 +307,7 @@ void ClearContactSet(CONTACT_KEY_HASH_TABLE &hashcontactset)
 static 
 dContactGeom *InsertContactInSet(CONTACT_KEY_HASH_TABLE &hashcontactset, const CONTACT_KEY &newkey)
 {
-    unsigned int index = MakeContactIndex(newkey.m_key);
+    const unsigned int index = MakeContactIndex(newkey.m_key);
 
     return AddContactToNode(&newkey, &hashcontactset[index]);
 }
@@ -315,7 +315,7 @@ dContactGeom *InsertContactInSet(CONTACT_KEY_HASH_TABLE &hashcontactset, const C
 static 
 void RemoveNewContactFromSet(CONTACT_KEY_HASH_TABLE &hashcontactset, const CONTACT_KEY &contactkey)
 {
-    unsigned int index = MakeContactIndex(contactkey.m_key);
+    const unsigned int index = MakeContactIndex(contactkey.m_key);
 
     RemoveNewContactFromNode(&contactkey, &hashcontactset[index]);
 }
@@ -323,7 +323,7 @@ void RemoveNewContactFromSet(CONTACT_KEY_HASH_TABLE &hashcontactset, const CONTA
 static 
 void RemoveArbitraryContactFromSet(CONTACT_KEY_HASH_TABLE &hashcontactset, const CONTACT_KEY &contactkey)
 {
-    unsigned int index = MakeContactIndex(contactkey.m_key);
+    const unsigned int index = MakeContactIndex(contactkey.m_key);
 
     RemoveArbitraryContactFromNode(&contactkey, &hashcontactset[index]);
 }
@@ -332,7 +332,7 @@ static
 void UpdateArbitraryContactInSet(CONTACT_KEY_HASH_TABLE &hashcontactset, const CONTACT_KEY &contactkey, 
                                  dContactGeom *pwithcontact)
 {
-    unsigned int index = MakeContactIndex(contactkey.m_key);
+    const unsigned int index = MakeContactIndex(contactkey.m_key);
 
     UpdateArbitraryContactInNode(&contactkey, &hashcontactset[index], pwithcontact);
 }
@@ -388,7 +388,7 @@ void FreeExistingContact(dContactGeom *pcontact,
 
     RemoveArbitraryContactFromSet(hashcontactset, contactKey);
 
-    int lastContactIndex = contactcount - 1;
+    const int lastContactIndex = contactcount - 1;
     dContactGeom *plastContact = SAFECONTACT(Flags, Contacts, lastContactIndex, Stride);
 
     if (pcontact != plastContact)
@@ -441,7 +441,7 @@ dContactGeom *  PushNewContact( dxGeom* g1, dxGeom* g2, int TriIndex1, int TriIn
             if(pcontact->g1 == g2)
             {
                 MULT(normal,normal, REAL(-1.0));
-                int tempInt = TriIndex1; TriIndex1 = TriIndex2; TriIndex2 = tempInt;
+                const int tempInt = TriIndex1; TriIndex1 = TriIndex2; TriIndex2 = tempInt;
                 // This should be discarded by optimizer as g1 and g2 are 
                 // not used anymore but it's preferable to keep this line for 
                 // the sake of consistency in variable values.
@@ -531,14 +531,14 @@ int dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int S
     dSubtractVectors3(TLOffsetPosition2, TLPosition2, TLPosition1);
     MakeMatrix(TLOffsetPosition1, TLRotation1, amatrix);
     MakeMatrix(TLOffsetPosition2, TLRotation2, bmatrix);
-    bool IsOk = Collider.Collide(ColCache, &amatrix, &bmatrix);
+    const bool IsOk = Collider.Collide(ColCache, &amatrix, &bmatrix);
 
 
     if (IsOk) {
         // Get collision status => if true, objects overlap
         if ( Collider.GetContactStatus() ) {
             // Number of colliding pairs and list of pairs
-            int TriCount = (int)Collider.GetNbPairs();
+            const int TriCount = (int)Collider.GetNbPairs();
             const IceCore::Pair* CollidingPairs = Collider.GetPairs();
 
             if (TriCount > 0) {

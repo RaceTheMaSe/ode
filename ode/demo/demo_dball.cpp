@@ -94,7 +94,7 @@ static void stop()
 
 static void drawGeom(dGeomID g)
 {
-    int gclass = dGeomGetClass(g);
+    const int gclass = dGeomGetClass(g);
     const dReal *pos = dGeomGetPosition(g);
     const dReal *rot = dGeomGetRotation(g);
 
@@ -130,12 +130,12 @@ static void simLoop(int pause)
 
         for (unsigned i=0; i<nsteps; ++i) {
 
-            dReal f = dSin(t*REAL(1.2))*REAL(0.8);
+            const dReal f = dSin(t*REAL(1.2))*REAL(0.8);
             dBodyAddForceAtRelPos(body1,
                                   f, 0, 0, 
                                   0, 0, -0.5); // at the lower end
 
-            dReal g = dSin(t*REAL(0.7))*REAL(0.8);
+            const dReal g = dSin(t*REAL(0.7))*REAL(0.8);
             dBodyAddForceAtRelPos(body2,
                                   0, g, 0, 
                                   0, 0, -0.5); // at the lower end
@@ -146,7 +146,7 @@ static void simLoop(int pause)
     }
     
     // now we draw everything
-    unsigned ngeoms = (unsigned)dSpaceGetNumGeoms(space);
+    const unsigned ngeoms = (unsigned)dSpaceGetNumGeoms(space);
     for (unsigned i=0; i<ngeoms; ++i) {
         dGeomID g = dSpaceGetGeom(space, (int)i);
 

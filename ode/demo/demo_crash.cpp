@@ -484,7 +484,7 @@ static void command (int cmd)
 		dReal cpos[3] = {CANNON_X,CANNON_Y,1};
 		for (int i=0; i<3; i++) cpos[i] += 3*R4[i*4+2];
 		dBodySetPosition (cannon_ball_body,cpos[0],cpos[1],cpos[2]);
-		dReal force = 10;
+		const dReal force = 10;
 		dBodySetLinearVel (cannon_ball_body,force*R4[2],force*R4[6],force*R4[10]);
 		dBodySetAngularVel (cannon_ball_body,0,0,0);
 		break;
@@ -509,7 +509,7 @@ static void simLoop (int pause)
 #endif
 		for (j = 0; j < joints; j++)
 		{
-			dReal curturn = dJointGetHinge2Angle1 (joint[j]);
+			const dReal curturn = dJointGetHinge2Angle1 (joint[j]);
 			//dMessage (0,"curturn %e, turn %e, vel %e", curturn, turn, (turn-curturn));
 			dJointSetHinge2Param(joint[j],dParamVel,(turn-curturn));
 			dJointSetHinge2Param(joint[j],dParamFMax,dInfinity);
@@ -538,11 +538,11 @@ static void simLoop (int pause)
 			{
 				bool disable = true;
 				const dReal *lvel = dBodyGetLinearVel(b);
-				dReal lspeed = lvel[0]*lvel[0]+lvel[1]*lvel[1]+lvel[2]*lvel[2];
+				const dReal lspeed = lvel[0]*lvel[0]+lvel[1]*lvel[1]+lvel[2]*lvel[2];
 				if (lspeed > DISABLE_THRESHOLD)
 					disable = false;
 				const dReal *avel = dBodyGetAngularVel(b);
-				dReal aspeed = avel[0]*avel[0]+avel[1]*avel[1]+avel[2]*avel[2];
+				const dReal aspeed = avel[0]*avel[0]+avel[1]*avel[1]+avel[2]*avel[2];
 				if (aspeed > DISABLE_THRESHOLD)
 					disable = false;
 				

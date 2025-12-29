@@ -89,7 +89,7 @@ static void nearCallback( void * /*data*/, dGeomID o1, dGeomID o2 )
 		contact[i].surface.bounce_vel = REAL(0.1);
 		contact[i].surface.soft_cfm = REAL(0.01);
 	}
-	if ( int numc = dCollide( o1,o2,MAX_CONTACTS,&contact[0].geom,
+	if ( const int numc = dCollide( o1,o2,MAX_CONTACTS,&contact[0].geom,
 	                          sizeof( dContact ) ) )
 	{
 		dMatrix3 RI;
@@ -281,7 +281,7 @@ static void drawGeom( dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
 	if ( !pos ) pos = dGeomGetPosition( g );
 	if ( !R ) R = dGeomGetRotation( g );
 
-	int type = dGeomGetClass( g );
+	const int type = dGeomGetClass( g );
 	if ( type == dBoxClass )
 	{
 		dVector3 sides;

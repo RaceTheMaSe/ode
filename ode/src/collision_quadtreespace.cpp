@@ -387,15 +387,15 @@ namespace {
 dxQuadTreeSpace::dxQuadTreeSpace(dSpaceID _space, const dVector3 Center, const dVector3 Extents, int Depth) : dxSpace(_space){
     type = dQuadTreeSpaceClass;
 
-    sizeint BlockCount = numNodes(Depth);
+    const sizeint BlockCount = numNodes(Depth);
 
     Blocks = (Block*)dAlloc(BlockCount * sizeof(Block));
     Block* TempBlocks = Blocks + 1;	// This pointer gets modified!
 
-    dReal MinX = Center[AXIS0] - Extents[AXIS0];
-    dReal MaxX = dNextAfter((Center[AXIS0] + Extents[AXIS0]), (dReal)dInfinity);
-    dReal MinZ = Center[AXIS1] - Extents[AXIS1];
-    dReal MaxZ = dNextAfter((Center[AXIS1] + Extents[AXIS1]), (dReal)dInfinity);
+    const dReal MinX = Center[AXIS0] - Extents[AXIS0];
+    const dReal MaxX = dNextAfter((Center[AXIS0] + Extents[AXIS0]), (dReal)dInfinity);
+    const dReal MinZ = Center[AXIS1] - Extents[AXIS1];
+    const dReal MaxZ = dNextAfter((Center[AXIS1] + Extents[AXIS1]), (dReal)dInfinity);
     Blocks[0].Create(MinX, MaxX, MinZ, MaxZ, NULL, Depth, TempBlocks);
 
     CurrentBlock = NULL;
@@ -421,7 +421,7 @@ dxQuadTreeSpace::~dxQuadTreeSpace(){
         Current = Current->mChildren;
     }
 
-    sizeint BlockCount = numNodes(Depth);
+    const sizeint BlockCount = numNodes(Depth);
 
     dFree(Blocks, BlockCount * sizeof(Block));
     dFree(CurrentChild, ((size_t)Depth + 1) * sizeof(int));

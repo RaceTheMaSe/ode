@@ -81,14 +81,14 @@ public:
 public:
     unsigned calculateThreadingLimitedThreadCount(unsigned limitValue, bool countCallerAsExtraThread, unsigned *ptrOut_activeThreadCount=NULL) const
     {
-        unsigned activeThreadCount = RetrieveThreadingThreadCount();
+        const unsigned activeThreadCount = RetrieveThreadingThreadCount();
 
         if (ptrOut_activeThreadCount != NULL)
         {
             *ptrOut_activeThreadCount = activeThreadCount;
         }
 
-        unsigned adjustedActiveThreads = countCallerAsExtraThread && activeThreadCount != UINT_MAX ? activeThreadCount + 1 : activeThreadCount;
+        const unsigned adjustedActiveThreads = countCallerAsExtraThread && activeThreadCount != UINT_MAX ? activeThreadCount + 1 : activeThreadCount;
         return limitValue == dTHREADING_THREAD_COUNT_UNLIMITED 
             ? adjustedActiveThreads 
             : dMIN(limitValue, adjustedActiveThreads);

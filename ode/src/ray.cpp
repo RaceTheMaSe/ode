@@ -232,8 +232,8 @@ static int ray_sphere_helper (dxRay *ray, dVector3 sphere_pos, dReal radius,
     q[0] = ray->final_posr->pos[0] - sphere_pos[0];
     q[1] = ray->final_posr->pos[1] - sphere_pos[1];
     q[2] = ray->final_posr->pos[2] - sphere_pos[2];
-    dReal B = dCalcVectorDot3_14(q,ray->final_posr->R+2);
-    dReal C = dCalcVectorDot3(q,q) - radius*radius;
+    const dReal B = dCalcVectorDot3_14(q,ray->final_posr->R+2);
+    const dReal C = dCalcVectorDot3(q,q) - radius*radius;
     // note: if C <= 0 then the start of the ray is inside the sphere
     dReal k = B*B - C;
     if (k < 0) return 0;
@@ -254,7 +254,7 @@ static int ray_sphere_helper (dxRay *ray, dVector3 sphere_pos, dReal radius,
     contact->pos[0] = ray->final_posr->pos[0] + alpha*ray->final_posr->R[0*4+2];
     contact->pos[1] = ray->final_posr->pos[1] + alpha*ray->final_posr->R[1*4+2];
     contact->pos[2] = ray->final_posr->pos[2] + alpha*ray->final_posr->R[2*4+2];
-    dReal nsign = (C < 0 || mode) ? REAL(-1.0) : REAL(1.0);
+    const dReal nsign = (C < 0 || mode) ? REAL(-1.0) : REAL(1.0);
     contact->normal[0] = nsign*(contact->pos[0] - sphere_pos[0]);
     contact->normal[1] = nsign*(contact->pos[1] - sphere_pos[1]);
     contact->normal[2] = nsign*(contact->pos[2] - sphere_pos[2]);
@@ -406,7 +406,7 @@ int dCollideRayCapsule (dxGeom *o1, dxGeom *o2,
     contact->side1 = -1;
     contact->side2 = -1;
 
-    dReal lz2 = ccyl->lz * REAL(0.5);
+    const dReal lz2 = ccyl->lz * REAL(0.5);
 
     // compute some useful info
     dVector3 cs,q,r;
@@ -444,7 +444,7 @@ int dCollideRayCapsule (dxGeom *o1, dxGeom *o2,
         if (k < 0) k = -lz2; else k = lz2;
     }
     else {
-        dReal uv = dCalcVectorDot3_44(ccyl->final_posr->R+2,ray->final_posr->R+2);
+        const dReal uv = dCalcVectorDot3_44(ccyl->final_posr->R+2,ray->final_posr->R+2);
         r[0] = uv*ccyl->final_posr->R[0*4+2] - ray->final_posr->R[0*4+2];
         r[1] = uv*ccyl->final_posr->R[1*4+2] - ray->final_posr->R[1*4+2];
         r[2] = uv*ccyl->final_posr->R[2*4+2] - ray->final_posr->R[2*4+2];
@@ -455,7 +455,7 @@ int dCollideRayCapsule (dxGeom *o1, dxGeom *o2,
             if (uv < 0) k = -lz2; else k = lz2;
         }
         else {
-            dReal B = 2*dCalcVectorDot3(q,r);
+            const dReal B = 2*dCalcVectorDot3(q,r);
             k = B*B-4*A*C;
             if (k < 0) {
                 // the ray does not intersect the infinite cylinder, but if the ray is
@@ -483,7 +483,7 @@ int dCollideRayCapsule (dxGeom *o1, dxGeom *o2,
                 q[1] = contact->pos[1] - ccyl->final_posr->pos[1];
                 q[2] = contact->pos[2] - ccyl->final_posr->pos[2];
                 k = dCalcVectorDot3_14(q,ccyl->final_posr->R+2);
-                dReal nsign = inside_ccyl ? REAL(-1.0) : REAL(1.0);
+                const dReal nsign = inside_ccyl ? REAL(-1.0) : REAL(1.0);
                 if (k >= -lz2 && k <= lz2) {
                     contact->normal[0] = nsign * (contact->pos[0] -
                         (ccyl->final_posr->pos[0] + k*ccyl->final_posr->R[0*4+2]));
@@ -528,8 +528,8 @@ int dCollideRayPlane (dxGeom *o1, dxGeom *o2, int flags,
 
     dReal alpha = plane->p[3] - dCalcVectorDot3 (plane->p,ray->final_posr->pos);
     // note: if alpha > 0 the starting point is below the plane
-    dReal nsign = (alpha > 0) ? REAL(-1.0) : REAL(1.0);
-    dReal k = dCalcVectorDot3_14(plane->p,ray->final_posr->R+2);
+    const dReal nsign = (alpha > 0) ? REAL(-1.0) : REAL(1.0);
+    const dReal k = dCalcVectorDot3_14(plane->p,ray->final_posr->R+2);
     if (k==0) return 0;		// ray parallel to plane
     alpha /= k;
     if (alpha < 0 || alpha > ray->length) return 0;
@@ -616,22 +616,22 @@ int dCollideRayCylinder( dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contac
     dMultiply1_331(dir,cyl->final_posr->R,tmp); 
 
     // Is the ray origin inside of the (extended) cylinder?
-    dReal r2 = cyl->radius*cyl->radius;
-    dReal C = pos[0]*pos[0] + pos[1]*pos[1] - r2;
+    const dReal r2 = cyl->radius*cyl->radius;
+    const dReal C = pos[0]*pos[0] + pos[1]*pos[1] - r2;
 
     // Find the different cases
     // Is ray parallel to the cylinder length?
-    int parallel = (dir[0]==0 && dir[1]==0);
+    const int parallel = (dir[0]==0 && dir[1]==0);
     // Is ray perpendicular to the cylinder length?
-    int perpendicular = (dir[2]==0);
+    const int perpendicular = (dir[2]==0);
     // Is ray origin within the radius of the caps?
-    int inRadius = (C<=0);
+    const int inRadius = (C<=0);
     // Is ray origin between the top and bottom caps?
-    int inCaps   = (dFabs(pos[2])<=half_length);
+    const int inCaps   = (dFabs(pos[2])<=half_length);
 
-    int checkCaps = (!perpendicular && (!inCaps || inRadius));
+    const int checkCaps = (!perpendicular && (!inCaps || inRadius));
     int checkCyl  = (!parallel && (!inRadius || inCaps));
-    int flipNormals = (inCaps&&inRadius);
+    const int flipNormals = (inCaps&&inRadius);
 
     dReal tt=-dInfinity; // Depth to intersection
     dVector3 tmpNorm = {(dReal)dNaN, (dReal)dNaN, (dReal)dNaN}; // ensure we don't leak garbage
@@ -677,7 +677,7 @@ int dCollideRayCylinder( dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contac
     if (checkCyl) {
         // Compute quadratic formula for parametric ray equation
         dReal A =    dir[0]*dir[0] + dir[1]*dir[1];
-        dReal B = 2*(pos[0]*dir[0] + pos[1]*dir[1]);
+        const dReal B = 2*(pos[0]*dir[0] + pos[1]*dir[1]);
         // Already computed C
 
         dReal k = B*B - 4*A*C;

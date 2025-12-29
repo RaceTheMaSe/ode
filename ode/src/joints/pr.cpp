@@ -129,7 +129,7 @@ dReal dJointGetPRPositionRate( dJointID j )
     }
     else
     {
-        dReal rate = dCalcVectorDot3( ax1, joint->node[0].body->lvel );
+        const dReal rate = dCalcVectorDot3( ax1, joint->node[0].body->lvel );
         return ( (joint->flags & dJOINT_REVERSE) ? -rate : rate);
     }
 }
@@ -143,7 +143,7 @@ dReal dJointGetPRAngle( dJointID j )
     checktype( joint, PR );
     if ( joint->node[0].body )
     {
-        dReal ang = getHingeAngle( joint->node[0].body,
+        const dReal ang = getHingeAngle( joint->node[0].body,
             joint->node[1].body,
             joint->axisR1,
             joint->qrel );
@@ -198,7 +198,7 @@ dxJointPR::getInfo1( dxJoint::Info1 *info )
         limotP.lostop <= limotP.histop )
     {
         // measure joint position
-        dReal pos = dJointGetPRPosition( this );
+        const dReal pos = dJointGetPRPosition( this );
         limotP.testRotationalLimit( pos );  // N.B. The function is ill named
     }
 
@@ -211,7 +211,7 @@ dxJointPR::getInfo1( dxJoint::Info1 *info )
     if (( (double)limotR.lostop >= -M_PI || (double)limotR.histop <= M_PI ) &&
         limotR.lostop <= limotR.histop )
     {
-        dReal angle = getHingeAngle( node[0].body,
+        const dReal angle = getHingeAngle( node[0].body,
             node[1].body,
             axisR1, qrel );
         limotR.testRotationalLimit( angle );
@@ -230,7 +230,7 @@ dxJointPR::getInfo2( dReal worldFPS, dReal worldERP,
     int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
     int * /* findex */ )
 {
-    dReal k = worldFPS * worldERP;
+    const dReal k = worldFPS * worldERP;
 
 
     dVector3 q;  // plane space of axP and after that axR

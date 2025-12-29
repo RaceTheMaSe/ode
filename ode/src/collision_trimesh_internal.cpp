@@ -219,8 +219,8 @@ public:
         dIASSERT(dTMPL_IN_RANGE(triangleIndex, 0, getAllocatedTriangleCount()));
         dIASSERT(dTMPL_IN_RANGE(vertexIndex, dMTV__MIN, dMTV__MAX));
 
-        storage_type storedValue = m_record.m_triangleFaceAngles[triangleIndex][vertexIndex];
-        FaceAngleDomain resultDomain = TStorageCodec::classifyStorageValue(storedValue);
+        const storage_type storedValue = m_record.m_triangleFaceAngles[triangleIndex][vertexIndex];
+        const FaceAngleDomain resultDomain = TStorageCodec::classifyStorageValue(storedValue);
 
         out_angleValue = TStorageCodec::isAngleDomainStored(resultDomain) ? TStorageCodec::decodeStorageValue(storedValue) : REAL(0.0);
         return resultDomain;
@@ -279,7 +279,7 @@ bool FaceAnglesWrapper<TStorageCodec>::calculateInstanceSizeRequired(sizeint &ou
 
     do
     {
-        sizeint triangleMaximumCount = calculateTriangleCountForStorageSize(SIZE_MAX);
+        const sizeint triangleMaximumCount = calculateTriangleCountForStorageSize(SIZE_MAX);
         dIASSERT(triangleCount <= triangleMaximumCount);
 
         if (triangleCount > triangleMaximumCount) // Check for overflow
@@ -298,11 +298,11 @@ bool FaceAnglesWrapper<TStorageCodec>::calculateInstanceSizeRequired(sizeint &ou
 template<class TStorageCodec>
 void FaceAnglesWrapper<TStorageCodec>::freeInstance()
 {
-    unsigned triangleCount = getAllocatedTriangleCount();
+    const unsigned triangleCount = getAllocatedTriangleCount();
 
     this->FaceAnglesWrapper<TStorageCodec>::~FaceAnglesWrapper();
 
-    sizeint memoryBlockSize = calculateStorageSizeForTriangleCount(triangleCount);
+    const sizeint memoryBlockSize = calculateStorageSizeForTriangleCount(triangleCount);
     dFree(this, memoryBlockSize);
 }
 
@@ -390,7 +390,7 @@ bool dxTriDataBase::allocateFaceAngles(FaceAngleStorageMethod storageMethod)
     
     IFaceAngleStorageView *storageView;
 
-    unsigned triangleCount = m_triangleCount;
+    const unsigned triangleCount = m_triangleCount;
 
     FAngleStorageAllocProc *allocProc = g_AngleStorageAllocProcs.Encode(storageMethod);
     IFaceAngleStorageControl *storageInstance = allocProc(triangleCount, storageView);
@@ -487,7 +487,7 @@ dMeshTriangleVertex dxTriDataBase::EdgeRecord::getOppositeVertexIndex() const
 {
      extern const CEnumUnsortedElementArray<unsigned, dxTriDataBase::CUF__USE_VERTICES_LAST / dxTriDataBase::CUF__USE_VERTICES_MIN, dMeshTriangleVertex, 0x161116DC> g_VertFlagOppositeIndices;
 
-    dMeshTriangleVertex oppositeIndex = g_VertFlagOppositeIndices.Encode((unsigned)(((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1));
+    const dMeshTriangleVertex oppositeIndex = g_VertFlagOppositeIndices.Encode((unsigned)(((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1));
     dIASSERT(dIN_RANGE(oppositeIndex, dMTV__MIN, dMTV__MAX));
 
     return oppositeIndex;
@@ -497,7 +497,7 @@ dMeshTriangleVertex dxTriDataBase::EdgeRecord::getEdgeStartVertexIndex() const
 {
     extern const CEnumUnsortedElementArray<unsigned, dxTriDataBase::CUF__USE_VERTICES_LAST / dxTriDataBase::CUF__USE_VERTICES_MIN, dMeshTriangleVertex, 0x161225E9> g_VertFlagEdgeStartIndices;
 
-    dMeshTriangleVertex startIndex = g_VertFlagEdgeStartIndices.Encode((unsigned)((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1);
+    const dMeshTriangleVertex startIndex = g_VertFlagEdgeStartIndices.Encode((unsigned)((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1);
     dIASSERT(dIN_RANGE(startIndex, dMTV__MIN, dMTV__MAX));
 
     return startIndex;
@@ -556,7 +556,7 @@ void dGeomTriMeshDataBuildSimple(dTriMeshDataID g,
 /*extern ODE_API */
 int dGeomTriMeshDataPreprocess(dTriMeshDataID g)
 {
-    unsigned buildRequestFlags = (1U << dTRIDATAPREPROCESS_BUILD_CONCAVE_EDGES);
+    const unsigned buildRequestFlags = (1U << dTRIDATAPREPROCESS_BUILD_CONCAVE_EDGES);
     return dGeomTriMeshDataPreprocess2(g, buildRequestFlags, NULL);
 }
 
@@ -580,8 +580,8 @@ int dGeomTriMeshDataPreprocess2(dTriMeshDataID g, unsigned int buildRequestFlags
 
     dxTriMeshData *data = g;
 
-    bool buildUseFlags = (buildRequestFlags & (1U << dTRIDATAPREPROCESS_BUILD_CONCAVE_EDGES)) != 0;
-    FaceAngleStorageMethod faceAnglesRequirement = (buildRequestFlags & (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES)) != 0
+    const bool buildUseFlags = (buildRequestFlags & (1U << dTRIDATAPREPROCESS_BUILD_CONCAVE_EDGES)) != 0;
+    const FaceAngleStorageMethod faceAnglesRequirement = (buildRequestFlags & (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES)) != 0
         ? g_TriMeshDataPreprocess_FaceAnglesExtraDataAngleStorageMethods.Encode(requestExtraData != NULL && dIN_RANGE(requestExtraData[dTRIDATAPREPROCESS_BUILD_FACE_ANGLES], dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MIN, dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MAX) ? (unsigned)requestExtraData[dTRIDATAPREPROCESS_BUILD_FACE_ANGLES] : (unsigned)dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__DEFAULT)
         : ASM__INVALID;
     return data->preprocessData(buildUseFlags, faceAnglesRequirement);
@@ -708,7 +708,7 @@ void dGeomTriMeshEnableTC(dGeomID g, int geomClass, int enable)
 
     dxTriMesh *mesh = static_cast<dxTriMesh *>(g);
 
-    dxTriMesh::TRIMESHTC tc = g_asiMeshTCGeomClasses.Decode(geomClass);
+    const dxTriMesh::TRIMESHTC tc = g_asiMeshTCGeomClasses.Decode(geomClass);
 
     if (g_asiMeshTCGeomClasses.IsValidDecode(tc))
     {
@@ -723,9 +723,9 @@ int dGeomTriMeshIsTCEnabled(dGeomID g, int geomClass)
 
     const dxTriMesh *mesh = static_cast<dxTriMesh *>(g);
 
-    dxTriMesh::TRIMESHTC tc = g_asiMeshTCGeomClasses.Decode(geomClass);
+    const dxTriMesh::TRIMESHTC tc = g_asiMeshTCGeomClasses.Decode(geomClass);
 
-    bool result = g_asiMeshTCGeomClasses.IsValidDecode(tc) 
+    const bool result = g_asiMeshTCGeomClasses.IsValidDecode(tc) 
         && mesh->retrieveDoTC(tc);
     return result;
 }
@@ -757,7 +757,7 @@ int dGeomTriMeshGetTriangleCount(dGeomID g)
     dUASSERT(g && g->type == dTriMeshClass, "The argument is not a trimesh");
 
     const dxTriMesh *mesh = static_cast<dxTriMesh *>(g);
-    unsigned result = mesh->getMeshTriangleCount();
+    const unsigned result = mesh->getMeshTriangleCount();
     return (int)result;
 }
 

@@ -125,18 +125,18 @@ private:
     {
         dIASSERT(allowedThreadCount >= 1);
 
-        unsigned maximumCount = blockCount / 2;
+        const unsigned maximumCount = blockCount / 2;
         return maximumCount >= allowedThreadCount ? allowedThreadCount : dMAX(maximumCount, 1U);
     }
 
     static sizeint estimateCooperativelySolvingL1Stripe_XMemoryRequirement(unsigned blockCount, 
         FactorizationSolvingL1StripeMemoryEstimates &ref_memoryEstimates)
     {
-        sizeint descriptorSizeRequired = dOVERALIGNED_SIZE(sizeof(cellindexint) * blockCount, COOP_THREAD_DATA_ALIGNMENT_SIZE);
-        sizeint contextSizeRequired = dOVERALIGNED_SIZE(sizeof(FactorizationSolveL1StripeCellContext) * (CCI__MAX + 1) * blockCount, COOP_THREAD_DATA_ALIGNMENT_SIZE);
+        const sizeint descriptorSizeRequired = dOVERALIGNED_SIZE(sizeof(cellindexint) * blockCount, COOP_THREAD_DATA_ALIGNMENT_SIZE);
+        const sizeint contextSizeRequired = dOVERALIGNED_SIZE(sizeof(FactorizationSolveL1StripeCellContext) * (CCI__MAX + 1) * blockCount, COOP_THREAD_DATA_ALIGNMENT_SIZE);
         ref_memoryEstimates.assignData(descriptorSizeRequired, contextSizeRequired);
 
-        sizeint totalSizeRequired = descriptorSizeRequired + contextSizeRequired;
+        const sizeint totalSizeRequired = descriptorSizeRequired + contextSizeRequired;
         return totalSizeRequired;
     }
 
@@ -166,7 +166,7 @@ private:
 
     static unsigned deriveScalingAndFactorizingL1StripeBlockCountFromSolvingBlockIndex(unsigned solvingBlockIndex, unsigned solvingBlockStep, unsigned blockARows)
     {
-        unsigned factorizingBlockSize = deriveScalingAndFactorizingL1StripeBlockSize(blockARows);
+        const unsigned factorizingBlockSize = deriveScalingAndFactorizingL1StripeBlockSize(blockARows);
         return deriveScalingAndFactorizingL1StripeBlockCountFromFactorizationRow(solvingBlockIndex * solvingBlockStep, factorizingBlockSize);
     }
 
@@ -177,7 +177,7 @@ private:
 
     static unsigned deriveScalingAndFactorizingL1StripeBlockSize(unsigned blockARows)
     {
-        unsigned result = blockARows != 1 ? FFL1S_REGULAR_BLOCK_SIZE : FFL1S_FINAL_BLOCK_SIZE;
+        const unsigned result = blockARows != 1 ? FFL1S_REGULAR_BLOCK_SIZE : FFL1S_FINAL_BLOCK_SIZE;
         dIASSERT(blockARows >= 1 && blockARows <= 2);
 
         return result;
@@ -209,10 +209,10 @@ private:
     {
         dIASSERT(factorizingMaximumThreads != 0);
 
-        sizeint contextSizeRequired = dOVERALIGNED_SIZE(sizeof(FactorizationFactorizeL1StripeContext) + sizeof(FactorizationFactorizeL1StripeThreadContext) * (factorizingMaximumThreads - 1), COOP_THREAD_DATA_ALIGNMENT_SIZE);
+        const sizeint contextSizeRequired = dOVERALIGNED_SIZE(sizeof(FactorizationFactorizeL1StripeContext) + sizeof(FactorizationFactorizeL1StripeThreadContext) * (factorizingMaximumThreads - 1), COOP_THREAD_DATA_ALIGNMENT_SIZE);
         ref_memoryEstimates.assignData(contextSizeRequired);
 
-        sizeint totalSizeRequired = contextSizeRequired;
+        const sizeint totalSizeRequired = contextSizeRequired;
         return totalSizeRequired;
     }
 
@@ -484,7 +484,7 @@ private:
     {
         dIASSERT(allowedThreadCount >= 1);
 
-        unsigned maximumCount = 1 + blockCount / SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM;
+        const unsigned maximumCount = 1 + blockCount / SL1S_COOPERATIVE_BLOCK_COUNT_MINIMUM;
         return maximumCount >= allowedThreadCount ? allowedThreadCount : dMAX(maximumCount, 1U);
     }
 
@@ -742,7 +742,7 @@ private:
     {
         dIASSERT(allowedThreadCount >= 1);
 
-        unsigned maximumCount = lastBlockIndex;
+        const unsigned maximumCount = lastBlockIndex;
         return maximumCount >= allowedThreadCount ? allowedThreadCount : dMAX(maximumCount, 1U);
     }
 

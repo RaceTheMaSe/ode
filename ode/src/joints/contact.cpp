@@ -138,16 +138,16 @@ dxJointContact::getInfo2(dReal worldFPS, dReal worldERP,
     const int surface_mode = contact.surface.mode;
 
     // set right hand side and cfm value for normal
-    dReal erp = (surface_mode & dContactSoftERP) != 0 ? contact.surface.soft_erp : worldERP;
-    dReal k = worldFPS * erp;
+    const dReal erp = (surface_mode & dContactSoftERP) != 0 ? contact.surface.soft_erp : worldERP;
+    const dReal k = worldFPS * erp;
 
     dReal depth = contact.geom.depth - world->contactp.min_depth;
     if (depth < 0) depth = 0;
 
-    dReal motionN = (surface_mode & dContactMotionN) != 0 ? contact.surface.motionN : REAL(0.0);
+    const dReal motionN = (surface_mode & dContactMotionN) != 0 ? contact.surface.motionN : REAL(0.0);
     const dReal pushout = k * depth + motionN;
 
-    bool apply_bounce = (surface_mode & dContactBounce) != 0 && contact.surface.bounce_vel >= 0;
+    const bool apply_bounce = (surface_mode & dContactBounce) != 0 && contact.surface.bounce_vel >= 0;
     dReal outgoing = 0;
 
     // note: this cap should not limit bounce velocity
@@ -191,7 +191,7 @@ dxJointContact::getInfo2(dReal worldFPS, dReal worldERP,
 
     // deal with bounce
     if (apply_bounce) {
-        dReal negated_outgoing = motionN - outgoing;
+        const dReal negated_outgoing = motionN - outgoing;
         // only apply bounce if the outgoing velocity is greater than the
         // threshold, and if the resulting c[rowNormal] exceeds what we already have.
         dIASSERT(contact.surface.bounce_vel >= 0);

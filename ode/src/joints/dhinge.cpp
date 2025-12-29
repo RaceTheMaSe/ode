@@ -113,7 +113,7 @@ dxJointDHinge::getInfo2( dReal worldFPS, dReal worldERP,
      * along this axis, and the linear constraint is enough.
      */
 
-    int rowskip_mul_3 = 3 * rowskip;
+    const int rowskip_mul_3 = 3 * rowskip;
     dCopyVector3(J1 + rowskip_mul_3 + GI2__JL_MIN, globalAxis1);
 
     if ( body1 ) {

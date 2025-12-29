@@ -91,7 +91,7 @@ dxJointPlane2D::getInfo2( dReal worldFPS, dReal worldERP,
     int pairskip, dReal *pairRhsCfm, dReal *pairLoHi, 
     int * /* findex */ )
 {
-    dReal eps = worldFPS * worldERP;
+    const dReal eps = worldFPS * worldERP;
 
     /*
         v = v1, w = omega1
@@ -130,19 +130,19 @@ dxJointPlane2D::getInfo2( dReal worldFPS, dReal worldERP,
 
     if ( row_motor_x > 0 )
     {
-        int currRowSkip = row_motor_x * rowskip, currPairSkip = row_motor_x * pairskip;
+        const int currRowSkip = row_motor_x * rowskip, currPairSkip = row_motor_x * pairskip;
         motor_x.addLimot( this, worldFPS, J1 + currRowSkip, J2 + currRowSkip, pairRhsCfm + currPairSkip, pairLoHi + currPairSkip, Midentity[0], 0 );
     }
 
     if ( row_motor_y > 0 )
     {
-        int currRowSkip = row_motor_y * rowskip, currPairSkip = row_motor_y * pairskip;
+        const int currRowSkip = row_motor_y * rowskip, currPairSkip = row_motor_y * pairskip;
         motor_y.addLimot( this, worldFPS, J1 + currRowSkip, J2 + currRowSkip, pairRhsCfm + currPairSkip, pairLoHi + currPairSkip, Midentity[1], 0 );
     }
 
     if ( row_motor_angle > 0 )
     {
-        int currRowSkip = row_motor_angle * rowskip, currPairSkip = row_motor_angle * pairskip;
+        const int currRowSkip = row_motor_angle * rowskip, currPairSkip = row_motor_angle * pairskip;
         motor_angle.addLimot( this, worldFPS, J1 + currRowSkip, J2 + currRowSkip, pairRhsCfm + currPairSkip, pairLoHi + currPairSkip, Midentity[2], 1 );
     }
 }
