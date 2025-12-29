@@ -198,6 +198,7 @@ void gim_trimesh_locks_work_data(GIM_TRIMESH * trimesh)
     GINT32 res;
     res=gim_buffer_array_lock(&trimesh->m_tri_index_buffer,G_MA_READ_ONLY);
     assert(res==G_BUFFER_OP_SUCCESS);
+    (void)res;
     res=gim_buffer_array_lock(&trimesh->m_transformed_vertex_buffer,G_MA_READ_ONLY);
     assert(res==G_BUFFER_OP_SUCCESS);
     (void)res;

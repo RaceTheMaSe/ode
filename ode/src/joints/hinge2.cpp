@@ -245,7 +245,7 @@ dxJointHinge2::makeV1andV2()
 void
 dxJointHinge2::makeW1andW2()
 {
-    if ( node[1].body )
+    if ( node[0].body && node[1].body )
     {
         // get axis 1 and 2 in global coords
         dVector3 ax1, ax2, w;
@@ -538,6 +538,7 @@ dxJointHinge2::setRelativeValues()
         setAxes( this, axis[0],axis[1],axis[2], NULL, axis2 );
     }
 
+    dIASSERT(node[0].body != NULL && node[1].body != NULL);
     dVector3 ax1, ax2;
     getAxisInfo( ax1, ax2, axis, s0, c0 );
 

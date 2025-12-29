@@ -297,7 +297,7 @@ SUITE (TestdxJointUniversal)
         dRFromAxisAndAngle (R, ax1[0], ax1[1], ax1[2], ang1);
         dBodySetRotation (bId1, R);
 
-        ang2 = d2r(REAL(0.0));
+        // ang2 = d2r(REAL(0.0));
 
         dJointGetUniversalAngles(jId, &angle1, &angle2);
         CHECK_CLOSE (angle1, dJointGetUniversalAngle1 (jId), 1e-4);
@@ -305,7 +305,7 @@ SUITE (TestdxJointUniversal)
 
 
 
-        ang1 = d2r(REAL(0.0));
+        // ang1 = d2r(REAL(0.0));
 
         ang2 = d2r(REAL(23.0));
         dRFromAxisAndAngle (R, ax2[0], ax2[1], ax2[2], ang2);
@@ -316,7 +316,7 @@ SUITE (TestdxJointUniversal)
         CHECK_CLOSE (angle2, dJointGetUniversalAngle2 (jId), 1e-4);
 
 
-        ang1 = d2r(REAL(38.0));
+        // ang1 = d2r(REAL(38.0));
         dRFromAxisAndAngle (R, ax1[0], ax1[1], ax1[2], ang2);
         dBodySetRotation (bId1, R);
 
@@ -354,7 +354,7 @@ SUITE (TestdxJointUniversal)
         dRFromAxisAndAngle (R, ax1[0], ax1[1], ax1[2], ang1);
         dBodySetRotation (bId1, R);
 
-        ang2 = d2r(REAL(0.0));
+        // ang2 = d2r(REAL(0.0));
 
         dJointGetUniversalAngles(jId, &angle1, &angle2);
         CHECK_CLOSE (angle1, dJointGetUniversalAngle1 (jId), 1e-4);
@@ -362,7 +362,7 @@ SUITE (TestdxJointUniversal)
 
 
 
-        ang1 = d2r(REAL(0.0));
+        // ang1 = d2r(REAL(0.0));
 
         ang2 = d2r(REAL(23.0));
         dRFromAxisAndAngle (R, ax2[0], ax2[1], ax2[2], ang2);
@@ -373,7 +373,7 @@ SUITE (TestdxJointUniversal)
         CHECK_CLOSE (angle2, dJointGetUniversalAngle2 (jId), 1e-4);
 
 
-        ang1 = d2r(REAL(38.0));
+        // ang1 = d2r(REAL(38.0));
         dRFromAxisAndAngle (R, ax1[0], ax1[1], ax1[2], ang2);
         dBodySetRotation (bId1, R);
 

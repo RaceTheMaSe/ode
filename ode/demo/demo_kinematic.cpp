@@ -74,13 +74,15 @@ static std::set<Box*> to_remove;
 static void dropBox()
 {
     Box *box = new Box();
-    
-    dReal px = (rand() / float(RAND_MAX)) * 2 - 1;
-    dReal py = (rand() / float(RAND_MAX)) * 2 - 1;
-    dReal pz = 2.5;
-    box->body.setPosition(px, py, pz);
-    
-    boxes.insert(box);
+    if(box)
+    {
+        dReal px = (rand() / float(RAND_MAX)) * 2 - 1;
+        dReal py = (rand() / float(RAND_MAX)) * 2 - 1;
+        dReal pz = 2.5;
+        box->body.setPosition(px, py, pz);
+        
+        boxes.insert(box);
+    }
 }
 
 static void queueRemoval(dGeomID g)

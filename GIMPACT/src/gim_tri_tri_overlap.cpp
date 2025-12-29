@@ -188,6 +188,7 @@ int gim_triangle_triangle_overlap(
     cc=(float)FABS(D[2]);
     if(bb>max) {max=bb; index=1;}
     if(cc>max) {max=cc; index=2;}
+    (void)max;
 
      /* this is the simplified projection onto L*/
      vp0= tri1->m_vertices[0][index];

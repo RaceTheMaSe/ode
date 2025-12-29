@@ -136,7 +136,7 @@ static void createMainWindow (int _width, int _height)
   glx_context = NULL;
   last_key_pressed = 0;
 
-  if (width < 1 || height < 1) dsDebug (NULL,"bad window width or height");
+  if (width < 1 || height < 1) dsDebug ("bad window width or height");
 
   // create the window
   XSetWindowAttributes attributes;

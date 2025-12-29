@@ -547,8 +547,10 @@ void AABBCollider::_Collide(const AABBTreeNode* node)
 	}
 	else
 	{
-		_Collide(node->GetPos());
-		_Collide(node->GetNeg());
+		if(node->GetPos())
+			_Collide(node->GetPos());
+		if(node->GetNeg())
+			_Collide(node->GetNeg());
 	}
 }
 

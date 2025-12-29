@@ -66,6 +66,7 @@ int gim_triangle_sphere_collision(
     {
         max_dis = dis;
         most_edge = 2;
+        (void)max_dis;
     }
 
     if(most_edge == 4) //Box is into triangle

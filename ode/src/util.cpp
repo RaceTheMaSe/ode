@@ -158,6 +158,7 @@ dxWorldProcessMemArena *dxWorldProcessContext::ObtainStepperMemArena()
 
         // Extraction must be locked so that other thread does not "steal" head arena,
         // use it and then reinsert back with a different "next"
+        dIASSERT(m_pswObjectsAllocWorld != NULL);
         dxMutexGroupLockHelper lhLockHelper(m_pswObjectsAllocWorld, m_pmgStepperMutexGroup, dxPCM_STEPPER_ARENA_OBTAIN);
 
         dxWorldProcessMemArena *pmaArenasHead = GetStepperArenasHead(); // Arenas head must be re-extracted after mutex has been locked

@@ -170,7 +170,7 @@ bool sTrimeshBoxColliderData::_cldTestNormal(dReal fp0, dReal fR, dVector3 vNorm
 
 
 // Test box axis as separating axis
-bool sTrimeshBoxColliderData::_cldTestFace(dReal fp0, dReal fp1, dReal fp2, dReal fR, dReal fD,
+bool sTrimeshBoxColliderData::_cldTestFace(dReal fp0, dReal fp1, dReal fp2, dReal fR, dReal /*fD*/,
                                            dVector3 vNormal, int iAxis)
 {
     dReal fMin, fMax;
@@ -225,7 +225,7 @@ bool sTrimeshBoxColliderData::_cldTestFace(dReal fp0, dReal fp1, dReal fp2, dRea
         vNormal[0] = -vNormal[0];
         vNormal[1] = -vNormal[1];
         vNormal[2] = -vNormal[2];
-        fD = -fD;
+        // fD = -fD;
         // if greater depth is on positive side
     } else {
         // use smaller depth (one from negative side)
@@ -247,7 +247,7 @@ bool sTrimeshBoxColliderData::_cldTestFace(dReal fp0, dReal fp1, dReal fp2, dRea
 }
 
 // Test cross products of box axis and triangle edges as separating axis
-bool sTrimeshBoxColliderData::_cldTestEdge(dReal fp0, dReal fp1, dReal fR, dReal fD,
+bool sTrimeshBoxColliderData::_cldTestEdge(dReal fp0, dReal fp1, dReal fR, dReal /*fD*/,
                                            dVector3 vNormal, int iAxis)
 {
     dReal fMin, fMax;
@@ -296,7 +296,7 @@ bool sTrimeshBoxColliderData::_cldTestEdge(dReal fp0, dReal fp1, dReal fR, dReal
         vNormal[0] = -vNormal[0];
         vNormal[1] = -vNormal[1];
         vNormal[2] = -vNormal[2];
-        fD = -fD;
+        // fD = -fD;
         // if greater depth is on positive side
     } else {
         // use smaller depth (one from negative side)
@@ -312,7 +312,7 @@ bool sTrimeshBoxColliderData::_cldTestEdge(dReal fp0, dReal fp1, dReal fR, dReal
         // normalize depth
         dReal fOneOverLength = 1.0f/fLength;
         fDepth = fDepth*fOneOverLength;
-        fD*=fOneOverLength;
+        // fD*=fOneOverLength;
 
         // if lower depth than best found so far (favor face over edges)
         if (fDepth*1.5f < m_fBestDepth) {
@@ -427,8 +427,8 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     // Axis 1 - Triangle Normal
     SET(vL,m_vN);
     fp0  = dCalcVectorDot3(vL,vD);
-    fp1  = fp0;
-    fp2  = fp0;
+    // fp1  = fp0;
+    // fp2  = fp0;
     fR=fa0*dFabs( dCalcVectorDot3(m_vN,vA0) ) + fa1 * dFabs( dCalcVectorDot3(m_vN,vA1) ) + fa2 * dFabs( dCalcVectorDot3(m_vN,vA2) );
 
     if (!_cldTestNormal(fp0, fR, vL, 1)) {
@@ -508,7 +508,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     fD  = dCalcVectorDot3(vL,m_vN)/fNLen;
     fp0 = dCalcVectorDot3(vL,vD);
     fp1 = fp0 - dCalcVectorDot3(vA0,m_vN);
-    fp2 = fp0;
+    // fp2 = fp0;
     fR  = fa1 * dFabs(dCalcVectorDot3(vA2,m_vE1)) + fa2 * dFabs(dCalcVectorDot3(vA1,m_vE1));
 
     if (!_cldTestEdge(fp0, fp1, fR, fD, vL, 6)) {
@@ -523,7 +523,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     fD  = dCalcVectorDot3(vL,m_vN)/fNLen;
     fp0 = dCalcVectorDot3(vL,vD);
     fp1 = fp0 - dCalcVectorDot3(vA0,m_vN);
-    fp2 = fp0 - dCalcVectorDot3(vA0,m_vN);
+    // fp2 = fp0 - dCalcVectorDot3(vA0,m_vN);
     fR  = fa1 * dFabs(dCalcVectorDot3(vA2,m_vE2)) + fa2 * dFabs(dCalcVectorDot3(vA1,m_vE2));
 
     if (!_cldTestEdge(fp0, fp1, fR, fD, vL, 7)) {
@@ -538,7 +538,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     dCalcVectorCross3(vL,vA1,m_vE0);
     fD  = dCalcVectorDot3(vL,m_vN)/fNLen;
     fp0 = dCalcVectorDot3(vL,vD);
-    fp1 = fp0;
+    // fp1 = fp0;
     fp2 = fp0 + dCalcVectorDot3(vA1,m_vN);
     fR  = fa0 * dFabs(dCalcVectorDot3(vA2,m_vE0)) + fa2 * dFabs(dCalcVectorDot3(vA0,m_vE0));
 
@@ -555,7 +555,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     fD  = dCalcVectorDot3(vL,m_vN)/fNLen;
     fp0 = dCalcVectorDot3(vL,vD);
     fp1 = fp0 - dCalcVectorDot3(vA1,m_vN);
-    fp2 = fp0;
+    // fp2 = fp0;
     fR  = fa0 * dFabs(dCalcVectorDot3(vA2,m_vE1)) + fa2 * dFabs(dCalcVectorDot3(vA0,m_vE1));
 
     if (!_cldTestEdge(fp0, fp1, fR, fD, vL, 9)) {
@@ -571,7 +571,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     fD  = dCalcVectorDot3(vL,m_vN)/fNLen;
     fp0 = dCalcVectorDot3(vL,vD);
     fp1 = fp0 - dCalcVectorDot3(vA1,m_vN);
-    fp2 = fp0 - dCalcVectorDot3(vA1,m_vN);
+    // fp2 = fp0 - dCalcVectorDot3(vA1,m_vN);
     fR  = fa0 * dFabs(dCalcVectorDot3(vA2,m_vE2)) + fa2 * dFabs(dCalcVectorDot3(vA0,m_vE2));
 
     if (!_cldTestEdge(fp0, fp1, fR, fD, vL, 10)) {
@@ -586,7 +586,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     dCalcVectorCross3(vL,vA2,m_vE0);
     fD  = dCalcVectorDot3(vL,m_vN)/fNLen;
     fp0 = dCalcVectorDot3(vL,vD);
-    fp1 = fp0;
+    // fp1 = fp0;
     fp2 = fp0 + dCalcVectorDot3(vA2,m_vN);
     fR  = fa0 * dFabs(dCalcVectorDot3(vA1,m_vE0)) + fa1 * dFabs(dCalcVectorDot3(vA0,m_vE0));
 
@@ -602,7 +602,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     fD  = dCalcVectorDot3(vL,m_vN)/fNLen;
     fp0 = dCalcVectorDot3(vL,vD);
     fp1 = fp0 - dCalcVectorDot3(vA2,m_vN);
-    fp2 = fp0;
+    // fp2 = fp0;
     fR  = fa0 * dFabs(dCalcVectorDot3(vA1,m_vE1)) + fa1 * dFabs(dCalcVectorDot3(vA0,m_vE1));
 
     if (!_cldTestEdge(fp0, fp1, fR, fD, vL, 12)) {
@@ -617,7 +617,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     fD  = dCalcVectorDot3(vL,m_vN)/fNLen;
     fp0 = dCalcVectorDot3(vL,vD);
     fp1 = fp0 - dCalcVectorDot3(vA2,m_vN);
-    fp2 = fp0 - dCalcVectorDot3(vA2,m_vN);
+    // fp2 = fp0 - dCalcVectorDot3(vA2,m_vN);
     fR  = fa0 * dFabs(dCalcVectorDot3(vA1,m_vE2)) + fa1 * dFabs(dCalcVectorDot3(vA0,m_vE2));
 
     if (!_cldTestEdge(fp0, fp1, fR, fD, vL, 13)) {
@@ -1096,18 +1096,20 @@ void sTrimeshBoxColliderData::GenerateContact(int TriIndex, const dVector3 in_Co
             TgtContact->side2 = -1;
         }
 
-        TgtContact->pos[0] = in_ContactPos[0];
-        TgtContact->pos[1] = in_ContactPos[1];
-        TgtContact->pos[2] = in_ContactPos[2];
+        if(TgtContact)
+        {
+            TgtContact->pos[0] = in_ContactPos[0];
+            TgtContact->pos[1] = in_ContactPos[1];
+            TgtContact->pos[2] = in_ContactPos[2];
 
-        TgtContact->normal[0] = in_Normal[0];
-        TgtContact->normal[1] = in_Normal[1];
-        TgtContact->normal[2] = in_Normal[2];
+            TgtContact->normal[0] = in_Normal[0];
+            TgtContact->normal[1] = in_Normal[1];
+            TgtContact->normal[2] = in_Normal[2];
 
-        TgtContact->depth = in_Depth;
+            TgtContact->depth = in_Depth;
 
-        TgtContact->side1 = TriIndex;
-
+            TgtContact->side1 = TriIndex;
+        }
         m_ctContacts = TriCount;
     }
     while (false);
@@ -1280,6 +1282,7 @@ int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, 
     // Retrieve data
     int TriCount = Collider.GetNbTouchedPrimitives();
     const int* Triangles = (const int*)Collider.GetTouchedPrimitives();
+    dIASSERT(Triangles != NULL);
 
     if (TriCount != 0){
         if (TriMesh->m_ArrayCallback != null){

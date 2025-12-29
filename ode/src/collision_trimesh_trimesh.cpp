@@ -450,6 +450,7 @@ dContactGeom *  PushNewContact( dxGeom* g1, dxGeom* g2, int TriIndex1, int TriIn
                 // not used anymore but it's preferable to keep this line for 
                 // the sake of consistency in variable values.
                 dxGeom *tempGeom = g1; g1 = g2; g2 = tempGeom;
+                (void)g1; (void)g2;
             }
 
             const dReal oldLen = pcontact->normal[3];

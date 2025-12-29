@@ -328,6 +328,7 @@ void dxJointAMotor::getInfo2(dReal worldFPS, dReal /*worldERP*/,
     sizeint rowTotalSkip = 0, pairTotalSkip = 0;
     
     const unsigned num = m_num;
+    dIASSERT(num<=3);
     for (unsigned i = 0; i != num; ++i) 
     {
         if (m_limot[i].addLimot(this, worldFPS, J1 + rowTotalSkip, J2 + rowTotalSkip, pairRhsCfm + pairTotalSkip, pairLoHi + pairTotalSkip, *(axptr[i]), 1)) 

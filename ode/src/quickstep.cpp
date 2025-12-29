@@ -1255,6 +1255,11 @@ void dxQuickStepIsland_Stage0_Bodies(dxQuickStepperStage0BodiesCallContext *call
                 // if not flagged or the body is kinematic
                 if ((b->flags & dxBodyGyroscopic) && (b->invMass > 0)) {
                     dMatrix3 I;
+                    // possible uninitialized read in for loop
+                    I[3]=dReal();
+                    I[7]=dReal();
+                    I[11]=dReal();
+
                     // compute inertia tensor in global frame
                     dMultiply2_333 (tmp, b->mass.I, b->posr.R);
                     dMultiply0_333 (I, b->posr.R, tmp);

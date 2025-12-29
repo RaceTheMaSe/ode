@@ -211,7 +211,7 @@ int dCollideCylinderPlane(dxGeom *Cylinder, dxGeom *Plane, int flags, dContactGe
             GeomCount++;
             if( GeomCount >= (flags & NUMC_MASK))
                 return GeomCount; // enough contactgeoms
-            contact = (dContactGeom *)((char *)contact + skip);
+            // contact = (dContactGeom *)((char *)contact + skip);
         }
     }
     else
@@ -260,7 +260,7 @@ int dCollideCylinderPlane(dxGeom *Cylinder, dxGeom *Plane, int flags, dContactGe
             GeomCount++;
             if( GeomCount >= (flags & NUMC_MASK))
                 return GeomCount; // enough contactgeoms
-            contact = (dContactGeom *)((char *)contact + skip);
+            // contact = (dContactGeom *)((char *)contact + skip);
         }
     }
     return GeomCount;

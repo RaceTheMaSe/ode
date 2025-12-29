@@ -1450,7 +1450,8 @@ void do_tests(int argc, char **argv)
                 printf("ok\n");
             }
         }
-
+        if(ts)
+            free(ts);
         dsFinalizeConsole();
     }
 }

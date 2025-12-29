@@ -478,20 +478,26 @@ static void simLoop (int pause)
 
     if ( dJointTypePU == type ) {
       dPUJoint *pu = static_cast<dPUJoint *> (joint);
-      ang1 = pu->getAngle1();
-      ang2 = pu->getAngle2();
-      pu->getAxis1 (axisR1);
-      pu->getAxis2 (axisR2);
-      pu->getAxisP (axisP);
+      if(pu)
+      {
+        ang1 = pu->getAngle1();
+        ang2 = pu->getAngle2();
+        pu->getAxis1 (axisR1);
+        pu->getAxis2 (axisR2);
+        pu->getAxisP (axisP);
 
-      dJointGetPUAnchor (pu->id(), anchorPos);
+        dJointGetPUAnchor (pu->id(), anchorPos);
+      }
     }
     else if ( dJointTypePR == type ) {
       dPRJoint *pr = static_cast<dPRJoint *> (joint);
-      pr->getAxis1 (axisP);
-      pr->getAxis2 (axisR1);
+      if(pr)
+      {
+        pr->getAxis1 (axisP);
+        pr->getAxis2 (axisR1);
 
-      dJointGetPRAnchor (pr->id(), anchorPos);
+        dJointGetPRAnchor (pr->id(), anchorPos);
+      }
     }
 
 

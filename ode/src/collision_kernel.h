@@ -47,7 +47,7 @@ internal data structures and functions for collision detection.
 #define NUMC_MASK (0xffff)
 
 #define IS_SPACE(geom) \
-    dIN_RANGE((geom)->type, dFirstSpaceClass, dLastSpaceClass + 1)
+    (geom)->type >= dFirstSpaceClass && (geom)->type <= dLastSpaceClass
 
 #define CHECK_NOT_LOCKED(space) \
     dUASSERT ((space) == NULL || (space)->lock_count == 0, \

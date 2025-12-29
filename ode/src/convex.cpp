@@ -343,7 +343,7 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
     if (a <= dEpsilon && e <= dEpsilon)
     {
         // Both segments degenerate into points
-        s = t = 0.0f;
+        //s = t = REAL(0.0);
         dVector3Copy(p1,c1);
         dVector3Copy(p2,c2);
         return;

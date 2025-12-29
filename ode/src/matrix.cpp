@@ -303,7 +303,7 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
         dee *= alpha1;
         alpha1 = alphanew;
         alphanew = alpha2 - (W21*W21)*dee;
-        dee /= alphanew;
+        // dee /= alphanew;
         //dReal gamma2 = W21 * dee;
         alpha2 = alphanew;
         dReal k1 = REAL(1.0) - W21*gamma1;

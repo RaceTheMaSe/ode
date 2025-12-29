@@ -394,6 +394,7 @@ void dxThreadPoolThreadInfo::RunCommandHandlingLoop()
             case dxTHREAD_COMMAND_SERVE_IMPLEMENTATION:
             {
                 const dxServeImplementationParams *serve_params = (const dxServeImplementationParams *)m_command_param;
+                dIASSERT(serve_params != NULL);
                 dThreadingImplementationID impl = serve_params->m_impl;
                 dxEventObject *ready_wait_event = serve_params->m_ready_wait_event;
 

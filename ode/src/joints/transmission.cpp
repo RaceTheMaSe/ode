@@ -93,6 +93,7 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
     // Transform all needed quantities to the global frame.
 
     for (i = 0 ; i < 2 ; i += 1) {
+        dIASSERT(node[i].body);
         dBodyGetRelPointPos(node[i].body,
                             anchors[i][0], anchors[i][1], anchors[i][2],
                             a[i]);
@@ -210,6 +211,8 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
         break;
 
     default:
+        dZeroVector3(l[0]); // for static analyzer
+        dZeroVector3(l[1]);
         break;
     }
 
