@@ -383,8 +383,7 @@ LRESULT CALLBACK AboutDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
         }
 
         case WM_COMMAND: {
-            switch (wParam) {
-            case IDOK:
+            if (wParam == IDOK) {
                 EndDialog(hDlg, TRUE);
                 return TRUE;
             }
@@ -944,12 +943,9 @@ double dsElapsedTime()
 /*extern */
 STATIC_FUNCTION BOOL WINAPI UNUSED_FUNCTION DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID /*lpReserved*/)
 {
-    switch (fdwReason)
+    if (fdwReason == DLL_PROCESS_ATTACH)
     {
-        case DLL_PROCESS_ATTACH: {
-            g_instance = hinstDLL;
-            break;
-        }
+        g_instance = hinstDLL;
     }
 
     return TRUE;
