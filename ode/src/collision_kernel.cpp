@@ -381,7 +381,7 @@ dxGeom::dxGeom (dSpaceID _space, int is_placeable)
 dxGeom::~dxGeom()
 {
     if (parent_space) dSpaceRemove (parent_space,this);
-    if ((gflags & GEOM_PLACEABLE) && (!body || (body && offset_posr)))
+    if ((gflags & GEOM_PLACEABLE) && (!body || offset_posr))
         dFreePosr(final_posr);
     if (offset_posr) dFreePosr(offset_posr);
     bodyRemove();
