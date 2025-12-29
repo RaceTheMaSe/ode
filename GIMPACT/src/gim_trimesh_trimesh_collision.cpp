@@ -29,7 +29,7 @@ email: projectileman@yahoo.com
 #include "GIMPACT/gim_trimesh.h"
 
 #define CLASSIFY_TRI_BY_FACE(v1,v2,v3,faceplane,out_of_face)\
-{   \
+do {   \
     _distances[0] = DISTANCE_PLANE_POINT(faceplane,v1);\
     _distances[1] =  _distances[0] * DISTANCE_PLANE_POINT(faceplane,v2);\
     _distances[2] =  _distances[0] * DISTANCE_PLANE_POINT(faceplane,v3); \
@@ -41,12 +41,12 @@ email: projectileman@yahoo.com
 	{\
 	    out_of_face = 0;\
 	}\
-} do {} while(0)
+} while(0)
 
 
 //! Receives the 3 edge planes
 #define MOST_DEEP_POINTS(plane,points,point_count,deep_points,deep_points_count,maxdeep)\
-{\
+do {\
     maxdeep=-1000.0f;\
     GUINT32 _k;\
 	GREAL _dist;\
@@ -77,11 +77,11 @@ email: projectileman@yahoo.com
             VEC_COPY(deep_points[_k],points[_max_candidates[_k]]);\
         }\
     }\
-} do {} while(0)
+} while(0)
 
 //! Receives the 3 edge planes
 #define CLIP_TRI_POINTS_BY_TRI_EDGE_PLANES(tri_points,tri_edge_planes, clipped_points, clipped_point_count)\
-{\
+do {\
     clipped_point_count = 0;    \
     _temp_clip_count = 0;\
     PLANE_CLIP_POLYGON(tri_edge_planes[0],tri_points,3,_temp_clip,_temp_clip_count,MAX_TRI_CLIPPING);\
@@ -94,7 +94,7 @@ email: projectileman@yahoo.com
             PLANE_CLIP_POLYGON(tri_edge_planes[2],_temp_clip2,_temp_clip_count2,clipped_points,clipped_point_count,MAX_TRI_CLIPPING);\
         }\
     }\
-} do {} while(0)
+} while(0)
 
 
 

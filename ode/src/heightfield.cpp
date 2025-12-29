@@ -54,23 +54,23 @@
     (a)[1] op1 op2 ((b)[1]); \
     (a)[2] op1 op2 ((b)[2])
 
-#define dGeomRaySetNoNormalize(myRay, MyPoint, MyVector) {  \
+#define dGeomRaySetNoNormalize(myRay, MyPoint, MyVector) do {  \
     \
     dVector3Copy (MyPoint, (myRay).final_posr->pos);   \
     (myRay).final_posr->R[2] = (MyVector)[0];       \
     (myRay).final_posr->R[6] = (MyVector)[1];       \
     (myRay).final_posr->R[10] = (MyVector)[2];      \
     dGeomMoved (&myRay);                        \
-            } do {} while(0)
+            } while(0)
 
-#define dGeomPlaneSetNoNormalize(MyPlane, MyPlaneDef) { \
+#define dGeomPlaneSetNoNormalize(MyPlane, MyPlaneDef) do { \
     \
     (MyPlane)->p[0] = (MyPlaneDef)[0];  \
     (MyPlane)->p[1] = (MyPlaneDef)[1];  \
     (MyPlane)->p[2] = (MyPlaneDef)[2];  \
     (MyPlane)->p[3] = (MyPlaneDef)[3];  \
     dGeomMoved (MyPlane);           \
-                    } do {} while(0)
+                    } while(0)
 //////// Local Build Option ////////////////////////////////////////////////////
 
 // Uncomment this #define to use the (0,0) corner of the geom as the origin,

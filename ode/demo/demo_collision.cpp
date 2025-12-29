@@ -78,9 +78,9 @@ static int draw_all_objects_called;
   testslot[number].name = # function; \
   testslot[number].test_fn = function
 
-#define FAILED() { if (graphical_test==0) { \
-  testslot[current_test].last_failed_line=__LINE__; return 0; } } do {} while(0)
-#define PASSED() { return 1; } do {} while(0)
+#define FAILED() do { if (graphical_test==0) { \
+  testslot[current_test].last_failed_line=__LINE__; return 0; } } while(0)
+#define PASSED() do { return 1; } while(0)
 
 //****************************************************************************
 // globals

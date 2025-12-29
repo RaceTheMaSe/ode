@@ -1138,7 +1138,7 @@ pp. 199-202 */
 }                                
 
 #define EDGE_AGAINST_TRI_EDGES(V0,V1,U0,U1,U2) \
-{                                              \
+do {                                              \
     dReal Ax,Ay,Bx,By,Cx,Cy,e,d,f;               \
     Ax=V1[i0]-V0[i0];                            \
     Ay=V1[i1]-V0[i1];                            \
@@ -1148,10 +1148,10 @@ pp. 199-202 */
     EDGE_EDGE_TEST(V0,U1,U2);                    \
     /* test edge U2,U1 against V0,V1 */          \
     EDGE_EDGE_TEST(V0,U2,U0);                    \
-} do {} while(0)
+} while(0)
 
 #define POINT_IN_TRI(V0,U0,U1,U2)           \
-{                                           \
+do {                                           \
     dReal a,b,c,d0,d1,d2;                     \
     /* is T1 completly inside T2? */          \
     /* check if V0 is inside tri(U0,U1,U2) */ \
@@ -1173,7 +1173,7 @@ pp. 199-202 */
     {                                         \
         if(d0*d2>REAL(0.0)) return 1;         \
     }                                         \
-} do {} while(0)
+} while(0)
 
 static int coplanar_tri_tri(dReal N[3],dReal V0[3],dReal V1[3],dReal V2[3],
                      dReal U0[3],dReal U1[3],dReal U2[3])

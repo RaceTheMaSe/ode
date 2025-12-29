@@ -34,7 +34,7 @@
 
 //! TO BE DOCUMENTED
 #define EDGE_AGAINST_TRI_EDGES(V0, V1, U0, U1, U2)		\
-{														\
+do {														\
 	float Bx,By,Cx,Cy,d,f;								\
 	const float Ax = (V1)[i0] - (V0)[i0];					\
 	const float Ay = (V1)[i1] - (V0)[i1];					\
@@ -44,11 +44,11 @@
 	EDGE_EDGE_TEST(V0, U1, U2);							\
 	/* test edge U2,U1 against V0,V1 */					\
 	EDGE_EDGE_TEST(V0, U2, U0);							\
-} do {} while(0)
+} while(0)
 
 //! TO BE DOCUMENTED
 #define POINT_IN_TRI(V0, U0, U1, U2)					\
-{														\
+do {														\
 	/* is T1 completly inside T2? */					\
 	/* check if V0 is inside tri(U0,U1,U2) */			\
 	float a  = (U1)[i1] - (U0)[i1];							\
@@ -69,7 +69,7 @@
 	{													\
 		if(d0*d2>0.0f) return TRUE;						\
 	}													\
-} do {} while(0)
+} while(0)
 
 //! TO BE DOCUMENTED
 static BOOL CoplanarTriTri(const IceMaths::Point& n, const IceMaths::Point& v0, const IceMaths::Point& v1, const IceMaths::Point& v2, const IceMaths::Point& u0, const IceMaths::Point& u1, const IceMaths::Point& u2)
@@ -122,7 +122,7 @@ static BOOL CoplanarTriTri(const IceMaths::Point& n, const IceMaths::Point& v0, 
 
 //! TO BE DOCUMENTED
 #define NEWCOMPUTE_INTERVALS(VV0, VV1, VV2, D0, D1, D2, D0D1, D0D2, A, B, C, X0, X1)	\
-{																						\
+do {																						\
 	if((D0D1)>0.0f)																		\
 	{																					\
 		/* here we know that D0D2<=0.0 */												\
@@ -152,7 +152,7 @@ static BOOL CoplanarTriTri(const IceMaths::Point& n, const IceMaths::Point& v0, 
 		/* triangles are coplanar */													\
 		return CoplanarTriTri(N1, V0, V1, V2, U0, U1, U2);								\
 	}																					\
-} do{} while(0)
+} while(0)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**

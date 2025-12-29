@@ -218,8 +218,8 @@ dSpaceID dSweepAndPruneSpaceCreate( dxSpace* space, int axisorder ) {
 #define GEOM_ENABLED(g) (((g)->gflags & GEOM_ENABLE_TEST_MASK) == GEOM_ENABLE_TEST_VALUE)
 
 // HACK: We abuse 'next' and 'tome' members of dxGeom to store indices into dirty/geom lists.
-#define GEOM_SET_DIRTY_IDX(g,idx) { (g)->next_ex = (dxGeom*)(sizeint)(idx); } do {} while(0)
-#define GEOM_SET_GEOM_IDX(g,idx) { (g)->tome_ex = (dxGeom**)(sizeint)(idx); } do {} while(0)
+#define GEOM_SET_DIRTY_IDX(g,idx) do { (g)->next_ex = (dxGeom*)(sizeint)(idx); } while(0)
+#define GEOM_SET_GEOM_IDX(g,idx) do { (g)->tome_ex = (dxGeom**)(sizeint)(idx); } while(0)
 #define GEOM_GET_DIRTY_IDX(g) ((int)(sizeint)(g)->next_ex)
 #define GEOM_GET_GEOM_IDX(g) ((int)(sizeint)(g)->tome_ex)
 #define GEOM_INVALID_IDX (-1)

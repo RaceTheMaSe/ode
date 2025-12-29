@@ -45,19 +45,19 @@
 #  endif
 #ifndef dNODEBUG
 #  ifdef __GNUC__
-#    define dIASSERT(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); } } do {} while(0)
-#    define dUASSERT(a,msg) { if (!(a)) { dDebug (d_ERR_UASSERT, \
-      msg " in %s()", __FUNCTION__); } } do {} while(0)
-#    define dDEBUGMSG(msg) { dMessage (d_ERR_UASSERT,				\
-  msg " in %s() [%s:%u]", __FUNCTION__,__FILE__,__LINE__); } do {} while(0)
+#    define dIASSERT(a) do { if (!(a)) { dDebug (d_ERR_IASSERT, \
+      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); } } while(0)
+#    define dUASSERT(a,msg) do { if (!(a)) { dDebug (d_ERR_UASSERT, \
+      msg " in %s()", __FUNCTION__); } } while(0)
+#    define dDEBUGMSG(msg) do { dMessage (d_ERR_UASSERT,				\
+  msg " in %s() [%s:%u]", __FUNCTION__,__FILE__,__LINE__); } while(0)
 #  else /* not __GNUC__ */
-#    define dIASSERT(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); } } do {} while(0)
-#    define dUASSERT(a,msg) { if (!(a)) { dDebug (d_ERR_UASSERT, \
-      msg " (%s:%u)", __FILE__,__LINE__); } } do {} while(0)
-#    define dDEBUGMSG(msg) { dMessage (d_ERR_UASSERT, \
-      msg " (%s:%u)", __FILE__,__LINE__); } do {} while(0)
+#    define dIASSERT(a) do { if (!(a)) { dDebug (d_ERR_IASSERT, \
+      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); } } while(0)
+#    define dUASSERT(a,msg) do { if (!(a)) { dDebug (d_ERR_UASSERT, \
+      msg " (%s:%u)", __FILE__,__LINE__); } } while(0)
+#    define dDEBUGMSG(msg) do { dMessage (d_ERR_UASSERT, \
+      msg " (%s:%u)", __FILE__,__LINE__); } while(0)
 #  endif
 #  define dIVERIFY(a) dIASSERT(a)
 #  define dUVERIFY(a, msg) dUASSERT(a, msg)
@@ -93,15 +93,15 @@
 #endif
 
 #  ifdef __GNUC__
-#    define dICHECK(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
-#    define dICHECKMSG(a,msg) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a, #msg "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
+#    define dICHECK(a) do { if (!(a)) { dDebug (d_ERR_IASSERT, \
+      "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(volatile int *)NULL = 0; } } while(0)
+#    define dICHECKMSG(a,msg) do { if (!(a)) { dDebug (d_ERR_IASSERT, \
+      "assertion \"" #a, #msg "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(volatile int *)NULL = 0; } } while(0)
 #  else /* not __GNUC__ */
-#    define dICHECK(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
-#    define dICHECKMSG(a,msg) { if (!(a)) { dDebug (d_ERR_IASSERT, \
-      "assertion \"" #a, #msg "\" failed in %s:%u",__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
+#    define dICHECK(a) do { if (!(a)) { dDebug (d_ERR_IASSERT, \
+      "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); *(volatile int *)NULL = 0; } } while(0)
+#    define dICHECKMSG(a,msg) do { if (!(a)) { dDebug (d_ERR_IASSERT, \
+      "assertion \"" #a, #msg "\" failed in %s:%u",__FILE__,__LINE__); *(volatile int *)NULL = 0; } } while(0)
 #  endif
 
 /* Argument assert is a special case of user assert */

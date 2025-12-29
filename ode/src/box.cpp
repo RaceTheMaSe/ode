@@ -816,7 +816,7 @@ int dCollideBoxPlaneOld(dxGeom *o1, dxGeom *o2,
     p[0] op REAL(0.5)*box->side[i] * R[0+(i)]; \
     p[1] op REAL(0.5)*box->side[i] * R[4+(i)]; \
     p[2] op REAL(0.5)*box->side[i] * R[8+(i)];
-#define BAR(i,iinc) if (A ## iinc > 0) { FOO(i,-=) } else { FOO(i,+=) } do {} while(0)
+#define BAR(i,iinc) do { if (A ## iinc > 0) { FOO(i,-=) } else { FOO(i,+=) } } while(0)
     BAR(0,1);
     BAR(1,2);
     BAR(2,3);

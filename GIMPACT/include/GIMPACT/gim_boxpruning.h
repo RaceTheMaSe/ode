@@ -268,11 +268,11 @@ So the maximum size of a room should be about 3276x3276 . Its dimensions must li
 \param uint_key a GUINT
 */
 #define GIM_CONVERT_VEC3F_GUINT_XZ(vx,vz,uint_key)\
-{\
+do {\
     GUINT32 _z = ((GUINT32)(vz*ERROR_AABB))+32768;\
     uint_key = ((GUINT32)(vx*ERROR_AABB))+32768;\
     uint_key = (uint_key<<16) + _z;\
-} do{} while(0)
+} while(0)
 
 //! Converts a vector coordinate to an integer for box sorting, rounding to the upper int
 /*!
@@ -281,11 +281,11 @@ So the maximum size of a room should be about 3276x3276 . Its dimensions must li
 \param uint_key a GUINT
 */
 #define GIM_CONVERT_VEC3F_GUINT_XZ_UPPER(vx,vz,uint_key)\
-{\
+do {\
     GUINT32 _z = ((GUINT32)ceilf(vz*ERROR_AABB))+32768;\
     uint_key = ((GUINT32)ceilf(vx*ERROR_AABB))+32768;\
     uint_key = (uint_key<<16) + _z;\
-} do{} while(0)
+} while(0)
 
 
 //! Converts a vector coordinate to an integer for box sorting. Secure clamped
@@ -295,13 +295,13 @@ So the maximum size of a room should be about 3276x3276 . Its dimensions must li
 \param uint_key a GUINT
 */
 #define GIM_CONVERT_VEC3F_GUINT_XZ_CLAMPED(vx,vz,uint_key)\
-{\
+do {\
     GREAL _cx = CLAMP(vx,-MAX_AABB_SIZE,MAX_AABB_SIZE);\
     GREAL _cz = CLAMP(vz,-MAX_AABB_SIZE,MAX_AABB_SIZE);\
     GUINT32 _z = ((GUINT32)(_cz*ERROR_AABB))+32768;\
     uint_key = ((GUINT32)(_cx*ERROR_AABB))+32768;\
     uint_key = (uint_key<<16) + _z;\
-} do{} while(0)
+} while(0)
 
 //! Converts a vector coordinate to an integer for box sorting. Secure clamped, rounded
 /*!
@@ -310,13 +310,13 @@ So the maximum size of a room should be about 3276x3276 . Its dimensions must li
 \param uint_key a GUINT
 */
 #define GIM_CONVERT_VEC3F_GUINT_XZ_UPPER_CLAMPED(vx,vz,uint_key)\
-{\
+do {\
     GREAL _cx = CLAMP(vx,-MAX_AABB_SIZE,MAX_AABB_SIZE);\
     GREAL _cz = CLAMP(vz,-MAX_AABB_SIZE,MAX_AABB_SIZE);\
     GUINT32 _z = ((GUINT32)ceilf(_cz*ERROR_AABB))+32768;\
     uint_key = ((GUINT32)ceilf(_cx*ERROR_AABB))+32768;\
     uint_key = (uint_key<<16) + _z;\
-} do{} while(0)
+} while(0)
 
 //! @}
 

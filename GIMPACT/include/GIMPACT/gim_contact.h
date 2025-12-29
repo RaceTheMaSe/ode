@@ -62,7 +62,7 @@ struct GIM_CONTACT
 #define CONTACT_DIFF_EPSILON 0.00001f
 
 #define GIM_CALC_KEY_CONTACT(pos,hash)\
-{\
+do {\
 	GINT32 _coords[] = {(GINT32)(pos[0]*1000.0f+1.0f),(GINT32)(pos[1]*1333.0f),(GINT32)(pos[2]*2133.0f+3.0f)};\
 	GUINT32 _hash=0;\
 	GUINT32 *_uitmp = (GUINT32 *)(&_coords[0]);\
@@ -72,13 +72,13 @@ struct GIM_CONTACT
 	_uitmp++;\
 	_hash += (*_uitmp)<<8;\
 	hash = _hash;\
-} do{} while(0)
+} while(0)
 
 ///Creates a contact list for queries
 #define GIM_CREATE_CONTACT_LIST(contact_array) GIM_DYNARRAY_CREATE(GIM_CONTACT,contact_array,100)
 
 #define GIM_PUSH_CONTACT(contact_array, point, normal, deep,handle1, handle2, feat1, feat2)\
-{\
+do {\
     GIM_DYNARRAY_PUSH_EMPTY(GIM_CONTACT,contact_array);\
     GIM_CONTACT * _last = GIM_DYNARRAY_POINTER_LAST(GIM_CONTACT,contact_array);\
     VEC_COPY(_last->m_point,point);\
@@ -88,11 +88,11 @@ struct GIM_CONTACT
     _last->m_handle2 = handle2;\
     _last->m_feature1 = feat1;\
     _last->m_feature2 = feat2;\
-} do{} while(0)
+} while(0)
 
 ///Receive pointer to contacts
 #define GIM_COPY_CONTACTS(dest_contact, source_contact)\
-{\
+do {\
     VEC_COPY(dest_contact->m_point,source_contact->m_point);\
     VEC_COPY(dest_contact->m_normal,source_contact->m_normal);\
     dest_contact->m_depth = source_contact->m_depth;\
@@ -100,7 +100,7 @@ struct GIM_CONTACT
     dest_contact->m_handle2 = source_contact->m_handle2;\
     dest_contact->m_feature1 = source_contact->m_feature1;\
     dest_contact->m_feature2 = source_contact->m_feature2;\
-} do{} while(0)
+} while(0)
 
 //! Merges duplicate contacts with minimum depth criterion
 void gim_merge_contacts(GDYNAMIC_ARRAY * source_contacts,

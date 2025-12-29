@@ -34,7 +34,7 @@ email: projectileman@yahoo.com
 /* some macros */
 
 #define CLASSIFY_TRIPOINTS_BY_FACE(v1,v2,v3,faceplane,out_of_face)\
-{   \
+do {   \
     _distances[0] = DISTANCE_PLANE_POINT(faceplane,v1);\
     _distances[1] =  _distances[0] * DISTANCE_PLANE_POINT(faceplane,v2);\
     _distances[2] =  _distances[0] * DISTANCE_PLANE_POINT(faceplane,v3); \
@@ -47,7 +47,7 @@ email: projectileman@yahoo.com
 	    out_of_face = 0;\
 	}\
 }\
-do {} while(0)
+while(0)
 
 /* sort so that a<=b */
 #define SORT(a,b)       \
@@ -84,7 +84,7 @@ do {} while(0)
   } do {} while(0)
 
 #define EDGE_AGAINST_TRI_EDGES(V0,V1,U0,U1,U2) \
-{                                              \
+do {                                              \
   float Ax,Ay,Bx,By,Cx,Cy,e,d,f;               \
   Ax=(float)(V1[i0]-V0[i0]);                   \
   Ay=(float)(V1[i1]-V0[i1]);                   \
@@ -94,7 +94,7 @@ do {} while(0)
   EDGE_EDGE_TEST(V0,U1,U2);                    \
   /* test edge U2,U1 against V0,V1 */          \
   EDGE_EDGE_TEST(V0,U2,U0);                    \
-} do {} while(0)
+} while(0)
 
 static int coplanar_tri_tri(GIM_TRIANGLE_DATA *tri1,
                     GIM_TRIANGLE_DATA *tri2)

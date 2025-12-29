@@ -47,7 +47,7 @@ struct GIM_CAPSULE_DATA
 //typedef struct _GIM_CAPSULE_DATA GIM_CAPSULE_DATA;
 
 #define CALC_CAPSULE_AABB(capsule,aabb)\
-{\
+do {\
     if(capsule.m_point1[0]<capsule.m_point2[0])\
     {\
         aabb.minX = capsule.m_point1[0] - capsule.m_radius;\
@@ -78,7 +78,7 @@ struct GIM_CAPSULE_DATA
         aabb.minZ = capsule.m_point2[2] - capsule.m_radius;\
         aabb.maxZ = capsule.m_point1[2] + capsule.m_radius;\
     }\
-} do{} while(0)
+} while(0)
 
 //! Utility function to find the closest point between a segment and a triangle
 /*!

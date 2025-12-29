@@ -120,22 +120,22 @@ mathematical functions
 #define CLAMP(number,minval,maxval) ((number)<(minval)?(minval):((number)>(maxval)?(maxval):(number)))
 
 ///Swap numbers
-#define SWAP_NUMBERS(a,b){ \
+#define SWAP_NUMBERS(a,b) do { \
     GREAL _swap_tmp = (a); \
     (a) = (b); \
     (b) = _swap_tmp; \
-} do {} while(0)
+} while(0)
 
 
 #define GIM_SQRT(va,sva)\
-{\
+do {\
     (sva) = GIM_SQRT_FN(va);\
-} do {} while(0)
+} while(0)
 
 #define GIM_INV_SQRT(va,isva)\
-{\
+do {\
     (isva) = 1.0f / GIM_SQRT_FN(va);\
-} do {} while(0)
+} while(0)
 
 
 //! Computes 1.0f / sqrtf(x). Comes from Quake3. See http://www.magic-software.com/3DGEDInvSqrt.html

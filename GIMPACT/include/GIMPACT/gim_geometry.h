@@ -97,174 +97,174 @@ Operations for vectors : vec2f,vec3f and vec4f
 
 //! Zero out a 2D vector
 #define VEC_ZERO_2(a)				\
-{						\
+do {						\
    (a)[0] = (a)[1] = 0.0f;			\
-} do{} while(0)
+} while(0)
 
 
 //! Zero out a 3D vector
 #define VEC_ZERO(a)				\
-{						\
+do {						\
    (a)[0] = (a)[1] = (a)[2] = 0.0f;		\
-} do{} while(0)
+} while(0)
 
 
 /// Zero out a 4D vector
 #define VEC_ZERO_4(a)				\
-{						\
+do {						\
    (a)[0] = (a)[1] = (a)[2] = (a)[3] = 0.0f;	\
-} do{} while(0)
+} while(0)
 
 
 /// Vector copy
 #define VEC_COPY_2(b,a)				\
-{						\
+do {						\
    (b)[0] = (a)[0];				\
    (b)[1] = (a)[1];				\
-} do{} while(0)
+} while(0)
 
 
 /// Copy 3D vector
 #define VEC_COPY(b,a)				\
-{						\
+do {						\
    (b)[0] = (a)[0];				\
    (b)[1] = (a)[1];				\
    (b)[2] = (a)[2];				\
-} do{} while(0)
+} while(0)
 
 /// Copy 3D vector
 #define VEC_COPY_CONV(b,a)				\
-{						\
+do {						\
    (b)[0] = (dReal)(a)[0];				\
    (b)[1] = (dReal)(a)[1];				\
    (b)[2] = (dReal)(a)[2];				\
-} do{} while(0)
+} while(0)
 
 
 /// Copy 4D vector
 #define VEC_COPY_4(b,a)				\
-{						\
+do {						\
    (b)[0] = (a)[0];				\
    (b)[1] = (a)[1];				\
    (b)[2] = (a)[2];				\
    (b)[3] = (a)[3];				\
-} do{} while(0)
+} while(0)
 
 
 /// Vector difference
 #define VEC_DIFF_2(v21,v2,v1)			\
-{						\
+do {						\
    (v21)[0] = (v2)[0] - (v1)[0];		\
    (v21)[1] = (v2)[1] - (v1)[1];		\
-} do{} while(0)
+} while(0)
 
 
 /// Vector difference
 #define VEC_DIFF(v21,v2,v1)			\
-{						\
+do {						\
    (v21)[0] = (v2)[0] - (v1)[0];		\
    (v21)[1] = (v2)[1] - (v1)[1];		\
    (v21)[2] = (v2)[2] - (v1)[2];		\
-} do{} while(0)
+} while(0)
 
 
 /// Vector difference
 #define VEC_DIFF_4(v21,v2,v1)			\
-{						\
+do {						\
    (v21)[0] = (v2)[0] - (v1)[0];		\
    (v21)[1] = (v2)[1] - (v1)[1];		\
    (v21)[2] = (v2)[2] - (v1)[2];		\
    (v21)[3] = (v2)[3] - (v1)[3];		\
-} do{} while(0)
+} while(0)
 
 
 /// Vector sum
 #define VEC_SUM_2(v21,v2,v1)			\
-{						\
+do {						\
    (v21)[0] = (v2)[0] + (v1)[0];		\
    (v21)[1] = (v2)[1] + (v1)[1];		\
-} do{} while(0)
+} while(0)
 
 
 /// Vector sum
 #define VEC_SUM(v21,v2,v1)			\
-{						\
+do {						\
    (v21)[0] = (GREAL)((v2)[0] + (v1)[0]);		\
    (v21)[1] = (GREAL)((v2)[1] + (v1)[1]);		\
    (v21)[2] = (GREAL)((v2)[2] + (v1)[2]);		\
-} do{} while(0)
+} while(0)
 
 /// Vector sum
 #define VEC_SUM_CONV(v21,v2,v1)			\
-{						\
+do {						\
    (v21)[0] = (GREAL)((v2)[0] + (dReal)(v1)[0]);		\
    (v21)[1] = (GREAL)((v2)[1] + (dReal)(v1)[1]);		\
    (v21)[2] = (GREAL)((v2)[2] + (dReal)(v1)[2]);		\
-} do{} while(0)
+} while(0)
 
 
 /// Vector sum
 #define VEC_SUM_4(v21,v2,v1)			\
-{						\
+do {						\
    (v21)[0] = (v2)[0] + (v1)[0];		\
    (v21)[1] = (v2)[1] + (v1)[1];		\
    (v21)[2] = (v2)[2] + (v1)[2];		\
    (v21)[3] = (v2)[3] + (v1)[3];		\
-} do{} while(0)
+} while(0)
 
 
 /// scalar times vector
 #define VEC_SCALE_2(c,a,b)			\
-{						\
+do {						\
    (c)[0] = (a)*(b)[0];				\
    (c)[1] = (a)*(b)[1];				\
-} do{} while(0)
+} while(0)
 
 
 /// scalar times vector
 #define VEC_SCALE(c,a,b)			\
-{						\
+do {						\
    (c)[0] = (float)((a)*(b)[0]);				\
    (c)[1] = (float)((a)*(b)[1]);				\
    (c)[2] = (float)((a)*(b)[2]);				\
-} do{} while(0)
+} while(0)
 
 
 /// scalar times vector
 #define VEC_SCALE_4(c,a,b)			\
-{						\
+do {						\
    (c)[0] = (a)*(b)[0];				\
    (c)[1] = (a)*(b)[1];				\
    (c)[2] = (a)*(b)[2];				\
    (c)[3] = (a)*(b)[3];				\
-} do{} while(0)
+} while(0)
 
 
 /// accumulate scaled vector
 #define VEC_ACCUM_2(c,a,b)			\
-{						\
+do {						\
    (c)[0] += (a)*(b)[0];			\
    (c)[1] += (a)*(b)[1];			\
-} do{} while(0)
+} while(0)
 
 
 /// accumulate scaled vector
 #define VEC_ACCUM(c,a,b)			\
-{						\
+do {						\
    (c)[0] += (a)*(b)[0];			\
    (c)[1] += (a)*(b)[1];			\
    (c)[2] += (a)*(b)[2];			\
-} do{} while(0)
+} while(0)
 
 
 /// accumulate scaled vector
 #define VEC_ACCUM_4(c,a,b)			\
-{						\
+do {						\
    (c)[0] += (a)*(b)[0];			\
    (c)[1] += (a)*(b)[1];			\
    (c)[2] += (a)*(b)[2];			\
    (c)[3] += (a)*(b)[3];			\
-} do{} while(0)
+} while(0)
 
 
 /// Vector dot product
@@ -278,84 +278,84 @@ Operations for vectors : vec2f,vec3f and vec4f
 #define VEC_DOT_4(a,b)	((a)[0]*(b)[0] + (a)[1]*(b)[1] + (a)[2]*(b)[2] + (a)[3]*(b)[3])
 
 /// vector impact parameter (squared)
-#define VEC_IMPACT_SQ(bsq,direction,position) {\
+#define VEC_IMPACT_SQ(bsq,direction,position) do {\
    GREAL _llel_ = VEC_DOT(direction, position);\
    bsq = VEC_DOT(position, position) - _llel_*_llel_;\
-} do{} while(0)
+} while(0)
 
 
 /// vector impact parameter
-#define VEC_IMPACT(bsq,direction,position)	{\
+#define VEC_IMPACT(bsq,direction,position)	do {\
    VEC_IMPACT_SQ(bsq,direction,position);		\
    GIM_SQRT(bsq,bsq);					\
-} do{} while(0)
+} while(0)
 
 /// Vector length
 #define VEC_LENGTH_2(a,l)\
-{\
+do {\
     GREAL _pp = VEC_DOT_2(a,a);\
     GIM_SQRT(_pp,l);\
-} do{} while(0)
+} while(0)
 
 
 /// Vector length
 #define VEC_LENGTH(a,l)\
-{\
+do {\
     GREAL _pp = VEC_DOT(a,a);\
     GIM_SQRT(_pp,l);\
-} do{} while(0)
+} while(0)
 
 
 /// Vector length
 #define VEC_LENGTH_4(a,l)\
-{\
+do {\
     GREAL _pp = VEC_DOT_4(a,a);\
     GIM_SQRT(_pp,l);\
-} do{} while(0)
+} while(0)
 
 /// Vector inv length
 #define VEC_INV_LENGTH_2(a,l)\
-{\
+do {\
     GREAL _pp = VEC_DOT_2(a,a);\
     GIM_INV_SQRT(_pp,l);\
-} do{} while(0)
+} while(0)
 
 
 /// Vector inv length
 #define VEC_INV_LENGTH(a,l)\
-{\
+do {\
     GREAL _pp = VEC_DOT(a,a);\
     GIM_INV_SQRT(_pp,l);\
-} do{} while(0)
+} while(0)
 
 
 /// Vector inv length
 #define VEC_INV_LENGTH_4(a,l)\
-{\
+do {\
     GREAL _pp = VEC_DOT_4(a,a);\
     GIM_INV_SQRT(_pp,l);\
-} do{} while(0)
+} while(0)
 
 
 
 /// distance between two points
-#define VEC_DISTANCE(_len,_va,_vb) {\
+#define VEC_DISTANCE(_len,_va,_vb) do {\
     vec3f _tmp_;				\
     VEC_DIFF(_tmp_, _vb, _va);			\
     VEC_LENGTH(_tmp_,_len);			\
-} do{} while(0)
+} while(0)
 
 
 /// Vector length
 #define VEC_CONJUGATE_LENGTH(a,l)\
-{\
+do {\
     GREAL _pp = 1.0f - a[0]*a[0] - a[1]*a[1] - a[2]*a[2];\
     GIM_SQRT(_pp,l);\
-} do{} while(0)
+} while(0)
 
 
 /// Vector length
-#define VEC_NORMALIZE(a) {	\
+#define VEC_NORMALIZE(a) do {	\
     GREAL len;\
     VEC_INV_LENGTH(a,len); \
     if(len<G_REAL_INFINITY)\
@@ -364,10 +364,10 @@ Operations for vectors : vec2f,vec3f and vec4f
         a[1] *= len;				\
         a[2] *= len;				\
     }						\
-} do{} while(0)
+} while(0)
 
 /// Set Vector size
-#define VEC_RENORMALIZE(a,newlen) {	\
+#define VEC_RENORMALIZE(a,newlen) do {	\
     GREAL len;\
     VEC_INV_LENGTH(a,len); \
     if(len<G_REAL_INFINITY)\
@@ -377,79 +377,79 @@ Operations for vectors : vec2f,vec3f and vec4f
         a[1] *= len;				\
         a[2] *= len;				\
     }						\
-} do{} while(0)
+} while(0)
 
 /// Vector cross
 #define VEC_CROSS(c,a,b)		\
-{						\
+do {						\
    c[0] = (a)[1] * (b)[2] - (a)[2] * (b)[1];	\
    c[1] = (a)[2] * (b)[0] - (a)[0] * (b)[2];	\
    c[2] = (a)[0] * (b)[1] - (a)[1] * (b)[0];	\
-} do{} while(0)
+} while(0)
 
 
 /*! Vector perp -- assumes that n is of unit length
  * accepts vector v, subtracts out any component parallel to n */
 #define VEC_PERPENDICULAR(vp,v,n)			\
-{						\
+do {						\
    GREAL dot = VEC_DOT(v, n);			\
    vp[0] = (v)[0] - dot*(n)[0];		\
    vp[1] = (v)[1] - dot*(n)[1];		\
    vp[2] = (v)[2] - dot*(n)[2];		\
-} do{} while(0)
+} while(0)
 
 
 /*! Vector parallel -- assumes that n is of unit length */
 #define VEC_PARALLEL(vp,v,n)			\
-{						\
+do {						\
    GREAL dot = VEC_DOT(v, n);			\
    vp[0] = (dot) * (n)[0];			\
    vp[1] = (dot) * (n)[1];			\
    vp[2] = (dot) * (n)[2];			\
-} do{} while(0)
+} while(0)
 
 /*! Same as Vector parallel --  n can have any length
  * accepts vector v, subtracts out any component perpendicular to n */
 #define VEC_PROJECT(vp,v,n)			\
-{ \
+do { \
 	GREAL scalar = VEC_DOT(v, n);			\
 	scalar/= VEC_DOT(n, n); \
 	vp[0] = (scalar) * (n)[0];			\
     vp[1] = (scalar) * (n)[1];			\
     vp[2] = (scalar) * (n)[2];			\
-} do{} while(0)
+} while(0)
 
 
 /*! accepts vector v*/
 #define VEC_UNPROJECT(vp,v,n)			\
-{ \
+do { \
 	GREAL scalar = VEC_DOT(v, n);			\
 	scalar = VEC_DOT(n, n)/scalar; \
 	vp[0] = (scalar) * (n)[0];			\
     vp[1] = (scalar) * (n)[1];			\
     vp[2] = (scalar) * (n)[2];			\
-} do{} while(0)
+} while(0)
 
 
 /*! Vector reflection -- assumes n is of unit length
  Takes vector v, reflects it against reflector n, and returns vr */
 #define VEC_REFLECT(vr,v,n)			\
-{						\
+do {						\
    GREAL dot = VEC_DOT(v, n);			\
    vr[0] = (v)[0] - 2.0 * (dot) * (n)[0];	\
    vr[1] = (v)[1] - 2.0 * (dot) * (n)[1];	\
    vr[2] = (v)[2] - 2.0 * (dot) * (n)[2];	\
-} do{} while(0)
+} while(0)
 
 
 /*! Vector blending
 Takes two vectors a, b, blends them together with two scalars */
 #define VEC_BLEND_AB(vr,sa,a,sb,b)			\
-{						\
+do {						\
    vr[0] = (sa) * (a)[0] + (sb) * (b)[0];	\
    vr[1] = (sa) * (a)[1] + (sb) * (b)[1];	\
    vr[2] = (sa) * (a)[2] + (sb) * (b)[2];	\
-} do{} while(0)
+} while(0)
 
 /*! Vector blending
 Takes two vectors a, b, blends them together with s <=1 */
@@ -466,7 +466,7 @@ Operations for matrices : mat2f, mat3f and mat4f
 
 /// initialize matrix
 #define IDENTIFY_MATRIX_3X3(m)			\
-{						\
+do {						\
    m[0][0] = 1.0;				\
    m[0][1] = 0.0;				\
    m[0][2] = 0.0;				\
@@ -478,11 +478,11 @@ Operations for matrices : mat2f, mat3f and mat4f
    m[2][0] = 0.0;				\
    m[2][1] = 0.0;				\
    m[2][2] = 1.0;				\
-} do{} while(0)
+} while(0)
 
 /*! initialize matrix */
 #define IDENTIFY_MATRIX_4X4(m)			\
-{						\
+do {						\
    m[0][0] = 1.0;				\
    m[0][1] = 0.0;				\
    m[0][2] = 0.0;				\
@@ -502,11 +502,11 @@ Operations for matrices : mat2f, mat3f and mat4f
    m[3][1] = 0.0;				\
    m[3][2] = 0.0;				\
    m[3][3] = 1.0;				\
-} do{} while(0)
+} while(0)
 
 /*! initialize matrix */
 #define ZERO_MATRIX_4X4(m)			\
-{						\
+do {						\
    m[0][0] = 0.0;				\
    m[0][1] = 0.0;				\
    m[0][2] = 0.0;				\
@@ -526,11 +526,11 @@ Operations for matrices : mat2f, mat3f and mat4f
    m[3][1] = 0.0;				\
    m[3][2] = 0.0;				\
    m[3][3] = 0.0;				\
-} do{} while(0)
+} while(0)
 
 /*! matrix rotation  X */
 #define ROTX_CS(m,cosine,sine)		\
-{					\
+do {					\
    /* rotation about the x-axis */	\
 					\
    m[0][0] = 1.0;			\
@@ -552,11 +552,11 @@ Operations for matrices : mat2f, mat3f and mat4f
    m[3][1] = 0.0;			\
    m[3][2] = 0.0;			\
    m[3][3] = 1.0;			\
-} do{} while(0)
+} while(0)
 
 /*! matrix rotation  Y */
 #define ROTY_CS(m,cosine,sine)		\
-{					\
+do {					\
    /* rotation about the y-axis */	\
 					\
    m[0][0] = (cosine);			\
@@ -578,11 +578,11 @@ Operations for matrices : mat2f, mat3f and mat4f
    m[3][1] = 0.0;			\
    m[3][2] = 0.0;			\
    m[3][3] = 1.0;			\
-} do{} while(0)
+} while(0)
 
 /*! matrix rotation  Z */
 #define ROTZ_CS(m,cosine,sine)		\
-{					\
+do {					\
    /* rotation about the z-axis */	\
 					\
    m[0][0] = (cosine);			\
@@ -604,23 +604,23 @@ Operations for matrices : mat2f, mat3f and mat4f
    m[3][1] = 0.0;			\
    m[3][2] = 0.0;			\
    m[3][3] = 1.0;			\
-} do{} while(0)
+} while(0)
 
 /*! matrix copy */
 #define COPY_MATRIX_2X2(b,a)	\
-{				\
+do {				\
    b[0][0] = a[0][0];		\
    b[0][1] = a[0][1];		\
 				\
    b[1][0] = a[1][0];		\
    b[1][1] = a[1][1];		\
 				\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix copy */
 #define COPY_MATRIX_2X3(b,a)	\
-{				\
+do {				\
    b[0][0] = a[0][0];		\
    b[0][1] = a[0][1];		\
    b[0][2] = a[0][2];		\
@@ -628,12 +628,12 @@ Operations for matrices : mat2f, mat3f and mat4f
    b[1][0] = a[1][0];		\
    b[1][1] = a[1][1];		\
    b[1][2] = a[1][2];		\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix copy */
 #define COPY_MATRIX_3X3(b,a)	\
-{				\
+do {				\
    b[0][0] = a[0][0];		\
    b[0][1] = a[0][1];		\
    b[0][2] = a[0][2];		\
@@ -645,12 +645,12 @@ Operations for matrices : mat2f, mat3f and mat4f
    b[2][0] = a[2][0];		\
    b[2][1] = a[2][1];		\
    b[2][2] = a[2][2];		\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix copy */
 #define COPY_MATRIX_4X4(b,a)	\
-{				\
+do {				\
    b[0][0] = a[0][0];		\
    b[0][1] = a[0][1];		\
    b[0][2] = a[0][2];		\
@@ -670,23 +670,23 @@ Operations for matrices : mat2f, mat3f and mat4f
    b[3][1] = a[3][1];		\
    b[3][2] = a[3][2];		\
    b[3][3] = a[3][3];		\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix transpose */
 #define TRANSPOSE_MATRIX_2X2(b,a)	\
-{				\
+do {				\
    b[0][0] = a[0][0];		\
    b[0][1] = a[1][0];		\
 				\
    b[1][0] = a[0][1];		\
    b[1][1] = a[1][1];		\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix transpose */
 #define TRANSPOSE_MATRIX_3X3(b,a)	\
-{				\
+do {				\
    b[0][0] = a[0][0];		\
    b[0][1] = a[1][0];		\
    b[0][2] = a[2][0];		\
@@ -698,12 +698,12 @@ Operations for matrices : mat2f, mat3f and mat4f
    b[2][0] = a[0][2];		\
    b[2][1] = a[1][2];		\
    b[2][2] = a[2][2];		\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix transpose */
 #define TRANSPOSE_MATRIX_4X4(b,a)	\
-{				\
+do {				\
    b[0][0] = a[0][0];		\
    b[0][1] = a[1][0];		\
    b[0][2] = a[2][0];		\
@@ -723,23 +723,23 @@ Operations for matrices : mat2f, mat3f and mat4f
    b[3][1] = a[1][3];		\
    b[3][2] = a[2][3];		\
    b[3][3] = a[3][3];		\
-} do{} while(0)
+} while(0)
 
 
 /*! multiply matrix by scalar */
 #define SCALE_MATRIX_2X2(b,s,a)		\
-{					\
+do {					\
    b[0][0] = (s) * a[0][0];		\
    b[0][1] = (s) * a[0][1];		\
 					\
    b[1][0] = (s) * a[1][0];		\
    b[1][1] = (s) * a[1][1];		\
-} do{} while(0)
+} while(0)
 
 
 /*! multiply matrix by scalar */
 #define SCALE_MATRIX_3X3(b,s,a)		\
-{					\
+do {					\
    b[0][0] = (s) * a[0][0];		\
    b[0][1] = (s) * a[0][1];		\
    b[0][2] = (s) * a[0][2];		\
@@ -751,12 +751,12 @@ Operations for matrices : mat2f, mat3f and mat4f
    b[2][0] = (s) * a[2][0];		\
    b[2][1] = (s) * a[2][1];		\
    b[2][2] = (s) * a[2][2];		\
-} do{} while(0)
+} while(0)
 
 
 /*! multiply matrix by scalar */
 #define SCALE_MATRIX_4X4(b,s,a)		\
-{					\
+do {					\
    b[0][0] = (s) * a[0][0];		\
    b[0][1] = (s) * a[0][1];		\
    b[0][2] = (s) * a[0][2];		\
@@ -776,23 +776,23 @@ Operations for matrices : mat2f, mat3f and mat4f
    b[3][1] = s * a[3][1];		\
    b[3][2] = s * a[3][2];		\
    b[3][3] = s * a[3][3];		\
-} do{} while(0)
+} while(0)
 
 
 /*! multiply matrix by scalar */
 #define ACCUM_SCALE_MATRIX_2X2(b,s,a)		\
-{					\
+do {					\
    b[0][0] += (s) * a[0][0];		\
    b[0][1] += (s) * a[0][1];		\
 					\
    b[1][0] += (s) * a[1][0];		\
    b[1][1] += (s) * a[1][1];		\
-} do{} while(0)
+} while(0)
 
 
 /*! multiply matrix by scalar */
 #define ACCUM_SCALE_MATRIX_3X3(b,s,a)		\
-{					\
+do {					\
    b[0][0] += (s) * a[0][0];		\
    b[0][1] += (s) * a[0][1];		\
    b[0][2] += (s) * a[0][2];		\
@@ -804,12 +804,12 @@ Operations for matrices : mat2f, mat3f and mat4f
    b[2][0] += (s) * a[2][0];		\
    b[2][1] += (s) * a[2][1];		\
    b[2][2] += (s) * a[2][2];		\
-} do{} while(0)
+} while(0)
 
 
 /*! multiply matrix by scalar */
 #define ACCUM_SCALE_MATRIX_4X4(b,s,a)		\
-{					\
+do {					\
    b[0][0] += (s) * a[0][0];		\
    b[0][1] += (s) * a[0][1];		\
    b[0][2] += (s) * a[0][2];		\
@@ -829,24 +829,24 @@ Operations for matrices : mat2f, mat3f and mat4f
    b[3][1] += (s) * a[3][1];		\
    b[3][2] += (s) * a[3][2];		\
    b[3][3] += (s) * a[3][3];		\
-} do{} while(0)
+} while(0)
 
 /*! matrix product */
 /*! c[x][y] = a[x][0]*b[0][y]+a[x][1]*b[1][y]+a[x][2]*b[2][y]+a[x][3]*b[3][y];*/
 #define MATRIX_PRODUCT_2X2(c,a,b)		\
-{						\
+do {						\
    c[0][0] = a[0][0]*b[0][0]+a[0][1]*b[1][0];	\
    c[0][1] = a[0][0]*b[0][1]+a[0][1]*b[1][1];	\
 						\
    c[1][0] = a[1][0]*b[0][0]+a[1][1]*b[1][0];	\
    c[1][1] = a[1][0]*b[0][1]+a[1][1]*b[1][1];	\
 						\
-} do{} while(0)
+} while(0)
 
 /*! matrix product */
 /*! c[x][y] = a[x][0]*b[0][y]+a[x][1]*b[1][y]+a[x][2]*b[2][y]+a[x][3]*b[3][y];*/
 #define MATRIX_PRODUCT_3X3(c,a,b)				\
-{								\
+do {								\
    c[0][0] = a[0][0]*b[0][0]+a[0][1]*b[1][0]+a[0][2]*b[2][0];	\
    c[0][1] = a[0][0]*b[0][1]+a[0][1]*b[1][1]+a[0][2]*b[2][1];	\
    c[0][2] = a[0][0]*b[0][2]+a[0][1]*b[1][2]+a[0][2]*b[2][2];	\
@@ -858,13 +858,13 @@ Operations for matrices : mat2f, mat3f and mat4f
    c[2][0] = a[2][0]*b[0][0]+a[2][1]*b[1][0]+a[2][2]*b[2][0];	\
    c[2][1] = a[2][0]*b[0][1]+a[2][1]*b[1][1]+a[2][2]*b[2][1];	\
    c[2][2] = a[2][0]*b[0][2]+a[2][1]*b[1][2]+a[2][2]*b[2][2];	\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix product */
 /*! c[x][y] = a[x][0]*b[0][y]+a[x][1]*b[1][y]+a[x][2]*b[2][y]+a[x][3]*b[3][y];*/
 #define MATRIX_PRODUCT_4X4(c,a,b)		\
-{						\
+do {						\
    c[0][0] = a[0][0]*b[0][0]+a[0][1]*b[1][0]+a[0][2]*b[2][0]+a[0][3]*b[3][0];\
    c[0][1] = a[0][0]*b[0][1]+a[0][1]*b[1][1]+a[0][2]*b[2][1]+a[0][3]*b[3][1];\
    c[0][2] = a[0][0]*b[0][2]+a[0][1]*b[1][2]+a[0][2]*b[2][2]+a[0][3]*b[3][2];\
@@ -884,36 +884,36 @@ Operations for matrices : mat2f, mat3f and mat4f
    c[3][1] = a[3][0]*b[0][1]+a[3][1]*b[1][1]+a[3][2]*b[2][1]+a[3][3]*b[3][1];\
    c[3][2] = a[3][0]*b[0][2]+a[3][1]*b[1][2]+a[3][2]*b[2][2]+a[3][3]*b[3][2];\
    c[3][3] = a[3][0]*b[0][3]+a[3][1]*b[1][3]+a[3][2]*b[2][3]+a[3][3]*b[3][3];\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix times vector */
 #define MAT_DOT_VEC_2X2(p,m,v)					\
-{								\
+do {								\
    p[0] = m[0][0]*v[0] + m[0][1]*v[1];				\
    p[1] = m[1][0]*v[0] + m[1][1]*v[1];				\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix times vector */
 #define MAT_DOT_VEC_3X3(p,m,v)					\
-{								\
+do {								\
    p[0] = m[0][0]*v[0] + m[0][1]*v[1] + m[0][2]*v[2];		\
    p[1] = m[1][0]*v[0] + m[1][1]*v[1] + m[1][2]*v[2];		\
    p[2] = m[2][0]*v[0] + m[2][1]*v[1] + m[2][2]*v[2];		\
-} do{} while(0)
+} while(0)
 
 
 /*! matrix times vector
 v is a vec4f
 */
 #define MAT_DOT_VEC_4X4(p,m,v)					\
-{								\
+do {								\
    p[0] = m[0][0]*v[0] + m[0][1]*v[1] + m[0][2]*v[2] + m[0][3]*v[3];	\
    p[1] = m[1][0]*v[0] + m[1][1]*v[1] + m[1][2]*v[2] + m[1][3]*v[3];	\
    p[2] = m[2][0]*v[0] + m[2][1]*v[1] + m[2][2]*v[2] + m[2][3]*v[3];	\
    p[3] = m[3][0]*v[0] + m[3][1]*v[1] + m[3][2]*v[2] + m[3][3]*v[3];	\
-} do{} while(0)
+} while(0)
 
 /*! matrix times vector
 v is a vec3f
@@ -921,30 +921,30 @@ and m is a mat4f<br>
 Last column is added as the position
 */
 #define MAT_DOT_VEC_3X4(p,m,v)					\
-{								\
+do {								\
    p[0] = m[0][0]*v[0] + m[0][1]*v[1] + m[0][2]*v[2] + m[0][3];	\
    p[1] = m[1][0]*v[0] + m[1][1]*v[1] + m[1][2]*v[2] + m[1][3];	\
    p[2] = m[2][0]*v[0] + m[2][1]*v[1] + m[2][2]*v[2] + m[2][3];	\
-} do{} while(0)
+} while(0)
 
 /*! vector transpose times matrix */
 /*! p[j] = v[0]*m[0][j] + v[1]*m[1][j] + v[2]*m[2][j]; */
 #define VEC_DOT_MAT_3X3(p,v,m)					\
-{								\
+do {								\
    p[0] = v[0]*m[0][0] + v[1]*m[1][0] + v[2]*m[2][0];		\
    p[1] = v[0]*m[0][1] + v[1]*m[1][1] + v[2]*m[2][1];		\
    p[2] = v[0]*m[0][2] + v[1]*m[1][2] + v[2]*m[2][2];		\
-} do{} while(0)
+} while(0)
 
 
 /*! affine matrix times vector */
 /** The matrix is assumed to be an affine matrix, with last two
  * entries representing a translation */
 #define MAT_DOT_VEC_2X3(p,m,v)					\
-{								\
+do {								\
    p[0] = m[0][0]*v[0] + m[0][1]*v[1] + m[0][2];		\
    p[1] = m[1][0]*v[0] + m[1][1]*v[1] + m[1][2];		\
-} do{} while(0)
+} while(0)
 
 
 /** inverse transpose of matrix times vector
@@ -957,7 +957,7 @@ Last column is added as the position
  * See macro below for use on normals.
  */
 #define INV_TRANSP_MAT_DOT_VEC_2X2(p,m,v)			\
-{								\
+do {								\
    GREAL det;						\
 								\
    det = m[0][0]*m[1][1] - m[0][1]*m[1][0];			\
@@ -970,7 +970,7 @@ Last column is added as the position
       p[0] *= det;						\
       p[1] *= det;						\
    }								\
-} do{} while(0)
+} while(0)
 
 
 /** transform normal vector by inverse transpose of matrix
@@ -981,7 +981,7 @@ Last column is added as the position
  * Vector p is then normalized.
  */
 #define NORM_XFORM_2X2(p,m,v)					\
-{								\
+do {								\
    double len;							\
 								\
    /* do nothing if off-diagonals are zero and diagonals are 	\
@@ -997,7 +997,7 @@ Last column is added as the position
    } else {							\
       VEC_COPY_2 (p, v);					\
    }								\
-} do{} while(0)
+} while(0)
 
 
 /** outer product of vector times vector transpose
@@ -1006,13 +1006,13 @@ Last column is added as the position
  * dyadic matrix m.
  */
 #define OUTER_PRODUCT_2X2(m,v,t)				\
-{								\
+do {								\
    m[0][0] = v[0] * t[0];					\
    m[0][1] = v[0] * t[1];					\
 								\
    m[1][0] = v[1] * t[0];					\
    m[1][1] = v[1] * t[1];					\
-} do{} while(0)
+} while(0)
 
 
 /** outer product of vector times vector transpose
@@ -1021,7 +1021,7 @@ Last column is added as the position
  * dyadic matrix m.
  */
 #define OUTER_PRODUCT_3X3(m,v,t)				\
-{								\
+do {								\
    m[0][0] = v[0] * t[0];					\
    m[0][1] = v[0] * t[1];					\
    m[0][2] = v[0] * t[2];					\
@@ -1033,7 +1033,7 @@ Last column is added as the position
    m[2][0] = v[2] * t[0];					\
    m[2][1] = v[2] * t[1];					\
    m[2][2] = v[2] * t[2];					\
-} do{} while(0)
+} while(0)
 
 
 /** outer product of vector times vector transpose
@@ -1042,7 +1042,7 @@ Last column is added as the position
  * dyadic matrix m.
  */
 #define OUTER_PRODUCT_4X4(m,v,t)				\
-{								\
+do {								\
    m[0][0] = v[0] * t[0];					\
    m[0][1] = v[0] * t[1];					\
    m[0][2] = v[0] * t[2];					\
@@ -1062,7 +1062,7 @@ Last column is added as the position
    m[3][1] = v[3] * t[1];					\
    m[3][2] = v[3] * t[2];					\
    m[3][3] = v[3] * t[3];					\
-} do{} while(0)
+} while(0)
 
 
 /** outer product of vector times vector transpose
@@ -1071,13 +1071,13 @@ Last column is added as the position
  * dyadic matrix m.
  */
 #define ACCUM_OUTER_PRODUCT_2X2(m,v,t)				\
-{								\
+do {								\
    m[0][0] += v[0] * t[0];					\
    m[0][1] += v[0] * t[1];					\
 								\
    m[1][0] += v[1] * t[0];					\
    m[1][1] += v[1] * t[1];					\
-} do{} while(0)
+} while(0)
 
 
 /** outer product of vector times vector transpose
@@ -1086,7 +1086,7 @@ Last column is added as the position
  * dyadic matrix m.
  */
 #define ACCUM_OUTER_PRODUCT_3X3(m,v,t)				\
-{								\
+do {								\
    m[0][0] += v[0] * t[0];					\
    m[0][1] += v[0] * t[1];					\
    m[0][2] += v[0] * t[2];					\
@@ -1098,7 +1098,7 @@ Last column is added as the position
    m[2][0] += v[2] * t[0];					\
    m[2][1] += v[2] * t[1];					\
    m[2][2] += v[2] * t[2];					\
-} do{} while(0)
+} while(0)
 
 
 /** outer product of vector times vector transpose
@@ -1107,7 +1107,7 @@ Last column is added as the position
  * dyadic matrix m.
  */
 #define ACCUM_OUTER_PRODUCT_4X4(m,v,t)				\
-{								\
+do {								\
    m[0][0] += v[0] * t[0];					\
    m[0][1] += v[0] * t[1];					\
    m[0][2] += v[0] * t[2];					\
@@ -1127,7 +1127,7 @@ Last column is added as the position
    m[3][1] += v[3] * t[1];					\
    m[3][2] += v[3] * t[2];					\
    m[3][3] += v[3] * t[3];					\
-} do{} while(0)
+} while(0)
 
 
 /** determinant of matrix
@@ -1135,9 +1135,9 @@ Last column is added as the position
  * Computes determinant of matrix m, returning d
  */
 #define DETERMINANT_2X2(d,m)					\
-{								\
+do {								\
    d = m[0][0] * m[1][1] - m[0][1] * m[1][0];			\
-} do{} while(0)
+} while(0)
 
 
 /** determinant of matrix
@@ -1145,18 +1145,18 @@ Last column is added as the position
  * Computes determinant of matrix m, returning d
  */
 #define DETERMINANT_3X3(d,m)					\
-{								\
+do {								\
    d = m[0][0] * (m[1][1]*m[2][2] - m[1][2] * m[2][1]);		\
    d -= m[0][1] * (m[1][0]*m[2][2] - m[1][2] * m[2][0]);	\
    d += m[0][2] * (m[1][0]*m[2][1] - m[1][1] * m[2][0]);	\
-} do{} while(0)
+} while(0)
 
 
 /** i,j,th cofactor of a 4x4 matrix
  *
  */
 #define COFACTOR_4X4_IJ(fac,m,i,j) 				\
-{								\
+do {								\
    int __ii[4], __jj[4], __k;						\
 								\
    for (__k=0; __k<i; __k++) __ii[__k] = __k;				\
@@ -1175,7 +1175,7 @@ Last column is added as the position
    if ( __k != (__k/2)*2) {						\
       (fac) = -(fac);						\
    }								\
-} do{} while(0)
+} while(0)
 
 
 /** determinant of matrix
@@ -1183,7 +1183,7 @@ Last column is added as the position
  * Computes determinant of matrix m, returning d
  */
 #define DETERMINANT_4X4(d,m)					\
-{								\
+do {								\
    double cofac;						\
    COFACTOR_4X4_IJ (cofac, m, 0, 0);				\
    d = m[0][0] * cofac;						\
@@ -1193,7 +1193,7 @@ Last column is added as the position
    d += m[0][2] * cofac;					\
    COFACTOR_4X4_IJ (cofac, m, 0, 3);				\
    d += m[0][3] * cofac;					\
-} do{} while(0)
+} while(0)
 
 
 /** cofactor of matrix
@@ -1201,12 +1201,12 @@ Last column is added as the position
  * Computes cofactor of matrix m, returning a
  */
 #define COFACTOR_2X2(a,m)					\
-{								\
+do {								\
    a[0][0] = (m)[1][1];						\
    a[0][1] = - (m)[1][0];						\
    a[1][0] = - (m)[0][1];						\
    a[1][1] = (m)[0][0];						\
-} do{} while(0)
+} while(0)
 
 
 /** cofactor of matrix
@@ -1214,7 +1214,7 @@ Last column is added as the position
  * Computes cofactor of matrix m, returning a
  */
 #define COFACTOR_3X3(a,m)					\
-{								\
+do {								\
    a[0][0] = m[1][1]*m[2][2] - m[1][2]*m[2][1];			\
    a[0][1] = - (m[1][0]*m[2][2] - m[2][0]*m[1][2]);		\
    a[0][2] = m[1][0]*m[2][1] - m[1][1]*m[2][0];			\
@@ -1224,7 +1224,7 @@ Last column is added as the position
    a[2][0] = m[0][1]*m[1][2] - m[0][2]*m[1][1];			\
    a[2][1] = - (m[0][0]*m[1][2] - m[0][2]*m[1][0]);		\
    a[2][2] = m[0][0]*m[1][1] - m[0][1]*m[1][0]);		\
-} do{} while(0)
+} while(0)
 
 
 /** cofactor of matrix
@@ -1232,7 +1232,7 @@ Last column is added as the position
  * Computes cofactor of matrix m, returning a
  */
 #define COFACTOR_4X4(a,m)					\
-{								\
+do {								\
    int i,j;							\
 								\
    for (i=0; i<4; i++) {					\
@@ -1240,7 +1240,7 @@ Last column is added as the position
          COFACTOR_4X4_IJ (a[i][j], m, i, j);			\
       }								\
    }								\
-} do{} while(0)
+} while(0)
 
 
 /** adjoint of matrix
@@ -1249,12 +1249,12 @@ Last column is added as the position
  * (Note that adjoint is just the transpose of the cofactor matrix)
  */
 #define ADJOINT_2X2(a,m)					\
-{								\
+do {								\
    a[0][0] = (m)[1][1];						\
    a[1][0] = - (m)[1][0];						\
    a[0][1] = - (m)[0][1];						\
    a[1][1] = (m)[0][0];						\
-} do{} while(0)
+} while(0)
 
 
 /** adjoint of matrix
@@ -1263,7 +1263,7 @@ Last column is added as the position
  * (Note that adjoint is just the transpose of the cofactor matrix)
  */
 #define ADJOINT_3X3(a,m)					\
-{								\
+do {								\
    a[0][0] = m[1][1]*m[2][2] - m[1][2]*m[2][1];			\
    a[1][0] = - (m[1][0]*m[2][2] - m[2][0]*m[1][2]);		\
    a[2][0] = m[1][0]*m[2][1] - m[1][1]*m[2][0];			\
@@ -1273,7 +1273,7 @@ Last column is added as the position
    a[0][2] = m[0][1]*m[1][2] - m[0][2]*m[1][1];			\
    a[1][2] = - (m[0][0]*m[1][2] - m[0][2]*m[1][0]);		\
    a[2][2] = m[0][0]*m[1][1] - m[0][1]*m[1][0]);		\
-} do{} while(0)
+} while(0)
 
 
 /** adjoint of matrix
@@ -1282,7 +1282,7 @@ Last column is added as the position
  * (Note that adjoint is just the transpose of the cofactor matrix)
  */
 #define ADJOINT_4X4(a,m)					\
-{								\
+do {								\
    int _i_,_j_;							\
 								\
    for (_i_=0; _i_<4; _i_++) {					\
@@ -1290,7 +1290,7 @@ Last column is added as the position
          COFACTOR_4X4_IJ (a[_j_][_i_], m, _i_, _j_);			\
       }								\
    }								\
-} do{} while(0)
+} while(0)
 
 
 /** compute adjoint of matrix and scale
@@ -1298,12 +1298,12 @@ Last column is added as the position
  * Computes adjoint of matrix m, scales it by s, returning a
  */
 #define SCALE_ADJOINT_2X2(a,s,m)				\
-{								\
+do {								\
    a[0][0] = (s) * m[1][1];					\
    a[1][0] = - (s) * m[1][0];					\
    a[0][1] = - (s) * m[0][1];					\
    a[1][1] = (s) * m[0][0];					\
-} do{} while(0)
+} while(0)
 
 
 /** compute adjoint of matrix and scale
@@ -1311,7 +1311,7 @@ Last column is added as the position
  * Computes adjoint of matrix m, scales it by s, returning a
  */
 #define SCALE_ADJOINT_3X3(a,s,m)				\
-{								\
+do {								\
    a[0][0] = (s) * (m[1][1] * m[2][2] - m[1][2] * m[2][1]);	\
    a[1][0] = (s) * (m[1][2] * m[2][0] - m[1][0] * m[2][2]);	\
    a[2][0] = (s) * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);	\
@@ -1323,7 +1323,7 @@ Last column is added as the position
    a[0][2] = (s) * (m[0][1] * m[1][2] - m[0][2] * m[1][1]);	\
    a[1][2] = (s) * (m[0][2] * m[1][0] - m[0][0] * m[1][2]);	\
    a[2][2] = (s) * (m[0][0] * m[1][1] - m[0][1] * m[1][0]);	\
-} do{} while(0)
+} while(0)
 
 
 /** compute adjoint of matrix and scale
@@ -1331,7 +1331,7 @@ Last column is added as the position
  * Computes adjoint of matrix m, scales it by s, returning a
  */
 #define SCALE_ADJOINT_4X4(a,s,m)				\
-{								\
+do {								\
    int _i_,_j_; \
    for (_i_=0; _i_<4; _i_++) {					\
       for (_j_=0; _j_<4; _j_++) {					\
@@ -1347,12 +1347,12 @@ Last column is added as the position
  * inverse b
  */
 #define INVERT_2X2(b,det,a)			\
-{						\
+do {						\
    GREAL _tmp_;					\
    DETERMINANT_2X2 (det, a);			\
    _tmp_ = 1.0f / (det);				\
    SCALE_ADJOINT_2X2 (b, _tmp_, a);		\
-} do{} while(0)
+} while(0)
 
 
 /** inverse of matrix
@@ -1361,12 +1361,12 @@ Last column is added as the position
  * inverse b
  */
 #define INVERT_3X3(b,det,a)			\
-{						\
+do {						\
    GREAL _tmp_;					\
    DETERMINANT_3X3 (det, a);			\
    _tmp_ = 1.0f / (det);				\
    SCALE_ADJOINT_3X3 (b, _tmp_, a);		\
-} do{} while(0)
+} while(0)
 
 
 /** inverse of matrix
@@ -1375,12 +1375,12 @@ Last column is added as the position
  * inverse b
  */
 #define INVERT_4X4(b,det,a)			\
-{						\
+do {						\
    GREAL _tmp_;					\
    DETERMINANT_4X4 (det, a);			\
    _tmp_ = 1.0f / (det);				\
    SCALE_ADJOINT_4X4 (b, _tmp_, a);		\
-}\
+} while(0)
 
 //! @}
 
@@ -1389,80 +1389,80 @@ Last column is added as the position
 //! @{
 
 //!Initializes an AABB
-#define INVALIDATE_AABB(aabb) {\
+#define INVALIDATE_AABB(aabb) do {\
     (aabb).minX = G_REAL_INFINITY;\
     (aabb).maxX = -G_REAL_INFINITY;\
     (aabb).minY = G_REAL_INFINITY;\
     (aabb).maxY = -G_REAL_INFINITY;\
     (aabb).minZ = G_REAL_INFINITY;\
     (aabb).maxZ = -G_REAL_INFINITY;\
-} do{} while(0)
+} while(0)
 
-#define AABB_GET_MIN(aabb,vmin) {\
+#define AABB_GET_MIN(aabb,vmin) do {\
     vmin[0] = (aabb).minX;\
     vmin[1] = (aabb).minY;\
     vmin[2] = (aabb).minZ;\
-} do{} while(0)
+} while(0)
 
-#define AABB_GET_MAX(aabb,vmax) {\
+#define AABB_GET_MAX(aabb,vmax) do {\
     vmax[0] = (aabb).maxX;\
     vmax[1] = (aabb).maxY;\
     vmax[2] = (aabb).maxZ;\
-} do{} while(0)
+} while(0)
 
 //!Copy boxes
 #define AABB_COPY(dest_aabb,src_aabb)\
-{\
+do {\
     (dest_aabb).minX = (src_aabb).minX;\
     (dest_aabb).maxX = (src_aabb).maxX;\
     (dest_aabb).minY = (src_aabb).minY;\
     (dest_aabb).maxY = (src_aabb).maxY;\
     (dest_aabb).minZ = (src_aabb).minZ;\
     (dest_aabb).maxZ = (src_aabb).maxZ;\
-} do{} while(0)
+} while(0)
 
 //! Computes an Axis aligned box from a triangle
-#define COMPUTEAABB_FOR_TRIANGLE(aabb,V1,V2,V3) {\
+#define COMPUTEAABB_FOR_TRIANGLE(aabb,V1,V2,V3) do {\
     (aabb).minX = MIN3(V1[0],V2[0],V3[0]);\
     (aabb).maxX = MAX3(V1[0],V2[0],V3[0]);\
     (aabb).minY = MIN3(V1[1],V2[1],V3[1]);\
     (aabb).maxY = MAX3(V1[1],V2[1],V3[1]);\
     (aabb).minZ = MIN3(V1[2],V2[2],V3[2]);\
     (aabb).maxZ = MAX3(V1[2],V2[2],V3[2]);\
-} do{} while(0)
+} while(0)
 
 //! Merge two boxes to destaabb
-#define MERGEBOXES(destaabb,aabb) {\
+#define MERGEBOXES(destaabb,aabb) do {\
     (destaabb).minX = MIN((aabb).minX,(destaabb).minX);\
     (destaabb).minY = MIN((aabb).minY,(destaabb).minY);\
     (destaabb).minZ = MIN((aabb).minZ,(destaabb).minZ);\
     (destaabb).maxX = MAX((aabb).maxX,(destaabb).maxX);\
     (destaabb).maxY = MAX((aabb).maxY,(destaabb).maxY);\
     (destaabb).maxZ = MAX((aabb).maxZ,(destaabb).maxZ);\
-} do{} while(0)
+} while(0)
 
 //! Extends the box
-#define AABB_POINT_EXTEND(destaabb,p) {\
+#define AABB_POINT_EXTEND(destaabb,p) do {\
     (destaabb).minX = MIN(p[0],(destaabb).minX);\
     (destaabb).maxX = MAX(p[0],(destaabb).maxX);\
     (destaabb).minY = MIN(p[1],(destaabb).minY);\
     (destaabb).maxY = MAX(p[1],(destaabb).maxY);\
     (destaabb).minZ = MIN(p[2],(destaabb).minZ);\
     (destaabb).maxZ = MAX(p[2],(destaabb).maxZ);\
-} do{} while(0)
+} while(0)
 
 //! Finds the intersection box of two boxes
-#define BOXINTERSECTION(aabb1, aabb2, iaabb) {\
+#define BOXINTERSECTION(aabb1, aabb2, iaabb) do {\
     (iaabb).minX = MAX((aabb1).minX,(aabb2).minX);\
     (iaabb).minY = MAX((aabb1).minY,(aabb2).minY);\
     (iaabb).minZ = MAX((aabb1).minZ,(aabb2).minZ);\
     (iaabb).maxX = MIN((aabb1).maxX,(aabb2).maxX);\
     (iaabb).maxY = MIN((aabb1).maxY,(aabb2).maxY);\
     (iaabb).maxZ = MIN((aabb1).maxZ,(aabb2).maxZ);\
-} do{} while(0)
+} while(0)
 
 //! Determines if two aligned boxes do intersect
-#define AABBCOLLISION(intersected,aabb1,aabb2) {\
+#define AABBCOLLISION(intersected,aabb1,aabb2) do {\
 	intersected = 1;\
 	if ((aabb1).minX > (aabb2).maxX ||\
         (aabb1).maxX < (aabb2).minX ||\
@@ -1473,9 +1473,9 @@ Last column is added as the position
 	{\
 		intersected = 0;\
 	}\
-} do{} while(0)
+} while(0)
 
-#define AXIS_INTERSECT(min,max, a, d,tfirst, tlast,is_intersected) {\
+#define AXIS_INTERSECT(min,max, a, d,tfirst, tlast,is_intersected) do {\
 	if(IS_ZERO(d))\
 	{\
         is_intersected = !(a < min || a > max);\
@@ -1497,7 +1497,7 @@ Last column is added as the position
             is_intersected = 1;\
         }\
 	}\
-} do{} while(0)
+} while(0)
 
 /*! \brief Finds the Ray intersection parameter.
 
@@ -1509,7 +1509,7 @@ Last column is added as the position
 \param is_intersected 1 if the ray collides the box, else false
 
 */
-#define BOX_INTERSECTS_RAY(aabb, vorigin, vdir, tparam, tmax,is_intersected) { \
+#define BOX_INTERSECTS_RAY(aabb, vorigin, vdir, tparam, tmax,is_intersected) do { \
 	GREAL _tfirst = 0.0f, _tlast = tmax;\
 	AXIS_INTERSECT(aabb.minX,aabb.maxX,vorigin[0], vdir[0], _tfirst, _tlast,is_intersected);\
 	if(is_intersected)\
@@ -1521,10 +1521,10 @@ Last column is added as the position
         AXIS_INTERSECT(aabb.minZ,aabb.maxZ,vorigin[2], vdir[2], _tfirst, _tlast,is_intersected);\
 	}\
 	tparam = _tfirst;\
-} do{} while(0)
+} while(0)
 
 #define AABB_PROJECTION_INTERVAL(aabb,direction, vmin, vmax)\
-{\
+do {\
     GREAL _center[] = {(aabb.minX + aabb.maxX)*0.5f, (aabb.minY + aabb.maxY)*0.5f, (aabb.minZ + aabb.maxZ)*0.5f};\
     \
     GREAL _extend[] = {aabb.maxX-_center[0],aabb.maxY-_center[1],aabb.maxZ-_center[2]};\
@@ -1535,7 +1535,7 @@ Last column is added as the position
 \
     vmin = _fOrigin - _fMaximumExtent; \
     vmax = _fOrigin + _fMaximumExtent; \
-} do{} while(0)
+} while(0)
 
 /*!
 classify values:
@@ -1546,7 +1546,7 @@ classify values:
 </ol>
 */
 #define PLANE_CLASSIFY_BOX(plane,aabb,classify)\
-{\
+do {\
 	GREAL _fmin,_fmax; \
 	AABB_PROJECTION_INTERVAL(aabb,plane, _fmin, _fmax); \
 	if(plane[3] >= _fmax) \
@@ -1564,7 +1564,7 @@ classify values:
 			classify = 2;/*In front of*/ \
 		} \
 	} \
-} do{} while(0)
+} while(0)
 //! @}
 
 /*! \defgroup GEOMETRIC_OPERATIONS
@@ -1575,40 +1575,40 @@ classify values:
 #define PLANEDIREPSILON 0.0000001f
 #define PARALELENORMALS 0.000001f
 
-#define TRIANGLE_NORMAL(v1,v2,v3,n){\
+#define TRIANGLE_NORMAL(v1,v2,v3,n) do {\
     vec3f _dif1,_dif2; \
     VEC_DIFF(_dif1,v2,v1); \
     VEC_DIFF(_dif2,v3,v1); \
     VEC_CROSS(n,_dif1,_dif2); \
     VEC_NORMALIZE(n); \
-} do{} while(0)
+} while(0)
 
 /// plane is a vec4f
-#define TRIANGLE_PLANE(v1,v2,v3,plane) {\
+#define TRIANGLE_PLANE(v1,v2,v3,plane) do {\
     TRIANGLE_NORMAL(v1,v2,v3,plane);\
     plane[3] = VEC_DOT(v1,plane);\
-} do{} while(0)
+} while(0)
 
 /// Calc a plane from an edge an a normal. plane is a vec4f
-#define EDGE_PLANE(e1,e2,n,plane) {\
+#define EDGE_PLANE(e1,e2,n,plane) do {\
     vec3f _dif; \
     VEC_DIFF(_dif,e2,e1); \
     VEC_CROSS(plane,_dif,n); \
     VEC_NORMALIZE(plane); \
     plane[3] = VEC_DOT(e1,plane);\
-} do{} while(0)
+} while(0)
 
 #define DISTANCE_PLANE_POINT(plane,point) (VEC_DOT(plane,point) - plane[3])
 
-#define PROJECT_POINT_PLANE(point,plane,projected) {\
+#define PROJECT_POINT_PLANE(point,plane,projected) do {\
 	GREAL _dis;\
 	_dis = DISTANCE_PLANE_POINT(plane,point);\
 	VEC_SCALE(projected,-_dis,plane);\
 	VEC_SUM(projected,projected,point);	\
-} do{} while(0)
+} while(0)
 
 #define POINT_IN_HULL(point,planes,plane_count,outside)\
-{\
+do {\
 	GREAL _dis;\
 	outside = 0;\
 	GUINT32 _i = 0;\
@@ -1618,17 +1618,17 @@ classify values:
 	    if(_dis>0.0f) outside = 1;\
 	    _i++;\
 	}while(_i<plane_count&&outside==0);\
-} do{} while(0)
+} while(0)
 
 
-#define PLANE_CLIP_SEGMENT(s1,s2,plane,clipped) {\
+#define PLANE_CLIP_SEGMENT(s1,s2,plane,clipped) do {\
 	GREAL _dis1,_dis2;\
 	_dis1 = DISTANCE_PLANE_POINT(plane,s1);\
 	VEC_DIFF(clipped,s2,s1);\
 	_dis2 = VEC_DOT(clipped,plane);\
 	VEC_SCALE(clipped,-_dis1/_dis2,clipped);\
 	VEC_SUM(clipped,clipped,s1);	\
-} do{} while(0)
+} while(0)
 
 //! Confirms if the plane intersects the edge or not
 /*!
@@ -1643,7 +1643,7 @@ intersection type must have the following values
 </ul>
 */
 #define PLANE_CLIP_SEGMENT2(s1,s2,plane,clipped,intersection_type) \
-{\
+do {\
 	GREAL _dis1,_dis2;\
 	_dis1 = DISTANCE_PLANE_POINT(plane,s1);\
 	_dis2 = DISTANCE_PLANE_POINT(plane,s2);\
@@ -1666,7 +1666,7 @@ intersection type must have the following values
         VEC_SCALE(clipped,-_dis1/_dis2,clipped);\
         VEC_SUM(clipped,clipped,s1);	\
 	}\
-} do{} while(0)
+} while(0)
 
 //! Confirms if the plane intersect the edge or not
 /*!
@@ -1684,7 +1684,7 @@ intersection_type must have the following values
 </ul>
 */
 #define PLANE_CLIP_SEGMENT_CLOSEST(s1,s2,plane,clipped1,clipped2,intersection_type)\
-{\
+do {\
 	PLANE_CLIP_SEGMENT2(s1,s2,plane,clipped1,intersection_type);\
 	if(intersection_type == 0)\
 	{\
@@ -1714,12 +1714,12 @@ intersection_type must have the following values
 	{	    \
 	    VEC_COPY(clipped2,s2);\
 	}\
-} do{} while(0)
+} while(0)
 
 
 //! Finds the 2 smallest cartesian coordinates of a plane normal
 #define PLANE_MINOR_AXES(plane, i0, i1)\
-{\
+do {\
     GREAL A[] = {GIM_FABS_FN(plane[0]),GIM_FABS_FN(plane[1]),GIM_FABS_FN(plane[2])};\
     if(A[0]>A[1])\
 	{\
@@ -1747,11 +1747,11 @@ intersection_type must have the following values
 			i1=2; \
 		}\
 	} \
-} do{} while(0)
+} while(0)
 
 //! Ray plane collision
 #define RAY_PLANE_COLLISION(plane,vDir,vPoint,pout,tparam,does_intersect)\
-{\
+do {\
 	GREAL _dis,_dotdir;	\
 	_dotdir = VEC_DOT(plane,vDir);\
 	if(_dotdir<PLANEDIREPSILON)\
@@ -1766,17 +1766,17 @@ intersection_type must have the following values
         VEC_SUM(pout,vPoint,pout);	\
         does_intersect = 1;\
 	}\
-} do{} while(0)
+} while(0)
 
 //! Bidireccional ray
 #define LINE_PLANE_COLLISION(plane,vDir,vPoint,pout,tparam, tmin, tmax)\
-{\
+do {\
     tparam = -DISTANCE_PLANE_POINT(plane,vPoint);\
 	tparam /= VEC_DOT(plane,vDir);\
     tparam = CLAMP(tparam,tmin,tmax);\
     VEC_SCALE(pout,tparam,vDir);\
     VEC_SUM(pout,vPoint,pout);	\
-} do{} while(0)
+} while(0)
 
 /*! \brief Returns the Ray on which 2 planes intersect if they do.
     Written by Rodrigo Hernandez on ODE convex collision
@@ -1789,7 +1789,7 @@ intersection_type must have the following values
 
 */
 #define INTERSECT_PLANES(p1,p2,p,d,dointersect) \
-{ \
+do { \
   VEC_CROSS(d,p1,p2); \
   GREAL denom = VEC_DOT(d, d);\
   if (IS_ZERO(denom)) \
@@ -1808,14 +1808,14 @@ intersection_type must have the following values
       p[2]/=denom; \
       dointersect = 1; \
   }\
-} do{} while(0)
+} while(0)
 
 //***************** SEGMENT and LINE FUNCTIONS **********************************///
 
 /*! Finds the closest point(cp) to (v) on a segment (e1,e2)
  */
 #define CLOSEST_POINT_ON_SEGMENT(cp,v,e1,e2)			\
-{ \
+do { \
     vec3f _n;\
     VEC_DIFF(_n,e2,e1);\
     VEC_DIFF(cp,v,e1);\
@@ -1834,7 +1834,7 @@ intersection_type must have the following values
         VEC_SCALE(cp,_scalar,_n);\
         VEC_SUM(cp,cp,e1);\
 	}	\
-} do{} while(0)
+} while(0)
 
 
 /*! \brief Finds the line params where these lines intersect.
@@ -1848,7 +1848,7 @@ intersection_type must have the following values
 \param dointersect  0 if the lines won't intersect, else 1
 
 */
-#define LINE_INTERSECTION_PARAMS(dir1,point1, dir2, point2,t1,t2,dointersect) {\
+#define LINE_INTERSECTION_PARAMS(dir1,point1, dir2, point2,t1,t2,dointersect) do {\
     GREAL det;\
 	GREAL e1e1 = VEC_DOT(dir1,dir1);\
 	GREAL e1e2 = VEC_DOT(dir1,dir2);\
@@ -1868,11 +1868,11 @@ intersection_type must have the following values
         t2 = (e1e1*p1p2e2 - e1e2*p1p2e1)/det;\
         dointersect = 1;\
 	}\
-} do{} while(0)
+} while(0)
 
 //! Find closest points on segments
 #define SEGMENT_COLLISION(vA1,vA2,vB1,vB2,vPointA,vPointB)\
-{\
+do {\
     vec3f _AD,_BD,_N;\
     vec4f _M;\
     VEC_DIFF(_AD,vA2,vA1);\
@@ -1889,7 +1889,7 @@ intersection_type must have the following values
 	_tp = CLAMP(_tp,0.0f,1.0f);	\
     VEC_SCALE(vPointB,_tp,_BD);\
     VEC_SUM(vPointB,vPointB,vB1);\
-} do{} while(0)
+} while(0)
 
 //! @}
 

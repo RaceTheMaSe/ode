@@ -145,20 +145,20 @@ void gim_aabbset_sort(GIM_AABB_SET * aabbset, char calc_global_bound)
 }*/
 
 #define PUSH_PAIR(i,j,pairset)\
-{\
+do {\
     GIM_DYNARRAY_PUSH_EMPTY(GIM_PAIR,pairset);\
     GIM_PAIR * _pair = GIM_DYNARRAY_POINTER(GIM_PAIR,pairset) + (pairset).m_size - 1;\
     _pair->m_index1 = i;\
     _pair->m_index2 = j;\
-} do{} while(0)
+} while(0)
 
 #define PUSH_PAIR_INV(i,j,pairset)\
-{\
+do {\
     GIM_DYNARRAY_PUSH_EMPTY(GIM_PAIR,pairset);\
     GIM_PAIR * _pair = GIM_DYNARRAY_POINTER(GIM_PAIR,pairset) + (pairset).m_size - 1;\
     _pair->m_index1 = j;\
     _pair->m_index2 = i;\
-} do{} while(0)
+} while(0)
 
 #define FIND_OVERLAPPING_FOWARD(\
  curr_index,\
@@ -169,7 +169,7 @@ void gim_aabbset_sort(GIM_AABB_SET * aabbset, char calc_global_bound)
  aabbarray,\
  pairset,\
  push_pair_macro)\
-{\
+do {\
     GUINT32 _i = test_count;\
     char _intersected;\
     GIM_RSORT_TOKEN * _psorted_tokens = sorted_tokens;\
@@ -183,7 +183,7 @@ void gim_aabbset_sort(GIM_AABB_SET * aabbset, char calc_global_bound)
     	_psorted_tokens++;\
     	_i--;\
     }\
-} do{} while(0)
+} while(0)
 
 //! log(N) Complete box pruning. Returns a list of overlapping pairs of boxes, each box of the pair belongs to the same set.
 /*!

@@ -175,11 +175,11 @@
 
 #define OU_VERIFY(Condition) OU_ASSERT(Condition)
 
-#define OU_CHECK(Condition) { \
+#define OU_CHECK(Condition) do { \
 	bool bConditionValue; \
 	assert(OU__CHECK_HANDLER(Condition)); \
 	(void)(bConditionValue || (*(volatile int *)0 = 0, false)); \
-} do {} while(0)
+} while(0)
 
 
 #endif // #if !defined(NDEBUG)

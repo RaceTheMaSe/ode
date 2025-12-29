@@ -59,41 +59,41 @@ Functions for manip packed arrays of numbers
 */
 //! @{
 #define GIM_COPY_ARRAYS(dest_array, source_array, element_count)\
-{\
+do {\
     GUINT32 _i_;\
     for (_i_ = 0; _i_ < (element_count); _i_++)\
     {\
     	(dest_array)[_i_] = (source_array)[_i_];\
     }\
-} do{} while(0)
+} while(0)
 
 #define GIM_COPY_ARRAYS_1(dest_array, source_array, element_count, copy_macro)\
-{\
+do {\
     GUINT32 _i_;\
     for (_i_=0; _i_ < (element_count); _i_++)\
     {\
     	copy_macro((dest_array)[_i_], (source_array)[_i_]);\
     }\
-} do{} while(0)
+} while(0)
 
 
 #define GIM_ZERO_ARRAY(array, element_count)\
-{\
+do {\
     GUINT32 _i_;\
     for (_i_=0; _i_ < (element_count); _i_++)\
     {\
     	(array)[_i_] = 0;\
     }\
-} do{} while(0)
+} while(0)
 
 #define GIM_CONSTANT_ARRAY(array, element_count, constant)\
-{\
+do {\
     GUINT32 _i_;\
     for (_i_ = 0; _i_ < (element_count); _i_++)\
     {\
     	(array)[_i_] = (constant);\
     }\
-} do{} while(0)
+} while(0)
 //! @}
 
 /*! \defgroup MEMORY_FUNCTION_PROTOTYPES
@@ -162,36 +162,36 @@ struct GDYNAMIC_ARRAY
 
 //! Creates a dynamic array zero sized
 #define GIM_DYNARRAY_CREATE(type, array_data, reserve_size) \
-{ \
+do { \
     (array_data).m_pdata = (char *)gim_alloc((reserve_size) * sizeof(type)); \
     (array_data).m_size = 0; \
     (array_data).m_reserve_size = (reserve_size); \
-} do{} while(0)
+} while(0)
 
 //! Creates a dynamic array with n = size elements
 #define GIM_DYNARRAY_CREATE_SIZED(type, array_data, size) \
-{ \
+do { \
     (array_data).m_pdata = (char *)gim_alloc((size) * sizeof(type)); \
     (array_data).m_size = (size); \
     (array_data).m_reserve_size = (size); \
-} do{} while(0)
+} while(0)
 
 //! Reserves memory for a dynamic array.
 #define GIM_DYNARRAY_RESERVE_SIZE(type, array_data, old_size, reserve_size) \
-{ \
+do { \
     if ((reserve_size) > (array_data).m_reserve_size) \
     { \
         (array_data).m_pdata = (char *) gim_realloc((array_data).m_pdata, (old_size) * sizeof(type), (reserve_size) * sizeof(type)); \
         (array_data).m_reserve_size = (reserve_size); \
     } \
-} do{} while(0)
+} while(0)
 
 //! Set the size of the array
 #define GIM_DYNARRAY_SET_SIZE(type, array_data, size) \
-{ \
+do { \
     GIM_DYNARRAY_RESERVE_SIZE(type, array_data, (array_data).m_size, size); \
     (array_data).m_size = size; \
-} do{} while(0)
+} while(0)
 
 //! Gets a pointer from the beginning of the array
 #define GIM_DYNARRAY_POINTER(type, array_data) ((type *)((array_data).m_pdata))
@@ -201,7 +201,7 @@ struct GDYNAMIC_ARRAY
 
 //! Inserts an element at the last position
 #define GIM_DYNARRAY_PUSH_ITEM(type, array_data, item)\
-{ \
+do { \
     if ((array_data).m_reserve_size <= (array_data).m_size)\
     {\
         GIM_DYNARRAY_RESERVE_SIZE(type, array_data, (array_data).m_size, (array_data).m_size + G_ARRAY_GROW_SIZE); \
@@ -209,21 +209,21 @@ struct GDYNAMIC_ARRAY
     type * _pt = GIM_DYNARRAY_POINTER(type, array_data); \
     memcpy(&_pt[(array_data).m_size], &(item), sizeof(type)); \
     (array_data).m_size++; \
-} do{} while(0)
+} while(0)
 
 //! Inserts an element at the last position
 #define GIM_DYNARRAY_PUSH_EMPTY(type, array_data) \
-{ \
+do { \
     if ((array_data).m_reserve_size <= (array_data).m_size) \
     { \
         GIM_DYNARRAY_RESERVE_SIZE(type, array_data, (array_data).m_size, (array_data).m_size + G_ARRAY_GROW_SIZE); \
     } \
     (array_data).m_size++; \
-} do{} while(0)
+} while(0)
 
 //! Inserts an element
 #define GIM_DYNARRAY_INSERT_ITEM(type, array_data, item, index) \
-{ \
+do { \
     if ((array_data).m_reserve_size <= (array_data).m_size) \
     { \
         GIM_DYNARRAY_RESERVE_SIZE(type, array_data, (array_data).m_size, (array_data).m_size + G_ARRAY_GROW_SIZE); \
@@ -235,27 +235,27 @@ struct GDYNAMIC_ARRAY
     } \
     memcpy(&_pt[(index)], &(item), sizeof(type)); \
     array_data.m_size++; \
-} do{} while(0)
+} while(0)
 
 //! Removes an element
 #define GIM_DYNARRAY_DELETE_ITEM(type, array_data, index) \
-{ \
+do { \
     if ((index) < (array_data).m_size - 1) \
     { \
         type * _pt = GIM_DYNARRAY_POINTER(type, array_data);\
         memmove(&_pt[(index)], &_pt[(index) + 1], ((array_data).m_size - (index) - 1) * sizeof(type)); \
     } \
     (array_data).m_size--; \
-} \
+} while(0)
 
 //! Removes an element at the last position
 #define GIM_DYNARRAY_POP_ITEM(array_data) \
-{ \
+do { \
     if ((array_data).m_size > 0) \
     { \
         (array_data).m_size--; \
     } \
-} do{} while(0)
+} while(0)
 
 //! Destroys the array
 void GIM_DYNARRAY_DESTROY(GDYNAMIC_ARRAY & array_data);
@@ -279,19 +279,19 @@ Bitsets , based on \ref DYNAMIC_ARRAYS .
 
 //! Creates a bitset, with their bits set to 0.
 #define GIM_BITSET_CREATE_SIZED(array_data, bits_count) \
-{ \
+do { \
     GUINT32 array_size = (bits_count) / GUINT32_BIT_COUNT + 1; \
     GIM_DYNARRAY_CREATE(GUINT32, array_data, array_size); \
     GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
     memset(_pt, 0, sizeof(GUINT32) * ((array_data).m_size)); \
-} do{} while(0)
+} while(0)
 
 //! Gets the bitset bit count.
 #define GIM_BITSET_SIZE(array_data) ((array_data).m_size * GUINT32_BIT_COUNT)
 
 //! Resizes a bitset, with their bits set to 0.
 #define GIM_BITSET_RESIZE(array_data, new_bits_count) \
-{ \
+do { \
     GUINT32 _oldsize = (array_data).m_size; \
     (array_data).m_size = (new_bits_count) / GUINT32_BIT_COUNT + 1; \
     if (_oldsize < (array_data).m_size) \
@@ -303,34 +303,34 @@ Bitsets , based on \ref DYNAMIC_ARRAYS .
         GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
         memset(&_pt[_oldsize], 0, sizeof(GUINT32) * ((array_data).m_size - _oldsize)); \
     } \
-} do{} while(0)
+} while(0)
 
 //! Sets all bitset bit to 0.
 #define GIM_BITSET_CLEAR_ALL(array_data) \
-{ \
+do { \
     memset((array_data).m_pdata, 0, sizeof(GUINT32) * (array_data).m_size); \
-} do{} while(0)
+} while(0)
 
 //! Sets all bitset bit to 1.
 #define GIM_BITSET_SET_ALL(array_data) \
-{ \
+do { \
     memset((array_data).m_pdata, 0xFF, sizeof(GUINT32) * (array_data).m_size); \
-} do{} while(0)
+} while(0)
 
 ///Sets the desired bit to 1
 #define GIM_BITSET_SET(array_data, bit_index) \
-{ \
+do { \
     if ((bit_index) >= GIM_BITSET_SIZE(array_data)) \
 	{ \
 	    GIM_BITSET_RESIZE(array_data, bit_index); \
 	} \
 	GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
 	_pt[(bit_index) >> GUINT32_EXPONENT] |= (1 << ((bit_index) & (GUINT32_BIT_COUNT - 1))); \
-} do{} while(0)
+} while(0)
 
 ///Return 0 or 1
 #define GIM_BITSET_GET(array_data, bit_index, get_value) \
-{ \
+do { \
     if ((bit_index) >= GIM_BITSET_SIZE(array_data)) \
 	{ \
 	    (get_value) = 0; \
@@ -340,17 +340,17 @@ Bitsets , based on \ref DYNAMIC_ARRAYS .
         GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
         (get_value) = _pt[(bit_index) >> GUINT32_EXPONENT] & (1 << ((bit_index) & (GUINT32_BIT_COUNT - 1))); \
 	} \
-} do{} while(0)
+} while(0)
 
 ///Sets the desired bit to 0
 #define GIM_BITSET_CLEAR(array_data, bit_index) \
-{ \
+do { \
     if ((bit_index) < GIM_BITSET_SIZE(array_data)) \
 	{ \
         GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
         _pt[(bit_index) >> GUINT32_EXPONENT] &= (GUINT32)~(1 << ((bit_index) & (GUINT32_BIT_COUNT - 1))); \
 	} \
-} do{} while(0)
+} while(0)
 //! @}
 
 /*! \defgroup MEMORY_ACCESS_CONSTANTS
@@ -742,20 +742,20 @@ struct GBUFFER_ARRAY
 
 ///Verify if two arrays have the same data
 #define GIM_BUFFER_ARRAY_ARE_SAME(_array_data1,_array_data2,aresame) \
-{ \
+do { \
     (aresame) = 1; \
     if ((_array_data1).m_buffer_id.m_buffer_id != (_array_data2).m_buffer_id.m_buffer_id || (_array_data1).m_buffer_id.m_buffer_manager_id != (_array_data2).m_buffer_id.m_buffer_manager_id || (_array_data1).m_byte_offset != (_array_data2).m_byte_offset) \
     { \
         (aresame) = 0; \
     } \
-} do{} while(0)
+} while(0)
 
 //! Reserve size for a buffered array.
 /*!
 \pre array_data must be unlocked, and must be the aligned (GIM_BUFFER_ARRAY_IS_ALIGNED )
 */
 #define GIM_BUFFER_ARRAY_RESERVE_SIZE(type, array_data, reserve_size) \
-{ \
+do { \
     if ((reserve_size) > (array_data).m_element_count) \
     { \
         GUINT32 _buffer_size, _newarray_size; \
@@ -767,38 +767,38 @@ struct GBUFFER_ARRAY
             gim_buffer_realloc(&(array_data).m_buffer_id, _newarray_size); \
         } \
     } \
-} do{} while(0)
+} while(0)
 
 //! Pushes an element at last position
 /*!
 \pre array_data must be unlocked, and must be the aligned (GIM_BUFFER_ARRAY_IS_ALIGNED )
 */
 #define GIM_BUFFER_ARRAY_PUSH_ITEM(type, array_data, item) \
-{ \
+do { \
     GIM_BUFFER_ARRAY_RESERVE_SIZE(type, array_data, (array_data).m_element_count + 1); \
     gim_buffer_array_lock(&(array_data), G_MA_WRITE_ONLY); \
     type * _pt = GIM_BUFFER_ARRAY_POINTER(type, array_data, (array_data).m_element_count); \
     memcpy(_pt, &(item), sizeof(type)); \
     gim_buffer_array_unlock(&(array_data)); \
     (array_data)->m_element_count++; \
-} do{} while(0)
+} while(0)
 
 //! Pushes a new element at last position
 /*!
 \pre array_data must be unlocked, and must be aligned (GIM_BUFFER_ARRAY_IS_ALIGNED )
 */
 #define GIM_BUFFER_ARRAY_PUSH_EMPTY(type, array_data) \
-{\
+do {\
     GIM_BUFFER_ARRAY_RESERVE_SIZE(type, array_data, (array_data).m_element_count + 1); \
     (array_data)->m_element_count++; \
-} do{} while(0)
+} while(0)
 
 //! Inserts an element
 /*!
 \pre array_data must be unlocked, and must be aligned (GIM_BUFFER_ARRAY_IS_ALIGNED )
 */
 #define GIM_BUFFER_ARRAY_INSERT_ITEM(type, array_data, item, index) \
-{ \
+do { \
     GIM_BUFFER_ARRAY_RESERVE_SIZE(type, array_data, (array_data).m_element_count + 1); \
     gim_buffer_array_lock(&(array_data), G_MA_WRITE_ONLY); \
     type * _pt = GIM_BUFFER_ARRAY_POINTER(type, array_data, 0); \
@@ -809,14 +809,14 @@ struct GBUFFER_ARRAY
     memcpy(&_pt[(index)], &(item), sizeof(type)); \
     gim_buffer_array_unlock(&(array_data)); \
     (array_data).m_element_count++; \
-} do{} while(0)
+} while(0)
 
 //! Deletes an element
 /*!
 \pre array_data must be unlocked, and must be aligned (GIM_BUFFER_ARRAY_IS_ALIGNED )
 */
 #define GIM_BUFFER_ARRAY_DELETE_ITEM(type, array_data, index) \
-{ \
+do { \
     if ((index) < (array_data).m_element_count - 1) \
     { \
         gim_buffer_array_lock(&(array_data), G_MA_WRITE_ONLY); \
@@ -825,19 +825,19 @@ struct GBUFFER_ARRAY
         gim_buffer_array_unlock(&(array_data)); \
     } \
     (array_data).m_element_count--; \
-} do{} while(0)
+} while(0)
 
 //! Deletes an element at last position
 /*!
 \pre array_data must be unlocked, and must be aligned (GIM_BUFFER_ARRAY_IS_ALIGNED )
 */
 #define GIM_BUFFER_ARRAY_POP_ITEM(array_data) \
-{ \
+do { \
     if ((array_data).m_element_count > 0) \
     { \
         (array_data).m_element_count--; \
     } \
-} do{} while(0)
+} while(0)
 
 
 //! Initializes an GBUFFER_ARRAY object from a buffer ID
@@ -852,7 +852,7 @@ m_buffer_data will be 0, for access to the elements, you'd need to call lock_arr
 \sa gim_buffer_add_ref
 */
 #define GIM_BUFFER_ARRAY_INIT_OFFSET_STRIDE(array_data, buffer_id, element_count, offset, byte_stride) \
-{ \
+do { \
     (array_data).m_buffer_id.m_buffer_id = (buffer_id).m_buffer_id; \
     (array_data).m_buffer_id.m_buffer_manager_id = (buffer_id).m_buffer_manager_id; \
     (array_data).m_buffer_data = 0; \
@@ -860,7 +860,7 @@ m_buffer_data will be 0, for access to the elements, you'd need to call lock_arr
     (array_data).m_byte_stride = (byte_stride); \
     GIM_BUFFER_ARRAY_SET_OFFSET(array_data, offset); \
     gim_buffer_add_ref(&(buffer_id)); \
-} do{} while(0)
+} while(0)
 
 //! Initializes an GBUFFER_ARRAY object from a buffer ID and a Given type
 /*!
@@ -874,7 +874,7 @@ m_buffer_data will be 0, for access to the elements, you'd need to call lock_arr
 \sa gim_buffer_add_ref
 */
 #define GIM_BUFFER_ARRAY_INIT_TYPE_OFFSET(type, array_data, buffer_id, element_count, offset) \
-{ \
+do { \
     (array_data).m_buffer_id.m_buffer_id = (buffer_id).m_buffer_id; \
     (array_data).m_buffer_id.m_bm_data = (buffer_id).m_bm_data; \
     (array_data).m_buffer_data = NULL; \
@@ -882,7 +882,7 @@ m_buffer_data will be 0, for access to the elements, you'd need to call lock_arr
     GIM_BUFFER_ARRAY_SET_STRIDE(type, array_data); \
     GIM_BUFFER_ARRAY_SET_OFFSET(array_data, offset); \
     gim_buffer_add_ref(&(buffer_id)); \
-} do{} while(0)
+} while(0)
 
 //! Initializes a buffer array giving a data type and a buffer id
 /*!
@@ -944,7 +944,7 @@ void GIM_BUFFER_ARRAY_DESTROY(GBUFFER_ARRAY & array_data);
 \param dest_data A type pointer
 */
 #define GIM_BUFFER_ARRAY_DOWNLOAD(type,array_data,dest_data) \
-{ \
+do { \
     if (GIM_BUFFER_ARRAY_IS_ALIGNED(type, array_data)) \
     { \
         gim_download_from_buffer(&(array_data).m_buffer_id, (array_data).m_byte_offset, (void *)(dest_data), (array_data).m_element_count * (array_data).m_byte_stride); \
@@ -963,7 +963,7 @@ void GIM_BUFFER_ARRAY_DESTROY(GBUFFER_ARRAY & array_data);
         } \
         gim_buffer_array_unlock(&(array_data)); \
     } \
-} do{} while(0)
+} while(0)
 
 //! Upload the content of a pointer to a buffered array
 /*!
@@ -973,7 +973,7 @@ void GIM_BUFFER_ARRAY_DESTROY(GBUFFER_ARRAY & array_data);
 \param source_data A void pointer
 */
 #define GIM_BUFFER_ARRAY_UPLOAD(type, array_data, source_data) \
-{ \
+do { \
     if (GIM_BUFFER_ARRAY_IS_ALIGNED(type, array_data)) \
     { \
         gim_upload_to_buffer(&(array_data).m_buffer_id, (array_data).m_byte_offset, (void *)(source_data), (array_data).m_element_count * (array_data).m_byte_stride); \
@@ -992,7 +992,7 @@ void GIM_BUFFER_ARRAY_DESTROY(GBUFFER_ARRAY & array_data);
         } \
         gim_buffer_array_unlock(&(array_data)); \
     } \
-} do{} while(0)
+} while(0)
 
 
 //!Kernel function prototype for process streams, given a buffered array as source and
@@ -1017,7 +1017,7 @@ This macro executes a kernel macro or function for each element of the streams
 \param _dst_type Required. Type of all elements of the dest stream
 */
 #define GIM_PROCESS_BUFFER_ARRAY(_uniform_data, _src_array, _dst_array, _kernel, _src_type, _dst_type) \
-{ \
+do { \
 \
     gim_buffer_array_lock(&(_src_array), G_MA_READ_ONLY); \
     gim_buffer_array_lock(&(_dst_array), G_MA_WRITE_ONLY); \
@@ -1049,7 +1049,7 @@ This macro executes a kernel macro or function for each element of the streams
     } \
     gim_buffer_array_unlock(&(_src_array)); \
     gim_buffer_array_unlock(&(_dst_array)); \
-} do{} while(0)
+} while(0)
 
 //! @}
 

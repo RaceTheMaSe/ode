@@ -40,7 +40,7 @@ email: projectileman@yahoo.com
 
 //! Clips a polygon by a plane
 #define PLANE_CLIP_POLYGON(plane,polygon_points,polygon_point_count,clipped,clipped_count,max_clipped) \
-{ \
+do { \
     clipped_count = 0; \
     GUINT32  _i, _vi, _prevclassif=32000, _classif; \
 	GREAL _d; \
@@ -78,7 +78,7 @@ email: projectileman@yahoo.com
 		} \
 		_prevclassif = _classif; \
 	} \
-} do{} while(0)
+} while(0)
 
 
 struct GIM_TRIPLANES_CACHE
@@ -104,12 +104,12 @@ struct GIM_TRIANGLE_DATA
 
 //! tri_data is a GIM_TRIANGLE_DATA
 #define GIM_CALC_TRIANGLE_DATA_PLANES(tri_data)\
-{\
+do {\
         TRIANGLE_PLANE((tri_data).m_vertices[0],(tri_data).m_vertices[1],(tri_data).m_vertices[2],(tri_data).m_planes.m_planes[0]);\
         EDGE_PLANE((tri_data).m_vertices[0],(tri_data).m_vertices[1],((tri_data).m_planes.m_planes[0]),((tri_data).m_planes.m_planes[1]));\
         EDGE_PLANE((tri_data).m_vertices[1],(tri_data).m_vertices[2],((tri_data).m_planes.m_planes[0]),((tri_data).m_planes.m_planes[2]));\
         EDGE_PLANE((tri_data).m_vertices[2],(tri_data).m_vertices[0],((tri_data).m_planes.m_planes[0]), ((tri_data).m_planes.m_planes[3]));\
-} do{} while(0)
+} while(0)
 
 //Structure for collision
 
@@ -185,7 +185,7 @@ if 0.0<= u+v <=1.0 then they are inside of triangle
 
 	*/
 #define TRIANGLE_GET_UVPARAMETERS(point,vec1,vec2,vec3,tri_plane,u,v,outside)\
-{\
+do {\
 	vec3f _axe1, _axe2, _vecproj;\
 	VEC_DIFF(_axe1,vec2,vec1);\
 	VEC_DIFF(_axe2,vec3,vec1);\
@@ -227,11 +227,11 @@ if 0.0<= u+v <=1.0 then they are inside of triangle
 			outside = 0;\
 		}\
 	}\
-} do{} while(0)
+} while(0)
 
 //! Finds the collision of a ray and a triangle.
 #define RAY_TRIANGLE_INTERSECTION(vOrigin,vDir,vec1,vec2,vec3,tri_plane,pout,u,v,tparam,tmax,does_intersect)\
-{\
+do {\
 	RAY_PLANE_COLLISION(tri_plane,vDir,vOrigin,pout,tparam,does_intersect);\
 	if(does_intersect != 0)\
 	{\
@@ -245,7 +245,7 @@ if 0.0<= u+v <=1.0 then they are inside of triangle
             does_intersect = !does_intersect;\
         }\
 	}\
-} do{} while(0)
+} while(0)
 
 
 //! @}
