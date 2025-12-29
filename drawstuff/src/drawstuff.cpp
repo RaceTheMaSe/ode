@@ -193,7 +193,7 @@ Image::Image(char *filename)
     if (!f) dsError("Can't open image file `%s'", filename);
 
     // read in header
-    if (fgetc(f) != 'P' || fgetc(f) != '6')
+    if (fgetc(f) != 'P' && fgetc(f) != '6')
         dsError("image file \"%s\" is not a binary PPM (no P6 header)", filename);
     skipWhiteSpace(filename, f);
 
