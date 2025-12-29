@@ -24,16 +24,6 @@
 #include <ode/rotation.h>
 
 
-typedef struct _sLocalContactData
-{
-    dVector3	vPos;
-    dVector3	vNormal;
-    dReal		fDepth;
-    int			triIndex;
-    int			nFlags; // 0 = filtered out, 1 = OK
-}sLocalContactData;
-
-
 #if defined(dTRIMESH_ENABLED)
 
 #include "collision_trimesh_internal.h"
