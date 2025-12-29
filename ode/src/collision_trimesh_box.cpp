@@ -94,7 +94,7 @@ struct sTrimeshBoxColliderData
         int Flags, dContactGeom* Contacts, int Stride);
     void TestCollisionForSingleTriangle(int Triint, dVector3 dv[3], bool &bOutFinishSearching);
 
-    bool _cldTestNormal(dReal fp0, dReal fR, dVector3 vNormal, int iAxis);
+    bool _cldTestNormal(dReal fp0, dReal fR, const dVector3 vNormal, int iAxis);
     bool _cldTestFace(dReal fp0, dReal fp1, dReal fp2, dReal fR, dReal fD,
         dVector3 vNormal, int iAxis);
     bool _cldTestEdge(dReal fp0, dReal fp1, dReal fR, dReal fD,
@@ -130,7 +130,7 @@ struct sTrimeshBoxColliderData
 };
 
 // Test normal of mesh face as separating axis for intersection
-bool sTrimeshBoxColliderData::_cldTestNormal(dReal fp0, dReal fR, dVector3 vNormal, int iAxis)
+bool sTrimeshBoxColliderData::_cldTestNormal(dReal fp0, dReal fR, const dVector3 vNormal, int iAxis)
 {
     // calculate overlapping interval of box and triangle
     dReal fDepth = fR+fp0;
@@ -633,7 +633,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
 
 // find two closest points on two lines
 static bool _cldClosestPointOnTwoLines(
-    dVector3 vPoint1, dVector3 vLenVec1, dVector3 vPoint2, dVector3 vLenVec2,
+    const dVector3 vPoint1, const dVector3 vLenVec1, const dVector3 vPoint2, const dVector3 vLenVec2,
     dReal &fvalue1, dReal &fvalue2)
 {
     // calculate denominator

@@ -476,7 +476,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
                     const dReal minEffectiveness = REAL(0.5);
                     for ( int i = 0; i < OutTriCount; ++i )
                     {
-                        dContactGeom* TempContact = SAFECONTACT(Flags, Contacts, i, Stride);
+                        const dContactGeom* TempContact = SAFECONTACT(Flags, Contacts, i, Stride);
                         dReal effectiveness = dCalcVectorDot3(normal, TempContact->normal);
                         if ( effectiveness < dEpsilon )
                             return OutTriCount; // Cannot merge this pathological case

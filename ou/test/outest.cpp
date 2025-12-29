@@ -117,7 +117,7 @@ enum ETESTTLSVALUES
 static unsigned int g_uiTestTLSDestructorCallCount = 0;
 static unsigned int g_uiTestTLSDestructorSuccessCount = 0;
 
-static void _OU_CONVENTION_CALLBACK TestTlsSecondValueDestructor(void *pv_Value)
+static void _OU_CONVENTION_CALLBACK TestTlsSecondValueDestructor(const void *pv_Value)
 {
 	g_uiTestTLSDestructorCallCount += 1;
 
@@ -7550,14 +7550,14 @@ static bool TestTypeWrappers_Assignment()
 
 		CTestWrapper twTestWrapper;
 
-		CTestWrapper &twFirstAssignmentReference = (twTestWrapper = (CTestWrapper::value_type)1);
+		const CTestWrapper &twFirstAssignmentReference = (twTestWrapper = (CTestWrapper::value_type)1);
 
 		if (twTestWrapper != twOneWrapper || &twFirstAssignmentReference != &twTestWrapper)
 		{
 			break;
 		}
 
-		CTestWrapper &twSecondAssignmentReference = (twTestWrapper = twZeroWrapper);
+		const CTestWrapper &twSecondAssignmentReference = (twTestWrapper = twZeroWrapper);
 
 		if (twTestWrapper != twZeroWrapper || &twSecondAssignmentReference != &twTestWrapper)
 		{
@@ -7834,7 +7834,7 @@ static void *_OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Realloc(void *pv_
 	return (void *)((ptrdiff_t)pv_OldBlock - (ptrdiff_t)nBlockNewSize);
 }
 
-static void _OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Free(void *pv_OldBlock)
+static void _OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Free(const void *pv_OldBlock)
 {
 	g_bFreeInvocation = true;
 	g_bFreeSuccess = pv_OldBlock == g_pv_MallocResult;
@@ -7862,7 +7862,7 @@ static bool TestCustomizations_MemMgr()
 			break;
 		}
 
-		void *pv_BlockReallocated = ReallocateMemoryBlock(pv_BlockAllocated, 2 * nBlockSize);
+		const void *pv_BlockReallocated = ReallocateMemoryBlock(pv_BlockAllocated, 2 * nBlockSize);
 
 		if (!g_bReallocInvocation 
 			|| pv_BlockReallocated != (void *)((size_t)g_pv_MallocResult - nBlockSize))
@@ -8031,7 +8031,7 @@ static bool TestAsserts_FalseFunction(bool &bVarInvocation)
 	bool bResult = true;
 	bVarInvocation = !bVarInvocation;
 
-	bool *pv_Pointer = &bResult;
+	const bool *pv_Pointer = &bResult;
 	if (pv_Pointer)
 	{
 		bResult = false;
@@ -8046,7 +8046,7 @@ static bool TestAsserts_TrueFunction(bool &bVarInvocation)
 	bool bResult = false;
 	bVarInvocation = !bVarInvocation;
 	
-	bool *pv_Pointer = &bResult;
+	const bool *pv_Pointer = &bResult;
 	if (pv_Pointer)
 	{
 		bResult = true;

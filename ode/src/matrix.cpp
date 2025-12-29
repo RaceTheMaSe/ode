@@ -103,8 +103,8 @@ void dxMultiply2(dReal *A, const dReal *B, const dReal *C, unsigned p, unsigned 
     dReal *aa = A;
     const dReal *bb = B;
     for (unsigned i = p; i != 0; aa += rskip, bb += qskip, --i) {
-        dReal *a = aa, *aend = aa + r;
-        const dReal *cc = C;
+        dReal *a = aa;
+        const dReal *aend = aa + r, *cc = C;
         for (; a != aend; cc+=qskip, ++a) {
             dReal sum = REAL(0.0);
             const dReal *b = bb, *c = cc, *cend = cc + q;
@@ -144,7 +144,8 @@ int dxFactorCholesky(dReal *A, unsigned n, void *tmpBuf/*[n]*/)
         }
         {
             dReal sum = *cc;
-            dReal *a = aa, *aend = aa + i;
+            dReal *a = aa;
+            const dReal *aend = aa + i;
             for (; a != aend; ++a) {
                 sum -= (*a)*(*a);
             }
@@ -225,7 +226,8 @@ int dxInvertPDMatrix(const dReal *A, dReal *Ainv, unsigned n, void *tmpBuf/*[nsk
     memcpy (L, A, nskip_mul_n * sizeof(dReal));
     if (dxFactorCholesky(L, n, tmp)) {
         dSetZero (Ainv, nskip_mul_n);	// make sure all padding elements set to 0
-        dReal *aa = Ainv, *xi = X, *xiend = X + n;
+        dReal *aa = Ainv, *xi = X;
+        const dReal *xiend = X + n;
         for (; xi != xiend; ++aa, ++xi) {
             dSetZero(X, n);
             *xi = REAL(1.0);
@@ -454,9 +456,9 @@ void dxRemoveRowCol(dReal *A, unsigned n, unsigned nskip, unsigned r)
         dReal *Adst = A + (sizeint)(nskip + 1) * r;
         const unsigned n1 = n - 1;
         for (unsigned i = r; i < n1; ++i) {
-            dReal *Asrc = Adst + (nskip + 1);
+            const dReal *Asrc = Adst + (nskip + 1);
             memcpy (Adst, Asrc, cpy_size);
-            Adst = Asrc - 1;
+            Adst = const_cast<dReal*>(Asrc) - 1;
         }
     }
 }

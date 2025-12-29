@@ -600,7 +600,8 @@ void dLCP::transfer_i_from_N_to_C (unsigned i)
 
             dReal ell_Dell_dot = REAL(0.0);
             dReal *const Ltgt = m_L + (sizeint)m_nskip * nC;
-            dReal *ell = m_ell, *Dell = m_Dell, *d = m_d;
+            dReal *ell = m_ell, *d = m_d;
+            const dReal *Dell = m_Dell;
             for (unsigned j = 0; j < nC; ++j) {
                 dReal ell_j;
                 const dReal Dell_j = Dell[j];
@@ -728,7 +729,8 @@ void dLCP::pC_plusequals_s_times_qC (dReal *p, dReal s, dReal *q)
 void dLCP::pN_plusequals_s_times_qN (dReal *p, dReal s, dReal *q) const
 {
     const unsigned nC = m_nC;
-    dReal *ptgt = p + nC, *qsrc = q + nC;
+    dReal *ptgt = p + nC;
+    const dReal *qsrc = q + nC;
     const unsigned nN = m_nN;
     for (unsigned i = 0; i < nN; ++i) {
         ptgt[i] += s * qsrc[i];
@@ -761,12 +763,14 @@ void dLCP::solve1 (dReal *a, unsigned i, bool dir_positive, int only_transfer) c
         }
         solveL1Straight<1>(m_L, m_Dell, nC, m_nskip);
         {
-            dReal *ell = m_ell, *Dell = m_Dell, *d = m_d;
+            dReal *ell = m_ell;
+            const dReal *Dell = m_Dell, *d = m_d;
             for (unsigned j = 0; j < nC; ++j) ell[j] = Dell[j] * d[j];
         }
 
         if (!only_transfer) {
-            dReal *tmp = m_tmp, *ell = m_ell;
+            dReal *tmp = m_tmp;
+            const dReal *ell = m_ell;
             {
                 for (unsigned j = 0; j < nC; ++j) tmp[j] = ell[j];
             }
@@ -815,7 +819,8 @@ void dLCP::unpermute_W() const
     memcpy (m_tmp, m_w, m_n * sizeof(dReal));
 
     const unsigned *p = m_p;
-    dReal *w = m_w, *tmp = m_tmp;
+    dReal *w = m_w;
+    const dReal *tmp = m_tmp;
     const unsigned n = m_n;
     for (unsigned j = 0; j < n; ++j) {
         const unsigned k = p[j];

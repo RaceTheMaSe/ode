@@ -33,8 +33,8 @@ functions that are defined in the public header files.
 
 //****************************************************************************
 
-int dCollideSpheres (dVector3 p1, dReal r1,
-                     dVector3 p2, dReal r2, dContactGeom *c)
+int dCollideSpheres (const dVector3 p1, dReal r1,
+                     const dVector3 p2, dReal r2, dContactGeom *c)
 {
     // printf ("d=%.2f  (%.2f %.2f %.2f) (%.2f %.2f %.2f) r1=%.2f r2=%.2f\n",
     //	  d,p1[0],p1[1],p1[2],p2[0],p2[1],p2[2],r1,r2);

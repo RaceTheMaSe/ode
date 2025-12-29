@@ -986,7 +986,7 @@ void dsStopGraphics()
 
 
 static
-void drawSky(float view_pos[3])
+void drawSky(const float view_pos[3])
 {
     glDisable(GL_LIGHTING);
     if (use_textures) {

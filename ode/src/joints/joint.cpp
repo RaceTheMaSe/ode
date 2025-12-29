@@ -111,7 +111,7 @@ void dxJointGroup::freeAll()
 void setBall( dxJoint *joint, dReal fps, dReal erp, 
     int rowskip, dReal *J1, dReal *J2,
     int pairskip, dReal *pairRhsCfm, 
-    dVector3 anchor1, dVector3 anchor2 )
+    const dVector3 anchor1, const dVector3 anchor2 )
 {
     // anchor points in global coordinates with respect to body PORs.
     dVector3 a1, a2;
@@ -165,7 +165,7 @@ void setBall( dxJoint *joint, dReal fps, dReal erp,
 void setBall2( dxJoint *joint, dReal fps, dReal erp, 
     int rowskip, dReal *J1, dReal *J2,
     int pairskip, dReal *pairRhsCfm, 
-    dVector3 anchor1, dVector3 anchor2,
+    const dVector3 anchor1, const dVector3 anchor2,
     dVector3 axis, dReal erp1 )
 {
     // anchor points in global coordinates with respect to body PORs.
@@ -185,14 +185,14 @@ void setBall2( dxJoint *joint, dReal fps, dReal erp,
     dCalcVectorCross3( J1 + rowskip + dxJoint::GI2__JA_MIN, a1, q1 );
     dCalcVectorCross3( J1 + (size_t)(2 * rowskip) + dxJoint::GI2__JA_MIN, a1, q2 );
 
-    dxBody *b0 = joint->node[0].body;
+    const dxBody *b0 = joint->node[0].body;
     dAddVectors3(a1, a1, b0->posr.pos);
 
     // set right hand side - measure error along (axis,q1,q2)
     const dReal k1 = fps * erp1;
     const dReal k = fps * erp;
 
-    dxBody *b1 = joint->node[1].body;
+    const dxBody *b1 = joint->node[1].body;
     if ( b1 )
     {
         dCopyNegatedVector3(J2 + dxJoint::GI2__JL_MIN, axis);
@@ -325,7 +325,7 @@ void setAnchors( dxJoint *j, dReal x, dReal y, dReal z,
 void setAxes( dxJoint *j, dReal x, dReal y, dReal z,
              dVector3 axis1, dVector3 axis2 )
 {
-    dxBody *b0 = j->node[0].body;
+    const dxBody *b0 = j->node[0].body;
     if ( b0 )
     {
         dReal q[4];
@@ -343,7 +343,7 @@ void setAxes( dxJoint *j, dReal x, dReal y, dReal z,
 
         if ( axis2 )
         {
-            dxBody *b1 = j->node[1].body;
+            const dxBody *b1 = j->node[1].body;
             if ( b1 )
             {
                 dMultiply1_331( axis2, b1->posr.R, q );
@@ -360,7 +360,7 @@ void setAxes( dxJoint *j, dReal x, dReal y, dReal z,
 }
 
 
-void getAnchor( dxJoint *j, dVector3 result, dVector3 anchor1 )
+void getAnchor( dxJoint *j, dVector3 result, const dVector3 anchor1 )
 {
     dxBody *b0 = j->node[0].body;
     if ( b0 )
@@ -373,7 +373,7 @@ void getAnchor( dxJoint *j, dVector3 result, dVector3 anchor1 )
 }
 
 
-void getAnchor2( dxJoint *j, dVector3 result, dVector3 anchor2 )
+void getAnchor2( dxJoint *j, dVector3 result, const dVector3 anchor2 )
 {
     dxBody *b1 = j->node[1].body;
     if ( b1 )
@@ -392,9 +392,9 @@ void getAnchor2( dxJoint *j, dVector3 result, dVector3 anchor2 )
 }
 
 
-void getAxis( dxJoint *j, dVector3 result, dVector3 axis1 )
+void getAxis( dxJoint *j, dVector3 result, const dVector3 axis1 )
 {
-    dxBody *b0 = j->node[0].body;
+    const dxBody *b0 = j->node[0].body;
     if ( b0 )
     {
         dMultiply0_331( result, b0->posr.R, axis1 );
@@ -402,9 +402,9 @@ void getAxis( dxJoint *j, dVector3 result, dVector3 axis1 )
 }
 
 
-void getAxis2( dxJoint *j, dVector3 result, dVector3 axis2 )
+void getAxis2( dxJoint *j, dVector3 result, const dVector3 axis2 )
 {
-    dxBody *b1 = j->node[1].body;
+    const dxBody *b1 = j->node[1].body;
     if ( b1 )
     {
         dMultiply0_331( result, b1->posr.R, axis2 );
@@ -418,7 +418,7 @@ void getAxis2( dxJoint *j, dVector3 result, dVector3 axis2 )
 }
 
 
-dReal getHingeAngleFromRelativeQuat( dQuaternion qrel, dVector3 axis )
+dReal getHingeAngleFromRelativeQuat( const dQuaternion qrel, const dVector3 axis )
 {
     // the angle between the two bodies is extracted from the quaternion that
     // represents the relative rotation between them. recall that a quaternion

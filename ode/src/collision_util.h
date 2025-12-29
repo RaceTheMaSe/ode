@@ -56,8 +56,8 @@ dContactGeom* SAFECONTACT(int Flags, dContactGeom* Contacts, int Index, int Stri
 // if the spheres (p1,r1) and (p2,r2) collide, set the contact `c' and
 // return 1, else return 0.
 
-int dCollideSpheres (dVector3 p1, dReal r1,
-                     dVector3 p2, dReal r2, dContactGeom *c);
+int dCollideSpheres (const dVector3 p1, dReal r1,
+                     const dVector3 p2, dReal r2, dContactGeom *c);
 
 
 // given two lines

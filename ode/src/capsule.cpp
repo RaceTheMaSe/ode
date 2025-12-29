@@ -169,7 +169,7 @@ int dCollideCapsuleBox (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT ((flags & NUMC_MASK) >= 1);
 
     const dxCapsule *cyl = (dxCapsule*) o1;
-    dxBox *box = (dxBox*) o2;
+    const dxBox *box = (dxBox*) o2;
 
     contact->g1 = o1;
     contact->g2 = o2;

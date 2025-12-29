@@ -38,11 +38,11 @@
 void setBall( dxJoint *joint, dReal fps, dReal erp, 
     int rowskip, dReal *J1, dReal *J2,
     int pairskip, dReal *pairRhsCfm, 
-    dVector3 anchor1, dVector3 anchor2 );
+    const dVector3 anchor1, const dVector3 anchor2 );
 void setBall2( dxJoint *joint, dReal fps, dReal erp, 
     int rowskip, dReal *J1, dReal *J2,
     int pairskip, dReal *pairRhsCfm, 
-    dVector3 anchor1, dVector3 anchor2,
+    const dVector3 anchor1, const dVector3 anchor2,
     dVector3 axis, dReal erp1 );
 
 void setFixedOrientation( dxJoint *joint, dReal fps, dReal erp, 
@@ -54,17 +54,17 @@ void setFixedOrientation( dxJoint *joint, dReal fps, dReal erp,
 void setAnchors( dxJoint *j, dReal x, dReal y, dReal z,
     dVector3 anchor1, dVector3 anchor2 );
 
-void getAnchor( dxJoint *j, dVector3 result, dVector3 anchor1 );
-void getAnchor2( dxJoint *j, dVector3 result, dVector3 anchor2 );
+void getAnchor( dxJoint *j, dVector3 result, const dVector3 anchor1 );
+void getAnchor2( dxJoint *j, dVector3 result, const dVector3 anchor2 );
 
 void setAxes( dxJoint *j, dReal x, dReal y, dReal z,
              dVector3 axis1, dVector3 axis2 );
-void getAxis( dxJoint *j, dVector3 result, dVector3 axis1 );
-void getAxis2( dxJoint *j, dVector3 result, dVector3 axis2 );
+void getAxis( dxJoint *j, dVector3 result, const dVector3 axis1 );
+void getAxis2( dxJoint *j, dVector3 result, const dVector3 axis2 );
 
 
 dReal getHingeAngle( dxBody *body1, dxBody *body2, dVector3 axis, dQuaternion q_initial );
-dReal getHingeAngleFromRelativeQuat( dQuaternion qrel, dVector3 axis );
+dReal getHingeAngleFromRelativeQuat( const dQuaternion qrel, const dVector3 axis );
 
 #endif
 

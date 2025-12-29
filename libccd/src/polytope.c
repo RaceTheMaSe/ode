@@ -254,7 +254,8 @@ void ccdPtDumpSVT(ccd_pt_t *pt, const char *fn)
 
 void ccdPtDumpSVT2(ccd_pt_t *pt, FILE *fout)
 {
-    ccd_pt_vertex_t *v, *a, *b, *c;
+    ccd_pt_vertex_t *v;
+    const ccd_pt_vertex_t *a, *b, *c;
     ccd_pt_edge_t *e;
     ccd_pt_face_t *f;
     int i;

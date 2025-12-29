@@ -138,7 +138,7 @@ void PrintingContext::printNonzero (const char *name, const dReal x[3]) const
 // joints
 
 
-static void printLimot (PrintingContext &c, dxJointLimitMotor &limot, int num)
+static void printLimot (PrintingContext &c, const dxJointLimitMotor &limot, int num)
 {
     if (num >= 0) {
         c.printIndent();
@@ -181,7 +181,7 @@ static void printLimot (PrintingContext &c, dxJointLimitMotor &limot, int num)
 }
 
 
-static const char *getJointName (dxJoint *j)
+static const char *getJointName (const dxJoint *j)
 {
     switch (j->type()) {
         case dJointTypeBall: return "ball";
@@ -207,9 +207,9 @@ static const char *getJointName (dxJoint *j)
 }
 
 
-static void printBall (PrintingContext &c, dxJoint *j)
+static void printBall (PrintingContext &c, const dxJoint *j)
 {
-    dxJointBall *b = (dxJointBall*) j;
+    const dxJointBall *b = (const dxJointBall*) j;
     c.print ("anchor1",b->anchor1);
     c.print ("anchor2",b->anchor2);
     c.print ("erp",b->erp);
@@ -217,9 +217,9 @@ static void printBall (PrintingContext &c, dxJoint *j)
 }
 
 
-static void printHinge (PrintingContext &c, dxJoint *j)
+static void printHinge (PrintingContext &c, const dxJoint *j)
 {
-    dxJointHinge *h = (dxJointHinge*) j;
+    const dxJointHinge *h = (const dxJointHinge*) j;
     c.print ("anchor1",h->anchor1);
     c.print ("anchor2",h->anchor2);
     c.print ("axis1",h->axis1);
@@ -229,9 +229,9 @@ static void printHinge (PrintingContext &c, dxJoint *j)
 }
 
 
-static void printSlider (PrintingContext &c, dxJoint *j)
+static void printSlider (PrintingContext &c, const dxJoint *j)
 {
-    dxJointSlider *s = (dxJointSlider*) j;
+    const dxJointSlider *s = (const dxJointSlider*) j;
     c.print ("axis1",s->axis1);
     c.print ("qrel",s->qrel,4);
     c.print ("offset",s->offset);
@@ -239,9 +239,9 @@ static void printSlider (PrintingContext &c, dxJoint *j)
 }
 
 
-static void printContact (PrintingContext &c, dxJoint *j)
+static void printContact (PrintingContext &c, const dxJoint *j)
 {
-    dxJointContact *ct = (dxJointContact*) j;
+    const dxJointContact *ct = (const dxJointContact*) j;
     const int mode = ct->contact.surface.mode;
     c.print ("pos",ct->contact.geom.pos);
     c.print ("normal",ct->contact.geom.normal);
@@ -269,9 +269,9 @@ static void printContact (PrintingContext &c, dxJoint *j)
 }
 
 
-static void printUniversal (PrintingContext &c, dxJoint *j)
+static void printUniversal (PrintingContext &c, const dxJoint *j)
 {
-    dxJointUniversal *u = (dxJointUniversal*) j;
+    const dxJointUniversal *u = (const dxJointUniversal*) j;
     c.print ("anchor1",u->anchor1);
     c.print ("anchor2",u->anchor2);
     c.print ("axis1",u->axis1);
@@ -283,9 +283,9 @@ static void printUniversal (PrintingContext &c, dxJoint *j)
 }
 
 
-static void printHinge2 (PrintingContext &c, dxJoint *j)
+static void printHinge2 (PrintingContext &c, const dxJoint *j)
 {
-    dxJointHinge2 *h = (dxJointHinge2*) j;
+    const dxJointHinge2 *h = (const dxJointHinge2*) j;
     c.print ("anchor1",h->anchor1);
     c.print ("anchor2",h->anchor2);
     c.print ("axis1",h->axis1);
@@ -298,9 +298,9 @@ static void printHinge2 (PrintingContext &c, dxJoint *j)
     printLimot (c,h->limot2,2);
 }
 
-static void printPR (PrintingContext &c, dxJoint *j)
+static void printPR (PrintingContext &c, const dxJoint *j)
 {
-    dxJointPR *pr = (dxJointPR*) j;
+    const dxJointPR *pr = (const dxJointPR*) j;
     c.print ("anchor2",pr->anchor2);
     c.print ("axisR1",pr->axisR1);
     c.print ("axisR2",pr->axisR2);
@@ -311,9 +311,9 @@ static void printPR (PrintingContext &c, dxJoint *j)
     printLimot (c,pr->limotR,2);
 }
 
-static void printPU (PrintingContext &c, dxJoint *j)
+static void printPU (PrintingContext &c, const dxJoint *j)
 {
-    dxJointPU *pu = (dxJointPU*) j;
+    const dxJointPU *pu = (const dxJointPU*) j;
     c.print ("anchor1",pu->anchor1);
     c.print ("anchor2",pu->anchor2);
     c.print ("axis1",pu->axis1);
@@ -326,9 +326,9 @@ static void printPU (PrintingContext &c, dxJoint *j)
     printLimot (c,pu->limotP,3);
 }
 
-static void printPiston (PrintingContext &c, dxJoint *j)
+static void printPiston (PrintingContext &c, const dxJoint *j)
 {
-    dxJointPiston *p = (dxJointPiston*) j;
+    const dxJointPiston *p = (const dxJointPiston*) j;
     c.print ("anchor1",p->anchor1);
     c.print ("anchor2",p->anchor2);
     c.print ("axis1",p->axis1);
@@ -338,18 +338,18 @@ static void printPiston (PrintingContext &c, dxJoint *j)
     printLimot (c, p->limotR, 2);
 }
 
-static void printFixed (PrintingContext &c, dxJoint *j)
+static void printFixed (PrintingContext &c, const dxJoint *j)
 {
-    dxJointFixed *f = (dxJointFixed*) j;
+    const dxJointFixed *f = (const dxJointFixed*) j;
     c.print ("qrel",f->qrel);
     c.print ("offset",f->offset);
     c.print ("erp",f->erp);
     c.print ("cfm",f->cfm);
 }
 
-static void printLMotor (PrintingContext &c, dxJoint *j)
+static void printLMotor (PrintingContext &c, const dxJoint *j)
 {
-    dxJointLMotor *lm = (dxJointLMotor*) j;
+    const dxJointLMotor *lm = (const dxJointLMotor*) j;
     c.print("num", lm->num);
     c.printIndent();
     (void)fprintf (c.file,"rel = {%d,%d,%d},\n",lm->rel[0],lm->rel[1],lm->rel[2]);
@@ -359,9 +359,9 @@ static void printLMotor (PrintingContext &c, dxJoint *j)
     for (int i=0; i<3; i++) printLimot (c,lm->limot[i],i+1);
 }
 
-static void printPlane2d (PrintingContext &c, dxJoint *j)
+static void printPlane2d (PrintingContext &c, const dxJoint *j)
 {
-    dxJointPlane2D *pl = (dxJointPlane2D*) j;
+    const dxJointPlane2D *pl = (const dxJointPlane2D*) j;
     c.print ("row_motor_x"    ,pl->row_motor_x);
     c.print ("row_motor_y"    ,pl->row_motor_y);
     c.print ("row_motor_angle",pl->row_motor_angle);
@@ -370,9 +370,9 @@ static void printPlane2d (PrintingContext &c, dxJoint *j)
     printLimot (c,pl->motor_angle,-1);
 }
 
-static void printDBall (PrintingContext &c, dxJoint *j)
+static void printDBall (PrintingContext &c, const dxJoint *j)
 {
-    dxJointDBall *b = (dxJointDBall*) j;
+    const dxJointDBall *b = (const dxJointDBall*) j;
     c.print ("anchor1",b->anchor1);
     c.print ("anchor2",b->anchor2);
     c.print ("targetdist",b->targetDistance);
@@ -380,17 +380,17 @@ static void printDBall (PrintingContext &c, dxJoint *j)
     c.print ("cfm",b->cfm);
 }
 
-static void printDHinge (PrintingContext &c, dxJoint *j)
+static void printDHinge (PrintingContext &c, const dxJoint *j)
 {
-    dxJointDHinge *dh = (dxJointDHinge*) j;
+    const dxJointDHinge *dh = (const dxJointDHinge*) j;
     printDBall(c,j);
     c.print ("axis1",dh->axis1);
     c.print ("axis2",dh->axis2);
 }
 
-static void printTransmission (PrintingContext &c, dxJoint *j)
+static void printTransmission (PrintingContext &c, const dxJoint *j)
 {
-    dxJointTransmission *tm = (dxJointTransmission*) j;
+    const dxJointTransmission *tm = (const dxJointTransmission*) j;
     c.print ("mode",tm->mode);
     c.print ("update",tm->update);
     c.print ("contacts1",tm->contacts[0]);
@@ -415,7 +415,7 @@ static void printTransmission (PrintingContext &c, dxJoint *j)
 
 struct dxAMotorJointPrinter
 {
-    static void print(PrintingContext &c, dxJointAMotor *a)
+    static void print(PrintingContext &c, const dxJointAMotor *a)
     {
         c.print ("num",a->m_num);
         c.print ("mode",a->m_mode);
@@ -431,16 +431,14 @@ struct dxAMotorJointPrinter
     }
 };
 
-static void printAMotor (PrintingContext &c, dxJoint *j)
+static void printAMotor (PrintingContext &c, const dxJoint *j)
 {
-    dxJointAMotor *a = (dxJointAMotor*) j;
+    const dxJointAMotor *a = (const dxJointAMotor*) j;
     dxAMotorJointPrinter::print(c, a);
 }
 
 //***************************************************************************
 // geometry
-
-static void printGeom (PrintingContext &c, dxGeom *g);
 
 static void printSphere (PrintingContext &c, dxGeom *g)
 {

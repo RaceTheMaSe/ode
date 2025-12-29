@@ -100,7 +100,7 @@
 #define LENGTHOF(a) dCalcVectorLength3(a)
 
 
-static inline dReal _length2OfVector3(dVector3 v)
+static inline dReal _length2OfVector3(const dVector3 v)
 {
     return dCalcVectorLengthSquare3(v);
 }

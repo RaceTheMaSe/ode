@@ -843,7 +843,7 @@ dxThreadedJobInfo *dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomic
 
     while (true)
     {
-        dxThreadedJobInfo *raw_head_info = (dxThreadedJobInfo *)m_info_pool;
+        const dxThreadedJobInfo *raw_head_info = (dxThreadedJobInfo *)m_info_pool;
 
         if (raw_head_info == NULL)
         {

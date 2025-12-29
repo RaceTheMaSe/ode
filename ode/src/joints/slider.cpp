@@ -157,7 +157,7 @@ dxJointSlider::getInfo2 ( dReal worldFPS, dReal worldERP,
     // pull out pos and R for both bodies. also get the `connection'
     // vector pos2-pos1.
     dVector3 c;
-    dReal *pos2 = NULL, *R2 = NULL;
+    const dReal *pos2 = NULL, *R2 = NULL;
 
     const dReal *pos1 = node[0].body->posr.pos;
     const dReal *R1 = node[0].body->posr.R;

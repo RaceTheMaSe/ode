@@ -223,7 +223,7 @@ void dGeomSetConvex (dGeomID g,const dReal *_planes,unsigned int _planecount,
 
 //****************************************************************************
 // function prototypes
-static bool IntersectSegmentPlane(dVector3 a,
+static bool IntersectSegmentPlane(dVector3 const a,
                            dVector3 const b,
                            dVector4 const p,
                            dReal &t,
@@ -246,7 +246,7 @@ static int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
   \param q returns the intersection point
   \return true if there is an intersection, otherwise false.
 */
-static bool IntersectSegmentPlane(dVector3 a,
+static bool IntersectSegmentPlane(dVector3 const a,
                            dVector3 const b,
                            dVector4 const p,
                            dReal &t,
@@ -799,7 +799,7 @@ int dCollideConvexCapsule (dxGeom *o1, dxGeom *o2,
     return 0;
 }
 
-static inline void ComputeInterval(dxConvex& cvx,dVector4 axis,dReal& min,dReal& max)
+static inline void ComputeInterval(dxConvex& cvx,dVector4 const axis,dReal& min,dReal& max)
 {
     /* TODO: Use Support points here */
     dVector3 point;

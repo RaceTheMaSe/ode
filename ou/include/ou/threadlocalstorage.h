@@ -194,7 +194,7 @@ public: // Safe methods
 	{
 		tlsvaluetype vValueData = NULL;
 		
-		CTLSStorageBlock *psbStorageBlock = GetKeyStorageBlock(hskStorageKey);
+		const CTLSStorageBlock *psbStorageBlock = GetKeyStorageBlock(hskStorageKey);
 
 		if (psbStorageBlock)
 		{
@@ -215,7 +215,7 @@ public: // Safe methods
 	static _OU_ALWAYSINLINE tlsvaluetype _OU_CONVENTION_API 
 	/*tlsvaluetype */UnsafeGetStorageValue(const HTLSKEY &hskStorageKey, tlsindextype iValueIndex)
 	{
-		CTLSStorageBlock *psbStorageBlock = GetKeyStorageBlock(hskStorageKey);
+		const CTLSStorageBlock *psbStorageBlock = GetKeyStorageBlock(hskStorageKey);
 		return psbStorageBlock->GetValueData(iValueIndex);
 	}
 
