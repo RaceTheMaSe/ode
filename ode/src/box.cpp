@@ -53,7 +53,7 @@ dxBox::dxBox (dSpaceID space, dReal lx, dReal ly, dReal lz) : dxGeom (space,1)
     side[0] = lx;
     side[1] = ly;
     side[2] = lz;
-    updateZeroSizedFlag(!lx || !ly || !lz);
+    updateZeroSizedFlag(lx == 0 || ly == 0 || lz == 0);
 }
 
 
@@ -91,7 +91,7 @@ void dGeomBoxSetLengths (dGeomID g, dReal lx, dReal ly, dReal lz)
     b->side[0] = lx;
     b->side[1] = ly;
     b->side[2] = lz;
-    b->updateZeroSizedFlag(!lx || !ly || !lz);
+    b->updateZeroSizedFlag(lx == 0 || ly == 0 || lz == 0);
     dGeomMoved (g);
 }
 
@@ -182,7 +182,7 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
             }
         }
 
-        dReal outerDistance = squaredDistance != 0 ? -sqrt(squaredDistance + lastOuterOffset * lastOuterOffset) : lastOuterOffset;
+        dReal outerDistance = squaredDistance != 0 ? -dSqrt(squaredDistance + lastOuterOffset * lastOuterOffset) : lastOuterOffset;
         return outerDistance;
     }
 
@@ -226,7 +226,7 @@ static int intersectRectQuad (dReal h[2], dReal p[8], dReal ret[16])
             nr = 0;
             for (int i=nq; i > 0; i--) {
                 // go through all points in q and all lines between adjacent points
-                if (sign*pq[dir] < h[dir]) {
+                if ((dReal)sign*pq[dir] < h[dir]) {
                     // this point is inside the chopping line
                     pr[0] = pq[0];
                     pr[1] = pq[1];
@@ -238,11 +238,11 @@ static int intersectRectQuad (dReal h[2], dReal p[8], dReal ret[16])
                     }
                 }
                 dReal *nextq = (i > 1) ? pq+2 : q;
-                if ((sign*pq[dir] < h[dir]) ^ (sign*nextq[dir] < h[dir])) {
+                if (((dReal)sign*pq[dir] < h[dir]) ^ ((dReal)sign*nextq[dir] < h[dir])) {
                     // this line crosses the chopping line
                     pr[1-dir] = pq[1-dir] + (nextq[1-dir]-pq[1-dir]) /
-                        (nextq[dir]-pq[dir]) * (sign*h[dir]-pq[dir]);
-                    pr[dir] = sign*h[dir];
+                        (nextq[dir]-pq[dir]) * ((dReal)sign*h[dir]-pq[dir]);
+                    pr[dir] = (dReal)sign*h[dir];
                     pr += 2;
                     nr++;
                     if (nr & 8) {
@@ -310,8 +310,8 @@ static void cullPoints (int n, dReal p[], int m, int i0, int iret[])
     iret[0] = i0;
     iret++;
     for (j=1; j<m; j++) {
-        a = (dReal)(dReal(j)*(2*M_PI/m) + A[i0]);
-        if (a > M_PI) a -= (dReal)(2*M_PI);
+        a = (dReal)((double)dReal(j)*(2*M_PI/m) + (double)A[i0]);
+        if ((double)a > M_PI) a -= (dReal)(2*M_PI);
         dReal maxdiff=1e9,diff;
 #ifndef dNODEBUG
         *iret = i0;			// iret is not allowed to keep this value
@@ -319,7 +319,7 @@ static void cullPoints (int n, dReal p[], int m, int i0, int iret[])
         for (i=0; i<n; i++) {
             if (avail[i]) {
                 diff = dFabs (A[i]-a);
-                if (diff > M_PI) diff = (dReal) (2*M_PI - diff);
+                if ((double)diff > M_PI) diff = (dReal) (2*M_PI - (double)diff);
                 if (diff < maxdiff) {
                     maxdiff = diff;
                     *iret = i;
@@ -1062,7 +1062,7 @@ int dCollideBoxPlane(dxGeom *o1, dxGeom *o2,
 #define ADD_VERTEX_IF_INSIDE(op1, op2, op3)                                                                                                              \
 {                                                                                                                                                        \
     dReal contactDepth = (centerDepth - REAL(0.5) * (op3 orderedB[2] op2 orderedB[1] op1 orderedB[0]));                                                  \
-    if (contactDepth < 0.0)                                                                                                                              \
+    if (contactDepth < REAL(0.0))                                                                                                                              \
     {                                                                                                                                                    \
         break;                                                                                                                                           \
     }                                                                                                                                                    \

@@ -115,7 +115,7 @@ dxJointHinge2::getInfo1( dxJoint::Info1 *info )
 
     // see if we're powered or at a joint limit for axis 1
     limot1.limit = 0;
-    if (( limot1.lostop >= -M_PI || limot1.histop <= M_PI ) &&
+    if (( (double)limot1.lostop >= -M_PI || (double)limot1.histop <= M_PI ) &&
         limot1.lostop <= limot1.histop )
     {
         dReal angle = measureAngle1();

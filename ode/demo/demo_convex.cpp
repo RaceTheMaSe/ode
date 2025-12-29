@@ -40,13 +40,8 @@
 #endif
 
 
-#ifdef _MSC_VER
-#	pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
-
 // Height at which we drop the composite block.
-const dReal H=4.20;
+const dReal H=REAL(4.20);
 
 static dWorldID world;
 static dSpaceID space;
@@ -85,12 +80,12 @@ static void nearCallback(void *data, dGeomID o1, dGeomID o2)
 	{
 		for (int i=0; i<n; i++) 
 		{
-			contact[i].surface.slip1 = 0.7;
-			contact[i].surface.slip2 = 0.7;
+			contact[i].surface.slip1 = REAL(0.7);
+			contact[i].surface.slip2 = REAL(0.7);
 			contact[i].surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1 | dContactSlip1 | dContactSlip2;
-			contact[i].surface.mu = 500.0; // was: dInfinity
-			contact[i].surface.soft_erp = 0.50;
-			contact[i].surface.soft_cfm = 0.03;
+			contact[i].surface.mu = REAL(500.0); // was: dInfinity
+			contact[i].surface.soft_erp = REAL(0.50);
+			contact[i].surface.soft_cfm = REAL(0.03);
 			dJointID c = dJointCreateContact (world,contactgroup,&contact[i]);
 			dJointAttach
 			(
@@ -158,13 +153,13 @@ static void simLoop(int pause)
 	double simstep = 1/240.0;
 	double dt = dsElapsedTime();
 
-	int nrofsteps = (int) ceilf(dt/simstep);
+	int nrofsteps = (int) ceilf((float)(dt/simstep));
 	nrofsteps = nrofsteps > 8 ? 8 : nrofsteps;
 
 	for (int i=0; i<nrofsteps && !pause; i++)
 	{
 		dSpaceCollide (space,NULL,&nearCallback);
-		dWorldQuickStep (world, simstep);
+		dWorldQuickStep (world, (dReal)simstep);
 		dJointGroupEmpty (contactgroup);
 	}
 
@@ -191,9 +186,9 @@ static void simLoop(int pause)
 
 	if (drawpos)
 	{
-		dsSetColor(1,0,0.2);
+		dsSetColor(1,0,0.2f);
 		dsSetTexture(DS_NONE);
-		const dReal l = 0.35;
+		const dReal l = REAL(0.35);
 		for ( int i=0; i<halton_numc; ++i )
 		{
 			dBodyID body = hbody[i];
@@ -233,23 +228,23 @@ int main (int argc, char **argv)
 	dCreatePlane(space,0,0,1,0);	// Add a ground plane.
 
 	contactgroup = dJointGroupCreate (0);
-	dWorldSetGravity(world,0,0,-9.8);
+	dWorldSetGravity(world,0,0,REAL(-9.8));
 	dWorldSetQuickStepNumIterations(world, 32);
 	dWorldSetContactMaxCorrectingVel(world, 40);
-	dWorldSetMaxAngularSpeed(world, 62.8);
-	dWorldSetERP(world, 0.7);
+	dWorldSetMaxAngularSpeed(world, REAL(62.8));
+	dWorldSetERP(world, REAL(0.7));
 	dWorldSetQuickStepW(world, 0.75); // For increased stability.
 
 	dWorldSetAutoDisableFlag( world, true );
-	dWorldSetAutoDisableLinearThreshold( world, 0.01 );
-	dWorldSetAutoDisableAngularThreshold( world, 0.03 );
-	dWorldSetAutoDisableTime( world, 0.15f );
+	dWorldSetAutoDisableLinearThreshold( world, REAL(0.01) );
+	dWorldSetAutoDisableAngularThreshold( world, REAL(0.03) );
+	dWorldSetAutoDisableTime( world, REAL(0.15) );
 
-	const float kernelrad = 0.7;
+	const float kernelrad = 0.7f;
 
 	mbody = dBodyCreate(world);
 	dBodySetPosition(mbody, 0,0,0+H);
-	dMassSetSphere( &m, 5, kernelrad );
+	dMassSetSphere( &m, 5, (dReal)kernelrad );
 	dBodySetMass( mbody, &m );
 
 	for (int i=0; i<halton_numc; ++i )
@@ -269,7 +264,7 @@ int main (int argc, char **argv)
 		const dReal z = halton_pos[i][2];
 		const dReal dsqr = x*x + y*y + z*z;
 
-		if ( dsqr < kernelrad*kernelrad && solidkernel )
+		if ( dsqr < (dReal)(kernelrad*kernelrad) && solidkernel )
 		{
 			dGeomSetBody(geom, mbody);
 			dGeomSetOffsetPosition(geom, x,y,z);
@@ -280,12 +275,12 @@ int main (int argc, char **argv)
 			hbody[i] = body;
 			dBodySetPosition(body, x,y,z+H);
 			dReal volu = halton_volu[i];
-			dReal rad = pow( volu * 3 / (4*M_PI), (1/3.0) );
+			dReal rad = (dReal)pow( (double)(volu * 3) / (double)(4*M_PI), double(1/3.0) );
 			dMassSetSphere( &m,5,rad );
 			dBodySetMass( body,&m );
 #if 1
-			dBodySetLinearDamping (body, 0.0005);
-			dBodySetAngularDamping(body, 0.0300);
+			dBodySetLinearDamping (body, REAL(0.0005));
+			dBodySetAngularDamping(body, REAL(0.0300));
 #endif
 			dGeomSetBody(geom,body);
 		}

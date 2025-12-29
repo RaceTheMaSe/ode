@@ -30,22 +30,22 @@ struct dxGIMCContactAccessor
     dxGIMCContactAccessor(GIM_CONTACT *ptrimeshcontacts, dGeomID g1, dGeomID g2) : m_ptrimeshcontacts(ptrimeshcontacts), m_g1(g1), m_g2(g2), m_gotside2ovr(false), m_side2ovr() {}
     dxGIMCContactAccessor(GIM_CONTACT *ptrimeshcontacts, dGeomID g1, dGeomID g2, int side2ovr) : m_ptrimeshcontacts(ptrimeshcontacts), m_g1(g1), m_g2(g2), m_gotside2ovr(true), m_side2ovr(side2ovr) {}
 
-    dReal RetrieveDepthByIndex(unsigned index) const { return m_ptrimeshcontacts[index].m_depth; }
+    dReal RetrieveDepthByIndex(unsigned index) const { return (dReal)m_ptrimeshcontacts[index].m_depth; }
 
     void ExportContactGeomByIndex(dContactGeom *pcontact, unsigned index) const
     {
         const GIM_CONTACT *ptrimeshcontact = m_ptrimeshcontacts + index;
-        pcontact->pos[0] = ptrimeshcontact->m_point[0];
-        pcontact->pos[1] = ptrimeshcontact->m_point[1];
-        pcontact->pos[2] = ptrimeshcontact->m_point[2];
+        pcontact->pos[0] = (dReal)ptrimeshcontact->m_point[0];
+        pcontact->pos[1] = (dReal)ptrimeshcontact->m_point[1];
+        pcontact->pos[2] = (dReal)ptrimeshcontact->m_point[2];
         pcontact->pos[3] = REAL(1.0);
 
-        pcontact->normal[0] = ptrimeshcontact->m_normal[0];
-        pcontact->normal[1] = ptrimeshcontact->m_normal[1];
-        pcontact->normal[2] = ptrimeshcontact->m_normal[2];
+        pcontact->normal[0] = (dReal)ptrimeshcontact->m_normal[0];
+        pcontact->normal[1] = (dReal)ptrimeshcontact->m_normal[1];
+        pcontact->normal[2] = (dReal)ptrimeshcontact->m_normal[2];
         pcontact->normal[3] = 0;
 
-        pcontact->depth = ptrimeshcontact->m_depth;
+        pcontact->depth = (dReal)ptrimeshcontact->m_depth;
         pcontact->g1 = m_g1;
         pcontact->g2 = m_g2;
         pcontact->side1 = ptrimeshcontact->m_feature1;

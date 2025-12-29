@@ -94,9 +94,9 @@ public:
 
 /// Convert an gimpact vec3f to a ODE dVector3d:   dVector3[i] = vec3f[i]
 #define dVECTOR3_VEC3F_COPY(b,a) { \
-    (b)[0] = (a)[0];              \
-    (b)[1] = (a)[1];              \
-    (b)[2] = (a)[2];              \
+    (b)[0] = (dReal)(a)[0];              \
+    (b)[1] = (dReal)(a)[1];              \
+    (b)[2] = (dReal)(a)[2];              \
     (b)[3] = 0;                   \
 } do {} while(0)
 
@@ -163,12 +163,12 @@ void gim_trimesh_plane_collisionODE( GIM_TRIMESH *mesh, const dVector4 plane, GD
 }
 
 #define GIM_AABB_COPY( src, dst ) {		\
-    (dst)[ 0 ]= (src) -> minX;			\
-    (dst)[ 1 ]= (src) -> maxX;			\
-    (dst)[ 2 ]= (src) -> minY;			\
-    (dst)[ 3 ]= (src) -> maxY;			\
-    (dst)[ 4 ]= (src) -> minZ;			\
-    (dst)[ 5 ]= (src) -> maxZ;			\
+    (dst)[ 0 ]= (dReal)(src) -> minX;			\
+    (dst)[ 1 ]= (dReal)(src) -> maxX;			\
+    (dst)[ 2 ]= (dReal)(src) -> minY;			\
+    (dst)[ 3 ]= (dReal)(src) -> maxY;			\
+    (dst)[ 4 ]= (dReal)(src) -> minZ;			\
+    (dst)[ 5 ]= (dReal)(src) -> maxZ;			\
 } do {} while(0)
 
 

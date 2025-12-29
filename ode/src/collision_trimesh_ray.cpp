@@ -56,7 +56,7 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
     Collider.SetFirstContact(FirstContact != 0);
     Collider.SetClosestHit(ClosestHit != 0);
     Collider.SetCulling(BackfaceCull != 0);
-    Collider.SetMaxDist(Length);
+    Collider.SetMaxDist((float)Length);
 
     const dVector3& TLPosition = *(const dVector3*)dGeomGetPosition(TriMesh);
     const dMatrix3& TLRotation = *(const dMatrix3*)dGeomGetRotation(TriMesh);
@@ -91,9 +91,9 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
     int OutTriCount = 0;
     for (int i = 0; i < TriCount; i++) {
         if (TriMesh->m_RayCallback == null ||
-            TriMesh->m_RayCallback(TriMesh, RayGeom, Faces[i].mFaceID,
-            Faces[i].mU, Faces[i].mV)) {
-                const int& TriIndex = Faces[i].mFaceID;
+            TriMesh->m_RayCallback(TriMesh, RayGeom, (int)Faces[i].mFaceID,
+            (dReal)Faces[i].mU, (dReal)Faces[i].mV)) {
+                const int& TriIndex = (int)Faces[i].mFaceID;
                 if (!TriMesh->invokeCallback(RayGeom, TriIndex)) {
                     continue;
                 }
@@ -126,7 +126,7 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
                     // If there would be a custom typedef for distance type it could be used 
                     // instead of dReal. However using float directly is the loss of abstraction 
                     // and possible loss of precision in future.
-                    /*float*/ dReal T = Faces[i].mDistance;
+                    /*float*/ dReal T = (dReal)Faces[i].mDistance;
                     Contact->pos[0] = Origin[0] + (Direction[0] * T);
                     Contact->pos[1] = Origin[1] + (Direction[1] * T);
                     Contact->pos[2] = Origin[2] + (Direction[2] * T);
@@ -190,12 +190,12 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
 
 
     if(!TriMesh->m_RayCallback || 
-        TriMesh->m_RayCallback(TriMesh, RayGeom, contact_data.m_face_id, contact_data.u , contact_data.v))
+        TriMesh->m_RayCallback(TriMesh, RayGeom, (int)contact_data.m_face_id, (dReal)contact_data.u , (dReal)contact_data.v))
     {
         dContactGeom* Contact = &( Contacts[ 0 ] );
-        VEC_COPY(Contact->pos,contact_data.m_point);
-        VEC_COPY(Contact->normal,contact_data.m_normal);
-        Contact->depth = contact_data.tparam;
+        VEC_COPY_CONV(Contact->pos,contact_data.m_point);
+        VEC_COPY_CONV(Contact->normal,contact_data.m_normal);
+        Contact->depth = (dReal)contact_data.tparam;
         Contact->g1 = TriMesh;
         Contact->g2 = RayGeom;
         Contact->side1 = contact_data.m_face_id;

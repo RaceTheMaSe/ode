@@ -93,7 +93,7 @@ public:
 
     static dReal decodeStorageValue(storage_type storedValue)
     {
-        return storedValue * (dReal)(M_PI / static_cast<int>(STORAGE_TYPE_MAX));
+        return storedValue * (dReal)(M_PI / static_cast<double>(static_cast<int>(STORAGE_TYPE_MAX)));
     }
 };
 
@@ -119,8 +119,8 @@ public:
 
         if (angleValue >= REAL(0.0))
         {
-            unsigned angleAsInt = (unsigned)dFloor(angleValue * (dReal)(((static_cast<int>(STORAGE_TYPE_MAX) - static_cast<int>(STORAGE_TYPE_MIN) - 1) / M_PI)));
-            result = (STORAGE_TYPE_MIN + 1) + dMIN(angleAsInt, STORAGE_TYPE_MAX - STORAGE_TYPE_MIN - 1); 
+            unsigned angleAsInt = (unsigned)dFloor(angleValue * (dReal)(static_cast<double>(static_cast<int>(STORAGE_TYPE_MAX) - static_cast<int>(STORAGE_TYPE_MIN) - 1) / M_PI));
+            result = static_cast<storage_type>((STORAGE_TYPE_MIN + 1) + dMIN(angleAsInt, STORAGE_TYPE_MAX - STORAGE_TYPE_MIN - 1)); 
         }
 
         return  result;
@@ -142,7 +142,7 @@ public:
     {
         dIASSERT(storedValue >= (STORAGE_TYPE_MIN + 1));
 
-        return (storedValue - (STORAGE_TYPE_MIN + 1)) * (dReal)(M_PI / (static_cast<int>(STORAGE_TYPE_MAX) - static_cast<int>(STORAGE_TYPE_MIN) - 1));
+        return (dReal)(storedValue - (STORAGE_TYPE_MIN + 1)) * (dReal)(M_PI / (static_cast<int>(STORAGE_TYPE_MAX) - static_cast<int>(STORAGE_TYPE_MIN) - 1));
     }
 };
 

@@ -29,24 +29,24 @@ struct dxPlaneContactAccessor
 {
     dxPlaneContactAccessor(const vec4f *planecontact_results, const dReal *plane, dGeomID g1, dGeomID g2) : m_planecontact_results(planecontact_results), m_plane(plane), m_g1(g1), m_g2(g2) {}
 
-    dReal RetrieveDepthByIndex(unsigned index) const { return m_planecontact_results[index][3]; }
+    dReal RetrieveDepthByIndex(unsigned index) const { return (dReal)m_planecontact_results[index][3]; }
 
     void ExportContactGeomByIndex(dContactGeom *pcontact, unsigned index) const
     {
         const vec4f *planecontact = m_planecontact_results + index;
 
-        pcontact->pos[0] = (*planecontact)[0];
-        pcontact->pos[1] = (*planecontact)[1];
-        pcontact->pos[2] = (*planecontact)[2];
+        pcontact->pos[0] = (dReal)(*planecontact)[0];
+        pcontact->pos[1] = (dReal)(*planecontact)[1];
+        pcontact->pos[2] = (dReal)(*planecontact)[2];
         pcontact->pos[3] = REAL(1.0);
 
         const dReal *plane = m_plane;
-        pcontact->normal[0] = plane[0];
-        pcontact->normal[1] = plane[1];
-        pcontact->normal[2] = plane[2];
+        pcontact->normal[0] = (dReal)plane[0];
+        pcontact->normal[1] = (dReal)plane[1];
+        pcontact->normal[2] = (dReal)plane[2];
         pcontact->normal[3] = 0;
 
-        pcontact->depth = (*planecontact)[3];
+        pcontact->depth = (dReal)(*planecontact)[3];
         pcontact->g1 = m_g1; // trimesh geom
         pcontact->g2 = m_g2; // plane geom
         pcontact->side1 = -1; // note: don't have the triangle index, but OPCODE *does* do this properly

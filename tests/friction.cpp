@@ -127,18 +127,18 @@ SUITE(JointContact)
         ZERO_ALL;
         joint->getInfo2(info2_fps, info2_erp, rowskip, J1, J2,
             rowskip, rhscfm, lohi, findex);
-        CHECK_CLOSE(0, dummy_J[1][0], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][1], 1e-6);
-        CHECK_CLOSE(-1, dummy_J[1][2], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][3], 1e-6);
-        CHECK_CLOSE(1, dummy_J[1][4], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][5], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][8], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][9], 1e-6);
-        CHECK_CLOSE(1, dummy_J[1][10], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][11], 1e-6);
-        CHECK_CLOSE(1, dummy_J[1][12], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][13], 1e-6);
+        CHECK_CLOSE(dReal(0), dummy_J[1][0], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][1], dReal(1e-6));
+        CHECK_CLOSE(dReal(-1), dummy_J[1][2], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][3], dReal(1e-6));
+        CHECK_CLOSE(dReal(1), dummy_J[1][4], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][5], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][8], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][9], dReal(1e-6));
+        CHECK_CLOSE(dReal(1), dummy_J[1][10], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][11], dReal(1e-6));
+        CHECK_CLOSE(dReal(1), dummy_J[1][12], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][13], dReal(1e-6));
         CHECK_EQUAL(0, dummy_findex[1]); // because of dContactApprox1
         dJointDestroy(joint);
 
@@ -157,18 +157,18 @@ SUITE(JointContact)
         ZERO_ALL;
         joint->getInfo2(info2_fps, info2_erp, rowskip, J1, J2,
             rowskip, rhscfm, lohi, findex);
-        CHECK_CLOSE(0, dummy_J[1][0], 1e-6);
-        CHECK_CLOSE(1, dummy_J[1][1], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][2], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][3], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][4], 1e-6);
-        CHECK_CLOSE(1, dummy_J[1][5], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][8], 1e-6);
-        CHECK_CLOSE(-1, dummy_J[1][9], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][10], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][11], 1e-6);
-        CHECK_CLOSE(0, dummy_J[1][12], 1e-6);
-        CHECK_CLOSE(1, dummy_J[1][13], 1e-6);
+        CHECK_CLOSE(dReal(0), dummy_J[1][0], dReal(1e-6));
+        CHECK_CLOSE(dReal(1), dummy_J[1][1], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][2], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][3], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][4], dReal(1e-6));
+        CHECK_CLOSE(dReal(1), dummy_J[1][5], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][8], dReal(1e-6));
+        CHECK_CLOSE(dReal(-1), dummy_J[1][9], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][10], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][11], dReal(1e-6));
+        CHECK_CLOSE(dReal(0), dummy_J[1][12], dReal(1e-6));
+        CHECK_CLOSE(dReal(1), dummy_J[1][13], dReal(1e-6));
         CHECK_EQUAL(0, dummy_findex[1]);  // because of dContactApprox1
         dJointDestroy(joint);
     }

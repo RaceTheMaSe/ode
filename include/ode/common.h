@@ -41,13 +41,13 @@ extern "C" {
  */
 
 #ifndef M_PI
-#define M_PI REAL(3.1415926535897932384626433832795029)
+#define M_PI 3.1415926535897932384626433832795029
 #endif
 #ifndef M_PI_2
-#define M_PI_2 REAL(1.5707963267948966192313216916398)
+#define M_PI_2 1.5707963267948966192313216916398
 #endif
 #ifndef M_SQRT1_2
-#define M_SQRT1_2 REAL(0.7071067811865475244008443621048490)
+#define M_SQRT1_2 0.7071067811865475244008443621048490
 #endif
 
 
@@ -281,10 +281,10 @@ typedef dReal dQuaternion[dQUE__MAX];
 
 #define REAL(x) (x##f)					/* form a constant */
 #define dRecip(x) ((1.0f/(x)))				/* reciprocal */
-#if defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#if defined(__cplusplus) || (defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L)
 #define dSqrt(x) (sqrtf(x))			/* square root */
 #else
-#define dSqrt(x) ((float)sqrt(x))			/* square root */
+#define dSqrt(x) ((float)sqrt((double)(x)))			/* square root */
 #endif
 #define dRecipSqrt(x) ((1.0f/sqrtf(x)))		/* reciprocal square root */
 #define dSin(x) (sinf(x))				/* sine */

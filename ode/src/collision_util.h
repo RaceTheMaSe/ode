@@ -222,19 +222,19 @@ void dMatrix3Inv( const dMatrix3& ma, dMatrix3& dst )
         return;
     }
 
-    double detRecip = REAL(1.0) / det;
+    double detRecip = 1.0 / (double)det;
 
-    dst[0] =  (dReal)(( ma[5]*ma[10] - ma[6]*ma[9]  ) * detRecip);
-    dst[1] =  (dReal)(( ma[9]*ma[2]  - ma[1]*ma[10] ) * detRecip);
-    dst[2] =  (dReal)(( ma[1]*ma[6]  - ma[5]*ma[2]  ) * detRecip);
+    dst[0] =  (dReal)((double)( ma[5]*ma[10] - ma[6]*ma[9]  ) * detRecip);
+    dst[1] =  (dReal)((double)( ma[9]*ma[2]  - ma[1]*ma[10] ) * detRecip);
+    dst[2] =  (dReal)((double)( ma[1]*ma[6]  - ma[5]*ma[2]  ) * detRecip);
 
-    dst[4] =  (dReal)(( ma[6]*ma[8]  - ma[4]*ma[10] ) * detRecip);
-    dst[5] =  (dReal)(( ma[0]*ma[10] - ma[8]*ma[2]  ) * detRecip);
-    dst[6] =  (dReal)(( ma[4]*ma[2]  - ma[0]*ma[6]  ) * detRecip);
+    dst[4] =  (dReal)((double)( ma[6]*ma[8]  - ma[4]*ma[10] ) * detRecip);
+    dst[5] =  (dReal)((double)( ma[0]*ma[10] - ma[8]*ma[2]  ) * detRecip);
+    dst[6] =  (dReal)((double)( ma[4]*ma[2]  - ma[0]*ma[6]  ) * detRecip);
 
-    dst[8] =  (dReal)(( ma[4]*ma[9]  - ma[8]*ma[5]  ) * detRecip);
-    dst[9] =  (dReal)(( ma[8]*ma[1]  - ma[0]*ma[9]  ) * detRecip);
-    dst[10] = (dReal)(( ma[0]*ma[5]  - ma[1]*ma[4]  ) * detRecip);
+    dst[8] =  (dReal)((double)( ma[4]*ma[9]  - ma[8]*ma[5]  ) * detRecip);
+    dst[9] =  (dReal)((double)( ma[8]*ma[1]  - ma[0]*ma[9]  ) * detRecip);
+    dst[10] = (dReal)((double)( ma[0]*ma[5]  - ma[1]*ma[4]  ) * detRecip);
 }
 
 static inline 
@@ -298,25 +298,25 @@ void dQuatInvTransform(const dQuaternion& quat,const dVector3& source,dVector3& 
 static inline 
 void dGetEulerAngleFromRot(const dMatrix3& mRot,dReal& rX,dReal& rY,dReal& rZ)
 {
-    rY = asin(mRot[0 * 4 + 2]);
-    if (rY < M_PI /2)
+    rY = dAsin(mRot[0 * 4 + 2]);
+    if ((double)rY < M_PI /2)
     {
-        if (rY > -M_PI /2)
+        if ((double)rY > -M_PI /2)
         {
-            rX = atan2(-mRot[1*4 + 2], mRot[2*4 + 2]);
-            rZ = atan2(-mRot[0*4 + 1], mRot[0*4 + 0]);
+            rX = dAtan2(-mRot[1*4 + 2], mRot[2*4 + 2]);
+            rZ = dAtan2(-mRot[0*4 + 1], mRot[0*4 + 0]);
         }
         else
         {
             // not unique
-            rX = -atan2(mRot[1*4 + 0], mRot[1*4 + 1]);
+            rX = -dAtan2(mRot[1*4 + 0], mRot[1*4 + 1]);
             rZ = REAL(0.0);
         }
     }
     else
     {
         // not unique
-        rX = atan2(mRot[1*4 + 0], mRot[1*4 + 1]);
+        rX = dAtan2(mRot[1*4 + 0], mRot[1*4 + 1]);
         rZ = REAL(0.0);
     }
 }
@@ -326,7 +326,7 @@ void dQuatInv(const dQuaternion& source, dQuaternion& dest)
 {
     dReal norm = source[0]*source[0] + source[1]*source[1] + source[2]*source[2] + source[3]*source[3];
 
-    if (norm > 0.0f)
+    if (norm > REAL(0.0))
     {
         dReal neg_norm_recip = -REAL(1.0) / norm;
         dest[0] = -source[0] * neg_norm_recip;

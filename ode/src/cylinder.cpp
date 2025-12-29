@@ -53,7 +53,7 @@ dxGeom (space,1)
     type = dCylinderClass;
     radius = _radius;
     lz = _length;
-    updateZeroSizedFlag(!_radius || !_length);
+    updateZeroSizedFlag(_radius == 0 || _length == 0);
 }
 
 
@@ -90,7 +90,7 @@ void dGeomCylinderSetParams (dGeomID cylinder, dReal radius, dReal length)
     dxCylinder *c = (dxCylinder*) cylinder;
     c->radius = radius;
     c->lz = length;
-    c->updateZeroSizedFlag(!radius || !length);
+    c->updateZeroSizedFlag(radius == 0 || length == 0);
     dGeomMoved (cylinder);
 }
 

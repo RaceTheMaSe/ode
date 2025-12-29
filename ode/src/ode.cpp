@@ -1027,7 +1027,7 @@ dReal dBodyGetLinearDamping(dBodyID b)
 void dBodySetLinearDamping(dBodyID b, dReal scale)
 {
     dAASSERT(b);
-    if (scale)
+    if (scale != 0)
         b->flags |= dxBodyLinearDamping;
     else
         b->flags &= ~dxBodyLinearDamping;
@@ -1043,7 +1043,7 @@ dReal dBodyGetAngularDamping(dBodyID b)
 void dBodySetAngularDamping(dBodyID b, dReal scale)
 {
     dAASSERT(b);
-    if (scale)
+    if (scale != 0)
         b->flags |= dxBodyAngularDamping;
     else
         b->flags &= ~dxBodyAngularDamping;
@@ -2045,7 +2045,7 @@ dReal dWorldGetLinearDamping(dWorldID w)
 void dWorldSetLinearDamping(dWorldID w, dReal scale)
 {
     dAASSERT(w);
-    if (scale)
+    if (scale != 0)
         w->body_flags |= dxBodyLinearDamping;
     else
         w->body_flags &= ~dxBodyLinearDamping;
@@ -2061,7 +2061,7 @@ dReal dWorldGetAngularDamping(dWorldID w)
 void dWorldSetAngularDamping(dWorldID w, dReal scale)
 {
     dAASSERT(w);
-    if (scale)
+    if (scale != 0)
         w->body_flags |= dxBodyAngularDamping;
     else
         w->body_flags &= ~dxBodyAngularDamping;
@@ -2244,7 +2244,7 @@ extern "C" ODE_API void dTestDataStructures()
     checkWorld (w);
 
     for (i=0;i<LOOP_ITERATIONS;i++) {
-        if (nb < NUM && dRandReal() > 0.5) {
+        if (nb < NUM && dRandReal() > REAL(0.5)) {
             DO(printf ("creating body\n"));
             body[nb] = dBodyCreate (w);
             DO(printf ("\t--> %p\n",body[nb]));
@@ -2252,9 +2252,9 @@ extern "C" ODE_API void dTestDataStructures()
             checkWorld (w);
             DO(printf ("%d BODIES, %d JOINTS\n",nb,nj));
         }
-        if (nj < NUM && nb > 2 && dRandReal() > 0.5) {
-            dBodyID b1 = body [dRand() % nb];
-            dBodyID b2 = body [dRand() % nb];
+        if (nj < NUM && nb > 2 && dRandReal() > REAL(0.5)) {
+            dBodyID b1 = body [dRand() % (unsigned long)nb];
+            dBodyID b2 = body [dRand() % (unsigned long)nb];
             if (b1 != b2) {
                 DO(printf ("creating joint, attaching to %p,%p\n",b1,b2));
                 joint[nj] = dJointCreateBall (w,NULL);
@@ -2266,9 +2266,9 @@ extern "C" ODE_API void dTestDataStructures()
                 DO(printf ("%d BODIES, %d JOINTS\n",nb,nj));
             }
         }
-        if (nj > 0 && nb > 2 && dRandReal() > 0.5) {
-            dBodyID b1 = body [dRand() % nb];
-            dBodyID b2 = body [dRand() % nb];
+        if (nj > 0 && nb > 2 && dRandReal() > REAL(0.5)) {
+            dBodyID b1 = body [dRand() % (unsigned long)nb];
+            dBodyID b2 = body [dRand() % (unsigned long)nb];
             if (b1 != b2) {
                 int k = dRand() % nj;
                 DO(printf ("reattaching joint %p\n",joint[k]));
@@ -2277,8 +2277,8 @@ extern "C" ODE_API void dTestDataStructures()
                 DO(printf ("%d BODIES, %d JOINTS\n",nb,nj));
             }
         }
-        if (nb > 0 && dRandReal() > 0.5) {
-            int k = dRand() % nb;
+        if (nb > 0 && dRandReal() > REAL(0.5)) {
+            int k = (int)(dRand() % (unsigned long)nb);
             DO(printf ("destroying body %p\n",body[k]));
             dBodyDestroy (body[k]);
             checkWorld (w);
@@ -2286,8 +2286,8 @@ extern "C" ODE_API void dTestDataStructures()
             nb--;
             DO(printf ("%d BODIES, %d JOINTS\n",nb,nj));
         }
-        if (nj > 0 && dRandReal() > 0.5) {
-            int k = dRand() % nj;
+        if (nj > 0 && dRandReal() > REAL(0.5)) {
+            int k = (int)(dRand() % (unsigned long)nj);
             DO(printf ("destroying joint %p\n",joint[k]));
             dJointDestroy (joint[k]);
             checkWorld (w);

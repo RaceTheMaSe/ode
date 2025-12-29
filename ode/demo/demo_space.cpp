@@ -37,10 +37,6 @@ testing procedure:
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -67,7 +63,7 @@ static unsigned long seed=37;
 static void init_test()
 {
   int i,j;
-  const dReal scale = 0.5;
+  const dReal scale = REAL(0.5);
 
   // set random boxes
   dRandSetSeed (seed);
@@ -85,9 +81,9 @@ static void init_test()
 			  bounds[i][3] - bounds[i][2],
 			  bounds[i][5] - bounds[i][4]);
     dGeomSetPosition (geom[i],
-		      (bounds[i][0] + bounds[i][1])*0.5,
-		      (bounds[i][2] + bounds[i][3])*0.5,
-		      (bounds[i][4] + bounds[i][5])*0.5);
+		      (bounds[i][0] + bounds[i][1])*REAL(0.5),
+		      (bounds[i][2] + bounds[i][3])*REAL(0.5),
+		      (bounds[i][4] + bounds[i][5])*REAL(0.5));
     dGeomSetData (geom[i],(void*)(dsizeint)(i));
   }
 
@@ -181,7 +177,7 @@ static void simLoop (int /*pause*/)
     dVector3 pos,side;
     dMatrix3 R;
     dRSetIdentity (R);
-    for (j=0; j<3; j++) pos[j] = (bounds[i][j*2+1] + bounds[i][j*2]) * 0.5;
+    for (j=0; j<3; j++) pos[j] = (bounds[i][j*2+1] + bounds[i][j*2]) * REAL(0.5);
     for (j=0; j<3; j++) side[j] = bounds[i][j*2+1] - bounds[i][j*2];
     if (hits[i] > 0) dsSetColor (1,0,0);
     else dsSetColor (1,1,0);

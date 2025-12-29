@@ -35,7 +35,7 @@
 #include "config.h"
 #include "amotor.h"
 
-const dReal tol = 1e-5;
+const dReal tol = REAL(1e-5);
 
 SUITE (TestdxJointAMotor)
 {
@@ -88,15 +88,15 @@ SUITE (TestdxJointAMotor)
         dBodySetAngularVel(body, v, 0, 0);
         dWorldQuickStep(world, h);
         const dReal* rot = dBodyGetRotation(body);
-        CHECK_CLOSE(1, rot[0], tol);
-        CHECK_CLOSE(0, rot[4], tol);
-        CHECK_CLOSE(0, rot[8], tol);
+        CHECK_CLOSE(dReal(1), rot[0], tol);
+        CHECK_CLOSE(dReal(0), rot[4], tol);
+        CHECK_CLOSE(dReal(0), rot[8], tol);
 
-        CHECK_CLOSE(0, rot[1], tol);
+        CHECK_CLOSE(dReal(0), rot[1], tol);
         CHECK_CLOSE(dCos(v*h), rot[5], tol);
         CHECK_CLOSE(dSin(v*h), rot[9], tol);
 
-        CHECK_CLOSE(0, rot[2], tol);
+        CHECK_CLOSE(dReal(0), rot[2], tol);
         CHECK_CLOSE(-dSin(v*h), rot[6], tol);
         CHECK_CLOSE( dCos(v*h), rot[10], tol);
     }
@@ -112,37 +112,37 @@ SUITE (TestdxJointAMotor)
 
         dVector3 axis_y;
         dJointGetAMotorAxis(joint, 0, axis_y);
-        CHECK_CLOSE(0, axis_y[0], tol);
-        CHECK_CLOSE(1, axis_y[1], tol);
-        CHECK_CLOSE(0, axis_y[2], tol);
+        CHECK_CLOSE(dReal(0), axis_y[0], tol);
+        CHECK_CLOSE(dReal(1), axis_y[1], tol);
+        CHECK_CLOSE(dReal(0), axis_y[2], tol);
 
         dVector3 axis_z;
         dJointGetAMotorAxis(joint, 1, axis_z);
-        CHECK_CLOSE(0, axis_z[0], tol);
-        CHECK_CLOSE(0, axis_z[1], tol);
-        CHECK_CLOSE(1, axis_z[2], tol);
+        CHECK_CLOSE(dReal(0), axis_z[0], tol);
+        CHECK_CLOSE(dReal(0), axis_z[1], tol);
+        CHECK_CLOSE(dReal(1), axis_z[2], tol);
 
         dBodySetAngularVel(body, 0, v, v);
         dWorldStep(world, h);
         const dReal* rot = dBodyGetRotation(body);
-        CHECK_CLOSE(1, rot[0], tol);
-        CHECK_CLOSE(0, rot[4], tol);
-        CHECK_CLOSE(0, rot[8], tol);
+        CHECK_CLOSE(dReal(1), rot[0], tol);
+        CHECK_CLOSE(dReal(0), rot[4], tol);
+        CHECK_CLOSE(dReal(0), rot[8], tol);
 
-        CHECK_CLOSE(0, rot[1], tol);
-        CHECK_CLOSE(1, rot[5], tol);
-        CHECK_CLOSE(0, rot[9], tol);
+        CHECK_CLOSE(dReal(0), rot[1], tol);
+        CHECK_CLOSE(dReal(1), rot[5], tol);
+        CHECK_CLOSE(dReal(0), rot[9], tol);
 
-        CHECK_CLOSE(0, rot[2], tol);
-        CHECK_CLOSE(0, rot[6], tol);
-        CHECK_CLOSE(1, rot[10], tol);
+        CHECK_CLOSE(dReal(0), rot[2], tol);
+        CHECK_CLOSE(dReal(0), rot[6], tol);
+        CHECK_CLOSE(dReal(1), rot[10], tol);
     }
 
 
     TEST_FIXTURE(FixtureBase, sanity_check)
     {
         dMatrix3 R;
-        dRFromAxisAndAngle(R, 1, 1, 1, 10*M_PI/180);
+        dRFromAxisAndAngle(R, 1, 1, 1, (dReal)(10*M_PI/180));
         dBodySetRotation(body, R);
 
         dVector3 res;
@@ -155,67 +155,67 @@ SUITE (TestdxJointAMotor)
         dJointSetAMotorAxis(joint, 0, 0, 1, 0, 0);
         dJointGetAMotorAxis(joint, 0, res);
         CHECK_EQUAL(0, dJointGetAMotorAxisRel(joint, 0));
-        CHECK_CLOSE(1, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(1), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 1, 0, 0, 1, 0);
         dJointGetAMotorAxis(joint, 1, res);
         CHECK_EQUAL(0, dJointGetAMotorAxisRel(joint, 1));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(1, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(1), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 2, 0, 0, 0, 1);
         dJointGetAMotorAxis(joint, 2, res);
         CHECK_EQUAL(0, dJointGetAMotorAxisRel(joint, 2));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(1, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(1), res[2], tol);
 
         // axes relative to body1
         dJointSetAMotorAxis(joint, 0, 1, 1, 0, 0);
         dJointGetAMotorAxis(joint, 0, res);
         CHECK_EQUAL(1, dJointGetAMotorAxisRel(joint, 0));
-        CHECK_CLOSE(1, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(1), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 1, 1, 0, 1, 0);
         dJointGetAMotorAxis(joint, 1, res);
         CHECK_EQUAL(1, dJointGetAMotorAxisRel(joint, 1));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(1, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(1), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 2, 1, 0, 0, 1);
         dJointGetAMotorAxis(joint, 2, res);
         CHECK_EQUAL(1, dJointGetAMotorAxisRel(joint, 2));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(1, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(1), res[2], tol);
 
         // axes relative to body2
         dJointSetAMotorAxis(joint, 0, 2, 1, 0, 0);
         dJointGetAMotorAxis(joint, 0, res);
         CHECK_EQUAL(2, dJointGetAMotorAxisRel(joint, 0));
-        CHECK_CLOSE(1, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(1), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 1, 2, 0, 1, 0);
         dJointGetAMotorAxis(joint, 1, res);
         CHECK_EQUAL(2, dJointGetAMotorAxisRel(joint, 1));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(1, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(1), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 2, 2, 0, 0, 1);
         dJointGetAMotorAxis(joint, 2, res);
         CHECK_EQUAL(2, dJointGetAMotorAxisRel(joint, 2));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(1, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(1), res[2], tol);
 
         // reverse attachment to force internal reversal
         dJointAttach(joint, NULL, body);
@@ -223,67 +223,67 @@ SUITE (TestdxJointAMotor)
         dJointSetAMotorAxis(joint, 0, 0, 1, 0, 0);
         dJointGetAMotorAxis(joint, 0, res);
         CHECK_EQUAL(0, dJointGetAMotorAxisRel(joint, 0));
-        CHECK_CLOSE(1, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(1), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 1, 0, 0, 1, 0);
         dJointGetAMotorAxis(joint, 1, res);
         CHECK_EQUAL(0, dJointGetAMotorAxisRel(joint, 1));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(1, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(1), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 2, 0, 0, 0, 1);
         dJointGetAMotorAxis(joint, 2, res);
         CHECK_EQUAL(0, dJointGetAMotorAxisRel(joint, 2));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(1, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(1), res[2], tol);
 
         // axes relative to body1
         dJointSetAMotorAxis(joint, 0, 1, 1, 0, 0);
         dJointGetAMotorAxis(joint, 0, res);
         CHECK_EQUAL(1, dJointGetAMotorAxisRel(joint, 0));
-        CHECK_CLOSE(1, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(1), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 1, 1, 0, 1, 0);
         dJointGetAMotorAxis(joint, 1, res);
         CHECK_EQUAL(1, dJointGetAMotorAxisRel(joint, 1));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(1, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(1), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 2, 1, 0, 0, 1);
         dJointGetAMotorAxis(joint, 2, res);
         CHECK_EQUAL(1, dJointGetAMotorAxisRel(joint, 2));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(1, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(1), res[2], tol);
 
         // axes relative to body2
         dJointSetAMotorAxis(joint, 0, 2, 1, 0, 0);
         dJointGetAMotorAxis(joint, 0, res);
         CHECK_EQUAL(2, dJointGetAMotorAxisRel(joint, 0));
-        CHECK_CLOSE(1, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(1), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 1, 2, 0, 1, 0);
         dJointGetAMotorAxis(joint, 1, res);
         CHECK_EQUAL(2, dJointGetAMotorAxisRel(joint, 1));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(1, res[1], tol);
-        CHECK_CLOSE(0, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(1), res[1], tol);
+        CHECK_CLOSE(dReal(0), res[2], tol);
 
         dJointSetAMotorAxis(joint, 2, 2, 0, 0, 1);
         dJointGetAMotorAxis(joint, 2, res);
         CHECK_EQUAL(2, dJointGetAMotorAxisRel(joint, 2));
-        CHECK_CLOSE(0, res[0], tol);
-        CHECK_CLOSE(0, res[1], tol);
-        CHECK_CLOSE(1, res[2], tol);
+        CHECK_CLOSE(dReal(0), res[0], tol);
+        CHECK_CLOSE(dReal(0), res[1], tol);
+        CHECK_CLOSE(dReal(1), res[2], tol);
     }
 
 
@@ -304,21 +304,21 @@ SUITE (TestdxJointAMotor)
         // test patch #181 bug fix
         dVector3 axis_x;
         dJointGetAMotorAxis(joint, 0, axis_x);
-        CHECK_CLOSE(1, axis_x[0], tol);
-        CHECK_CLOSE(0, axis_x[1], tol);
-        CHECK_CLOSE(0, axis_x[2], tol);
+        CHECK_CLOSE(dReal(1), axis_x[0], tol);
+        CHECK_CLOSE(dReal(0), axis_x[1], tol);
+        CHECK_CLOSE(dReal(0), axis_x[2], tol);
 
         dVector3 axis_y;
         dJointGetAMotorAxis(joint, 1, axis_y);
-        CHECK_CLOSE(0, axis_y[0], tol);
-        CHECK_CLOSE(1, axis_y[1], tol);
-        CHECK_CLOSE(0, axis_y[2], tol);
+        CHECK_CLOSE(dReal(0), axis_y[0], tol);
+        CHECK_CLOSE(dReal(1), axis_y[1], tol);
+        CHECK_CLOSE(dReal(0), axis_y[2], tol);
 
         dVector3 axis_z;
         dJointGetAMotorAxis(joint, 2, axis_z);
-        CHECK_CLOSE(0, axis_z[0], tol);
-        CHECK_CLOSE(0, axis_z[1], tol);
-        CHECK_CLOSE(1, axis_z[2], tol);
+        CHECK_CLOSE(dReal(0), axis_z[0], tol);
+        CHECK_CLOSE(dReal(0), axis_z[1], tol);
+        CHECK_CLOSE(dReal(1), axis_z[2], tol);
     }
 
 } // End of SUITE TestdxJointAMotor

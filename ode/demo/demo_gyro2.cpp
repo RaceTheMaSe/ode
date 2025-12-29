@@ -32,10 +32,6 @@ A bunch of spheres with rolling friction.
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD

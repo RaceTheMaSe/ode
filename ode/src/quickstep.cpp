@@ -1201,7 +1201,7 @@ void dxQuickStepIsland_Stage0_Bodies(dxQuickStepperStage0BodiesCallContext *call
         // to run three loops for each individual component
         dxBody *const *const bodyend = body + nb;
         dReal gravity_x = world->gravity[dSA_X];
-        if (gravity_x) {
+        if (gravity_x != 0) {
             for (dxBody *const *bodycurr = body; bodycurr != bodyend; bodycurr++) {
                 dxBody *b = *bodycurr;
                 if ((b->flags & dxBodyNoGravity) == 0) {
@@ -1210,7 +1210,7 @@ void dxQuickStepIsland_Stage0_Bodies(dxQuickStepperStage0BodiesCallContext *call
             }
         }
         dReal gravity_y = world->gravity[dSA_Y];
-        if (gravity_y) {
+        if (gravity_y != 0) {
             for (dxBody *const *bodycurr = body; bodycurr != bodyend; bodycurr++) {
                 dxBody *b = *bodycurr;
                 if ((b->flags & dxBodyNoGravity) == 0) {
@@ -1219,7 +1219,7 @@ void dxQuickStepIsland_Stage0_Bodies(dxQuickStepperStage0BodiesCallContext *call
             }
         }
         dReal gravity_z = world->gravity[dSA_Z];
-        if (gravity_z) {
+        if (gravity_z != 0) {
             for (dxBody *const *bodycurr = body; bodycurr != bodyend; bodycurr++) {
                 dxBody *b = *bodycurr;
                 if ((b->flags & dxBodyNoGravity) == 0) {

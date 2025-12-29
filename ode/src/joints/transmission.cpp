@@ -266,32 +266,32 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
         // find the closest angle to that, that is coterminal to
         // theta.
 
-        theta = atan2(t[1], t[0]);
+        theta = dAtan2(t[1], t[0]);
         phase_hat = phase[i] + dCalcVectorDot3(omega[i], n[i]) / worldFPS;
 
-        if (phase_hat > M_PI_2) {
+        if ((double)phase_hat > M_PI_2) {
             if (theta < 0) {
                 theta += (dReal)(2 * M_PI);
             }
 
-            theta += (dReal)(floor(phase_hat / (2 * M_PI)) * (2 * M_PI));
-        } else if (phase_hat < -M_PI_2) {
+            theta += (dReal)(floor((double)phase_hat / (2 * M_PI)) * (2 * M_PI));
+        } else if ((double)phase_hat < -M_PI_2) {
             if (theta > 0) {
                 theta -= (dReal)(2 * M_PI);
             }
 
-            theta += (dReal)(ceil(phase_hat / (2 * M_PI)) * (2 * M_PI));
+            theta += (dReal)(ceil((double)phase_hat / (2 * M_PI)) * (2 * M_PI));
         }
                 
-        if (phase_hat - theta > M_PI) {
+        if ((double)(phase_hat - theta) > M_PI) {
             phase[i] = theta + (dReal)(2 * M_PI);
-        } else if (phase_hat - theta < -M_PI) {
+        } else if ((double)(phase_hat - theta) < -M_PI) {
             phase[i] = theta - (dReal)(2 * M_PI);
         } else {
             phase[i] = theta;
         }
 
-        dIASSERT(fabs(phase_hat - phase[i]) < M_PI);
+        dIASSERT((double)dFabs(phase_hat - phase[i]) < M_PI);
     }
 
     // Calculate the phase error.  Depending on the mode the condition

@@ -232,7 +232,7 @@ static inline double loadClockCount (unsigned long a[2])
     uint64_t absTime = (uint64_t)(a[0] | ((uint64_t)a[1] << 32));
 
     mach_timebase_info_data_t timeInfo;
-    double resultTime = mach_timebase_info(&timeInfo) == 0 ? absTime * ((double)timeInfo.numer / timeInfo.denom) : 0.0;
+    double resultTime = mach_timebase_info(&timeInfo) == 0 ? (double)absTime * ((double)timeInfo.numer / timeInfo.denom) : 0.0;
 
     return resultTime;
 }

@@ -240,9 +240,9 @@ dxJointPU::getInfo1( dxJoint::Info1 *info )
     if ( limotP.limit || limotP.fmax > 0 ) info->m++;
 
 
-    bool limiting1 = ( limot1.lostop >= -M_PI || limot1.histop <= M_PI ) &&
+    bool limiting1 = ( (double)limot1.lostop >= -M_PI || (double)limot1.histop <= M_PI ) &&
         limot1.lostop <= limot1.histop;
-    bool limiting2 = ( limot2.lostop >= -M_PI || limot2.histop <= M_PI ) &&
+    bool limiting2 = ( (double)limot2.lostop >= -M_PI || (double)limot2.histop <= M_PI ) &&
         limot2.lostop <= limot2.histop;
 
     // We need to call testRotationLimit() even if we're motored, since it

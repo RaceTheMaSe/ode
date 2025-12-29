@@ -24,7 +24,7 @@ int Timer::GetTimeInMs() const
 {
     __int64 const elapsedTime = GetTime() - m_startTime;
 	double const seconds = double(elapsedTime) / double(m_frequency);
-	return int(seconds * 1000.0f);
+	return int(seconds * 1000.0);
 }
 
 __int64 Timer::GetTime() const

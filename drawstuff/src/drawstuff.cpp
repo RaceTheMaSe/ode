@@ -37,6 +37,7 @@
 
  */
 
+#include <cmath>
 #ifdef WIN32
 #include <windows.h>
 #endif
@@ -72,7 +73,7 @@
 
 // constants to convert degrees to radians and the reverse
 // #define RAD_TO_DEG (180.0/M_PI)
-#define DEG_TO_RAD (M_PI/180.0)
+#define DEG_TO_RAD ((double)M_PI/180.0)
 
 // light vector. LIGHTZ is implicitly 1
 #define LIGHTX (1.0f)
@@ -103,7 +104,7 @@ void normalizeVector3(float v[3])
         v[2] = 0;
     }
     else {
-        len = 1.0f / (float)sqrt(len);
+        len = 1.0f / sqrtf(len);
         v[0] *= len;
         v[1] *= len;
         v[2] *= len;
@@ -516,9 +517,9 @@ void drawPatch(float p1[3], float p2[3], float p3[3], int level)
             q2[i] = 0.5f*(p2[i] + p3[i]);
             q3[i] = 0.5f*(p3[i] + p1[i]);
         }
-        float length1 = (float)(1.0 / sqrt(q1[0] * q1[0] + q1[1] * q1[1] + q1[2] * q1[2]));
-        float length2 = (float)(1.0 / sqrt(q2[0] * q2[0] + q2[1] * q2[1] + q2[2] * q2[2]));
-        float length3 = (float)(1.0 / sqrt(q3[0] * q3[0] + q3[1] * q3[1] + q3[2] * q3[2]));
+        float length1 = (float)(REAL(1.0) / (dReal)sqrt(q1[0] * q1[0] + q1[1] * q1[1] + q1[2] * q1[2]));
+        float length2 = (float)(REAL(1.0) / (dReal)sqrt(q2[0] * q2[0] + q2[1] * q2[1] + q2[2] * q2[2]));
+        float length3 = (float)(REAL(1.0) / (dReal)sqrt(q3[0] * q3[0] + q3[1] * q3[1] + q3[2] * q3[2]));
         for (i = 0; i < 3; i++) {
             q1[i] *= length1;
             q2[i] *= length2;
@@ -602,8 +603,8 @@ void drawSphereShadow(float px, float py, float pz, float radius)
     static float len2, len1, scale;
     if (!init) {
         len2 = LIGHTX * LIGHTX + LIGHTY * LIGHTY;
-        len1 = 1.0f / (float)sqrt(len2);
-        scale = (float)sqrt(len2 + 1);
+        len1 = 1.0f / sqrtf(len2);
+        scale = sqrtf(len2 + 1);
         init = 1;
     }
 
@@ -687,19 +688,19 @@ void drawCapsule(float l, float r)
     // number of sides to the cylinder (divisible by 4):
     const int n = capped_cylinder_quality * 4;
 
-    l *= 0.5;
-    a = float(M_PI*2.0) / float(n);
-    sa = (float)sin(a);
-    ca = (float)cos(a);
+    l *= 0.5f;
+    a = float((M_PI*2.0) / (double)n);
+    sa = sinf(a);
+    ca = cosf(a);
 
     // draw cylinder body
     ny = 1; nz = 0;		  // normal vector = (0,ny,nz)
     glBegin(GL_TRIANGLE_STRIP);
     for (i = 0; i <= n; i++) {
-        glNormal3d(ny, nz, 0);
-        glVertex3d(ny*r, nz*r, l);
-        glNormal3d(ny, nz, 0);
-        glVertex3d(ny*r, nz*r, -l);
+        glNormal3d((GLdouble)ny, (GLdouble)nz, 0);
+        glVertex3d((GLdouble)(ny*r), (GLdouble)(nz*r), (GLdouble)l);
+        glNormal3d((GLdouble)ny, (GLdouble)nz, 0);
+        glVertex3d((GLdouble)(ny*r), (GLdouble)(nz*r), (GLdouble)-l);
         // rotate ny,nz
         tmp = ca * ny - sa * nz;
         nz = sa * ny + ca * nz;
@@ -719,10 +720,10 @@ void drawCapsule(float l, float r)
         float nx2 = start_nx2, ny2 = start_ny2, nz2 = 0;
         glBegin(GL_TRIANGLE_STRIP);
         for (i = 0; i <= n; i++) {
-            glNormal3d(ny2, nz2, nx2);
-            glVertex3d(ny2*r, nz2*r, l + nx2 * r);
-            glNormal3d(ny, nz, nx);
-            glVertex3d(ny*r, nz*r, l + nx * r);
+            glNormal3d((GLdouble)ny2, (GLdouble)nz2, (GLdouble)nx2);
+            glVertex3d((GLdouble)(ny2*r), (GLdouble)(nz2*r), (GLdouble)(l + nx2 * r));
+            glNormal3d((GLdouble)ny, (GLdouble)nz, (GLdouble)nx);
+            glVertex3d((GLdouble)(ny*r), (GLdouble)(nz*r), (GLdouble)(l + nx * r));
             // rotate n,n2
             tmp = ca * ny - sa * nz;
             nz = sa * ny + ca * nz;
@@ -748,10 +749,10 @@ void drawCapsule(float l, float r)
         float nx2 = start_nx2, ny2 = start_ny2, nz2 = 0;
         glBegin(GL_TRIANGLE_STRIP);
         for (i = 0; i <= n; i++) {
-            glNormal3d(ny, nz, nx);
-            glVertex3d(ny*r, nz*r, -l + nx * r);
-            glNormal3d(ny2, nz2, nx2);
-            glVertex3d(ny2*r, nz2*r, -l + nx2 * r);
+            glNormal3d((GLdouble)ny, (GLdouble)nz, (GLdouble)nx);
+            glVertex3d((GLdouble)(ny*r), (GLdouble)(nz*r), (GLdouble)(-l + nx * r));
+            glNormal3d((GLdouble)ny2, (GLdouble)nz2, (GLdouble)nx2);
+            glVertex3d((GLdouble)(ny2*r), (GLdouble)(nz2*r), (GLdouble)(-l + nx2 * r));
             // rotate n,n2
             tmp = ca * ny - sa * nz;
             nz = sa * ny + ca * nz;
@@ -776,19 +777,19 @@ void drawCylinder(float l, float r, float zoffset)
     float tmp, ny, nz, a, ca, sa;
     const int n = 24;	// number of sides to the cylinder (divisible by 4)
 
-    l *= 0.5;
-    a = float(M_PI*2.0) / float(n);
-    sa = (float)sin(a);
-    ca = (float)cos(a);
+    l *= 0.5f;
+    a = float((M_PI*2.0) / (double)n);
+    sa = sinf(a);
+    ca = cosf(a);
 
     // draw cylinder body
     ny = 1; nz = 0;		  // normal vector = (0,ny,nz)
     glBegin(GL_TRIANGLE_STRIP);
     for (i = 0; i <= n; i++) {
-        glNormal3d(ny, nz, 0);
-        glVertex3d(ny*r, nz*r, l + zoffset);
-        glNormal3d(ny, nz, 0);
-        glVertex3d(ny*r, nz*r, -l + zoffset);
+        glNormal3d((GLdouble)ny, (GLdouble)nz, 0);
+        glVertex3d((GLdouble)(ny*r), (GLdouble)(nz*r), (GLdouble)(l + zoffset));
+        glNormal3d((GLdouble)ny, (GLdouble)nz, 0);
+        glVertex3d((GLdouble)(ny*r), (GLdouble)(nz*r), (GLdouble)(-l + zoffset));
         // rotate ny,nz
         tmp = ca * ny - sa * nz;
         nz = sa * ny + ca * nz;
@@ -801,12 +802,12 @@ void drawCylinder(float l, float r, float zoffset)
     ny = 1; nz = 0;		  // normal vector = (0,ny,nz)
     glBegin(GL_TRIANGLE_FAN);
     glNormal3d(0, 0, 1);
-    glVertex3d(0, 0, l + zoffset);
+    glVertex3d(0, 0, (GLdouble)(l + zoffset));
     for (i = 0; i <= n; i++) {
         if (i == 1 || i == n / 2 + 1)
             setColor(color[0] * 0.75f, color[1] * 0.75f, color[2] * 0.75f, color[3]);
         glNormal3d(0, 0, 1);
-        glVertex3d(ny*r, nz*r, l + zoffset);
+        glVertex3d((GLdouble)(ny*r), (GLdouble)(nz*r), (GLdouble)(l + zoffset));
         if (i == 1 || i == n / 2 + 1)
             setColor(color[0], color[1], color[2], color[3]);
 
@@ -821,12 +822,12 @@ void drawCylinder(float l, float r, float zoffset)
     ny = 1; nz = 0;		  // normal vector = (0,ny,nz)
     glBegin(GL_TRIANGLE_FAN);
     glNormal3d(0, 0, -1);
-    glVertex3d(0, 0, -l + zoffset);
+    glVertex3d(0, 0, (GLdouble)(-l + zoffset));
     for (i = 0; i <= n; i++) {
         if (i == 1 || i == n / 2 + 1)
             setColor(color[0] * 0.75f, color[1] * 0.75f, color[2] * 0.75f, color[3]);
         glNormal3d(0, 0, -1);
-        glVertex3d(ny*r, nz*r, -l + zoffset);
+        glVertex3d((GLdouble)(ny*r), (GLdouble)(nz*r), (GLdouble)(-l + zoffset));
         if (i == 1 || i == n / 2 + 1)
             setColor(color[0], color[1], color[2], color[3]);
 
@@ -879,8 +880,8 @@ void dsMotion(int mode, int deltax, int deltay)
 {
     float side = 0.01f * float(deltax);
     float fwd = (mode == dsMOTIONMODE_RBUTTONDOWN) ? (0.01f * float(deltay)) : 0.0f;
-    float s = (float)sin(view_hpr[0] * DEG_TO_RAD);
-    float c = (float)cos(view_hpr[0] * DEG_TO_RAD);
+    float s = (float)sin((double)view_hpr[0] * DEG_TO_RAD);
+    float c = (float)cos((double)view_hpr[0] * DEG_TO_RAD);
 
     if (mode == dsMOTIONMODE_LBUTTONDOWN) {
         view_hpr[0] += float(deltax) * 0.5f;
@@ -1147,11 +1148,11 @@ void dsDrawFrame(int width, int height, dsFunctions *fn, int pause)
     const float k = 0.8f;     // view scale, 1 = +/- 45 degrees
     if (width >= height) {
         float k2 = float(height) / float(width);
-        glFrustum(-vnear * k, vnear*k, -vnear * k*k2, vnear*k*k2, vnear, vfar);
+        glFrustum((GLdouble)(-vnear * k), (GLdouble)(vnear*k), (GLdouble)(-vnear * k*k2), (GLdouble)(vnear*k*k2), (GLdouble)vnear, (GLdouble)vfar);
     }
     else {
         float k2 = float(width) / float(height);
-        glFrustum(-vnear * k*k2, vnear*k*k2, -vnear * k, vnear*k, vnear, vfar);
+        glFrustum((GLdouble)(-vnear * k*k2), (GLdouble)(vnear*k*k2), (GLdouble)(-vnear * k), (GLdouble)(vnear*k), (GLdouble)vnear, (GLdouble)vfar);
     }
 
     // setup lights. it makes a difference whether this is done in the
@@ -1469,7 +1470,7 @@ void dsDrawSphere(const float pos[3], const float R[12],
     glEnable(GL_NORMALIZE);
     glShadeModel(GL_SMOOTH);
     setTransform(pos, R);
-    glScaled(radius, radius, radius);
+    glScaled((GLdouble)radius, (GLdouble)radius, (GLdouble)radius);
     drawSphere();
     glPopMatrix();
     glDisable(GL_NORMALIZE);

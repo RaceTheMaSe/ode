@@ -47,21 +47,21 @@ this also shows you how to use geom groups.
 
 // some constants
 
-#define LENGTH 0.7	// chassis length
-#define WIDTH 0.4	// chassis width
-#define HEIGHT 0.2	// chassis height
-#define RADIUS 0.22	// wheel radius
-#define STARTZ 0.4	// starting height of chassis
-#define CMASS 1		// chassis mass
-#define WMASS 0.2	// wheel mass
+#define LENGTH REAL(0.7)	// chassis length
+#define WIDTH  REAL(0.4)	// chassis width
+#define HEIGHT REAL(0.2)	// chassis height
+#define RADIUS REAL(0.22)	// wheel radius
+#define STARTZ REAL(0.4)	// starting height of chassis
+#define CMASS  REAL(1.0)	// chassis mass
+#define WMASS  REAL(0.2)	// wheel mass
 
 // dynamics and collision objects (chassis, 4 wheels, environment, obstacles, chain)
 static dWorldID world;
 static dSpaceID space;
 
 // chain stuff
-static const float chain_radius = 0.1;
-static const float chain_mass = 0.1;
+static const float chain_radius = 0.1f;
+static const float chain_mass = 0.1f;
 static const int chain_num = 10;
 static dBodyID chain_body[chain_num];
 static dGeomID chain_geom[chain_num];
@@ -90,7 +90,7 @@ static dReal speed=0,steer=0;	// user commands
 // this is called by dSpaceCollide when two objects in space are
 // potentially colliding.
 
-static void nearCallback (void *data, dGeomID o1, dGeomID o2)
+static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
   int i,n;
 
@@ -107,10 +107,10 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
       contact[i].surface.mode = dContactSlip1 | dContactSlip2 |
 	dContactSoftERP | dContactSoftCFM | dContactApprox1;
       contact[i].surface.mu = dInfinity;
-      contact[i].surface.slip1 = 0.1;
-      contact[i].surface.slip2 = 0.1;
-      contact[i].surface.soft_erp = 0.5;
-      contact[i].surface.soft_cfm = 0.3;
+      contact[i].surface.slip1 = REAL(0.1);
+      contact[i].surface.slip2 = REAL(0.1);
+      contact[i].surface.soft_erp = REAL(0.5);
+      contact[i].surface.soft_cfm = REAL(0.3);
       dJointID c = dJointCreateContact (world,contactgroup,&contact[i]);
       dJointAttach (c,
 		    dGeomGetBody(contact[i].geom.g1),
@@ -150,20 +150,22 @@ static void command (int cmd)
 {
   switch (cmd) {
   case 'a': case 'A':
-    speed += 0.3;
+    speed += REAL(0.3);
     break;
   case 'z': case 'Z':
-    speed -= 0.3;
+    speed -= REAL(0.3);
     break;
   case ',':
-    steer -= 0.5;
+    steer -= REAL(0.5);
     break;
   case '.':
-    steer += 0.5;
+    steer += REAL(0.5);
     break;
   case ' ':
     speed = 0;
     steer = 0;
+    break;
+  default:
     break;
   }
 }
@@ -179,24 +181,24 @@ static void simLoop (int pause)
   	  if (joint_exists[i]) {
         // motor
         dJointSetHinge2Param (joint[i],dParamVel2,-speed);
-        dJointSetHinge2Param (joint[i],dParamFMax2,0.1);
+        dJointSetHinge2Param (joint[i],dParamFMax2,REAL(0.1));
 
         // steering
         dReal v = steer - dJointGetHinge2Angle1 (joint[i]);
-        if (v > 0.1) v = 0.1;
-        if (v < -0.1) v = -0.1;
-        v *= 10.0;
+        if (v > REAL(0.1)) v = REAL(0.1);
+        if (v < REAL(-0.1)) v = REAL(-0.1);
+        v *= REAL(10.0);
         dJointSetHinge2Param (joint[i],dParamVel,v);
-        dJointSetHinge2Param (joint[i],dParamFMax,0.2);
-        dJointSetHinge2Param (joint[i],dParamLoStop,-0.75);
-        dJointSetHinge2Param (joint[i],dParamHiStop,0.75);
-        dJointSetHinge2Param (joint[i],dParamFudgeFactor,0.1);
+        dJointSetHinge2Param (joint[i],dParamFMax,REAL(0.2));
+        dJointSetHinge2Param (joint[i],dParamLoStop,REAL(-0.75));
+        dJointSetHinge2Param (joint[i],dParamHiStop,REAL(0.75));
+        dJointSetHinge2Param (joint[i],dParamFudgeFactor,REAL(0.1));
 	  }
 	}
 	
     dSpaceCollide (space,0,&nearCallback);
-    //dWorldStep (world,0.05);
-	dWorldStepFast1 (world,0.05,5);
+    //dWorldStep (world,REAL(0.05));
+	  dWorldStepFast1 (world,REAL(0.05),5);
 
     // remove all contact joints
     dJointGroupEmpty (contactgroup);
@@ -210,7 +212,7 @@ static void simLoop (int pause)
   for (i=1; i<=4; i++) 
     dsDrawCylinder (dBodyGetPosition(body[i]),
                     dBodyGetRotation(body[i]),
-					0.2,
+					          REAL(0.2),
                     RADIUS);
 
   dVector3 ss;
@@ -275,7 +277,7 @@ int main (int argc, char **argv)
   // a chain
   for (i=0; i<chain_num; i++) {
     chain_body[i] = dBodyCreate (world);
-	dBodySetPosition (chain_body[i],-LENGTH-(i*2*chain_radius),0,STARTZ-HEIGHT*0.5);
+	  dBodySetPosition (chain_body[i],dReal(-LENGTH-(float(i*2)*chain_radius)),0,STARTZ-HEIGHT*REAL(0.5));
     dMassSetSphere (&m,1,chain_radius);
     dMassAdjust (&m,chain_mass);
     dBodySetMass (chain_body[i],&m);
@@ -287,7 +289,7 @@ int main (int argc, char **argv)
   for (i=1; i<=4; i++) {
     body[i] = dBodyCreate (world);
     dQuaternion q;
-    dQFromAxisAndAngle (q,1,0,0,M_PI*0.5);
+    dQFromAxisAndAngle (q,1,0,0,dReal(M_PI*0.5));
     dBodySetQuaternion (body[i],q);
     dMassSetSphere (&m,1,RADIUS);
     dMassAdjust (&m,WMASS);
@@ -295,10 +297,10 @@ int main (int argc, char **argv)
     sphere[i-1] = dCreateSphere (0,RADIUS);
     dGeomSetBody (sphere[i-1],body[i]);
   }
-  dBodySetPosition (body[1],  0.5*LENGTH,  WIDTH*1.0, STARTZ-HEIGHT*0.5);
-  dBodySetPosition (body[2],  0.5*LENGTH, -WIDTH*1.0, STARTZ-HEIGHT*0.5);
-  dBodySetPosition (body[3], -0.5*LENGTH,  WIDTH*1.0, STARTZ-HEIGHT*0.5);
-  dBodySetPosition (body[4], -0.5*LENGTH, -WIDTH*1.0, STARTZ-HEIGHT*0.5);
+  dBodySetPosition (body[1], REAL( 0.5)*LENGTH,  WIDTH*REAL(1.0), STARTZ-HEIGHT*REAL(0.5));
+  dBodySetPosition (body[2], REAL( 0.5)*LENGTH, -WIDTH*REAL(1.0), STARTZ-HEIGHT*REAL(0.5));
+  dBodySetPosition (body[3], REAL(-0.5)*LENGTH,  WIDTH*REAL(1.0), STARTZ-HEIGHT*REAL(0.5));
+  dBodySetPosition (body[4], REAL(-0.5)*LENGTH, -WIDTH*REAL(1.0), STARTZ-HEIGHT*REAL(0.5));
 
   // front wheel hinge
   /*
@@ -331,16 +333,16 @@ int main (int argc, char **argv)
     dJointSetBreakForce (joint[i], 0, 2.5, 2.5, 2.5);
     // and for the second body
     dJointSetBreakForce (joint[i], 1, 2.5, 2.5, 2.5);
-	// set the callback function
-	dJointSetBreakCallback (joint[i], &jointBreakCallback);
+	  // set the callback function
+	  dJointSetBreakCallback (joint[i], &jointBreakCallback);
   }
   
   // joints for the chain
   for (i=0; i<chain_num-1; i++) {
     chain_joint[i] = dJointCreateFixed (world,0);
     dJointAttach (chain_joint[i],chain_body[i+1],chain_body[i]);
-	dJointSetFixed (chain_joint[i]);
-	// the chain can break
+	  dJointSetFixed (chain_joint[i]);
+	  // the chain can break
     dJointSetBreakable (chain_joint[i], 1);
     // the chain wil break at a specific force
     dJointSetBreakMode (chain_joint[i], 
@@ -351,14 +353,14 @@ int main (int argc, char **argv)
     dJointSetBreakForce (chain_joint[i], 0, 0.5, 0.5, 0.5);
     // and for the second body
     dJointSetBreakForce (chain_joint[i], 1, 0.5, 0.5, 0.5);
-	// set the callback function
-	dJointSetBreakCallback (chain_joint[i], &jointBreakCallback);
+	  // set the callback function
+	  dJointSetBreakCallback (chain_joint[i], &jointBreakCallback);
   }
   
   // set joint suspension
   for (i=0; i<4; i++) {
-    dJointSetHinge2Param (joint[i],dParamSuspensionERP,0.4);
-    dJointSetHinge2Param (joint[i],dParamSuspensionCFM,0.1);
+    dJointSetHinge2Param (joint[i],dParamSuspensionERP,REAL(0.4));
+    dJointSetHinge2Param (joint[i],dParamSuspensionCFM,REAL(0.1));
   }
 
   // lock back wheels along the steering axis
@@ -383,19 +385,19 @@ int main (int argc, char **argv)
   // environment
   ground_box = dCreateBox (space,2,1.5,1);
   dMatrix3 R;
-  dRFromAxisAndAngle (R,0,1,0,-0.15);
-  dGeomSetPosition (ground_box,2,0,-0.34);
+  dRFromAxisAndAngle (R,0,1,0,REAL(-0.15));
+  dGeomSetPosition (ground_box,2,0,REAL(-0.34));
   dGeomSetRotation (ground_box,R);
   
   // obstacles
   for (i=0; i<obstacle_num; i++) {
-    dReal height = 0.1+(dReal(rand()%10)/10.0);
-    obstacle[i] = dCreateBox (space,0.2,0.2,height);
+    dReal height = REAL(0.1)+(dReal(rand()%10)/REAL(10.0));
+    obstacle[i] = dCreateBox (space,REAL(0.2),REAL(0.2),height);
 	dGeomSetPosition (
 	  obstacle[i],
-	  (rand()%20)-10,
-	  (rand()%20)-10,
-	  height/2.0);
+	  dReal((rand()%20)-10),
+	  dReal((rand()%20)-10),
+	  height/REAL(2.0));
   }
 
   // run simulation

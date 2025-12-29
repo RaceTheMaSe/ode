@@ -367,7 +367,7 @@ template<typename value_type, typename lo_type, typename hi_type>
 inline 
 value_type dxClamp(const value_type &value, const lo_type &lo, const hi_type &hi)
 {
-    return value < lo ? (value_type)lo : value > hi ? (value_type)hi : value;
+    return value < (value_type)lo ? (value_type)lo : value > hi ? (value_type)hi : value;
 }
 
 

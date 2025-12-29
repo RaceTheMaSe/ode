@@ -48,10 +48,6 @@ slide.
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -61,12 +57,12 @@ slide.
 
 // some constants
 
-#define LENGTH 0.2	// box length & width
-#define HEIGHT 0.05	// box height
-#define MASS 0.2	// mass of box[i][j] = (i+1) * MASS
-#define FORCE 0.05	// force applied to box[i][j] = (j+1) * FORCE
-#define MU 0.5		// the global mu to use
-#define GRAVITY 0.5	// the global gravity to use
+#define LENGTH REAL(0.2)	// box length & width
+#define HEIGHT REAL(0.05)	// box height
+#define MASS REAL(0.2)	// mass of box[i][j] = (i+1) * MASS
+#define FORCE REAL(0.05)	// force applied to box[i][j] = (j+1) * FORCE
+#define MU REAL(0.5)		// the global mu to use
+#define GRAVITY REAL(0.5)	// the global gravity to use
 #define N1 10		// number of different forces to try
 #define N2 10		// number of different masses to try
 
@@ -101,7 +97,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
   for (i=0; i<3; i++) {
     contact[i].surface.mode = dContactSoftCFM | dContactApprox1;
     contact[i].surface.mu = MU;
-    contact[i].surface.soft_cfm = 0.01;
+    contact[i].surface.soft_cfm = REAL(0.01);
   }
   if (int numc = dCollide (o1,o2,3,&contact[0].geom,sizeof(dContact))) {
     for (i=0; i<numc; i++) {
@@ -118,7 +114,7 @@ static void start()
 {
   dAllocateODEDataForThread(dAllocateMaskAll);
 
-  float xyz[3] = {1.7772,-0.7924,2.7600};
+  float xyz[3] = {1.7772f,-0.7924f,2.7600f};
   float hpr[3] = {90.0000,-54.0000,0.0000};
   dsSetViewpoint (xyz,hpr);
 }
@@ -133,12 +129,12 @@ static void simLoop (int pause)
     // apply forces to all bodies
     for (i=0; i<N1; i++) {
       for (int j=0; j<N2; j++) {
-	dBodyAddForce (body[i][j],FORCE*(i+1),0,0);
+	dBodyAddForce (body[i][j],FORCE*(dReal)(i+1),0,0);
       }
     }
 
     dSpaceCollide (space,NULL,&nearCallback);
-    dWorldStep (world,0.05);
+    dWorldStep (world,REAL(0.05));
 
     // remove all contact joints
     dJointGroupEmpty (contactgroup);
@@ -182,9 +178,9 @@ int main (int argc, char **argv)
     for (j=0; j<N2; j++) {
       body[i][j] = dBodyCreate (world);
       dMassSetBox (&m,1,LENGTH,LENGTH,HEIGHT);
-      dMassAdjust (&m,MASS*(j+1));
+      dMassAdjust (&m,MASS*dReal(j+1));
       dBodySetMass (body[i][j],&m);
-      dBodySetPosition (body[i][j],i*2*LENGTH,j*2*LENGTH,HEIGHT*0.5);
+      dBodySetPosition (body[i][j],(dReal)i*REAL(2.0)*LENGTH,(dReal)j*REAL(2.0)*LENGTH,HEIGHT*REAL(0.5));
 
       box[i][j] = dCreateBox (space,LENGTH,LENGTH,HEIGHT);
       dGeomSetBody (box[i][j],body[i][j]);

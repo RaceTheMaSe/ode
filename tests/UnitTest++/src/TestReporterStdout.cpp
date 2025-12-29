@@ -30,7 +30,7 @@ void TestReporterStdout::ReportSummary(int const totalTestCount, int const faile
         std::printf("FAILURE: %d out of %d tests failed (%d failures).\n", failedTestCount, totalTestCount, failureCount);
     else
         std::printf("Success: %d tests passed.\n", totalTestCount);
-    std::printf("Test time: %.2f seconds.\n", secondsElapsed);
+    std::printf("Test time: %.2f seconds.\n", (double)secondsElapsed);
 }
 
 }

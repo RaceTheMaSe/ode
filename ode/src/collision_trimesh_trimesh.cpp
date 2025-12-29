@@ -23,10 +23,6 @@
 // OPCODE TriMesh/TriMesh collision code
 // Written at 2006-10-28 by Francisco León (http://gimpact.sourceforge.net)
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 #include <ode/collision.h>
 #include <ode/rotation.h>
 #include "config.h"
@@ -357,7 +353,7 @@ bool AllocNewContact(
     pcontact->pos[0] = newpoint[0];
     pcontact->pos[1] = newpoint[1];
     pcontact->pos[2] = newpoint[2];
-    pcontact->pos[3] = 1.0f;
+    pcontact->pos[3] = REAL(1.0);
 
     CONTACT_KEY newkey;
     UpdateContactKey(newkey, pcontact);
@@ -757,7 +753,7 @@ void PlaneClipSegment( const dVector3  s1, const dVector3  s2,
     dis2 = DOT(clipped,N);
     MULT(clipped,clipped,-dis1/dis2);
     ADD(clipped,clipped,s1);
-    clipped[3] = 1.0f;
+    clipped[3] = REAL(1.0);
 }
 
 /* ClipConvexPolygonAgainstPlane - Clip a a convex polygon, described by
@@ -812,7 +808,7 @@ ClipConvexPolygonAgainstPlane( const dVector3 N, dReal C,
                 clipped[clippedcount][0] = Contacts.Points[vi][0];
                 clipped[clippedcount][1] = Contacts.Points[vi][1];
                 clipped[clippedcount][2] = Contacts.Points[vi][2];
-                clipped[clippedcount][3] = 1.0f;
+                clipped[clippedcount][3] = REAL(1.0);
                 clippedcount++;
             }
         }
@@ -969,7 +965,7 @@ dReal MostDeepPoints(
     for(i=0;i<points.Count;i++)
     {
         dist = DOT(plane_normal,points.Points[i]) - plane_dist;
-        dist *= -1.0f;
+        dist *= REAL(-1.0);
         if(dist>maxdeep)
         {
             maxdeep = dist;
@@ -1041,7 +1037,7 @@ dReal FindTriangleTriangleCollision(
     //	dReal vmin1,vmax1,vmin2,vmax2;
     //	dVector3 crossdir, pt1,pt2;
     dVector4 tri1plane,tri2plane;
-    separating_normal[3] = 0.0f;
+    separating_normal[3] = REAL(0.0);
     bool bl;
     LineContactSet clipped_points1,clipped_points2;
     LineContactSet deep_points1,deep_points2;
@@ -1165,7 +1161,7 @@ dReal FindTriangleTriangleCollision(
             deep_points1.Count*sizeof(dVector3));
 
         ///invert normal for point to tri1
-        MULT(separating_normal,separating_normal,-1.0f);
+        MULT(separating_normal,separating_normal,REAL(-1.0));
     }
     else if(mostdir==1)
     {
@@ -1293,7 +1289,7 @@ bool TriTriContacts(const dVector3 tr1[3],
 
 
 
-    if(depth<0.0f) return false;
+    if(depth<REAL(0.0)) return false;
 
     ccount = 0;
     while (ccount<contactpoints.Count)

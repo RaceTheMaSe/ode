@@ -23,10 +23,6 @@
 #include <setjmp.h>
 #include <ode/ode.h>
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 //****************************************************************************
 // matrix sizes
 
@@ -52,7 +48,7 @@ const double tol = 1e-10;
 #endif
 
 #ifdef dSINGLE
-const double tol = 1e-5;
+const float tol = 1e-5f;
 #endif
 
 //****************************************************************************
@@ -138,7 +134,7 @@ static void testRandomNumberGenerator()
 static void testInfinity()
 {
     HEADER;
-    CONST_IF (1e10 < dInfinity && -1e10 > -dInfinity && -dInfinity < dInfinity)
+    CONST_IF (REAL(1e10) < dInfinity && REAL(-1e10) > -dInfinity && -dInfinity < dInfinity)
         printf ("\tpassed\n");
     else printf ("\tFAILED\n");
 }
@@ -181,7 +177,7 @@ static void testSetZero()
     dReal a[100];
     dMakeRandomVector (a,100,1.0);
     dSetZero (a,100);
-    for (int i=0; i<100; i++) if (a[i] != 0.0) {
+    for (int i=0; i<100; i++) if (a[i] != REAL(0.0)) {
         printf ("\tFAILED\n");
         return;
     }
@@ -198,7 +194,7 @@ static void testNormalize3()
         dMakeRandomVector (n1,3,1.0);
         for (j=0; j<3; j++) n2[j]=n1[j];
         dNormalize3 (n2);
-        if (dFabs(dCalcVectorDot3(n2,n2) - 1.0f) > tol) bad |= 1;
+        if (dFabs(dCalcVectorDot3(n2,n2) - REAL(1.0)) > tol) bad |= 1;
         if (dFabs(n2[0]/n1[0] - n2[1]/n1[1]) > tol) bad |= 2;
         if (dFabs(n2[0]/n1[0] - n2[2]/n1[2]) > tol) bad |= 4;
         if (dFabs(n2[1]/n1[1] - n2[2]/n1[2]) > tol) bad |= 8;
@@ -254,9 +250,9 @@ static void testMatrixMultiply()
 
     HEADER;
     dSetZero (A,8);
-    for (i=0; i<3; i++) A[i] = i+2;
-    for (i=0; i<3; i++) A[i+4] = i+3+2;
-    for (i=0; i<12; i++) B[i] = i+8;
+    for (i=0; i<3; i++) A[i] = dReal(i+2);
+    for (i=0; i<3; i++) A[i+4] = dReal(i+3+2);
+    for (i=0; i<12; i++) B[i] = dReal(i+8);
     dSetZero (A2,12);
     for (i=0; i<6; i++) A2[i+2*(i/2)] = A[i+i/3];
     dSetZero (B2,16);
@@ -342,7 +338,7 @@ static void testCholeskyFactorization()
     dClearUpperTriangle (B,MSIZE);
     dMultiply2 (C,B,B,MSIZE,MSIZE,MSIZE);
     diff = dMaxDifference(A,C,MSIZE,MSIZE);
-    printf ("\tmaximum difference = %.6e - %s (2)\n",diff,
+    printf ("\tmaximum difference = %.6e - %s (2)\n",(double)diff,
         diff > tol ? "FAILED" : "passed");
 
     dFree(C, matrixSize);
@@ -379,7 +375,7 @@ static void testCholeskySolve()
     // compute A*x and compare it with b
     dMultiply2 (btest,A,x,MSIZE,MSIZE,1);
     diff = dMaxDifference(b,btest,MSIZE,1);
-    printf ("\tmaximum difference = %.6e - %s (2)\n",diff,
+    printf ("\tmaximum difference = %.6e - %s (2)\n",(double)diff,
         diff > tol ? "FAILED" : "passed");
 
     dFree(btest, vectorSize);
@@ -467,7 +463,7 @@ static void testFastLDLTFactorization()
 
     dMultiply2 (ATEST,L,DL,MSIZE,MSIZE,MSIZE);
     diff = dMaxDifference(A,ATEST,MSIZE,MSIZE);
-    printf ("\tmaximum difference = %.6e - %s\n",diff,
+    printf ("\tmaximum difference = %.6e - %s\n",(double)diff,
         diff > tol ? "FAILED" : "passed");
 
     dFree(d, vectorSize);
@@ -524,9 +520,9 @@ static void testCoopLDLTFactorization()
             for (j = 0; j < PASS_MSIZE; j++) DL[i * PASS_MSIZE4 + j] = L[i * PASS_MSIZE4 + j] / d[j];
         }
 
-        dMultiply2 (ATEST, L, DL, PASS_MSIZE, PASS_MSIZE, PASS_MSIZE);
-        diff = dMaxDifference(A, ATEST, PASS_MSIZE, PASS_MSIZE);
-        printf ("\tN=%u: maximum difference = %.6e - %s\n", PASS_MSIZE, diff, diff > 1e2 * tol ? "FAILED" : "passed");
+        dMultiply2 (ATEST, L, DL, (int)PASS_MSIZE, (int)PASS_MSIZE, (int)PASS_MSIZE);
+        diff = dMaxDifference(A, ATEST, (int)PASS_MSIZE, (int)PASS_MSIZE);
+        printf ("\tN=%u: maximum difference = %.6e - %s\n", PASS_MSIZE, (double)diff, diff > REAL(1e2) * tol ? "FAILED" : "passed");
 
         dTimerEnd();
         dTimerReport(stdout, 0);
@@ -569,7 +565,7 @@ static void testSolveLDLT()
 
     dMultiply2 (btest,A,x,MSIZE,MSIZE,1);
     diff = dMaxDifference(b,btest,MSIZE,1);
-    printf ("\tmaximum difference = %.6e - %s\n",diff,
+    printf ("\tmaximum difference = %.6e - %s\n",(double)diff,
         diff > tol ? "FAILED" : "passed");
 
     dFree(btest, vectorSize);
@@ -624,9 +620,9 @@ static void testCoopSolveLDLT()
         dCooperativelySolveLDLT(resources, allowedThreads, L, d, x, PASS_MSIZE, PASS_MSIZE4);
 
         dTimerNow ("Verifying solution");
-        dMultiply2 (btest, A, x, PASS_MSIZE, PASS_MSIZE, 1);
-        diff = dMaxDifference(b, btest, PASS_MSIZE, 1);
-        printf ("\tN=%u: maximum difference = %.6e - %s\n", PASS_MSIZE, diff, diff > 1e2 * tol ? "FAILED" : "passed");
+        dMultiply2 (btest, A, x, (int)PASS_MSIZE, (int)PASS_MSIZE, 1);
+        diff = dMaxDifference(b, btest, (int)PASS_MSIZE, 1);
+        printf ("\tN=%u: maximum difference = %.6e - %s\n", PASS_MSIZE, (double)diff, diff > REAL(1e2) * tol ? "FAILED" : "passed");
 
         dTimerEnd();
         dTimerReport(stdout, 0);
@@ -684,7 +680,7 @@ static void testLDLTAddTL()
     for (i=1; i<MSIZE; i++) A[i*MSIZE4] = A[i] = 0;
     A[0] = 1;
     diff = dMaxDifference(A,ATEST,MSIZE,MSIZE);
-    printf ("\tmaximum difference = %.6e - %s\n",diff,
+    printf ("\tmaximum difference = %.6e - %s\n",(double)diff,
         diff > tol ? "FAILED" : "passed");
 
     dFree(a, vectorSize);
@@ -774,7 +770,7 @@ static void testLDLTRemove()
         printf ("\n");
         */
     }
-    printf ("\tmaximum difference = %.6e - %s\n",maxdiff,
+    printf ("\tmaximum difference = %.6e - %s\n",(double)maxdiff,
         maxdiff > tol ? "FAILED" : "passed");
 
     dFree(d2, vectorSize);
@@ -859,7 +855,7 @@ static void testMassFunctions()
 
     printf ("\t");
     dMassSetZero (&m);
-    TRAP_MESSAGE (dMassSetParameters (&m,10, 0.1,0.2,0.15, 3,5,14, 3.1,3.2,4),
+    TRAP_MESSAGE (dMassSetParameters (&m,10, REAL(0.1),REAL(0.2),REAL(0.15), 3,5,14, REAL(3.1),REAL(3.2),4),
         printf ("passed (2)\n") , printf (" FAILED (2)\n"));
     if (m.mass==10 && m.c[0]==REAL(0.1) && m.c[1]==REAL(0.2) &&
         m.c[2]==REAL(0.15) && m._I(0,0)==3 && m._I(1,1)==5 && m._I(2,2)==14 &&
@@ -868,29 +864,29 @@ static void testMassFunctions()
         printf ("\tpassed (3)\n"); else printf ("\tFAILED (3)\n");
 
     dMassSetZero (&m);
-    dMassSetSphere (&m,1.4, 0.86);
-    if (cmp(m.mass,3.73002719949386) && m.c[0]==0 && m.c[1]==0 && m.c[2]==0 &&
-        cmp(m._I(0,0),1.10349124669826) &&
-        cmp(m._I(1,1),1.10349124669826) &&
-        cmp(m._I(2,2),1.10349124669826) &&
+    dMassSetSphere (&m,REAL(1.4), REAL(0.86));
+    if (cmp(m.mass,REAL(3.73002719949386)) && m.c[0]==0 && m.c[1]==0 && m.c[2]==0 &&
+        cmp(m._I(0,0),REAL(1.10349124669826)) &&
+        cmp(m._I(1,1),REAL(1.10349124669826)) &&
+        cmp(m._I(2,2),REAL(1.10349124669826)) &&
         m._I(0,1)==0 && m._I(0,2)==0 && m._I(1,2)==0 &&
         m._I(1,0)==0 && m._I(2,0)==0 && m._I(2,1)==0)
         printf ("\tpassed (4)\n"); else printf ("\tFAILED (4)\n");
 
     dMassSetZero (&m);
-    dMassSetCapsule (&m,1.3,1,0.76,1.53);
-    if (cmp(m.mass,5.99961928996029) && m.c[0]==0 && m.c[1]==0 && m.c[2]==0 &&
-        cmp(m._I(0,0),1.59461986077384) &&
-        cmp(m._I(1,1),4.21878433864904) &&
-        cmp(m._I(2,2),4.21878433864904) &&
+    dMassSetCapsule (&m,REAL(1.3),1,REAL(0.76),REAL(1.53));
+    if (cmp(m.mass,REAL(5.99961928996029)) && m.c[0]==0 && m.c[1]==0 && m.c[2]==0 &&
+        cmp(m._I(0,0),REAL(1.59461986077384)) &&
+        cmp(m._I(1,1),REAL(4.21878433864904)) &&
+        cmp(m._I(2,2),REAL(4.21878433864904)) &&
         m._I(0,1)==0 && m._I(0,2)==0 && m._I(1,2)==0 &&
         m._I(1,0)==0 && m._I(2,0)==0 && m._I(2,1)==0)
         printf ("\tpassed (5)\n"); else printf ("\tFAILED (5)\n");
 
     dMassSetZero (&m);
-    dMassSetBox (&m,0.27,3,4,5);
-    if (cmp(m.mass,16.2) && m.c[0]==0 && m.c[1]==0 && m.c[2]==0 &&
-        cmp(m._I(0,0),55.35) && cmp(m._I(1,1),45.9) && cmp(m._I(2,2),33.75) &&
+    dMassSetBox (&m,REAL(0.27),3,4,5);
+    if (cmp(m.mass,REAL(16.2)) && m.c[0]==0 && m.c[1]==0 && m.c[2]==0 &&
+        cmp(m._I(0,0),REAL(55.35)) && cmp(m._I(1,1),REAL(45.9)) && cmp(m._I(2,2),REAL(33.75)) &&
         m._I(0,1)==0 && m._I(0,2)==0 && m._I(1,2)==0 &&
         m._I(1,0)==0 && m._I(2,0)==0 && m._I(2,1)==0)
         printf ("\tpassed (6)\n"); else printf ("\tFAILED (6)\n");
@@ -900,9 +896,9 @@ static void testMassFunctions()
     // make random particles and compute the mass, COM and inertia, then
     // translate and repeat.
     for (i=0; i<NUMP; i++) {
-        pm[i] = dRandReal()+0.5;
+        pm[i] = dRandReal()+REAL(0.5);
         for (j=0; j<3; j++) {
-            q[i][j] = 2.0*(dRandReal()-0.5);
+            q[i][j] = REAL(2.0)*(dRandReal()-REAL(0.5));
         }
     }
     computeMassParams (&m1,q,pm);
@@ -917,15 +913,15 @@ static void testMassFunctions()
     compareMassParams (&m1,&m2,"7");
 
     // rotate the masses
-    _R(0,0) = -0.87919618797635;
-    _R(0,1) = 0.15278881840384;
-    _R(0,2) = -0.45129772879842;
-    _R(1,0) = -0.47307856232664;
-    _R(1,1) = -0.39258064912909;
-    _R(1,2) = 0.78871864932708;
-    _R(2,0) = -0.05666336483842;
-    _R(2,1) = 0.90693771059546;
-    _R(2,2) = 0.41743652473765;
+    _R(0,0) = REAL(-0.87919618797635);
+    _R(0,1) = REAL( 0.15278881840384);
+    _R(0,2) = REAL(-0.45129772879842);
+    _R(1,0) = REAL(-0.47307856232664);
+    _R(1,1) = REAL(-0.39258064912909);
+    _R(1,2) = REAL( 0.78871864932708);
+    _R(2,0) = REAL(-0.05666336483842);
+    _R(2,1) = REAL( 0.90693771059546);
+    _R(2,2) = REAL( 0.41743652473765);
     dMassRotate (&m2,R);
     for (i=0; i<NUMP; i++) {
         dReal a[3];
@@ -989,7 +985,7 @@ static void testRtoQandQtoR()
         dReal diff = dMaxDifference (R,R2,3,3);
         if (diff > maxdiff) maxdiff = diff;
     }
-    printf ("\tmaximum difference = %e - %s (3)\n",maxdiff,
+    printf ("\tmaximum difference = %e - %s (3)\n",(double)maxdiff,
         (maxdiff > tol) ? "FAILED" : "passed");
 }
 
@@ -1032,7 +1028,7 @@ static void testQuaternionMultiply()
         diff = dMaxDifference (Rtest,RA,3,3);
         if (diff > maxdiff) maxdiff = diff;
     }
-    printf ("\tmaximum difference = %e - %s\n",maxdiff,
+    printf ("\tmaximum difference = %e - %s\n",(double)maxdiff,
         (maxdiff > tol) ? "FAILED" : "passed");
 }
 
@@ -1201,7 +1197,7 @@ dReal dMatrixComparison::nextMatrix (dReal *A, int n, int m, int lower_tri,
         }
         if (maxdiff > tol)
             dDebug (0,"dMatrixComparison, matrix error (size=%dx%d, name=\"%s\", "
-            "error=%.4e)",n,m,mi.name,maxdiff);
+            "error=%.4e)",n,m,mi.name,(double)maxdiff);
         return maxdiff;
     }
 }

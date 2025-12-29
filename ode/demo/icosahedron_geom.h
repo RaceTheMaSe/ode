@@ -3,6 +3,18 @@
    This is a description of a convex icosahedron, to test
    the convex collision detection.
 */
+
+#if defined(__clang__)
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wimplicit-float-conversion"
+#elif defined(__GNUC__)
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wfloat-conversion"
+#elif defined(_MSC_VER)
+  #pragma warning(push)
+  #pragma warning(disable: 4305) // truncation from double to float
+#endif
+
 static unsigned int Sphere_pointcount = 42;
 static unsigned int Sphere_planecount = 80;
 static dReal Sphere_points[126]={
@@ -214,3 +226,10 @@ static dReal Sphere_planes[]={
 0.408939,0.628443,0.661686,0.283056,
 };
 
+#if defined(__clang__)
+  #pragma clang diagnostic pop
+#elif defined(__GNUC__)
+  #pragma GCC diagnostic pop
+#elif defined(_MSC_VER)
+  #pragma warning(pop)
+#endif

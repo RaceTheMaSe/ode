@@ -64,7 +64,7 @@ TEST(test_collision_trimesh_sphere_exact)
         nc = dCollide(trimesh, sphere, 4, &cg[0], sizeof cg[0]);
         CHECK_EQUAL(2, nc);
         for (int i=0; i<nc; ++i) {
-            CHECK_EQUAL(0, cg[i].depth);
+            CHECK_EQUAL(REAL(0.0), cg[i].depth);
             CHECK_ARRAY_EQUAL(trinormal, cg[i].normal, 3);
         }
         
@@ -75,7 +75,7 @@ TEST(test_collision_trimesh_sphere_exact)
         nc = dCollide(trimesh, sphere, 4, &cg[0], sizeof cg[0]);
         CHECK_EQUAL(2, nc);
         for (int i=0; i<nc; ++i) {
-            CHECK_EQUAL(0, cg[i].depth);
+            CHECK_EQUAL(REAL(0.0), cg[i].depth);
             CHECK_ARRAY_EQUAL(trinormal, cg[i].normal, 3);
         }
         
@@ -92,7 +92,7 @@ TEST(test_collision_trimesh_sphere_exact)
         CHECK_EQUAL(2, nc);
         dVector3 rtrinormal = { 0, 1, 0 };
         for (int i=0; i<nc; ++i) {
-            CHECK_EQUAL(0, cg[i].depth);
+            CHECK_EQUAL(REAL(0.0), cg[i].depth);
             CHECK_ARRAY_EQUAL(rtrinormal, cg[i].normal, 3);
         }
 
@@ -165,13 +165,13 @@ TEST(test_collision_ray_convex)
         int count = dCollide(ray, convex, 1, &contact.geom, sizeof(dContact));
 
 		CHECK_EQUAL(1,count);
-		CHECK_CLOSE(0.0,contact.geom.pos[0], dEpsilon);
-		CHECK_CLOSE(-1.0,contact.geom.pos[1], dEpsilon);
-		CHECK_CLOSE(0.0,contact.geom.pos[2], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.normal[0], dEpsilon);
-		CHECK_CLOSE(-1.0, contact.geom.normal[1], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.normal[2], dEpsilon);
-		CHECK_CLOSE(9.0, contact.geom.depth, dEpsilon);
+		CHECK_CLOSE(dReal(0.0),contact.geom.pos[0], dEpsilon);
+		CHECK_CLOSE(dReal(-1.0),contact.geom.pos[1], dEpsilon);
+		CHECK_CLOSE(dReal(0.0),contact.geom.pos[2], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.normal[0], dEpsilon);
+		CHECK_CLOSE(dReal(-1.0), contact.geom.normal[1], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.normal[2], dEpsilon);
+		CHECK_CLOSE(dReal(9.0), contact.geom.depth, dEpsilon);
 
 		// Move Ray
 		dGeomRaySet(ray, 5, -10, 0, 0, 1, 0);
@@ -179,13 +179,13 @@ TEST(test_collision_ray_convex)
 		count = dCollide(ray, convex, 1, &contact.geom, sizeof(dContact));
 
 		CHECK_EQUAL(1,count);
-		CHECK_CLOSE(5.0, contact.geom.pos[0], dEpsilon);
-		CHECK_CLOSE(-1.0, contact.geom.pos[1], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.pos[2], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.normal[0], dEpsilon);
-		CHECK_CLOSE(-1.0, contact.geom.normal[1], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.normal[2], dEpsilon);
-		CHECK_CLOSE(9.0, contact.geom.depth, dEpsilon);
+		CHECK_CLOSE(dReal(5.0), contact.geom.pos[0], dEpsilon);
+		CHECK_CLOSE(dReal(-1.0), contact.geom.pos[1], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.pos[2], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.normal[0], dEpsilon);
+		CHECK_CLOSE(dReal(-1.0), contact.geom.normal[1], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.normal[2], dEpsilon);
+		CHECK_CLOSE(dReal(9.0), contact.geom.depth, dEpsilon);
 
 		// Rotate Convex
 		dMatrix3 rotate90z = 
@@ -205,13 +205,13 @@ TEST(test_collision_ray_convex)
 		count = dCollide(ray, convex, 1, &contact.geom, sizeof(dContact));
 
 		CHECK_EQUAL(1,count);
-		CHECK_CLOSE(1.0, contact.geom.pos[0], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.pos[1], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.pos[2], dEpsilon);
-		CHECK_CLOSE(1.0, contact.geom.normal[0], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.normal[1], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.normal[2], dEpsilon);
-		CHECK_CLOSE(9.0,contact.geom.depth, dEpsilon);
+		CHECK_CLOSE(dReal(1.0), contact.geom.pos[0], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.pos[1], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.pos[2], dEpsilon);
+		CHECK_CLOSE(dReal(1.0), contact.geom.normal[0], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.normal[1], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.normal[2], dEpsilon);
+		CHECK_CLOSE(dReal(9.0),contact.geom.depth, dEpsilon);
 
 
 		// Move Ray
@@ -222,13 +222,13 @@ TEST(test_collision_ray_convex)
 		count = dCollide(ray, convex, 1, &contact.geom, sizeof(dContact));
 
 		CHECK_EQUAL(1, count);
-		CHECK_CLOSE(1.0, contact.geom.pos[0], dEpsilon);
-		CHECK_CLOSE(1000.0, contact.geom.pos[1], dEpsilon);
-		CHECK_CLOSE(1000.0, contact.geom.pos[2], dEpsilon);
-		CHECK_CLOSE(1.0, contact.geom.normal[0], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.normal[1], dEpsilon);
-		CHECK_CLOSE(0.0, contact.geom.normal[2], dEpsilon);
-		CHECK_CLOSE(9.0, contact.geom.depth, dEpsilon);
+		CHECK_CLOSE(dReal(1.0), contact.geom.pos[0], dEpsilon);
+		CHECK_CLOSE(dReal(1000.0), contact.geom.pos[1], dEpsilon);
+		CHECK_CLOSE(dReal(1000.0), contact.geom.pos[2], dEpsilon);
+		CHECK_CLOSE(dReal(1.0), contact.geom.normal[0], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.normal[1], dEpsilon);
+		CHECK_CLOSE(dReal(0.0), contact.geom.normal[2], dEpsilon);
+		CHECK_CLOSE(dReal(9.0), contact.geom.depth, dEpsilon);
 
 		dGeomDestroy(convex);
         dGeomDestroy(ray);

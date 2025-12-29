@@ -126,10 +126,10 @@ SUITE (TestdxJointHinge2)
       // second joint
       const dReal *qA = dBodyGetQuaternion(bId[0][b]);
       const dReal *qB = dBodyGetQuaternion(bId[1][b]);
-      CHECK_CLOSE (qA[0], qB[0], 1e-4);
-      CHECK_CLOSE (qA[1], qB[1], 1e-4);
-      CHECK_CLOSE (qA[2], qB[2], 1e-4);
-      CHECK_CLOSE (qA[3], qB[3], 1e-4);
+      CHECK_CLOSE (qA[0], qB[0], REAL(1e-4));
+      CHECK_CLOSE (qA[1], qB[1], REAL(1e-4));
+      CHECK_CLOSE (qA[2], qB[2], REAL(1e-4));
+      CHECK_CLOSE (qA[3], qB[3], REAL(1e-4));
     }
 
     dWorldStep (wId,0.5);
@@ -142,18 +142,18 @@ SUITE (TestdxJointHinge2)
       // second joint
       const dReal *qA = dBodyGetQuaternion(bId[0][b]);
       const dReal *qB = dBodyGetQuaternion(bId[1][b]);
-      CHECK_CLOSE (qA[0], qB[0], 1e-4);
-      CHECK_CLOSE (qA[1], qB[1], 1e-4);
-      CHECK_CLOSE (qA[2], qB[2], 1e-4);
-      CHECK_CLOSE (qA[3], qB[3], 1e-4);
+      CHECK_CLOSE (qA[0], qB[0], REAL(1e-4));
+      CHECK_CLOSE (qA[1], qB[1], REAL(1e-4));
+      CHECK_CLOSE (qA[2], qB[2], REAL(1e-4));
+      CHECK_CLOSE (qA[3], qB[3], REAL(1e-4));
 
 
       const dReal *posA = dBodyGetPosition(bId[0][b]);
       const dReal *posB = dBodyGetPosition(bId[1][b]);
-      CHECK_CLOSE (posA[0], posB[0], 1e-4);
-      CHECK_CLOSE (posA[1], posB[1], 1e-4);
-      CHECK_CLOSE (posA[2], posB[2], 1e-4);
-      CHECK_CLOSE (posA[3], posB[3], 1e-4);
+      CHECK_CLOSE (posA[0], posB[0], REAL(1e-4));
+      CHECK_CLOSE (posA[1], posB[1], REAL(1e-4));
+      CHECK_CLOSE (posA[2], posB[2], REAL(1e-4));
+      CHECK_CLOSE (posA[3], posB[3], REAL(1e-4));
     }
   }
 

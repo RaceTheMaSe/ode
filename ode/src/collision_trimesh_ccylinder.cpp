@@ -471,7 +471,7 @@ BOOL sTrimeshCapsuleColliderData::_cldTestSeparatingAxesOfCapsule(
     dVector3 vAxis = {REAL(0.0),REAL(0.0),REAL(0.0),REAL(0.0)};
 
     // Epsilon value for checking axis vector length 
-    const dReal fEpsilon = 1e-6f;
+    const dReal fEpsilon = REAL(1e-6);
 
     // Translate triangle to Cc cord.
     SUBTRACT(v0, m_vCapsulePosition, m_vV0);
@@ -882,12 +882,12 @@ void sTrimeshCapsuleColliderData::_cldTestOneTriangleVSCapsule(
     // clamp depths to zero
     if (fDepth0 < 0) 
     {
-        fDepth0 = 0.0f;
+        fDepth0 = REAL(0.0);
     }
 
     if (fDepth1 < 0 ) 
     {
-        fDepth1 = 0.0f;
+        fDepth1 = REAL(0.0);
     }
 
     // Cached contacts's data
@@ -1142,15 +1142,15 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
     vCapsuleAxis[2] = mCapsuleRotation[2*4 + nCAPSULE_AXIS];
     // Get size of CCylinder
     dGeomCCylinderGetParams(gCylinder,&vCapsuleRadius,&fCapsuleSize);
-    fCapsuleSize*=0.5f;
+    fCapsuleSize*=REAL(0.5);
     //Set Capsule params
     GIM_CAPSULE_DATA capsule;
 
-    capsule.m_radius = vCapsuleRadius;
+    capsule.m_radius = (float)vCapsuleRadius;
     VEC_SCALE(capsule.m_point1,fCapsuleSize,vCapsuleAxis);
-    VEC_SUM(capsule.m_point1,vCapsulePosition,capsule.m_point1);
+    VEC_SUM_CONV(capsule.m_point1,vCapsulePosition,capsule.m_point1);
     VEC_SCALE(capsule.m_point2,-fCapsuleSize,vCapsuleAxis);
-    VEC_SUM(capsule.m_point2,vCapsulePosition,capsule.m_point2);
+    VEC_SUM_CONV(capsule.m_point2,vCapsulePosition,capsule.m_point2);
 
 
     //Create contact list

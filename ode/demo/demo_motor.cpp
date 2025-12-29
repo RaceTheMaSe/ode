@@ -24,10 +24,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
@@ -35,8 +31,8 @@
 
 
 // some constants
-#define SIDE (0.5f)	// side length of a box
-#define MASS (1.0)	// mass of a box
+#define SIDE REAL(0.5)	// side length of a box
+#define MASS REAL(1.0)	// mass of a box
 
 
 // dynamics and collision objects
@@ -70,7 +66,7 @@ static void command (int cmd)
   if (cmd == 'q' || cmd == 'Q') {
   	dJointSetLMotorParam(lmotor[0],dParamVel,0);
   	dJointSetLMotorParam(lmotor[0],dParamVel2,0);
-  	dJointSetLMotorParam(lmotor[0],dParamVel3,0.1);
+  	dJointSetLMotorParam(lmotor[0],dParamVel3,REAL(0.1));
   } else if (cmd == 'a' || cmd == 'A') {
   	dJointSetLMotorParam(lmotor[0],dParamVel,0);
   	dJointSetLMotorParam(lmotor[0],dParamVel2,0);
@@ -78,9 +74,9 @@ static void command (int cmd)
   } else if (cmd == 'z' || cmd == 'Z') {
   	dJointSetLMotorParam(lmotor[0],dParamVel,0);
   	dJointSetLMotorParam(lmotor[0],dParamVel2,0);
-  	dJointSetLMotorParam(lmotor[0],dParamVel3,-0.1);
+  	dJointSetLMotorParam(lmotor[0],dParamVel3,REAL(-0.1));
   } else if (cmd == 'w' || cmd == 'W') {
-  	dJointSetLMotorParam(lmotor[1],dParamVel,0.1);
+  	dJointSetLMotorParam(lmotor[1],dParamVel,REAL(0.1));
   	dJointSetLMotorParam(lmotor[1],dParamVel2,0);
   	dJointSetLMotorParam(lmotor[1],dParamVel3,0);
   } else if (cmd == 'e' || cmd == 'E') {
@@ -88,7 +84,7 @@ static void command (int cmd)
   	dJointSetLMotorParam(lmotor[1],dParamVel2,0);
   	dJointSetLMotorParam(lmotor[1],dParamVel3,0);
   } else if (cmd == 'r' || cmd == 'R') {
-  	dJointSetLMotorParam(lmotor[1],dParamVel,-0.1);
+  	dJointSetLMotorParam(lmotor[1],dParamVel,REAL(-0.1));
   	dJointSetLMotorParam(lmotor[1],dParamVel2,0);
   	dJointSetLMotorParam(lmotor[1],dParamVel3,0);
   }
@@ -118,7 +114,7 @@ static void simLoop (int pause)
 {
   if (!pause) {
     dSpaceCollide(space,NULL,&nearCallback);
-    dWorldQuickStep (world,0.05);
+    dWorldQuickStep (world,REAL(0.05));
 	dJointGroupEmpty(contactgroup);
   }
 
@@ -180,9 +176,9 @@ int main (int argc, char **argv)
 	  dJointSetAMotorAxis(amotor[i],0,1,1,0,0);
 	  dJointSetAMotorAxis(amotor[i],1,1,0,1,0);
 	  dJointSetAMotorAxis(amotor[i],2,1,0,0,1);
-	  dJointSetAMotorParam(amotor[i],dParamFMax,0.00001);
-	  dJointSetAMotorParam(amotor[i],dParamFMax2,0.00001);
-	  dJointSetAMotorParam(amotor[i],dParamFMax3,0.00001);
+	  dJointSetAMotorParam(amotor[i],dParamFMax, REAL(0.00001));
+	  dJointSetAMotorParam(amotor[i],dParamFMax2,REAL(0.00001));
+	  dJointSetAMotorParam(amotor[i],dParamFMax3,REAL(0.00001));
 
 	  dJointSetAMotorParam(amotor[i],dParamVel,0);
 	  dJointSetAMotorParam(amotor[i],dParamVel2,0);
@@ -193,9 +189,9 @@ int main (int argc, char **argv)
 	  dJointSetLMotorAxis(lmotor[i],1,1,0,1,0);
 	  dJointSetLMotorAxis(lmotor[i],2,1,0,0,1);
 	 
-	  dJointSetLMotorParam(lmotor[i],dParamFMax,0.0001);
-	  dJointSetLMotorParam(lmotor[i],dParamFMax2,0.0001);
-	  dJointSetLMotorParam(lmotor[i],dParamFMax3,0.0001);
+	  dJointSetLMotorParam(lmotor[i],dParamFMax, REAL(0.0001));
+	  dJointSetLMotorParam(lmotor[i],dParamFMax2,REAL(0.0001));
+	  dJointSetLMotorParam(lmotor[i],dParamFMax3,REAL(0.0001));
   }
 
   // run simulation

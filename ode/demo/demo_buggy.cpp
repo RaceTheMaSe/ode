@@ -32,10 +32,6 @@ this also shows you how to use geom groups.
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -46,13 +42,13 @@ this also shows you how to use geom groups.
 
 // some constants
 
-#define LENGTH 0.7	// chassis length
-#define WIDTH 0.5	// chassis width
-#define HEIGHT 0.2	// chassis height
-#define RADIUS 0.18	// wheel radius
-#define STARTZ 0.5	// starting height of chassis
-#define CMASS 1		// chassis mass
-#define WMASS 0.2	// wheel mass
+#define LENGTH REAL(0.7)	// chassis length
+#define WIDTH REAL(0.5)	// chassis width
+#define HEIGHT REAL(0.2)	// chassis height
+#define RADIUS REAL(0.18)	// wheel radius
+#define STARTZ REAL(0.5)	// starting height of chassis
+#define CMASS REAL(1.0)		// chassis mass
+#define WMASS REAL(0.2)	// wheel mass
 
 static const dVector3 yunit = { 0, 1, 0 }, zunit = { 0, 0, 1 };
 
@@ -96,10 +92,10 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
       contact[i].surface.mode = dContactSlip1 | dContactSlip2 |
 	dContactSoftERP | dContactSoftCFM | dContactApprox1;
       contact[i].surface.mu = dInfinity;
-      contact[i].surface.slip1 = 0.1;
-      contact[i].surface.slip2 = 0.1;
-      contact[i].surface.soft_erp = 0.5;
-      contact[i].surface.soft_cfm = 0.3;
+      contact[i].surface.slip1 = REAL(0.1);
+      contact[i].surface.slip2 = REAL(0.19);
+      contact[i].surface.soft_erp = REAL(0.5);
+      contact[i].surface.soft_cfm = REAL(0.3);
       dJointID c = dJointCreateContact (world,contactgroup,&contact[i]);
       dJointAttach (c,
 		    dGeomGetBody(contact[i].geom.g1),
@@ -133,16 +129,16 @@ static void command (int cmd)
 {
   switch (cmd) {
   case 'a': case 'A':
-    speed += 0.3;
+    speed += REAL(0.3);
     break;
   case 'z': case 'Z':
-    speed -= 0.3;
+    speed -= REAL(0.3);
     break;
   case ',':
-    steer -= 0.5;
+    steer -= REAL(0.5);
     break;
   case '.':
-    steer += 0.5;
+    steer += REAL(0.5);
     break;
   case ' ':
     speed = 0;
@@ -170,21 +166,21 @@ static void simLoop (int pause)
   if (!pause) {
     // motor
     dJointSetHinge2Param (joint[0],dParamVel2,-speed);
-    dJointSetHinge2Param (joint[0],dParamFMax2,0.1);
+    dJointSetHinge2Param (joint[0],dParamFMax2,REAL(0.1));
 
     // steering
     dReal v = steer - dJointGetHinge2Angle1 (joint[0]);
-    if (v > 0.1) v = 0.1;
-    if (v < -0.1) v = -0.1;
-    v *= 10.0;
+    if (v > REAL(0.1)) v = REAL(0.1);
+    if (v < REAL(-0.1)) v = REAL(-0.1);
+    v *= REAL(10.0);
     dJointSetHinge2Param (joint[0],dParamVel,v);
-    dJointSetHinge2Param (joint[0],dParamFMax,0.2);
-    dJointSetHinge2Param (joint[0],dParamLoStop,-0.75);
-    dJointSetHinge2Param (joint[0],dParamHiStop,0.75);
-    dJointSetHinge2Param (joint[0],dParamFudgeFactor,0.1);
+    dJointSetHinge2Param (joint[0],dParamFMax,REAL(0.2));
+    dJointSetHinge2Param (joint[0],dParamLoStop,REAL(-0.75));
+    dJointSetHinge2Param (joint[0],dParamHiStop,REAL(0.75));
+    dJointSetHinge2Param (joint[0],dParamFudgeFactor,REAL(0.1));
 
     dSpaceCollide (space,NULL,&nearCallback);
-    dWorldStep (world,0.05);
+    dWorldStep (world,REAL(0.05));
 
     // remove all contact joints
     dJointGroupEmpty (contactgroup);
@@ -197,7 +193,7 @@ static void simLoop (int pause)
   dsDrawBox (dBodyGetPosition(body[0]),dBodyGetRotation(body[0]),sides);
   dsSetColor (1,1,1);
   for (i=1; i<=3; i++) dsDrawCylinder (dBodyGetPosition(body[i]),
-				       dBodyGetRotation(body[i]),0.02f,RADIUS);
+				       dBodyGetRotation(body[i]),0.02f,(float)RADIUS);
 
   dVector3 ss;
   dGeomBoxGetLengths (ground_box,ss);
@@ -241,7 +237,7 @@ int main (int argc, char **argv)
   for (i=1; i<=3; i++) {
     body[i] = dBodyCreate (world);
     dQuaternion q;
-    dQFromAxisAndAngle (q,1,0,0,M_PI*0.5);
+    dQFromAxisAndAngle (q,1,0,0,(dReal)(M_PI*0.5));
     dBodySetQuaternion (body[i],q);
     dMassSetSphere (&m,1,RADIUS);
     dMassAdjust (&m,WMASS);
@@ -249,9 +245,9 @@ int main (int argc, char **argv)
     sphere[i-1] = dCreateSphere (NULL,RADIUS);
     dGeomSetBody (sphere[i-1],body[i]);
   }
-  dBodySetPosition (body[1],0.5*LENGTH,0,STARTZ-HEIGHT*0.5);
-  dBodySetPosition (body[2],-0.5*LENGTH, WIDTH*0.5,STARTZ-HEIGHT*0.5);
-  dBodySetPosition (body[3],-0.5*LENGTH,-WIDTH*0.5,STARTZ-HEIGHT*0.5);
+  dBodySetPosition (body[1],REAL( 0.5)*LENGTH,               0,STARTZ-HEIGHT*REAL(0.5));
+  dBodySetPosition (body[2],REAL(-0.5)*LENGTH, WIDTH*REAL(0.5),STARTZ-HEIGHT*REAL(0.5));
+  dBodySetPosition (body[3],REAL(-0.5)*LENGTH,-WIDTH*REAL(0.5),STARTZ-HEIGHT*REAL(0.5));
 
   // front and back wheel hinges
   for (i=0; i<3; i++) {
@@ -264,8 +260,8 @@ int main (int argc, char **argv)
 
   // set joint suspension
   for (i=0; i<3; i++) {
-    dJointSetHinge2Param (joint[i],dParamSuspensionERP,0.4);
-    dJointSetHinge2Param (joint[i],dParamSuspensionCFM,0.8);
+    dJointSetHinge2Param (joint[i],dParamSuspensionERP,REAL(0.4));
+    dJointSetHinge2Param (joint[i],dParamSuspensionCFM,REAL(0.8));
   }
 
   // lock back wheels along the steering axis
@@ -290,8 +286,8 @@ int main (int argc, char **argv)
   // environment
   ground_box = dCreateBox (space,2,1.5,1);
   dMatrix3 R;
-  dRFromAxisAndAngle (R,0,1,0,-0.15);
-  dGeomSetPosition (ground_box,2,0,-0.34);
+  dRFromAxisAndAngle (R,0,1,0,REAL(-0.15));
+  dGeomSetPosition (ground_box,2,0,REAL(-0.34));
   dGeomSetRotation (ground_box,R);
 
   // run simulation

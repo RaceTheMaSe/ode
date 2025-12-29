@@ -129,9 +129,9 @@ _ccd_inline void UNUSED_FUNCTION ccdQuatSetAngleAxis(ccd_quat_t *q,
         q->q[0] = q->q[1] = q->q[2] = CCD_ZERO;
         q->q[3] = CCD_ONE;
     }else{
-        s = sin(a)/n;
+        s = (ccd_real_t)sin((double)a)/n;
 
-        q->q[3] = cos(a);
+        q->q[3] = (ccd_real_t)cos((double)a);
         q->q[0] = x*s;
         q->q[1] = y*s;
         q->q[2] = z*s;

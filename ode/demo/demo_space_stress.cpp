@@ -26,10 +26,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -88,15 +84,15 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     contact[i].surface.mode = dContactBounce | dContactSoftCFM;
     contact[i].surface.mu = dInfinity;
     contact[i].surface.mu2 = 0;
-    contact[i].surface.bounce = 0.1;
-    contact[i].surface.bounce_vel = 0.1;
-    contact[i].surface.soft_cfm = 0.01;
+    contact[i].surface.bounce = REAL(0.1);
+    contact[i].surface.bounce_vel = REAL(0.1);
+    contact[i].surface.soft_cfm = REAL(0.01);
   }
   if (int numc = dCollide (o1,o2,MAX_CONTACTS,&contact[0].geom,
 			   sizeof(dContact))) {
     dMatrix3 RI;
     dRSetIdentity (RI);
-    const dReal ss[3] = {0.02,0.02,0.02};
+    const dReal ss[3] = {REAL(0.02),REAL(0.02),REAL(0.02)};
     for (i=0; i<numc; i++) {
       dJointID c = dJointCreateContact (world,contactgroup,contact+i);
       dJointAttach (c,b1,b2);
@@ -172,14 +168,14 @@ static void command (int cmd)
         obj[i].body = dBodyCreate(world);
 
         for (k=0; k<3; k++)
-            sides[k] = dRandReal()*0.5+0.1;
+            sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
 
         dMatrix3 R;
         if (random_pos)  {
             dBodySetPosition(obj[i].body,
                              dRandReal()*2-1,dRandReal()*2-1,dRandReal()+2);
-            dRFromAxisAndAngle(R,dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-                               dRandReal()*2.0-1.0,dRandReal()*10.0-5.0);
+            dRFromAxisAndAngle(R,dRandReal()*2-1,dRandReal()*2-1,
+                               dRandReal()*2-1,dRandReal()*10-5);
         } else {
             // higher than highest body position
             dReal maxheight = 0;
@@ -202,7 +198,7 @@ static void command (int cmd)
 
         } else if (cmd == 'c') {
 
-            sides[0] *= 0.5;
+            sides[0] *= REAL(0.5);
             dMassSetCapsule(&m,DENSITY,3,sides[0],sides[1]);
             obj[i].geom[0] = dCreateCapsule (space,sides[0],sides[1]);
 
@@ -213,7 +209,7 @@ static void command (int cmd)
 
         } else if (cmd == 's') {
 
-            sides[0] *= 0.5;
+            sides[0] *= REAL(0.5);
             dMassSetSphere (&m,DENSITY,sides[0]);
             obj[i].geom[0] = dCreateSphere (space,sides[0]);
 
@@ -230,25 +226,25 @@ static void command (int cmd)
             // set random delta positions
             for (j=0; j<GPB; j++)
                 for (k=0; k<3; k++)
-                    dpos[j][k] = dRandReal()*0.3-0.15;
+                    dpos[j][k] = dRandReal()*REAL(0.3)-REAL(0.15);
     
             for (k=0; k<GPB; k++) {
                 if (k==0) {
-                    dReal radius = dRandReal()*0.25+0.05;
+                    dReal radius = dRandReal()*REAL(0.25)+REAL(0.05);
                     obj[i].geom[k] = dCreateSphere (space,radius);
                     dMassSetSphere (&m2,DENSITY,radius);
                 } else if (k==1) {
                     obj[i].geom[k] = dCreateBox(space,sides[0],sides[1],sides[2]);
                     dMassSetBox(&m2,DENSITY,sides[0],sides[1],sides[2]);
                 } else {
-                    dReal radius = dRandReal()*0.1+0.05;
-                    dReal length = dRandReal()*1.0+0.1;
+                    dReal radius = dRandReal()*REAL(0.1)+REAL(0.05);
+                    dReal length = dRandReal()+REAL(0.1);
                     obj[i].geom[k] = dCreateCapsule(space,radius,length);
                     dMassSetCapsule(&m2,DENSITY,3,radius,length);
                 }
 
-                dRFromAxisAndAngle(drot[k],dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-                                   dRandReal()*2.0-1.0,dRandReal()*10.0-5.0);
+                dRFromAxisAndAngle(drot[k],dRandReal()*2-1,dRandReal()*2-1,
+                                   dRandReal()*2-1,dRandReal()*10-5);
                 dMassRotate(&m2,drot[k]);
 		
                 dMassTranslate(&m2,dpos[k][0],dpos[k][1],dpos[k][2]);
@@ -325,16 +321,16 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
         dsDrawBox(pos,R,sides);
     }
     else if (type == dSphereClass) {
-        dsDrawSphere(pos,R,dGeomSphereGetRadius (g));
+        dsDrawSphere(pos,R,(float)dGeomSphereGetRadius (g));
     }
     else if (type == dCapsuleClass) {
         dReal radius,length;
         dGeomCapsuleGetParams(g,&radius,&length);
-        dsDrawCapsule (pos,R,length,radius);
+        dsDrawCapsule (pos,R,(float)length,(float)radius);
     } else if (type == dCylinderClass) {
         dReal radius,length;
         dGeomCylinderGetParams(g,&radius,&length);
-        dsDrawCylinder(pos,R,length,radius);
+        dsDrawCylinder(pos,R,(float)length,(float)radius);
     }
 
     if (draw_aabb) {
@@ -343,13 +339,13 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
         dGeomGetAABB(g,aabb);
         dVector3 bbpos;
         for (int i=0; i<3; i++)
-            bbpos[i] = 0.5*(aabb[i*2] + aabb[i*2+1]);
+            bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
         dVector3 bbsides;
         for (int j=0; j<3; j++)
             bbsides[j] = aabb[j*2+1] - aabb[j*2];
         dMatrix3 RI;
         dRSetIdentity(RI);
-        dsSetColorAlpha(1,0,0,0.5);
+        dsSetColorAlpha(1,0,0,0.5f);
         dsDrawBox(bbpos,RI,bbsides);
     }
 }
@@ -361,9 +357,9 @@ static void simLoop (int pause)
 {
   dsSetColor (0,0,2);
   dSpaceCollide (space,NULL,&nearCallback);
-  //if (!pause) dWorldStep (world,0.05);
-  if (!pause) dWorldQuickStep (world,0.05);
-  //if (!pause) dWorldStepFast (world,0.05, 1);
+  //if (!pause) dWorldStep (world,REAL(0.05));
+  if (!pause) dWorldQuickStep (world,REAL(0.05));
+  //if (!pause) dWorldStepFast (world,REAL(0.05), 1);
 
   // remove all contact joints
   dJointGroupEmpty (contactgroup);
@@ -373,7 +369,7 @@ static void simLoop (int pause)
   for (int i=0; i<num; i++) {
     for (int j=0; j < GPB; j++) {
       if (i==selected) {
-	dsSetColor (0,0.7,1);
+	dsSetColor (0,0.7f,1);
       }
       else if (! dBodyIsEnabled (obj[i].body)) {
 	dsSetColor (1,0,0);
@@ -407,7 +403,7 @@ int main (int argc, char **argv)
   for (int i=1; i<argc; ++i) {
       if (argv[i] == std::string("quad")) {
           dVector3 Center = {0, 0, 0, 0};
-          dVector3 Extents = {WORLD_SIZE * 0.55, WORLD_SIZE * 0.55, WORLD_SIZE * 0.55, 0};
+          dVector3 Extents = {WORLD_SIZE * REAL(0.55), WORLD_SIZE * REAL(0.55), WORLD_SIZE * REAL(0.55), 0};
           puts(":::: Using dQuadTreeSpace");
           space = dQuadTreeSpaceCreate (NULL, Center, Extents, 6);
       } else if (argv[i] == std::string("hash")) {
@@ -429,8 +425,8 @@ int main (int argc, char **argv)
   }
 
   contactgroup = dJointGroupCreate (0);
-  dWorldSetGravity (world,0,0,-0.5);
-  dWorldSetCFM (world,1e-5);
+  dWorldSetGravity (world,0,0,REAL(-0.5));
+  dWorldSetCFM (world,REAL(1e-5));
   dCreatePlane (space,0,0,1,0);
   memset (obj,0,sizeof(obj));
 

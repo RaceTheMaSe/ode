@@ -140,7 +140,7 @@ dxJointUniversal::getAngles( dReal *angle1, dReal *angle2 )
         qrel[2] = ax1[1] + ax2[1];
         qrel[3] = ax1[2] + ax2[2];
 
-        dReal l = dRecip( sqrt( qrel[1] * qrel[1] + qrel[2] * qrel[2] + qrel[3] * qrel[3] ) );
+        dReal l = dRecip( dSqrt( qrel[1] * qrel[1] + qrel[2] * qrel[2] + qrel[3] * qrel[3] ) );
         qrel[1] *= l;
         qrel[2] *= l;
         qrel[3] *= l;
@@ -268,9 +268,9 @@ dxJointUniversal::getInfo1( dxJoint::Info1 *info )
     info->nub = 4;
     info->m = 4;
 
-    bool limiting1 = ( limot1.lostop >= -M_PI || limot1.histop <= M_PI ) &&
+    bool limiting1 = ( (double)limot1.lostop >= -M_PI || (double)limot1.histop <= M_PI ) &&
         limot1.lostop <= limot1.histop;
-    bool limiting2 = ( limot2.lostop >= -M_PI || limot2.histop <= M_PI ) &&
+    bool limiting2 = ( (double)limot2.lostop >= -M_PI || (double)limot2.histop <= M_PI ) &&
         limot2.lostop <= limot2.histop;
 
     // We need to call testRotationLimit() even if we're motored, since it

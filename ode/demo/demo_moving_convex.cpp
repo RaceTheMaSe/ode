@@ -26,10 +26,6 @@
 #include "bunny_geom.h"
 #include "convex_bunny_geom.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -89,16 +85,16 @@ static void nearCallback( void * /*data*/, dGeomID o1, dGeomID o2 )
 		contact[i].surface.mode = dContactBounce | dContactSoftCFM;
 		contact[i].surface.mu = dInfinity;
 		contact[i].surface.mu2 = 0;
-		contact[i].surface.bounce = 0.1;
-		contact[i].surface.bounce_vel = 0.1;
-		contact[i].surface.soft_cfm = 0.01;
+		contact[i].surface.bounce = REAL(0.1);
+		contact[i].surface.bounce_vel = REAL(0.1);
+		contact[i].surface.soft_cfm = REAL(0.01);
 	}
 	if ( int numc = dCollide( o1,o2,MAX_CONTACTS,&contact[0].geom,
 	                          sizeof( dContact ) ) )
 	{
 		dMatrix3 RI;
 		dRSetIdentity( RI );
-		const dReal ss[3] = {0.02,0.02,0.02};
+		const dReal ss[3] = {REAL(0.02),REAL(0.02),REAL(0.02)};
 		for ( i=0; i<numc; i++ )
 		{
 			dJointID c = dJointCreateContact( world,contactgroup,contact+i );
@@ -170,15 +166,15 @@ static void command( int cmd )
 		}
 
 		obj[i].body = dBodyCreate( world );
-		for ( k=0; k<3; k++ ) sides[k] = dRandReal()*0.5+0.1;
+		for ( k=0; k<3; k++ ) sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
 
 		dMatrix3 R;
 		if ( random_pos )
 		{
 			dBodySetPosition( obj[i].body,
 			                  dRandReal()*2-1,dRandReal()*2-1,dRandReal()+3 );
-			dRFromAxisAndAngle( R,dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-			                    dRandReal()*2.0-1.0,dRandReal()*10.0-5.0 );
+			dRFromAxisAndAngle( R,dRandReal()*2-1,dRandReal()*2-1,
+			                    dRandReal()*2-1,dRandReal()*10-5 );
 		}
 		else
 		{
@@ -189,7 +185,7 @@ static void command( int cmd )
 				if ( pos[2] > maxheight ) maxheight = pos[2];
 			}
 			dBodySetPosition( obj[i].body, 0,0,maxheight+1 );
-			dRFromAxisAndAngle( R,0,0,1,dRandReal()*10.0-5.0 );
+			dRFromAxisAndAngle( R,0,0,1,dRandReal()*10-5 );
 		}
 		dBodySetRotation( obj[i].body,R );
 		dBodySetData( obj[i].body,( void* )( dsizeint )i );
@@ -201,7 +197,7 @@ static void command( int cmd )
 		}
 		else if ( cmd == 'c' )
 		{
-			sides[0] *= 0.5;
+			sides[0] *= REAL(0.5);
 			dMassSetCapsule( &m,DENSITY,3,sides[0],sides[1] );
 			obj[i].geom[0] = dCreateCapsule( space,sides[0],sides[1] );
 		}
@@ -211,7 +207,7 @@ static void command( int cmd )
         }
 		else if ( cmd == 's' )
 		{
-			sides[0] *= 0.5;
+			sides[0] *= REAL(0.5);
 			dMassSetSphere( &m,DENSITY,sides[0] );
 			obj[i].geom[0] = dCreateSphere( space,sides[0] );
 		}
@@ -237,7 +233,7 @@ static void command( int cmd )
 			dGeomDestroy( triMesh );
 			dGeomTriMeshDataDestroy( new_tmdata );
 
-			printf( "mass at %f %f %f\n", m.c[0], m.c[1], m.c[2] );
+			printf( "mass at %f %f %f\n", (double)m.c[0], (double)m.c[1], (double)m.c[2] );
 			dGeomSetPosition( obj[i].geom[0], -m.c[0], -m.c[1], -m.c[2] );
 			dMassTranslate( &m, -m.c[0], -m.c[1], -m.c[2] );
 		}
@@ -294,18 +290,18 @@ static void drawGeom( dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
 	}
 	else if ( type == dSphereClass )
 	{
-		dsDrawSphere( pos,R,dGeomSphereGetRadius( g ) );
+		dsDrawSphere( pos,R,(float)dGeomSphereGetRadius( g ) );
 	}
     else if (type == dCylinderClass) {
         dReal radius,length;
         dGeomCylinderGetParams (g,&radius,&length);
-        dsDrawCylinder (pos,R,length,radius);
+        dsDrawCylinder (pos,R,(float)length,(float)radius);
     }
 	else if ( type == dCapsuleClass )
 	{
 		dReal radius,length;
 		dGeomCapsuleGetParams( g,&radius,&length );
-		dsDrawCapsule( pos,R,length,radius );
+		dsDrawCapsule( pos,R,(float)length,(float)radius );
 	}
 	else if ( type == dConvexClass )
 	{
@@ -323,12 +319,12 @@ static void drawGeom( dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
 		dReal aabb[6];
 		dGeomGetAABB( g,aabb );
 		dVector3 bbpos;
-		for ( int i=0; i<3; i++ ) bbpos[i] = 0.5*( aabb[i*2] + aabb[i*2+1] );
+		for ( int i=0; i<3; i++ ) bbpos[i] = REAL(0.5)*( aabb[i*2] + aabb[i*2+1] );
 		dVector3 bbsides;
 		for ( int j=0; j<3; j++ ) bbsides[j] = aabb[j*2+1] - aabb[j*2];
 		dMatrix3 RI;
 		dRSetIdentity( RI );
-		dsSetColorAlpha( 1,0,0,0.5 );
+		dsSetColorAlpha( 1,0,0,REAL(0.5) );
 		dsDrawBox( bbpos,RI,bbsides );
 	}
 }
@@ -340,7 +336,7 @@ static void simLoop( int pause )
 	dsSetColor( 0,0,2 );
 	dSpaceCollide( space,NULL,&nearCallback );
 
-	if ( !pause ) dWorldQuickStep( world,0.05 );
+	if ( !pause ) dWorldQuickStep( world,REAL(0.05) );
 
 	for ( int j = 0; j < dSpaceGetNumGeoms( space ); j++ )
 	{
@@ -360,7 +356,7 @@ static void simLoop( int pause )
 			{
 				if ( i==selected )
 				{
-					dsSetColor( 0,0.7,1 );
+					dsSetColor( 0,0.7f,1 );
 				}
 				else if ( ! dBodyIsEnabled( obj[i].body ) )
 				{
@@ -395,8 +391,8 @@ int main( int argc, char **argv )
 
 	space = dSimpleSpaceCreate( NULL );
 	contactgroup = dJointGroupCreate( 0 );
-	dWorldSetGravity( world,0,0,-0.5 );
-	dWorldSetCFM( world,1e-5 );
+	dWorldSetGravity( world,0,0,REAL(-0.5) );
+	dWorldSetCFM( world,REAL(1e-5) );
 	dCreatePlane( space,0,0,1,0 );
 	memset( obj,0,sizeof( obj ) );
 

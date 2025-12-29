@@ -60,7 +60,7 @@ static void     cb_start ()
 {
     dAllocateODEDataForThread(dAllocateMaskAll);
 
-    static float    xyz[3] = { 0.5f*STAGE_SIZE, 0.5f*STAGE_SIZE, 0.85f*STAGE_SIZE};
+    static float    xyz[3] = { 0.5f*(float)STAGE_SIZE, 0.5f*(float)STAGE_SIZE, 0.85f*(float)STAGE_SIZE};
     static float    hpr[3] = { 90.0f, -90.0f, 0 };
 
     dsSetViewpoint (xyz, hpr);
@@ -122,8 +122,8 @@ static void     cb_sim_step (int pause)
         angle += REAL( 0.01 );
 
         track_to_pos (g_globals_ptr->dyn_bodies[0], g_globals_ptr->plane2d_joint_ids[0],
-            dReal( STAGE_SIZE/2 + STAGE_SIZE/2.0 * cos (angle) ),
-            dReal( STAGE_SIZE/2 + STAGE_SIZE/2.0 * sin (angle) ));
+            dReal( STAGE_SIZE/2 + STAGE_SIZE/2.0 * (double)cos (angle) ),
+            dReal( STAGE_SIZE/2 + STAGE_SIZE/2.0 * (double)sin (angle) ));
 
         /* double   f0 = 0.001; */
         /* for (int b = 0; b < N_BODIES; b ++) */
@@ -159,7 +159,7 @@ static void     cb_sim_step (int pause)
             quat[1] = 0;
             quat[2] = 0;
             quat[3] = quat_ptr[3];
-            quat_len = sqrt (quat[0] * quat[0] + quat[3] * quat[3]);
+            quat_len = dSqrt (quat[0] * quat[0] + quat[3] * quat[3]);
             quat[0] /= quat_len;
             quat[3] /= quat_len;
             dBodySetQuaternion (g_globals_ptr->dyn_bodies[b].id(), quat);

@@ -35,9 +35,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
  // select correct drawing functions
 #ifdef dDOUBLE
 #define dsDrawSphere dsDrawSphereD
@@ -52,7 +49,7 @@
 
 #define TEST_REPS1 1000		// run each test this many times (first batch)
 #define TEST_REPS2 10000	// run each test this many times (second batch)
-const dReal tol = 1e-8;		// tolerance used for numerical checks
+const dReal tol = REAL(1e-8);		// tolerance used for numerical checks
 #define MAX_TESTS 1000		// maximum number of test slots
 #define Z_OFFSET 2		// z offset for drawing (to get above ground)
 
@@ -117,12 +114,12 @@ void nearCallback(void * /*data*/, dGeomID o1, dGeomID o2)
     if (n > 0) {
         dMatrix3 RI;
         dRSetIdentity(RI);
-        const dReal ss[3] = { 0.01,0.01,0.01 };
+        const dReal ss[3] = { REAL(0.01),REAL(0.01),REAL(0.01) };
         for (i = 0; i < n; i++) {
             contact[i].pos[2] += Z_OFFSET;
             dsDrawBox(contact[i].pos, RI, ss);
             dVector3 norm;
-            for (j = 0; j < 3; j++) norm[j] = contact[i].pos[j] + 0.1*contact[i].normal[j];
+            for (j = 0; j < 3; j++) norm[j] = contact[i].pos[j] + REAL(0.1)*contact[i].normal[j];
             dsDrawLine(contact[i].pos, norm);
         }
     }
@@ -154,7 +151,7 @@ void draw_all_objects(dSpaceID space)
             for (j = 0; j < 3; j++) dir[j] = dir[j] * length + origin[j];
             dsDrawLine(origin, dir);
             dsSetColor(0, 0, 1);
-            dsDrawSphere(origin, dGeomGetRotation(g), 0.01);
+            dsDrawSphere(origin, dGeomGetRotation(g), 0.01f);
         }
     }
 
@@ -170,14 +167,14 @@ void draw_all_objects(dSpaceID space)
         switch (dGeomGetClass(g)) {
 
         case dSphereClass: {
-            dsSetColorAlpha(1, 0, 0, 0.8);
+            dsSetColorAlpha(1, 0, 0, 0.8f);
             dReal radius = dGeomSphereGetRadius(g);
-            dsDrawSphere(pos, dGeomGetRotation(g), radius);
+            dsDrawSphere(pos, dGeomGetRotation(g), (float)radius);
             break;
         }
 
         case dBoxClass: {
-            dsSetColorAlpha(1, 1, 0, 0.8);
+            dsSetColorAlpha(1, 1, 0, 0.8f);
             dVector3 sides;
             dGeomBoxGetLengths(g, sides);
             dsDrawBox(pos, dGeomGetRotation(g), sides);
@@ -185,17 +182,17 @@ void draw_all_objects(dSpaceID space)
         }
 
         case dCapsuleClass: {
-            dsSetColorAlpha(0, 1, 0, 0.8);
+            dsSetColorAlpha(0, 1, 0, 0.8f);
             dReal radius, length;
             dGeomCapsuleGetParams(g, &radius, &length);
-            dsDrawCapsule(pos, dGeomGetRotation(g), length, radius);
+            dsDrawCapsule(pos, dGeomGetRotation(g), (float)length, (float)radius);
             break;
         }
         case dCylinderClass: {
-            dsSetColorAlpha(0, 1, 0, 0.8);
+            dsSetColorAlpha(0, 1, 0, 0.8f);
             dReal radius, length;
             dGeomCylinderGetParams(g, &radius, &length);
-            dsDrawCylinder(pos, dGeomGetRotation(g), length, radius);
+            dsDrawCylinder(pos, dGeomGetRotation(g), (float)length, (float)radius);
             break;
         }
 
@@ -209,11 +206,11 @@ void draw_all_objects(dSpaceID space)
             pos[2] += Z_OFFSET;
             sides[0] = 2;
             sides[1] = 2;
-            sides[2] = 0.001;
+            sides[2] = REAL(0.001);
             dsSetColor(1, 0, 1);
-            for (j = 0; j < 3; j++) pos2[j] = pos[j] + 0.1*norm[j];
+            for (j = 0; j < 3; j++) pos2[j] = pos[j] + REAL(0.1)*norm[j];
             dsDrawLine(pos, pos2);
-            dsSetColorAlpha(1, 0, 1, 0.8);
+            dsSetColorAlpha(1, 0, 1, 0.8f);
             dsDrawBox(pos, R, sides);
             break;
         }
@@ -241,9 +238,9 @@ int test_sphere_point_depth()
 
     // ********** make a random sphere of radius r at position p
 
-    r = dRandReal() + 0.1;
+    r = dRandReal() + REAL(0.1);
     dGeomSphereSetRadius(sphere, r);
-    dMakeRandomVector(p, 3, 1.0);
+    dMakeRandomVector(p, 3, REAL(1.0));
     dGeomSetPosition(sphere, p[0], p[1], p[2]);
     dRFromAxisAndAngle(R, dRandReal() * 2 - 1, dRandReal() * 2 - 1,
         dRandReal() * 2 - 1, dRandReal() * 10 - 5);
@@ -255,7 +252,7 @@ int test_sphere_point_depth()
 
     // ********** test point on surface has depth 0
 
-    for (j = 0; j < 3; j++) q[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) q[j] = dRandReal() - REAL(0.5);
     dNormalize3(q);
     for (j = 0; j < 3; j++) q[j] = q[j] * r + p[j];
     if (dFabs(dGeomSpherePointDepth(sphere, q[0], q[1], q[2])) > tol) FAILED();
@@ -263,7 +260,7 @@ int test_sphere_point_depth()
     // ********** test point at random depth
 
     d = (dRandReal() * 2 - 1) * r;
-    for (j = 0; j < 3; j++) q[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) q[j] = dRandReal() - REAL(0.5);
     dNormalize3(q);
     for (j = 0; j < 3; j++) q[j] = q[j] * (r - d) + p[j];
     if (dFabs(dGeomSpherePointDepth(sphere, q[0], q[1], q[2]) - d) > tol) FAILED();
@@ -286,7 +283,7 @@ int test_box_point_depth()
 
     // ********** make a random box
 
-    for (j = 0; j < 3; j++) s[j] = dRandReal() + 0.1;
+    for (j = 0; j < 3; j++) s[j] = dRandReal() + REAL(0.1);
     dGeomBoxSetLengths(box, s[0], s[1], s[2]);
     dMakeRandomVector(p, 3, 1.0);
     dGeomSetPosition(box, p[0], p[1], p[2]);
@@ -296,16 +293,16 @@ int test_box_point_depth()
 
     // ********** test center point has depth of smallest side
 
-    ss = 1e9;
+    ss = REAL(1e9);
     for (j = 0; j < 3; j++) if (s[j] < ss) ss = s[j];
-    if (dFabs(dGeomBoxPointDepth(box, p[0], p[1], p[2]) - 0.5f*ss) > tol)
+    if (dFabs(dGeomBoxPointDepth(box, p[0], p[1], p[2]) - REAL(0.5)*ss) > tol)
         FAILED();
 
     // ********** test point on surface has depth 0
 
-    for (j = 0; j < 3; j++) q[j] = (dRandReal() - 0.5)*s[j];
+    for (j = 0; j < 3; j++) q[j] = (dRandReal() - REAL(0.5))*s[j];
     i = dRandInt(3);
-    if (dRandReal() > 0.5) q[i] = 0.5*s[i]; else q[i] = -0.5*s[i];
+    if (dRandReal() > REAL(0.5)) q[i] = REAL(0.5)*s[i]; else q[i] = REAL(-0.5)*s[i];
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q2[j] += p[j];
     if (dFabs(dGeomBoxPointDepth(box, q2[0], q2[1], q2[2])) > tol) FAILED();
@@ -313,8 +310,8 @@ int test_box_point_depth()
     // ********** test points outside box have -ve depth
 
     for (j = 0; j < 3; j++) {
-        q[j] = 0.5*s[j] + dRandReal() + 0.01;
-        if (dRandReal() > 0.5) q[j] = -q[j];
+        q[j] = REAL(0.5)*s[j] + dRandReal() + REAL(0.01);
+        if (dRandReal() > REAL(0.5)) q[j] = -q[j];
     }
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q2[j] += p[j];
@@ -322,7 +319,7 @@ int test_box_point_depth()
 
     // ********** test points inside box have +ve depth
 
-    for (j = 0; j < 3; j++) q[j] = s[j] * 0.99 * (dRandReal() - 0.5);
+    for (j = 0; j < 3; j++) q[j] = s[j] * REAL(0.99) * (dRandReal() - REAL(0.5));
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q2[j] += p[j];
     if (dGeomBoxPointDepth(box, q2[0], q2[1], q2[2]) <= 0) FAILED();
@@ -331,9 +328,9 @@ int test_box_point_depth()
 
     i = dRandInt(3);
     for (j = 0; j < 3; j++) q[j] = 0;
-    d = (dRandReal()*(ss*0.5 + 1) - 1);
-    q[i] = s[i] * 0.5 - d;
-    if (dRandReal() > 0.5) q[i] = -q[i];
+    d = (dRandReal()*(ss*REAL(0.5) + REAL(1.0)) - REAL(1.0));
+    q[i] = s[i] * REAL(0.5) - d;
+    if (dRandReal() > REAL(0.5)) q[i] = -q[i];
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q2[j] += p[j];
     if (dFabs(dGeomBoxPointDepth(box, q2[0], q2[1], q2[2]) - d) >= tol) FAILED();
@@ -356,8 +353,8 @@ int test_ccylinder_point_depth()
 
     // ********** make a random ccyl
 
-    r = dRandReal()*0.5 + 0.01;
-    l = dRandReal() * 1 + 0.01;
+    r = dRandReal()*REAL(0.5) + REAL(0.01);
+    l = dRandReal() + REAL(0.01);
     dGeomCapsuleSetParams(ccyl, r, l);
     dMakeRandomVector(p, 3, 1.0);
     dGeomSetPosition(ccyl, p[0], p[1], p[2]);
@@ -367,47 +364,47 @@ int test_ccylinder_point_depth()
 
     // ********** test point on axis has depth of 'radius'
 
-    beta = dRandReal() - 0.5;
+    beta = dRandReal() - REAL(0.5);
     for (j = 0; j < 3; j++) a[j] = p[j] + l * beta*R[j * 4 + 2];
     if (dFabs(dGeomCapsulePointDepth(ccyl, a[0], a[1], a[2]) - r) >= tol)
         FAILED();
 
     // ********** test point on surface (excluding caps) has depth 0
 
-    beta = dRandReal() * 2 * M_PI;
-    x = r * sin(beta);
-    y = r * cos(beta);
-    beta = dRandReal() - 0.5;
+    beta = dRandReal() * dReal(2 * M_PI);
+    x = r * (dReal)sin(beta);
+    y = r * (dReal)cos(beta);
+    beta = dRandReal() - REAL(0.5);
     for (j = 0; j < 3; j++) a[j] = p[j] + x * R[j * 4 + 0] + y * R[j * 4 + 1] + l * beta*R[j * 4 + 2];
     if (dFabs(dGeomCapsulePointDepth(ccyl, a[0], a[1], a[2])) >= tol) FAILED();
 
     // ********** test point on surface of caps has depth 0
 
-    for (j = 0; j < 3; j++) a[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) a[j] = dRandReal() - REAL(0.5);
     dNormalize3(a);
     if (dCalcVectorDot3_14(a, R + 2) > 0) {
-        for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * r + l * 0.5*R[j * 4 + 2];
+        for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * r + l * REAL(0.5)*R[j * 4 + 2];
     }
     else {
-        for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * r - l * 0.5*R[j * 4 + 2];
+        for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * r - l * REAL(0.5)*R[j * 4 + 2];
     }
     if (dFabs(dGeomCapsulePointDepth(ccyl, a[0], a[1], a[2])) >= tol) FAILED();
 
     // ********** test point inside ccyl has positive depth
 
-    for (j = 0; j < 3; j++) a[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) a[j] = dRandReal() - REAL(0.5);
     dNormalize3(a);
-    beta = dRandReal() - 0.5;
-    for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * r*0.99 + l * beta*R[j * 4 + 2];
+    beta = dRandReal() - REAL(0.5);
+    for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * r*REAL(0.99) + l * beta*R[j * 4 + 2];
     if (dGeomCapsulePointDepth(ccyl, a[0], a[1], a[2]) < 0) FAILED();
 
     // ********** test point depth (1)
 
     d = (dRandReal() * 2 - 1) * r;
-    beta = dRandReal() * 2 * M_PI;
-    x = (r - d)*sin(beta);
-    y = (r - d)*cos(beta);
-    beta = dRandReal() - 0.5;
+    beta = dRandReal() * dReal(2 * M_PI);
+    x = (r - d)*dSin(beta);
+    y = (r - d)*dCos(beta);
+    beta = dRandReal() - REAL(0.5);
     for (j = 0; j < 3; j++) a[j] = p[j] + x * R[j * 4 + 0] + y * R[j * 4 + 1] + l * beta*R[j * 4 + 2];
     if (dFabs(dGeomCapsulePointDepth(ccyl, a[0], a[1], a[2]) - d) >= tol)
         FAILED();
@@ -415,13 +412,13 @@ int test_ccylinder_point_depth()
     // ********** test point depth (2)
 
     d = (dRandReal() * 2 - 1) * r;
-    for (j = 0; j < 3; j++) a[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) a[j] = dRandReal() - REAL(0.5);
     dNormalize3(a);
     if (dCalcVectorDot3_14(a, R + 2) > 0) {
-        for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * (r - d) + l * 0.5*R[j * 4 + 2];
+        for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * (r - d) + l * REAL(0.5)*R[j * 4 + 2];
     }
     else {
-        for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * (r - d) - l * 0.5*R[j * 4 + 2];
+        for (j = 0; j < 3; j++) a[j] = p[j] + a[j] * (r - d) - l * REAL(0.5)*R[j * 4 + 2];
     }
     if (dFabs(dGeomCapsulePointDepth(ccyl, a[0], a[1], a[2]) - d) >= tol)
         FAILED();
@@ -443,33 +440,33 @@ int test_plane_point_depth()
 
     // ********** make a random plane
 
-    for (j = 0; j < 3; j++) n[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) n[j] = dRandReal() - REAL(0.5);
     dNormalize3(n);
-    d = dRandReal() - 0.5;
+    d = dRandReal() - REAL(0.5);
     dGeomPlaneSetParams(plane, n[0], n[1], n[2], d);
     dPlaneSpace(n, p, q);
 
     // ********** test point on plane has depth 0
 
-    a[0] = dRandReal() - 0.5;
-    a[1] = dRandReal() - 0.5;
+    a[0] = dRandReal() - REAL(0.5);
+    a[1] = dRandReal() - REAL(0.5);
     a[2] = 0;
     for (j = 0; j < 3; j++) b[j] = a[0] * p[j] + a[1] * q[j] + (a[2] + d)*n[j];
     if (dFabs(dGeomPlanePointDepth(plane, b[0], b[1], b[2])) >= tol) FAILED();
 
     // ********** test arbitrary depth point
 
-    a[0] = dRandReal() - 0.5;
-    a[1] = dRandReal() - 0.5;
-    a[2] = dRandReal() - 0.5;
+    a[0] = dRandReal() - REAL(0.5);
+    a[1] = dRandReal() - REAL(0.5);
+    a[2] = dRandReal() - REAL(0.5);
     for (j = 0; j < 3; j++) b[j] = a[0] * p[j] + a[1] * q[j] + (a[2] + d)*n[j];
     if (dFabs(dGeomPlanePointDepth(plane, b[0], b[1], b[2]) + a[2]) >= tol)
         FAILED();
 
     // ********** test depth-1 point
 
-    a[0] = dRandReal() - 0.5;
-    a[1] = dRandReal() - 0.5;
+    a[0] = dRandReal() - REAL(0.5);
+    a[1] = dRandReal() - REAL(0.5);
     a[2] = -1;
     for (j = 0; j < 3; j++) b[j] = a[0] * p[j] + a[1] * q[j] + (a[2] + d)*n[j];
     if (dFabs(dGeomPlanePointDepth(plane, b[0], b[1], b[2]) - 1) >= tol) FAILED();
@@ -497,7 +494,7 @@ int test_ray_and_sphere()
 
     // ********** make a random sphere of radius r at position p
 
-    r = dRandReal() + 0.1;
+    r = dRandReal() + REAL(0.1);
     dGeomSphereSetRadius(sphere, r);
     dMakeRandomVector(p, 3, 1.0);
     dGeomSetPosition(sphere, p[0], p[1], p[2]);
@@ -510,7 +507,7 @@ int test_ray_and_sphere()
     dGeomRaySetLength(ray, 0);
     dMakeRandomVector(q, 3, 1.0);
     dNormalize3(q);
-    for (j = 0; j < 3; j++) q[j] = 0.99*r * q[j] + p[j];
+    for (j = 0; j < 3; j++) q[j] = REAL(0.99)*r * q[j] + p[j];
     dGeomSetPosition(ray, q[0], q[1], q[2]);
     dRFromAxisAndAngle(R, dRandReal() * 2 - 1, dRandReal() * 2 - 1,
         dRandReal() * 2 - 1, dRandReal() * 10 - 5);
@@ -522,7 +519,7 @@ int test_ray_and_sphere()
     dGeomRaySetLength(ray, 0);
     dMakeRandomVector(q, 3, 1.0);
     dNormalize3(q);
-    for (j = 0; j < 3; j++) q[j] = 1.01*r * q[j] + p[j];
+    for (j = 0; j < 3; j++) q[j] = REAL(1.01)*r * q[j] + p[j];
     dGeomSetPosition(ray, q[0], q[1], q[2]);
     dRFromAxisAndAngle(R, dRandReal() * 2 - 1, dRandReal() * 2 - 1,
         dRandReal() * 2 - 1, dRandReal() * 10 - 5);
@@ -534,11 +531,11 @@ int test_ray_and_sphere()
     dMakeRandomVector(q, 3, 1.0);
     dNormalize3(q);
     k = dRandReal();
-    for (j = 0; j < 3; j++) q[j] = k * r*0.99 * q[j] + p[j];
+    for (j = 0; j < 3; j++) q[j] = k * r*REAL(0.99) * q[j] + p[j];
     dMakeRandomVector(q2, 3, 1.0);
     dNormalize3(q2);
     k = dRandReal();
-    for (j = 0; j < 3; j++) q2[j] = k * r*0.99 * q2[j] + p[j];
+    for (j = 0; j < 3; j++) q2[j] = k * r*REAL(0.99) * q2[j] + p[j];
     for (j = 0; j < 3; j++) n[j] = q2[j] - q[j];
     dNormalize3(n);
     dGeomRaySet(ray, q[0], q[1], q[2], n[0], n[1], n[2]);
@@ -553,7 +550,7 @@ int test_ray_and_sphere()
         dMakeRandomVector(n, 3, 1.0);
         dNormalize3(n);
     } while (dCalcVectorDot3(n, q) < 0);	// make sure normal goes away from sphere
-    for (j = 0; j < 3; j++) q[j] = 1.01*r * q[j] + p[j];
+    for (j = 0; j < 3; j++) q[j] = REAL(1.01)*r * q[j] + p[j];
     dGeomRaySet(ray, q[0], q[1], q[2], n[0], n[1], n[2]);
     dGeomRaySetLength(ray, 100);
     if (dCollide(ray, sphere, 1, &contact, sizeof(dContactGeom)) != 0) FAILED();
@@ -565,12 +562,12 @@ int test_ray_and_sphere()
     for (j = 0; j < 3; j++) n[j] = -q[j];
     for (j = 0; j < 3; j++) q2[j] = 2 * r * q[j] + p[j];
     dGeomRaySet(ray, q2[0], q2[1], q2[2], n[0], n[1], n[2]);
-    dGeomRaySetLength(ray, 0.99*r);
+    dGeomRaySetLength(ray, REAL(0.99)*r);
     if (dCollide(ray, sphere, 1, &contact, sizeof(dContactGeom)) != 0) FAILED();
 
     // ********** test ray from outside to just below surface
 
-    dGeomRaySetLength(ray, 1.01*r);
+    dGeomRaySetLength(ray, REAL(1.01)*r);
     if (dCollide(ray, sphere, 1, &contact, sizeof(dContactGeom)) != 1) FAILED();
     for (j = 0; j < 3; j++) q2[j] = r * q[j] + p[j];
     if (dCalcPointsDistance3(contact.pos, q2) > tol) FAILED();
@@ -579,7 +576,7 @@ int test_ray_and_sphere()
 
     dMakeRandomVector(q, 3, 1.0);
     dNormalize3(q);
-    k = dRandReal() + 0.5;
+    k = dRandReal() + REAL(0.5);
     for (j = 0; j < 3; j++) q[j] = k * r * q[j] + p[j];
     dMakeRandomVector(n, 3, 1.0);
     dNormalize3(n);
@@ -603,7 +600,7 @@ int test_ray_and_sphere()
     dMakeRandomVector(q, 3, 1.0);
     dNormalize3(q);
     dPlaneSpace(q, n, v1);
-    for (j = 0; j < 3; j++) q[j] = 1.01*r * q[j] + p[j];
+    for (j = 0; j < 3; j++) q[j] = REAL(1.01)*r * q[j] + p[j];
     for (j = 0; j < 3; j++) q[j] -= n[j];
     dGeomRaySet(ray, q[0], q[1], q[2], n[0], n[1], n[2]);
     dGeomRaySetLength(ray, 2);
@@ -614,7 +611,7 @@ int test_ray_and_sphere()
     dMakeRandomVector(q, 3, 1.0);
     dNormalize3(q);
     dPlaneSpace(q, n, v1);
-    for (j = 0; j < 3; j++) q[j] = 0.99*r * q[j] + p[j];
+    for (j = 0; j < 3; j++) q[j] = REAL(0.99)*r * q[j] + p[j];
     for (j = 0; j < 3; j++) q[j] -= n[j];
     dGeomRaySet(ray, q[0], q[1], q[2], n[0], n[1], n[2]);
     dGeomRaySetLength(ray, 2);
@@ -641,7 +638,7 @@ int test_ray_and_box()
 
     // ********** make a random box
 
-    for (j = 0; j < 3; j++) s[j] = dRandReal() + 0.1;
+    for (j = 0; j < 3; j++) s[j] = dRandReal() + REAL(0.1);
     dGeomBoxSetLengths(box, s[0], s[1], s[2]);
     dMakeRandomVector(p, 3, 1.0);
     dGeomSetPosition(box, p[0], p[1], p[2]);
@@ -652,9 +649,9 @@ int test_ray_and_box()
     // ********** test zero length ray just inside box
 
     dGeomRaySetLength(ray, 0);
-    for (j = 0; j < 3; j++) q[j] = (dRandReal() - 0.5)*s[j];
+    for (j = 0; j < 3; j++) q[j] = (dRandReal() - REAL(0.5))*s[j];
     i = dRandInt(3);
-    if (dRandReal() > 0.5) q[i] = 0.99*0.5*s[i]; else q[i] = -0.99*0.5*s[i];
+    if (dRandReal() > REAL(0.5)) q[i] = REAL(0.99)*REAL(0.5)*s[i]; else q[i] = REAL(-0.99)*REAL(0.5)*s[i];
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q2[j] += p[j];
     dGeomSetPosition(ray, q2[0], q2[1], q2[2]);
@@ -666,9 +663,9 @@ int test_ray_and_box()
     // ********** test zero length ray just outside box
 
     dGeomRaySetLength(ray, 0);
-    for (j = 0; j < 3; j++) q[j] = (dRandReal() - 0.5)*s[j];
+    for (j = 0; j < 3; j++) q[j] = (dRandReal() - REAL(0.5))*s[j];
     i = dRandInt(3);
-    if (dRandReal() > 0.5) q[i] = 1.01*0.5*s[i]; else q[i] = -1.01*0.5*s[i];
+    if (dRandReal() > REAL(0.5)) q[i] = REAL(1.01)*REAL(0.5)*s[i]; else q[i] = REAL(-1.01)*REAL(0.5)*s[i];
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q2[j] += p[j];
     dGeomSetPosition(ray, q2[0], q2[1], q2[2]);
@@ -679,10 +676,10 @@ int test_ray_and_box()
 
     // ********** test finite length ray totally contained inside the box
 
-    for (j = 0; j < 3; j++) q[j] = (dRandReal() - 0.5)*0.99*s[j];
+    for (j = 0; j < 3; j++) q[j] = (dRandReal() - REAL(0.5))*REAL(0.99)*s[j];
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q2[j] += p[j];
-    for (j = 0; j < 3; j++) q3[j] = (dRandReal() - 0.5)*0.99*s[j];
+    for (j = 0; j < 3; j++) q3[j] = (dRandReal() - REAL(0.5))*REAL(0.99)*s[j];
     dMultiply0(q4, dGeomGetRotation(box), q3, 3, 3, 1);
     for (j = 0; j < 3; j++) q4[j] += p[j];
     for (j = 0; j < 3; j++) n[j] = q4[j] - q2[j];
@@ -693,9 +690,9 @@ int test_ray_and_box()
 
     // ********** test finite length ray totally outside the box
 
-    for (j = 0; j < 3; j++) q[j] = (dRandReal() - 0.5)*s[j];
+    for (j = 0; j < 3; j++) q[j] = (dRandReal() - REAL(0.5))*s[j];
     i = dRandInt(3);
-    if (dRandReal() > 0.5) q[i] = 1.01*0.5*s[i]; else q[i] = -1.01*0.5*s[i];
+    if (dRandReal() > REAL(0.5)) q[i] = REAL(1.01)*REAL(0.5)*s[i]; else q[i] = REAL(-1.01)*REAL(0.5)*s[i];
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q3[j] = q2[j] + p[j];
     dNormalize3(q2);
@@ -705,20 +702,20 @@ int test_ray_and_box()
 
     // ********** test ray from outside to just above surface
 
-    for (j = 0; j < 3; j++) q[j] = (dRandReal() - 0.5)*s[j];
+    for (j = 0; j < 3; j++) q[j] = (dRandReal() - REAL(0.5))*s[j];
     i = dRandInt(3);
-    if (dRandReal() > 0.5) q[i] = 1.01*0.5*s[i]; else q[i] = -1.01*0.5*s[i];
+    if (dRandReal() > REAL(0.5)) q[i] = REAL(1.01)*REAL(0.5)*s[i]; else q[i] = REAL(-1.01)*REAL(0.5)*s[i];
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q3[j] = 2 * q2[j] + p[j];
     k = dSqrt(q2[0] * q2[0] + q2[1] * q2[1] + q2[2] * q2[2]);
     for (j = 0; j < 3; j++) q2[j] = -q2[j];
     dGeomRaySet(ray, q3[0], q3[1], q3[2], q2[0], q2[1], q2[2]);
-    dGeomRaySetLength(ray, k*0.99);
+    dGeomRaySetLength(ray, k*REAL(0.99));
     if (dCollide(ray, box, 1, &contact, sizeof(dContactGeom)) != 0) FAILED();
 
     // ********** test ray from outside to just below surface
 
-    dGeomRaySetLength(ray, k*1.01);
+    dGeomRaySetLength(ray, k*REAL(1.01));
     if (dCollide(ray, box, 1, &contact, sizeof(dContactGeom)) != 1) FAILED();
 
     // ********** test contact point position for random rays
@@ -726,7 +723,7 @@ int test_ray_and_box()
     for (j = 0; j < 3; j++) q[j] = dRandReal()*s[j];
     dMultiply0(q2, dGeomGetRotation(box), q, 3, 3, 1);
     for (j = 0; j < 3; j++) q2[j] += p[j];
-    for (j = 0; j < 3; j++) q3[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) q3[j] = dRandReal() - REAL(0.5);
     dNormalize3(q3);
     dGeomRaySet(ray, q2[0], q2[1], q2[2], q3[0], q3[1], q3[2]);
     dGeomRaySetLength(ray, 10);
@@ -738,9 +735,9 @@ int test_ray_and_box()
         // check position of contact point
         for (j = 0; j < 3; j++) contact.pos[j] -= p[j];
         dMultiply1(q, dGeomGetRotation(box), contact.pos, 3, 3, 1);
-        if (dFabs(dFabs(q[0]) - 0.5f*s[0]) > tol &&
-            dFabs(dFabs(q[1]) - 0.5f*s[1]) > tol &&
-            dFabs(dFabs(q[2]) - 0.5f*s[2]) > tol) {
+        if (dFabs(dFabs(q[0]) - REAL(0.5)*s[0]) > tol &&
+            dFabs(dFabs(q[1]) - REAL(0.5)*s[1]) > tol &&
+            dFabs(dFabs(q[2]) - REAL(0.5)*s[2]) > tol) {
             FAILED();
         }
         // also check normal signs
@@ -770,8 +767,8 @@ int test_ray_and_ccylinder()
 
     // ********** make a random capped cylinder
 
-    r = dRandReal()*0.5 + 0.01;
-    l = dRandReal() * 1 + 0.01;
+    r = dRandReal()*REAL(0.5) + REAL(0.01);
+    l = dRandReal() + REAL(0.01);
     dGeomCapsuleSetParams(ccyl, r, l);
     dMakeRandomVector(p, 3, 1.0);
     dGeomSetPosition(ccyl, p[0], p[1], p[2]);
@@ -781,14 +778,14 @@ int test_ray_and_ccylinder()
 
     // ********** test ray completely within ccyl
 
-    for (j = 0; j < 3; j++) a[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) a[j] = dRandReal() - REAL(0.5);
     dNormalize3(a);
-    k = (dRandReal() - 0.5)*l;
-    for (j = 0; j < 3; j++) a[j] = p[j] + r * 0.99*a[j] + k * 0.99*R[j * 4 + 2];
-    for (j = 0; j < 3; j++) b[j] = dRandReal() - 0.5;
+    k = (dRandReal() - REAL(0.5))*l;
+    for (j = 0; j < 3; j++) a[j] = p[j] + r * REAL(0.99)*a[j] + k * REAL(0.99)*R[j * 4 + 2];
+    for (j = 0; j < 3; j++) b[j] = dRandReal() - REAL(0.5);
     dNormalize3(b);
-    k = (dRandReal() - 0.5)*l;
-    for (j = 0; j < 3; j++) b[j] = p[j] + r * 0.99*b[j] + k * 0.99*R[j * 4 + 2];
+    k = (dRandReal() - REAL(0.5))*l;
+    for (j = 0; j < 3; j++) b[j] = p[j] + r * REAL(0.99)*b[j] + k * REAL(0.99)*R[j * 4 + 2];
     dGeomRaySetLength(ray, dCalcPointsDistance3(a, b));
     for (j = 0; j < 3; j++) b[j] -= a[j];
     dNormalize3(b);
@@ -797,19 +794,19 @@ int test_ray_and_ccylinder()
 
     // ********** test ray outside ccyl that just misses (between caps)
 
-    k = dRandReal() * 2 * M_PI;
-    x = sin(k);
-    y = cos(k);
+    k = dRandReal() * dReal(2 * M_PI);
+    x = (dReal)sin(k);
+    y = (dReal)cos(k);
     for (j = 0; j < 3; j++) a[j] = x * R[j * 4 + 0] + y * R[j * 4 + 1];
-    k = (dRandReal() - 0.5)*l;
+    k = (dRandReal() - REAL(0.5))*l;
     for (j = 0; j < 3; j++) b[j] = -a[j] * r * 2 + k * R[j * 4 + 2] + p[j];
     dGeomRaySet(ray, b[0], b[1], b[2], a[0], a[1], a[2]);
-    dGeomRaySetLength(ray, r*0.99);
+    dGeomRaySetLength(ray, r*REAL(0.99));
     if (dCollide(ray, ccyl, 1, &contact, sizeof(dContactGeom)) != 0) FAILED();
 
     // ********** test ray outside ccyl that just hits (between caps)
 
-    dGeomRaySetLength(ray, r*1.01);
+    dGeomRaySetLength(ray, r*REAL(1.01));
     if (dCollide(ray, ccyl, 1, &contact, sizeof(dContactGeom)) != 1) FAILED();
     // check depth of contact point
     if (dFabs(dGeomCapsulePointDepth
@@ -818,21 +815,21 @@ int test_ray_and_ccylinder()
 
     // ********** test ray outside ccyl that just misses (caps)
 
-    for (j = 0; j < 3; j++) a[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) a[j] = dRandReal() - REAL(0.5);
     dNormalize3(a);
     if (dCalcVectorDot3_14(a, R + 2) < 0) {
-        for (j = 0; j < 3; j++) b[j] = p[j] - a[j] * 2 * r + l * 0.5*R[j * 4 + 2];
+        for (j = 0; j < 3; j++) b[j] = p[j] - a[j] * 2 * r + l * REAL(0.5)*R[j * 4 + 2];
     }
     else {
-        for (j = 0; j < 3; j++) b[j] = p[j] - a[j] * 2 * r - l * 0.5*R[j * 4 + 2];
+        for (j = 0; j < 3; j++) b[j] = p[j] - a[j] * 2 * r - l * REAL(0.5)*R[j * 4 + 2];
     }
     dGeomRaySet(ray, b[0], b[1], b[2], a[0], a[1], a[2]);
-    dGeomRaySetLength(ray, r*0.99);
+    dGeomRaySetLength(ray, r*REAL(0.99));
     if (dCollide(ray, ccyl, 1, &contact, sizeof(dContactGeom)) != 0) FAILED();
 
     // ********** test ray outside ccyl that just hits (caps)
 
-    dGeomRaySetLength(ray, r*1.01);
+    dGeomRaySetLength(ray, r*REAL(1.01));
     if (dCollide(ray, ccyl, 1, &contact, sizeof(dContactGeom)) != 1) FAILED();
     // check depth of contact point
     if (dFabs(dGeomCapsulePointDepth
@@ -841,8 +838,8 @@ int test_ray_and_ccylinder()
 
     // ********** test random rays
 
-    for (j = 0; j < 3; j++) a[j] = dRandReal() - 0.5;
-    for (j = 0; j < 3; j++) n[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) a[j] = dRandReal() - REAL(0.5);
+    for (j = 0; j < 3; j++) n[j] = dRandReal() - REAL(0.5);
     dNormalize3(n);
     dGeomRaySet(ray, a[0], a[1], a[2], n[0], n[1], n[2]);
     dGeomRaySetLength(ray, 10);
@@ -892,9 +889,9 @@ int test_ray_and_cylinder()
     a[2]=2*dRandReal()-1;*/
 
     // Inside out
-    b[0] = dRandReal() - 0.5;
-    b[1] = dRandReal() - 0.5;
-    b[2] = dRandReal() - 0.5;
+    b[0] = dRandReal() - REAL(0.5);
+    b[1] = dRandReal() - REAL(0.5);
+    b[2] = dRandReal() - REAL(0.5);
     a[0] = 2 * dRandReal() - 1;
     a[1] = 2 * dRandReal() - 1;
     a[2] = 2 * dRandReal() - 1;
@@ -935,18 +932,18 @@ int test_ray_and_plane()
 
     // ********** make a random plane
 
-    for (j = 0; j < 3; j++) n[j] = dRandReal() - 0.5;
+    for (j = 0; j < 3; j++) n[j] = dRandReal() - REAL(0.5);
     dNormalize3(n);
-    d = dRandReal() - 0.5;
+    d = dRandReal() - REAL(0.5);
     dGeomPlaneSetParams(plane, n[0], n[1], n[2], d);
     dPlaneSpace(n, p, q);
 
     // ********** test finite length ray below plane
 
-    dGeomRaySetLength(ray, 0.09);
-    a[0] = dRandReal() - 0.5;
-    a[1] = dRandReal() - 0.5;
-    a[2] = -dRandReal()*0.5 - 0.1;
+    dGeomRaySetLength(ray, REAL(0.09));
+    a[0] = dRandReal() - REAL(0.5);
+    a[1] = dRandReal() - REAL(0.5);
+    a[2] = -dRandReal()*REAL(0.5) - REAL(0.1);
     for (j = 0; j < 3; j++) b[j] = a[0] * p[j] + a[1] * q[j] + (a[2] + d)*n[j];
     dGeomSetPosition(ray, b[0], b[1], b[2]);
     dRFromAxisAndAngle(R, dRandReal() * 2 - 1, dRandReal() * 2 - 1,
@@ -956,13 +953,13 @@ int test_ray_and_plane()
 
     // ********** test finite length ray above plane
 
-    a[0] = dRandReal() - 0.5;
-    a[1] = dRandReal() - 0.5;
-    a[2] = dRandReal()*0.5 + 0.01;
+    a[0] = dRandReal() - REAL(0.5);
+    a[1] = dRandReal() - REAL(0.5);
+    a[2] = dRandReal()*REAL(0.5) + REAL(0.01);
     for (j = 0; j < 3; j++) b[j] = a[0] * p[j] + a[1] * q[j] + (a[2] + d)*n[j];
-    g[0] = dRandReal() - 0.5;
-    g[1] = dRandReal() - 0.5;
-    g[2] = dRandReal() + 0.01;
+    g[0] = dRandReal() - REAL(0.5);
+    g[1] = dRandReal() - REAL(0.5);
+    g[2] = dRandReal() + REAL(0.01);
     for (j = 0; j < 3; j++) h[j] = g[0] * p[j] + g[1] * q[j] + g[2] * n[j];
     dNormalize3(h);
     dGeomRaySet(ray, b[0], b[1], b[2], h[0], h[1], h[2]);
@@ -971,13 +968,13 @@ int test_ray_and_plane()
 
     // ********** test finite length ray that intersects plane
 
-    a[0] = dRandReal() - 0.5;
-    a[1] = dRandReal() - 0.5;
-    a[2] = dRandReal() - 0.5;
+    a[0] = dRandReal() - REAL(0.5);
+    a[1] = dRandReal() - REAL(0.5);
+    a[2] = dRandReal() - REAL(0.5);
     for (j = 0; j < 3; j++) b[j] = a[0] * p[j] + a[1] * q[j] + (a[2] + d)*n[j];
-    g[0] = dRandReal() - 0.5;
-    g[1] = dRandReal() - 0.5;
-    g[2] = dRandReal() - 0.5;
+    g[0] = dRandReal() - REAL(0.5);
+    g[1] = dRandReal() - REAL(0.5);
+    g[2] = dRandReal() - REAL(0.5);
     for (j = 0; j < 3; j++) h[j] = g[0] * p[j] + g[1] * q[j] + g[2] * n[j];
     dNormalize3(h);
     dGeomRaySet(ray, b[0], b[1], b[2], h[0], h[1], h[2]);
@@ -1000,18 +997,18 @@ int test_ray_and_plane()
     for (j = 0; j < 3; j++) b[j] = (1 + d)*n[j];
     for (j = 0; j < 3; j++) h[j] = -n[j];
     dGeomRaySet(ray, b[0], b[1], b[2], h[0], h[1], h[2]);
-    dGeomRaySetLength(ray, 0.99);
+    dGeomRaySetLength(ray, REAL(0.99));
     if (dCollide(ray, plane, 1, &contact, sizeof(dContactGeom)) != 0) FAILED();
 
     // ********** test ray that just hits
 
-    dGeomRaySetLength(ray, 1.01);
+    dGeomRaySetLength(ray, REAL(1.01));
     if (dCollide(ray, plane, 1, &contact, sizeof(dContactGeom)) != 1) FAILED();
 
     // ********** test polarity with typical ground plane
 
     dGeomPlaneSetParams(plane, 0, 0, 1, 0);
-    for (j = 0; j < 3; j++) a[j] = 0.1;
+    for (j = 0; j < 3; j++) a[j] = REAL(0.1);
     for (j = 0; j < 3; j++) b[j] = 0;
     a[2] = 1;
     b[2] = -1;
@@ -1051,9 +1048,9 @@ int edgeIntersectsRect(dVector3 v1, dVector3 v2,
 
     dReal error;
 #ifdef dSINGLE
-    const dReal uEpsilon = 1e-5, pEpsilon = 1e-6, tmpEpsilon = 1.5e-4;
+    const dReal uEpsilon = REAL(1e-5), pEpsilon = REAL(1e-6), tmpEpsilon = REAL(1.5e-4);
 #else
-    const dReal uEpsilon = 1e-6, pEpsilon = 1e-8, tmpEpsilon = 1e-6;
+    const dReal uEpsilon = REAL(1e-6), pEpsilon = REAL(1e-8), tmpEpsilon = REAL(1e-6);
 #endif
 
     error = dFabs(dCalcVectorDot3(u1, u2));
@@ -1103,16 +1100,16 @@ int box1inside2(const dVector3 p1, const dMatrix3 R1,
         for (int j = -1; j <= 1; j += 2) {
             for (int k = -1; k <= 1; k += 2) {
                 dVector3 v, vv;
-                v[0] = i * 0.5*side1[0];
-                v[1] = j * 0.5*side1[1];
-                v[2] = k * 0.5*side1[2];
+                v[0] = (dReal)i * REAL(0.5)*side1[0];
+                v[1] = (dReal)j * REAL(0.5)*side1[1];
+                v[2] = (dReal)k * REAL(0.5)*side1[2];
                 dMultiply0_331(vv, R1, v);
                 vv[0] += p1[0] - p2[0];
                 vv[1] += p1[1] - p2[1];
                 vv[2] += p1[2] - p2[2];
                 for (int axis = 0; axis < 3; axis++) {
                     dReal z = dCalcVectorDot3_14(vv, R2 + axis);
-                    if (z < (-side2[axis] * 0.5) || z >(side2[axis] * 0.5)) return 0;
+                    if (z < (-side2[axis] * REAL(0.5)) || z >(side2[axis] * REAL(0.5))) return 0;
                 }
             }
         }
@@ -1143,14 +1140,14 @@ int testBoxesTouch2(const dVector3 p1, const dMatrix3 R1,
             k = 0;
             for (j1 = -1; j1 <= 1; j1 += 2) {
                 for (j2 = -1; j2 <= 1; j2 += 2) {
-                    fp[k][k1] = j1;
-                    fp[k][k2] = j2;
-                    fp[k][fd] = fo * 2 - 1;
+                    fp[k][k1] = dReal(j1);
+                    fp[k][k2] = dReal(j2);
+                    fp[k][fd] = dReal(fo * 2 - 1);
                     k++;
                 }
             }
             for (j = 0; j < 4; j++) {
-                for (k = 0; k < 3; k++) fp[j][k] *= 0.5*side2[k];
+                for (k = 0; k < 3; k++) fp[j][k] *= REAL(0.5)*side2[k];
                 dMultiply0_331(tmp, R2, fp[j]);
                 for (k = 0; k < 3; k++) fp[j][k] = tmp[k] + p2[k];
             }
@@ -1165,8 +1162,8 @@ int testBoxesTouch2(const dVector3 p1, const dMatrix3 R1,
                             if (v1[ei] < 0) {
                                 // get vertex1 -> vertex2 = an edge from box 1
                                 dVector3 vv1, vv2;
-                                for (k = 0; k < 3; k++) vv1[k] = v1[k] * 0.5*side1[k];
-                                for (k = 0; k < 3; k++) vv2[k] = (v1[k] + (k == ei) * 2)*0.5*side1[k];
+                                for (k = 0; k < 3; k++) vv1[k] = v1[k] * REAL(0.5)*side1[k];
+                                for (k = 0; k < 3; k++) vv2[k] = (v1[k] + (dReal)((k == ei) * 2))*REAL(0.5)*side1[k];
                                 dVector3 vertex1, vertex2;
                                 dMultiply0_331(vertex1, R1, vv1);
                                 dMultiply0_331(vertex2, R1, vv2);
@@ -1208,12 +1205,12 @@ int test_dBoxTouchesBox()
 
     dMakeRandomVector(p1, 3, 0.5);
     dMakeRandomVector(p2, 3, 0.5);
-    for (k = 0; k < 3; k++) side1[k] = dRandReal() + 0.01;
-    for (k = 0; k < 3; k++) side2[k] = dRandReal() + 0.01;
-    dRFromAxisAndAngle(R1, dRandReal()*2.0 - 1.0, dRandReal()*2.0 - 1.0,
-        dRandReal()*2.0 - 1.0, dRandReal()*10.0 - 5.0);
-    dRFromAxisAndAngle(R2, dRandReal()*2.0 - 1.0, dRandReal()*2.0 - 1.0,
-        dRandReal()*2.0 - 1.0, dRandReal()*10.0 - 5.0);
+    for (k = 0; k < 3; k++) side1[k] = dRandReal() + REAL(0.01);
+    for (k = 0; k < 3; k++) side2[k] = dRandReal() + REAL(0.01);
+    dRFromAxisAndAngle(R1, dRandReal()*REAL(2.0) - REAL(1.0), dRandReal()*REAL(2.0) - REAL(1.0),
+        dRandReal()*REAL(2.0) - REAL(1.0), dRandReal()*REAL(10.0) - REAL(5.0));
+    dRFromAxisAndAngle(R2, dRandReal()*REAL(2.0) - REAL(1.0), dRandReal()*REAL(2.0) - REAL(1.0),
+        dRandReal()*REAL(2.0) - REAL(1.0), dRandReal()*REAL(10.0) - REAL(5.0));
 
     dGeomBoxSetLengths(box1, side1[0], side1[1], side1[2]);
     dGeomBoxSetLengths(box2, side2[0], side2[1], side2[2]);
@@ -1264,13 +1261,13 @@ int test_dBoxBox()
 
     dMakeRandomVector(p1, 3, 0.5);
     dMakeRandomVector(p2, 3, 0.5);
-    for (k = 0; k < 3; k++) side1[k] = dRandReal() + 0.01;
-    for (k = 0; k < 3; k++) side2[k] = dRandReal() + 0.01;
+    for (k = 0; k < 3; k++) side1[k] = dRandReal() + REAL(0.01);
+    for (k = 0; k < 3; k++) side2[k] = dRandReal() + REAL(0.01);
 
-    dRFromAxisAndAngle(R1, dRandReal()*2.0 - 1.0, dRandReal()*2.0 - 1.0,
-        dRandReal()*2.0 - 1.0, dRandReal()*10.0 - 5.0);
-    dRFromAxisAndAngle(R2, dRandReal()*2.0 - 1.0, dRandReal()*2.0 - 1.0,
-        dRandReal()*2.0 - 1.0, dRandReal()*10.0 - 5.0);
+    dRFromAxisAndAngle(R1, dRandReal()*2-1, dRandReal()*2-1,
+        dRandReal()*2-1, dRandReal()*10-5);
+    dRFromAxisAndAngle(R2, dRandReal()*2-1, dRandReal()*2-1,
+        dRandReal()*2-1, dRandReal()*10-5);
 
     // dRSetIdentity (R1);	// we can also try this
     // dRSetIdentity (R2);
@@ -1287,9 +1284,9 @@ int test_dBoxBox()
     bt = dBoxBox(p1, R1, side1, p2, R2, side2, normal, &depth, &code, 8, contact,
         sizeof(dContactGeom));
     if (bt == 1) {
-        p2[0] += normal[0] * 0.96 * depth;
-        p2[1] += normal[1] * 0.96 * depth;
-        p2[2] += normal[2] * 0.96 * depth;
+        p2[0] += normal[0] * REAL(0.96) * depth;
+        p2[1] += normal[1] * REAL(0.96) * depth;
+        p2[2] += normal[2] * REAL(0.96) * depth;
         bt = dBoxBox(p1, R1, side1, p2, R2, side2, normal2, &depth2, &code, 8, contact,
             sizeof(dContactGeom));
 
@@ -1304,9 +1301,9 @@ int test_dBoxBox()
             draw_all_objects(space);
         }
 
-        p2[0] += normal[0] * 0.08 * depth;
-        p2[1] += normal[1] * 0.08 * depth;
-        p2[2] += normal[2] * 0.08 * depth;
+        p2[0] += normal[0] * REAL(0.08) * depth;
+        p2[1] += normal[1] * REAL(0.08) * depth;
+        p2[2] += normal[2] * REAL(0.08) * depth;
         bt = dBoxBox(p1, R1, side1, p2, R2, side2, normal2, &depth2, &code, 8, contact,
             sizeof(dContactGeom));
         if (bt != 0) FAILED();
@@ -1333,7 +1330,7 @@ void start()
 {
     dAllocateODEDataForThread(dAllocateMaskAll);
 
-    static float xyz[3] = { 2.4807,-1.8023,2.7600 };
+    static float xyz[3] = { 2.4807f,-1.8023f,2.7600f };
     static float hpr[3] = { 141.5000,-18.5000,0.0000 };
     dsSetViewpoint(xyz, hpr);
 }

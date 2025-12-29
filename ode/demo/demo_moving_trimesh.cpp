@@ -25,19 +25,15 @@
 #include "texturepath.h"
 #include "bunny_geom.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 ///<---- Convex Object
 static const dReal planes[] =  // planes for a cube
 {
-    1.0f ,0.0f ,0.0f ,0.25f, 
-    0.0f ,1.0f ,0.0f ,0.25f, 
-    0.0f ,0.0f ,1.0f ,0.25f, 
-    0.0f ,0.0f ,-1.0f,0.25f, 
-    0.0f ,-1.0f,0.0f ,0.25f, 
-    -1.0f,0.0f ,0.0f ,0.25f 
+    REAL(1.0) ,REAL(0.0) ,REAL(0.0) ,REAL(0.25), 
+    REAL(0.0) ,REAL(1.0) ,REAL(0.0) ,REAL(0.25), 
+    REAL(0.0) ,REAL(0.0) ,REAL(1.0) ,REAL(0.25), 
+    REAL(0.0) ,REAL(0.0) ,REAL(-1.0),REAL(0.25), 
+    REAL(0.0) ,REAL(-1.0),REAL(0.0) ,REAL(0.25), 
+    REAL(-1.0),REAL(0.0) ,REAL(0.0) ,REAL(0.25) 
     /* 
     1.0f ,0.0f ,0.0f ,2.0f, 
     0.0f ,1.0f ,0.0f ,1.0f, 
@@ -51,17 +47,17 @@ static const unsigned int planecount=6;
 
 static const dReal points[] = // points for a cube
 { 
-    0.25f,0.25f,0.25f,  
-    -0.25f,0.25f,0.25f, 
-    
-    0.25f,-0.25f,0.25f, 
-    -0.25f,-0.25f,0.25f, 
-    
-    0.25f,0.25f,-0.25f, 
-    -0.25f,0.25f,-0.25f, 
-    
-    0.25f,-0.25f,-0.25f, 
-    -0.25f,-0.25f,-0.25f, 
+    REAL(0.25),REAL(0.25),REAL(0.25),  //  point 0
+    REAL(-0.25),REAL(0.25),REAL(0.25), //  point 1
+
+    REAL(0.25),REAL(-0.25),REAL(0.25), //  point 2
+    REAL(-0.25),REAL(-0.25),REAL(0.25),//  point 3
+
+    REAL(0.25),REAL(0.25),REAL(-0.25), //  point 4
+    REAL(-0.25),REAL(0.25),REAL(-0.25),//  point 5
+
+    REAL(0.25),REAL(-0.25),REAL(-0.25),//  point 6
+    REAL(-0.25),REAL(-0.25),REAL(-0.25),// point 7
 };
 static const unsigned int pointcount=8;
 
@@ -175,15 +171,15 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     contact[i].surface.mode = dContactBounce | dContactSoftCFM;
     contact[i].surface.mu = dInfinity;
     contact[i].surface.mu2 = 0;
-    contact[i].surface.bounce = 0.1;
-    contact[i].surface.bounce_vel = 0.1;
-    contact[i].surface.soft_cfm = 0.01;
+    contact[i].surface.bounce = REAL(0.1);
+    contact[i].surface.bounce_vel = REAL(0.1);
+    contact[i].surface.soft_cfm = REAL(0.01);
   }
   if (int numc = dCollide (o1,o2,MAX_CONTACTS,&contact[0].geom,
 			   sizeof(dContact))) {
     dMatrix3 RI;
     dRSetIdentity (RI);
-    const dReal ss[3] = {0.02,0.02,0.02};
+    const dReal ss[3] = {REAL(0.02),REAL(0.02),REAL(0.02)};
     for (i=0; i<numc; i++) {
       dJointID c = dJointCreateContact (world,contactgroup,contact+i);
       dJointAttach (c,b1,b2);
@@ -255,14 +251,14 @@ static void command (int cmd)
         }
 
         obj[i].body = dBodyCreate (world);
-        for (k=0; k<3; k++) sides[k] = dRandReal()*0.5+0.1;
+        for (k=0; k<3; k++) sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
 
         dMatrix3 R;
         if (random_pos) {
             dBodySetPosition (obj[i].body,
                               dRandReal()*2-1,dRandReal()*2-1,dRandReal()+3);
-            dRFromAxisAndAngle (R,dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-                                dRandReal()*2.0-1.0,dRandReal()*10.0-5.0);
+            dRFromAxisAndAngle (R,dRandReal()*2-1,dRandReal()*2-1,
+                                dRandReal()*2-1,dRandReal()*10-5);
         }
         else {
             dReal maxheight = 0;
@@ -271,7 +267,7 @@ static void command (int cmd)
                 if (pos[2] > maxheight) maxheight = pos[2];
             }
             dBodySetPosition (obj[i].body, 0,0,maxheight+1);
-            dRFromAxisAndAngle (R,0,0,1,dRandReal()*10.0-5.0);
+            dRFromAxisAndAngle (R,0,0,1,dRandReal()*10-5);
         }
         dBodySetRotation (obj[i].body,R);
         dBodySetData (obj[i].body,(void*)(dsizeint)i);
@@ -281,12 +277,12 @@ static void command (int cmd)
             obj[i].geom[0] = dCreateBox (space,sides[0],sides[1],sides[2]);
         }
         else if (cmd == 'c') {
-            sides[0] *= 0.5;
+            sides[0] *= REAL(0.5);
             dMassSetCapsule (&m,DENSITY,3,sides[0],sides[1]);
             obj[i].geom[0] = dCreateCapsule (space,sides[0],sides[1]);
         } else if (cmd == 'v') {
 
-            dMassSetBox (&m,DENSITY,0.25,0.25,0.25);
+            dMassSetBox (&m,DENSITY,REAL(0.25),REAL(0.25),REAL(0.25));
             obj[i].geom[0] = dCreateConvex(space,
                                            planes,
                                            planecount,
@@ -295,12 +291,12 @@ static void command (int cmd)
                                            polygons);
         }
         else if (cmd == 'y') {
-            sides[1] *= 0.5;
+            sides[1] *= REAL(0.5);
             dMassSetCylinder (&m,DENSITY,3,sides[0],sides[1]);
             obj[i].geom[0] = dCreateCylinder (space,sides[0],sides[1]);
         }
 	else if (cmd == 's') {
-            sides[0] *= 0.5;
+            sides[0] *= REAL(0.5);
             dMassSetSphere (&m,DENSITY,sides[0]);
             obj[i].geom[0] = dCreateSphere (space,sides[0]);
         }
@@ -317,7 +313,7 @@ static void command (int cmd)
             dGeomSetData(obj[i].geom[0], new_tmdata);
 
             dMassSetTrimesh( &m, DENSITY, obj[i].geom[0] );
-            printf("mass at %f %f %f\n", m.c[0], m.c[1], m.c[2]);
+            printf("mass at %f %f %f\n", (double)m.c[0], (double)m.c[1], (double)m.c[2]);
             dGeomSetPosition(obj[i].geom[0], -m.c[0], -m.c[1], -m.c[2]);
             dMassTranslate(&m, -m.c[0], -m.c[1], -m.c[2]);
         }
@@ -334,25 +330,25 @@ static void command (int cmd)
             // set random delta positions
             for (j=0; j<GPB; j++)
                 for (k=0; k<3; k++)
-                    dpos[j][k] = dRandReal()*0.3-0.15;
+                    dpos[j][k] = dRandReal()*REAL(0.3)-REAL(0.15);
     
             for (k=0; k<GPB; k++) {
                 if (k==0) {
-                    dReal radius = dRandReal()*0.25+0.05;
+                    dReal radius = dRandReal()*REAL(0.25)+REAL(0.05);
                     obj[i].geom[k] = dCreateSphere (space,radius);
                     dMassSetSphere (&m2,DENSITY,radius);
                 } else if (k==1) {
                     obj[i].geom[k] = dCreateBox(space,sides[0],sides[1],sides[2]);
                     dMassSetBox(&m2,DENSITY,sides[0],sides[1],sides[2]);
                 } else {
-                    dReal radius = dRandReal()*0.1+0.05;
-                    dReal length = dRandReal()*1.0+0.1;
+                    dReal radius = dRandReal()*REAL(0.1)+REAL(0.05);
+                    dReal length = dRandReal()+REAL(0.1);
                     obj[i].geom[k] = dCreateCapsule(space,radius,length);
                     dMassSetCapsule(&m2,DENSITY,3,radius,length);
                 }
 
-                dRFromAxisAndAngle(drot[k],dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-                                   dRandReal()*2.0-1.0,dRandReal()*10.0-5.0);
+                dRFromAxisAndAngle(drot[k],dRandReal()*2-1,dRandReal()*2-1,
+                                   dRandReal()*2-1,dRandReal()*10-5);
                 dMassRotate(&m2,drot[k]);
 		
                 dMassTranslate(&m2,dpos[k][0],dpos[k][1],dpos[k][2]);
@@ -421,17 +417,17 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
     dsDrawBox (pos,R,sides);
   }
   else if (type == dSphereClass) {
-    dsDrawSphere (pos,R,dGeomSphereGetRadius (g));
+    dsDrawSphere (pos,R,(float)dGeomSphereGetRadius (g));
   }
   else if (type == dCapsuleClass) {
     dReal radius,length;
     dGeomCapsuleGetParams (g,&radius,&length);
-    dsDrawCapsule (pos,R,length,radius);
+    dsDrawCapsule (pos,R,(float)length,(float)radius);
   }
   else if (type == dCylinderClass) {
     dReal radius,length;
     dGeomCylinderGetParams (g,&radius,&length);
-    dsDrawCylinder (pos,R,length,radius);
+    dsDrawCylinder (pos,R,(float)length,(float)radius);
   } else if (type == dConvexClass) {
    //dVector3 sides={0.50,0.50,0.50};
     dsDrawConvex(pos,R,planes,
@@ -446,12 +442,12 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
     dReal aabb[6];
     dGeomGetAABB (g,aabb);
     dVector3 bbpos;
-    for (int i=0; i<3; i++) bbpos[i] = 0.5*(aabb[i*2] + aabb[i*2+1]);
+    for (int i=0; i<3; i++) bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
     dVector3 bbsides;
     for (int j=0; j<3; j++) bbsides[j] = aabb[j*2+1] - aabb[j*2];
     dMatrix3 RI;
     dRSetIdentity (RI);
-    dsSetColorAlpha (1,0,0,0.5);
+    dsSetColorAlpha (1,0,0,0.5f);
     dsDrawBox (bbpos,RI,bbsides);
   }
 }
@@ -471,7 +467,7 @@ static void setCurrentTransform(dGeomID geom)
    Pos[0], Pos[1], Pos[2],  1
  };
 
- dGeomTriMeshSetLastTransform( geom, *(dMatrix4*)(&Transform) );
+ dGeomTriMeshSetLastTransform( geom, *(const dMatrix4*)(&Transform) );
 
 }
 
@@ -499,8 +495,8 @@ static void simLoop (int pause)
   }
 #endif
 
-  //if (!pause) dWorldStep (world,0.05);
-  if (!pause) dWorldQuickStep (world,0.05);
+  //if (!pause) dWorldStep (world,REAL(0.05));
+  if (!pause) dWorldQuickStep (world,REAL(0.05));
 
   for (int j = 0; j < dSpaceGetNumGeoms(space); j++){
 	  dSpaceGetGeom(space, j);
@@ -515,7 +511,7 @@ static void simLoop (int pause)
     for (int j=0; j < GPB; j++) {
       if (obj[i].geom[j]) {
         if (i==selected) {
-          dsSetColor (0,0.7,1);
+          dsSetColor (0,0.7f,1);
         }
         else if (! dBodyIsEnabled (obj[i].body)) {
           dsSetColor (1,0,0);
@@ -533,15 +529,15 @@ static void simLoop (int pause)
         
           for (int ii = 0; ii < IndexCount / 3; ii++) {
             const dReal v[9] = { // explicit conversion from float to dReal
-              Vertices[triIndices[ii * 3 + 0] * 3 + 0],
-              Vertices[triIndices[ii * 3 + 0] * 3 + 1],
-              Vertices[triIndices[ii * 3 + 0] * 3 + 2],
-              Vertices[triIndices[ii * 3 + 1] * 3 + 0],
-              Vertices[triIndices[ii * 3 + 1] * 3 + 1],
-              Vertices[triIndices[ii * 3 + 1] * 3 + 2],
-              Vertices[triIndices[ii * 3 + 2] * 3 + 0],
-              Vertices[triIndices[ii * 3 + 2] * 3 + 1],
-              Vertices[triIndices[ii * 3 + 2] * 3 + 2]
+              (dReal)Vertices[triIndices[ii * 3 + 0] * 3 + 0],
+              (dReal)Vertices[triIndices[ii * 3 + 0] * 3 + 1],
+              (dReal)Vertices[triIndices[ii * 3 + 0] * 3 + 2],
+              (dReal)Vertices[triIndices[ii * 3 + 1] * 3 + 0],
+              (dReal)Vertices[triIndices[ii * 3 + 1] * 3 + 1],
+              (dReal)Vertices[triIndices[ii * 3 + 1] * 3 + 2],
+              (dReal)Vertices[triIndices[ii * 3 + 2] * 3 + 0],
+              (dReal)Vertices[triIndices[ii * 3 + 2] * 3 + 1],
+              (dReal)Vertices[triIndices[ii * 3 + 2] * 3 + 2]
             };
             dsDrawTriangle(Pos, Rot, &v[0], &v[3], &v[6], 1);
           }
@@ -577,15 +573,15 @@ static void simLoop (int pause)
 
   {for (int i = 0; i < IndexCount / 3; i++){
     const dReal v[9] = { // explicit conversion from float to dReal
-      Vertices[triIndices[i * 3 + 0] * 3 + 0],
-      Vertices[triIndices[i * 3 + 0] * 3 + 1],
-      Vertices[triIndices[i * 3 + 0] * 3 + 2],
-      Vertices[triIndices[i * 3 + 1] * 3 + 0],
-      Vertices[triIndices[i * 3 + 1] * 3 + 1],
-      Vertices[triIndices[i * 3 + 1] * 3 + 2],
-      Vertices[triIndices[i * 3 + 2] * 3 + 0],
-      Vertices[triIndices[i * 3 + 2] * 3 + 1],
-      Vertices[triIndices[i * 3 + 2] * 3 + 2]
+      (dReal)Vertices[triIndices[i * 3 + 0] * 3 + 0],
+      (dReal)Vertices[triIndices[i * 3 + 0] * 3 + 1],
+      (dReal)Vertices[triIndices[i * 3 + 0] * 3 + 2],
+      (dReal)Vertices[triIndices[i * 3 + 1] * 3 + 0],
+      (dReal)Vertices[triIndices[i * 3 + 1] * 3 + 1],
+      (dReal)Vertices[triIndices[i * 3 + 1] * 3 + 2],
+      (dReal)Vertices[triIndices[i * 3 + 2] * 3 + 0],
+      (dReal)Vertices[triIndices[i * 3 + 2] * 3 + 1],
+      (dReal)Vertices[triIndices[i * 3 + 2] * 3 + 2]
     };
     dsDrawTriangle(Pos, Rot, &v[0], &v[3], &v[6], 0);
   }}}
@@ -595,15 +591,15 @@ static void simLoop (int pause)
 
   {for (int i = 0; i < IndexCount / 3; i++){
     const dReal v[9] = { // explicit conversion from float to dReal
-      Vertices[triIndices[i * 3 + 0] * 3 + 0],
-      Vertices[triIndices[i * 3 + 0] * 3 + 1],
-      Vertices[triIndices[i * 3 + 0] * 3 + 2],
-      Vertices[triIndices[i * 3 + 1] * 3 + 0],
-      Vertices[triIndices[i * 3 + 1] * 3 + 1],
-      Vertices[triIndices[i * 3 + 1] * 3 + 2],
-      Vertices[triIndices[i * 3 + 2] * 3 + 0],
-      Vertices[triIndices[i * 3 + 2] * 3 + 1],
-      Vertices[triIndices[i * 3 + 2] * 3 + 2]
+      (dReal)Vertices[triIndices[i * 3 + 0] * 3 + 0],
+      (dReal)Vertices[triIndices[i * 3 + 0] * 3 + 1],
+      (dReal)Vertices[triIndices[i * 3 + 0] * 3 + 2],
+      (dReal)Vertices[triIndices[i * 3 + 1] * 3 + 0],
+      (dReal)Vertices[triIndices[i * 3 + 1] * 3 + 1],
+      (dReal)Vertices[triIndices[i * 3 + 1] * 3 + 2],
+      (dReal)Vertices[triIndices[i * 3 + 2] * 3 + 0],
+      (dReal)Vertices[triIndices[i * 3 + 2] * 3 + 1],
+      (dReal)Vertices[triIndices[i * 3 + 2] * 3 + 2]
     };
     dsDrawTriangle(Pos, Rot, &v[0], &v[3], &v[6], 1);
   }}}
@@ -627,8 +623,8 @@ int main (int argc, char **argv)
  
   space = dSimpleSpaceCreate(NULL);
   contactgroup = dJointGroupCreate (0);
-  dWorldSetGravity (world,0,0,-0.5);
-  dWorldSetCFM (world,1e-5);
+  dWorldSetGravity (world,0,0,REAL(-0.5));
+  dWorldSetCFM (world,REAL(1e-5));
   dCreatePlane (space,0,0,1,0);
   memset (obj,0,sizeof(obj));
 
@@ -646,14 +642,14 @@ int main (int argc, char **argv)
   dGeomSetData(TriMesh1, TriData1);
   dGeomSetData(TriMesh2, TriData2);
   
-  {dGeomSetPosition(TriMesh1, 0, 0, 0.9);
+  {dGeomSetPosition(TriMesh1, 0, 0, REAL(0.9));
   dMatrix3 Rotation;
-  dRFromAxisAndAngle(Rotation, 1, 0, 0, M_PI / 2);
+  dRFromAxisAndAngle(Rotation, 1, 0, 0, dReal(M_PI / 2));
   dGeomSetRotation(TriMesh1, Rotation);}
 
-  {dGeomSetPosition(TriMesh2, 1, 0, 0.9);
+  {dGeomSetPosition(TriMesh2, 1, 0, REAL(0.9));
   dMatrix3 Rotation;
-  dRFromAxisAndAngle(Rotation, 1, 0, 0, M_PI / 2);
+  dRFromAxisAndAngle(Rotation, 1, 0, 0, dReal(M_PI / 2));
   dGeomSetRotation(TriMesh2, Rotation);}
   
   dThreadingImplementationID threading = dThreadingAllocateMultiThreadedImplementation();

@@ -31,10 +31,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 
 // dynamics and collision objects (chassis, 3 wheels, environment)
 
@@ -51,9 +47,9 @@ static dJointGroupID contactgroup;
 
 static bool show_contacts = true;
 
-#define CYLRADIUS    0.6
-#define CYLLENGTH    2.0
-#define SPHERERADIUS 0.5
+#define CYLRADIUS    REAL(0.6)
+#define CYLLENGTH    REAL(2.0)
+#define SPHERERADIUS REAL(0.5)
 
     
 #ifdef dDOUBLE
@@ -89,14 +85,14 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
     for (int i=0; i<n; i++) 
     {
       contact[i].surface.mode = 0;
-      contact[i].surface.mu = 50.0; // was: dInfinity
+      contact[i].surface.mu = REAL(50.0); // was: dInfinity
       dJointID c = dJointCreateContact (world,contactgroup,&contact[i]);
       dJointAttach (c, dGeomGetBody(contact[i].geom.g1), dGeomGetBody(contact[i].geom.g2));
       if (show_contacts) 
       {
         dMatrix3 RI;
         dRSetIdentity (RI);
-        const dReal ss[3] = {0.12,0.12,0.12};
+        const dReal ss[3] = {REAL(0.12),REAL(0.12),REAL(0.12)};
         dsSetColorAlpha (0,0,1,0.5);
         dsDrawBox (contact[i].geom.pos,RI,ss);
         dReal *pos  = contact[i].geom.pos;
@@ -145,7 +141,7 @@ static void simLoop (int pause)
   dSpaceCollide (space,NULL,&nearCallback);
   if (!pause)
   {
-    dWorldQuickStep (world, 0.01); // 100 Hz
+    dWorldQuickStep (world, REAL(0.01)); // 100 Hz
   }
   dJointGroupEmpty (contactgroup);
 
@@ -159,8 +155,8 @@ static void simLoop (int pause)
   (
     cpos,
     crot,
-    CYLLENGTH,
-    CYLRADIUS
+    (float)CYLLENGTH,
+    (float)CYLRADIUS
   ); // single precision
 
   const dReal *SPos = dBodyGetPosition(sphbody);
@@ -194,7 +190,7 @@ int main (int argc, char **argv)
   world = dWorldCreate();
   space = dHashSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
-  dWorldSetGravity (world,0,0,-9.8);
+  dWorldSetGravity (world,0,0,REAL(-9.8));
   dWorldSetQuickStepNumIterations (world, 32);
 
   dCreatePlane (space,0,0,1, 0.0);
@@ -202,10 +198,10 @@ int main (int argc, char **argv)
   cylbody = dBodyCreate (world);
   dQuaternion q;
 #if 0
-  dQFromAxisAndAngle (q,1,0,0,M_PI*0.5);
+  dQFromAxisAndAngle (q,1,0,0,dReal(M_PI*0.5));
 #else
-//  dQFromAxisAndAngle (q,1,0,0, M_PI * 1.0);
-  dQFromAxisAndAngle (q,1,0,0, M_PI * -0.77);
+//  dQFromAxisAndAngle (q,1,0,0, dReal(M_PI * 1.0));
+  dQFromAxisAndAngle (q,1,0,0, dReal(M_PI * -0.77));
 #endif
   dBodySetQuaternion (cylbody,q);
   dMassSetCylinder (&m,1.0,3,CYLRADIUS,CYLLENGTH);
@@ -220,7 +216,7 @@ int main (int argc, char **argv)
   dBodySetMass (sphbody,&m);
   sphgeom = dCreateSphere(NULL, SPHERERADIUS);
   dGeomSetBody (sphgeom,sphbody);
-  dBodySetPosition (sphbody, 0, 0, 5.5);
+  dBodySetPosition (sphbody, 0, 0, REAL(5.5));
   dSpaceAdd (space, sphgeom);
 
   // run simulation

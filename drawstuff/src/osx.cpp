@@ -132,13 +132,13 @@ extern "C" double dsElapsedTime()
   timeval tv ;
 
   gettimeofday(&tv, 0);
-  double curr = tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
-  if (!prev)
+  double curr = (double)tv.tv_sec + (double) tv.tv_usec / 1000000.0 ;
+  if (prev == 0.0)
     prev=curr;
   double retval = curr-prev;
   prev=curr;
   if (retval>1.0) retval=1.0;
-  if (retval<dEpsilon) retval=dEpsilon;
+  if (retval<DBL_EPSILON) retval=DBL_EPSILON;
   return retval;
 #else
   return 0.01666; // Assume 60 fps
@@ -189,7 +189,7 @@ static void osxKeyEventHandler( unsigned char key, int /*x*/, int /*y*/ )
             case 'V': {
                 float xyz[3],hpr[3];
                 dsGetViewpoint( xyz,hpr );
-                printf( "Viewpoint = (%.4f,%.4f,%.4f,%.4f,%.4f,%.4f)\n", xyz[0], xyz[1], xyz[2], hpr[0], hpr[1], hpr[2] );
+                printf( "Viewpoint = (%.4f,%.4f,%.4f,%.4f,%.4f,%.4f)\n", (double)xyz[0], (double)xyz[1], (double)xyz[2], (double)hpr[0], (double)hpr[1], (double)hpr[2] );
                 break;
             }
             case 'W':						

@@ -267,10 +267,10 @@ void ccdPtDumpSVT2(ccd_pt_t *pt, FILE *fout)
         v->id = i++;
 #if defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
         fprintf(fout, "%lf %lf %lf\n",
-                ccdVec3X(&v->v.v), ccdVec3Y(&v->v.v), ccdVec3Z(&v->v.v));
+                (double)ccdVec3X(&v->v.v), (double)ccdVec3Y(&v->v.v), (double)ccdVec3Z(&v->v.v));
 #else
         fprintf(fout, "%f %f %f\n",
-                (float)ccdVec3X(&v->v.v), (float)ccdVec3Y(&v->v.v), (float)ccdVec3Z(&v->v.v));
+                (double)ccdVec3X(&v->v.v), (double)ccdVec3Y(&v->v.v), (double)ccdVec3Z(&v->v.v));
 #endif
     }
 

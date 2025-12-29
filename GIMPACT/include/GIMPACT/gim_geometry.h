@@ -132,6 +132,14 @@ Operations for vectors : vec2f,vec3f and vec4f
    (b)[2] = (a)[2];				\
 } do{} while(0)
 
+/// Copy 3D vector
+#define VEC_COPY_CONV(b,a)				\
+{						\
+   (b)[0] = (dReal)(a)[0];				\
+   (b)[1] = (dReal)(a)[1];				\
+   (b)[2] = (dReal)(a)[2];				\
+} do{} while(0)
+
 
 /// Copy 4D vector
 #define VEC_COPY_4(b,a)				\
@@ -181,9 +189,17 @@ Operations for vectors : vec2f,vec3f and vec4f
 /// Vector sum
 #define VEC_SUM(v21,v2,v1)			\
 {						\
-   (v21)[0] = (v2)[0] + (v1)[0];		\
-   (v21)[1] = (v2)[1] + (v1)[1];		\
-   (v21)[2] = (v2)[2] + (v1)[2];		\
+   (v21)[0] = (GREAL)((v2)[0] + (v1)[0]);		\
+   (v21)[1] = (GREAL)((v2)[1] + (v1)[1]);		\
+   (v21)[2] = (GREAL)((v2)[2] + (v1)[2]);		\
+} do{} while(0)
+
+/// Vector sum
+#define VEC_SUM_CONV(v21,v2,v1)			\
+{						\
+   (v21)[0] = (GREAL)((v2)[0] + (dReal)(v1)[0]);		\
+   (v21)[1] = (GREAL)((v2)[1] + (dReal)(v1)[1]);		\
+   (v21)[2] = (GREAL)((v2)[2] + (dReal)(v1)[2]);		\
 } do{} while(0)
 
 
@@ -208,9 +224,9 @@ Operations for vectors : vec2f,vec3f and vec4f
 /// scalar times vector
 #define VEC_SCALE(c,a,b)			\
 {						\
-   (c)[0] = (a)*(b)[0];				\
-   (c)[1] = (a)*(b)[1];				\
-   (c)[2] = (a)*(b)[2];				\
+   (c)[0] = (float)((a)*(b)[0]);				\
+   (c)[1] = (float)((a)*(b)[1]);				\
+   (c)[2] = (float)((a)*(b)[2]);				\
 } do{} while(0)
 
 

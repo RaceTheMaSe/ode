@@ -24,10 +24,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 #include "icosahedron_geom.h"
 
 
@@ -93,7 +89,7 @@ static unsigned int polygons[] = //Polygons for a cube (6 squares)
 // some constants
 
 #define NUM 100			// max number of objects
-#define DENSITY (5.0)		// density of all objects
+#define DENSITY REAL(5.0)		// density of all objects
 #define GPB 3			// maximum number of geometries per body
 #define MAX_CONTACTS 8          // maximum number of contact points per body
 #define MAX_FEEDBACKNUM 20
@@ -147,15 +143,15 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
         contact[i].surface.mode = dContactBounce | dContactSoftCFM;
         contact[i].surface.mu = dInfinity;
         contact[i].surface.mu2 = 0;
-        contact[i].surface.bounce = 0.1;
-        contact[i].surface.bounce_vel = 0.1;
-        contact[i].surface.soft_cfm = 0.01;
+        contact[i].surface.bounce = REAL(0.1);
+        contact[i].surface.bounce_vel = REAL(0.1);
+        contact[i].surface.soft_cfm = REAL(0.01);
     }
     if (int numc = dCollide(o1,o2,MAX_CONTACTS,&contact[0].geom,
                             sizeof(dContact))) {
         dMatrix3 RI;
         dRSetIdentity (RI);
-        const dReal ss[3] = {0.02,0.02,0.02};
+        const dReal ss[3] = {REAL(0.02),REAL(0.02),(dReal)0.02};
         for (i=0; i<numc; i++) {
             dJointID c = dJointCreateContact (world,contactgroup,contact+i);
             dJointAttach (c,b1,b2);
@@ -245,14 +241,14 @@ static void command(int cmd)
         obj[i].body = dBodyCreate(world);
 
         for (k=0; k<3; k++)
-            sides[k] = dRandReal()*0.5+0.1;
+            sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
 
         dMatrix3 R;
         if (random_pos)  {
             dBodySetPosition(obj[i].body,
                              dRandReal()*2-1,dRandReal()*2-1,dRandReal()+2);
-            dRFromAxisAndAngle(R,dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-                               dRandReal()*2.0-1.0,dRandReal()*10.0-5.0);
+            dRFromAxisAndAngle(R,dRandReal()*2-1,dRandReal()*2-1,
+                                 dRandReal()*2-1,dRandReal()*10-5);
         } else {
             // higher than highest body position
             dReal maxheight = 0;
@@ -275,13 +271,13 @@ static void command(int cmd)
 
         } else if (cmd == 'c') {
 
-            sides[0] *= 0.5;
+            sides[0] *= REAL(0.5);
             dMassSetCapsule(&m,DENSITY,3,sides[0],sides[1]);
             obj[i].geom[0] = dCreateCapsule (space,sides[0],sides[1]);
 
         } else if (cmd == 'v') {
 
-            dMassSetBox(&m,DENSITY,0.25,0.25,0.25);
+            dMassSetBox(&m,DENSITY,REAL(0.25),REAL(0.25),REAL(0.25));
 #if 0
             obj[i].geom[0] = dCreateConvex(space,
                                            planes,
@@ -305,7 +301,7 @@ static void command(int cmd)
 
         } else if (cmd == 's') {
 
-            sides[0] *= 0.5;
+            sides[0] *= REAL(0.5);
             dMassSetSphere (&m,DENSITY,sides[0]);
             obj[i].geom[0] = dCreateSphere (space,sides[0]);
 
@@ -322,25 +318,25 @@ static void command(int cmd)
             // set random delta positions
             for (j=0; j<GPB; j++)
                 for (k=0; k<3; k++)
-                    dpos[j][k] = dRandReal()*0.3-0.15;
+                    dpos[j][k] = dRandReal()*REAL(0.3)-REAL(0.15);
     
             for (k=0; k<GPB; k++) {
                 if (k==0) {
-                    dReal radius = dRandReal()*0.25+0.05;
+                    dReal radius = dRandReal()*REAL(0.25)+REAL(0.05);
                     obj[i].geom[k] = dCreateSphere (space,radius);
                     dMassSetSphere (&m2,DENSITY,radius);
                 } else if (k==1) {
                     obj[i].geom[k] = dCreateBox(space,sides[0],sides[1],sides[2]);
                     dMassSetBox(&m2,DENSITY,sides[0],sides[1],sides[2]);
                 } else {
-                    dReal radius = dRandReal()*0.1+0.05;
-                    dReal length = dRandReal()*1.0+0.1;
+                    dReal radius = dRandReal()*REAL(0.1)+REAL(0.05);
+                    dReal length = dRandReal()*REAL(1.0)+REAL(0.10);
                     obj[i].geom[k] = dCreateCapsule(space,radius,length);
                     dMassSetCapsule(&m2,DENSITY,3,radius,length);
                 }
 
-                dRFromAxisAndAngle(drot[k],dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-                                   dRandReal()*2.0-1.0,dRandReal()*10.0-5.0);
+                dRFromAxisAndAngle(drot[k],dRandReal()*2-1,dRandReal()*2-1,
+                                           dRandReal()*2-1,dRandReal()*10-5);
                 dMassRotate(&m2,drot[k]);
 		
                 dMassTranslate(&m2,dpos[k][0],dpos[k][1],dpos[k][2]);
@@ -406,11 +402,11 @@ static void command(int cmd)
 
         const dReal* pos = dGeomGetPosition(obj[selected].geom[0]);
         const dReal* rot = dGeomGetRotation(obj[selected].geom[0]);
-        printf("POSITION:\n\t[%f,%f,%f]\n\n",pos[0],pos[1],pos[2]);
+        printf("POSITION:\n\t[%f,%f,%f]\n\n",(double)pos[0],(double)pos[1],(double)pos[2]);
         printf("ROTATION:\n\t[%f,%f,%f,%f]\n\t[%f,%f,%f,%f]\n\t[%f,%f,%f,%f]\n\n",
-               rot[0],rot[1],rot[2],rot[3],
-               rot[4],rot[5],rot[6],rot[7],
-               rot[8],rot[9],rot[10],rot[11]);
+               (double)rot[0],(double)rot[1],(double)rot[2],(double)rot[3],
+               (double)rot[4],(double)rot[5],(double)rot[6],(double)rot[7],
+               (double)rot[8],(double)rot[9],(double)rot[10],(double)rot[11]);
 
     } else if (cmd == 'f' && selected >= 0 && selected < num) {
 
@@ -443,13 +439,13 @@ static void drawGeom(dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 
     } else if (type == dSphereClass) {
 
-        dsDrawSphere(pos,R,dGeomSphereGetRadius(g));
+        dsDrawSphere(pos,R,(float)dGeomSphereGetRadius(g));
 
     } else if (type == dCapsuleClass) {
 
         dReal radius,length;
         dGeomCapsuleGetParams(g,&radius,&length);
-        dsDrawCapsule(pos,R,length,radius);
+        dsDrawCapsule(pos,R,(float)length,(float)radius);
 
     } else if (type == dConvexClass) {
 
@@ -472,7 +468,7 @@ static void drawGeom(dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
 
         dReal radius,length;
         dGeomCylinderGetParams(g,&radius,&length);
-        dsDrawCylinder(pos,R,length,radius);
+        dsDrawCylinder(pos,R,(float)length,(float)radius);
 
     }
 
@@ -481,7 +477,7 @@ static void drawGeom(dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
         if (body) {
             const dReal *bodypos = dBodyGetPosition(body); 
             const dReal *bodyr = dBodyGetRotation(body); 
-            dReal bodySides[3] = { 0.1, 0.1, 0.1 };
+            dReal bodySides[3] = { REAL(0.1), REAL(0.1), REAL(0.1) };
             dsSetColorAlpha(0,1,0,1);
             dsDrawBox(bodypos,bodyr,bodySides); 
         }
@@ -493,13 +489,13 @@ static void drawGeom(dGeomID g, const dReal *pos, const dReal *R, int draw_aabb)
         dGeomGetAABB(g,aabb);
         dVector3 bbpos;
         for (i=0; i<3; i++)
-            bbpos[i] = 0.5*(aabb[i*2] + aabb[i*2+1]);
+            bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
         dVector3 bbsides;
         for (i=0; i<3; i++)
             bbsides[i] = aabb[i*2+1] - aabb[i*2];
         dMatrix3 RI;
         dRSetIdentity (RI);
-        dsSetColorAlpha(1,0,0,0.5);
+        dsSetColorAlpha(1,0,0,0.5f);
         dsDrawBox(bbpos,RI,bbsides);
     }
 }
@@ -512,7 +508,7 @@ static void simLoop(int pause)
     dSpaceCollide(space, NULL, &nearCallback);
 
     if (!pause)
-        dWorldQuickStep(world, 0.02);
+        dWorldQuickStep(world, REAL(0.02));
 
     if (write_world) {
         FILE *f = fopen("state.dif","wt");
@@ -532,15 +528,15 @@ static void simLoop(int pause)
             printf("\n");
             for (int i=0; i<fbnum; i++) {
                 dReal* f = feedbacks[i].first?feedbacks[i].fb.f1:feedbacks[i].fb.f2;
-                printf("%f %f %f\n", f[0], f[1], f[2]);
+                printf("%f %f %f\n", (double)f[0], (double)f[1], (double)f[2]);
                 sum[0] += f[0];
                 sum[1] += f[1];
                 sum[2] += f[2];
             }
-            printf("Sum: %f %f %f\n", sum[0], sum[1], sum[2]);
+            printf("Sum: %f %f %f\n", (double)sum[0], (double)sum[1], (double)sum[2]);
             dMass m;
             dBodyGetMass(obj[selected].body, &m);
-            printf("Object G=%f\n", GRAVITY*m.mass);
+            printf("Object G=%f\n", (double)(GRAVITY*m.mass));
         }
         doFeedback = 0;
         fbnum = 0;
@@ -553,9 +549,9 @@ static void simLoop(int pause)
     for (int i=0; i<num; i++) {
         for (int j=0; j < GPB; j++) {
             if (i==selected) {
-                dsSetColor(0,0.7,1);
+                dsSetColor(0,0.7f,1);
             } else if (!dBodyIsEnabled(obj[i].body)) {
-                dsSetColor(1,0.8,0);
+                dsSetColor(1,0.8f,0);
             } else {
                 dsSetColor(1,1,0);
             }
@@ -582,7 +578,7 @@ int main (int argc, char **argv)
     space = dHashSpaceCreate(NULL);
     contactgroup = dJointGroupCreate(0);
     dWorldSetGravity(world,0,0,-GRAVITY);
-    dWorldSetCFM(world,1e-5);
+    dWorldSetCFM(world,REAL(1e-5));
     dWorldSetAutoDisableFlag(world,1);
 
 #if 1
@@ -591,12 +587,12 @@ int main (int argc, char **argv)
 
 #endif
 
-    dWorldSetLinearDamping(world, 0.00001);
-    dWorldSetAngularDamping(world, 0.005);
+    dWorldSetLinearDamping(world, REAL(0.00001));
+    dWorldSetAngularDamping(world, REAL(0.005));
     dWorldSetMaxAngularSpeed(world, 200);
 
-    dWorldSetContactMaxCorrectingVel(world,0.1);
-    dWorldSetContactSurfaceLayer(world,0.001);
+    dWorldSetContactMaxCorrectingVel(world,REAL(0.1));
+    dWorldSetContactSurfaceLayer(world,REAL(0.001));
     dCreatePlane(space,0,0,1,0);
     memset(obj,0,sizeof(obj));
 

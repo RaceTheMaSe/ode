@@ -24,10 +24,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
@@ -35,8 +31,8 @@
 
 
 // some constants
-#define SIDE (0.5f)	// side length of a box
-#define MASS (1.0)	// mass of a box
+#define SIDE REAL(0.5)	// side length of a box
+#define MASS REAL(1.0)	// mass of a box
 
 
 // dynamics and collision objects
@@ -76,14 +72,14 @@ static void command (int cmd)
 
 static void simLoop (int pause)
 {
-  const dReal kd = -0.3;	// angular damping constant
+  const dReal kd = REAL(-0.3);	// angular damping constant
   if (!pause) {
     // add an oscillating torque to body 0, and also damp its rotational motion
     static dReal a=0;
     const dReal *w = dBodyGetAngularVel (body[0]);
-    dBodyAddTorque (body[0],kd*w[0],kd*w[1]+0.1*cos(a),kd*w[2]+0.1*sin(a));
-    dWorldStep (world,0.05);
-    a += 0.01;
+    dBodyAddTorque (body[0],kd*w[0],kd*w[1]+REAL(0.1)*dCos(a),kd*w[2]+REAL(0.1)*dSin(a));
+    dWorldStep (world,REAL(0.05));
+    a += REAL(0.01);
 
     // occasionally re-orient one of the bodies to create a deliberate error.
     if (occasional_error) {
@@ -93,24 +89,24 @@ static void simLoop (int pause)
 	const dReal *R1;
 	dMatrix3 R2,R3;
 	R1 = dBodyGetRotation (body[0]);
-	dRFromAxisAndAngle (R2,dRandReal()-0.5,dRandReal()-0.5,
-			    dRandReal()-0.5,dRandReal()-0.5);
+	dRFromAxisAndAngle (R2,dRandReal()-REAL(0.5),dRandReal()-REAL(0.5),
+			    dRandReal()-REAL(0.5),dRandReal()-REAL(0.5));
 	dMultiply0 (R3,R1,R2,3,3,3);
 	dBodySetRotation (body[0],R3);
 
 	// randomly adjust position of body[0]
 	const dReal *pos = dBodyGetPosition (body[0]);
 	dBodySetPosition (body[0],
-			  pos[0]+0.2*(dRandReal()-0.5),
-			  pos[1]+0.2*(dRandReal()-0.5),
-			  pos[2]+0.2*(dRandReal()-0.5));
+			  pos[0]+REAL(0.2)*(dRandReal()-REAL(0.5)),
+			  pos[1]+REAL(0.2)*(dRandReal()-REAL(0.5)),
+			  pos[2]+REAL(0.2)*(dRandReal()-REAL(0.5)));
       }
       count++;
     }
   }
 
   dReal sides1[3] = {SIDE,SIDE,SIDE};
-  dReal sides2[3] = {SIDE,SIDE,SIDE*0.8f};
+  dReal sides2[3] = {SIDE,SIDE,SIDE*REAL(0.8)};
   dsSetTexture (DS_WOOD);
   dsSetColor (1,1,0);
   dsDrawBox (dBodyGetPosition(body[0]),dBodyGetRotation(body[0]),sides1);
@@ -139,22 +135,22 @@ int main (int argc, char **argv)
   dMassAdjust (&m,MASS);
 
   dQuaternion q;
-  dQFromAxisAndAngle (q,1,1,0,0.25*M_PI);
+  dQFromAxisAndAngle (q,1,1,0,dReal(0.25*M_PI));
 
   body[0] = dBodyCreate (world);
   dBodySetMass (body[0],&m);
-  dBodySetPosition (body[0],0.5*SIDE,0.5*SIDE,1);
+  dBodySetPosition (body[0],REAL(0.5)*SIDE,REAL(0.5)*SIDE,1);
   dBodySetQuaternion (body[0],q);
 
   body[1] = dBodyCreate (world);
   dBodySetMass (body[1],&m);
-  dBodySetPosition (body[1],-0.5*SIDE,-0.5*SIDE,1);
+  dBodySetPosition (body[1],REAL(-0.5)*SIDE,REAL(-0.5)*SIDE,1);
   dBodySetQuaternion (body[1],q);
 
   hinge = dJointCreateHinge (world,NULL);
   dJointAttach (hinge,body[0],body[1]);
   dJointSetHingeAnchor (hinge,0,0,1);
-  dJointSetHingeAxis (hinge,1,-1,1.41421356);
+  dJointSetHingeAxis (hinge,1,-1,REAL(1.41421356));
 
   // run simulation
   dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &fn);

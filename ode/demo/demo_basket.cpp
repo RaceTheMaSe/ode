@@ -34,13 +34,9 @@
 #include "texturepath.h"
 #include "basket_geom.h" // this is our world mesh
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // some constants
 
-#define RADIUS 0.14
+#define RADIUS REAL(0.14)
 
 // dynamics and collision objects (chassis, 3 wheels, environment)
 
@@ -85,12 +81,12 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
       //dIASSERT(dVALIDVEC3(contact[i].geom.pos));
       //dIASSERT(dVALIDVEC3(contact[i].geom.normal));
       //dIASSERT(!dIsNan(contact[i].geom.depth));
-      contact[i].surface.slip1 = 0.7;
-      contact[i].surface.slip2 = 0.7;
+      contact[i].surface.slip1 = REAL(0.7);
+      contact[i].surface.slip2 = REAL(0.7);
       contact[i].surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1 | dContactSlip1 | dContactSlip2;
-      contact[i].surface.mu = 50.0; // was: dInfinity
-      contact[i].surface.soft_erp = 0.96;
-      contact[i].surface.soft_cfm = 0.04;
+      contact[i].surface.mu = REAL(50.0); // was: dInfinity
+      contact[i].surface.soft_erp = REAL(0.96);
+      contact[i].surface.soft_cfm = REAL(0.04);
       dJointID c = dJointCreateContact (world,contactgroup,&contact[i]);
       dJointAttach (c,
 		    dGeomGetBody(contact[i].geom.g1),
@@ -115,11 +111,11 @@ static void start()
 
 static void reset_ball(void)
 {
-  float sx=0.0f, sy=3.40f, sz=7.15;
+  float sx=0.0f, sy=3.40f, sz=7.15f;
 
   dQuaternion q;
   dQSetIdentity(q);
-  dBodySetPosition (sphbody, sx, sy, sz);
+  dBodySetPosition (sphbody, (dReal)sx, (dReal)sy, (dReal)sz);
   dBodySetQuaternion(sphbody, q);
   dBodySetLinearVel (sphbody, 0,0,0);
   dBodySetAngularVel (sphbody, 0,0,0);
@@ -148,13 +144,13 @@ static void simLoop (int pause)
   double simstep = 0.001; // 1ms simulation steps
   double dt = dsElapsedTime();
 
-  int nrofsteps = (int) ceilf(dt/simstep);
+  int nrofsteps = (int) ceilf((float)(dt/simstep));
 //  fprintf(stderr, "dt=%f, nr of steps = %d\n", dt, nrofsteps);
 
   for (int i=0; i<nrofsteps && !pause; i++)
   {
     dSpaceCollide (space,NULL,&nearCallback);
-    dWorldQuickStep (world, simstep);
+    dWorldQuickStep (world, (dReal)simstep);
     dJointGroupEmpty (contactgroup);
   }
 
@@ -167,11 +163,11 @@ static void simLoop (int pause)
   (
     spos, 
     srot, 
-    RADIUS
+    (float)RADIUS
   );
 
   // draw world trimesh
-  dsSetColor(0.4,0.7,0.9);
+  dsSetColor(0.4f,0.7f,0.9f);
   dsSetTexture (DS_NONE);
 
   const dReal* Pos = dGeomGetPosition(world_mesh);
@@ -217,7 +213,7 @@ int main (int argc, char **argv)
   space = dHashSpaceCreate (NULL);
 
   contactgroup = dJointGroupCreate (0);
-  dWorldSetGravity (world,0,0,-9.8);
+  dWorldSetGravity (world,0,0,REAL(-9.8));
   dWorldSetQuickStepNumIterations (world, 64);
 
   // Create a static world using a triangle mesh that we can collide with.

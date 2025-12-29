@@ -208,7 +208,7 @@ dxJointPR::getInfo1( dxJoint::Info1 *info )
 
     // see if we're at a joint limit.
     limotR.limit = 0;
-    if (( limotR.lostop >= -M_PI || limotR.histop <= M_PI ) &&
+    if (( (double)limotR.lostop >= -M_PI || (double)limotR.histop <= M_PI ) &&
         limotR.lostop <= limotR.histop )
     {
         dReal angle = getHingeAngle( node[0].body,

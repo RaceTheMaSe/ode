@@ -146,9 +146,9 @@ bool sTrimeshBoxColliderData::_cldTestNormal(dReal fp0, dReal fR, dVector3 vNorm
     // calculate normal's length
     dReal fLength = LENGTHOF(vNormal);
     // if long enough
-    if ( fLength > 0.0f ) {
+    if ( fLength > REAL(0.0) ) {
 
-        dReal fOneOverLength = 1.0f/fLength;
+        dReal fOneOverLength = REAL(1.0)/fLength;
         // normalize depth
         fDepth = fDepth*fOneOverLength;
 
@@ -307,15 +307,15 @@ bool sTrimeshBoxColliderData::_cldTestEdge(dReal fp0, dReal fp1, dReal fR, dReal
     dReal fLength = LENGTHOF(vNormal);
 
     // if long enough
-    if ( fLength > 0.0f ) {
+    if ( fLength > REAL(0.0) ) {
 
         // normalize depth
-        dReal fOneOverLength = 1.0f/fLength;
+        dReal fOneOverLength = REAL(1.0)/fLength;
         fDepth = fDepth*fOneOverLength;
         // fD*=fOneOverLength;
 
         // if lower depth than best found so far (favor face over edges)
-        if (fDepth*1.5f < m_fBestDepth) {
+        if (fDepth*REAL(1.5) < m_fBestDepth) {
             // remember current axis as best axis
             m_vBestNormal[0]  = vNormal[0]*fOneOverLength;
             m_vBestNormal[1]  = vNormal[1]*fOneOverLength;
@@ -400,7 +400,7 @@ bool sTrimeshBoxColliderData::_cldTestSeparatingAxes(const dVector3 &v0, const d
     // Even though all triangles might be initially valid, 
     // a triangle may degenerate into a segment after applying 
     // space transformation.
-    if (!fNLen) {
+    if (fNLen == 0) {
         return false;
     }
 
@@ -644,20 +644,20 @@ static bool _cldClosestPointOnTwoLines(
     dReal fuaub  = dCalcVectorDot3(vLenVec1,vLenVec2);
     dReal fq1    = dCalcVectorDot3(vLenVec1,vp);
     dReal fq2    = -dCalcVectorDot3(vLenVec2,vp);
-    dReal fd     = 1.0f - fuaub * fuaub;
+    dReal fd     = REAL(1.0) - fuaub * fuaub;
 
     // if denominator is positive
-    if (fd > 0.0f) {
+    if (fd > REAL(0.0)) {
         // calculate points of closest approach
-        fd = 1.0f/fd;
+        fd = REAL(1.0)/fd;
         fvalue1 = (fq1 + fuaub*fq2)*fd;
         fvalue2 = (fuaub*fq1 + fq2)*fd;
         return true;
         // otherwise
     } else {
         // lines are parallel
-        fvalue1 = 0.0f;
-        fvalue2 = 0.0f;
+        fvalue1 = REAL(0.0);
+        fvalue2 = REAL(0.0);
         return false;
     }
 }
@@ -679,8 +679,8 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
         // calculate point on box edge
         for( int i=0; i<3; i++) {
             dVector3 vRotCol;
-            GETCOL(m_mHullBoxRot,i,vRotCol);
-            dReal fSign = dCalcVectorDot3(m_vBestNormal,vRotCol) > 0 ? 1.0f : -1.0f;
+            GETCOL(m_mHullBoxRot,(unsigned int)i,vRotCol);
+            dReal fSign = dCalcVectorDot3(m_vBestNormal,vRotCol) > 0 ? REAL(1.0) : REAL(-1.0);
 
             vPa[0] += fSign * m_vBoxHalfSize[i] * vRotCol[0];
             vPa[1] += fSign * m_vBoxHalfSize[i] * vRotCol[1];
@@ -726,9 +726,9 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
         dVector3 vPntTmp;
         ADD(vPa,vPb,vPntTmp);
 
-        vPntTmp[0]*=0.5f;
-        vPntTmp[1]*=0.5f;
-        vPntTmp[2]*=0.5f;
+        vPntTmp[0]*=REAL(0.5);
+        vPntTmp[1]*=REAL(0.5);
+        vPntTmp[2]*=REAL(0.5);
 
         // generate contact point between two closest points
         GenerateContact(TriIndex, vPntTmp, m_vBestNormal, m_fBestDepth);
@@ -1131,9 +1131,9 @@ void sTrimeshBoxColliderData::SetupInitialContext(dxTriMesh *TriMesh, dxGeom *Bo
     SET(m_vHullBoxPos,vPosBox);
 
     dGeomBoxGetLengths(BoxGeom, m_vBoxHalfSize);
-    m_vBoxHalfSize[0] *= 0.5f;
-    m_vBoxHalfSize[1] *= 0.5f;
-    m_vBoxHalfSize[2] *= 0.5f;
+    m_vBoxHalfSize[0] *= REAL(0.5);
+    m_vBoxHalfSize[1] *= REAL(0.5);
+    m_vBoxHalfSize[2] *= REAL(0.5);
 
     // get destination hull position and orientation
     const dVector3& vPosMesh=*(const dVector3*)dGeomGetPosition(TriMesh);

@@ -152,8 +152,8 @@ void dxHeightfieldData::SetData( int nWidthSamples, int nDepthSamples,
     m_nWidthSamples = nWidthSamples;
     m_nDepthSamples = nDepthSamples;
 
-    m_fSampleWidth = m_fWidth / ( m_nWidthSamples - REAL( 1.0 ) );
-    m_fSampleDepth = m_fDepth / ( m_nDepthSamples - REAL( 1.0 ) );
+    m_fSampleWidth = m_fWidth / ( (dReal)m_nWidthSamples - REAL( 1.0 ) );
+    m_fSampleDepth = m_fDepth / ( (dReal)m_nDepthSamples - REAL( 1.0 ) );
 
     m_fSampleZXAspect = m_fSampleDepth / m_fSampleWidth;
 
@@ -221,7 +221,7 @@ void dxHeightfieldData::ComputeHeightBounds()
 
         for (i=0; i<m_nWidthSamples*m_nDepthSamples; i++)
         {
-            h = data_float[i];
+            h = (dReal)data_float[i];
             if (h < m_fMinHeight)	m_fMinHeight = h;
             if (h > m_fMaxHeight)	m_fMaxHeight = h;
         }
@@ -281,7 +281,7 @@ bool dxHeightfieldData::IsOnHeightfield2 ( const HeightFieldVertex * const CellC
         if (pos[0] < MinX)
             return false;
 
-        MaxX = (CellCorner->coords[0] + 1) * m_fSampleWidth;
+        MaxX = (dReal)(CellCorner->coords[0] + 1) * m_fSampleWidth;
         if (pos[0] >= MaxX)
             return false;
 
@@ -289,7 +289,7 @@ bool dxHeightfieldData::IsOnHeightfield2 ( const HeightFieldVertex * const CellC
         if (pos[2] < MinZ)
             return false;
 
-        MaxZ = (CellCorner->coords[1] + 1) * m_fSampleDepth;
+        MaxZ = (dReal)(CellCorner->coords[1] + 1) * m_fSampleDepth;
         if (pos[2] >= MaxZ)
             return false;
 
@@ -302,7 +302,7 @@ bool dxHeightfieldData::IsOnHeightfield2 ( const HeightFieldVertex * const CellC
         if (pos[0] >= MaxX)
             return false;
 
-        MinX = (CellCorner->coords[0] - 1) * m_fSampleWidth;
+        MinX = (dReal)(CellCorner->coords[0] - 1) * m_fSampleWidth;
         if (pos[0] < MinX)
             return false;
 
@@ -310,7 +310,7 @@ bool dxHeightfieldData::IsOnHeightfield2 ( const HeightFieldVertex * const CellC
         if (pos[2] >= MaxZ)
             return false;
 
-        MinZ = (CellCorner->coords[1] - 1) * m_fSampleDepth;
+        MinZ = (dReal)(CellCorner->coords[1] - 1) * m_fSampleDepth;
         if (pos[2] < MinZ)
             return false;
 
@@ -368,7 +368,7 @@ dReal dxHeightfieldData::GetHeight( int x, int z )
         // float
     case 3:
         data_float = (const float*)m_pHeightData;
-        h = data_float[x+(z * m_nWidthSamples)];
+        h = (dReal)data_float[x+(z * m_nWidthSamples)];
         break;
 
         // double
@@ -519,9 +519,9 @@ void dxHeightfield::computeAABB()
             else
             {
                 // Multiplication is performed to obtain infinity of correct sign
-                dy[0] = ( final_posr->R[ 1] ? final_posr->R[ 1] * -dInfinity : REAL(0.0) );
-                dy[1] = ( final_posr->R[ 5] ? final_posr->R[ 5] * -dInfinity : REAL(0.0) );
-                dy[2] = ( final_posr->R[ 9] ? final_posr->R[ 9] * -dInfinity : REAL(0.0) );
+                dy[0] = ( final_posr->R[ 1] != 0 ? final_posr->R[ 1] * -dInfinity : REAL(0.0) );
+                dy[1] = ( final_posr->R[ 5] != 0 ? final_posr->R[ 5] * -dInfinity : REAL(0.0) );
+                dy[2] = ( final_posr->R[ 9] != 0 ? final_posr->R[ 9] * -dInfinity : REAL(0.0) );
             }
 
             if (d->m_fMaxHeight != dInfinity)
@@ -532,9 +532,9 @@ void dxHeightfield::computeAABB()
             }
             else
             {
-                dy[3] = ( final_posr->R[ 1] ? final_posr->R[ 1] * dInfinity : REAL(0.0) );
-                dy[4] = ( final_posr->R[ 5] ? final_posr->R[ 5] * dInfinity : REAL(0.0) );
-                dy[5] = ( final_posr->R[ 9] ? final_posr->R[ 9] * dInfinity : REAL(0.0) );
+                dy[3] = ( final_posr->R[ 1] != 0 ? final_posr->R[ 1] * dInfinity : REAL(0.0) );
+                dy[4] = ( final_posr->R[ 5] != 0 ? final_posr->R[ 5] * dInfinity : REAL(0.0) );
+                dy[5] = ( final_posr->R[ 9] != 0 ? final_posr->R[ 9] * dInfinity : REAL(0.0) );
             }
 
 #ifdef DHEIGHTFIELD_CORNER_ORIGIN
@@ -1008,13 +1008,13 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
 
         for ( x = minX, x_local = 0; x_local < numX; x++, x_local++)
         {
-            Xpos = x * cfSampleWidth; // Always calculate pos via multiplication to avoid computational error accumulation during multiple additions
+            Xpos = (dReal)x * cfSampleWidth; // Always calculate pos via multiplication to avoid computational error accumulation during multiple additions
 
             const dReal c_Xpos = Xpos;
             HeightFieldVertex *HeightFieldRow = tempHeightBuffer[x_local];
             for ( z = minZ, z_local = 0; z_local < numZ; z++, z_local++)
             {
-                Ypos = z * cfSampleDepth; // Always calculate pos via multiplication to avoid computational error accumulation during multiple additions
+                Ypos = (dReal)z * cfSampleDepth; // Always calculate pos via multiplication to avoid computational error accumulation during multiple additions
 
                 const dReal h = m_p_data->GetHeight(x, z);
                 HeightFieldRow[z_local].vertex[0] = c_Xpos;

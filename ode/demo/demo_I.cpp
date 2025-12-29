@@ -41,10 +41,6 @@ typical errors for each test cycle are about 1e-5 ... 1e-4.
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -55,7 +51,7 @@ typical errors for each test cycle are about 1e-5 ... 1e-4.
 // some constants
 
 #define NUM 10			// number of particles
-#define SIDE 0.1		// visual size of the particles
+#define SIDE REAL(0.1)		// visual size of the particles
 
 
 // dynamics objects an globals
@@ -115,10 +111,10 @@ static void reset_test()
 
   // make random particle positions (relative to POR) and masses
   for (i=0; i<NUM; i++) {
-    pm[i] = dRandReal()+0.1;
-    q[i][0] = dRandReal()-0.5;
-    q[i][1] = dRandReal()-0.5;
-    q[i][2] = dRandReal()-0.5;
+    pm[i] = dRandReal()+REAL(0.1);
+    q[i][0] = dRandReal()-REAL(0.5);
+    q[i][1] = dRandReal()-REAL(0.5);
+    q[i][2] = dRandReal()-REAL(0.5);
   }
 
   // adjust particle positions so centor of mass = POR
@@ -135,7 +131,7 @@ static void reset_test()
   anchor_body = dBodyCreate (world);
   dBodySetPosition (anchor_body,pos1[0],pos1[1],pos1[2]);
   dMassSetBox (&anchor_m,1,SIDE,SIDE,SIDE);
-  dMassAdjust (&anchor_m,0.1);
+  dMassAdjust (&anchor_m,REAL(0.1));
   dBodySetMass (anchor_body,&anchor_m);
 
   for (i=0; i<NUM; i++) {
@@ -166,7 +162,7 @@ static void reset_test()
 
   // rotate the test and anchor bodies by a random amount
   dQuaternion qrot;
-  for (i=0; i<4; i++) qrot[i] = dRandReal()-0.5;
+  for (i=0; i<4; i++) qrot[i] = dRandReal()-REAL(0.5);
   dNormalize4 (qrot);
   dBodySetQuaternion (anchor_body,qrot);
   dBodySetQuaternion (test_body,qrot);
@@ -179,7 +175,7 @@ static void reset_test()
   }
 
   // set random torque
-  for (i=0; i<3; i++) torque[i] = (dRandReal()-0.5) * 0.1;
+  for (i=0; i<3; i++) torque[i] = (dRandReal()-REAL(0.5)) * REAL(0.1);
 
 
   iteration=0;
@@ -193,7 +189,7 @@ static void simLoop (int pause)
   if (!pause) {
     dBodyAddTorque (anchor_body,torque[0],torque[1],torque[2]);
     dBodyAddTorque (test_body,torque[0],torque[1],torque[2]);
-    dWorldStep (world,0.03);
+    dWorldStep (world,REAL(0.03));
 
     iteration++;
     if (iteration >= 100) {
@@ -204,9 +200,9 @@ static void simLoop (int pause)
       const dReal *q2 = dBodyGetQuaternion (test_body);
       dReal maxdiff = dMaxDifference (w1,w2,1,3);
       printf ("w-error = %.4e  (%.2f,%.2f,%.2f) and (%.2f,%.2f,%.2f)\n",
-	      maxdiff,w1[0],w1[1],w1[2],w2[0],w2[1],w2[2]);
+	      (double)maxdiff,(double)w1[0],(double)w1[1],(double)w1[2],(double)w2[0],(double)w2[1],(double)w2[2]);
       maxdiff = dMaxDifference (q1,q2,1,4);
-      printf ("q-error = %.4e\n",maxdiff);
+      printf ("q-error = %.4e\n",(double)maxdiff);
       reset_test();
     }
   }

@@ -100,8 +100,8 @@ SUITE(JointHinge2)
         */
         dMatrix3 R;
 
-        dJointSetHinge2Param(jId, dParamLoStop, -M_PI/4.0);
-        dJointSetHinge2Param(jId, dParamHiStop,  M_PI/4.0);
+        dJointSetHinge2Param(jId, dParamLoStop, (dReal)(-M_PI/4.0));
+        dJointSetHinge2Param(jId, dParamHiStop, (dReal)( M_PI/4.0));
 
         info = dxJoint::Info1();
 
@@ -115,7 +115,7 @@ SUITE(JointHinge2)
 
         // Move the body outside the Lo limits
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(1, joint->limot1.limit);
@@ -134,7 +134,7 @@ SUITE(JointHinge2)
 
         // Move the body outside the Lo limits
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(1, joint->limot1.limit);
@@ -147,8 +147,8 @@ SUITE(JointHinge2)
         dBodySetPosition (bId2, 0, 1, 0);
         dRFromAxisAndAngle (R, 1, REAL(0.0), REAL(0.0), REAL(0.0));
         dBodySetRotation (bId2, R);
-        dJointSetHinge2Param(jId, dParamLoStop, -2*M_PI);
-        dJointSetHinge2Param(jId, dParamHiStop,  2*M_PI);
+        dJointSetHinge2Param(jId, dParamLoStop, (dReal)(-2*M_PI));
+        dJointSetHinge2Param(jId, dParamHiStop, (dReal)( 2*M_PI));
         joint->getInfo1(&info);
         CHECK_EQUAL(0, joint->limot1.limit);
         CHECK_EQUAL(4, info.m);
@@ -156,10 +156,10 @@ SUITE(JointHinge2)
 
         // Set the limits
         // Move pass the Hi limits
-        dJointSetHinge2Param(jId, dParamLoStop, -M_PI/4.0);
-        dJointSetHinge2Param(jId, dParamHiStop,  M_PI/4.0);
+        dJointSetHinge2Param(jId, dParamLoStop, (dReal)(-M_PI/4.0));
+        dJointSetHinge2Param(jId, dParamHiStop, (dReal)( M_PI/4.0));
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(2, joint->limot1.limit);
@@ -178,7 +178,7 @@ SUITE(JointHinge2)
 
         // Move the pass the Hi limit
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(2, joint->limot1.limit);
@@ -188,10 +188,10 @@ SUITE(JointHinge2)
         // Return to original position
         // and remove the limits
         dBodySetPosition (bId2, 0, 1, 0);
-        dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
-        dJointSetHinge2Param(jId, dParamLoStop, -2*M_PI);
-        dJointSetHinge2Param(jId, dParamHiStop,  2*M_PI);
+        dJointSetHinge2Param(jId, dParamLoStop, (dReal)(-2*M_PI));
+        dJointSetHinge2Param(jId, dParamHiStop, (dReal)( 2*M_PI));
         joint->getInfo1(&info);
         CHECK_EQUAL(0, joint->limot1.limit);
         CHECK_EQUAL(4, info.m);
@@ -285,10 +285,10 @@ SUITE(JointUniversal)
         */
         dMatrix3 R;
 
-        dJointSetUniversalParam(jId, dParamLoStop, -M_PI/4.0);
-        dJointSetUniversalParam(jId, dParamHiStop,  M_PI/4.0);
-        dJointSetUniversalParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetUniversalParam(jId, dParamHiStop2,  M_PI/4.0);
+        dJointSetUniversalParam(jId, dParamLoStop,  (dReal)(-M_PI/4.0));
+        dJointSetUniversalParam(jId, dParamHiStop,  (dReal)( M_PI/4.0));
+        dJointSetUniversalParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetUniversalParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
 
         info = dxJoint::Info1();
 
@@ -302,7 +302,7 @@ SUITE(JointUniversal)
 
         // Move the body outside the Lo limits
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(1, joint->limot1.limit);
@@ -321,7 +321,7 @@ SUITE(JointUniversal)
 
         // Move the body outside the Lo limits
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(1, joint->limot1.limit);
@@ -334,8 +334,8 @@ SUITE(JointUniversal)
         dBodySetPosition (bId2, 0, 1, 0);
         dRFromAxisAndAngle (R, 1, REAL(0.0), REAL(0.0), REAL(0.0));
         dBodySetRotation (bId2, R);
-        dJointSetUniversalParam(jId, dParamLoStop, -2*M_PI);
-        dJointSetUniversalParam(jId, dParamHiStop,  2*M_PI);
+        dJointSetUniversalParam(jId, dParamLoStop, (dReal)(-2*M_PI));
+        dJointSetUniversalParam(jId, dParamHiStop, (dReal)( 2*M_PI));
         joint->getInfo1(&info);
         CHECK_EQUAL(0, joint->limot1.limit);
         CHECK_EQUAL(4, info.m);
@@ -343,10 +343,10 @@ SUITE(JointUniversal)
 
         // Set the limits
         // Move pass the Hi limits
-        dJointSetUniversalParam(jId, dParamLoStop, -M_PI/4.0);
-        dJointSetUniversalParam(jId, dParamHiStop,  M_PI/4.0);
+        dJointSetUniversalParam(jId, dParamLoStop, (dReal)(-M_PI/4.0));
+        dJointSetUniversalParam(jId, dParamHiStop, (dReal)( M_PI/4.0));
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(2, joint->limot1.limit);
@@ -365,7 +365,7 @@ SUITE(JointUniversal)
 
         // Move the pass the Hi limit
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(2, joint->limot1.limit);
@@ -375,10 +375,10 @@ SUITE(JointUniversal)
         // Return to original position
         // and remove the limits
         dBodySetPosition (bId2, 0, 1, 0);
-        dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
-        dJointSetUniversalParam(jId, dParamLoStop, -2*M_PI);
-        dJointSetUniversalParam(jId, dParamHiStop,  2*M_PI);
+        dJointSetUniversalParam(jId, dParamLoStop, (dReal)(-2*M_PI));
+        dJointSetUniversalParam(jId, dParamHiStop, (dReal)( 2*M_PI));
         joint->getInfo1(&info);
         CHECK_EQUAL(0, joint->limot1.limit);
         CHECK_EQUAL(4, info.m);
@@ -427,10 +427,10 @@ SUITE(JointUniversal)
         */
         dMatrix3 R;
 
-        dJointSetUniversalParam(jId, dParamLoStop, -M_PI/4.0);
-        dJointSetUniversalParam(jId, dParamHiStop,  M_PI/4.0);
-        dJointSetUniversalParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetUniversalParam(jId, dParamHiStop2,  M_PI/4.0);
+        dJointSetUniversalParam(jId, dParamLoStop,  (dReal)(-M_PI/4.0));
+        dJointSetUniversalParam(jId, dParamHiStop,  (dReal)( M_PI/4.0));
+        dJointSetUniversalParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetUniversalParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
 
         info = dxJoint::Info1();
 
@@ -444,7 +444,7 @@ SUITE(JointUniversal)
 
         // Move the body outside the Lo limits
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 0, 1, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(1, joint->limot2.limit);
@@ -463,7 +463,7 @@ SUITE(JointUniversal)
 
         // Move the body outside the Lo limits
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 0, 1, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(1, joint->limot2.limit);
@@ -476,8 +476,8 @@ SUITE(JointUniversal)
         dBodySetPosition (bId2, 0, 1, 0);
         dRFromAxisAndAngle (R, 0, 1, 0, 0);
         dBodySetRotation (bId2, R);
-        dJointSetUniversalParam(jId, dParamLoStop2, -2*M_PI);
-        dJointSetUniversalParam(jId, dParamHiStop2,  2*M_PI);
+        dJointSetUniversalParam(jId, dParamLoStop2, (dReal)(-2*M_PI));
+        dJointSetUniversalParam(jId, dParamHiStop2, (dReal)( 2*M_PI));
         joint->getInfo1(&info);
         CHECK_EQUAL(0, joint->limot2.limit);
         CHECK_EQUAL(4, info.m);
@@ -485,10 +485,10 @@ SUITE(JointUniversal)
 
         // Set the limits
         // Move pass the Hi limits
-        dJointSetUniversalParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetUniversalParam(jId, dParamHiStop2,  M_PI/4.0);
+        dJointSetUniversalParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetUniversalParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 0, 1, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(2, joint->limot2.limit);
@@ -507,7 +507,7 @@ SUITE(JointUniversal)
 
         // Move the pass the Hi limit
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 0, 1, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
         joint->getInfo1(&info);
         CHECK_EQUAL(2, joint->limot2.limit);
@@ -517,10 +517,10 @@ SUITE(JointUniversal)
         // Return to original position
         // and remove the limits
         dBodySetPosition (bId2, 0, 1, 0);
-        dRFromAxisAndAngle (R, 0, 1, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
-        dJointSetUniversalParam(jId, dParamLoStop2, -2*M_PI);
-        dJointSetUniversalParam(jId, dParamHiStop2,  2*M_PI);
+        dJointSetUniversalParam(jId, dParamLoStop2, (dReal)(-2*M_PI));
+        dJointSetUniversalParam(jId, dParamHiStop2, (dReal)( 2*M_PI));
         joint->getInfo1(&info);
         CHECK_EQUAL(0, joint->limot2.limit);
         CHECK_EQUAL(4, info.m);
@@ -603,8 +603,8 @@ SUITE(JointPR)
     {
         dJointSetPRParam(jId, dParamLoStop, -dInfinity);
         dJointSetPRParam(jId, dParamHiStop,  dInfinity);
-        dJointSetPRParam(jId, dParamLoStop2, -M_PI);
-        dJointSetPRParam(jId, dParamHiStop2, M_PI);
+        dJointSetPRParam(jId, dParamLoStop2, dReal(-M_PI));
+        dJointSetPRParam(jId, dParamHiStop2, dReal( M_PI));
 
         joint->getInfo1(&info);
 
@@ -625,8 +625,8 @@ SUITE(JointPR)
     {
         dJointSetPRParam(jId, dParamLoStop, -10);
         dJointSetPRParam(jId, dParamHiStop,  10);
-        dJointSetPRParam(jId, dParamLoStop2, -M_PI);
-        dJointSetPRParam(jId, dParamHiStop2, M_PI);
+        dJointSetPRParam(jId, dParamLoStop2, dReal(-M_PI));
+        dJointSetPRParam(jId, dParamHiStop2, dReal( M_PI));
 
 
         dBodySetPosition(bId2, 0, -100, 0);
@@ -675,13 +675,13 @@ SUITE(JointPR)
     {
         dJointSetPRParam(jId, dParamLoStop, -10);
         dJointSetPRParam(jId, dParamHiStop,  10);
-        dJointSetPRParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPRParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPRParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPRParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
 
 
         dMatrix3 R;
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -759,8 +759,8 @@ SUITE(JointPR)
     {
         dJointSetPRParam(jId, dParamLoStop, -dInfinity);
         dJointSetPRParam(jId, dParamHiStop,  dInfinity);
-        dJointSetPRParam(jId, dParamLoStop2, -M_PI);
-        dJointSetPRParam(jId, dParamHiStop2, M_PI);
+        dJointSetPRParam(jId, dParamLoStop2, dReal(-M_PI));
+        dJointSetPRParam(jId, dParamHiStop2, dReal( M_PI));
 
         joint->getInfo1(&info);
 
@@ -783,8 +783,8 @@ SUITE(JointPR)
 
         dJointSetPRParam(jId, dParamLoStop, -10);
         dJointSetPRParam(jId, dParamHiStop,  10);
-        dJointSetPRParam(jId, dParamLoStop2, -M_PI);
-        dJointSetPRParam(jId, dParamHiStop2, M_PI);
+        dJointSetPRParam(jId, dParamLoStop2, dReal(-M_PI));
+        dJointSetPRParam(jId, dParamHiStop2, dReal( M_PI));
 
 
         dBodySetPosition(bId2, 0, -100, 0);
@@ -834,13 +834,13 @@ SUITE(JointPR)
 
         dJointSetPRParam(jId, dParamLoStop, -10);
         dJointSetPRParam(jId, dParamHiStop,  10);
-        dJointSetPRParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPRParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPRParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPRParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
 
 
         dMatrix3 R;
         dBodySetPosition (bId2, 0, 0, 100);
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -1128,7 +1128,7 @@ SUITE(JointPR)
             dBodySetPosition(bId2, 0, 0, 1);
 
             dMatrix3 R;
-            dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+            dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
             dBodySetRotation (bId2, R);
 
 
@@ -1217,7 +1217,7 @@ SUITE(JointPR)
 
         // Only angular velocity
         dBodySetAngularVel(bId2, REAL(1.22), REAL(0.0), REAL(0.0));
-        CHECK_EQUAL(REAL(-1.0*1.22), dJointGetPRPositionRate (jId) );
+        CHECK_EQUAL(REAL(-1.0)*REAL(1.22), dJointGetPRPositionRate (jId) );
 
         dBodySetAngularVel(bId2, REAL(0.0), REAL(2.33), REAL(0.0));
         CHECK_EQUAL(REAL(0.0), dJointGetPRPositionRate (jId) );
@@ -1311,10 +1311,10 @@ SUITE(JointPU)
 ////////////////////////////////////////////////////////////////////////////////
     TEST_FIXTURE(PUGetInfo1_Fixture_1, test1_SetPUParam)
     {
-        dJointSetPUParam(jId, dParamLoStop1, -M_PI);
-        dJointSetPUParam(jId, dParamHiStop1 , M_PI);
-        dJointSetPUParam(jId, dParamLoStop2, -M_PI);
-        dJointSetPUParam(jId, dParamHiStop2,  M_PI);
+        dJointSetPUParam(jId, dParamLoStop1, dReal(-M_PI));
+        dJointSetPUParam(jId, dParamHiStop1, dReal( M_PI));
+        dJointSetPUParam(jId, dParamLoStop2, dReal(-M_PI));
+        dJointSetPUParam(jId, dParamHiStop2, dReal( M_PI));
         dJointSetPUParam(jId, dParamLoStop3, -dInfinity);
         dJointSetPUParam(jId, dParamHiStop3,  dInfinity);
 
@@ -1385,17 +1385,17 @@ SUITE(JointPU)
 ////////////////////////////////////////////////////////////////////////////////
     TEST_FIXTURE(PUGetInfo1_Fixture_1, test2_PUGetInfo1)
     {
-        dJointSetPUParam(jId, dParamLoStop1, -M_PI/4.0);
-        dJointSetPUParam(jId, dParamHiStop1, M_PI/4.0);
-        dJointSetPUParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPUParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPUParam(jId, dParamLoStop1, (dReal)(-M_PI/4.0));
+        dJointSetPUParam(jId, dParamHiStop1, (dReal)( M_PI/4.0));
+        dJointSetPUParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPUParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
         dJointSetPUParam(jId, dParamLoStop3, -10);
         dJointSetPUParam(jId, dParamHiStop3,  10);
 
 
         dMatrix3 R;
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 0, 1, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -1431,10 +1431,10 @@ SUITE(JointPU)
 ////////////////////////////////////////////////////////////////////////////////
     TEST_FIXTURE(PUGetInfo1_Fixture_1, test3_PUGetInfo1)
     {
-        dJointSetPUParam(jId, dParamLoStop1, -M_PI/4.0);
-        dJointSetPUParam(jId, dParamHiStop1, M_PI/4.0);
-        dJointSetPUParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPUParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPUParam(jId, dParamLoStop1, (dReal)(-M_PI/4.0));
+        dJointSetPUParam(jId, dParamHiStop1, (dReal)( M_PI/4.0));
+        dJointSetPUParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPUParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
         dJointSetPUParam(jId, dParamLoStop3, -10);
         dJointSetPUParam(jId, dParamHiStop3,  10);
 
@@ -1443,7 +1443,7 @@ SUITE(JointPU)
 
         dMatrix3 R;
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 0, 1, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -1550,10 +1550,10 @@ SUITE(JointPU)
 ////////////////////////////////////////////////////////////////////////////////
     TEST_FIXTURE(PUGetInfo1_Fixture_2,  test0_PUGetInfo1)
     {
-        dJointSetPUParam(jId, dParamLoStop1, -M_PI);
-        dJointSetPUParam(jId, dParamHiStop1 , M_PI);
-        dJointSetPUParam(jId, dParamLoStop2, -M_PI);
-        dJointSetPUParam(jId, dParamHiStop2,  M_PI);
+        dJointSetPUParam(jId, dParamLoStop1, dReal(-M_PI));
+        dJointSetPUParam(jId, dParamHiStop1, dReal( M_PI));
+        dJointSetPUParam(jId, dParamLoStop2, dReal(-M_PI));
+        dJointSetPUParam(jId, dParamHiStop2, dReal( M_PI));
         dJointSetPUParam(jId, dParamLoStop3, -dInfinity);
         dJointSetPUParam(jId, dParamHiStop3,  dInfinity);
 
@@ -1624,17 +1624,17 @@ SUITE(JointPU)
 ////////////////////////////////////////////////////////////////////////////////
     TEST_FIXTURE(PUGetInfo1_Fixture_2, test2_PUGetInfo1)
     {
-        dJointSetPUParam(jId, dParamLoStop1, -M_PI/4.0);
-        dJointSetPUParam(jId, dParamHiStop1, M_PI/4.0);
-        dJointSetPUParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPUParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPUParam(jId, dParamLoStop1, (dReal)(-M_PI/4.0));
+        dJointSetPUParam(jId, dParamHiStop1, (dReal)( M_PI/4.0));
+        dJointSetPUParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPUParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
         dJointSetPUParam(jId, dParamLoStop3, -10);
         dJointSetPUParam(jId, dParamHiStop3,  10);
 
 
         dMatrix3 R;
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 0, 1, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -1670,10 +1670,10 @@ SUITE(JointPU)
 ////////////////////////////////////////////////////////////////////////////////
     TEST_FIXTURE(PUGetInfo1_Fixture_2, test3_PUGetInfo1)
     {
-        dJointSetPUParam(jId, dParamLoStop1, -M_PI/4.0);
-        dJointSetPUParam(jId, dParamHiStop1, M_PI/4.0);
-        dJointSetPUParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPUParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPUParam(jId, dParamLoStop1, (dReal)(-M_PI/4.0));
+        dJointSetPUParam(jId, dParamHiStop1, (dReal)( M_PI/4.0));
+        dJointSetPUParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPUParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
         dJointSetPUParam(jId, dParamLoStop3, -10);
         dJointSetPUParam(jId, dParamHiStop3,  10);
 
@@ -1682,7 +1682,7 @@ SUITE(JointPU)
 
         dMatrix3 R;
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 0, 1, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -2013,7 +2013,7 @@ SUITE(JointPU)
             dBodySetPosition(bId2, 0, 0, 1);
 
             dMatrix3 R;
-            dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+            dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
             dBodySetRotation (bId2, R);
 
 
@@ -2113,7 +2113,7 @@ SUITE(JointPU)
         CHECK_EQUAL(REAL(0.0), dJointGetPUPositionRate (jId) );
 
         dBodySetAngularVel(bId2, REAL(0.0), REAL(2.33), REAL(0.0));
-        CHECK_EQUAL(REAL(-1.0*2.330), dJointGetPUPositionRate (jId) );
+        CHECK_EQUAL(REAL(-1.0)*REAL(2.330), dJointGetPUPositionRate (jId) );
 
         dBodySetAngularVel(bId2, REAL(0.0), REAL(0.0), REAL(5.55));
         CHECK_EQUAL(REAL(0.0), dJointGetPUPositionRate (jId) );
@@ -2206,8 +2206,8 @@ SUITE(JointPiston)
     {
         dJointSetPistonParam(jId, dParamLoStop1, -dInfinity);
         dJointSetPistonParam(jId, dParamHiStop1,  dInfinity);
-        dJointSetPistonParam(jId, dParamLoStop2, -M_PI);
-        dJointSetPistonParam(jId, dParamHiStop2 , M_PI);
+        dJointSetPistonParam(jId, dParamLoStop2, dReal(-M_PI));
+        dJointSetPistonParam(jId, dParamHiStop2, dReal( M_PI));
 
         joint->getInfo1(&info);
 
@@ -2273,11 +2273,11 @@ SUITE(JointPiston)
     {
         dJointSetPistonParam(jId, dParamLoStop1, -10);
         dJointSetPistonParam(jId, dParamHiStop1,  10);
-        dJointSetPistonParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPistonParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPistonParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPistonParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -2312,14 +2312,14 @@ SUITE(JointPiston)
     {
         dJointSetPistonParam(jId, dParamLoStop1, -10);
         dJointSetPistonParam(jId, dParamHiStop1,  10);
-        dJointSetPistonParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPistonParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPistonParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPistonParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
 
 
         dBodySetPosition (bId1, REAL(100.0), REAL(0.0), REAL(0.0));
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -2425,8 +2425,8 @@ SUITE(JointPiston)
     {
         dJointSetPistonParam(jId, dParamLoStop1, -dInfinity);
         dJointSetPistonParam(jId, dParamHiStop1,  dInfinity);
-        dJointSetPistonParam(jId, dParamLoStop2, -M_PI);
-        dJointSetPistonParam(jId, dParamHiStop2,  M_PI);
+        dJointSetPistonParam(jId, dParamLoStop2, dReal(-M_PI));
+        dJointSetPistonParam(jId, dParamHiStop2, dReal( M_PI));
 
 
         joint->getInfo1(&info);
@@ -2491,11 +2491,11 @@ SUITE(JointPiston)
     {
         dJointSetPistonParam(jId, dParamLoStop1, -10);
         dJointSetPistonParam(jId, dParamHiStop1,  10);
-        dJointSetPistonParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPistonParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPistonParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPistonParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -2530,15 +2530,15 @@ SUITE(JointPiston)
     {
         dJointSetPistonParam(jId, dParamLoStop1, -10);
         dJointSetPistonParam(jId, dParamHiStop1,  10);
-        dJointSetPistonParam(jId, dParamLoStop2, -M_PI/4.0);
-        dJointSetPistonParam(jId, dParamHiStop2, M_PI/4.0);
+        dJointSetPistonParam(jId, dParamLoStop2, (dReal)(-M_PI/4.0));
+        dJointSetPistonParam(jId, dParamHiStop2, (dReal)( M_PI/4.0));
 
 
 
         dBodySetPosition (bId1, REAL(100.0), REAL(0.0), REAL(0.0));
 
         dMatrix3 R;
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         joint->getInfo1(&info);
@@ -2879,7 +2879,7 @@ SUITE(JointPiston)
             dBodySetPosition(bId2, 0, 0, 1);
 
             dMatrix3 R;
-            dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+            dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
             dBodySetRotation (bId2, R);
 
 

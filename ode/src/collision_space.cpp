@@ -453,7 +453,7 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
             box.level = level;
             if (level > maxlevel) maxlevel = level;
             // cellsize = 2^level
-            dReal cellSizeRecip = dRecip(ldexp(REAL(1.0), level)); // No computational errors here!
+            dReal cellSizeRecip = dRecip((dReal)ldexp(REAL(1.0), level)); // No computational errors here!
             // discretize AABB position to cell size
             for (i=0; i < 6; i++) {
                 dReal aabbBound = geom->aabb[i] * cellSizeRecip; // No computational errors so far!

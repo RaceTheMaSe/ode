@@ -64,8 +64,8 @@ struct Card {
                   dBodyGetRotation(body), sides);
     }
 };
-static const dReal cwidth=.5, cthikness=.02, clength=1;
-const dReal Card::sides[3] = { cwidth, cthikness, clength };
+static const dReal cwidth=.5, cthickness=REAL(.02), clength=1;
+const dReal Card::sides[3] = { cwidth, cthickness, clength };
 
 
 static std::vector<Card*> cards;
@@ -90,25 +90,25 @@ static void place_cards()
     // for each level
     int c = 0;
     dMatrix3 right, left, hrot;
-    dReal angle = 20*M_PI/180.;
+    dReal angle = (dReal)(20*M_PI/180.);
     dRFromAxisAndAngle(right, 1, 0, 0, -angle);
     dRFromAxisAndAngle(left, 1, 0, 0, angle);
 
-    dRFromAxisAndAngle(hrot, 1, 0, 0, 91*M_PI/180.);
+    dRFromAxisAndAngle(hrot, 1, 0, 0, (dReal)(91*M_PI/180.));
     
-    dReal eps = 0.05;
-    dReal vstep = cos(angle)*clength + eps;
-    dReal hstep = sin(angle)*clength + eps;
+    dReal eps = REAL(0.05);
+    dReal vstep = dCos(angle)*clength + eps;
+    dReal hstep = dSin(angle)*clength + eps;
     
     for (int lvl=0; lvl<levels; ++lvl) {
         // there are 3*(levels-lvl)-1 cards in each level, except last
         int n = (levels-lvl);
-        dReal height = (lvl)*vstep + vstep/2;
+        dReal height = (dReal)(lvl)*vstep + vstep/2;
         // inclined cards
         for (int i=0; i<2*n; ++i, ++c) {
             dBodySetPosition(cards[c]->body, 
                     0,
-                    -n*hstep + hstep*i,
+                    -(dReal)n*hstep + hstep*(dReal)i,
                     height
                     );
             if (i%2)
@@ -124,7 +124,7 @@ static void place_cards()
         for (int i=0; i<n-1; ++i, ++c) {
             dBodySetPosition(cards[c]->body,
                     0,
-                    -(n-1 - (clength-hstep)/2)*hstep + 2*hstep*i,
+                    -((dReal)(n-1) - (clength-hstep)/2)*hstep + 2*hstep*(dReal)i,
                     height + vstep/2);
             dBodySetRotation(cards[c]->body, hrot);
         }
@@ -167,13 +167,13 @@ static void simLoop(int pause)
 {
     if (!pause) {
         dSpaceCollide (space, NULL, &nearCallback);
-        dWorldQuickStep(world, 0.01);
+        dWorldQuickStep(world, REAL(0.01));
         dJointGroupEmpty(contactgroup);
     }
     
     dsSetColor (1,1,0);
     for (int i=0; i<ncards; ++i) {
-        dsSetColor (1, dReal(i)/ncards, 0);
+        dsSetColor (1, (float)((dReal)i/(dReal)ncards), 0);
         cards[i]->draw();
     }
     

@@ -286,10 +286,10 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
     W1[0] = REAL(0.0);
     W2[0] = REAL(0.0);
     for (unsigned j = 1; j < n; ++j) {
-        W1[j] = W2[j] = (dReal) (a[j] * M_SQRT1_2);
+        W1[j] = W2[j] = (dReal) ((double)a[j] * M_SQRT1_2);
     }
-    dReal W11 = (dReal) ((REAL(0.5)*a[0]+1)*M_SQRT1_2);
-    dReal W21 = (dReal) ((REAL(0.5)*a[0]-1)*M_SQRT1_2);
+    dReal W11 = (dReal) ((0.5*(double)a[0]+1)*M_SQRT1_2);
+    dReal W21 = (dReal) ((0.5*(double)a[0]-1)*M_SQRT1_2);
 
     dReal alpha1 = REAL(1.0);
     dReal alpha2 = REAL(1.0);

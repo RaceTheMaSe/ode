@@ -572,7 +572,7 @@ static inline dReal sinc (dReal x)
     // if |x| < 1e-4 then use a taylor series expansion. this two term expansion
     // is actually accurate to one LS bit within this range if double precision
     // is being used - so don't worry!
-    if (dFabs(x) < 1.0e-4) return REAL(1.0) - x*x*REAL(0.166666666666666666667);
+    if (dFabs(x) < REAL(1.0e-4)) return REAL(1.0) - x*x*REAL(0.166666666666666666667);
     else return dSin(x)/x;
 }
 
@@ -1153,8 +1153,8 @@ void dxWorldProcessMemArena::FreeMemArena (dxWorldProcessMemArena *arena)
 
 sizeint dxWorldProcessMemArena::AdjustArenaSizeForReserveRequirements(sizeint arenareq, float rsrvfactor, unsigned rsrvminimum)
 {
-    float scaledarena = arenareq * rsrvfactor;
-    sizeint adjustedarena = (scaledarena < SIZE_MAX) ? (sizeint)scaledarena : SIZE_MAX;
+    float scaledarena = (float)arenareq * rsrvfactor;
+    sizeint adjustedarena = (scaledarena < (float)SIZE_MAX) ? (sizeint)scaledarena : SIZE_MAX;
     sizeint boundedarena = (adjustedarena > rsrvminimum) ? adjustedarena : (sizeint)rsrvminimum;
     return dEFFICIENT_SIZE(boundedarena);
 }

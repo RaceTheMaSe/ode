@@ -30,8 +30,8 @@
 #define dsDrawSphere dsDrawSphereD
 #endif
 
-static dReal theta = M_PI / 4;
-static dReal ratio = 1, speed = 5, rho_1 = 1, rho_2 = 1, backlash = 0.1;
+static dReal theta = dReal(M_PI / 4);
+static dReal ratio = 1, speed = 5, rho_1 = 1, rho_2 = 1, backlash = REAL(0.1);
 static int mode = 0;
 
 static dWorldID world;
@@ -77,11 +77,11 @@ static void setup() {
 	dRSetIdentity (R);
 	dBodySetRotation (body1, R);
 
-	dRFromZAxis (R, cos(theta), 0, sin(theta));
+	dRFromZAxis (R, dCos(theta), 0, dSin(theta));
 	dBodySetRotation (body2, R);
 
 	dJointSetHingeAnchor(hinge2, -1, 0, 2);
-	dJointSetHingeAxis(hinge2, cos(theta), 0, sin(theta));
+	dJointSetHingeAxis(hinge2, dCos(theta), 0, dSin(theta));
 
 	dJointSetHingeAnchor(hinge1, 1, 0, 1);
 	dJointSetHingeAxis(hinge1, 0, 0, 1);
@@ -90,7 +90,7 @@ static void setup() {
 	dJointSetTransmissionAnchor1(transmission, 1, 0, 1);
 	dJointSetTransmissionAnchor2(transmission, -1, 0, 2);
 	dJointSetTransmissionAxis1(transmission, 0, 0, -1);
-	dJointSetTransmissionAxis2(transmission, cos(theta), 0, sin(theta));
+	dJointSetTransmissionAxis2(transmission, dCos(theta), 0, dSin(theta));
 
 	break;
     case 2:
@@ -141,9 +141,9 @@ static void start()
     dMass mass;
     
     world = dWorldCreate();
-    dWorldSetGravity (world,0,0,-9.8);
+    dWorldSetGravity (world,0,0,REAL(-9.8));
 
-    dWorldSetERP(world, 0.2);
+    dWorldSetERP(world, REAL(0.2));
 
     space = dSimpleSpaceCreate (NULL);
     
@@ -153,14 +153,14 @@ static void start()
     dBodySetFiniteRotationMode(body1, 1);
     dBodySetFiniteRotationMode(body2, 1);
 
-    geom1 = dCreateCylinder(space, 0.2, 0.5);
+    geom1 = dCreateCylinder(space, REAL(0.2), REAL(0.5));
     dGeomSetBody(geom1, body1);
-    dMassSetCylinder(&mass, 100, 3, 0.2, 0.5);
+    dMassSetCylinder(&mass, 100, 3, REAL(0.2), REAL(0.5));
     dBodySetMass(body1, &mass);
     
-    geom2 = dCreateCylinder(space, 0.2, 0.5);
+    geom2 = dCreateCylinder(space, REAL(0.2), REAL(0.5));
     dGeomSetBody(geom2, body2);
-    dMassSetCylinder(&mass, 100, 3, 0.2, 0.5);
+    dMassSetCylinder(&mass, 100, 3, REAL(0.2), REAL(0.5));
     dBodySetMass(body2, &mass);
 
     hinge1 = dJointCreateHinge(world, NULL);
@@ -176,7 +176,7 @@ static void start()
     setup();
 
     // initial camera position
-    float xyz[3] = {1.15,-2.78,4.1};
+    float xyz[3] = {1.15f,-2.78f,4.1f};
     float hpr[3] = {105,-45.5,0};
     dsSetViewpoint (xyz,hpr);
 
@@ -220,7 +220,7 @@ static void drawGeom(dGeomID g)
 
             dsSetTexture (DS_WOOD);
             dGeomCylinderGetParams(g, &radius, &length);
-            dsDrawCylinder(pos, rot, length, radius);
+            dsDrawCylinder(pos, rot, (float)length, (float)radius);
             break;
         }
         
@@ -235,7 +235,7 @@ static void simLoop(int pause)
 {
     if (!pause) {
 
-        const dReal step = 0.003;
+        const dReal step = REAL(0.003);
         const unsigned nsteps = 4;
 
         for (unsigned i=0; i<nsteps; ++i) {
@@ -282,13 +282,13 @@ static void simLoop(int pause)
     dJointGetTransmissionAnchor2(transmission, a_2);
 
     dsSetColorAlpha(1, 0, 0, 0.5);
-    dsDrawCylinder(a_1, R_1, 0.05, dCalcPointsDistance3(c_1, a_1));
+    dsDrawCylinder(a_1, R_1, 0.05f, (float)dCalcPointsDistance3(c_1, a_1));
     dsSetColorAlpha(0, 1, 0, 0.5);
-    dsDrawCylinder(a_2, R_2, 0.05, dCalcPointsDistance3(c_2, a_2));
+    dsDrawCylinder(a_2, R_2, 0.05f, (float)dCalcPointsDistance3(c_2, a_2));
 
     dsSetColorAlpha(1, 0, 0, 0.5);
-    dsDrawSphere (c_1, R_1, 0.05);
-    dsDrawSphere (c_2, R_1, 0.05);
+    dsDrawSphere (c_1, R_1, 0.05f);
+    dsDrawSphere (c_2, R_1, 0.05f);
 
     dsSetColorAlpha(1, 1, 0, 0.5);
     if (mode == dTransmissionChainDrive) {
@@ -301,25 +301,25 @@ static void command (int cmd)
     if (cmd == '[') {
 	switch(mode) {
 	case dTransmissionParallelAxes:
-	    if (ratio > 0.125) {
-		ratio *= 0.5;
+	    if (ratio > REAL(0.125)) {
+		ratio *= REAL(0.5);
 
-		fprintf (stderr, "Gear ratio set to %.3f.\n", ratio);
+		fprintf (stderr, "Gear ratio set to %.3f.\n", (double)ratio);
 	    }
 	    break;
 	case dTransmissionIntersectingAxes:
-	    if (theta > 0.1) {
-		theta -= 0.1;
+	    if (theta > REAL(0.1)) {
+		theta -= REAL(0.1);
 
 		fprintf (stderr, "Gear angle set to %.3f deg.\n",
-			 theta / M_PI * 180);
+			 double(theta) / (M_PI * 180));
 	    }
 	    break;
 	case dTransmissionChainDrive:
-	    if (rho_2 > 0.125) {
+	    if (rho_2 > REAL(0.125)) {
 		rho_2 /= 2;
 
-		fprintf (stderr, "Sprocket ratio set to %.3f.\n", rho_2 / rho_1);
+		fprintf (stderr, "Sprocket ratio set to %.3f.\n", (double)(rho_2 / rho_1));
 	    }
 	    break;
 	default:
@@ -333,22 +333,22 @@ static void command (int cmd)
 	    if (ratio < 8) {
 		ratio *= 2;
 
-		fprintf (stderr, "Gear ratio set to %.3f.\n", ratio);
+		fprintf (stderr, "Gear ratio set to %.3f.\n", (double)ratio);
 	    }
 	    break;
 	case dTransmissionIntersectingAxes:
-	    if (theta < 0.9) {
-		theta += 0.1;
+	    if (theta < REAL(0.9)) {
+		theta += REAL(0.1);
 
 		fprintf (stderr, "Gear angle set to %.3f deg.\n",
-			 theta / M_PI * 180);
+			 double(theta) / (M_PI * 180));
 	    }
 	    break;
 	case dTransmissionChainDrive:
 	    if (rho_2 < 2) {
 		rho_2 *= 2;
 
-		fprintf (stderr, "Sprocket ratio set to %.3f.\n", rho_2 / rho_1);
+		fprintf (stderr, "Sprocket ratio set to %.3f.\n", (double)(rho_2 / rho_1));
 	    }
 	    break;
 	default:
@@ -359,13 +359,13 @@ static void command (int cmd)
     } else if (cmd == '.') {
 	speed += 5;
 
-	fprintf (stderr, "Driving wheel speed set to %g rad/s.\n", speed);
+	fprintf (stderr, "Driving wheel speed set to %g rad/s.\n", (double)speed);
 
 	dJointSetHingeParam(hinge2, dParamVel, speed);
     } else if (cmd == ',') {
 	speed -= 5;
 
-	fprintf (stderr, "Driving wheel speed set to %g rad/s.\n", speed);
+	fprintf (stderr, "Driving wheel speed set to %g rad/s.\n", (double)speed);
 
 	dJointSetHingeParam(hinge2, dParamVel, speed);
     } else if (cmd == '/') {
@@ -376,15 +376,15 @@ static void command (int cmd)
 	}
 
     } else if (cmd == '-') {
-	backlash -= 0.1;
+	backlash -= REAL(0.1);
 
-	fprintf (stderr, "Backlash set to %g m.\n", backlash);
+	fprintf (stderr, "Backlash set to %g m.\n", (double)backlash);
 
         dJointSetTransmissionBacklash(transmission, backlash);
     } else if (cmd == '=') {
-	backlash += 0.1;
+	backlash += REAL(0.1);
 
-	fprintf (stderr, "Backlash set to %g m.\n", backlash);
+	fprintf (stderr, "Backlash set to %g m.\n", (double)backlash);
 
         dJointSetTransmissionBacklash(transmission, backlash);
     } else if (cmd == '1') {

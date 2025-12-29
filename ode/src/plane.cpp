@@ -89,17 +89,17 @@ void dxPlane::computeAABB()
     // Planes that have normal vectors aligned along an axis can use a
     // less comprehensive (half space) bounding box.
 
-    if ( p[1] == 0.0f && p[2] == 0.0f ) {
+    if ( p[1] == REAL(0.0) && p[2] == REAL(0.0) ) {
         // normal aligned with x-axis
         aabb[0] = (p[0] > 0) ? -dInfinity : -p[3];
         aabb[1] = (p[0] > 0) ? p[3] : dInfinity;
     } else
-        if ( p[0] == 0.0f && p[2] == 0.0f ) {
+        if ( p[0] == REAL(0.0) && p[2] == REAL(0.0) ) {
             // normal aligned with y-axis
             aabb[2] = (p[1] > 0) ? -dInfinity : -p[3];
             aabb[3] = (p[1] > 0) ? p[3] : dInfinity;
         } else
-            if ( p[0] == 0.0f && p[1] == 0.0f ) {
+            if ( p[0] == REAL(0.0) && p[1] == REAL(0.0) ) {
                 // normal aligned with z-axis
                 aabb[4] = (p[2] > 0) ? -dInfinity : -p[3];
                 aabb[5] = (p[2] > 0) ? p[3] : dInfinity;

@@ -152,7 +152,7 @@ void dPrintMatrix (const dReal *A, int n, int m, const char *fmt, FILE *f)
     int skip = dPAD(m);
     const dReal *Arow = A;
     for (int i=0; i<n; Arow+=skip, ++i) {
-        for (int j=0; j<m; ++j) fprintf (f,fmt,Arow[j]);
+        for (int j=0; j<m; ++j) fprintf (f,fmt,(double)Arow[j]);
         fprintf (f,"\n");
     }
 }

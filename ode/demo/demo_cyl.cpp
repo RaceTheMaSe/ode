@@ -32,20 +32,16 @@
 
 #include "world_geom3.h" // this is our world mesh
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 
 #define BOX
 #define CYL
 
 // some constants
 
-#define RADIUS 0.22	// wheel radius
-#define WMASS 0.2	// wheel mass
-#define WHEELW 0.2	// wheel width
-#define BOXSZ 0.4	// box size
+#define RADIUS REAL(0.22)	// wheel radius
+#define WMASS  REAL(0.2)	// wheel mass
+#define WHEELW REAL(0.2)	// wheel width
+#define BOXSZ  REAL(0.4)	// box size
 //#define CYL_GEOM_OFFSET // rotate cylinder using geom offset
 
 // dynamics and collision objects (chassis, 3 wheels, environment)
@@ -91,12 +87,12 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
   {
     for (int i=0; i<n; i++) 
     {
-      contact[i].surface.slip1 = 0.7;
-      contact[i].surface.slip2 = 0.7;
+      contact[i].surface.slip1 = REAL(0.7);
+      contact[i].surface.slip2 = REAL(0.7);
       contact[i].surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1 | dContactSlip1 | dContactSlip2;
-      contact[i].surface.mu = 50.0; // was: dInfinity
-      contact[i].surface.soft_erp = 0.96;
-      contact[i].surface.soft_cfm = 0.04;
+      contact[i].surface.mu = REAL(50.0); // was: dInfinity
+      contact[i].surface.soft_erp = REAL(0.96);
+      contact[i].surface.soft_cfm = REAL(0.04);
       dJointID c = dJointCreateContact (world,contactgroup,&contact[i]);
       dJointAttach (c,
 		    dGeomGetBody(contact[i].geom.g1),
@@ -123,15 +119,15 @@ static void reset_state(void)
 {
   float sx=-4, sy=-4, sz=2;
   dQuaternion q;
-  dQFromAxisAndAngle (q,1,0,0,M_PI*0.5);
+  dQFromAxisAndAngle (q,1,0,0,dReal(M_PI*0.5));
 #ifdef BOX
-  dBodySetPosition (boxbody, sx, sy+1, sz);
+  dBodySetPosition (boxbody, (dReal)sx, (dReal)(sy+1), (dReal)sz);
   dBodySetLinearVel (boxbody, 0,0,0);
   dBodySetAngularVel (boxbody, 0,0,0);
   dBodySetQuaternion (boxbody, q);
 #endif
 #ifdef CYL
-  dBodySetPosition (cylbody, sx, sy, sz);
+  dBodySetPosition (cylbody, (dReal)sx, (dReal)sy, (dReal)sz);
   dBodySetLinearVel (cylbody, 0,0,0);
   dBodySetAngularVel (cylbody, 0,0,0);
   dBodySetQuaternion (cylbody, q);
@@ -161,11 +157,11 @@ static void simLoop (int pause)
 {
   double simstep = 0.005; // 5ms simulation steps
   double dt = dsElapsedTime();
-  int nrofsteps = (int) ceilf(dt/simstep);
+  int nrofsteps = (int) ceilf((float)(dt/simstep));
   for (int i=0; i<nrofsteps && !pause; i++)
   {
     dSpaceCollide (space,NULL,&nearCallback);
-    dWorldQuickStep (world, simstep);
+    dWorldQuickStep (world, (dReal)simstep);
     dJointGroupEmpty (contactgroup);
   }
 
@@ -175,7 +171,7 @@ static void simLoop (int pause)
   const dReal *BRot = dBodyGetRotation(boxbody);
   float bpos[3] = {static_cast<float>(BPos[0]), static_cast<float>(BPos[1]), static_cast<float>(BPos[2])};
   float brot[12] = { static_cast<float>(BRot[0]), static_cast<float>(BRot[1]), static_cast<float>(BRot[2]), static_cast<float>(BRot[3]), static_cast<float>(BRot[4]), static_cast<float>(BRot[5]), static_cast<float>(BRot[6]), static_cast<float>(BRot[7]), static_cast<float>(BRot[8]), static_cast<float>(BRot[9]), static_cast<float>(BRot[10]), static_cast<float>(BRot[11]) };
-  float sides[3] = {BOXSZ, BOXSZ, BOXSZ};
+  float sides[3] = {static_cast<float>(BOXSZ), static_cast<float>(BOXSZ), static_cast<float>(BOXSZ)};
   dsDrawBox
   (
     bpos, 
@@ -194,13 +190,13 @@ static void simLoop (int pause)
 //    dBodyGetRotation(cylbody),
     cpos,
     crot,
-    WHEELW,
-    RADIUS
+    (float)WHEELW,
+    (float)RADIUS
   ); // single precision
 #endif
 
   // draw world trimesh
-  dsSetColor(0.7,0.7,0.4);
+  dsSetColor(0.7f,0.7f,0.4f);
   dsSetTexture (DS_NONE);
 
   const dReal* Pos = dGeomGetPosition(world_mesh);
@@ -243,7 +239,7 @@ int main (int argc, char **argv)
   world = dWorldCreate();
   space = dHashSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
-  dWorldSetGravity (world,0,0,-9.8);
+  dWorldSetGravity (world,0,0,REAL(-9.8));
   dWorldSetQuickStepNumIterations (world, 12);
 
 
@@ -265,7 +261,7 @@ int main (int argc, char **argv)
   );
 
   world_mesh = dCreateTriMesh(space, Data, NULL, NULL, NULL);
-  dGeomSetPosition(world_mesh, 0, 0, 0.5);
+  dGeomSetPosition(world_mesh, 0, 0, REAL(0.5));
   dRFromAxisAndAngle (R, 0,1,0, 0.0);
   dGeomSetRotation (world_mesh, R);
 
@@ -289,7 +285,7 @@ int main (int argc, char **argv)
   
   #if defined(CYL_GEOM_OFFSET)
   dMatrix3 mat;
-  dRFromAxisAndAngle(mat,1.0f,0.0f,0.0f,M_PI/2.0);
+  dRFromAxisAndAngle(mat,1,0,0,dReal(M_PI/2.0));
   dGeomSetOffsetRotation(cylgeom,mat);
   #endif
     

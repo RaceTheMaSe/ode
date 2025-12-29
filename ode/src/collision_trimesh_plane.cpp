@@ -114,9 +114,9 @@ int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* conta
 #else // dDOUBLE || 1
 
             // OPCODE data is in single precision format.
-            int_vertex[ 0 ] = VP.Vertex[ v ]->x;
-            int_vertex[ 1 ] = VP.Vertex[ v ]->y;
-            int_vertex[ 2 ] = VP.Vertex[ v ]->z;
+            int_vertex[ 0 ] = (dReal)VP.Vertex[ v ]->x;
+            int_vertex[ 1 ] = (dReal)VP.Vertex[ v ]->y;
+            int_vertex[ 2 ] = (dReal)VP.Vertex[ v ]->z;
 
             dMultiply0_331( vertex, trimesh_R, int_vertex );
 

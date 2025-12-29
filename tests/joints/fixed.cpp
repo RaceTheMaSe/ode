@@ -75,58 +75,58 @@ SUITE (TestdxJointFixed)
     {
         // the 2 bodies are align
         dJointSetFixed (jId);
-        CHECK_CLOSE (joint->qrel[0], 1.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.0, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(1.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.0), REAL(1e-4));
 
         dMatrix3 R;
         // Rotate 2nd body 90deg around X
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         dJointSetFixed (jId);
-        CHECK_CLOSE (joint->qrel[0], 0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], 0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.0, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.0), REAL(1e-4));
 
 
         // Rotate 2nd body -90deg around X
         dBodySetPosition (bId2, 0, 0, -1);
-        dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         dJointSetFixed (jId);
-        CHECK_CLOSE (joint->qrel[0], 0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], -0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.0, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(-0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.0), REAL(1e-4));
 
 
         // Rotate 2nd body 90deg around Z
         dBodySetPosition (bId2, 0, 1, 0);
-        dRFromAxisAndAngle (R, 0, 0, 1, M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 0, 1, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         dJointSetFixed (jId);
-        CHECK_CLOSE (joint->qrel[0], 0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.70710678118654757, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.70710678118654757), REAL(1e-4));
 
 
         // Rotate 2nd body 45deg around Y
         dBodySetPosition (bId2, 0, 1, 0);
-        dRFromAxisAndAngle (R, 0, 1, 0, M_PI/4.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(M_PI/4.0));
         dBodySetRotation (bId2, R);
 
         dJointSetFixed (jId);
-        CHECK_CLOSE (joint->qrel[0], 0.92387953251128674, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.38268343236508984, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.0, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(0.92387953251128674), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.38268343236508984), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.0), REAL(1e-4));
 
         // Rotate in a strange manner
         // Both bodies at origin
@@ -139,10 +139,10 @@ SUITE (TestdxJointFixed)
         dBodySetRotation (bId2, R);
 
         dJointSetFixed (jId);
-        CHECK_CLOSE (joint->qrel[0], -0.25526036263124319, 1e-4);
-        CHECK_CLOSE (joint->qrel[1],  0.28434861188441968, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], -0.65308047160141625, 1e-4);
-        CHECK_CLOSE (joint->qrel[3],  0.65381489108282143, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(-0.25526036263124319), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL( 0.28434861188441968), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(-0.65308047160141625), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL( 0.65381489108282143), REAL(1e-4));
     }
 
 

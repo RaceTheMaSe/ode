@@ -27,10 +27,6 @@
 #include "drawstuff/drawstuff.h"
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  /* for VC++, no precision loss complaints */
-#endif
-
 /* select correct drawing functions */
 
 #ifdef dDOUBLE
@@ -41,9 +37,9 @@
 /* some constants */
 
 #define NUM 10			/* number of boxes */
-#define SIDE (0.2)		/* side length of a box */
-#define MASS (1.0)		/* mass of a box */
-#define RADIUS (0.1732f)	/* sphere radius */
+#define SIDE REAL(0.2)		/* side length of a box */
+#define MASS REAL(1.0)		/* mass of a box */
+#define RADIUS REAL(0.1732)	/* sphere radius */
 
 
 /* dynamics and collision objects */
@@ -72,7 +68,7 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
   if (b1 && b2 && dAreConnected (b1,b2)) return;
 
   contact.surface.mode = 0;
-  contact.surface.mu = 0.1;
+  contact.surface.mu = REAL(0.1);
   contact.surface.mu2 = 0;
   if (dCollide (o1,o2,1,&contact.geom,sizeof(dContactGeom))) {
     dJointID c = dJointCreateContact (world,contactgroup,&contact);
@@ -101,10 +97,10 @@ static void simLoop (int pause)
   if (!pause) {
     static double angle = 0;
     angle += 0.05;
-    dBodyAddForce (body[NUM-1],0,0,1.5*(sin(angle)+1.0));
+    dBodyAddForce (body[NUM-1],0,0,(dReal)(1.5*(sin(angle)+1.0)));
 
     dSpaceCollide (space,0,&nearCallback);
-    dWorldStep (world,0.05);
+    dWorldStep (world,REAL(0.05));
 
     /* remove all contact joints */
     dJointGroupEmpty (contactgroup);
@@ -113,7 +109,7 @@ static void simLoop (int pause)
   dsSetColor (1,1,0);
   dsSetTexture (DS_WOOD);
   for (i=0; i<NUM; i++) dsDrawSphere (dBodyGetPosition(body[i]),
-				      dBodyGetRotation(body[i]),RADIUS);
+				      dBodyGetRotation(body[i]),(float)RADIUS);
 }
 
 
@@ -137,13 +133,13 @@ int main (int argc, char **argv)
   world = dWorldCreate();
   space = dHashSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (1000000);
-  dWorldSetGravity (world,0,0,-0.5);
+  dWorldSetGravity (world,0,0,REAL(-0.5));
   dCreatePlane (space,0,0,1,0);
 
   for (i=0; i<NUM; i++) {
     body[i] = dBodyCreate (world);
-    k = i*SIDE;
-    dBodySetPosition (body[i],k,k,k+0.4);
+    k = (dReal)i*SIDE;
+    dBodySetPosition (body[i],k,k,k+REAL(0.4));
     dMassSetBox (&m,1,SIDE,SIDE,SIDE);
     dMassAdjust (&m,MASS);
     dBodySetMass (body[i],&m);
@@ -153,8 +149,8 @@ int main (int argc, char **argv)
   for (i=0; i<(NUM-1); i++) {
     joint[i] = dJointCreateBall (world,0);
     dJointAttach (joint[i],body[i],body[i+1]);
-    k = (i+0.5)*SIDE;
-    dJointSetBallAnchor (joint[i],k,k,k+0.4);
+    k = (dReal)(((dReal)i+REAL(0.5))*SIDE);
+    dJointSetBallAnchor (joint[i],k,k,k+REAL(0.4));
   }
 
   /* run simulation */

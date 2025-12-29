@@ -26,10 +26,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -40,9 +36,9 @@
 // some constants
 
 #define NUM 10			// number of boxes
-#define SIDE (0.2)		// side length of a box
-#define MASS (1.0)		// mass of a box
-//#define RADIUS (0.1732f)	// sphere radius
+#define SIDE REAL(0.2)		// side length of a box
+#define MASS REAL(1.0)		// mass of a box
+//#define RADIUS REAL(0.1732)	// sphere radius
 
 // dynamics and collision objects
 
@@ -95,10 +91,10 @@ static void simLoop (int pause)
   if (!pause) {
     static double angle = 0;
     angle += 0.05;
-    body[NUM-1]->addForce (0,0,1.5*(sin(angle)+1.0));
+    body[NUM-1]->addForce (0,0,dReal(1.5*(sin(angle)+1.0)));
 
     space->collide (NULL,&nearCallback);
-    world->step (0.05);
+    world->step (REAL(0.05));
 
     // remove all contact joints
     contactgroup->empty();
@@ -142,14 +138,14 @@ int main (int argc, char **argv)
 
   contactgroup->create ();
   world->setGravity (0,0,-0.5);
-  dWorldSetCFM (world->id(),1e-5);
+  dWorldSetCFM (world->id(),REAL(1e-5));
   {
     dPlane plane (*space,0,0,1,0);
 
     for (i=0; i<NUM; i++) {
       body[i]->create (*world);
-      dReal k = i*SIDE;
-      body[i]->setPosition (k,k,(k+0.4));
+      dReal k = (dReal)i*SIDE;
+      body[i]->setPosition (k,k,(k+REAL(0.4)));
       dMass m;
       m.setBox (1,SIDE,SIDE,SIDE);
       m.adjust (MASS);
@@ -162,8 +158,8 @@ int main (int argc, char **argv)
     for (i=0; i<(NUM-1); i++) {
       joint[i]->create (*world);
       joint[i]->attach (*body[i],*body[i+1]);
-      dReal k = (i+0.5)*SIDE;
-      joint[i]->setAnchor (k,k,k+0.4);
+      dReal k = ((dReal)i+REAL(0.5))*SIDE;
+      joint[i]->setAnchor (k,k,k+REAL(0.4));
     }
 
     // run simulation

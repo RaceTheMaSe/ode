@@ -24,10 +24,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -43,10 +39,10 @@ static dBody *top1, *top2;
 static dSpace *space;
 static dJointGroup contactgroup;
 
-static const dReal pinradius = 0.05f;
-static const dReal pinlength = 1.5f;
-static const dReal topradius = 1.0f;
-static const dReal toplength = 0.25f;
+static const dReal pinradius = REAL(0.05);
+static const dReal pinlength = REAL(1.5);
+static const dReal topradius = REAL(1.0);
+static const dReal toplength = REAL(0.25);
 // const dReal topmass = 1.0f;
 
 #define MAX_CONTACTS 4
@@ -56,7 +52,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     // for drawing the contact points
     dMatrix3 RI;
     dRSetIdentity (RI);
-    const dReal ss[3] = {0.02,0.02,0.02};
+    const dReal ss[3] = {REAL(0.02),REAL(0.02),REAL(0.02)};
 
     int i;
     dBodyID b1 = dGeomGetBody(o1);
@@ -132,8 +128,8 @@ static void simLoop (int pause)
     dsSetColor (0,0,2);
     space->collide(NULL,&nearCallback);
     if (!pause)
-        //world->quickStep(0.02);
-        world->step(0.02);
+        //world->quickStep(REAL(0.02));
+        world->step(REAL(0.02));
 
     if (write_world) {
         FILE *f = fopen ("state.dif","wt");
@@ -152,18 +148,18 @@ static void simLoop (int pause)
     dsSetColor (1,0.5f,0);
     dsDrawCylinder(top1->getPosition(),
                     top1->getRotation(),
-                    toplength, topradius);
+                    (float)toplength, (float)topradius);
     dsDrawCapsule(top1->getPosition(),
                     top1->getRotation(),
-                    pinlength, pinradius);
+                    (float)pinlength, (float)pinradius);
 
     dsSetColor (0.5f,1,0);
     dsDrawCylinder(top2->getPosition(),
                     top2->getRotation(),
-                    toplength, topradius);
+                    (float)toplength, (float)topradius);
     dsDrawCapsule(top2->getPosition(),
                     top2->getRotation(),
-                    pinlength, pinradius);
+                    (float)pinlength, (float)pinradius);
 
 }
 
@@ -176,14 +172,14 @@ static void reset()
     top1->setRotation(R);
     top2->setRotation(R);
 
-    top1->setPosition(0.8f, -2, 2);
-    top2->setPosition(0.8f, 2, 2);
+    top1->setPosition(REAL(0.8), -2, 2);
+    top2->setPosition(REAL(0.8), 2, 2);
     
     top1->setAngularVel(1,0,7);
     top2->setAngularVel(1,0,7);
     
-    top1->setLinearVel(0,0.2f,0);
-    top2->setLinearVel(0,0.2f,0);
+    top1->setLinearVel(0,REAL(0.2),0);
+    top2->setLinearVel(0,REAL(0.2),0);
 }
 
 static void tilt()
@@ -207,10 +203,10 @@ int main (int argc, char **argv)
     // create world
     dInitODE();
     world = new dWorld();
-    world->setGravity(0,0,-0.5f);
-    world->setCFM(1e-5f);
-    world->setLinearDamping(0.00001f);
-    world->setAngularDamping(0.0001f);
+    world->setGravity(0,0,REAL(-0.5));
+    world->setCFM(REAL(1e-5));
+    world->setLinearDamping(REAL(0.00001));
+    world->setAngularDamping(REAL(0.0001));
     
     space = new dSimpleSpace(NULL);
 

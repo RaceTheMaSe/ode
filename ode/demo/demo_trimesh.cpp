@@ -26,19 +26,15 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 ///<---- Convex Object
 static const dReal planes[] =  // planes for a cube
 {
-    1.0f ,0.0f ,0.0f ,0.25f, 
-    0.0f ,1.0f ,0.0f ,0.25f, 
-    0.0f ,0.0f ,1.0f ,0.25f, 
-    0.0f ,0.0f ,-1.0f,0.25f, 
-    0.0f ,-1.0f,0.0f ,0.25f, 
-    -1.0f,0.0f ,0.0f ,0.25f 
+    REAL(1.0) ,REAL(0.0) ,REAL(0.0) ,REAL(0.25), 
+    REAL(0.0) ,REAL(1.0) ,REAL(0.0) ,REAL(0.25), 
+    REAL(0.0) ,REAL(0.0) ,REAL(1.0) ,REAL(0.25), 
+    REAL(0.0) ,REAL(0.0) ,REAL(-1.0),REAL(0.25), 
+    REAL(0.0) ,REAL(-1.0),REAL(0.0) ,REAL(0.25), 
+    REAL(-1.0),REAL(0.0) ,REAL(0.0) ,REAL(0.25) 
     /* 
     1.0f ,0.0f ,0.0f ,2.0f, 
     0.0f ,1.0f ,0.0f ,1.0f, 
@@ -52,17 +48,17 @@ static const unsigned int planecount=6;
 
 static const dReal points[] = // points for a cube
 { 
-    0.25f,0.25f,0.25f,  
-    -0.25f,0.25f,0.25f, 
-    
-    0.25f,-0.25f,0.25f, 
-    -0.25f,-0.25f,0.25f, 
-    
-    0.25f,0.25f,-0.25f, 
-    -0.25f,0.25f,-0.25f, 
-    
-    0.25f,-0.25f,-0.25f, 
-    -0.25f,-0.25f,-0.25f, 
+    REAL(0.25),REAL(0.25),REAL(0.25),  //  point 0
+    REAL(-0.25),REAL(0.25),REAL(0.25), //  point 1
+
+    REAL(0.25),REAL(-0.25),REAL(0.25), //  point 2
+    REAL(-0.25),REAL(-0.25),REAL(0.25),//  point 3
+
+    REAL(0.25),REAL(0.25),REAL(-0.25), //  point 4
+    REAL(-0.25),REAL(0.25),REAL(-0.25),//  point 5
+
+    REAL(0.25),REAL(-0.25),REAL(-0.25),//  point 6
+    REAL(-0.25),REAL(-0.25),REAL(-0.25),// point 7
 };
 static const unsigned int pointcount=8;
 
@@ -92,7 +88,7 @@ static const unsigned int polygons[] = //Polygons for a cube (6 squares)
 // some constants
 
 #define NUM 200			// max number of objects
-#define DENSITY (5.0)		// density of all objects
+#define DENSITY REAL(5.0)		// density of all objects
 #define GPB 3			// maximum number of geometries per body
 #define MAX_CONTACTS 40		// maximum number of contact points per body
 
@@ -144,20 +140,20 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     contact[i].surface.mode = dContactBounce | dContactSoftCFM;
     contact[i].surface.mu = dInfinity;
     contact[i].surface.mu2 = 0;
-    contact[i].surface.bounce = 0.1;
-    contact[i].surface.bounce_vel = 0.1;
-    contact[i].surface.soft_cfm = 0.01;
+    contact[i].surface.bounce = REAL(0.1);
+    contact[i].surface.bounce_vel = REAL(0.1);
+    contact[i].surface.soft_cfm = REAL(0.01);
   }
   if (int numc = dCollide (o1,o2,MAX_CONTACTS,&contact[0].geom,
 			   sizeof(dContact))) {
     dMatrix3 RI;
     dRSetIdentity (RI);
-    const dReal ss[3] = {0.02,0.02,0.02};
+    const dReal ss[3] = {REAL(0.02),REAL(0.02),REAL(0.02)};
     for (i=0; i<numc; i++) {
 		if (dGeomGetClass(o1) == dRayClass || dGeomGetClass(o2) == dRayClass){
 			dMatrix3 Rotation;
 			dRSetIdentity(Rotation);
-			dsDrawSphere(contact[i].geom.pos, Rotation, REAL(0.01));
+			dsDrawSphere(contact[i].geom.pos, Rotation, 0.01f);
 			
 			dVector3 End;
 			End[0] = contact[i].geom.pos[0] + (contact[i].geom.normal[0] * contact[i].geom.depth);
@@ -238,14 +234,14 @@ static void command (int cmd)
     }
 
     obj[i].body = dBodyCreate (world);
-    for (k=0; k<3; k++) sides[k] = dRandReal()*0.5+0.1;
+    for (k=0; k<3; k++) sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
 
     dMatrix3 R;
     if (random_pos) {
       dBodySetPosition (obj[i].body,
 			dRandReal()*2-1,dRandReal()*2-1,dRandReal()+1);
-      dRFromAxisAndAngle (R,dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-			  dRandReal()*2.0-1.0,dRandReal()*10.0-5.0);
+      dRFromAxisAndAngle (R,dRandReal()*2-1,dRandReal()*2-1,
+			  dRandReal()*2-1,dRandReal()*10-5);
     }
     else {
       dReal maxheight = 0;
@@ -254,7 +250,7 @@ static void command (int cmd)
 	if (pos[2] > maxheight) maxheight = pos[2];
       }
       dBodySetPosition (obj[i].body, 0,0,maxheight+1);
-      dRFromAxisAndAngle (R,0,0,1,dRandReal()*10.0-5.0);
+      dRFromAxisAndAngle (R,0,0,1,dRandReal()*10-5);
     }
     dBodySetRotation (obj[i].body,R);
     dBodySetData (obj[i].body,(void*)(dsizeint)i);
@@ -264,7 +260,7 @@ static void command (int cmd)
       obj[i].geom[0] = dCreateBox (space,sides[0],sides[1],sides[2]);
     }
     else if (cmd == 'c') {
-      sides[0] *= 0.5;
+      sides[0] *= REAL(0.5);
       dMassSetCapsule (&m,DENSITY,3,sides[0],sides[1]);
       obj[i].geom[0] = dCreateCapsule (space,sides[0],sides[1]);
     }
@@ -277,7 +273,7 @@ static void command (int cmd)
     }
 */
     else if (cmd == 's') {
-      sides[0] *= 0.5;
+      sides[0] *= REAL(0.5);
       dMassSetSphere (&m,DENSITY,sides[0]);
       obj[i].geom[0] = dCreateSphere (space,sides[0]);
     }
@@ -294,25 +290,25 @@ static void command (int cmd)
             // set random delta positions
             for (j=0; j<GPB; j++)
                 for (k=0; k<3; k++)
-                    dpos[j][k] = dRandReal()*0.3-0.15;
+                    dpos[j][k] = dRandReal()*REAL(0.3)-REAL(0.15);
     
             for (k=0; k<GPB; k++) {
                 if (k==0) {
-                    dReal radius = dRandReal()*0.25+0.05;
+                    dReal radius = dRandReal()*REAL(0.25)+REAL(0.05);
                     obj[i].geom[k] = dCreateSphere (space,radius);
                     dMassSetSphere (&m2,DENSITY,radius);
                 } else if (k==1) {
                     obj[i].geom[k] = dCreateBox(space,sides[0],sides[1],sides[2]);
                     dMassSetBox(&m2,DENSITY,sides[0],sides[1],sides[2]);
                 } else {
-                    dReal radius = dRandReal()*0.1+0.05;
-                    dReal length = dRandReal()*1.0+0.1;
+                    dReal radius = dRandReal()*REAL(0.1)+REAL(0.05);
+                    dReal length = dRandReal()*REAL(1.0)+REAL(0.1);
                     obj[i].geom[k] = dCreateCapsule(space,radius,length);
                     dMassSetCapsule(&m2,DENSITY,3,radius,length);
                 }
 
-                dRFromAxisAndAngle(drot[k],dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-                                   dRandReal()*2.0-1.0,dRandReal()*10.0-5.0);
+                dRFromAxisAndAngle(drot[k],dRandReal()*2-1,dRandReal()*2-1,
+                                   dRandReal()*2-1,dRandReal()*10-5);
                 dMassRotate(&m2,drot[k]);
 		
                 dMassTranslate(&m2,dpos[k][0],dpos[k][1],dpos[k][2]);
@@ -334,7 +330,7 @@ static void command (int cmd)
 
         } else if (cmd == 'v') {
 
-            dMassSetBox (&m,DENSITY,0.25,0.25,0.25);
+            dMassSetBox (&m,DENSITY,REAL(0.25),REAL(0.25),REAL(0.25));
 
             obj[i].geom[0] = dCreateConvex(space,
                                            planes,
@@ -391,14 +387,14 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
     dsDrawBox (pos,R,sides);
   }
   else if (type == dSphereClass) {
-    dsDrawSphere (pos,R,dGeomSphereGetRadius (g));
+    dsDrawSphere (pos,R,(float)dGeomSphereGetRadius (g));
   }
   else if (type == dCapsuleClass) {
     dReal radius,length;
     dGeomCapsuleGetParams (g,&radius,&length);
-    dsDrawCapsule (pos,R,length,radius);
+    dsDrawCapsule (pos,R,(float)length,(float)radius);
   } else if (type == dConvexClass) {
-   //dVector3 sides={0.50,0.50,0.50};
+   //dVector3 sides={REAL(0.50),REAL(0.50),REAL(0.50)};
     dsDrawConvex(pos,R,planes,
                  planecount,
                  points,
@@ -419,12 +415,12 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
     dReal aabb[6];
     dGeomGetAABB (g,aabb);
     dVector3 bbpos;
-    for (int i=0; i<3; i++) bbpos[i] = 0.5*(aabb[i*2] + aabb[i*2+1]);
+    for (int i=0; i<3; i++) bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
     dVector3 bbsides;
     for (int j=0; j<3; j++) bbsides[j] = aabb[j*2+1] - aabb[j*2];
     dMatrix3 RI;
     dRSetIdentity (RI);
-    dsSetColorAlpha (1,0,0,0.5);
+    dsSetColorAlpha (1,0,0,REAL(0.5));
     dsDrawBox (bbpos,RI,bbsides);
   }
 }
@@ -436,8 +432,8 @@ static void simLoop (int pause)
 {
   dsSetColor (0,0,2);
   dSpaceCollide (space,NULL,&nearCallback);
-  if (!pause) dWorldStep (world,0.05);
-  //if (!pause) dWorldStepFast (world,0.05, 1);
+  if (!pause) dWorldStep (world,REAL(0.05));
+  //if (!pause) dWorldStepFast (world,REAL(0.05), 1);
 
   // remove all contact joints
   dJointGroupEmpty (contactgroup);
@@ -447,7 +443,7 @@ static void simLoop (int pause)
   for (int i=0; i<num; i++) {
     for (int j=0; j < GPB; j++) {
       if (i==selected) {
-	dsSetColor (0,0.7,1);
+	dsSetColor (0,0.7f,1);
       }
       else if (! dBodyIsEnabled (obj[i].body)) {
 	dsSetColor (1,0,0);
@@ -470,11 +466,11 @@ static void simLoop (int pause)
 
   {for (int i = 0; i < IndexCount / 3; i++){
     const float *p = Vertices[Indices[i * 3 + 0]];
-    const dVector3 v0 = { p[0], p[1], p[2] };
+    const dVector3 v0 = { (dReal)p[0], (dReal)p[1], (dReal)p[2] };
     p = Vertices[Indices[i * 3 + 1]];
-    const dVector3 v1 = { p[0], p[1], p[2] };
+    const dVector3 v1 = { (dReal)p[0], (dReal)p[1], (dReal)p[2] };
     p = Vertices[Indices[i * 3 + 2]];
-    const dVector3 v2 = { p[0], p[1], p[2] };
+    const dVector3 v2 = { (dReal)p[0], (dReal)p[1], (dReal)p[2] };
     dsDrawTriangle(Pos, Rot, v0, v1, v2, 0);
   }}}
 
@@ -512,30 +508,30 @@ int main (int argc, char **argv)
 
   space = dSimpleSpaceCreate(NULL);
   contactgroup = dJointGroupCreate (0);
-  dWorldSetGravity (world,0,0,-0.5);
-  dWorldSetCFM (world,1e-5);
+  dWorldSetGravity (world,0,0,REAL(-0.5));
+  dWorldSetCFM (world,REAL(1e-5));
   //dCreatePlane (space,0,0,1,0);
   memset (obj,0,sizeof(obj));
   
-  Size[0] = 5.0f;
-  Size[1] = 5.0f;
-  Size[2] = 2.5f;
+  Size[0] = REAL(5.0);
+  Size[1] = REAL(5.0);
+  Size[2] = REAL(2.5);
   
-  Vertices[0][0] = -Size[0];
-  Vertices[0][1] = -Size[1];
-  Vertices[0][2] = Size[2];
+  Vertices[0][0] = (float)-Size[0];
+  Vertices[0][1] = (float)-Size[1];
+  Vertices[0][2] = (float) Size[2];
   
-  Vertices[1][0] = Size[0];
-  Vertices[1][1] = -Size[1];
-  Vertices[1][2] = Size[2];
+  Vertices[1][0] = (float) Size[0];
+  Vertices[1][1] = (float)-Size[1];
+  Vertices[1][2] = (float) Size[2];
   
-  Vertices[2][0] = Size[0];
-  Vertices[2][1] = Size[1];
-  Vertices[2][2] = Size[2];
+  Vertices[2][0] = (float) Size[0];
+  Vertices[2][1] = (float) Size[1];
+  Vertices[2][2] = (float) Size[2];
   
-  Vertices[3][0] = -Size[0];
-  Vertices[3][1] = Size[1];
-  Vertices[3][2] = Size[2];
+  Vertices[3][0] = (float)-Size[0];
+  Vertices[3][1] = (float) Size[1];
+  Vertices[3][2] = (float) Size[2];
   
   Vertices[4][0] = 0;
   Vertices[4][1] = 0;
@@ -567,15 +563,15 @@ int main (int argc, char **argv)
 
   //dGeomSetPosition(TriMesh, 0, 0, 1.0);
   
-  Ray = dCreateRay(space, 0.9);
+  Ray = dCreateRay(space, REAL(0.9));
   dVector3 Origin, Direction;
   Origin[0] = 0.0;
   Origin[1] = 0;
-  Origin[2] = 0.5;
+  Origin[2] = REAL(0.5);
   Origin[3] = 0;
   
   Direction[0] = 0;
-  Direction[1] = 1.1f;
+  Direction[1] = REAL(1.1);
   Direction[2] = -1;
   Direction[3] = 0;
   dNormalize3(Direction);

@@ -116,8 +116,8 @@ void dMassSetParameters (dMass *m, dReal themass,
 
 void dMassSetSphere (dMass *m, dReal density, dReal radius)
 {
-    dMassSetSphereTotal (m, (dReal) ((REAL(4.0)/REAL(3.0)) * M_PI *
-        radius*radius*radius * density), radius);
+    dMassSetSphereTotal (m, (dReal) ((4.0/3.0) * M_PI *
+        (double)radius*(double)radius*(double)radius * (double)density), radius);
 }
 
 
@@ -144,8 +144,8 @@ void dMassSetCapsule (dMass *m, dReal density, int direction,
     dAASSERT (m);
     dUASSERT (direction >= 1 && direction <= 3,"bad direction number");
     dMassSetZero (m);
-    M1 = (dReal) (M_PI*radius*radius*length*density);			  // cylinder mass
-    M2 = (dReal) ((REAL(4.0)/REAL(3.0))*M_PI*radius*radius*radius*density); // total cap mass
+    M1 = (dReal) (M_PI*(double)radius*(double)radius*(double)length*(double)density);			  // cylinder mass
+    M2 = (dReal) ((4.0/3.0)*M_PI*(double)radius*(double)radius*(double)radius*(double)density); // total cap mass
     m->mass = M1+M2;
     Ia = M1*(REAL(0.25)*radius*radius + (REAL(1.0)/REAL(12.0))*length*length) +
         M2*(REAL(0.4)*radius*radius + REAL(0.375)*radius*length + REAL(0.25)*length*length);
@@ -172,7 +172,7 @@ void dMassSetCapsuleTotal (dMass *m, dReal total_mass, int direction,
 void dMassSetCylinder (dMass *m, dReal density, int direction,
                        dReal radius, dReal length)
 {
-    dMassSetCylinderTotal (m, (dReal) (M_PI*radius*radius*length*density),
+    dMassSetCylinderTotal (m, (dReal) (M_PI*(double)radius*(double)radius*(double)length*(double)density),
         direction, radius, length);
 }
 
@@ -264,9 +264,9 @@ void dMassSetTrimesh( dMass *m, dReal density, dGeomID g )
         dSubtractVectors3( a, v[1], v[0] ); 
         dSubtractVectors3( b, v[2], v[0] ); 
         dCalcVectorCross3( n, b, a );
-        nx = fabs(n[0]);
-        ny = fabs(n[1]);
-        nz = fabs(n[2]);
+        nx = dFabs(n[0]);
+        ny = dFabs(n[1]);
+        nz = dFabs(n[2]);
 
         if( nx > ny && nx > nz )
             C = 0;
@@ -349,16 +349,16 @@ void dMassSetTrimesh( dMass *m, dReal density, dGeomID g )
                         Pabb += da*(a1*Cabb + a0*Kabb);
                     }
 
-                    P1 /= 2.0;
-                    Pa /= 6.0;
-                    Paa /= 12.0;
-                    Paaa /= 20.0;
-                    Pb /= -6.0;
-                    Pbb /= -12.0;
-                    Pbbb /= -20.0;
-                    Pab /= 24.0;
-                    Paab /= 60.0;
-                    Pabb /= -60.0;
+                    P1 /= REAL(2.0);
+                    Pa /= REAL(6.0);
+                    Paa /= REAL(12.0);
+                    Paaa /= REAL(20.0);
+                    Pb /= REAL(-6.0);
+                    Pbb /= REAL(-12.0);
+                    Pbbb /= REAL(-20.0);
+                    Pab /= REAL(24.0);
+                    Paab /= REAL(60.0);
+                    Pabb /= REAL(-60.0);
                 }
 
                 w = - dCalcVectorDot3(n, v[0]);

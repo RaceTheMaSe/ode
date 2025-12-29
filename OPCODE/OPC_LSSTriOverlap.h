@@ -204,7 +204,7 @@ static float OPC_SegmentSegmentSqrDist(const IceMaths::Segment& rkSeg0, const Ic
 			}
 			else
 			{
-				if ( fT >= 0.0 )
+				if ( fT >= 0.0f )
 				{
 					if ( fT <= fDet )  // region 1 (side)
 					{

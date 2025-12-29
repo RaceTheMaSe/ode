@@ -917,14 +917,14 @@ static double g_prevElapsedTime = 0.0;
 double dsElapsedTime()
 {
     double curr = timeGetTime() / 1000.0;
-    if (!g_prevElapsedTime) {
+    if (g_prevElapsedTime == 0.0) {
         g_prevElapsedTime = curr;
     }
 
     double retval = curr - g_prevElapsedTime;
     g_prevElapsedTime = curr;
     
-    retval = dCLAMP(retval, dEpsilon, 1.0);
+    retval = dCLAMP(retval, (double)dEpsilon, 1.0);
 
     return retval;
 }

@@ -450,7 +450,7 @@ dReal dxTriDataBase::calculateEdgeAngleValidated(unsigned firstVertexStartIndex,
     else
     {
         result = (dReal)M_PI_2;
-        dIASSERT(angleCosine - REAL(1.0) < 1e-4); // The computational error can not be too high because the dot product had been verified to be greater than the concave threshold above
+        dIASSERT(angleCosine - REAL(1.0) < REAL(1e-4)); // The computational error can not be too high because the dot product had been verified to be greater than the concave threshold above
     }
 
     return result;

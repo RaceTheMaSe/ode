@@ -1,3 +1,14 @@
+#if defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wimplicit-float-conversion"
+#elif defined(__GNUC__)
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Wfloat-conversion"
+#elif defined(_MSC_VER)
+  #pragma warning( push )
+  #pragma warning( disable : 4305 ) // truncation from double to float
+#endif
+
 const unsigned int convexBunnyPlaneCount = 176;
 static dReal convexBunnyPlanes[] =
 {
@@ -466,3 +477,11 @@ static unsigned int convexBunnyPolygons[] =
 	3, 19, 36, 104,
 	3, 104, 93, 19,
 };
+
+#if defined(__clang__)
+	#pragma clang diagnostic pop
+#elif defined(__GNUC__)
+	#pragma GCC diagnostic pop
+#elif defined(_MSC_VER)
+  #pragma warning( pop )
+#endif

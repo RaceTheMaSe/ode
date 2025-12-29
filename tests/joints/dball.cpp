@@ -65,11 +65,11 @@ SUITE (TestdxJointDBall)
         dBodySetPosition(b1, -1, -2, -3);
         dBodySetPosition(b2, 3, 5, 7);
         dJointAttach(j, b1, b2); // this recomputes the deduced target distance
-        CHECK_CLOSE(dJointGetDBallDistance(j), dSqrt(REAL(165.0)), 1e-4);
+        CHECK_CLOSE(dJointGetDBallDistance(j), dSqrt(REAL(165.0)), REAL(1e-4));
 
         // moving body should not change target distance
         dBodySetPosition(b1, 2,3,4);
-        CHECK_CLOSE(dJointGetDBallDistance(j), dSqrt(REAL(165.0)), 1e-4);
+        CHECK_CLOSE(dJointGetDBallDistance(j), dSqrt(REAL(165.0)), REAL(1e-4));
 
         // setting target distance manually should override the deduced one
         dJointSetDBallDistance(j, REAL(6.0));

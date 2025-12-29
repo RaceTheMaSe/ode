@@ -50,10 +50,10 @@ struct Box {
     dBox geom;
     Box() :
         body(*world),
-        geom(*space, 0.2, 0.2, 0.2)
+        geom(*space, REAL(0.2), REAL(0.2), REAL(0.2))
     {
         dMass mass;
-        mass.setBox(10, 0.2, 0.2, 0.2);
+        mass.setBox(10, REAL(0.2), REAL(0.2), REAL(0.2));
         body.setMass(mass);
         geom.setData(this);
         geom.setBody(body);
@@ -76,9 +76,9 @@ static void dropBox()
     Box *box = new Box();
     if(box)
     {
-        dReal px = (rand() / float(RAND_MAX)) * 2 - 1;
-        dReal py = (rand() / float(RAND_MAX)) * 2 - 1;
-        dReal pz = 2.5;
+        dReal px = ((dReal)rand() / dReal(RAND_MAX)) * 2 - 1;
+        dReal py = ((dReal)rand() / dReal(RAND_MAX)) * 2 - 1;
+        dReal pz = REAL(2.5);
         box->body.setPosition(px, py, pz);
         
         boxes.insert(box);
@@ -135,14 +135,14 @@ static void
 simLoop(int pause)
 {
     if (!pause) {
-        const dReal timestep = 0.04;
+        const dReal timestep = REAL(0.04);
 
         // this does a hard-coded circular motion animation
         static float t=0;
-        t += timestep/4;
-        if (t > 2*M_PI)
+        t += (float)(timestep/4);
+        if (t > (float)(2*M_PI))
             t = 0;
-        dVector3 next_pos = { dCos(t), dSin(t), REAL(0.5)};
+        dVector3 next_pos = { (dReal)dCos(t), (dReal)dSin(t), REAL(0.5)};
         dVector3 vel;
         // vel = (next_pos - cur_pos) / timestep
         dSubtractVectors3(vel, next_pos, kbody->getPosition());
@@ -162,13 +162,13 @@ simLoop(int pause)
     // the moving platform
     kbox->getLengths(lengths);
     dsSetTexture(DS_WOOD);
-    dsSetColor(.3, .3, 1);
+    dsSetColor(.3f, .3f, 1);
     dsDrawBox(kbox->getPosition(), kbox->getRotation(), lengths);
     dReal length, radius;
     kpole->getParams(&radius, &length);
     dsSetTexture(DS_CHECKERED);
     dsSetColor(1, 1, 0);
-    dsDrawCylinder(kpole->getPosition(), kpole->getRotation(), length, radius);
+    dsDrawCylinder(kpole->getPosition(), kpole->getRotation(), (float)length, (float)radius);
     
     // the matraca
     matraca_geom->getLengths(lengths);
@@ -214,24 +214,24 @@ int main(int argc, char **argv)
     ground = new dPlane(*space, 0, 0, 1, 0);
     
     world = new dWorld;
-    world->setGravity(0, 0, -.5);
+    world->setGravity(0, 0, REAL(-.5));
     
     kbody = new dBody(*world);
     kbody->setKinematic();
-    const dReal kx = 1, ky = 0, kz = .5;
+    const dReal kx = 1, ky = 0, kz = REAL(.5);
     kbody->setPosition(kx, ky, kz);
-    kbox = new dBox(*space, 3, 3, .5);
+    kbox = new dBox(*space, 3, 3, REAL(.5));
     kbox->setBody(*kbody);
-    kpole = new dCylinder(*space, .125, 1.5);
+    kpole = new dCylinder(*space, REAL(.125), REAL(1.5));
     kpole->setBody(*kbody);
-    dGeomSetOffsetPosition(kpole->id(), 0, 0, 0.8);
+    dGeomSetOffsetPosition(kpole->id(), 0, 0, REAL(0.8));
     
     matraca = new dBody(*world);
     matraca->setPosition(kx+0, ky+1, kz+1);
-    matraca_geom = new dBox(*space, 0.5, 2, 0.75);
+    matraca_geom = new dBox(*space, REAL(0.5), 2, REAL(0.75));
     matraca_geom->setBody(*matraca);
     dMass mass;
-    mass.setBox(1, 0.5, 2, 0.75);
+    mass.setBox(1, REAL(0.5), 2, REAL(0.75));
     matraca->setMass(mass);
     
     hinge = new dHingeJoint(*world);

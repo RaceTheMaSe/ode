@@ -264,7 +264,7 @@ bool IntersectSegmentPlane(dVector3 a,
     t = (p[3] - dCalcVectorDot3(p,a)) / dCalcVectorDot3(p,ab);
 
     // If t in [0..1] compute and return intersection point
-    if (t >= 0.0 && t <= 1.0)
+    if (t >= REAL(0.0) && t <= REAL(1.0))
     {
         q[0] = a[0] + t * ab[0];
         q[1] = a[1] + t * ab[1];
@@ -299,7 +299,7 @@ static inline bool ClosestPointInRay(const dVector3 Origin1,
     dReal d = dCalcVectorDot3(Direction1 , w);
     dReal e = dCalcVectorDot3(Direction2 , w);
     dReal denominator = (a*c)-(b*b);
-    if(denominator==0.0f)
+    if(denominator==REAL(0.0))
     {
         return false;
     }
@@ -351,9 +351,9 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
     if (a <= dEpsilon)
     {
         // First segment degenerates into a point
-        s = 0.0f;
+        s = REAL(0.0);
         t = f / e; // s = 0 => t = (b*s + f) / e = f / e
-        t = dxClamp(t, 0.0f, 1.0f);
+        t = dxClamp(t, REAL(0.0), REAL(1.0));
     }
     else
     {
@@ -361,8 +361,8 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
         if (e <= dEpsilon)
         {
             // Second segment degenerates into a point
-            t = 0.0f;
-            s = dxClamp(-c / a, 0.0f, 1.0f); // t = 0 => s = (b*t - c) / a = -c / a
+            t = REAL(0.0);
+            s = dxClamp(-c / a, REAL(0.0), REAL(1.0)); // t = 0 => s = (b*t - c) / a = -c / a
         }
         else
         {
@@ -372,11 +372,11 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
 
             // If segments not parallel, compute closest point on L1 to L2, and
             // clamp to segment S1. Else pick arbitrary s (here 0)
-            if (denom != 0.0f)
+            if (denom != REAL(0.0))
             {
-                s = dxClamp((b*f - c*e) / denom, 0.0f, 1.0f);
+                s = dxClamp((b*f - c*e) / denom, REAL(0.0), REAL(1.0));
             }
-            else s = 0.0f;
+            else s = REAL(0.0);
 #if 0
             // Compute point on L2 closest to S1(s) using
             // t = Dot((P1+D1*s)-P2,D2) / Dot(D2,D2) = (b*s + f) / e
@@ -387,22 +387,22 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
             // and clamp s to [0, 1]
             if (t < 0.0f) {
                 t = 0.0f;
-                s = dxClamp(-c / a, 0.0f, 1.0f);
+                s = dxClamp(-c / a, REAL(0.0), REAL(1.0));
             } else if (t > 1.0f) {
                 t = 1.0f;
-                s = dxClamp((b - c) / a, 0.0f, 1.0f);
+                s = dxClamp((b - c) / a, REAL(0.0), REAL(1.0));
             }
 #else
             dReal tnom = b*s + f;
-            if (tnom < 0.0f)
+            if (tnom < REAL(0.0))
             {
-                t = 0.0f;
-                s = dxClamp(-c / a, 0.0f, 1.0f);
+                t = REAL(0.0);
+                s = dxClamp(-c / a, REAL(0.0), REAL(1.0));
             }
             else if (tnom > e)
             {
-                t = 1.0f;
-                s = dxClamp((b - c) / a, 0.0f, 1.0f);
+                t = REAL(1.0);
+                s = dxClamp((b - c) / a, REAL(0.0), REAL(1.0));
             }
             else
             {
@@ -424,10 +424,10 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
 dReal tnom = b*s + f;
 if (tnom < 0.0f) {
     t = 0.0f;
-    s = dxClamp(-c / a, 0.0f, 1.0f);
+    s = dxClamp(-c / a, REAL(0.0), REAL(1.0));
 } else if (tnom > e) {
     t = 1.0f;
-    s = dxClamp((b - c) / a, 0.0f, 1.0f);
+    s = dxClamp((b - c) / a, REAL(0.0), REAL(1.0));
 } else {
     t = tnom / e;
 }

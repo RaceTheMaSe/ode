@@ -40,9 +40,9 @@ static bool applyForce = false;
 static void start()
 {
     world = dWorldCreate();
-    dWorldSetGravity (world,0,0,-9.8);
+    dWorldSetGravity (world,0,0,REAL(-9.8));
 
-    dWorldSetDamping(world, 1e-4, 1e-5);
+    dWorldSetDamping(world, REAL(1e-4), REAL(1e-5));
 //    dWorldSetERP(world, 1);
 
     space = dSimpleSpaceCreate (NULL);
@@ -57,14 +57,14 @@ static void start()
     dGeomID g;
     dMass mass;
     
-    g = dCreateBox(space, 0.2, 0.2, 1);
+    g = dCreateBox(space, REAL(0.2), REAL(0.2), 1);
     dGeomSetBody(g, body1);
-    dMassSetBox(&mass, 1, 0.2, 0.2, 1);
+    dMassSetBox(&mass, 1, REAL(0.2), REAL(0.2), 1);
     dBodySetMass(body1, &mass);
     
-    g = dCreateBox(space, 0.2, 0.2, 1);
+    g = dCreateBox(space, REAL(0.2), REAL(0.2), 1);
     dGeomSetBody(g, body2);
-    dMassSetBox(&mass, 1, 0.2, 0.2, 1);
+    dMassSetBox(&mass, 1, REAL(0.2), REAL(0.2), 1);
     dBodySetMass(body2, &mass);
 
 #if 1
@@ -92,7 +92,7 @@ static void start()
 
 
     // initial camera position
-    float xyz[3] = {3.8966, -2.0614, 4.0300};
+    float xyz[3] = {3.8966f, -2.0614f, 4.0300f};
     float hpr[3] = {153.5, -16.5, 0};
     dsSetViewpoint (xyz,hpr);
 }
@@ -137,27 +137,27 @@ static void simLoop(int pause)
 
         static dReal t = 0;
 
-        const dReal step = 0.005;
+        const dReal step = REAL(0.005);
         const unsigned nsteps = 2;
 
         for (unsigned i=0; i<nsteps; ++i) {
 
-            applyForce = fmodf(t, 3.) > 2.;
+            applyForce = fmodf((float)t, 3.f) > 2.f;
 
             if (applyForce) {
-                dReal f = 0.3 * sin(t*1.2);
+                dReal f = REAL(0.3) * dSin(t*REAL(1.2));
                 dBodyAddForceAtRelPos(body1,
                                       f, 0, 0, 
                                       0, 0, -0.5); // at the lower end
                 
-                dReal g = 0.3 * sin(t*0.7);
+                dReal g = REAL(0.3) * dSin(t*REAL(0.7));
                 dBodyAddForceAtRelPos(body2,
                                       0, g, 0, 
                                       0, 0, -0.5); // at the lower end
             }
             
             t += step;
-            if (t > 20.)
+            if (t > REAL(20.))
                 t = 0.;
 
             dWorldQuickStep(world, step);

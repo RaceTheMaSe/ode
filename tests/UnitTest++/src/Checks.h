@@ -11,7 +11,7 @@ namespace UnitTest {
 template< typename Value >
 bool Check(Value const value)
 {
-    return !!value; // doing double negative to avoid silly VS warnings
+    return value != 0;
 }
 
 

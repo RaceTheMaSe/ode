@@ -32,10 +32,6 @@ A bunch of spheres with rolling friction.
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
@@ -47,11 +43,11 @@ A bunch of spheres with rolling friction.
 #define GRAVITY 10	// the global gravity to use
 #define RAMP_COUNT 8
 
-static const dReal rampX = 6.0f;
-static const dReal rampY = 0.5f;
-static const dReal rampZ = 0.25f;
-static const dReal sphereRadius = 0.25f;
-static const dReal maxRamp = M_PI/4.0f; // Needs to be less than pi/2
+static const dReal rampX = REAL(6.0);
+static const dReal rampY = REAL(0.5);
+static const dReal rampZ = REAL(0.25);
+static const dReal sphereRadius = REAL(0.25);
+static const dReal maxRamp = dReal(M_PI/4.0); // Needs to be less than pi/2
 static const dReal rampInc = maxRamp/RAMP_COUNT;
 
 // dynamics and collision objects
@@ -148,12 +144,12 @@ static void reset()
     for (int ii=0;ii<RAMP_COUNT;++ii) {
         dQuaternion q;
 
-        dReal angle = (ii+1)*rampInc;
+        dReal angle = dReal(ii+1)*rampInc;
         dReal cosA = dCos(angle);
         dReal sinA = dSin(angle);
         dReal rampW = rampX/cosA; // Box width that preserves ground distance
         dReal zPos = REAL(0.5)*(sinA*rampW-cosA*rampZ); // Position that makes end meet ground
-        dReal yPos = ii*1.25*rampY;
+        dReal yPos = dReal(ii)*REAL(1.25)*rampY;
         dReal xPos = 0;
     
     
@@ -180,19 +176,19 @@ static void command (int cmd)
 {
     switch (cmd) {
         case 'h': case 'H':
-            rho-=0.02; 
+            rho-=REAL(0.02);
             if (rho<0) rho=0;
             break;	
         case 'j': case 'J':
-            rho+=0.02;
+            rho+=REAL(0.02);
             if (rho>1) rho=1;
             break;
         case 'n': case 'N':
-            mu-=0.02;
+            mu-=REAL(0.02);
             if (mu<0) mu=0;
             break;
         case 'm': case 'M':
-            mu+=0.02;
+            mu+=REAL(0.02);
             if (mu>1) mu=1;
             break;
         case 'r': case 'R':
@@ -215,7 +211,7 @@ static void simLoop (int pause)
 {
     if (!pause) {
         dSpaceCollide (space,NULL,&nearCallback);
-        dWorldStep (world,0.017); // 60 fps
+        dWorldStep (world,REAL(0.017)); // 60 fps
         // remove all contact joints
         dJointGroupEmpty (contactgroup);
     }
@@ -230,7 +226,7 @@ static void simLoop (int pause)
         dsDrawBox (dGeomGetPosition(rampGeom[ii]),dGeomGetRotation(rampGeom[ii]),sides);
 
         dsSetColor(0,0,1);
-        dsDrawSphere (dGeomGetPosition(sphereGeom[ii]),dGeomGetRotation(sphereGeom[ii]), sphereRadius);
+        dsDrawSphere (dGeomGetPosition(sphereGeom[ii]),dGeomGetRotation(sphereGeom[ii]), (float)sphereRadius);
     }
 }
 

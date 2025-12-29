@@ -165,12 +165,12 @@ void dxTriMeshData::templateCalculateDataAABB(dVector3 &AABBMax, dVector3 &AABBM
     for( unsigned i = 0; i < vertexCount; ++i ) 
     {
         const treal *v = (const treal *)verts;
-        if( v[dSA_X] > AABBMax[dV3E_X] ) AABBMax[dV3E_X] = (dReal)v[dSA_X];
-        if( v[dSA_X] < AABBMin[dV3E_X] ) AABBMin[dV3E_X] = (dReal)v[dSA_X];
-        if( v[dSA_Y] > AABBMax[dV3E_Y] ) AABBMax[dV3E_Y] = (dReal)v[dSA_Y];
-        if( v[dSA_Y] < AABBMin[dV3E_Y] ) AABBMin[dV3E_Y] = (dReal)v[dSA_Y];
-        if( v[dSA_Z] > AABBMax[dV3E_Z] ) AABBMax[dV3E_Z] = (dReal)v[dSA_Z];
-        if( v[dSA_Z] < AABBMin[dV3E_Z] ) AABBMin[dV3E_Z] = (dReal)v[dSA_Z];
+        if( v[dSA_X] > (treal)AABBMax[dV3E_X] ) AABBMax[dV3E_X] = (dReal)v[dSA_X];
+        if( v[dSA_X] < (treal)AABBMin[dV3E_X] ) AABBMin[dV3E_X] = (dReal)v[dSA_X];
+        if( v[dSA_Y] > (treal)AABBMax[dV3E_Y] ) AABBMax[dV3E_Y] = (dReal)v[dSA_Y];
+        if( v[dSA_Y] < (treal)AABBMin[dV3E_Y] ) AABBMin[dV3E_Y] = (dReal)v[dSA_Y];
+        if( v[dSA_Z] > (treal)AABBMax[dV3E_Z] ) AABBMax[dV3E_Z] = (dReal)v[dSA_Z];
+        if( v[dSA_Z] < (treal)AABBMin[dV3E_Z] ) AABBMin[dV3E_Z] = (dReal)v[dSA_Z];
         verts += vertexStide;
     }
 }
@@ -243,7 +243,7 @@ struct TrimeshDataTrianglePointAccessor_OPCODE
 
         for (unsigned pointIndex = 0; pointIndex != 3; ++pointIndex)
         {
-            dAssignVector3(out_Points[pointIndex], vpTriangle.Vertex[pointIndex]->x, vpTriangle.Vertex[pointIndex]->y, vpTriangle.Vertex[pointIndex]->z);
+            dAssignVector3(out_Points[pointIndex], (dReal)vpTriangle.Vertex[pointIndex]->x, (dReal)vpTriangle.Vertex[pointIndex]->y, (dReal)vpTriangle.Vertex[pointIndex]->z);
         }
         dSASSERT(dMTV_FIRST == 0);
         dSASSERT(dMTV_SECOND == 1);
@@ -539,9 +539,9 @@ void dxTriMesh::fetchMeshTriangle(dVector3 *const pout_triangle[3], unsigned ind
         if (pout_triangle[i] != NULL)
         {
             dVector3 v;
-            v[dV3E_X] = VP.Vertex[i]->x;
-            v[dV3E_Y] = VP.Vertex[i]->y;
-            v[dV3E_Z] = VP.Vertex[i]->z;
+            v[dV3E_X] = (dReal)VP.Vertex[i]->x;
+            v[dV3E_Y] = (dReal)VP.Vertex[i]->y;
+            v[dV3E_Z] = (dReal)VP.Vertex[i]->z;
 
             dVector3 &out_triangle = *(pout_triangle[i]);
             dMultiply0_331(out_triangle, rotation, v);
@@ -568,9 +568,9 @@ void dxTriMesh::fetchMeshTriangle(dVector3 out_triangle[3], unsigned index, cons
     for (unsigned i = 0; i != 3; ++i)
     {
         dVector3 v;
-        v[dV3E_X] = VP.Vertex[i]->x;
-        v[dV3E_Y] = VP.Vertex[i]->y;
-        v[dV3E_Z] = VP.Vertex[i]->z;
+        v[dV3E_X] = (dReal)VP.Vertex[i]->x;
+        v[dV3E_Y] = (dReal)VP.Vertex[i]->y;
+        v[dV3E_Z] = (dReal)VP.Vertex[i]->z;
 
         dMultiply0_331(out_triangle[i], rotation, v);
         dAddVectors3(out_triangle[i], out_triangle[i], position);

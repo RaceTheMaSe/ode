@@ -22,10 +22,6 @@
 
 // OPCODE TriMesh/TriMesh collision code by Jeff Smith (c) 2004
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 #include <ode/collision.h>
 #include <ode/rotation.h>
 #include "config.h"
@@ -87,7 +83,7 @@ static int RayTriangleIntersect(const dVector3 orig, const dVector3 dir,
 
 
 /* some math macros */
-#define IS_ZERO(v) (!(v)[0] && !(v)[1] && !(v)[2])
+#define IS_ZERO(v) ((v)[0] == 0 && (v)[1] == 0 && (v)[2] == 0)
 
 #define CROSS(dest,v1,v2) dCalcVectorCross3(dest, v1, v2)
 
@@ -286,7 +282,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                         ContactPt[j] = 0.0;
                                         for (int k=0; k<3; k++)
                                             ContactPt[j] += v1[k][j] + v2[k][j];
-                                        ContactPt[j] /= 6.0;
+                                        ContactPt[j] /= REAL(6.0);
                                     }
                                     ContactPt[3] = 1.0;
 
@@ -299,7 +295,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                     // i.e.  d = DOT(n, (A-B))
                                     DEPTH(depth, v1[1], v2[1], n);
                                     if (depth < 0)
-                                        depth *= -1.0;
+                                        depth *= REAL(-1.0);
 
                                     GenerateContact(Flags, Contacts, Stride,  TriMesh1,  TriMesh2, id1, id2,
                                         ContactPt, n, depth, OutTriCount);
@@ -539,11 +535,11 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                             }
                                         }
 
-                                        if (dp >= 0.0) {
+                                        if (dp >= REAL(0.0)) {
                                             contact_elt_length = dFabs(dCalcVectorDot3(firstClippedElt[j], n));
 
                                             depth = dp;
-                                            if (depth == 0.0)
+                                            if (depth == REAL(0.0))
                                                 depth = dMin(DISTANCE_EPSILON, contact_elt_length);
 
                                             if ((contact_elt_length < SMALL_ELT) && (depth < EXPANDED_ELT_THRESH))
@@ -641,11 +637,11 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                         }
 
 
-                                        if (dp >= 0.0) {
+                                        if (dp >= REAL(0.0)) {
                                             contact_elt_length = dFabs(dCalcVectorDot3(secondClippedElt[j],n));
 
                                             depth = dp;
-                                            if (depth == 0.0)
+                                            if (depth == REAL(0.0))
                                                 depth = dMin(DISTANCE_EPSILON, contact_elt_length);
 
                                             if ((contact_elt_length < SMALL_ELT) && (depth < EXPANDED_ELT_THRESH))
@@ -729,12 +725,12 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                                     }
                                                 }
                                             }
-                                            if (depth < 0.0) {
+                                            if (depth < REAL(0.0)) {
                                                 SMULT(n, n, -1.0);
-                                                depth *= -1.0;
+                                                depth *= REAL(-1.0);
                                             }
 
-                                            if ((depth > 0.0) && (depth <= contact_elt_length)) {
+                                            if ((depth > REAL(0.0)) && (depth <= contact_elt_length)) {
                                                 GenerateContact(Flags, Contacts, Stride,  TriMesh1,  TriMesh2, id1, id2,
                                                     ContactPt, n, depth, OutTriCount);
                                                 badPen = false;
@@ -745,7 +741,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                 }
 
 
-                                if (badPen && elt_sum_len != 0.0) {
+                                if (badPen && elt_sum_len != REAL(0.0)) {
                                     // Use as the normal the direction of travel, rather than any particular
                                     //  face normal
                                     //
@@ -776,7 +772,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                         }
                                     }
 
-                                    if ((depth > 0.0) && (depth <= contact_elt_length)) {
+                                    if ((depth > REAL(0.0)) && (depth <= contact_elt_length)) {
                                         GenerateContact(Flags, Contacts, Stride,  TriMesh1,  TriMesh2, id1, id2,
                                             ContactPt, esn, depth, OutTriCount);
                                         badPen = false;
@@ -784,7 +780,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                 }
 
 
-                                if (badPen && elt_sum_len != 0.0) {
+                                if (badPen && elt_sum_len != REAL(0.0)) {
                                     // If the direction of motion is perpindicular to both normals
                                     if ( (dFabs(dCalcVectorDot3(n1, elt_sum)) < REAL(0.01)) && (dFabs(dCalcVectorDot3(n2, elt_sum)) < REAL(0.01)) ) {
                                         dVector3 esn;
@@ -803,7 +799,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                         for (int j=0; j<firstClippedTri.Count; j++) {
                                             DEPTH(dp, CoplanarPt, firstClippedTri.Points[j], esn);
 
-                                            if (dp >= 0.0) {
+                                            if (dp >= REAL(0.0)) {
                                                 contact_elt_length = dFabs(dCalcVectorDot3(firstClippedElt[j], esn));
 
                                                 depth = dp;
@@ -831,7 +827,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                             for (int j=0; j<secondClippedTri.Count; j++) {
                                                 DEPTH(dp, CoplanarPt, secondClippedTri.Points[j], esn);
 
-                                                if (dp >= 0.0) {
+                                                if (dp >= REAL(0.0)) {
                                                     contact_elt_length = dFabs(dCalcVectorDot3(secondClippedElt[j], esn));
 
                                                     depth = dp;
@@ -870,10 +866,10 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                         for (int j=0; j<3; j++) {
                                             DEPTH(dp, CoplanarPt, pen_v[j], n);
 
-                                            if (dp == 0.0)
+                                            if (dp == REAL(0.0))
                                                 dp = TINY_PENETRATION;
 
-                                            if ( (dp > 0.0) && (dp <= SMALL_ELT)) {
+                                            if ( (dp > REAL(0.0)) && (dp <= SMALL_ELT)) {
                                                 // Add a contact
                                                 GenerateContact(Flags, Contacts, Stride,  TriMesh1,  TriMesh2, id1, id2,
                                                     pen_v[j], n, dp, OutTriCount);
@@ -893,10 +889,10 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                             for (int j=0; j<3; j++) {
                                                 DEPTH(dp, CoplanarPt, pen_v[j], n);
 
-                                                if (dp == 0.0)
+                                                if (dp == REAL(0.0))
                                                     dp = TINY_PENETRATION;
 
-                                                if ( (dp > 0.0) && (dp <= SMALL_ELT)) {
+                                                if ( (dp > REAL(0.0)) && (dp <= SMALL_ELT)) {
                                                     GenerateContact(Flags, Contacts, Stride,  TriMesh1,  TriMesh2, id1, id2,
                                                         pen_v[j], n, dp, OutTriCount);
                                                     badPen = false;
@@ -936,7 +932,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                         }
                                     }
 
-                                    if (depth > 0.0) {
+                                    if (depth > REAL(0.0)) {
                                         // Add a tiny contact at the coplanar point
                                         GenerateContact(Flags, Contacts, Stride,  TriMesh1,  TriMesh2, id1, id2,
                                             CoplanarPt, ContactNormal, depth, OutTriCount);
@@ -1056,26 +1052,26 @@ dInvertMatrix4( dMatrix4& B, dMatrix4& Binv )
         -(B12 * B24 - B14 * B22) * (B31 * B43 - B33 * B41)
         +(B13 * B24 - B14 * B23) * (B31 * B42 - B32 * B41);
 
-    dAASSERT (det != 0.0);    
+    dAASSERT (det != REAL(0.0));    
 
-    det = 1.0 / det;
+    det = REAL(1.0) / det;
 
     Binv11 = (dReal) (det * ((B22 * B33) - (B23 * B32)));
     Binv12 = (dReal) (det * ((B32 * B13) - (B33 * B12)));
     Binv13 = (dReal) (det * ((B12 * B23) - (B13 * B22)));
-    Binv14 = 0.0f;
+    Binv14 = REAL(0.0);
     Binv21 = (dReal) (det * ((B23 * B31) - (B21 * B33)));
     Binv22 = (dReal) (det * ((B33 * B11) - (B31 * B13)));
     Binv23 = (dReal) (det * ((B13 * B21) - (B11 * B23)));
-    Binv24 = 0.0f;
+    Binv24 = REAL(0.0);
     Binv31 = (dReal) (det * ((B21 * B32) - (B22 * B31)));
     Binv32 = (dReal) (det * ((B31 * B12) - (B32 * B11)));
     Binv33 = (dReal) (det * ((B11 * B22) - (B12 * B21)));
-    Binv34 = 0.0f;
+    Binv34 = REAL(0.0);
     Binv41 = (dReal) (det * (B21*(B33*B42 - B32*B43) + B22*(B31*B43 - B33*B41) + B23*(B32*B41 - B31*B42)));
     Binv42 = (dReal) (det * (B31*(B13*B42 - B12*B43) + B32*(B11*B43 - B13*B41) + B33*(B12*B41 - B11*B42)));
     Binv43 = (dReal) (det * (B41*(B13*B22 - B12*B23) + B42*(B11*B23 - B13*B21) + B43*(B12*B21 - B11*B22)));
-    Binv44 = 1.0f;
+    Binv44 = REAL(1.0);
 }
 
 
@@ -1173,9 +1169,9 @@ pp. 199-202 */
     b=-(U0[i0]-U2[i0]);                       \
     c=-a*U2[i0]-b*U2[i1];                     \
     d2=a*V0[i0]+b*V0[i1]+c;                   \
-    if(d0*d1>0.0)                             \
+    if(d0*d1>REAL(0.0))                       \
     {                                         \
-        if(d0*d2>0.0) return 1;                 \
+        if(d0*d2>REAL(0.0)) return 1;         \
     }                                         \
 } do {} while(0)
 
@@ -1279,27 +1275,27 @@ inline int compute_intervals_isectline(dReal VERT0[3],dReal VERT1[3],dReal VERT2
                                        dReal D0D1,dReal D0D2,dReal *isect0,dReal *isect1,
                                        dReal isectpoint0[3],dReal isectpoint1[3])
 {
-    if(D0D1>0.0f)                                        
+    if(D0D1>REAL(0.0))                                        
     {                                                    
         /* here we know that D0D2<=0.0 */                  
         /* that is D0, D1 are on the same side, D2 on the other or on the plane */
         isect2(VERT2,VERT0,VERT1,VV2,VV0,VV1,D2,D0,D1,isect0,isect1,isectpoint0,isectpoint1);
     } 
-    else if(D0D2>0.0f)                                   
+    else if(D0D2>REAL(0.0))                                   
     {                                                   
         /* here we know that d0d1<=0.0 */             
         isect2(VERT1,VERT0,VERT2,VV1,VV0,VV2,D1,D0,D2,isect0,isect1,isectpoint0,isectpoint1);
     }                                                  
-    else if(D1*D2>0.0f || D0!=0.0f)   
+    else if(D1*D2>REAL(0.0) || D0!=REAL(0.0))   
     {                                   
         /* here we know that d0d1<=0.0 or that D0!=0.0 */
         isect2(VERT0,VERT1,VERT2,VV0,VV1,VV2,D0,D1,D2,isect0,isect1,isectpoint0,isectpoint1);   
     }                                                  
-    else if(D1!=0.0f)                                  
+    else if(D1!=REAL(0.0))                                  
     {                                               
         isect2(VERT1,VERT0,VERT2,VV1,VV0,VV2,D1,D0,D2,isect0,isect1,isectpoint0,isectpoint1); 
     }                                         
-    else if(D2!=0.0f)                                  
+    else if(D2!=REAL(0.0))                                  
     {                                                   
         isect2(VERT2,VERT0,VERT1,VV2,VV0,VV1,D2,D0,D1,isect0,isect1,isectpoint0,isectpoint1);     
     }                                                 
@@ -1364,7 +1360,7 @@ static int TriTriIntersectWithIsectLine(dReal V0[3],dReal V1[3],dReal V2[3],
     du0du1=du0*du1;
     du0du2=du0*du2;
 
-    if(du0du1>0.0f && du0du2>0.0f) /* same sign on all of them + not equal 0 ? */
+    if(du0du1>REAL(0.0) && du0du2>REAL(0.0)) /* same sign on all of them + not equal 0 ? */
         return 0;                    /* no intersection occurs */
 
     /* compute plane of triangle (U0,U1,U2) */
@@ -1401,7 +1397,7 @@ static int TriTriIntersectWithIsectLine(dReal V0[3],dReal V1[3],dReal V2[3],
     dv0dv1=dv0*dv1;
     dv0dv2=dv0*dv2;
 
-    if(dv0dv1>0.0f && dv0dv2>0.0f) /* same sign on all of them + not equal 0 ? */
+    if(dv0dv1>REAL(0.0) && dv0dv2>REAL(0.0)) /* same sign on all of them + not equal 0 ? */
         return 0;                    /* no intersection occurs */
 
     /* compute direction of intersection line */
@@ -1778,14 +1774,14 @@ RayTriangleIntersect(const dVector3 orig, const dVector3 dir,
 
     if ((det > REAL(-0.001)) && (det < REAL(0.001)))
         return 0;
-    inv_det = 1.0 / det;
+    inv_det = REAL(1.0) / det;
 
     // calculate distance from vert0 to ray origin 
     SUB(tvec, orig, vert0);
 
     // calculate U parameter and test bounds
     *u = DOT(tvec, pvec) * inv_det;
-    if ((*u < 0.0) || (*u > 1.0))
+    if ((*u < REAL(0.0)) || (*u > REAL(1.0)))
         return 0;
 
     // prepare to test V parameter
@@ -1793,7 +1789,7 @@ RayTriangleIntersect(const dVector3 orig, const dVector3 dir,
 
     // calculate V parameter and test bounds
     *v = DOT(dir, qvec) * inv_det;
-    if ((*v < 0.0) || ((*u + *v) > 1.0))
+    if ((*v < REAL(0.0)) || ((*u + *v) > REAL(1.0)))
         return 0;
 
     // calculate t, ray intersects triangle
@@ -1813,19 +1809,19 @@ SimpleUnclippedTest(dVector3 in_CoplanarPt, dVector3 in_v, dVector3 in_elt,
 
     DEPTH(dp, in_CoplanarPt, in_v, in_n);
 
-    if (dp >= 0.0) {
+    if (dp >= REAL(0.0)) {
         // if the penetration depth (calculated above) is more than
         //  the contact point's ELT, then we've chosen the wrong face
         //  and should switch faces
         contact_elt_length = dFabs(dCalcVectorDot3(in_elt, in_n));
 
-        if (dp == 0.0)
+        if (dp == REAL(0.0))
             dp = dMin(DISTANCE_EPSILON, contact_elt_length);
 
         if ((contact_elt_length < SMALL_ELT) && (dp < EXPANDED_ELT_THRESH))
             dp = contact_elt_length;
 
-        if ( (dp > 0.0) && (dp <= contact_elt_length)) {
+        if ( (dp > REAL(0.0)) && (dp <= contact_elt_length)) {
             // Add a contact
 
             if ( ExamineContactPoint(in_col_v, in_n, in_v) ) {
@@ -1862,7 +1858,7 @@ GenerateContact(int in_Flags, dContactGeom* in_Contacts, int in_Stride,
     number maximum immediately in dCollideTTL(). You will also need to correct 
     conditional statements after invocations of GenerateContact() in dCollideTTL().
     */
-    dIASSERT(in_Depth >= 0.0);
+    dIASSERT(in_Depth >= REAL(0.0));
     //if (in_Depth < 0.0) -- the function is always called with depth >= 0
     //    return;
 

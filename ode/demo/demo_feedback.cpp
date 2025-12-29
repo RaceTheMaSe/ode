@@ -32,10 +32,6 @@
 #include "texturepath.h"
 
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
 #define dsDrawCylinder dsDrawCylinderD
@@ -49,7 +45,7 @@ static dSpaceID space;
 
 static const int   STACKCNT=10;	// nr of weights on bridge
 static const int   SEGMCNT=16;	// nr of segments in bridge
-static const float SEGMDIM[3] = { 0.9, 4, 0.1 };
+static const dReal SEGMDIM[3] = { REAL(0.9), REAL(4.0), REAL(0.1) };
 
 static dGeomID  groundgeom;
 static dBodyID  segbodies[SEGMCNT];
@@ -92,8 +88,8 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
     {
       contact[i].surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1;
       contact[i].surface.mu = 100.0;
-      contact[i].surface.soft_erp = 0.96;
-      contact[i].surface.soft_cfm = 0.02;
+      contact[i].surface.soft_erp = REAL(0.96);
+      contact[i].surface.soft_cfm = REAL(0.02);
       dJointID c = dJointCreateContact (world,contactgroup,&contact[i]);
       dJointAttach (c,
 		    dGeomGetBody(contact[i].geom.g1),
@@ -137,7 +133,7 @@ static void drawGeom (dGeomID g)
   {
     dReal r,l;
     dGeomCylinderGetParams(g, &r, &l);
-    dsDrawCylinder (pos, R, l, r);
+    dsDrawCylinder (pos, R, (float)l, (float)r);
   }
 }
 
@@ -153,8 +149,8 @@ static void inspectJoints(void)
       // This joint has not snapped already... inspect it.
       dReal l0 = dCalcVectorLength3(jfeedbacks[i].f1);
       dReal l1 = dCalcVectorLength3(jfeedbacks[i].f2);
-      colours[i+0] = 0.95*colours[i+0] + 0.05 * l0/forcelimit;
-      colours[i+1] = 0.95*colours[i+1] + 0.05 * l1/forcelimit;
+      colours[i+0] = REAL(0.95)*colours[i+0] + REAL(0.05) * l0/forcelimit;
+      colours[i+1] = REAL(0.95)*colours[i+1] + REAL(0.05) * l1/forcelimit;
       if (l0 > forcelimit || l1 > forcelimit)
         stress[i]++;
       else
@@ -179,21 +175,21 @@ static void simLoop (int pause)
 
   double simstep = 0.002; // 2ms simulation steps
   double dt = dsElapsedTime();
-  int nrofsteps = (int) ceilf(dt/simstep);
+  int nrofsteps = (int) ceilf((float)(dt/simstep));
   for (i=0; i<nrofsteps && !pause; i++)
   {
     dSpaceCollide (space,NULL,&nearCallback);
-    dWorldQuickStep (world, simstep);
+    dWorldQuickStep (world, (dReal)simstep);
     dJointGroupEmpty (contactgroup);
     inspectJoints();
   }
 
   for (i=0; i<SEGMCNT; i++)
   {
-    float r=0,g=0,b=0.2;
-    float v = colours[i];
-    if (v>1.0) v=1.0;
-    if (v<0.5) 
+    float r=0,g=0,b=0.2f;
+    float v = (float)colours[i];
+    if (v>1.0f) v=1.0f;
+    if (v<0.5f) 
     {
       r=2*v;
       g=1.0;
@@ -201,7 +197,7 @@ static void simLoop (int pause)
     else
     {
       r=1.0;
-      g=2*(1.0-v);
+      g=2*(1-v);
     }
     dsSetColor (r,g,b);
     drawGeom(seggeoms[i]);
@@ -231,14 +227,14 @@ int main (int argc, char **argv)
   world = dWorldCreate();
   space = dHashSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
-  dWorldSetGravity (world,0,0,-9.8);
+  dWorldSetGravity (world,0,0,REAL(-9.8));
   dWorldSetQuickStepNumIterations (world, 20);
 
   int i;
   for (i=0; i<SEGMCNT; i++)
   {
     segbodies[i] = dBodyCreate (world);
-    dBodySetPosition(segbodies[i], i - SEGMCNT/2.0, 0, 5);
+    dBodySetPosition(segbodies[i], dReal(i) - SEGMCNT/REAL(2.0), 0, 5);
     dMassSetBox (&m, 1, SEGMDIM[0], SEGMDIM[1], SEGMDIM[2]);
     dBodySetMass (segbodies[i], &m);
     seggeoms[i] = dCreateBox (NULL, SEGMDIM[0], SEGMDIM[1], SEGMDIM[2]);
@@ -250,7 +246,7 @@ int main (int argc, char **argv)
   {
     hinges[i] = dJointCreateHinge (world,NULL);
     dJointAttach (hinges[i], segbodies[i],segbodies[i+1]);
-    dJointSetHingeAnchor (hinges[i], i + 0.5 - SEGMCNT/2.0, 0, 5);
+    dJointSetHingeAnchor (hinges[i], (dReal)i + REAL(0.5) - SEGMCNT/REAL(2.0), 0, 5);
     dJointSetHingeAxis (hinges[i], 0,1,0);
     dJointSetHingeParam (hinges[i],dParamFMax,  8000.0);
     // NOTE:
@@ -262,28 +258,28 @@ int main (int argc, char **argv)
   for (i=0; i<STACKCNT; i++)
   {
     stackbodies[i] = dBodyCreate(world);
-    dMassSetBox (&m, 2.0, 2, 2, 0.6);
+    dMassSetBox (&m, 2.0, 2, 2, REAL(0.6));
     dBodySetMass(stackbodies[i],&m);
 
-    stackgeoms[i] = dCreateBox(NULL, 2, 2, 0.6);
+    stackgeoms[i] = dCreateBox(NULL, 2, 2, REAL(0.6));
     dGeomSetBody(stackgeoms[i], stackbodies[i]);
-    dBodySetPosition(stackbodies[i], 0,0,8+2*i);
+    dBodySetPosition(stackbodies[i], 0,0,REAL(8.0)+REAL(2.0)*(dReal)i);
     dSpaceAdd(space, stackgeoms[i]);
   }
 
   sliders[0] = dJointCreateSlider (world,NULL);
   dJointAttach(sliders[0], segbodies[0], NULL);
   dJointSetSliderAxis (sliders[0], 1,0,0);
-  dJointSetSliderParam (sliders[0],dParamFMax,  4000.0);
-  dJointSetSliderParam (sliders[0],dParamLoStop,   0.0);
-  dJointSetSliderParam (sliders[0],dParamHiStop,   0.2);
+  dJointSetSliderParam (sliders[0],dParamFMax,  REAL(4000.0));
+  dJointSetSliderParam (sliders[0],dParamLoStop,        0.0);
+  dJointSetSliderParam (sliders[0],dParamHiStop,REAL(   0.2));
 
   sliders[1] = dJointCreateSlider (world,NULL);
   dJointAttach(sliders[1], segbodies[SEGMCNT-1], NULL);
   dJointSetSliderAxis (sliders[1], 1,0,0);
-  dJointSetSliderParam (sliders[1],dParamFMax,  4000.0);
-  dJointSetSliderParam (sliders[1],dParamLoStop,   0.0);
-  dJointSetSliderParam (sliders[1],dParamHiStop,  -0.2);
+  dJointSetSliderParam (sliders[1],dParamFMax,  REAL(4000.0));
+  dJointSetSliderParam (sliders[1],dParamLoStop,        0.0);
+  dJointSetSliderParam (sliders[1],dParamHiStop,REAL(  -0.2));
 
   groundgeom = dCreatePlane(space, 0,0,1,0);
 

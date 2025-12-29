@@ -1167,7 +1167,7 @@ int dGeomIsOffset(dxGeom *g)
     return ((NULL != g->offset_posr) ? 1 : 0);
 }
 
-static const dVector3 OFFSET_POSITION_ZERO = { 0.0f, 0.0f, 0.0f, 0.0f };
+static const dVector3 OFFSET_POSITION_ZERO = { REAL(0.0), REAL(0.0), REAL(0.0), REAL(0.0) };
 
 const dReal * dGeomGetOffsetPosition (dxGeom *g)
 {
@@ -1199,9 +1199,9 @@ void dGeomCopyOffsetPosition (dxGeom *g, dVector3 pos)
 
 static const dMatrix3 OFFSET_ROTATION_ZERO = 
 { 
-    1.0f, 0.0f, 0.0f, 0.0f, 
-    0.0f, 1.0f, 0.0f, 0.0f, 
-    0.0f, 0.0f, 1.0f, 0.0f, 
+    REAL(1.0), REAL(0.0), REAL(0.0), REAL(0.0), 
+    REAL(0.0), REAL(1.0), REAL(0.0), REAL(0.0), 
+    REAL(0.0), REAL(0.0), REAL(1.0), REAL(0.0), 
 };
 
 const dReal * dGeomGetOffsetRotation (dxGeom *g)

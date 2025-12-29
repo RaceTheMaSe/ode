@@ -35,10 +35,6 @@ The axisP is draw in red and the axisR is in green
 #include <math.h>
 #include "texturepath.h"
 
-
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
 // select correct drawing functions
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
@@ -48,12 +44,12 @@ The axisP is draw in red and the axisR is in green
 // physics parameters
 #define BOX1_LENGTH 2    // Size along the X axis
 #define BOX1_WIDTH 1     // Size along the Y axis
-#define BOX1_HEIGHT 0.4  // Size along the Z axis (up) since gravity is (0,0,-10)
-#define BOX2_LENGTH 0.2
-#define BOX2_WIDTH 0.1
-#define BOX2_HEIGHT 0.4
-#define Mass1 10
-#define Mass2 0.1
+#define BOX1_HEIGHT REAL(0.4)  // Size along the Z axis (up) since gravity is (0,0,-10)
+#define BOX2_LENGTH REAL(0.2)
+#define BOX2_WIDTH REAL(0.1)
+#define BOX2_HEIGHT REAL(0.4)
+#define Mass1 REAL(10.0)
+#define Mass2 REAL(0.1)
 
 
 #define PRISMATIC_ONLY 1
@@ -94,11 +90,11 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
         {
             contact[i].surface.mode = dContactSlip1 | dContactSlip2 |
                                       dContactSoftERP | dContactSoftCFM | dContactApprox1;
-            contact[i].surface.mu = 0.1;
-            contact[i].surface.slip1 = 0.02;
-            contact[i].surface.slip2 = 0.02;
-            contact[i].surface.soft_erp = 0.1;
-            contact[i].surface.soft_cfm = 0.0001;
+            contact[i].surface.mu = REAL(0.1);
+            contact[i].surface.slip1 = REAL(0.02);
+            contact[i].surface.slip2 = REAL(0.02);
+            contact[i].surface.soft_erp = REAL(0.1);
+            contact[i].surface.soft_cfm = REAL(0.0001);
             dJointID c = dJointCreateContact (world,contactgroup,&contact[i]);
             dJointAttach (c,dGeomGetBody(contact[i].geom.g1),dGeomGetBody(contact[i].geom.g2));
         }
@@ -193,8 +189,8 @@ static void command (int cmd)
 
     case 'l':
     case 'L':
-        dJointSetPRParam(joint[0], dParamLoStop2, -0.5);
-        dJointSetPRParam(joint[0], dParamHiStop2,  0.5);
+        dJointSetPRParam(joint[0], dParamLoStop2, REAL(-0.5));
+        dJointSetPRParam(joint[0], dParamHiStop2, REAL( 0.5));
         break;
 
     case 'k':
@@ -214,9 +210,9 @@ static void command (int cmd)
         dReal l = dJointGetPRPosition(joint[0]);
         dReal v = dJointGetPRPositionRate(joint[0]);
 
-        printf("Anchor: [%6.4f, %6.4f, %6.4f]\n", anchor[0], anchor[1], anchor[2]);
-        printf("Position: %7.4f, Rate: %7.4f\n", l, v);
-        printf("Angle: %7.4f, Rate: %7.4f\n", angle, w);
+        printf("Anchor: [%6.4f, %6.4f, %6.4f]\n", (double)anchor[0], (double)anchor[1], (double)anchor[2]);
+        printf("Position: %7.4f, Rate: %7.4f\n", (double)l, (double)v);
+        printf("Angle: %7.4f, Rate: %7.4f\n", (double)angle, (double)w);
         break;
     }
     default:
@@ -253,13 +249,13 @@ static void simLoop (int pause)
         if (ROTOIDE_ONLY != flag )
         {
             dsSetColor (1,0,0);
-            dVector3 sizeP = {0, 0.1, 0.1};
+            dVector3 sizeP = {0, REAL(0.1), REAL(0.1)};
             for (int i=0; i<3; ++i)
                 sizeP[0] += (anchorPos[i] - posBox1[i])*(anchorPos[i] - posBox1[i]);
-            sizeP[0] = sqrt(sizeP[0]);
+            sizeP[0] = dSqrt(sizeP[0]);
             dVector3 posAxisP;
             for (int i=0; i<3; ++i)
-                posAxisP[i] = posBox1[i] + (anchorPos[i] - posBox1[i])/2.0;
+                posAxisP[i] = posBox1[i] + (anchorPos[i] - posBox1[i])/REAL(2.0);
             dsDrawBox (posAxisP, rotBox1, sizeP);
         }
 
@@ -268,18 +264,18 @@ static void simLoop (int pause)
         if (PRISMATIC_ONLY != flag )
         {
             dsSetColor (0,1,0);
-            dVector3 sizeR = {0, 0.1, 0.1};
+            dVector3 sizeR = {0, REAL(0.1), REAL(0.1)};
             for (int i=0; i<3; ++i)
                 sizeR[0] += (anchorPos[i] - posBox2[i])*(anchorPos[i] - posBox2[i]);
-            sizeR[0] = sqrt(sizeR[0]);
+            sizeR[0] = dSqrt(sizeR[0]);
             dVector3 posAxisR;
             for (int i=0; i<3; ++i)
-                posAxisR[i] = posBox2[i] + (anchorPos[i] - posBox2[i])/2.0;
+                posAxisR[i] = posBox2[i] + (anchorPos[i] - posBox2[i])/REAL(2.0);
             dsDrawBox (posAxisR, rotBox2, sizeR);
         }
 
         dSpaceCollide (space,NULL,&nearCallback);
-        dWorldQuickStep (world,0.0001);
+        dWorldQuickStep (world,REAL(0.0001));
         update();
         dJointGroupEmpty (contactgroup);
     }
@@ -370,13 +366,13 @@ int main (int argc, char **argv)
     //set the initial positions of body1 and body2
     dMatrix3 R;
     dRSetIdentity(R);
-    dBodySetPosition (box1_body[0],0,0,BOX1_HEIGHT/2.0);
+    dBodySetPosition (box1_body[0],0,0,BOX1_HEIGHT/REAL(2.0));
     dBodySetRotation (box1_body[0], R);
 
     dBodySetPosition (box2_body[0],
-                      2.1,
+                      REAL(2.1),
                       0.0,
-                      BOX2_HEIGHT/2.0);
+                      BOX2_HEIGHT/REAL(2.0));
     dBodySetRotation (box2_body[0], R);
 
 
@@ -387,29 +383,29 @@ int main (int argc, char **argv)
     {
     case PRISMATIC_ONLY:
         dJointSetPRAnchor (joint[0],
-                           2.1,
+                           REAL(2.1),
                            0.0,
-                           BOX2_HEIGHT/2.0);
-        dJointSetPRParam (joint[0],dParamLoStop, -0.5);
-        dJointSetPRParam (joint[0],dParamHiStop, 1.5);
+                           BOX2_HEIGHT/REAL(2.0));
+        dJointSetPRParam (joint[0],dParamLoStop, REAL(-0.5));
+        dJointSetPRParam (joint[0],dParamHiStop, REAL( 1.5));
         break;
 
     case ROTOIDE_ONLY:
         dJointSetPRAnchor (joint[0],
                            0.0,
                            0.0,
-                           BOX2_HEIGHT/2.0);
+                           BOX2_HEIGHT/REAL(2.0));
         dJointSetPRParam (joint[0],dParamLoStop, 0.0);
         dJointSetPRParam (joint[0],dParamHiStop, 0.0);
         break;
 
     default:
         dJointSetPRAnchor (joint[0],
-                           1.1,
+                           REAL(1.1),
                            0.0,
-                           BOX2_HEIGHT/2.0);
-        dJointSetPRParam (joint[0],dParamLoStop, -0.5);
-        dJointSetPRParam (joint[0],dParamHiStop, 1.5);
+                           BOX2_HEIGHT/REAL(2.0));
+        dJointSetPRParam (joint[0],dParamLoStop, REAL(-0.5));
+        dJointSetPRParam (joint[0],dParamHiStop, REAL( 1.5));
         break;
     }
 

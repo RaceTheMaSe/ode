@@ -86,7 +86,7 @@ void PrintingContext::printReal (dReal x)
         fprintf (file,"-inf");
     }
     else {
-        fprintf (file,"%.*g",precision,x);
+        fprintf (file,"%.*g",precision,(double)x);
     }
 }
 

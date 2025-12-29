@@ -382,7 +382,7 @@ static void findPenetrTouch(const void *obj1, const void *obj2, const ccd_t *ccd
 
     ccdVec3Copy(pos, &ccdSimplexPoint(portal, 1)->v1);
     ccdVec3Add(pos, &ccdSimplexPoint(portal, 1)->v2);
-    ccdVec3Scale(pos, 0.5);
+    ccdVec3Scale(pos, (ccd_real_t)0.5);
 }
 
 static int findPenetrSegment(const void *obj1, const void *obj2, const ccd_t *ccd,
@@ -489,7 +489,7 @@ static int findPos(const void *obj1, const void *obj2, const ccd_t *ccd,
 
     ccdVec3Copy(pos, &p1);
     ccdVec3Add(pos, &p2);
-    ccdVec3Scale(pos, 0.5);
+    ccdVec3Scale(pos, (ccd_real_t)0.5);
     return 0;
 }
 

@@ -133,7 +133,7 @@ static bool GetContactData(const dVector3& Center, dReal Radius, const dVector3 
             if (Det == REAL(0.0)){
                 u = REAL(0.0);
                 v = REAL(0.0);
-                DistSq = FLT_MAX;
+                DistSq = (dReal)FLT_MAX;
             }
             else{
                 dReal InvDet = REAL(1.0) / Det;
@@ -273,7 +273,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
     // Sphere
     IceMaths::Sphere Sphere;
     Sphere.mCenter.Set(OffsetPosition[0], OffsetPosition[1], OffsetPosition[2]);
-    Sphere.mRadius = Radius;
+    Sphere.mRadius = (float)Radius;
 
 
     // TC results
@@ -467,9 +467,9 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
 
                     Contact->side1 = TriIndex;
 
-                    Contact->pos[0] = pos[0] / OutTriCount;
-                    Contact->pos[1] = pos[1] / OutTriCount;
-                    Contact->pos[2] = pos[2] / OutTriCount;
+                    Contact->pos[0] = pos[0] / (dReal)OutTriCount;
+                    Contact->pos[1] = pos[1] / (dReal)OutTriCount;
+                    Contact->pos[2] = pos[2] / (dReal)OutTriCount;
 
                     if ( !dSafeNormalize3(normal) )
                         return OutTriCount;	// Cannot merge in this pathological case

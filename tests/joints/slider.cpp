@@ -76,58 +76,58 @@ SUITE (TestdxJointSlider)
     {
         // the 2 bodies are align
         dJointSetSliderAxis (jId, 1, 0, 0);
-        CHECK_CLOSE (joint->qrel[0], 1.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.0, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(1.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.0), REAL(1e-4));
 
         dMatrix3 R;
         // Rotate 2nd body 90deg around X
         dBodySetPosition (bId2, 0, 0, 1);
-        dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         dJointSetSliderAxis (jId, 1, 0 ,0);
-        CHECK_CLOSE (joint->qrel[0], 0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], 0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.0, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.0), REAL(1e-4));
 
 
         // Rotate 2nd body -90deg around X
         dBodySetPosition (bId2, 0, 0, -1);
-        dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+        dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         dJointSetSliderAxis (jId, 1, 0 ,0);
-        CHECK_CLOSE (joint->qrel[0], 0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], -0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.0, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(-0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.0), REAL(1e-4));
 
 
         // Rotate 2nd body 90deg around Z
         dBodySetPosition (bId2, 0, 1, 0);
-        dRFromAxisAndAngle (R, 0, 0, 1, M_PI/2.0);
+        dRFromAxisAndAngle (R, 0, 0, 1, (dReal)(M_PI/2.0));
         dBodySetRotation (bId2, R);
 
         dJointSetSliderAxis (jId, 1, 0 ,0);
-        CHECK_CLOSE (joint->qrel[0], 0.70710678118654757, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.70710678118654757, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(0.70710678118654757), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.70710678118654757), REAL(1e-4));
 
 
         // Rotate 2nd body 45deg around Y
         dBodySetPosition (bId2, 0, 1, 0);
-        dRFromAxisAndAngle (R, 0, 1, 0, M_PI/4.0);
+        dRFromAxisAndAngle (R, 0, 1, 0, (dReal)(M_PI/4.0));
         dBodySetRotation (bId2, R);
 
         dJointSetSliderAxis (jId, 1, 0 ,0);
-        CHECK_CLOSE (joint->qrel[0], 0.92387953251128674, 1e-4);
-        CHECK_CLOSE (joint->qrel[1], 0.0, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], 0.38268343236508984, 1e-4);
-        CHECK_CLOSE (joint->qrel[3], 0.0, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(.92387953251128674), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(0.38268343236508984), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL(0.0), REAL(1e-4));
 
         // Rotate in a strange manner
         // Both bodies at origin
@@ -140,10 +140,10 @@ SUITE (TestdxJointSlider)
         dBodySetRotation (bId2, R);
 
         dJointSetSliderAxis (jId, 1, 0 ,0);
-        CHECK_CLOSE (joint->qrel[0], -0.25526036263124319, 1e-4);
-        CHECK_CLOSE (joint->qrel[1],  0.28434861188441968, 1e-4);
-        CHECK_CLOSE (joint->qrel[2], -0.65308047160141625, 1e-4);
-        CHECK_CLOSE (joint->qrel[3],  0.65381489108282143, 1e-4);
+        CHECK_CLOSE (joint->qrel[0], REAL(-0.25526036263124319), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[1], REAL( 0.28434861188441968), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[2], REAL(-0.65308047160141625), REAL(1e-4));
+        CHECK_CLOSE (joint->qrel[3], REAL( 0.65381489108282143), REAL(1e-4));
     }
 
 
@@ -208,11 +208,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderAxisOffset_B1_3Unit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId1, offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 1st body offset unit in the opposite X direction
@@ -229,11 +229,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderAxisOffset_B1_Minus_3Unit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId1, -offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 2nd body offset unit in the X direction
@@ -250,11 +250,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderAxisOffset_B2_3Unit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId2, offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 2nd body offset unit in the opposite X direction
@@ -271,11 +271,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderAxisOffset_B2_Minus_3Unit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId2, -offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
 
@@ -340,11 +340,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderAxisOffset_B1_3Unit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId1, offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 1st body offset unit in the opposite X direction
@@ -361,11 +361,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderAxisOffset_B1_Minus_3Unit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId1, -offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 2nd body offset unit in the X direction
@@ -382,11 +382,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderAxisOffset_B2_3Unit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId2, offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 2nd body offset unit in the opposite X direction
@@ -403,11 +403,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderAxisOffset_B2_Minus_3Unit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId2, -offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
 
@@ -461,11 +461,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_At_Zero_Axis_Along_X,
                   test_dJointSetSliderAxisOffset_B1_OffsetUnit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId1, offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 1st body offset unit in the opposite X direction
@@ -476,11 +476,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_At_Zero_Axis_Along_X,
                   test_dJointSetSliderAxisOffset_B1_Minus_OffsetUnit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId1, -offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
 
@@ -534,11 +534,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderAxisOffset_B1_OffsetUnit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId1, offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 1st body offset unit in the opposite X direction
@@ -549,11 +549,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderAxisOffset_B1_Minus_OffsetUnit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId1, -offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
 
@@ -607,11 +607,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderAxisOffset_B2_OffsetUnit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId2, offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 2nd body offset unit in the opposite X direction
@@ -622,11 +622,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderAxisOffset_B2_Minus_OffsetUnit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId2, -offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Only body 2
@@ -679,11 +679,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderAxisOffset_B2_OffsetUnit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId2, offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // Move 2nd body offset unit in the opposite X direction
@@ -694,11 +694,11 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderAxisOffset_B2_Minus_OffsetUnit)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
 
         dBodySetPosition(bId2, -offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetSliderPosition(jId), REAL(1e-4));
     }
 
     // ==========================================================================
@@ -714,13 +714,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderPositionRate_Force_Along_Axis_on_B1)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId1, 1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
     // Apply force on 1st body in the inverse X direction
@@ -731,13 +731,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderPositionRate_Force_Inverse_of_Axis_on_B1)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId1, -1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (-1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(-1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
 
@@ -749,13 +749,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderPositionRate_Force_Inverse_Axis_on_B1)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId1, 1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (-1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(-1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
     // Apply force on 1st body in the inverse X direction
@@ -766,13 +766,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderPositionRate_Force_Along_of_Axis_on_B1)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId1, -1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
     // Apply force on 1st body in the X direction that also is the axis direction
@@ -783,13 +783,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderPositionRate_Force_Along_Axis_on_B2)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId2, 1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (-1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(-1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
     // Apply force on 1st body in the inverse X direction
@@ -800,13 +800,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderPositionRate_Force_Inverse_of_Axis_on_B2)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId2, -1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
 
@@ -818,13 +818,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderPositionRate_Force_Inverse_Axis_on_B2)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId2, 1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
     // Apply force on 1st body in the inverse X direction
@@ -835,13 +835,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_and_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderPositionRate_Force_Along_of_Axis_on_B2)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId2, -1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (-1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(-1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
 
@@ -853,13 +853,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_At_Zero_Axis_Along_X,
                   test_dJointSetSliderPositionRate_Force_Along_Axis_on_B1)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId1, 1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
     // Apply force on 1st body in the inverse X direction
@@ -869,13 +869,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_At_Zero_Axis_Along_X,
                   test_dJointSetSliderPositionRate_Force_Inverse_of_Axis_on_B1)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId1, -1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (-1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(-1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
 
@@ -886,13 +886,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderPositionRate_Force_Inverse_Axis_on_B1)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId1, 1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (-1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(-1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
     // Apply force on 1st body in the inverse X direction
@@ -902,13 +902,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B1_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderPositionRate_Force_Along_of_Axis_on_B1)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId1, -1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
 
@@ -919,13 +919,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderPositionRate_Force_Along_Axis_on_B2)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId2, 1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (-1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(-1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
     // Apply force on body 2 in the inverse X direction
@@ -935,13 +935,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B2_At_Zero_Axis_Along_X,
                   test_dJointSetSliderPositionRate_Force_Inverse_of_Axis_on_B2)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId2, -1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
 
@@ -952,13 +952,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderPositionRate_Force_Inverse_Axis_on_B2)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId2, 1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
     // Apply force on body 2 in the inverse X direction
@@ -968,13 +968,13 @@ SUITE (TestdxJointSlider)
     TEST_FIXTURE (Fixture_dxJointSlider_B2_At_Zero_Axis_Inverse_of_X,
                   test_dJointSetSliderPositionRate_Force_Along_of_Axis_on_B2)
     {
-        CHECK_CLOSE (0.0, dJointGetSliderPosition(jId), 1e-4);
-        CHECK_CLOSE (0.0, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPosition(jId), REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
 
         dBodyAddForce(bId2, -1.0, 0, 0);
         dWorldQuickStep (wId, 1.0);
 
-        CHECK_CLOSE (-1, dJointGetSliderPositionRate(jId), 1e-4);
+        CHECK_CLOSE (REAL(-1.0), dJointGetSliderPositionRate(jId), REAL(1e-4));
     }
 
 
@@ -1063,7 +1063,7 @@ SUITE (TestdxJointSlider)
 
 
         CHECK_CLOSE (dJointGetSliderPosition(jId[0]),
-                     dJointGetSliderPosition(jId[1]), 1e-6);
+                     dJointGetSliderPosition(jId[1]), REAL(1e-6));
 
 
         for (int b=0; b<2; ++b)
@@ -1072,10 +1072,10 @@ SUITE (TestdxJointSlider)
             // second joint
             const dReal *qA = dBodyGetQuaternion(bId[0][b]);
             const dReal *qB = dBodyGetQuaternion(bId[1][b]);
-            CHECK_CLOSE (qA[0], qB[0], 1e-6);
-            CHECK_CLOSE (qA[1], qB[1], 1e-6);
-            CHECK_CLOSE (qA[2], qB[2], 1e-6);
-            CHECK_CLOSE (qA[3], qB[3], 1e-6);
+            CHECK_CLOSE (qA[0], qB[0], REAL(1e-6));
+            CHECK_CLOSE (qA[1], qB[1], REAL(1e-6));
+            CHECK_CLOSE (qA[2], qB[2], REAL(1e-6));
+            CHECK_CLOSE (qA[3], qB[3], REAL(1e-6));
         }
 
         dWorldStep (wId,0.5);
@@ -1089,18 +1089,18 @@ SUITE (TestdxJointSlider)
             // second joint
             const dReal *qA = dBodyGetQuaternion(bId[0][b]);
             const dReal *qB = dBodyGetQuaternion(bId[1][b]);
-            CHECK_CLOSE (qA[0], qB[0], 1e-6);
-            CHECK_CLOSE (qA[1], qB[1], 1e-6);
-            CHECK_CLOSE (qA[2], qB[2], 1e-6);
-            CHECK_CLOSE (qA[3], qB[3], 1e-6);
+            CHECK_CLOSE (qA[0], qB[0], REAL(1e-6));
+            CHECK_CLOSE (qA[1], qB[1], REAL(1e-6));
+            CHECK_CLOSE (qA[2], qB[2], REAL(1e-6));
+            CHECK_CLOSE (qA[3], qB[3], REAL(1e-6));
 
 
             const dReal *posA = dBodyGetPosition(bId[0][b]);
             const dReal *posB = dBodyGetPosition(bId[1][b]);
-            CHECK_CLOSE (posA[0], posB[0], 1e-6);
-            CHECK_CLOSE (posA[1], posB[1], 1e-6);
-            CHECK_CLOSE (posA[2], posB[2], 1e-6);
-            CHECK_CLOSE (posA[3], posB[3], 1e-6);
+            CHECK_CLOSE (posA[0], posB[0], REAL(1e-6));
+            CHECK_CLOSE (posA[1], posB[1], REAL(1e-6));
+            CHECK_CLOSE (posA[2], posB[2], REAL(1e-6));
+            CHECK_CLOSE (posA[3], posB[3], REAL(1e-6));
         }
     }
 
@@ -1192,9 +1192,9 @@ SUITE (TestdxJointSlider)
         const dReal *pos = dBodyGetPosition(bId);
 
 
-        CHECK_CLOSE (pos[0], pos1_12[0], 1e-2);
-        CHECK_CLOSE (pos[1], pos1_12[1], 1e-2);
-        CHECK_CLOSE (pos[2], pos1_12[2], 1e-2);
+        CHECK_CLOSE (pos[0], pos1_12[0], REAL(1e-2));
+        CHECK_CLOSE (pos[1], pos1_12[1], REAL(1e-2));
+        CHECK_CLOSE (pos[2], pos1_12[2], REAL(1e-2));
     }
 
 
@@ -1232,9 +1232,9 @@ SUITE (TestdxJointSlider)
         const dReal *pos = dBodyGetPosition(bId);
 
 
-        CHECK_CLOSE (pos[0], pos2_12[0], 1e-2);
-        CHECK_CLOSE (pos[1], pos2_12[1], 1e-2);
-        CHECK_CLOSE (pos[2], pos2_12[2], 1e-2);
+        CHECK_CLOSE (pos[0], pos2_12[0], REAL(1e-2));
+        CHECK_CLOSE (pos[1], pos2_12[1], REAL(1e-2));
+        CHECK_CLOSE (pos[2], pos2_12[2], REAL(1e-2));
     }
 
 
@@ -1272,13 +1272,13 @@ SUITE (TestdxJointSlider)
         const dReal *pos = dBodyGetPosition(bId);
 
 
-        CHECK_CLOSE (pos[0], pos1_12[0], 1e-4);
-        CHECK_CLOSE (pos[1], pos1_12[1], 1e-4);
-        CHECK_CLOSE (pos[2], pos1_12[2], 1e-4);
+        CHECK_CLOSE (pos[0], pos1_12[0], REAL(1e-4));
+        CHECK_CLOSE (pos[1], pos1_12[1], REAL(1e-4));
+        CHECK_CLOSE (pos[2], pos1_12[2], REAL(1e-4));
 
-        CHECK_CLOSE (pos[0], 0, 1e-4);
-        CHECK_CLOSE (pos[1], 0, 1e-4);
-        CHECK_CLOSE (pos[2], 0, 1e-4);
+        CHECK_CLOSE (pos[0], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (pos[1], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (pos[2], REAL(0.0), REAL(1e-4));
     }
 
 
@@ -1315,13 +1315,13 @@ SUITE (TestdxJointSlider)
         const dReal *pos = dBodyGetPosition(bId);
 
 
-        CHECK_CLOSE (pos[0], pos2_12[0], 1e-4);
-        CHECK_CLOSE (pos[1], pos2_12[1], 1e-4);
-        CHECK_CLOSE (pos[2], pos2_12[2], 1e-4);
+        CHECK_CLOSE (pos[0], pos2_12[0], REAL(1e-4));
+        CHECK_CLOSE (pos[1], pos2_12[1], REAL(1e-4));
+        CHECK_CLOSE (pos[2], pos2_12[2], REAL(1e-4));
 
-        CHECK_CLOSE (pos[0], 0, 1e-4);
-        CHECK_CLOSE (pos[1], 0, 1e-4);
-        CHECK_CLOSE (pos[2], 0, 1e-4);
+        CHECK_CLOSE (pos[0], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (pos[1], REAL(0.0), REAL(1e-4));
+        CHECK_CLOSE (pos[2], REAL(0.0), REAL(1e-4));
     }
 
 

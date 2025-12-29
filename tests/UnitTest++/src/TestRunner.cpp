@@ -38,13 +38,13 @@ int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteN
                         "ms but took " << testTimeInMs << "ms.";
                 result.OnTestFailure(curTest->m_details, stream.GetText());
             }
-            result.OnTestFinish(curTest->m_details, testTimeInMs/1000.0f);
+            result.OnTestFinish(curTest->m_details, (float)testTimeInMs/1000.0f);
         }
 
         curTest = curTest->next;
     }
 
-    float const secondsElapsed = overallTimer.GetTimeInMs() / 1000.0f;
+    float const secondsElapsed = (float)overallTimer.GetTimeInMs() / 1000.0f;
     reporter.ReportSummary(result.GetTotalTestCount(), result.GetFailedTestCount(), result.GetFailureCount(), secondsElapsed);
 
     return result.GetFailureCount();

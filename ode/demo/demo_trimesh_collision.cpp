@@ -43,47 +43,47 @@ static dSpaceID space;
 static dJointGroupID contactgroup;
 
 // 2D Convex hulls to create the TriMesh geometries
-const float HULL1[] = { -1.000000, -35.000000, 1.000000, -34.000000, 5.000000, -31.000000, 16.000000, -20.000000, 16.000000, -11.000000, 5.000000, 0.000000, -1.000000, 3.000000, -7.000000, 4.000000, -13.000000, 3.000000, -16.000000, 2.000000, -20.000000, 0.000000, -24.000000, -4.000000, -26.000000, -8.000000, -27.000000, -12.000000, -27.000000, -15.000000, -27.000000, -19.000000, -26.000000, -23.000000, -24.000000, -27.000000, -20.000000, -31.000000, -16.000000, -34.000000 };
-const float HULL2[] = { 23.000000, 28.000000, 28.000000, 29.000000, 30.000000, 30.000000, 34.000000, 33.000000, 35.000000, 34.000000, 38.000000, 39.000000, 39.000000, 42.000000, 40.000000, 48.000000, 39.000000, 53.000000, 38.000000, 56.000000, 35.000000, 61.000000, 34.000000, 62.000000, 30.000000, 65.000000, 28.000000, 66.000000, 25.000000, 67.000000, 20.000000, 68.000000, 19.000000, 68.000000, 14.000000, 67.000000, 11.000000, 66.000000, 9.000000, 65.000000, 5.000000, 62.000000, 4.000000, 61.000000, 1.000000, 56.000000, 0.000000, 53.000000, 0.000000, 48.000000, 0.000000, 42.000000, 1.000000, 39.000000, 4.000000, 34.000000, 5.000000, 33.000000, 9.000000, 30.000000, 11.000000, 29.000000 };
-const float HULL3[] = { -1.000000, -35.000000, 1.000000, -34.000000, 5.000000, -31.000000, 8.000000, -28.000000, 11.000000, -22.000000, 12.000000, -19.000000, 12.000000, -12.000000, 11.000000, -9.000000, 8.000000, -3.000000, 5.000000, 0.000000, -1.000000, 3.000000, -7.000000, 4.000000, -13.000000, 3.000000, -16.000000, 2.000000, -20.000000, 0.000000, -23.000000, -3.000000, -25.000000, -6.000000, -26.000000, -8.000000, -27.000000, -11.000000, -27.000000, -15.000000, -27.000000, -20.000000, -26.000000, -23.000000, -25.000000, -25.000000, -23.000000, -28.000000, -20.000000, -31.000000, -16.000000, -34.000000 };
-const float HULL4[] = { -2.000000, -35.000000, 6.000000, -31.000000, 9.000000, -27.000000, 10.000000, -25.000000, 11.000000, -22.000000, 11.000000, -9.000000, 10.000000, -6.000000, 9.000000, -4.000000, 6.000000, 0.000000, -2.000000, 3.000000, -7.000000, 4.000000, -19.000000, 3.000000, -20.000000, 2.000000, -25.000000, -6.000000, -26.000000, -8.000000, -27.000000, -11.000000, -27.000000, -15.000000, -27.000000, -20.000000, -26.000000, -23.000000, -25.000000, -25.000000, -20.000000, -34.000000 };
-const float HULL5[] = { -2.000000, -35.000000, 4.000000, -32.000000, 9.000000, -27.000000, 11.000000, -23.000000, 12.000000, -20.000000, 12.000000, -11.000000, 11.000000, -8.000000, 9.000000, -4.000000, 5.000000, 0.000000, -2.000000, 3.000000, -7.000000, 4.000000, -12.000000, 3.000000, -15.000000, 2.000000, -20.000000, 0.000000, -23.000000, -3.000000, -25.000000, -6.000000, -26.000000, -8.000000, -27.000000, -11.000000, -27.000000, -15.000000, -27.000000, -20.000000, -26.000000, -23.000000, -25.000000, -25.000000, -23.000000, -28.000000, -19.000000, -32.000000, -15.000000, -34.000000 };
-const float HULL6[] = { -1.000000, -35.000000, 25.000000, -29.000000, 26.000000, -28.000000, 30.000000, -18.000000, 30.000000, -14.000000, 26.000000, -6.000000, 25.000000, -5.000000, -1.000000, 3.000000, -7.000000, 4.000000, -13.000000, 3.000000, -20.000000, 0.000000, -23.000000, -3.000000, -25.000000, -6.000000, -26.000000, -8.000000, -27.000000, -12.000000, -27.000000, -15.000000, -27.000000, -19.000000, -26.000000, -23.000000, -25.000000, -25.000000, -23.000000, -28.000000, -20.000000, -31.000000, -17.000000, -33.000000 };
+const dReal HULL1[] = { -1.000000, -35.000000, 1.000000, -34.000000, 5.000000, -31.000000, 16.000000, -20.000000, 16.000000, -11.000000, 5.000000, 0.000000, -1.000000, 3.000000, -7.000000, 4.000000, -13.000000, 3.000000, -16.000000, 2.000000, -20.000000, 0.000000, -24.000000, -4.000000, -26.000000, -8.000000, -27.000000, -12.000000, -27.000000, -15.000000, -27.000000, -19.000000, -26.000000, -23.000000, -24.000000, -27.000000, -20.000000, -31.000000, -16.000000, -34.000000 };
+const dReal HULL2[] = { 23.000000, 28.000000, 28.000000, 29.000000, 30.000000, 30.000000, 34.000000, 33.000000, 35.000000, 34.000000, 38.000000, 39.000000, 39.000000, 42.000000, 40.000000, 48.000000, 39.000000, 53.000000, 38.000000, 56.000000, 35.000000, 61.000000, 34.000000, 62.000000, 30.000000, 65.000000, 28.000000, 66.000000, 25.000000, 67.000000, 20.000000, 68.000000, 19.000000, 68.000000, 14.000000, 67.000000, 11.000000, 66.000000, 9.000000, 65.000000, 5.000000, 62.000000, 4.000000, 61.000000, 1.000000, 56.000000, 0.000000, 53.000000, 0.000000, 48.000000, 0.000000, 42.000000, 1.000000, 39.000000, 4.000000, 34.000000, 5.000000, 33.000000, 9.000000, 30.000000, 11.000000, 29.000000 };
+const dReal HULL3[] = { -1.000000, -35.000000, 1.000000, -34.000000, 5.000000, -31.000000, 8.000000, -28.000000, 11.000000, -22.000000, 12.000000, -19.000000, 12.000000, -12.000000, 11.000000, -9.000000, 8.000000, -3.000000, 5.000000, 0.000000, -1.000000, 3.000000, -7.000000, 4.000000, -13.000000, 3.000000, -16.000000, 2.000000, -20.000000, 0.000000, -23.000000, -3.000000, -25.000000, -6.000000, -26.000000, -8.000000, -27.000000, -11.000000, -27.000000, -15.000000, -27.000000, -20.000000, -26.000000, -23.000000, -25.000000, -25.000000, -23.000000, -28.000000, -20.000000, -31.000000, -16.000000, -34.000000 };
+const dReal HULL4[] = { -2.000000, -35.000000, 6.000000, -31.000000, 9.000000, -27.000000, 10.000000, -25.000000, 11.000000, -22.000000, 11.000000, -9.000000, 10.000000, -6.000000, 9.000000, -4.000000, 6.000000, 0.000000, -2.000000, 3.000000, -7.000000, 4.000000, -19.000000, 3.000000, -20.000000, 2.000000, -25.000000, -6.000000, -26.000000, -8.000000, -27.000000, -11.000000, -27.000000, -15.000000, -27.000000, -20.000000, -26.000000, -23.000000, -25.000000, -25.000000, -20.000000, -34.000000 };
+const dReal HULL5[] = { -2.000000, -35.000000, 4.000000, -32.000000, 9.000000, -27.000000, 11.000000, -23.000000, 12.000000, -20.000000, 12.000000, -11.000000, 11.000000, -8.000000, 9.000000, -4.000000, 5.000000, 0.000000, -2.000000, 3.000000, -7.000000, 4.000000, -12.000000, 3.000000, -15.000000, 2.000000, -20.000000, 0.000000, -23.000000, -3.000000, -25.000000, -6.000000, -26.000000, -8.000000, -27.000000, -11.000000, -27.000000, -15.000000, -27.000000, -20.000000, -26.000000, -23.000000, -25.000000, -25.000000, -23.000000, -28.000000, -19.000000, -32.000000, -15.000000, -34.000000 };
+const dReal HULL6[] = { -1.000000, -35.000000, 25.000000, -29.000000, 26.000000, -28.000000, 30.000000, -18.000000, 30.000000, -14.000000, 26.000000, -6.000000, 25.000000, -5.000000, -1.000000, 3.000000, -7.000000, 4.000000, -13.000000, 3.000000, -20.000000, 0.000000, -23.000000, -3.000000, -25.000000, -6.000000, -26.000000, -8.000000, -27.000000, -12.000000, -27.000000, -15.000000, -27.000000, -19.000000, -26.000000, -23.000000, -25.000000, -25.000000, -23.000000, -28.000000, -20.000000, -31.000000, -17.000000, -33.000000 };
 
 // Center points of the 2D Convex hulls
-const float CENTER1[] = { -5.500000, -15.500000 };
-const float CENTER2[] = { 20.000000, 48.000000 };
-const float CENTER3[] = { -7.500000, -15.500000 };
-const float CENTER4[] = { -8.000000, -15.500000 };
-const float CENTER5[] = { -7.500000, -15.500000 };
-const float CENTER6[] = { 1.500000, -15.500000 };
+const dReal CENTER1[] = { -5.500000, -15.500000 };
+const dReal CENTER2[] = { 20.000000, 48.000000 };
+const dReal CENTER3[] = { -7.500000, -15.500000 };
+const dReal CENTER4[] = { -8.000000, -15.500000 };
+const dReal CENTER5[] = { -7.500000, -15.500000 };
+const dReal CENTER6[] = { 1.500000, -15.500000 };
 
 // Where to position the TriMeshes on the Ground plane
 // In (X, Y) coordinates pairs
-const float BODY_POSITIONS[][2] = {
-    {-60.0f, -30.0f},
-    {  0.0f, -30.0f},
-    { 60.0f, -30.0f},
-    {-60.0f,  30.0f},
-    {  0.0f,  30.0f},
-    { 60.0f,  30.0f}
+const dReal BODY_POSITIONS[][2] = {
+    {-60.0, -30.0},
+    {  0.0, -30.0},
+    { 60.0, -30.0},
+    {-60.0,  30.0},
+    {  0.0,  30.0},
+    { 60.0,  30.0}
 };
 
-static const float *HULLS[] = { HULL1, HULL2, HULL3, HULL4, HULL5, HULL6 };
+static const dReal *HULLS[] = { HULL1, HULL2, HULL3, HULL4, HULL5, HULL6 };
 const int HULL_SIZES[] = {
-    sizeof(HULL1) / sizeof(float) / 2,
-    sizeof(HULL2) / sizeof(float) / 2,
-    sizeof(HULL3) / sizeof(float) / 2,
-    sizeof(HULL4) / sizeof(float) / 2,
-    sizeof(HULL5) / sizeof(float) / 2,
-    sizeof(HULL6) / sizeof(float) / 2
+    sizeof(HULL1) / sizeof(dReal) / 2,
+    sizeof(HULL2) / sizeof(dReal) / 2,
+    sizeof(HULL3) / sizeof(dReal) / 2,
+    sizeof(HULL4) / sizeof(dReal) / 2,
+    sizeof(HULL5) / sizeof(dReal) / 2,
+    sizeof(HULL6) / sizeof(dReal) / 2
 };
-static const float *CENTERS[] = { CENTER1, CENTER2, CENTER3, CENTER4, CENTER5, CENTER6 };
-const int HULLS_COUNT = sizeof(HULLS) / sizeof(float *);
+static const dReal *CENTERS[] = { CENTER1, CENTER2, CENTER3, CENTER4, CENTER5, CENTER6 };
+const int HULLS_COUNT = sizeof(HULLS) / sizeof(dReal *);
 
-const float TRIMESH_HEIGHT = 2.0f;
+const dReal TRIMESH_HEIGHT = REAL(2.0);
 
-static float *odeVerts[HULLS_COUNT];
+static dReal *odeVerts[HULLS_COUNT];
 static dTriIndex *odeInds[HULLS_COUNT];
 static int odeIndsCount[HULLS_COUNT];
 
@@ -114,13 +114,13 @@ static void nearCallback(void *data, dGeomID o1, dGeomID o2)
     {
         for (int i = 0; i<n; i++)
         {
-            contact[i].surface.slip1 = 0.7;
-            contact[i].surface.slip2 = 0.7;
+            contact[i].surface.slip1 = REAL(0.7);
+            contact[i].surface.slip2 = REAL(0.7);
             contact[i].surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1 | dContactSlip1 | dContactSlip2;
             // Friction effect, if set to dInfinity, objects would be unmovable 
-            contact[i].surface.mu = 0.0f;
-            contact[i].surface.soft_erp = 0.50;
-            contact[i].surface.soft_cfm = 0.03;
+            contact[i].surface.mu = REAL(0.0);
+            contact[i].surface.soft_erp = REAL(0.50);
+            contact[i].surface.soft_cfm = REAL(0.03);
             dJointID c = dJointCreateContact(world, contactgroup, &contact[i]);
             dJointAttach
             (
@@ -148,16 +148,16 @@ static void reset()
     for (int i = 0; i < HULLS_COUNT; i++)
     {
         dBodySetPosition(bodyId[i],
-            BODY_POSITIONS[i][0] * 0.05,
-            BODY_POSITIONS[i][1] * 0.05,
-            0.0f);
+            dReal(BODY_POSITIONS[i][0]) * REAL(0.05),
+            dReal(BODY_POSITIONS[i][1]) * REAL(0.05),
+            REAL(0.0));
 
         dMatrix3 R;
         dRFromAxisAndAngle(R,
-            1.0f,
-            1.0f,
-            1.0f,
-            0.0f);
+            REAL(1.0),
+            REAL(1.0),
+            REAL(1.0),
+            REAL(0.0));
         dBodySetRotation(bodyId[i], R);
 
         // Enable the body as it might have been auto-disabled
@@ -184,7 +184,7 @@ static void simLoop(int pause)
     double simstep = 1/240.0;
     double dt = dsElapsedTime();
 
-    int nrofsteps = (int)ceilf(dt/simstep);
+    int nrofsteps = (int)ceilf((float)(dt/simstep));
     nrofsteps = nrofsteps > 8 ? 8 : nrofsteps;
 
     for (int i = 0; i<nrofsteps && !pause; i++)
@@ -194,18 +194,18 @@ static void simLoop(int pause)
         {
             const dReal *pos = dBodyGetPosition(bodyId[j]);
             // Calculate force tensity according to distance from world center
-            float length = dCalcVectorLengthSquare3(pos);
+            dReal length = dCalcVectorLengthSquare3(pos);
             dReal pos1[3];
             dCopyVector3(pos1, pos);
             dNegateVector3(pos1);
             dNormalize3(pos1);
-            dScaleVector3(pos1, 5.0f * length);
+            dScaleVector3(pos1, REAL(5.0) * length);
 
             dBodyAddForce(bodyId[j], pos1[0], pos1[1], pos1[2]);
         }
 
         dSpaceCollide(space, NULL, &nearCallback);
-        dWorldQuickStep(world, simstep);
+        dWorldQuickStep(world, (dReal)simstep);
         dJointGroupEmpty(contactgroup);
     }
 
@@ -221,19 +221,19 @@ static void simLoop(int pause)
             for (int j = 0; j < odeIndsCount[i] / 3; j++)
             {
                 const dVector3 v0 = {
-                    odeVerts[i][odeInds[i][j * 3 + 0] * 3],
-                    odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 1],
-                    odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 2]
+                    dReal(odeVerts[i][odeInds[i][j * 3 + 0] * 3]),
+                    dReal(odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 1]),
+                    dReal(odeVerts[i][odeInds[i][j * 3 + 0] * 3 + 2])
                 };
                 const dVector3 v1 = {
-                    odeVerts[i][odeInds[i][j * 3 + 1] * 3],
-                    odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 1],
-                    odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 2]
+                    dReal(odeVerts[i][odeInds[i][j * 3 + 1] * 3]),
+                    dReal(odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 1]),
+                    dReal(odeVerts[i][odeInds[i][j * 3 + 1] * 3 + 2])
                 };
                 const dVector3 v2 = {
-                    odeVerts[i][odeInds[i][j * 3 + 2] * 3],
-                    odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 1],
-                    odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 2]
+                    dReal(odeVerts[i][odeInds[i][j * 3 + 2] * 3]),
+                    dReal(odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 1]),
+                    dReal(odeVerts[i][odeInds[i][j * 3 + 2] * 3 + 2])
                 };
                 dsDrawTriangle(Pos, Rot, v0, v1, v2, 1);
             }
@@ -265,14 +265,14 @@ int main(int argc, char **argv)
     dWorldSetGravity(world, 0, 0, -1);
     dWorldSetQuickStepNumIterations(world, 32);
     dWorldSetContactMaxCorrectingVel(world, 40);
-    dWorldSetMaxAngularSpeed(world, 62.8);
-    dWorldSetERP(world, 0.7);
-    dWorldSetQuickStepW(world, 0.75); // For increased stability.
+    dWorldSetMaxAngularSpeed(world, REAL(62.8));
+    dWorldSetERP(world, REAL(0.7));
+    dWorldSetQuickStepW(world, REAL(0.75)); // For increased stability.
 
     dWorldSetAutoDisableFlag(world, true);
-    dWorldSetAutoDisableLinearThreshold(world, 0.01);
-    dWorldSetAutoDisableAngularThreshold(world, 0.03);
-    dWorldSetAutoDisableTime(world, 0.15f);
+    dWorldSetAutoDisableLinearThreshold(world, REAL(0.01));
+    dWorldSetAutoDisableAngularThreshold(world, REAL(0.03));
+    dWorldSetAutoDisableTime(world, REAL(0.15));
 
     // Generate TriMesh geometries and bodies
     for (int i = 0; i < HULLS_COUNT; i++)
@@ -281,25 +281,25 @@ int main(int argc, char **argv)
         // Vertices
         int odeVertsCount1 = hullSize * 3 * 2;
         int odeVertsCount = odeVertsCount1 + 2 * 3;
-        odeVerts[i] = new float[odeVertsCount];
+        odeVerts[i] = new dReal[odeVertsCount];
         for (int j = 0; j < hullSize; j++)
         {
             // Bottom layer
-            odeVerts[i][j * 3] = (HULLS[i][j * 2] - CENTERS[i][0]) * 0.05f;
-            odeVerts[i][j * 3 + 1] = (HULLS[i][j * 2 + 1] - CENTERS[i][1]) * 0.05f;
-            odeVerts[i][j * 3 + 2] = 0.0f;
+            odeVerts[i][j * 3] = (HULLS[i][j * 2] - CENTERS[i][0]) * REAL(0.05);
+            odeVerts[i][j * 3 + 1] = (HULLS[i][j * 2 + 1] - CENTERS[i][1]) * REAL(0.05);
+            odeVerts[i][j * 3 + 2] = REAL(0.0);
             // Top layer
-            odeVerts[i][(hullSize + j) * 3] = (HULLS[i][j * 2] - CENTERS[i][0]) * 0.05f;
-            odeVerts[i][(hullSize + j) * 3 + 1] = (HULLS[i][j * 2 + 1] - CENTERS[i][1]) * 0.05f;
+            odeVerts[i][(hullSize + j) * 3] = (HULLS[i][j * 2] - CENTERS[i][0]) * REAL(0.05);
+            odeVerts[i][(hullSize + j) * 3 + 1] = (HULLS[i][j * 2 + 1] - CENTERS[i][1]) * REAL(0.05);
             odeVerts[i][(hullSize + j) * 3 + 2] = TRIMESH_HEIGHT;
         }
         // Center vertex on bottom plane
-        odeVerts[i][odeVertsCount1] = 0.0f;
-        odeVerts[i][odeVertsCount1 + 1] = 0.0f;
-        odeVerts[i][odeVertsCount1 + 2] = 0.0f;
+        odeVerts[i][odeVertsCount1] = REAL(0.0);
+        odeVerts[i][odeVertsCount1 + 1] = REAL(0.0);
+        odeVerts[i][odeVertsCount1 + 2] = REAL(0.0);
         // Center vertex on top plane
-        odeVerts[i][odeVertsCount1 + 3] = 0.0f;
-        odeVerts[i][odeVertsCount1 + 3 + 1] = 0.0f;
+        odeVerts[i][odeVertsCount1 + 3] = REAL(0.0);
+        odeVerts[i][odeVertsCount1 + 3 + 1] = REAL(0.0);
         odeVerts[i][odeVertsCount1 + 3 + 2] = TRIMESH_HEIGHT;
         // Indices
         int odeIndsCount1 = hullSize * 6;
@@ -328,16 +328,16 @@ int main(int argc, char **argv)
 
         bodyId[i] = dBodyCreate(world);
         dBodySetPosition(bodyId[i],
-            BODY_POSITIONS[i][0] * 0.05,
-            BODY_POSITIONS[i][1] * 0.05,
-            0.0f);
+            BODY_POSITIONS[i][0] * REAL(0.05),
+            BODY_POSITIONS[i][1] * REAL(0.05),
+            REAL(0.0));
 
         dMatrix3 R;
         dRFromAxisAndAngle(R,
-            1.0f,
-            1.0f,
-            1.0f,
-            0.0f);
+            REAL(1.0),
+            REAL(1.0),
+            REAL(1.0),
+            REAL(0.0));
         dBodySetRotation(bodyId[i], R);
 
         size_t index = 0;
@@ -345,16 +345,16 @@ int main(int argc, char **argv)
 
         dMass m1;
         dReal sides[3];
-        sides[0] = 3.0f;
-        sides[1] = 3.0f;
-        sides[2] = 3.0f;
-        const float DENSITY = 1.0f;
+        sides[0] = REAL(3.0);
+        sides[1] = REAL(3.0);
+        sides[2] = REAL(3.0);
+        const dReal DENSITY = REAL(1.0);
         dMassSetBox(&m1, DENSITY, sides[0], sides[1], sides[2]);
 
         dBodySetMass(bodyId[i], &m1);
         // Make bodies less bouncy
-        dBodySetLinearDamping(bodyId[i], 0.1);
-        dBodySetAngularDamping(bodyId[i], 0.1);
+        dBodySetLinearDamping(bodyId[i], REAL(0.1));
+        dBodySetAngularDamping(bodyId[i], REAL(0.1));
 
         triMeshDataId[i] = dGeomTriMeshDataCreate();
         dGeomTriMeshDataBuildReal(triMeshDataId[i], odeVerts[i], 3 * sizeof(float), odeVertsCount, odeInds[i], odeIndsCount[i], 3 * sizeof(dTriIndex));

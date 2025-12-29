@@ -43,9 +43,6 @@
 #include <math.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
 // select correct drawing functions
 #ifdef dDOUBLE
 #define dsDrawBox dsDrawBoxD
@@ -61,21 +58,21 @@ enum IDX_CYL_DIM
 
 
 const dVector3 boxDim = {1,1,1};
-const dVector3 extDim = {0.2,0.2,1.2};
-const dVector3 ancDim = {0.2,0.2,0.5};
-const dReal    axDim[NUM_CYL_DIM] = {0.1,1.0};
+const dVector3 extDim = {REAL(0.2),REAL(0.2),REAL(1.2)};
+const dVector3 ancDim = {REAL(0.2),REAL(0.2),REAL(0.5)};
+const dReal    axDim[NUM_CYL_DIM] = {REAL(0.1),1.0};
 
 
 static int type = dJointTypePU;
 
 
-const dReal VEL_INC = 0.01; // Velocity increment
+const dReal VEL_INC = REAL(0.01); // Velocity increment
 
 // physics parameters
-const dReal PI = 3.14159265358979323846264338327950288419716939937510;
+const dReal PI = REAL(3.14159265358979323846264338327950288419716939937510);
 
 
-const dReal INT_EXT_RATIO = 0.8;
+const dReal INT_EXT_RATIO = REAL(0.8);
 
 #define X 0
 #define Y 1
@@ -150,11 +147,11 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
       contact[i].surface.mode = (dContactSlip1 | dContactSlip2 |
                                  dContactSoftERP | dContactSoftCFM |
                                  dContactApprox1);
-      contact[i].surface.mu = 0.1;
-      contact[i].surface.slip1 = 0.02;
-      contact[i].surface.slip2 = 0.02;
-      contact[i].surface.soft_erp = 0.1;
-      contact[i].surface.soft_cfm = 0.0001;
+      contact[i].surface.mu = REAL(0.1);
+      contact[i].surface.slip1 = REAL(0.02);
+      contact[i].surface.slip2 = REAL(0.02);
+      contact[i].surface.soft_erp = REAL(0.1);
+      contact[i].surface.soft_cfm = REAL(0.0001);
       dJointID c = dJointCreateContact (world,contactgroup,&contact[i]);
       dJointAttach (c,dGeomGetBody (contact[i].geom.g1),dGeomGetBody (contact[i].geom.g2) );
     }
@@ -258,24 +255,24 @@ case 'h' : case 'H' : case '?' :
 
       // Torque
   case 'e': case 'E':
-      dBodyAddTorque(body[D],0.1,0,0);
+      dBodyAddTorque(body[D],REAL(0.1),0,0);
       break;
   case 'r': case 'R':
-      dBodyAddTorque(body[D],-0.1,0,0);
+      dBodyAddTorque(body[D],REAL(-0.1),0,0);
       break;
 
   case 'd': case 'D':
-      dBodyAddTorque(body[D],0, 0.1,0);
+      dBodyAddTorque(body[D],0, REAL(0.1),0);
       break;
   case 'f': case 'F':
-      dBodyAddTorque(body[D],0,-0.1,0);
+      dBodyAddTorque(body[D],0,REAL(-0.1),0);
       break;
 
   case 'c': case 'C':
-      dBodyAddTorque(body[D],0,0,0.1);
+      dBodyAddTorque(body[D],0,0,REAL(0.1));
       break;
   case 'v': case 'V':
-      dBodyAddTorque(body[D],0,0,0.1);
+      dBodyAddTorque(body[D],0,0,REAL(0.1));
       break;
 
       // Velocity of joint
@@ -297,15 +294,15 @@ case 'h' : case 'H' : case '?' :
 
   case 'l': case 'L' : {
       dReal aLimit, lLimit, fmax;
-      if (  joint->getParam (dParamFMax) ) {
+      if (  joint->getParam (dParamFMax) != 0 ) {
         aLimit = dInfinity;
         lLimit = dInfinity;
         fmax = 0;
       }
       else {
-        aLimit = 0.25*PI;
-        lLimit = 0.5*axDim[LENGTH];
-        fmax = 0.02;
+        aLimit = dReal(REAL(0.25)*PI);
+        lLimit = REAL(0.5)*axDim[LENGTH];
+        fmax = REAL(0.02);
       }
 
       joint->setParam (dParamFMax1, fmax);
@@ -357,10 +354,10 @@ case 'h' : case 'H' : case '?' :
   case 'g': case 'G' : {
       dVector3 g;
       dWorldGetGravity(world, g);
-      if (  g[2]< -0.1 )
+      if (  g[2]< REAL(-0.1) )
         dWorldSetGravity(world, 0, 0, 0);
       else
-        dWorldSetGravity(world, 0, 0, -0.5);
+        dWorldSetGravity(world, 0, 0, REAL(-0.5));
 
     }
     break;
@@ -416,7 +413,7 @@ static void drawBox (dGeomID id, int R, int G, int B)
 
   const dReal *pos = dGeomGetPosition (id);
   const dReal *rot = dGeomGetRotation (id);
-  dsSetColor (R,G,B);
+  dsSetColor ((float)R,(float)G,(float)B);
 
   dVector3 l;
   dGeomBoxGetLengths (id, l);
@@ -445,13 +442,13 @@ static void simLoop (int pause)
     double simstep = 0.01; // 10ms simulation steps
     double dt = dsElapsedTime();
 
-    int nrofsteps = (int) ceilf (dt/simstep);
+    int nrofsteps = (int) ceilf ((float)(dt/simstep));
     if (!nrofsteps)
       nrofsteps = 1;
 
     for (int i=0; i<nrofsteps && !pause; i++) {
       dSpaceCollide (space,NULL,&nearCallback);
-      dWorldStep (world, simstep);
+      dWorldStep (world, (dReal)simstep);
 
       dJointGroupEmpty (contactgroup);
     }
@@ -511,7 +508,7 @@ static void simLoop (int pause)
 
       dVector3 pos;
       for (int i=0; i<3; ++i)
-        pos[i] = anchorPos[i] - 0.5*extDim[Z]*axisP[i];
+        pos[i] = anchorPos[i] - REAL(0.5)*extDim[Z]*axisP[i];
       dsDrawBox (pos, rotBox, l);
     }
 
@@ -529,7 +526,7 @@ static void simLoop (int pause)
 
       dGeomCylinderGetParams (geom[AXIS1], &radius, &length);
       dsSetColor (1,0,0);
-      dsDrawCylinder (anchorPos, R, length, radius);
+      dsDrawCylinder (anchorPos, R, (float)length, (float)radius);
     }
 
     if ( dJointTypePU == type && geom[AXIS2] ) {
@@ -553,7 +550,7 @@ static void simLoop (int pause)
 
       dGeomCylinderGetParams (geom[AXIS2], &radius, &length);
       dsSetColor (0,0,1);
-      dsDrawCylinder (anchorPos, R, length, radius);
+      dsDrawCylinder (anchorPos, R, (float)length, (float)radius);
     }
 
     dsSetTexture (DS_WOOD);
@@ -574,7 +571,7 @@ static void simLoop (int pause)
 
       dVector3 pos;
       for (int i=0; i<3; ++i)
-        pos[i] = anchorPos[i] + 0.5 * l[Z]*e[i];
+        pos[i] = anchorPos[i] + REAL(0.5) * l[Z]*e[i];
       dsDrawBox (pos, rotBox, l);
     }
 
@@ -631,7 +628,7 @@ int main (int argc, char **argv)
   dInitODE2(0);
 
   world = dWorldCreate();
-  dWorldSetERP (world, 0.8);
+  dWorldSetERP (world, REAL(0.8));
 
   space = dSimpleSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
@@ -687,7 +684,7 @@ int main (int argc, char **argv)
   // Create the first axis of the universal joi9nt
   //Rotation of 90deg around y
   geom[AXIS1] = dCreateCylinder(NULL, axDim[RADIUS], axDim[LENGTH]);
-  dRFromAxisAndAngle(R, 0,1,0, 0.5*PI);
+  dRFromAxisAndAngle(R, 0,1,0, dReal(REAL(0.5)*PI));
   dGeomSetRotation(geom[AXIS1], R);
   dGeomSetCategoryBits(geom[AXIS1], catBits[AXIS1]);
   dGeomSetCollideBits(geom[AXIS1],
@@ -697,7 +694,7 @@ int main (int argc, char **argv)
   // Create the second axis of the universal joint
   geom[AXIS2] = dCreateCylinder(NULL, axDim[RADIUS], axDim[LENGTH]);
   //Rotation of 90deg around y
-  dRFromAxisAndAngle(R, 1,0,0, 0.5*PI);
+  dRFromAxisAndAngle(R, 1,0,0, dReal(REAL(0.5)*PI));
   dGeomSetRotation(geom[AXIS2], R);
   dGeomSetCategoryBits(geom[AXIS2], catBits[AXIS2]);
   dGeomSetCollideBits(geom[AXIS2],
@@ -717,24 +714,24 @@ int main (int argc, char **argv)
 
 
   if (geom[EXT]) {
-    dGeomSetPosition(geom[EXT], 0,0,3.8);
+    dGeomSetPosition(geom[EXT], 0,0,REAL(3.8));
   }
   if (geom[INT]) {
-    dGeomSetPosition(geom[INT], 0,0,2.6);
+    dGeomSetPosition(geom[INT], 0,0,REAL(2.6));
   }
   if (geom[AXIS1]) {
-    dGeomSetPosition(geom[AXIS1], 0,0,2.5);
+    dGeomSetPosition(geom[AXIS1], 0,0,REAL(2.5));
   }
   if (geom[AXIS2]) {
-    dGeomSetPosition(geom[AXIS2], 0,0,2.5);
+    dGeomSetPosition(geom[AXIS2], 0,0,REAL(2.5));
   }
 
   if (geom[ANCHOR]) {
-    dGeomSetPosition(geom[ANCHOR], 0,0,2.25);
+    dGeomSetPosition(geom[ANCHOR], 0,0,REAL(2.25));
   }
 
   if (body[D]) {
-    dBodySetPosition(body[D], 0,0,1.5);
+    dBodySetPosition(body[D], 0,0,REAL(1.5));
   }
 
 
@@ -751,7 +748,7 @@ int main (int argc, char **argv)
     pr->setAxis2 (1, 0, 0);
     joint = pr;
 
-    dJointSetPRAnchor (pr->id(), 0, 0, 2.5);
+    dJointSetPRAnchor (pr->id(), 0, 0, REAL(2.5));
   }
   else {
     dPUJoint *pu = new dPUJoint (world, NULL);
@@ -761,7 +758,7 @@ int main (int argc, char **argv)
     pu->setAxisP (0, 0, -1);
     joint = pu;
 
-    dJointSetPUAnchor (pu->id(), 0, 0, 2.5);
+    dJointSetPUAnchor (pu->id(), 0, 0, REAL(2.5));
   }
 
 

@@ -28,11 +28,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -76,9 +71,9 @@ static int mov_type = 2;
 static dReal mov_time = 0;
 
 
-static const dReal mov1_speed = 0.2;
+static const dReal mov1_speed = REAL(0.2);
 
-static dVector3 mov2_vel = { 0.2, 0.1, 0.25};
+static dVector3 mov2_vel = { REAL(0.2), REAL(0.1), REAL(0.25)};
 
 
 
@@ -171,7 +166,7 @@ static void contactplat_2(dContact &contact)
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
     dMatrix3 RI;
-    static const dReal ss[3] = {0.02,0.02,0.02};
+    static const dReal ss[3] = {REAL(0.02),REAL(0.02),REAL(0.02)};
 
     dContact contact[MAX_CONTACTS];
     int numc = dCollide (o1, o2, MAX_CONTACTS,
@@ -185,8 +180,8 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     for (int i=0; i< numc; i++) {
         contact[i].surface.mode = dContactBounce;
         contact[i].surface.mu = 1;
-        contact[i].surface.bounce = 0.25;
-        contact[i].surface.bounce_vel = 0.01;
+        contact[i].surface.bounce = REAL(0.25);
+        contact[i].surface.bounce_vel = REAL(0.01);
         
         if (isplatform) {
             switch (mov_type) {
@@ -211,7 +206,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 
 // start simulation - set viewpoint
 
-static /*const */float xyz[3] = {2.1106f,-1.3007,2.f}; // This variable is changed at runtime
+static /*const */float xyz[3] = {2.1106f,-1.3007f,2.f}; // This variable is changed at runtime
 static const float hpr[3] = {150.f,-13.5000f,0.0000f};
 
 static void start()
@@ -275,7 +270,7 @@ static void command (int cmd)
             }
 
             obj[i].body = dBodyCreate (world);
-            for (k=0; k<3; k++) sides[k] = dRandReal()*0.5+0.1;
+            for (k=0; k<3; k++) sides[k] = dRandReal()*REAL(0.5)+REAL(0.1);
 
             dMatrix3 R;
             if (random_pos) 
@@ -284,8 +279,8 @@ static void command (int cmd)
                                       dRandReal()*2-1 + platpos[0],
                                       dRandReal()*2-1 + platpos[1],
                                       dRandReal()+2 + platpos[2]);
-                    dRFromAxisAndAngle (R,dRandReal()*2.0-1.0,dRandReal()*2.0-1.0,
-                                        dRandReal()*2.0-1.0,dRandReal()*10.0-5.0);
+                    dRFromAxisAndAngle (R,dRandReal()*2-1,dRandReal()*2-1,
+                                        dRandReal()*2-1,dRandReal()*10-5);
                 }
             else 
                 {
@@ -303,7 +298,7 @@ static void command (int cmd)
                 obj[i].geom[0] = dCreateBox (space,sides[0],sides[1],sides[2]);
             }
             else if (cmd == 'c') {
-                sides[0] *= 0.5;
+                sides[0] *= REAL(0.5);
                 dMassSetCapsule (&m,DENSITY,3,sides[0],sides[1]);
                 obj[i].geom[0] = dCreateCapsule (space,sides[0],sides[1]);
             }
@@ -312,7 +307,7 @@ static void command (int cmd)
                 obj[i].geom[0] = dCreateCylinder (space,sides[0],sides[1]);
             }
             else if (cmd == 's') {
-                sides[0] *= 0.5;
+                sides[0] *= REAL(0.5);
                 dMassSetSphere (&m,DENSITY,sides[0]);
                 obj[i].geom[0] = dCreateSphere (space,sides[0]);
             }
@@ -365,17 +360,17 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
         dsDrawBox (pos,R,sides);
     }
     else if (type == dSphereClass) {
-        dsDrawSphere (pos,R,dGeomSphereGetRadius (g));
+        dsDrawSphere (pos,R,(float)dGeomSphereGetRadius (g));
     }
     else if (type == dCapsuleClass) {
         dReal radius,length;
         dGeomCapsuleGetParams (g,&radius,&length);
-        dsDrawCapsule (pos,R,length,radius);
+        dsDrawCapsule (pos,R,(float)length,(float)radius);
     }
     else if (type == dCylinderClass) {
         dReal radius,length;
         dGeomCylinderGetParams (g,&radius,&length);
-        dsDrawCylinder (pos,R,length,radius);
+        dsDrawCylinder (pos,R,(float)length,(float)radius);
     }
 
     if (show_body) {
@@ -383,7 +378,7 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
         if (body) {
             const dReal *bodypos = dBodyGetPosition (body); 
             const dReal *bodyr = dBodyGetRotation (body); 
-            dReal bodySides[3] = { 0.1, 0.1, 0.1 };
+            dReal bodySides[3] = { REAL(0.1), REAL(0.1), REAL(0.1) };
             dsSetColorAlpha(0,1,0,1);
             dsDrawBox(bodypos,bodyr,bodySides); 
         }
@@ -393,12 +388,12 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
         dReal aabb[6];
         dGeomGetAABB (g,aabb);
         dVector3 bbpos;
-        for (i=0; i<3; i++) bbpos[i] = 0.5*(aabb[i*2] + aabb[i*2+1]);
+        for (i=0; i<3; i++) bbpos[i] = REAL(0.5)*(aabb[i*2] + aabb[i*2+1]);
         dVector3 bbsides;
         for (i=0; i<3; i++) bbsides[i] = aabb[i*2+1] - aabb[i*2];
         dMatrix3 RI;
         dRSetIdentity (RI);
-        dsSetColorAlpha (1,0,0,0.5);
+        dsSetColorAlpha (1,0,0,REAL(0.5));
         dsDrawBox (bbpos,RI,bbsides);
     }
 }
@@ -408,15 +403,15 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
 
 static void updatecam()
 {
-    xyz[0] = platpos[0] + 3.3;
-    xyz[1] = platpos[1] - 1.8;
-    xyz[2] = platpos[2] + 2;
+    xyz[0] = (float)(platpos[0] + REAL(3.3));
+    xyz[1] = (float)(platpos[1] - REAL(1.8));
+    xyz[2] = (float)(platpos[2] + REAL(2.0));
     dsSetViewpoint (xyz, hpr);
 }
 
 static void simLoop (int pause)
 {
-    const dReal stepsize = 0.02;
+    const dReal stepsize = REAL(0.02);
 
     dsSetColor (0,0,2);
     dSpaceCollide (space,NULL,&nearCallback);
@@ -450,7 +445,7 @@ static void simLoop (int pause)
     for (int i=0; i<num; i++) {
         for (int j=0; j < GPB; j++) {
             if (! dBodyIsEnabled (obj[i].body)) {
-                dsSetColor (1,0.8,0);
+                dsSetColor (1,0.8f,0);
             }
             else {
                 dsSetColor (1,1,0);
@@ -491,14 +486,14 @@ int main (int argc, char **argv)
 #endif
 
     contactgroup = dJointGroupCreate (0);
-    dWorldSetGravity (world,0,0,-0.5);
-    dWorldSetCFM (world,1e-5);
+    dWorldSetGravity (world,0,0,REAL(-0.5));
+    dWorldSetCFM (world,REAL(1e-5));
     
-    dWorldSetLinearDamping(world, 0.00001);
-    dWorldSetAngularDamping(world, 0.005);
+    dWorldSetLinearDamping(world, REAL(0.00001));
+    dWorldSetAngularDamping(world, REAL(0.005));
     dWorldSetMaxAngularSpeed(world, 200);
 
-    dWorldSetContactSurfaceLayer (world,0.001);
+    dWorldSetContactSurfaceLayer (world,REAL(0.001));
     ground = dCreatePlane (space,0,0,1,0);
     
     memset (obj,0,sizeof(obj));

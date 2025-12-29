@@ -224,7 +224,7 @@ bool dxSafeNormalize4 (dVector4 a)
 void dxPlaneSpace (const dVector3 n, dVector3 p, dVector3 q)
 {
     dAASSERT (n && p && q);
-    if (dFabs(n[2]) > M_SQRT1_2) {
+    if ((double)dFabs(n[2]) > M_SQRT1_2) {
         // choose p in y-z plane
         dReal a = n[1]*n[1] + n[2]*n[2];
         dReal k = dRecipSqrt (a);
@@ -296,7 +296,7 @@ bool dxOrthogonalizeR(dMatrix3 m)
             dICHECK(!row1_norm_fault);
         }
 
-        dIASSERT(dFabs(dCalcVectorDot3(m + dM3E__X_MIN, row2)) < 1e-6);
+        dIASSERT(dFabs(dCalcVectorDot3(m + dM3E__X_MIN, row2)) < REAL(1e-6));
 
         /* just overwrite row[2], this makes sure the matrix is not
         a reflection */

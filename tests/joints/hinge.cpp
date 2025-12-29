@@ -104,20 +104,20 @@ SUITE (TestdxJointHinge)
                 test_dJointSetHingeAxisOffset_B2_90deg) {
     dMatrix3 R;
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
-    dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+    dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (-M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (dReal(-M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
-    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  -M_PI/2.0);
-    CHECK_CLOSE (-M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2], (dReal)(-M_PI/2.0));
+    CHECK_CLOSE (dReal(-M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (0.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -139,20 +139,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
-    dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+    dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (dReal(M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
-    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  M_PI/2.0);
-    CHECK_CLOSE (M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2], (dReal)(M_PI/2.0));
+    CHECK_CLOSE (dReal(M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (0.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -174,20 +174,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, REAL(0.23) );
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  REAL(0.23));
-    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (0.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -209,20 +209,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, -REAL(0.23));
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  -REAL(0.23));
-    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (0.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -295,20 +295,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
-    dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+    dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (dReal(M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
-    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  M_PI/2.0);
-    CHECK_CLOSE (M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2], (dReal)(M_PI/2.0));
+    CHECK_CLOSE (dReal(M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (0.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -330,20 +330,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
-    dRFromAxisAndAngle (R, 1, 0, 0, -M_PI/2.0);
+    dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(-M_PI/2.0));
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (-M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (dReal(-M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
-    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  -M_PI/2.0);
-    CHECK_CLOSE (-M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2], (dReal)(-M_PI/2.0));
+    CHECK_CLOSE (dReal(-M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (0.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -365,20 +365,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, REAL(0.23));
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  -REAL(0.23));
-    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (0.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -400,20 +400,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, -REAL(0.23));
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  REAL(0.23));
-    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (0.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -483,20 +483,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
-    dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+    dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (dReal(M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
-    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  M_PI/2.0);
-    CHECK_CLOSE (M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2], (dReal)(M_PI/2.0));
+    CHECK_CLOSE (dReal(M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
   // Rotate B1 by -0.23rad around X then back to original position
@@ -517,20 +517,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, -REAL(0.23));
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  -REAL(0.23));
-    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (-REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -601,20 +601,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
-    dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+    dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (-M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (dReal(-M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
-    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  -M_PI/2.0);
-    CHECK_CLOSE (-M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2], (dReal)(-M_PI/2.0));
+    CHECK_CLOSE (dReal(-M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
   // Rotate B1 by -0.23rad around X then back to original position
@@ -635,20 +635,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, -REAL(0.23));
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  REAL(0.23));
-    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId1, R);
 
-    CHECK_CLOSE (0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -721,20 +721,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
-    dRFromAxisAndAngle (R, 1, 0, 0, M_PI/2.0);
+    dRFromAxisAndAngle (R, 1, 0, 0, (dReal)(M_PI/2.0));
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (-M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (dReal(-M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
-    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  -M_PI/2.0);
-    CHECK_CLOSE (-M_PI/2.0, dJointGetHingeAngle (jId), 1e-4);
+    dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2], (dReal)(-M_PI/2.0));
+    CHECK_CLOSE (dReal(-M_PI/2.0), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
   // Rotate B2 by -0.23rad around X then back to original position
@@ -755,20 +755,20 @@ SUITE (TestdxJointHinge)
 
     dJointSetHingeAxis (jId, axis[0], axis[1], axis[2]);
 
-    CHECK_CLOSE (dJointGetHingeAngle (jId), 0.0, 1e-4);
+    CHECK_CLOSE (dJointGetHingeAngle (jId), REAL(0.0), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, -REAL(0.23));
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dJointSetHingeAxisOffset (jId, axis[0], axis[1], axis[2],  REAL(0.23));
-    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.23), dJointGetHingeAngle (jId), REAL(1e-4));
 
     dRFromAxisAndAngle (R, 1, 0, 0, 0);
     dBodySetRotation (bId2, R);
 
-    CHECK_CLOSE (0, dJointGetHingeAngle (jId), 1e-4);
+    CHECK_CLOSE (REAL(0.0), dJointGetHingeAngle (jId), REAL(1e-4));
   }
 
 
@@ -862,10 +862,10 @@ SUITE (TestdxJointHinge)
       // second joint
       const dReal *qA = dBodyGetQuaternion(bId[0][b]);
       const dReal *qB = dBodyGetQuaternion(bId[1][b]);
-      CHECK_CLOSE (qA[0], qB[0], 1e-6);
-      CHECK_CLOSE (qA[1], qB[1], 1e-6);
-      CHECK_CLOSE (qA[2], qB[2], 1e-6);
-      CHECK_CLOSE (qA[3], qB[3], 1e-6);
+      CHECK_CLOSE (qA[0], qB[0], REAL(1e-6));
+      CHECK_CLOSE (qA[1], qB[1], REAL(1e-6));
+      CHECK_CLOSE (qA[2], qB[2], REAL(1e-6));
+      CHECK_CLOSE (qA[3], qB[3], REAL(1e-6));
     }
 
     dWorldStep (wId,0.5);
@@ -878,18 +878,18 @@ SUITE (TestdxJointHinge)
       // second joint
       const dReal *qA = dBodyGetQuaternion(bId[0][b]);
       const dReal *qB = dBodyGetQuaternion(bId[1][b]);
-      CHECK_CLOSE (qA[0], qB[0], 1e-6);
-      CHECK_CLOSE (qA[1], qB[1], 1e-6);
-      CHECK_CLOSE (qA[2], qB[2], 1e-6);
-      CHECK_CLOSE (qA[3], qB[3], 1e-6);
+      CHECK_CLOSE (qA[0], qB[0], REAL(1e-6));
+      CHECK_CLOSE (qA[1], qB[1], REAL(1e-6));
+      CHECK_CLOSE (qA[2], qB[2], REAL(1e-6));
+      CHECK_CLOSE (qA[3], qB[3], REAL(1e-6));
 
 
       const dReal *posA = dBodyGetPosition(bId[0][b]);
       const dReal *posB = dBodyGetPosition(bId[1][b]);
-      CHECK_CLOSE (posA[0], posB[0], 1e-6);
-      CHECK_CLOSE (posA[1], posB[1], 1e-6);
-      CHECK_CLOSE (posA[2], posB[2], 1e-6);
-      CHECK_CLOSE (posA[3], posB[3], 1e-6);
+      CHECK_CLOSE (posA[0], posB[0], REAL(1e-6));
+      CHECK_CLOSE (posA[1], posB[1], REAL(1e-6));
+      CHECK_CLOSE (posA[2], posB[2], REAL(1e-6));
+      CHECK_CLOSE (posA[3], posB[3], REAL(1e-6));
     }
   }
 
@@ -898,25 +898,23 @@ SUITE (TestdxJointHinge)
                test_Hinge_dParamVel)
       {
           const dReal targetvel = 100;
-          const dReal tolerance = targetvel *
 #ifdef dSINGLE
-              1e-2
+          const dReal tolerance = targetvel * 1e-2f;
 #else
-              1e-6
+          const dReal tolerance = targetvel * 1e-6;
 #endif
-              ;
 
           dJointSetHingeParam(jId, dParamFMax, dInfinity);
           dJointSetHingeParam(jId, dParamVel, targetvel);
           
-          dWorldStep(wId, 0.001);
+          dWorldStep(wId, (dReal)0.001);
           
           const dReal *v1 = dBodyGetAngularVel(bId1);
           const dReal *v2 = dBodyGetAngularVel(bId2);
           dVector3 rvel = { v1[0]-v2[0], v1[1]-v2[1], v1[2]-v2[2] };
           CHECK_CLOSE(rvel[0], targetvel, tolerance);
-          CHECK_CLOSE(rvel[1], 0, tolerance);
-          CHECK_CLOSE(rvel[2], 0, tolerance);
+          CHECK_CLOSE(rvel[1], dReal(0), tolerance);
+          CHECK_CLOSE(rvel[2], dReal(0), tolerance);
       }
   
   

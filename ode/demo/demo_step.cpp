@@ -31,10 +31,6 @@
 #include <drawstuff/drawstuff.h>
 #include "texturepath.h"
 
-#ifdef _MSC_VER
-#pragma warning(disable:4244 4305)  // for VC++, no precision loss complaints
-#endif
-
 // select correct drawing functions
 
 #ifdef dDOUBLE
@@ -87,7 +83,7 @@ static void createTest()
     // set random mass (random diagonal mass rotated by a random amount)
     dMass m;
     dMatrix3 R;
-    dMassSetBox (&m,1,dRandReal()+0.1,dRandReal()+0.1,dRandReal()+0.1);
+    dMassSetBox (&m,1,dRandReal()+REAL(0.1),dRandReal()+REAL(0.1),dRandReal()+REAL(0.1));
     dMassAdjust (&m,dRandReal()+1);
     for (j=0; j<4; j++) q[j] = dRandReal()*2-1;
     dQtoR (q,R);
@@ -116,8 +112,8 @@ static void createTest()
   for (i=0; i<NUM; i++) {
     // move bodies a bit to get some joint error
     const dReal *pos = dBodyGetPosition (body[i]); 
-    dBodySetPosition (body[i],pos[0]+dRandReal()*0.2-0.1,
-		      pos[1]+dRandReal()*0.2-0.1,pos[2]+dRandReal()*0.2-0.1);
+    dBodySetPosition (body[i],pos[0]+dRandReal()*REAL(0.2)-REAL(0.1),
+		      pos[1]+dRandReal()*REAL(0.2)-REAL(0.1),pos[2]+dRandReal()*REAL(0.2)-REAL(0.1));
   }
 }
 
@@ -154,14 +150,14 @@ static void simLoop (int pause)
 		     scale2*(dRandReal()*2-1));
     }
 
-    dWorldStep (world,0.05);
+    dWorldStep (world,REAL(0.05));
     createTest();
   }
 
   // float sides[3] = {SIDE,SIDE,SIDE};
   dsSetColor (1,1,0);
   for (int i=0; i<NUM; i++)
-    dsDrawSphere (dBodyGetPosition(body[i]), dBodyGetRotation(body[i]),RADIUS);
+    dsDrawSphere (dBodyGetPosition(body[i]), dBodyGetRotation(body[i]),(float)RADIUS);
 }
 
 

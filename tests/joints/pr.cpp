@@ -106,18 +106,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId1, offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      offset*axis[0],offset*axis[1],offset*axis[2]);
-//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId1, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
 //         // Only here to test a deprecated warning
 //         dJointSetPRAxisDelta (jId, 1, 0, 0, 0, 0, 0);
@@ -139,18 +139,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId1, -offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      -offset*axis[0],-offset*axis[1],-offset*axis[2]);
-//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId1, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
     // Move 2nd body offset unit in the X direction
@@ -169,18 +169,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId2, offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      -offset*axis[0],-offset*axis[1],-offset*axis[2]);
-//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId2, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
     // Move 2nd body offset unit in the opposite X direction
@@ -199,18 +199,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId2, -offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      offset*axis[0],offset*axis[1],offset*axis[2]);
-//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId2, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
 
@@ -277,18 +277,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId1, offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      offset*axis[0],offset*axis[1],offset*axis[2]);
-//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId1, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
     // Move 1st body offset unit in the opposite X direction
@@ -305,18 +305,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId1, -offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      -offset*axis[0],-offset*axis[1],-offset*axis[2]);
-//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId1, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
     // Only body 1
@@ -378,18 +378,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId1, offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      -offset*axis[0],-offset*axis[1],-offset*axis[2]);
-//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId1, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
     // Move 1st body offset unit in the opposite X direction
@@ -406,18 +406,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId1, -offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      offset*axis[0],offset*axis[1],offset*axis[2]);
-//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId1, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
 
@@ -498,9 +498,9 @@ SUITE (TestdxJointPR)
 
         dJointAttach(jId, bId, NULL);
 
-        CHECK_CLOSE(dJointGetPRPositionRate(jId_12), dJointGetPRPositionRate(jId), 1e-2);
+        CHECK_CLOSE(dJointGetPRPositionRate(jId_12), dJointGetPRPositionRate(jId), REAL(1e-2));
 
-        CHECK_CLOSE(dJointGetPRAngleRate(jId_12), dJointGetPRAngleRate(jId), 1e-2);
+        CHECK_CLOSE(dJointGetPRAngleRate(jId_12), dJointGetPRAngleRate(jId), REAL(1e-2));
     }
 
 
@@ -519,8 +519,8 @@ SUITE (TestdxJointPR)
 
         dJointAttach(jId, NULL, bId);
 
-        CHECK_CLOSE(dJointGetPRPositionRate(jId_12), dJointGetPRPositionRate(jId), 1e-2);
-        CHECK_CLOSE(dJointGetPRAngleRate(jId_12), dJointGetPRAngleRate(jId), 1e-2);
+        CHECK_CLOSE(dJointGetPRPositionRate(jId_12), dJointGetPRPositionRate(jId), REAL(1e-2));
+        CHECK_CLOSE(dJointGetPRAngleRate(jId_12), dJointGetPRAngleRate(jId), REAL(1e-2));
     }
 
 
@@ -586,18 +586,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId2, offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      -offset*axis[0],-offset*axis[1],-offset*axis[2]);
-//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId2, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
     // Move 2nd body offset unit in the opposite X direction
@@ -614,18 +614,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId2, -offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      offset*axis[0],offset*axis[1],offset*axis[2]);
-//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId2, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
     // Only body 2
@@ -687,18 +687,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId2, offset, 0, 0);
 
-        CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //        dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      offset*axis[0],offset*axis[1],offset*axis[2]);
-//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId2, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 //         dJointSetPRAxisDelta (jId, 1, 0, 0, 0, 0, 0);
     }
 
@@ -716,18 +716,18 @@ SUITE (TestdxJointPR)
     {
         dJointSetPRAnchor (jId, 0, 0, 0);
 
-        CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
 
         dBodySetPosition (bId2, -offset, 0, 0);
 
-        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+        CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //        dJointSetPRAnchorOffset (jId, 0, 0, 0,
 //                                      -offset*axis[0],-offset*axis[1],-offset*axis[2]);
-//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (-offset, dJointGetPRPosition (jId), REAL(1e-4));
 
 //         dBodySetPosition (bId2, 0, 0, 0);
-//         CHECK_CLOSE (0.0, dJointGetPRPosition (jId), 1e-4);
+//         CHECK_CLOSE (REAL(0.0), dJointGetPRPosition (jId), REAL(1e-4));
     }
 
 
@@ -802,18 +802,18 @@ SUITE (TestdxJointPR)
         dJointGetPRAxis1 (jId, axis);
         dJointSetPRAxis1 (jId, axis[0], axis[1], axis[2]);
         dJointGetPRAxis1 (jId, axis);
-        CHECK_CLOSE (axis[0], axisOrig[0] , 1e-4);
-        CHECK_CLOSE (axis[1], axisOrig[1] , 1e-4);
-        CHECK_CLOSE (axis[2], axisOrig[2] , 1e-4);
+        CHECK_CLOSE (axis[0], axisOrig[0] , REAL(1e-4));
+        CHECK_CLOSE (axis[1], axisOrig[1] , REAL(1e-4));
+        CHECK_CLOSE (axis[2], axisOrig[2] , REAL(1e-4));
 
 
         dJointGetPRAxis2 (jId, axisOrig);
         dJointGetPRAxis2(jId, axis);
         dJointSetPRAxis2 (jId, axis[0], axis[1], axis[2]);
         dJointGetPRAxis2 (jId, axis);
-        CHECK_CLOSE (axis[0], axisOrig[0] , 1e-4);
-        CHECK_CLOSE (axis[1], axisOrig[1] , 1e-4);
-        CHECK_CLOSE (axis[2], axisOrig[2] , 1e-4);
+        CHECK_CLOSE (axis[0], axisOrig[0] , REAL(1e-4));
+        CHECK_CLOSE (axis[1], axisOrig[1] , REAL(1e-4));
+        CHECK_CLOSE (axis[2], axisOrig[2] , REAL(1e-4));
     }
 
 
@@ -910,10 +910,10 @@ SUITE (TestdxJointPR)
             // second joint
             const dReal *qA = dBodyGetQuaternion(bId[0][b]);
             const dReal *qB = dBodyGetQuaternion(bId[1][b]);
-            CHECK_CLOSE (qA[0], qB[0], 1e-4);
-            CHECK_CLOSE (qA[1], qB[1], 1e-4);
-            CHECK_CLOSE (qA[2], qB[2], 1e-4);
-            CHECK_CLOSE (qA[3], qB[3], 1e-4);
+            CHECK_CLOSE (qA[0], qB[0], REAL(1e-4));
+            CHECK_CLOSE (qA[1], qB[1], REAL(1e-4));
+            CHECK_CLOSE (qA[2], qB[2], REAL(1e-4));
+            CHECK_CLOSE (qA[3], qB[3], REAL(1e-4));
         }
 
         dWorldStep (wId,0.5);
@@ -927,18 +927,18 @@ SUITE (TestdxJointPR)
             // second joint
             const dReal *qA = dBodyGetQuaternion(bId[0][b]);
             const dReal *qB = dBodyGetQuaternion(bId[1][b]);
-            CHECK_CLOSE (qA[0], qB[0], 1e-4);
-            CHECK_CLOSE (qA[1], qB[1], 1e-4);
-            CHECK_CLOSE (qA[2], qB[2], 1e-4);
-            CHECK_CLOSE (qA[3], qB[3], 1e-4);
+            CHECK_CLOSE (qA[0], qB[0], REAL(1e-4));
+            CHECK_CLOSE (qA[1], qB[1], REAL(1e-4));
+            CHECK_CLOSE (qA[2], qB[2], REAL(1e-4));
+            CHECK_CLOSE (qA[3], qB[3], REAL(1e-4));
 
 
             const dReal *posA = dBodyGetPosition(bId[0][b]);
             const dReal *posB = dBodyGetPosition(bId[1][b]);
-            CHECK_CLOSE (posA[0], posB[0], 1e-4);
-            CHECK_CLOSE (posA[1], posB[1], 1e-4);
-            CHECK_CLOSE (posA[2], posB[2], 1e-4);
-            CHECK_CLOSE (posA[3], posB[3], 1e-4);
+            CHECK_CLOSE (posA[0], posB[0], REAL(1e-4));
+            CHECK_CLOSE (posA[1], posB[1], REAL(1e-4));
+            CHECK_CLOSE (posA[2], posB[2], REAL(1e-4));
+            CHECK_CLOSE (posA[3], posB[3], REAL(1e-4));
         }
     }
 
@@ -980,17 +980,17 @@ SUITE (TestdxJointPR)
         const dReal *pos1_12 = dBodyGetPosition(bId1_12);
         const dReal *pos = dBodyGetPosition(bId);
 
-        CHECK_CLOSE (pos1_12[0], pos[0], 1e-2);
-        CHECK_CLOSE (pos1_12[1], pos[1], 1e-2);
-        CHECK_CLOSE (pos1_12[2], pos[2], 1e-2);
+        CHECK_CLOSE (pos1_12[0], pos[0], REAL(1e-2));
+        CHECK_CLOSE (pos1_12[1], pos[1], REAL(1e-2));
+        CHECK_CLOSE (pos1_12[2], pos[2], REAL(1e-2));
 
         const dReal *q1_12 = dBodyGetQuaternion(bId1_12);
         const dReal *q = dBodyGetQuaternion(bId);
 
-        CHECK_CLOSE (q1_12[0], q[0], 1e-4);
-        CHECK_CLOSE (q1_12[1], q[1], 1e-4);
-        CHECK_CLOSE (q1_12[2], q[2], 1e-4);
-        CHECK_CLOSE (q1_12[3], q[3], 1e-4);
+        CHECK_CLOSE (q1_12[0], q[0], REAL(1e-4));
+        CHECK_CLOSE (q1_12[1], q[1], REAL(1e-4));
+        CHECK_CLOSE (q1_12[2], q[2], REAL(1e-4));
+        CHECK_CLOSE (q1_12[3], q[3], REAL(1e-4));
     }
 
 
@@ -1028,18 +1028,18 @@ SUITE (TestdxJointPR)
         const dReal *pos2_12 = dBodyGetPosition(bId2_12);
         const dReal *pos = dBodyGetPosition(bId);
 
-        CHECK_CLOSE (pos2_12[0], pos[0], 1e-2);
-        CHECK_CLOSE (pos2_12[1], pos[1], 1e-2);
-        CHECK_CLOSE (pos2_12[2], pos[2], 1e-2);
+        CHECK_CLOSE (pos2_12[0], pos[0], REAL(1e-2));
+        CHECK_CLOSE (pos2_12[1], pos[1], REAL(1e-2));
+        CHECK_CLOSE (pos2_12[2], pos[2], REAL(1e-2));
 
 
         const dReal *q2_12 = dBodyGetQuaternion(bId2_12);
         const dReal *q = dBodyGetQuaternion(bId);
 
-        CHECK_CLOSE (q2_12[0], q[0], 1e-4);
-        CHECK_CLOSE (q2_12[1], q[1], 1e-4);
-        CHECK_CLOSE (q2_12[2], q[2], 1e-4);
-        CHECK_CLOSE (q2_12[3], q[3], 1e-4);
+        CHECK_CLOSE (q2_12[0], q[0], REAL(1e-4));
+        CHECK_CLOSE (q2_12[1], q[1], REAL(1e-4));
+        CHECK_CLOSE (q2_12[2], q[2], REAL(1e-4));
+        CHECK_CLOSE (q2_12[3], q[3], REAL(1e-4));
     }
 
 
@@ -1080,22 +1080,22 @@ SUITE (TestdxJointPR)
         const dReal *pos1_12 = dBodyGetPosition(bId1_12);
         const dReal *pos = dBodyGetPosition(bId);
 
-        CHECK_CLOSE (pos1_12[0], pos[0], 1e-4);
-        CHECK_CLOSE (pos1_12[1], pos[1], 1e-4);
-        CHECK_CLOSE (pos1_12[2], pos[2], 1e-4);
+        CHECK_CLOSE (pos1_12[0], pos[0], REAL(1e-4));
+        CHECK_CLOSE (pos1_12[1], pos[1], REAL(1e-4));
+        CHECK_CLOSE (pos1_12[2], pos[2], REAL(1e-4));
 
-        CHECK_CLOSE (0, pos[0], 1e-4);
-        CHECK_CLOSE (0, pos[1], 1e-4);
-        CHECK_CLOSE (0, pos[2], 1e-4);
+        CHECK_CLOSE (REAL(0.0), pos[0], REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), pos[1], REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), pos[2], REAL(1e-4));
 
 
         const dReal *q1_12 = dBodyGetQuaternion(bId1_12);
         const dReal *q = dBodyGetQuaternion(bId);
 
-        CHECK_CLOSE (q1_12[0], q[0], 1e-4);
-        CHECK_CLOSE (q1_12[1], q[1], 1e-4);
-        CHECK_CLOSE (q1_12[2], q[2], 1e-4);
-        CHECK_CLOSE (q1_12[3], q[3], 1e-4);
+        CHECK_CLOSE (q1_12[0], q[0], REAL(1e-4));
+        CHECK_CLOSE (q1_12[1], q[1], REAL(1e-4));
+        CHECK_CLOSE (q1_12[2], q[2], REAL(1e-4));
+        CHECK_CLOSE (q1_12[3], q[3], REAL(1e-4));
     }
 
 
@@ -1136,22 +1136,22 @@ SUITE (TestdxJointPR)
         const dReal *pos2_12 = dBodyGetPosition(bId2_12);
         const dReal *pos = dBodyGetPosition(bId);
 
-        CHECK_CLOSE (pos2_12[0], pos[0], 1e-4);
-        CHECK_CLOSE (pos2_12[1], pos[1], 1e-4);
-        CHECK_CLOSE (pos2_12[2], pos[2], 1e-4);
+        CHECK_CLOSE (pos2_12[0], pos[0], REAL(1e-4));
+        CHECK_CLOSE (pos2_12[1], pos[1], REAL(1e-4));
+        CHECK_CLOSE (pos2_12[2], pos[2], REAL(1e-4));
 
-        CHECK_CLOSE (0, pos[0], 1e-4);
-        CHECK_CLOSE (0, pos[1], 1e-4);
-        CHECK_CLOSE (0, pos[2], 1e-4);
+        CHECK_CLOSE (REAL(0.0), pos[0], REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), pos[1], REAL(1e-4));
+        CHECK_CLOSE (REAL(0.0), pos[2], REAL(1e-4));
 
 
         const dReal *q2_12 = dBodyGetQuaternion(bId2_12);
         const dReal *q = dBodyGetQuaternion(bId);
 
-        CHECK_CLOSE (q2_12[0], q[0], 1e-4);
-        CHECK_CLOSE (q2_12[1], q[1], 1e-4);
-        CHECK_CLOSE (q2_12[2], q[2], 1e-4);
-        CHECK_CLOSE (q2_12[3], q[3], 1e-4);
+        CHECK_CLOSE (q2_12[0], q[0], REAL(1e-4));
+        CHECK_CLOSE (q2_12[1], q[1], REAL(1e-4));
+        CHECK_CLOSE (q2_12[2], q[2], REAL(1e-4));
+        CHECK_CLOSE (q2_12[3], q[3], REAL(1e-4));
     }
 
 } // End of SUITE TestdxJointPR

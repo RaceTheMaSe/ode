@@ -68,7 +68,7 @@
 		inline_	HPoint&		Normalize()
 							{
 								float M = Magnitude();
-								if(M)
+								if(M != 0)
 								{
 									M = 1.0f / M;
 									x *= M;

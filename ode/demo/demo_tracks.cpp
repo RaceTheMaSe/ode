@@ -34,7 +34,7 @@
 
 
 
-const dReal ball_radius = 0.4;
+const dReal ball_radius = REAL(0.4);
 const dReal balls_sep = 2; // separation between the balls
 
 /* Choose one test case
@@ -44,11 +44,11 @@ const dReal balls_sep = 2; // separation between the balls
 #if TEST_CASE == 0
 const dReal track_len = 10;
 const dReal track_height = 1;
-const dReal track_width = 0.1;
+const dReal track_width = REAL(0.1);
 const dReal track_gauge = 1;
 const dReal track_elevation = 2;
-const dReal track_angle = 80 * M_PI/180.;
-const dReal track_incl = 10 * M_PI/180.;
+const dReal track_angle = (dReal)(80 * M_PI/180.);
+const dReal track_incl = (dReal)(10 * M_PI/180.);
 #elif TEST_CASE == 1
 const dReal track_len = 10;
 const dReal track_height = 1;
@@ -129,13 +129,13 @@ static dTriIndex track_faces[n_track_faces * 3];
 static void resetBall(dBodyID b, unsigned idx)
 {
     dBodySetPosition(b,
-                     0.5*track_len*cos(track_incl) // Z
-                     - 0.5*track_height*sin(track_incl)
+                     REAL(0.5)*track_len*dCos(track_incl) // Z
+                     - REAL(0.5)*track_height*dSin(track_incl)
                      - ball_radius, // X
-                     balls_sep*idx, // Y
+                     balls_sep*(dReal)idx, // Y
                      track_elevation + ball_radius// Z
-                     + 0.5*track_len*sin(track_incl)
-                     + 0.5*track_height*cos(track_incl));
+                     + REAL(0.5)*track_len*dSin(track_incl)
+                     + REAL(0.5)*track_height*dCos(track_incl));
     dMatrix3 r = {1, 0, 0, 0,
                   0, 1, 0, 0,
                   0, 0, 1, 0};
@@ -158,7 +158,7 @@ static void start()
     dAllocateODEDataForThread(dAllocateMaskAll);
 
     world = dWorldCreate();
-    dWorldSetGravity (world,0,0,-9.8);
+    dWorldSetGravity (world,0,0,REAL(-9.8));
 
     contact_group = dJointGroupCreate(0);
 
@@ -172,7 +172,7 @@ static void start()
 
     // now a ball
     dMass m;
-    dMassSetSphere(&m, 0.1, ball_radius);
+    dMassSetSphere(&m, REAL(0.1), ball_radius);
 
     ball1_geom = dCreateSphere(space, ball_radius);
     ball1_body = dBodyCreate(world);
@@ -190,9 +190,9 @@ static void start()
     // tracks made out of boxes
     dGeomID trk;
     dMatrix3 r1, r2, r3;
-    dVector3 ro = {0, -(0.5f*track_gauge + 0.5f*track_width), track_elevation};
+    dVector3 ro = {0, -(REAL(0.5)*track_gauge + REAL(0.5)*track_width), track_elevation};
     dMatrix3 s1, s2, s3;
-    dVector3 so = {0, 0.5f*track_gauge + 0.5f*track_width, track_elevation};
+    dVector3 so = {0, REAL(0.5)*track_gauge + REAL(0.5)*track_width, track_elevation};
 
     dRFromAxisAndAngle(r1, 1, 0, 0,  track_angle);
     dRFromAxisAndAngle(r2, 0, 1, 0, -track_incl);
@@ -251,7 +251,7 @@ static void start()
     
 
     // initial camera position
-    float xyz[3] = {-7.9414,-2.4804,2.9800};
+    float xyz[3] = {-7.9414f,-2.4804f,2.9800f};
     float hpr[3] = {32.5000,-10.0000,0.0000};
     dsSetViewpoint (xyz,hpr);
 
@@ -276,14 +276,14 @@ static void nearCallback(void * /*data*/, dGeomID a, dGeomID b)
      * The epsilon that defines what "too close" means can be a heuristic.
      */
     int new_n = 0;
-    dReal epsilon = 1e-1; // default
+    dReal epsilon = REAL(1e-1); // default
     /* If we know one of the geoms is a sphere, we can base the epsilon on the
      *  sphere's radius.
      */
     dGeomID s = NULL;
     if ((dGeomGetClass(a) == dSphereClass && (s = a) != NULL) || 
         (dGeomGetClass(b) == dSphereClass && (s = b) != NULL)) {
-        epsilon = dGeomSphereGetRadius(s) * 0.3;
+        epsilon = dGeomSphereGetRadius(s) * REAL(0.3);
     }
 
 
@@ -294,7 +294,7 @@ static void nearCallback(void * /*data*/, dGeomID a, dGeomID b)
         dRSetIdentity(r);
         dsSetColor(1, 0, 0);
         dsSetTexture(DS_NONE);
-        dsDrawSphere(contacts[i].geom.pos, r, 0.008);
+        dsDrawSphere(contacts[i].geom.pos, r, 0.008f);
 
         // let's offset the line a bit to avoid drawing overlap issues
         float xyzf[3], hprf[3];
@@ -306,9 +306,9 @@ static void nearCallback(void * /*data*/, dGeomID a, dGeomID b)
         dCalcVectorCross3(c, v, contacts[i].geom.pos);
         dNormalize3(c);
         dVector3 pos1;
-        dAddScaledVectors3(pos1, contacts[i].geom.pos, c, 1, 0.005);
+        dAddScaledVectors3(pos1, contacts[i].geom.pos, c, 1, REAL(0.005));
         dVector3 pos2;
-        dAddScaledVectors3(pos2, pos1, contacts[i].geom.normal, 1, 0.05);
+        dAddScaledVectors3(pos2, pos1, contacts[i].geom.normal, 1, REAL(0.05));
         dsDrawLine(pos1, pos2);
         // end of contacts drawing code
 
@@ -317,7 +317,7 @@ static void nearCallback(void * /*data*/, dGeomID a, dGeomID b)
         int closest_point = i;
         for (int j=0; j<new_n; ++j) {
             dReal alignment = dCalcVectorDot3(contacts[i].geom.normal, contacts[j].geom.normal);
-            if (alignment > 0.99 // about 8 degrees of difference
+            if (alignment > REAL(0.99) // about 8 degrees of difference
                 &&
                 dCalcPointsDistance3(contacts[i].geom.pos, contacts[j].geom.pos) < epsilon) {
                 // they are too close
@@ -341,9 +341,9 @@ static void nearCallback(void * /*data*/, dGeomID a, dGeomID b)
     for (int i=0; i<n; ++i) {
         contacts[i].surface.mode = dContactBounce | dContactApprox1 | dContactSoftERP;
         contacts[i].surface.mu = 10;
-        contacts[i].surface.bounce = 0.2;
+        contacts[i].surface.bounce = REAL(0.2);
         contacts[i].surface.bounce_vel = 0;
-        contacts[i].surface.soft_erp = 1e-3;
+        contacts[i].surface.soft_erp = REAL(1e-3);
         //clog << "depth: " << contacts[i].geom.depth << endl;
 
 
@@ -354,10 +354,10 @@ static void nearCallback(void * /*data*/, dGeomID a, dGeomID b)
         dRSetIdentity(r);
         dsSetColor(0, 0, 1);
         dsSetTexture(DS_NONE);
-        dsDrawSphere(contacts[i].geom.pos, r, 0.01);
+        dsDrawSphere(contacts[i].geom.pos, r, 0.01f);
         dsSetColor(0, 1, 0);
         dVector3 pos2;
-        dAddScaledVectors3(pos2, contacts[i].geom.pos, contacts[i].geom.normal, 1, 0.1);
+        dAddScaledVectors3(pos2, contacts[i].geom.pos, contacts[i].geom.normal, 1, REAL(0.1));
         dsDrawLine(contacts[i].geom.pos, pos2);
     }
     //clog << "----" << endl;
@@ -406,7 +406,7 @@ static void drawGeom(dGeomID g)
         case dSphereClass:
             dsSetColorAlpha(0, 0.75, 0.5, 0.5);
             dsSetTexture (DS_CHECKERED);
-            dsDrawSphere(pos, rot, dGeomSphereGetRadius(g));
+            dsDrawSphere(pos, rot, (float)dGeomSphereGetRadius(g));
             break;
         case dBoxClass:
         {
@@ -449,7 +449,7 @@ static void simLoop (int pause)
 {
     if (!pause) {
 
-        const dReal step = 0.02;
+        const dReal step = REAL(0.02);
         const unsigned nsteps = 1;
 
         for (unsigned i=0; i<nsteps; ++i) {

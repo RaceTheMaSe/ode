@@ -64,10 +64,10 @@ do {} while(0)
    "Faster Line Segment Intersection", in Graphics Gems III,
    pp. 199-202 */
 #define EDGE_EDGE_TEST(V0,U0,U1)                      \
-  Bx=U0[i0]-U1[i0];                                   \
-  By=U0[i1]-U1[i1];                                   \
-  Cx=V0[i0]-U0[i0];                                   \
-  Cy=V0[i1]-U0[i1];                                   \
+  Bx=(float)(U0[i0]-U1[i0]);                          \
+  By=(float)(U0[i1]-U1[i1]);                          \
+  Cx=(float)(V0[i0]-U0[i0]);                          \
+  Cy=(float)(V0[i1]-U0[i1]);                          \
   f=Ay*Bx-Ax*By;                                      \
   d=By*Cx-Bx*Cy;                                      \
   if((f>0 && d>=0 && d<=f) || (f<0 && d<=0 && d>=f))  \
@@ -86,8 +86,8 @@ do {} while(0)
 #define EDGE_AGAINST_TRI_EDGES(V0,V1,U0,U1,U2) \
 {                                              \
   float Ax,Ay,Bx,By,Cx,Cy,e,d,f;               \
-  Ax=V1[i0]-V0[i0];                            \
-  Ay=V1[i1]-V0[i1];                            \
+  Ax=(float)(V1[i0]-V0[i0]);                   \
+  Ay=(float)(V1[i1]-V0[i1]);                   \
   /* test edge U0,U1 against V0,V1 */          \
   EDGE_EDGE_TEST(V0,U0,U1);                    \
   /* test edge U1,U2 against V0,V1 */          \

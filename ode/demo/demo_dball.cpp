@@ -40,9 +40,9 @@ static dJointID joint1, joint2;
 static void start()
 {
     world = dWorldCreate();
-    dWorldSetGravity (world,0,0,-9.8);
+    dWorldSetGravity (world,0,0,REAL(-9.8));
 
-    dWorldSetDamping(world, 1e-4, 1e-5);
+    dWorldSetDamping(world, REAL(1e-4), REAL(1e-5));
 //    dWorldSetERP(world, 1);
 
     space = dSimpleSpaceCreate (NULL);
@@ -57,30 +57,30 @@ static void start()
     dGeomID g;
     dMass mass;
     
-    g = dCreateBox(space, 0.2, 0.2, 1);
+    g = dCreateBox(space, REAL(0.2), REAL(0.2), 1);
     dGeomSetBody(g, body1);
-    dMassSetBox(&mass, 1, 0.2, 0.2, 1);
+    dMassSetBox(&mass, 1, REAL(0.2), REAL(0.2), 1);
     dBodySetMass(body1, &mass);
     
-    g = dCreateBox(space, 0.2, 0.2, 1);
+    g = dCreateBox(space, REAL(0.2), REAL(0.2), 1);
     dGeomSetBody(g, body2);
-    dMassSetBox(&mass, 1, 0.2, 0.2, 1);
+    dMassSetBox(&mass, 1, REAL(0.2), REAL(0.2), 1);
     dBodySetMass(body2, &mass);
 
     joint1 = dJointCreateDBall(world, NULL);
     dJointAttach(joint1, body1, NULL);
-    dJointSetDBallAnchor1(joint1, 0, 0, 3.5);
-    dJointSetDBallAnchor2(joint1, 0, 0, 4.5);
+    dJointSetDBallAnchor1(joint1, 0, 0, REAL(3.5));
+    dJointSetDBallAnchor2(joint1, 0, 0, REAL(4.5));
 
     joint2 = dJointCreateDBall(world, NULL);
     dJointAttach(joint2, body1, body2);
-    dJointSetDBallAnchor1(joint2, 0, 0, 2.5);
-    dJointSetDBallAnchor2(joint2, 0, 0, 1.5);
+    dJointSetDBallAnchor1(joint2, 0, 0, REAL(2.5));
+    dJointSetDBallAnchor2(joint2, 0, 0, REAL(1.5));
 
 
     // initial camera position
-    float xyz[3] = {3.8966, -2.0614, 4.0300};
-    float hpr[3] = {153.5, -16.5, 0};
+    float xyz[3] = {3.8966f, -2.0614f, 4.0300f};
+    float hpr[3] = {153.5f, -16.5f, 0};
     dsSetViewpoint (xyz,hpr);
 }
 
@@ -100,9 +100,9 @@ static void drawGeom(dGeomID g)
 
     switch (gclass) {
         case dSphereClass:
-            dsSetColorAlpha(0, 0.75, 0.5, 1);
+            dsSetColorAlpha(0, 0.75f, 0.5f, 1);
             dsSetTexture (DS_CHECKERED);
-            dsDrawSphere(pos, rot, dGeomSphereGetRadius(g));
+            dsDrawSphere(pos, rot, (float)dGeomSphereGetRadius(g));
             break;
         case dBoxClass:
         {
@@ -125,17 +125,17 @@ static void simLoop(int pause)
 
         static dReal t = 0;
 
-        const dReal step = 0.005;
+        const dReal step = REAL(0.005);
         const unsigned nsteps = 4;
 
         for (unsigned i=0; i<nsteps; ++i) {
 
-            dReal f = sin(t*1.2)*0.8;
+            dReal f = dSin(t*REAL(1.2))*REAL(0.8);
             dBodyAddForceAtRelPos(body1,
                                   f, 0, 0, 
                                   0, 0, -0.5); // at the lower end
 
-            dReal g = sin(t*0.7)*0.8;
+            dReal g = dSin(t*REAL(0.7))*REAL(0.8);
             dBodyAddForceAtRelPos(body2,
                                   0, g, 0, 
                                   0, 0, -0.5); // at the lower end

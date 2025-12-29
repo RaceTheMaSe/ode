@@ -1315,7 +1315,7 @@ extern "C" ODE_API int dTestSolveLCP()
             dReal diff = dMaxDifference (tmp1,tmp2,n,1);
             // printf ("\tA*x = b+w, maximum difference = %.6e - %s (1)\n",diff,
             //	    diff > tol ? "FAILED" : "passed");
-            if (diff > tol) dDebug (0,"A*x = b+w, maximum difference = %.6e",diff);
+            if (diff > tol) dDebug (0,"A*x = b+w, maximum difference = %.6e",(double)diff);
             unsigned n1=0,n2=0,n3=0;
             for (i=0; i<n; i++) {
                 if (x[i]==lo[i] && w[i] >= 0) {
@@ -1329,7 +1329,7 @@ extern "C" ODE_API int dTestSolveLCP()
                 }
                 else {
                     dDebug (0,"FAILED: i=%d x=%.4e w=%.4e lo=%.4e hi=%.4e",i,
-                        x[i],w[i],lo[i],hi[i]);
+                        (double)x[i],(double)w[i],(double)lo[i],(double)hi[i]);
                 }
             }
 
