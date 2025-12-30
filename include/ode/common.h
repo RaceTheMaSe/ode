@@ -279,7 +279,7 @@ typedef dReal dQuaternion[dQUE__MAX];
 
 #if defined(dSINGLE)
 #define SINGLE_TO_REAL(x) (x)
-#define REAL(x) (x##f)					/* form a constant */
+#define REAL(x) ((float)(x))					/* form a constant */
 #define dRecip(x) ((1.0f/(x)))				/* reciprocal */
 #if defined(__cplusplus) || (defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L)
 #define dSqrt(x) (sqrtf(x))			/* square root */
