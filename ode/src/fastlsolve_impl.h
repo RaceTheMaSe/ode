@@ -33,6 +33,11 @@
 #include "common_impl.h"
 #include "threaded_solver_ldlt.h"
 
+#if defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-conversion" //  negative array indices
+#endif
+
 /* solve L*X=B, with B containing 1 right hand sides.
  * L is an n*n lower triangular matrix with ones on the diagonal.
  * L is stored by rows and its leading dimension is lskip.
@@ -44,7 +49,7 @@
  */
 
 template<unsigned int b_stride>
-void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip)
+void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip) ODE_SIGNED_INTEGER_ARRAY_ACCESS
 {
     dIASSERT(rowCount != 0);
 
@@ -475,7 +480,7 @@ void ThreadedEquationSolverLDLT::initializeCooperativelySolveL1StraightMemoryStr
 template<unsigned int block_step, unsigned int b_stride>
 void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip, 
     volatile atomicord32 &refBlockCompletionProgress/*=0*/, volatile cellindexint *blockProgressDescriptors/*=[blockCount]*/, 
-    SolveL1StraightCellContext *cellContexts/*=[CCI__MAX x blockCount] + [blockCount]*/, unsigned ownThreadIndex)
+    SolveL1StraightCellContext *cellContexts/*=[CCI__MAX x blockCount] + [blockCount]*/, unsigned ownThreadIndex) ODE_SIGNED_INTEGER_ARRAY_ACCESS
 {
     const unsigned lookaheadRange = 32;
     const unsigned blockCount = deriveSolvingL1StraightBlockCount(rowCount, block_step), lastBlock = blockCount - 1;
@@ -1607,5 +1612,9 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
         }
     }
 }
+
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 #endif

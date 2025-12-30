@@ -45,7 +45,7 @@
  */
 
 template<unsigned int b_stride>
-void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip)
+void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip) ODE_SIGNED_INTEGER_ARRAY_ACCESS
 {
     dIASSERT(rowCount != 0);
 
@@ -423,7 +423,7 @@ template<unsigned int block_step, unsigned int b_stride>
 /*static */
 void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip, 
     volatile atomicord32 &refBlockCompletionProgress/*=0*/, volatile cellindexint *blockProgressDescriptors/*=[blockCount]*/, 
-    SolveL1TransposedCellContext *cellContexts/*=[CCI__MAX x blockCount] + [blockCount]*/, unsigned ownThreadIndex)
+    SolveL1TransposedCellContext *cellContexts/*=[CCI__MAX x blockCount] + [blockCount]*/, unsigned ownThreadIndex) ODE_SIGNED_INTEGER_ARRAY_ACCESS
 {
     const unsigned lookaheadRange = 32;
     const unsigned blockCount = deriveSolvingL1TransposedBlockCount(rowCount, block_step);

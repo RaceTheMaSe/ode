@@ -40,6 +40,11 @@
 #pragma warning (disable: 4789) // NOTE: false positive
 #endif
 
+#if defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-conversion" //  negative array indices
+#endif
+
 static void solveL1Stripe_2 (const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip);
 template<unsigned int d_stride>
 void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned rowIndex, unsigned rowSkip);
@@ -111,7 +116,7 @@ void factorMatrixAsLDLT(dReal *A, dReal *d, unsigned rowCount, unsigned rowSkip)
  * if this is in the factorizer source file, n must be a multiple of 2.
  */
 static 
-void solveL1Stripe_2(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip)
+void solveL1Stripe_2(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip) ODE_SIGNED_INTEGER_ARRAY_ACCESS
 {
     dIASSERT(rowCount != 0);
     dIASSERT(rowCount % 2 == 0);
@@ -254,7 +259,7 @@ void solveL1Stripe_2(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
 }
 
 template<unsigned int d_stride>
-void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRow, unsigned rowSkip)
+void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRow, unsigned rowSkip) ODE_SIGNED_INTEGER_ARRAY_ACCESS
 {
     dIASSERT(factorizationRow != 0);
     dIASSERT(factorizationRow % 2 == 0);
@@ -413,7 +418,7 @@ void scaleAndFactorizeL1FirstRowStripe_2(dReal *ARow, dReal *d, unsigned rowSkip
  * if this is in the factorizer source file, n must be a multiple of 2.
  */
 static 
-void solveStripeL1_1(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip)
+void solveStripeL1_1(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSkip) ODE_SIGNED_INTEGER_ARRAY_ACCESS
 {
     dIASSERT(rowCount != 0);
     dIASSERT(rowCount % 2 == 0);
@@ -532,7 +537,7 @@ void solveStripeL1_1(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
 }
 
 template<unsigned int d_stride>
-void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRow)
+void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRow) ODE_SIGNED_INTEGER_ARRAY_ACCESS
 {
     dReal *ptrAElement = ARow;
     dReal *ptrDElement = d;
@@ -1287,7 +1292,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
 template<unsigned int a_rows, unsigned int d_stride>
 /*static */
 void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dReal *ARow, dReal *d, unsigned factorizationRow, unsigned rowSkip,
-    FactorizationFactorizeL1StripeContext *factorizationContext, unsigned ownThreadIndex)
+    FactorizationFactorizeL1StripeContext *factorizationContext, unsigned ownThreadIndex) ODE_SIGNED_INTEGER_ARRAY_ACCESS
 {
     dIASSERT(factorizationRow != 0);
     dIASSERT(factorizationRow % 2 == 0);
@@ -1534,6 +1539,10 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
         }
     }
 }
+
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 #if defined(_MSC_VER)
 #pragma warning(pop)
