@@ -43,7 +43,7 @@ TODO
 
 #ifdef _WIN32
 
-#include "windows.h"
+#include <windows.h>
 
 static inline void getClockCount (unsigned long cc[2])
 {

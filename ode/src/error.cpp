@@ -128,7 +128,7 @@ extern "C" void dMessage (int num, const char *msg, ...)
 #endif
 
 
-#include "windows.h"
+#include <windows.h>
 
 
 extern "C" ODE_NORETURN_VOID dError (int num, const char *msg, ...)

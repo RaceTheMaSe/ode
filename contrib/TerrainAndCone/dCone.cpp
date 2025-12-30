@@ -10,7 +10,7 @@
 #include "collision_std_internal.h"
 #include "collision_util.h"
 #include <drawstuff/drawstuff.h>
-#include "windows.h"
+#include <windows.h>
 #include "ode/ode.h"
 
 #define CONTACT(p,skip) ((dContactGeom*) (((char*)p) + (skip)))
