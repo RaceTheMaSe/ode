@@ -281,7 +281,11 @@ typedef dReal dQuaternion[dQUE__MAX];
 
 #define REAL(x) (x##f)					/* form a constant */
 #define dRecip(x) ((1.0f/(x)))				/* reciprocal */
+#if defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 #define dSqrt(x) (sqrtf(x))			/* square root */
+#else
+#define dSqrt(x) ((float)sqrt(x))			/* square root */
+#endif
 #define dRecipSqrt(x) ((1.0f/sqrtf(x)))		/* reciprocal square root */
 #define dSin(x) (sinf(x))				/* sine */
 #define dCos(x) (cosf(x))				/* cosine */

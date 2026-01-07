@@ -88,11 +88,11 @@
   #else
     #define ODE_NORETURN_CONSTRUCTOR_DBG __declspec(noreturn)
   #endif
-#else // #if !defined(_MSC_VER)
+#else /* #if !defined(_MSC_VER) */
   #define ODE_NORETURN_VOID void
   #define ODE_NORETURN_CONSTRUCTOR_DBG 
   #define ODE_NORETURN
-#endif // #if !defined(_MSC_VER)
+#endif /* #if !defined(__GNUC__) */
 
 /* C++98 compatibility */
 #if defined(__cplusplus) && __cplusplus >= 201103L
@@ -239,23 +239,23 @@ typedef unsigned long     duint64;
 #endif
 
 
-#if defined(_MSC_VER) && _MSC_VER < 1700 // Also mind similar defines in ccd/vec3.h 
+#if defined(_MSC_VER) && _MSC_VER < 1700 /* Also mind similar defines in ccd/vec3.h */
 /* Define fmin, fmax, fminf, fmaxf which are missing from MSVC (up to VS2008 at least) */
   static __inline double _ode_fmin(double x, double y) { return __min(x, y); }
   static __inline double _ode_fmax(double x, double y) { return __max(x, y); }
   static __inline float _ode_fminf(float x, float y) { return __min(x, y); }
   static __inline float _ode_fmaxf(float x, float y) { return __max(x, y); }
-#else // #if !defined(_MSC_VER) || _MSC_VER >= 1700
+#else /* #if !defined(_MSC_VER) || _MSC_VER >= 1700 */
   #define _ode_fmin(x, y) fmin(x, y)
   #define _ode_fmax(x, y) fmax(x, y)
   #define _ode_fminf(x, y) fminf(x, y)
   #define _ode_fmaxf(x, y) fmaxf(x, y)
-#endif // #if !defined(_MSC_VER) || _MSC_VER >= 1700
+#endif /* #if !defined(_MSC_VER) || _MSC_VER >= 1700 */
 
 #if defined(__cplusplus) && __cplusplus >= 201703L
     #define CONST_IF(expr) if constexpr(expr)
 #else
-    // MSVC only warns if the condition is in the if statement
+    /* MSVC only warns if the condition is in the if statement */
     #define TOKENPASTE(x,y) x ## y
     #define CONST_IF_IMPL(expr,count) const bool TOKENPASTE(condition_, count) = expr; \
       if(TOKENPASTE(condition_,count))

@@ -222,8 +222,8 @@ ODE_API void dResourceContainerDestroy(dResourceContainerID resources);
 
 
 #ifdef __cplusplus
-} // extern "C"
+} /* extern "C" */
 #endif
 
 
-#endif // #ifndef _ODE_COOPERATIVE_H_
+#endif /* #ifndef _ODE_COOPERATIVE_H_ */

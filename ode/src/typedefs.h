@@ -65,10 +65,10 @@ typedef duintptr uintptr;
 dSASSERT(sizeof(uintptr) == sizeof(void *));
 
 typedef ddiffint diffint;
-dSASSERT(sizeof(diffint) == sizeof(void *)); // So far, we choose to not support systems that have accessible memory segment size smaller than the pointer size
+dSASSERT(sizeof(diffint) == sizeof(void *)); /* So far, we choose to not support systems that have accessible memory segment size smaller than the pointer size */
 
 typedef dsizeint sizeint;
-dSASSERT(sizeof(sizeint) == sizeof(void *)); // So far, we choose to not support systems that have accessible memory segment size smaller than the pointer size
+dSASSERT(sizeof(sizeint) == sizeof(void *)); /* So far, we choose to not support systems that have accessible memory segment size smaller than the pointer size */
 
 
 #endif

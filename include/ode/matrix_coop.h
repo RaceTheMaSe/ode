@@ -288,4 +288,4 @@ ODE_API void dCooperativelyScaleVector(dResourceContainerID resources, unsigned 
 #endif
 
 
-#endif // #ifndef _ODE_MATRIX_COOP_H_
+#endif /* #ifndef _ODE_MATRIX_COOP_H_ */

@@ -31,7 +31,11 @@
  */
 #ifdef __GNUC__
 /*# define _ccd_inline static inline __attribute__((always_inline))*/
+#if defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 # define _ccd_inline static inline
+#else
+# define _ccd_inline static
+#endif
 #else /* __GNUC__ */
 # define _ccd_inline static __inline
 #endif /* __GNUC__ */

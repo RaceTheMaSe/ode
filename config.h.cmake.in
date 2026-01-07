@@ -110,4 +110,4 @@
 
 #include "typedefs.h"
 
-#endif // ODE_CONFIG_H
+#endif /* ODE_CONFIG_H */

@@ -106,15 +106,15 @@ int ccdMPRIntersect(const void *obj1, const void *obj2, const ccd_t *ccd)
     ccd_simplex_t portal;
     int res;
 
-    // Phase 1: Portal discovery - find portal that intersects with origin
-    // ray (ray from center of Minkowski diff to origin of coordinates)
+    /* Phase 1: Portal discovery - find portal that intersects with origin
+     ray (ray from center of Minkowski diff to origin of coordinates) */
     res = discoverPortal(obj1, obj2, ccd, &portal);
     if (res < 0)
         return 0;
     if (res > 0)
         return 1;
 
-    // Phase 2: Portal refinement
+    /* Phase 2: Portal refinement */
     res = refinePortal(obj1, obj2, ccd, &portal);
     return (res == 0 ? 1 : 0);
 }
@@ -125,30 +125,30 @@ int ccdMPRPenetration(const void *obj1, const void *obj2, const ccd_t *ccd,
     ccd_simplex_t portal;
     int res;
 
-    // Phase 1: Portal discovery
+    /* Phase 1: Portal discovery */
     res = discoverPortal(obj1, obj2, ccd, &portal);
     if (res < 0){
-        // Origin isn't inside portal - no collision.
+        /* Origin isn't inside portal - no collision. */
         return -1;
 
     }else if (res == 1){
-        // Touching contact on portal's v1.
+        /* Touching contact on portal's v1. */
         findPenetrTouch(obj1, obj2, ccd, &portal, depth, dir, pos);
 
     }else if (res == 2){
-        // Origin lies on v0-v1 segment.
+        /* Origin lies on v0-v1 segment. */
         if (findPenetrSegment(obj1, obj2, ccd, &portal, depth, dir, pos) != 0) {
             return -1;
         }
 
     }else if (res == 0){
-        // Phase 2: Portal refinement
+        /* Phase 2: Portal refinement */
         res = refinePortal(obj1, obj2, ccd, &portal);
         if (res < 0) {
             return -1;
         }
 
-        // Phase 3. Penetration info
+        /* Phase 3. Penetration info */
         if (findPenetr(obj1, obj2, ccd, &portal, depth, dir, pos) != 0) {
             return -1;
         }
@@ -174,20 +174,20 @@ static int discoverPortal(const void *obj1, const void *obj2,
     ccd_real_t dot;
     int cont;
 
-    // vertex 0 is center of portal
+    /* vertex 0 is center of portal */
     findOrigin(obj1, obj2, ccd, ccdSimplexPointW(portal, 0));
     ccdSimplexSetSize(portal, 1);
 
     if (ccdVec3Eq(&ccdSimplexPoint(portal, 0)->v, ccd_vec3_origin)){
-        // Portal's center lies on origin (0,0,0) => we know that objects
-        // intersect but we would need to know penetration info.
-        // So move center little bit...
+        /* Portal's center lies on origin (0,0,0) => we know that objects
+           intersect but we would need to know penetration info.
+           So move center little bit... */
         ccdVec3Set(&va, CCD_EPS * CCD_REAL(10.), CCD_ZERO, CCD_ZERO);
         ccdVec3Add(&ccdSimplexPointW(portal, 0)->v, &va);
     }
 
 
-    // vertex 1 = support in direction of origin
+    /* vertex 1 = support in direction of origin */
     ccdVec3Copy(&dir, &ccdSimplexPoint(portal, 0)->v);
     ccdVec3Scale(&dir, CCD_REAL(-1.));
     if (ccdVec3SafeNormalize(&dir) != 0) {
@@ -196,21 +196,21 @@ static int discoverPortal(const void *obj1, const void *obj2,
     __ccdSupport(obj1, obj2, &dir, ccd, ccdSimplexPointW(portal, 1));
     ccdSimplexSetSize(portal, 2);
 
-    // test if origin isn't outside of v1
+    /* test if origin isn't outside of v1 */
     dot = ccdVec3Dot(&ccdSimplexPoint(portal, 1)->v, &dir);
     if (ccdIsZero(dot) || dot < CCD_ZERO)
         return -1;
 
 
-    // vertex 2
+    /* vertex 2 */
     ccdVec3Cross(&dir, &ccdSimplexPoint(portal, 0)->v,
                        &ccdSimplexPoint(portal, 1)->v);
     if (ccdIsZero(ccdVec3Len2(&dir))){
         if (ccdVec3Eq(&ccdSimplexPoint(portal, 1)->v, ccd_vec3_origin)){
-            // origin lies on v1
+            /* origin lies on v1 */
             return 1;
         }else{
-            // origin lies on v0-v1 segment
+            /* origin lies on v0-v1 segment */
             return 2;
         }
     }
@@ -226,7 +226,7 @@ static int discoverPortal(const void *obj1, const void *obj2,
 
     ccdSimplexSetSize(portal, 3);
 
-    // vertex 3 direction
+    /* vertex 3 direction */
     ccdVec3Sub2(&va, &ccdSimplexPoint(portal, 1)->v,
                      &ccdSimplexPoint(portal, 0)->v);
     ccdVec3Sub2(&vb, &ccdSimplexPoint(portal, 2)->v,
@@ -236,7 +236,7 @@ static int discoverPortal(const void *obj1, const void *obj2,
         return -1;
     }
 
-    // it is better to form portal faces to be oriented "outside" origin
+    /* it is better to form portal faces to be oriented "outside" origin */
     dot = ccdVec3Dot(&dir, &ccdSimplexPoint(portal, 0)->v);
     if (dot > CCD_ZERO){
         ccdSimplexSwap(portal, 1, 2);
@@ -252,8 +252,8 @@ static int discoverPortal(const void *obj1, const void *obj2,
 
         cont = 0;
 
-        // test if origin is outside (v1, v0, v3) - set v2 as v3 and
-        // continue
+        /* test if origin is outside (v1, v0, v3) - set v2 as v3 and
+           continue */
         ccdVec3Cross(&va, &ccdSimplexPoint(portal, 1)->v,
                           &ccdSimplexPoint(portal, 3)->v);
         dot = ccdVec3Dot(&va, &ccdSimplexPoint(portal, 0)->v);
@@ -263,8 +263,8 @@ static int discoverPortal(const void *obj1, const void *obj2,
         }
 
         if (!cont){
-            // test if origin is outside (v3, v0, v2) - set v1 as v3 and
-            // continue
+            /* test if origin is outside (v3, v0, v2) - set v1 as v3 and
+               continue */
             ccdVec3Cross(&va, &ccdSimplexPoint(portal, 3)->v,
                               &ccdSimplexPoint(portal, 2)->v);
             dot = ccdVec3Dot(&va, &ccdSimplexPoint(portal, 0)->v);
@@ -298,28 +298,28 @@ static int refinePortal(const void *obj1, const void *obj2,
     ccd_support_t v4;
 
     while (1){
-        // compute direction outside the portal (from v0 throught v1,v2,v3
-        // face)
+        /* compute direction outside the portal (from v0 throught v1,v2,v3
+           face) */
         if (portalDir(portal, &dir) != 0) {
             return -1;
         }
 
-        // test if origin is inside the portal
+        /* test if origin is inside the portal */
         if (portalEncapsulesOrigin(portal, &dir))
             return 0;
 
-        // get next support point
+        /* get next support point */
         __ccdSupport(obj1, obj2, &dir, ccd, &v4);
 
-        // test if v4 can expand portal to contain origin and if portal
-        // expanding doesn't reach given tolerance
+        /* test if v4 can expand portal to contain origin and if portal
+           expanding doesn't reach given tolerance */
         if (!portalCanEncapsuleOrigin(portal, &v4, &dir)
                 || portalReachTolerance(portal, &v4, &dir, ccd)){
             return -1;
         }
 
-        // v1-v2-v3 triangle must be rearranged to face outside Minkowski
-        // difference (direction from v0).
+        /* v1-v2-v3 triangle must be rearranged to face outside Minkowski
+           difference (direction from v0). */
         expandPortal(portal, &v4);
     }
 }
@@ -335,14 +335,14 @@ static int findPenetr(const void *obj1, const void *obj2, const ccd_t *ccd,
 
     iterations = 0UL;
     while (1){
-        // compute portal direction and obtain next support point
+        /* compute portal direction and obtain next support point */
         if (portalDir(portal, &dir) != 0) {
             return -1;
         }
 
         __ccdSupport(obj1, obj2, &dir, ccd, &v4);
 
-        // reached tolerance -> find penetration info
+        /* reached tolerance -> find penetration info */
         if (portalReachTolerance(portal, &v4, &dir, ccd)
                 || iterations > ccd->max_iterations){
             *depth = ccdVec3PointTriDist2(ccd_vec3_origin,
@@ -355,7 +355,7 @@ static int findPenetr(const void *obj1, const void *obj2, const ccd_t *ccd,
                 return -1;
             }
 
-            // barycentric coordinates:
+            /* barycentric coordinates: */
             if (findPos(obj1, obj2, ccd, portal, pos) != 0) {
                 return -1;
             }
@@ -375,8 +375,8 @@ static void findPenetrTouch(const void *obj1, const void *obj2, const ccd_t *ccd
 {
     (void)obj1; (void)obj2; (void)ccd;
 
-    // Touching contact on portal's v1 - so depth is zero and direction
-    // is unimportant and pos can be guessed
+    /* Touching contact on portal's v1 - so depth is zero and direction
+       is unimportant and pos can be guessed */
     *depth = CCD_REAL(0.);
     ccdVec3Copy(dir, ccd_vec3_origin);
 
@@ -396,9 +396,9 @@ static int findPenetrSegment(const void *obj1, const void *obj2, const ccd_t *cc
     ccd_real_t k;
     */
 
-    // Origin lies on v0-v1 segment.
-    // Depth is distance to v1, direction also and position must be
-    // computed
+    /* Origin lies on v0-v1 segment.
+       Depth is distance to v1, direction also and position must be
+       computed */
 
     ccdVec3Copy(pos, &ccdSimplexPoint(portal, 1)->v1);
     ccdVec3Add(pos, &ccdSimplexPoint(portal, 1)->v2);
@@ -425,18 +425,18 @@ static int findPenetrSegment(const void *obj1, const void *obj2, const ccd_t *cc
 static int findPos(const void *obj1, const void *obj2, const ccd_t *ccd,
                     const ccd_simplex_t *portal, ccd_vec3_t *pos)
 {
-    (void)obj1; (void)obj2; (void)ccd;
-
     ccd_vec3_t dir;
     size_t i;
     ccd_real_t b[4], sum, inv;
     ccd_vec3_t vec, p1, p2;
 
+    (void)obj1; (void)obj2; (void)ccd;
+
     if (portalDir(portal, &dir) != 0) {
         return -1;
     }
 
-    // use barycentric coordinates of tetrahedron to find origin
+    /* use barycentric coordinates of tetrahedron to find origin */
     ccdVec3Cross(&vec, &ccdSimplexPoint(portal, 1)->v,
                        &ccdSimplexPoint(portal, 2)->v);
     b[0] = ccdVec3Dot(&vec, &ccdSimplexPoint(portal, 3)->v);
@@ -549,7 +549,7 @@ _ccd_inline int portalReachTolerance(const ccd_simplex_t *portal,
     ccd_real_t dv1, dv2, dv3, dv4;
     ccd_real_t dot1, dot2, dot3;
 
-    // find the smallest dot product of dir and {v1-v4, v2-v4, v3-v4}
+    /* find the smallest dot product of dir and {v1-v4, v2-v4, v3-v4} */
 
     dv1 = ccdVec3Dot(&ccdSimplexPoint(portal, 1)->v, dir);
     dv2 = ccdVec3Dot(&ccdSimplexPoint(portal, 2)->v, dir);
@@ -570,9 +570,10 @@ _ccd_inline int portalCanEncapsuleOrigin(const ccd_simplex_t *portal,
                                          const ccd_support_t *v4,
                                          const ccd_vec3_t *dir)
 {
+    ccd_real_t dot;
+
     (void)portal;
 
-    ccd_real_t dot;
     dot = ccdVec3Dot(&v4->v, dir);
     return ccdIsZero(dot) || dot > CCD_ZERO;
 }

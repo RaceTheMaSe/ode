@@ -68,8 +68,13 @@ typedef float ccd_real_t;
 # define CCD_REAL_MAX FLT_MAX
 
 # define CCD_REAL(x) (x ## f)   /*!< form a constant */
+#if defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 # define CCD_SQRT(x) (sqrtf(x)) /*!< square root */
 # define CCD_FABS(x) (fabsf(x)) /*!< absolute value */
+#else
+# define CCD_SQRT(x) ((float)sqrt(x)) /*!< square root */
+# define CCD_FABS(x) ((float)fabs(x)) /*!< absolute value */
+#endif
 # define CCD_FMAX(x, y) (fmaxf((x), (y))) /*!< maximum of two floats */
 # define CCD_FMIN(x, y) (fminf((x), (y))) /*!< minimum of two floats */
 #endif /* CCD_SINGLE */

@@ -26,7 +26,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 struct _ccd_quat_t {
-    ccd_real_t q[4]; //!< x, y, z, w
+    ccd_real_t q[4]; /*!< x, y, z, w*/
 };
 typedef struct _ccd_quat_t ccd_quat_t;
 
@@ -124,7 +124,7 @@ _ccd_inline void UNUSED_FUNCTION ccdQuatSetAngleAxis(ccd_quat_t *q,
     z = ccdVec3Z(axis);
     n = CCD_SQRT(x*x + y*y + z*z);
 
-    // axis==0? (treat this the same as angle==0 with an arbitrary axis)
+    /* axis==0? (treat this the same as angle==0 with an arbitrary axis) */
     if (n < CCD_EPS){
         q->q[0] = q->q[1] = q->q[2] = CCD_ZERO;
         q->q[3] = CCD_ONE;
@@ -199,9 +199,9 @@ _ccd_inline int ccdQuatInvert2(ccd_quat_t *dest, const ccd_quat_t *src)
 
 _ccd_inline void ccdQuatRotVec(ccd_vec3_t *v, const ccd_quat_t *q)
 {
-    // original version: 31 mul + 21 add
-    // optimized version: 18 mul + 12 add
-    // formula: v = v + 2 * cross(q.xyz, cross(q.xyz, v) + q.w * v)
+    /* original version: 31 mul + 21 add */
+    /* optimized version: 18 mul + 12 add */
+    /* formula: v = v + 2 * cross(q.xyz, cross(q.xyz, v) + q.w * v) */
     ccd_real_t cross1_x, cross1_y, cross1_z, cross2_x, cross2_y, cross2_z;
     ccd_real_t x, y, z, w;
     ccd_real_t vx, vy, vz;

@@ -75,9 +75,9 @@ enum
     dTRIMESHDATA_FACE_NORMALS = dTRIMESHDATA__MIN,
     dTRIMESHDATA_USE_FLAGS,
 
-#ifndef TRIMESH_FACE_NORMALS // Define this name during the header inclusion if you need it for something else
+#ifndef TRIMESH_FACE_NORMALS /* Define this name during the header inclusion if you need it for something else */
     dTRIMESHDATA__MAX,
-    // Included for backward compatibility -- please use the corrected name above. Sorry.
+    /* Included for backward compatibility -- please use the corrected name above. Sorry. */
     TRIMESH_FACE_NORMALS = dTRIMESHDATA_FACE_NORMALS
 #else
     dTRIMESHDATA__MAX
@@ -158,8 +158,8 @@ enum
 {
     dTRIDATAPREPROCESS_BUILD__MIN,
 
-    dTRIDATAPREPROCESS_BUILD_CONCAVE_EDGES = dTRIDATAPREPROCESS_BUILD__MIN, // Used to optimize OPCODE trimesh-capsule collisions; allocates 1 byte per triangle; no extra data associated
-    dTRIDATAPREPROCESS_BUILD_FACE_ANGLES,   // Used to aid trimesh-convex collisions; memory requirements depend on extra data
+    dTRIDATAPREPROCESS_BUILD_CONCAVE_EDGES = dTRIDATAPREPROCESS_BUILD__MIN, /* Used to optimize OPCODE trimesh-capsule collisions; allocates 1 byte per triangle; no extra data associated */
+    dTRIDATAPREPROCESS_BUILD_FACE_ANGLES,   /* Used to aid trimesh-convex collisions; memory requirements depend on extra data */
     
     dTRIDATAPREPROCESS_BUILD__MAX
 };
@@ -171,13 +171,13 @@ enum
 {
     dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MIN,
 
-    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_BYTE_POSITIVE = dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MIN, // Build angles for convex edges only and store as bytes; allocates 3 bytes per triangle; stores angles (0..180] in 1/254 fractions leaving two values for the flat and all the concaves
-    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_BYTE_ALL, // Build angles for all the edges and store in bytes; allocates 3 bytes per triangle; stores angles [-180..0) and (0..180] in 1/127 fractions plus a value for the flat angle
-    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_WORD_ALL, // Build angles for all the edges and store in words; allocates 6 bytes per triangle; stores angles [-180..0) and (0..180] in 1/32767 fractions plus a value for the flat angle
+    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_BYTE_POSITIVE = dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MIN, /* Build angles for convex edges only and store as bytes; allocates 3 bytes per triangle; stores angles (0..180] in 1/254 fractions leaving two values for the flat and all the concaves */
+    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_BYTE_ALL, /* Build angles for all the edges and store in bytes; allocates 3 bytes per triangle; stores angles [-180..0) and (0..180] in 1/127 fractions plus a value for the flat angle */
+    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_WORD_ALL, /* Build angles for all the edges and store in words; allocates 6 bytes per triangle; stores angles [-180..0) and (0..180] in 1/32767 fractions plus a value for the flat angle */
 
     dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MAX,
 
-    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__DEFAULT = dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_BYTE_POSITIVE // The default value assumed if the extra data is not provided
+    dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__DEFAULT = dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA_BYTE_POSITIVE /* The default value assumed if the extra data is not provided */
 };
 
 

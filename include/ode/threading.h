@@ -33,7 +33,7 @@
 #define _ODE_THREADING_H_
 
 #include <ode/odeconfig.h>
-// Include <time.h> since time_t is used and it is not available by default in some OSes
+/* Include <time.h> since time_t is used and it is not available by default in some OSes */
 #include <time.h>
 
 

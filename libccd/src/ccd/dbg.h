@@ -33,10 +33,29 @@
 # define DBG_PROLOGUE
 #endif
 
+#if defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 # define DBG(format, ...) do { \
     fprintf(stderr, DBG_PROLOGUE "%s :: " format "\n", __func__, ## __VA_ARGS__); \
     fflush(stderr); \
     } while (0)
+#else
+#include "compiler.h"
+#include <stdarg.h>
+#include <string.h>
+/* no association to code line prior to C99 implemented */
+_ccd_inline UNUSED_FUNCTION void DBG(const char* format, ...)
+{
+    char buffer[1024] = {0};
+    va_list ap;
+    va_start(ap, format);
+    strcat(buffer,"%s :: ");
+    strcat(buffer,format);
+    strcat(buffer,"\n");
+    fprintf(stderr, buffer, ap);
+    fflush(stderr);
+    va_end(ap);
+}
+#endif
 
 # define DBG2(str) do { \
     fprintf(stderr, DBG_PROLOGUE "%s :: " str "\n", __func__); \
@@ -57,7 +76,11 @@
 */
 
 #else
+#if defined(__STDC__) && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 # define DBG(format, ...)
+#else
+_ccd_inline UNUSED_FUNCTION void DBG(const char* format, ...) { (void)format; }
+#endif
 # define DBG2(str)
 # define DBG_VEC3(v, prefix)
 #endif

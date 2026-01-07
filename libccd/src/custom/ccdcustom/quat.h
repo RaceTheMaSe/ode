@@ -33,9 +33,9 @@ _ccd_inline void ccdQuatRotVec2(ccd_vec3_t *d, const ccd_vec3_t *s, const ccd_qu
 _ccd_inline void UNUSED_FUNCTION ccdQuatRotVec2(ccd_vec3_t *d, const ccd_vec3_t *s, const ccd_quat_t *q)
 {
 #ifndef dLIBCCD_USE_SYSTEM
-    // original version: 31 mul + 21 add
-    // optimized version: 18 mul + 12 add
-    // formula: d = s + 2 * cross(q.xyz, cross(q.xyz, v) + q.w * s)
+    /* original version: 31 mul + 21 add */
+    /* optimized version: 18 mul + 12 add */
+    /* formula: d = s + 2 * cross(q.xyz, cross(q.xyz, v) + q.w * s) */
     ccd_real_t cross1_x, cross1_y, cross1_z, cross2_x, cross2_y, cross2_z;
     ccd_real_t x, y, z, w;
     ccd_real_t vx, vy, vz;

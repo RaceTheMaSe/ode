@@ -51,7 +51,7 @@
       msg " in %s()", __FUNCTION__); } } do {} while(0)
 #    define dDEBUGMSG(msg) { dMessage (d_ERR_UASSERT,				\
   msg " in %s() [%s:%u]", __FUNCTION__,__FILE__,__LINE__); } do {} while(0)
-#  else // not __GNUC__
+#  else /* not __GNUC__ */
 #    define dIASSERT(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
       "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); } } do {} while(0)
 #    define dUASSERT(a,msg) { if (!(a)) { dDebug (d_ERR_UASSERT, \
@@ -97,14 +97,14 @@
       "assertion \"" #a "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
 #    define dICHECKMSG(a,msg) { if (!(a)) { dDebug (d_ERR_IASSERT, \
       "assertion \"" #a, #msg "\" failed in %s() [%s:%u]",__FUNCTION__,__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
-#  else // not __GNUC__
+#  else /* not __GNUC__ */
 #    define dICHECK(a) { if (!(a)) { dDebug (d_ERR_IASSERT, \
       "assertion \"" #a "\" failed in %s:%u",__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
 #    define dICHECKMSG(a,msg) { if (!(a)) { dDebug (d_ERR_IASSERT, \
       "assertion \"" #a, #msg "\" failed in %s:%u",__FILE__,__LINE__); *(volatile int *)NULL = 0; } } do {} while(0)
 #  endif
 
-// Argument assert is a special case of user assert
+/* Argument assert is a special case of user assert */
 #define dAASSERT(a) dUASSERT(a, "Bad argument(s)")
 #define dAVERIFY(a) dUVERIFY(a, "Bad argument(s)")
 
