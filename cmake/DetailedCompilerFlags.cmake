@@ -35,7 +35,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         target_compile_options(${TARGET_NAME} PRIVATE -Wno-reserved-id-macro)
     endif()
     # Clang 20 - argument unused during compilation: '-c'
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 20 AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 22)
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 20)
     target_compile_options(${TARGET_NAME} PRIVATE
         -Wno-unused-command-line-argument
     )
@@ -50,6 +50,11 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 15.9) # >= 16.0.0
         target_compile_options(${TARGET_NAME} PRIVATE
             -Wno-unsafe-buffer-usage
+        )
+    endif()
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 22)
+        target_compile_options(${TARGET_NAME} PRIVATE
+            -Wno-c2y-extensions # for __COUNTER__ is a C2y extension in macro CONST_IF
         )
     endif()
 endif()
