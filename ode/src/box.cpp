@@ -112,7 +112,7 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
     //
     // This will be (0,0,0) if the point is at (side[0]/2,side[1]/2,side[2]/2)
 
-    dVector3 p,q;
+    dVector3 p,q = {};
 
     p[0] = x - b->final_posr->pos[0];
     p[1] = y - b->final_posr->pos[1];
