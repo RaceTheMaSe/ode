@@ -1,78 +1,84 @@
+if(CMAKE_VERSION VERSION_LESS 3.19)
+    function(target_compile_warning_add TARGET OPTION)
+        target_compile_options(${TARGET} PRIVATE "$<$<COMPILE_LANGUAGE:C,CXX>:-W${OPTION}>")
+    endfunction()
+    function(target_compile_warning_add_cpp TARGET OPTION)
+        target_compile_options(${TARGET} PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:-W${OPTION}>")
+    endfunction()
+    function(target_compile_warning_add_c TARGET OPTION)
+        target_compile_options(${TARGET} PRIVATE "$<$<COMPILE_LANGUAGE:C>:-W${OPTION}>")
+    endfunction()
+else()
+    include(CheckCCompilerFlag)
+    include(CheckCXXCompilerFlag)
+    function(target_compile_warning_add TARGET OPTION)
+        string(REGEX REPLACE "(no-|error=|=[0-9]+)" "" OPTION_STRIPPED ${OPTION})
+        check_cxx_compiler_flag(-W${OPTION_STRIPPED} HAS_COMPILER_OPTION_${OPTION_STRIPPED})
+        if(HAS_COMPILER_OPTION_${OPTION_STRIPPED})
+            target_compile_options(${TARGET} PRIVATE "$<$<COMPILE_LANGUAGE:C,CXX>:-W${OPTION}>")
+        endif()
+    endfunction()
+    function(target_compile_warning_add_cpp TARGET OPTION)
+        string(REGEX REPLACE "(no-|error=|=[0-9]+)" "" OPTION_STRIPPED ${OPTION})
+        check_cxx_compiler_flag(-W${OPTION_STRIPPED} HAS_COMPILER_OPTION_${OPTION_STRIPPED})
+        if(HAS_COMPILER_OPTION_${OPTION_STRIPPED})
+            target_compile_options(${TARGET} PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:-W${OPTION}>")
+        endif()
+    endfunction()
+    function(target_compile_warning_add_c TARGET OPTION)
+        string(REGEX REPLACE "(no-|error=|=[0-9]+)" "" OPTION_STRIPPED ${OPTION})
+        check_c_compiler_flag(-W${OPTION_STRIPPED} HAS_COMPILER_OPTION_${OPTION_STRIPPED})
+        if(HAS_COMPILER_OPTION_${OPTION_STRIPPED})
+            target_compile_options(${TARGET} PRIVATE "$<$<COMPILE_LANGUAGE:C>:-W${OPTION}>")
+        endif()
+    endfunction()
+endif()
+
 MACRO(APPLY_COMPILER_OPTIONS_GNU TARGET_NAME)
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_compile_options(${TARGET_NAME} PRIVATE
-        -Wno-float-equal
-        -Wno-format-nonliteral
-        -Wno-padded
-        -Wcast-qual
-        -Wno-long-long
-        -Wno-unused-macros
-    )
+    target_compile_warning_add(${TARGET_NAME} no-float-equal)
+    target_compile_warning_add(${TARGET_NAME} no-format-nonliteral)
+    target_compile_warning_add(${TARGET_NAME} no-padded)
+    target_compile_warning_add(${TARGET_NAME} cast-qual)
+    target_compile_warning_add(${TARGET_NAME} no-long-long)
+    target_compile_warning_add(${TARGET_NAME} no-unused-macros)
 endif()
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    target_compile_options(${TARGET_NAME} PRIVATE
-        # -Weverything:
-        -Wno-used-but-marked-unused # libccd
-        -Wno-duplicate-enum
-        -Wno-old-style-cast
-        -Wno-cast-align # pointer arithmetic on dContact array - asserts added to check stride
-        -Wno-zero-as-null-pointer-constant
-        -Wno-switch-default # contradicting option -switch-enum
-        $<$<COMPILE_LANGUAGE:CXX>:
-        -Wno-c++98-compat-pedantic
-        -Wno-c++11-long-long
-        >
-        -Wno-deprecated-declarations # MacOS
-    )
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.9) # >= 9.0.0
-        target_compile_options(${TARGET_NAME} PRIVATE -Wno-alloca)
-    endif()
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 10.9) # >= 11.0.0
-        target_compile_options(${TARGET_NAME} PRIVATE -Wno-reserved-identifier)
-    else()
-        target_compile_options(${TARGET_NAME} PRIVATE -Wno-reserved-id-macro)
-    endif()
-    # Clang 20 - argument unused during compilation: '-c'
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 20)
-    target_compile_options(${TARGET_NAME} PRIVATE
-        -Wno-unused-command-line-argument
-    )
-    endif()
-    # emits incorrect C++11 suggestions in C++98 mode
-    if(CMAKE_CXX_STANDARD STREQUAL 98 AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 10.9) # >= 11.0.0
-        target_compile_options(${TARGET_NAME} PRIVATE
-            -Wno-suggest-destructor-override
-            -Wno-suggest-override
-        )
-    endif()
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 15.9) # >= 16.0.0
-        target_compile_options(${TARGET_NAME} PRIVATE
-            -Wno-unsafe-buffer-usage
-        )
-    endif()
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 22)
-        target_compile_options(${TARGET_NAME} PRIVATE
-            -Wno-c2y-extensions # for __COUNTER__ is a C2y extension in macro CONST_IF
-        )
+    target_compile_warning_add(${TARGET_NAME} no-lifetime-safety-intra-tu-suggestions)
+    target_compile_warning_add(${TARGET_NAME} no-lifetime-safety-cross-tu-suggestions)
+    target_compile_warning_add(${TARGET_NAME} no-lifetime-safety-intra-tu-constructor-suggestions)
+    target_compile_warning_add(${TARGET_NAME} no-lifetime-safety-use-after-free)
+    target_compile_warning_add(${TARGET_NAME} no-used-but-marked-unused) # libccd
+    target_compile_warning_add(${TARGET_NAME} no-duplicate-enum)
+    target_compile_warning_add(${TARGET_NAME} no-old-style-cast)
+    target_compile_warning_add(${TARGET_NAME} no-cast-align) # pointer arithmetic on dContact array - asserts added to check stride
+    target_compile_warning_add(${TARGET_NAME} no-zero-as-null-pointer-constant)
+    target_compile_warning_add(${TARGET_NAME} no-switch-default) # contradicting option -switch-enum
+    target_compile_warning_add(${TARGET_NAME} no-deprecated-declarations) # MacOS
+    target_compile_warning_add_cpp(${TARGET_NAME} no-c++98-compat-pedantic)
+    target_compile_warning_add_cpp(${TARGET_NAME} no-c++11-long-long)
+    target_compile_warning_add(${TARGET_NAME} no-reserved-id-macro)
+    target_compile_warning_add(${TARGET_NAME} no-unused-command-line-argument)
+    target_compile_warning_add(${TARGET_NAME} no-alloca) # >= 9.0.0
+    target_compile_warning_add(${TARGET_NAME} no-reserved-identifier) # >= 11.0.0
+    target_compile_warning_add(${TARGET_NAME} no-unsafe-buffer-usage) # >= 16.0.0
+    target_compile_warning_add(${TARGET_NAME} no-c2y-extensions) # >= 22.0.0 - for __COUNTER__ is a C2y extension in macro CONST_IF
+    if(CMAKE_CXX_STANDARD STREQUAL 98) # emits incorrect C++11 suggestions in C++98 mode # >= 11.0.0
+        target_compile_warning_add(${TARGET_NAME} no-suggest-destructor-override)
+        target_compile_warning_add(${TARGET_NAME} no-suggest-override)
     endif()
 endif()
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-    target_compile_options(${TARGET_NAME} PRIVATE 
-        -Wcast-align
-    )
+    target_compile_warning_add(${TARGET_NAME} cast-align)
+    target_compile_warning_add(${TARGET_NAME} no-clobbered)
     if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9)
-        target_compile_options(${TARGET_NAME} PRIVATE 
-            -Wno-suggest-attribute=format
-            -Wno-clobbered
-        $<$<COMPILE_LANGUAGE:CXX>:
-            -Wno-class-memaccess
-            -Wno-deprecated-copy
-            >
-        $<$<COMPILE_LANGUAGE:C>:
-            -Wno-traditional                # lots of indented #define
-            -Wno-traditional-conversion     # libccd
-            -Wno-unsuffixed-float-constants # libccd
-            >)
+        target_compile_warning_add(${TARGET_NAME} no-suggest-attribute=format)
+        target_compile_warning_add(${TARGET_NAME} no-clobbered)
+        target_compile_warning_add_cpp(${TARGET_NAME} no-class-memaccess)
+        target_compile_warning_add_cpp(${TARGET_NAME} no-deprecated-copy)
+        target_compile_warning_add_c(${TARGET_NAME} no-traditional) # lots of indented #define
+        target_compile_warning_add_c(${TARGET_NAME} no-traditional-conversion) # libccd
+        target_compile_warning_add_c(${TARGET_NAME} no-unsuffixed-float-constants) # libccd
     endif()
 endif()
 
