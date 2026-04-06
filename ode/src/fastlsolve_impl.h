@@ -38,7 +38,7 @@
 #pragma warning (disable: 4309) // 'static_cast' : truncation of constant value
 #endif
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsign-conversion" //  negative array indices
 #endif

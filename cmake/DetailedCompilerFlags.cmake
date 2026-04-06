@@ -58,6 +58,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     target_compile_warning_add_cpp(${TARGET_NAME} no-c++98-compat-pedantic)
     target_compile_warning_add_cpp(${TARGET_NAME} no-c++11-long-long)
     target_compile_warning_add(${TARGET_NAME} no-reserved-id-macro)
+    target_compile_warning_add(${TARGET_NAME} no-reserved-macro-identifier)
     target_compile_warning_add(${TARGET_NAME} no-unused-command-line-argument)
     target_compile_warning_add(${TARGET_NAME} no-alloca) # >= 9.0.0
     target_compile_warning_add(${TARGET_NAME} no-reserved-identifier) # >= 11.0.0
@@ -82,4 +83,8 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     endif()
 endif()
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND CMAKE_CXX_COMPILER_FRONTEND_VARIANT MATCHES "MSVC")
+    target_compile_warning_add(${TARGET_NAME} no-nonportable-system-include-path)
+    target_compile_warning_add(${TARGET_NAME} no-language-extension-token)
+endif()
 ENDMACRO()

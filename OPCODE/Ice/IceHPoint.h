@@ -147,7 +147,7 @@
 		// Cast operators
 
 		//! Cast a HPoint to a Point. w is discarded.
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 		inline_				operator	Point()					const		{ return Point(x, y, z);									}
 		// gcc complains that conversion to a base class will never use a type conversion operator
 #endif

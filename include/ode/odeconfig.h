@@ -228,7 +228,7 @@ typedef unsigned long     duint64;
 
 
   /* Visual C does not define these functions */
-#if defined(_MSC_VER) && defined(X86_64_SYSTEM)
+#if defined(_MSC_VER) && defined(X86_64_SYSTEM) && !defined(__clang__)
   #define _ode_copysignf(x, y) ((float)_copysign(x, y))
   #define _ode_copysign(x, y) _copysign(x, y)
   #define _ode_nextafterf(x, y) _nextafterf(x, y)

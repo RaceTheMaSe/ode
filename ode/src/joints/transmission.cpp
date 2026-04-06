@@ -334,7 +334,7 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
     // Do not add the constraint if there's backlash and we're in the
     // backlash gap.
 
-    if (backlash == 0 || fabs(delta) > backlash) {
+    if (backlash == 0 || dFabs(delta) > backlash) {
         // The constraint is satisfied if the absolute velocity of the
         // contact point projected onto the tangent of the wheels is equal
         // for both gears.  This velocity can be calculated as:

@@ -342,7 +342,7 @@ static int findLevel (const dReal bounds[6])
 
     // find level such that 0.5 * 2^level < q <= 2^level
     int level;
-    frexp (q,&level);	// q = (0.5 .. 1.0) * 2^level (definition of frexp)
+    dFrexp (q,&level);	// q = (0.5 .. 1.0) * 2^level (definition of frexp)
     return level;
 }
 
@@ -451,7 +451,7 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
             box.level = level;
             if (level > maxlevel) maxlevel = level;
             // cellsize = 2^level
-            const dReal cellSizeRecip = dRecip((dReal)ldexp(REAL(1.0), level)); // No computational errors here!
+            const dReal cellSizeRecip = dRecip((dReal)dLdexp(1.0, level)); // No computational errors here!
             // discretize AABB position to cell size
             for (i=0; i < 6; i++) {
                 const dReal aabbBound = geom->aabb[i] * cellSizeRecip; // No computational errors so far!

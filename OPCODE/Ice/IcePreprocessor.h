@@ -104,7 +104,7 @@
 		#endif
 
 	// Down the hatch
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 	#pragma inline_depth( 255 )
 #endif
 

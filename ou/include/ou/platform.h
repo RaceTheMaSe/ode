@@ -272,7 +272,7 @@
 #endif // compiler version
 
 
-#elif defined(_MSC_VER)
+#elif defined(_MSC_VER) && !defined(__clang__)
 
 #define _OU_COMPILER		_OU_COMPILER_MSVC
 

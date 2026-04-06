@@ -41,7 +41,7 @@ struct CTypeSimpleWrapper
 public:
 	_OU_INLINE CTypeSimpleWrapper(): m_ctValue() {}
 	_OU_INLINE CTypeSimpleWrapper(const ContainedType &ctValue): m_ctValue(ctValue) {}
-#if !defined(_MSC_VER) || (defined(MSC_VER) && MSC_VER >= 1200)
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && (_MSC_VER >= 1200 || defined(__clang__)))
 	_OU_INLINE CTypeSimpleWrapper(const CTypeSimpleWrapper &twOtherWrapper): m_ctValue(twOtherWrapper.m_ctValue) {} // -- do not uncomment!!! in MSVC 6.0 optimization fails with it. :-/
 #endif
 	

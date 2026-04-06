@@ -300,6 +300,8 @@ typedef dReal dQuaternion[dQUE__MAX];
 #define dNextAfter(x, y) _ode_nextafterf(x, y) /* next value after */
 #define dMax(a, b) _ode_fmaxf(a, b)
 #define dMin(a, b) _ode_fminf(a, b)
+#define dFrexp(x,y) frexpf(x,y) /* decompose into normalized fraction and integral exponent of two */
+#define dLdexp(x,y) ldexpf(x,y) /* x * pow(2,y) */
 
 #ifdef HAVE___ISNANF
 #define dIsNan(x) (__isnanf(x))
@@ -339,6 +341,8 @@ typedef dReal dQuaternion[dQUE__MAX];
 #define dNextAfter(x, y) _ode_nextafter(x, y)
 #define dMax(a, b) _ode_fmax(a, b)
 #define dMin(a, b) _ode_fmin(a, b)
+#define dFrexp(x,y) frexp(x,y)
+#define dLdexp(x,y) ldexp(x,y)
 
 #ifdef HAVE___ISNAN
 #define dIsNan(x) (__isnan(x))
