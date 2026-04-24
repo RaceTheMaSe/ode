@@ -196,7 +196,9 @@ Image::Image(char *filename)
     if (!f) dsError("Can't open image file `%s'", filename);
 
     // read in header
-    if (fgetc(f) != 'P' && fgetc(f) != '6')
+    const bool headerP=fgetc(f) == 'P';
+    const bool header6=fgetc(f) == '6';
+    if (!(headerP && header6))
         dsError("image file \"%s\" is not a binary PPM (no P6 header)", filename);
     skipWhiteSpace(filename, f);
 
