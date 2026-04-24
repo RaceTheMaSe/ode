@@ -449,7 +449,7 @@ ODE_PURE_INLINE dReal dCalcMatrix3Det( const dReal* const mat )
         - mat[1] * ( mat[4]*mat[10] - mat[8]*mat[6] )
         + mat[2] * ( mat[4]*mat[9]  - mat[8]*mat[5] );
 
-    return( det );
+    return det ;
 }
 
 /**

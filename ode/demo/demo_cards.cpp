@@ -103,7 +103,7 @@ static void place_cards()
     for (size_t lvl=0; lvl<levels; ++lvl) {
         // there are 3*(levels-lvl)-1 cards in each level, except last
         const size_t n = (levels-lvl);
-        const dReal height = (dReal)(lvl)*vstep + vstep/2;
+        const dReal height = (dReal)lvl*vstep + vstep/2;
         // inclined cards
         for (size_t i=0; i<2*n; ++i, ++c) {
             dBodySetPosition((*cards)[c]->body, 

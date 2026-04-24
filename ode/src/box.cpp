@@ -508,9 +508,9 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
         dReal alpha,beta;
         dVector3 ua,ub;
         // Get direction of first edge
-        for (i=0; i<3; i++) ua[i] = R1[((code)-7)/3 + i*4];
+        for (i=0; i<3; i++) ua[i] = R1[(code-7)/3 + i*4];
         // Get direction of second edge
-        for (i=0; i<3; i++) ub[i] = R2[((code)-7)%3 + i*4];
+        for (i=0; i<3; i++) ub[i] = R2[(code-7)%3 + i*4];
         // Get closest points between edges (one at each)
         dLineClosestApproach (pa,ua,pb,ub,&alpha,&beta);    
         for (i=0; i<3; i++) pa[i] += ua[i]*alpha;

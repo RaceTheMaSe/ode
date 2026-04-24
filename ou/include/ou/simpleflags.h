@@ -111,7 +111,7 @@ public:
 
 		return ((m_ctFlagsValue & ctSingleFlag) != (ContainerType)0) != bFlagValue 
 			? ((m_ctFlagsValue ^= ctSingleFlag), true) 
-			: (false);
+			: false;
 	}
 
 
@@ -162,7 +162,7 @@ public:
 
 		return !(m_ctFlagsValue & ctFlagsMask) 
 			? (m_ctFlagsValue |= ctSingleFlag, true) 
-			: (false);
+			: false;
 	}
 	
 	// Set value of flag indexed by enum

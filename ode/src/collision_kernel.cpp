@@ -370,8 +370,8 @@ dxGeom::dxGeom (dSpaceID _space, int is_placeable)
     tome_ex = NULL;
     parent_space = NULL;
     dSetZero (aabb,6);
-    category_bits = ~(unsigned long)(0);
-    collide_bits = ~(unsigned long)(0);
+    category_bits = ~(unsigned long)0;
+    collide_bits = ~(unsigned long)0;
 
     // put this geom in a space if required
     if (_space) dSpaceAdd (_space,this);

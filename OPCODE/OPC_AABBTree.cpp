@@ -481,7 +481,7 @@ udword AABBTree::Walk(WalkingCallback callback, void* user_data) const
 			if(current_depth>max_depth)	max_depth = current_depth;
 
 			// Callback
-			if(callback && !(callback)(current_node, current_depth, user_data))	return;
+			if(callback && !callback(current_node, current_depth, user_data))	return;
 
 			// Recurse
 			if(current_node->GetPos())	{ _Walk(current_node->GetPos(), max_depth, current_depth, callback, user_data);	current_depth--;	}

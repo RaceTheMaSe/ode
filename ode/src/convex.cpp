@@ -1530,7 +1530,7 @@ int dCollideRayConvex(dxGeom *o1, dxGeom *o2,
     }
 
     // If the ray starts inside the convex hull, then everything is flipped.
-    nsign = (flag) ? REAL(1.0) : REAL(-1.0);
+    nsign = flag ? REAL(1.0) : REAL(-1.0);
 
 
     //

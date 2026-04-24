@@ -554,8 +554,8 @@ int dCollideRayCylinder( dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contac
     (void)flags; (void) skip;
 #endif
 
-    dxRay* ray = (dxRay*)( o1 );
-    dxCylinder* cyl = (dxCylinder*)( o2 );
+    dxRay* ray = (dxRay*) o1 ;
+    dxCylinder* cyl = (dxCylinder*) o2 ;
 
     // Fill in contact information.
     contact->g1 = ray;
@@ -651,7 +651,7 @@ int dCollideRayCylinder( dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contac
             // Ensure collision point is within cap circle
             if (tmp[0]*tmp[0] + tmp[1]*tmp[1] <= r2) {
                 // Successful collision
-                tmp[2] = (flipDir)?-half_length:half_length;
+                tmp[2] = flipDir?-half_length:half_length;
                 tmpNorm[0]=0;
                 tmpNorm[1]=0;
                 tmpNorm[2]=(flipDir!=flipNormals)?-REAL(1.0):REAL(1.0);

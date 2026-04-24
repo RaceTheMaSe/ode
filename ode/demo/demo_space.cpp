@@ -84,7 +84,7 @@ static void init_test()
 		      (bounds[i][0] + bounds[i][1])*REAL(0.5),
 		      (bounds[i][2] + bounds[i][3])*REAL(0.5),
 		      (bounds[i][4] + bounds[i][5])*REAL(0.5));
-    dGeomSetData (geom[i],(void*)(dsizeint)(i));
+    dGeomSetData (geom[i],(void*)(dsizeint)i);
   }
 
   // compute all intersections and put the results in "good_matrix"

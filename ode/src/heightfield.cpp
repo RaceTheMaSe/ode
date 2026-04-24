@@ -1310,10 +1310,10 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
             const bool isCCollide = CHeight > minO2Height;
             const bool isDCollide = DHeight > minO2Height;
 
-            A->state = !(isACollide);
-            B->state = !(isBCollide);
-            C->state = !(isCCollide);
-            D->state = !(isDCollide);
+            A->state = !isACollide;
+            B->state = !isBCollide;
+            C->state = !isCCollide;
+            D->state = !isDCollide;
 
             if (isACollide || isBCollide || isCCollide)
             {

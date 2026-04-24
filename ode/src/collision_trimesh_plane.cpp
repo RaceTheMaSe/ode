@@ -43,8 +43,8 @@ int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* conta
     dIASSERT ((flags & NUMC_MASK) >= 1);
 
     // Alias pointers to the plane and trimesh
-    dxTriMesh* trimesh = (dxTriMesh*)( o1 );
-    dxPlane* plane = (dxPlane*)( o2 );
+    dxTriMesh* trimesh = (dxTriMesh*) o1 ;
+    dxPlane* plane = (dxPlane*) o2 ;
 
     int contact_count = 0;
 
@@ -184,7 +184,7 @@ int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* conta
     dIASSERT ((flags & NUMC_MASK) >= 1);
 
     // Alias pointers to the plane and trimesh
-    dxTriMesh* trimesh = (dxTriMesh*)( o1 );
+    dxTriMesh* trimesh = (dxTriMesh*)o1;
     dVector4 plane;
     dGeomPlaneGetParams(o2, plane);
 
@@ -205,7 +205,7 @@ int dCollideTrimeshPlane( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* conta
     }
 
 
-    vec4f * planecontact_results = GIM_DYNARRAY_POINTER(vec4f, collision_result);
+    const vec4f * planecontact_results = GIM_DYNARRAY_POINTER(vec4f, collision_result);
     unsigned int contactcount = collision_result.m_size;
     
     dxPlaneContactAccessor contactaccessor(planecontact_results, plane, o1, o2);

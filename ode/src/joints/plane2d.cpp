@@ -166,7 +166,7 @@ void dJointSetPlane2DXParam( dxJoint *joint,
 {
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Plane2D );
-    dxJointPlane2D* joint2d = ( dxJointPlane2D* )( joint );
+    dxJointPlane2D* joint2d = ( dxJointPlane2D* ) joint ;
     joint2d->motor_x.set( parameter, value );
 }
 
@@ -176,7 +176,7 @@ void dJointSetPlane2DYParam( dxJoint *joint,
 {
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Plane2D );
-    dxJointPlane2D* joint2d = ( dxJointPlane2D* )( joint );
+    dxJointPlane2D* joint2d = ( dxJointPlane2D* ) joint ;
     joint2d->motor_y.set( parameter, value );
 }
 
@@ -187,7 +187,7 @@ void dJointSetPlane2DAngleParam( dxJoint *joint,
 {
     dUASSERT( joint, "bad joint argument" );
     checktype( joint, Plane2D );
-    dxJointPlane2D* joint2d = ( dxJointPlane2D* )( joint );
+    dxJointPlane2D* joint2d = ( dxJointPlane2D* ) joint ;
     joint2d->motor_angle.set( parameter, value );
 }
 

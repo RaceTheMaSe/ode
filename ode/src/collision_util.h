@@ -207,7 +207,7 @@ dReal dMatrix3Det( const dMatrix3& mat )
         - mat[1] * ( mat[4]*mat[10] - mat[8]*mat[6] )
         + mat[2] * ( mat[4]*mat[9]  - mat[8]*mat[5] );
 
-    return( det );
+    return det ;
 }
 
 

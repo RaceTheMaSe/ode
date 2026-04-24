@@ -267,7 +267,7 @@ dxSAPSpace::dxSAPSpace( dSpaceID _space, int axisorder ) : dxSpace( _space )
     aabb[4] = -dInfinity;
     aabb[5] = dInfinity;
 
-    ax0idx = (uint32)( ( axisorder ) & 3 ) << 1;
+    ax0idx = (uint32)( ( axisorder >> 0 ) & 3 ) << 1;
     ax1idx = (uint32)( ( axisorder >> 2 ) & 3 ) << 1;
     ax2idx = (uint32)( ( axisorder >> 4 ) & 3 ) << 1;
 }

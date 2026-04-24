@@ -643,8 +643,8 @@ bool sCylinderTrimeshColliderData::_cldClipCylinderEdgeToTriangle(
     dVector3Subtract(vCEdgePoint1,m_vCylinderPos, vTemp);
     const dReal fRestDepth1 = -dVector3Dot(vTemp,m_vContactNormal) + m_fBestrt;
 
-    dReal fDepth0 = m_fBestDepth - (fRestDepth0);
-    dReal fDepth1 = m_fBestDepth - (fRestDepth1);
+    dReal fDepth0 = m_fBestDepth - fRestDepth0;
+    dReal fDepth1 = m_fBestDepth - fRestDepth1;
 
     // clamp depths to zero
     if(fDepth0 < REAL(0.0) ) 

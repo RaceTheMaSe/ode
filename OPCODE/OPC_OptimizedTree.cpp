@@ -289,7 +289,7 @@ bool AABBCollisionTree::Walk(GenericWalkingCallback callback, void* user_data) c
 	{
 		static void _Walk(const AABBCollisionNode* current_node, GenericWalkingCallback callback, void* user_data)
 		{
-			if(!current_node || !(callback)(current_node, user_data))	return;
+			if(!current_node || !callback(current_node, user_data))	return;
 
 			if(!current_node->IsLeaf())
 			{
@@ -455,7 +455,7 @@ bool AABBNoLeafTree::Walk(GenericWalkingCallback callback, void* user_data) cons
 	{
 		static void _Walk(const AABBNoLeafNode* current_node, GenericWalkingCallback callback, void* user_data)
 		{
-			if(!current_node || !(callback)(current_node, user_data))	return;
+			if(!current_node || !callback(current_node, user_data))	return;
 
 			if(!current_node->HasPosLeaf())	_Walk(current_node->GetPos(), callback, user_data);
 			if(!current_node->HasNegLeaf())	_Walk(current_node->GetNeg(), callback, user_data);
@@ -672,7 +672,7 @@ bool AABBQuantizedTree::Walk(GenericWalkingCallback callback, void* user_data) c
 	{
 		static void _Walk(const AABBQuantizedNode* current_node, GenericWalkingCallback callback, void* user_data)
 		{
-			if(!current_node || !(callback)(current_node, user_data))	return;
+			if(!current_node || !callback(current_node, user_data))	return;
 
 			if(!current_node->IsLeaf())
 			{
@@ -793,7 +793,7 @@ bool AABBQuantizedNoLeafTree::Walk(GenericWalkingCallback callback, void* user_d
 	{
 		static void _Walk(const AABBQuantizedNoLeafNode* current_node, GenericWalkingCallback callback, void* user_data)
 		{
-			if(!current_node || !(callback)(current_node, user_data))	return;
+			if(!current_node || !callback(current_node, user_data))	return;
 
 			if(!current_node->HasPosLeaf())	_Walk(current_node->GetPos(), callback, user_data);
 			if(!current_node->HasNegLeaf())	_Walk(current_node->GetNeg(), callback, user_data);
