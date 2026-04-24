@@ -144,7 +144,7 @@ int dxFactorCholesky(dReal *A, unsigned n, void *tmpBuf/*[n]*/)
         }
         {
             dReal sum = *cc;
-            dReal *a = aa;
+            const dReal *a = aa;
             const dReal *aend = aa + i;
             for (; a != aend; ++a) {
                 sum -= (*a)*(*a);

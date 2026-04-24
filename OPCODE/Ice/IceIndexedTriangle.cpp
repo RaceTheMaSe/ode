@@ -148,7 +148,7 @@ void IndexedTriangle::CenteredNormal(const Point* verts, Point& normal)	const
 	const Point& p0 = verts[mVRef[0]];
 	const Point& p1 = verts[mVRef[1]];
 	const Point& p2 = verts[mVRef[2]];
-	Point center = (p0+p1+p2)*INV3;
+	const Point center = (p0+p1+p2)*INV3;
 	normal = center + ((p2-p1)^(p0-p1)).Normalize();
 }
 
@@ -196,7 +196,7 @@ bool IndexedTriangle::IsVisible(const Point* verts, const Point& source)	const
 	const Point& p2 = verts[mVRef[2]];
 
 	// Compute denormalized normal
-	Point normal = (p2 - p1)^(p0 - p1);
+	const Point normal = (p2 - p1)^(p0 - p1);
 
 	// Backface culling
 	return (normal | source) >= 0.0f;
@@ -227,7 +227,7 @@ bool IndexedTriangle::BackfaceCulling(const Point* verts, const Point& source)	c
 //	Point Base = (p0 + p1 + p2)*INV3;
 
 	// Compute denormalized normal
-	Point normal = (p2 - p1)^(p0 - p1);
+	const Point normal = (p2 - p1)^(p0 - p1);
 
 	// Backface culling
 //	return (Normal | (source - Base)) >= 0.0f;
@@ -255,10 +255,10 @@ float IndexedTriangle::ComputeOcclusionPotential(const Point* verts, const Point
 	// V = view vector
 	// d = distance viewpoint-center of polygon
 
-	float A = Area(verts);
+	const float A = Area(verts);
 	Point N;	Normal(verts, N);
 	Point C;	Center(verts, C);
-	float d = view.Distance(C);
+	const float d = view.Distance(C);
 	return -(A*(N|view))/(d*d);
 }
 
@@ -408,9 +408,9 @@ float IndexedTriangle::MinEdgeLength(const Point* verts)	const
 	if(!verts)	return 0.0f;
 
 	float Min = MAX_FLOAT;
-	float Length01 = verts[0].Distance(verts[1]);
-	float Length02 = verts[0].Distance(verts[2]);
-	float Length12 = verts[1].Distance(verts[2]);
+	const float Length01 = verts[0].Distance(verts[1]);
+	const float Length02 = verts[0].Distance(verts[2]);
+	const float Length12 = verts[1].Distance(verts[2]);
 	if(Length01 < Min)	Min = Length01;
 	if(Length02 < Min)	Min = Length02;
 	if(Length12 < Min)	Min = Length12;
@@ -429,9 +429,9 @@ float IndexedTriangle::MaxEdgeLength(const Point* verts)	const
 	if(!verts)	return 0.0f;
 
 	float Max = MIN_FLOAT;
-	float Length01 = verts[0].Distance(verts[1]);
-	float Length02 = verts[0].Distance(verts[2]);
-	float Length12 = verts[1].Distance(verts[2]);
+	const float Length01 = verts[0].Distance(verts[1]);
+	const float Length02 = verts[0].Distance(verts[2]);
+	const float Length12 = verts[1].Distance(verts[2]);
 	if(Length01 > Max)	Max = Length01;
 	if(Length02 > Max)	Max = Length02;
 	if(Length12 > Max)	Max = Length12;
@@ -465,7 +465,7 @@ void IndexedTriangle::ComputePoint(const Point* verts, float u, float v, Point& 
 	if(nearvtx)
 	{
 		// Compute distance vector
-		Point d(p0.SquareDistance(pt),	// Distance^2 from vertex 0 to point on the face
+		const Point d(p0.SquareDistance(pt),	// Distance^2 from vertex 0 to point on the face
 				p1.SquareDistance(pt),	// Distance^2 from vertex 1 to point on the face
 				p2.SquareDistance(pt));	// Distance^2 from vertex 2 to point on the face
 
@@ -484,18 +484,18 @@ void IndexedTriangle::ComputePoint(const Point* verts, float u, float v, Point& 
 	float Angle(const Point& u, const Point& v); // silence "no previous declaration" warning
 	float Angle(const Point& u, const Point& v)
 	{
-		float NormU = u.Magnitude();	// |u|
-		float NormV = v.Magnitude();	// |v|
+		const float NormU = u.Magnitude();	// |u|
+		const float NormV = v.Magnitude();	// |v|
 		const float Product = NormU*NormV;	// |u||v|
 		if(Product==0.0f)	return 0.0f;
-		float OneOverProduct = 1.0f / Product;
+		const float OneOverProduct = 1.0f / Product;
 
 		// Cosinus
-		float Cosinus = (u|v) * OneOverProduct;
+		const float Cosinus = (u|v) * OneOverProduct;
 
 		// Sinus
-		Point w = u^v;
-		float NormW = w.Magnitude();
+		const Point w = u^v;
+		const float NormW = w.Magnitude();
 
 		float AbsSinus = NormW * OneOverProduct;
 
@@ -526,7 +526,7 @@ float IndexedTriangle::Angle(const IndexedTriangle& tri, const Point* verts)	con
 	tri.Normal(verts, n1);
 
 	// Compute angle
-	float dp = n0|n1;
+	const float dp = n0|n1;
 	if(dp>1.0f)		return 0.0f;
 	if(dp<-1.0f)	return PI;
 	return acosf(dp);

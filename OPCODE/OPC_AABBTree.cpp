@@ -99,7 +99,7 @@ AABBTreeNode::~AABBTreeNode()
 udword AABBTreeNode::Split(udword axis, AABBTreeBuilder* builder)
 {
 	// Get node split value
-	float SplitValue = builder->GetSplittingValue(mNodePrimitives, mNbPrimitives, mBV, axis);
+	const float SplitValue = builder->GetSplittingValue(mNodePrimitives, mNbPrimitives, mBV, axis);
 
 	udword NbPos = 0;
 	// Loop through all node-related primitives. Their indices range from mNodePrimitives[0] to mNodePrimitives[mNbPrimitives-1].
@@ -165,7 +165,7 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 	{
 		// Find the largest axis to split along
 		IceMaths::Point Extents;	mBV.GetExtents(Extents);	// Box extents
-		udword Axis	= Extents.LargestAxis();		// Index of largest axis
+		const udword Axis	= Extents.LargestAxis();		// Index of largest axis
 
 		// Split along the axis
 		NbPos = Split(Axis, builder);
@@ -189,14 +189,14 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 		for(udword i=0;i<mNbPrimitives;i++)
 		{
 			const udword Index = mNodePrimitives[i];
-			IceMaths::Point Center = builder->GetSplittingValues(Index);
-			IceMaths::Point Delta = Center - Means;
+			const IceMaths::Point Center = builder->GetSplittingValues(Index);
+			const IceMaths::Point Delta = Center - Means;
 			Vars += Delta * Delta;
 		}
 		Vars/=float(mNbPrimitives-1);
 
 		// Choose axis with greatest variance
-		udword Axis = Vars.LargestAxis();
+		const udword Axis = Vars.LargestAxis();
 
 		// Split along the axis
 		NbPos = Split(Axis, builder);

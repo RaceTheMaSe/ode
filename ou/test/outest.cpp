@@ -83,7 +83,7 @@ static bool TestSubsystem(unsigned int &nOutSuccessCount, unsigned int &nOutTest
 		printf("Testing %34s: ", szFeatureName);
 		
 		CFeatureTestProcedure fnTestProcedure = afnFeatureTests[uiSubsystemFeature];
-		bool bTestResult = fnTestProcedure();
+		const bool bTestResult = fnTestProcedure();
 		printf("%s\n", bTestResult ? "success" : "*** failure ***");
 		
 		if (bTestResult)
@@ -117,7 +117,7 @@ enum ETESTTLSVALUES
 static unsigned int g_uiTestTLSDestructorCallCount = 0;
 static unsigned int g_uiTestTLSDestructorSuccessCount = 0;
 
-static void _OU_CONVENTION_CALLBACK TestTlsSecondValueDestructor(const void *pv_Value)
+static void _OU_CONVENTION_CALLBACK TestTlsSecondValueDestructor(void *pv_Value)
 {
 	g_uiTestTLSDestructorCallCount += 1;
 
@@ -436,7 +436,7 @@ const char *const TAszTlsFeatureTestNames::m_aetElementArray[] =
 
 static bool TestTLS(unsigned int &nOutSuccessCount, unsigned int &nOutTestCount)
 {
-	bool bResult = TestSubsystem(nOutSuccessCount, nOutTestCount, OHF__MAX, TAszTlsFeatureTestNames::GetStoragePointer(), TAfnTlsFeatureTestProcedures::GetStoragePointer());
+	const bool bResult = TestSubsystem(nOutSuccessCount, nOutTestCount, OHF__MAX, TAszTlsFeatureTestNames::GetStoragePointer(), TAfnTlsFeatureTestProcedures::GetStoragePointer());
 
 	if (g_bTestTLSAPIInitialized)
 	{
@@ -464,7 +464,7 @@ static bool TestAtomic_Increment()
 
 		// Putting function inside of conditional operator causes
 		// incorrect code generation by GCC 4.0.1 on MacOS X Leopard 64 bit.
-		atomicord32 aoIncrementFirstResult = AtomicIncrement(&aoStorage);
+		const atomicord32 aoIncrementFirstResult = AtomicIncrement(&aoStorage);
 		if (aoIncrementFirstResult != 0 || aoStorage != (atomicord32)0)
 		{
 			break;
@@ -492,7 +492,7 @@ static bool TestAtomic_Decrement()
 		
 		// Putting function inside of conditional operator causes
 		// incorrect code generation by GCC 4.0.1 on MacOS X Leopard 64 bit.
-		atomicord32 aoDecrementFirstResult = AtomicDecrement(&aoStorage);
+		const atomicord32 aoDecrementFirstResult = AtomicDecrement(&aoStorage);
 		if (aoDecrementFirstResult != (atomicord32)0 || aoStorage != (atomicord32)0)
 		{
 			break;
@@ -1078,21 +1078,21 @@ static bool TestAtomicFlags_Constructors()
 			break;
 		}
 
-		CAtomicFlags afEmptyFlags;
+		const CAtomicFlags afEmptyFlags;
 
 		if (afEmptyFlags.QueryFlagsAllValues())
 		{
 			break;
 		}
 
-		CAtomicFlags afFullFlags(OU_UINT32_MAX);
+		const CAtomicFlags afFullFlags(OU_UINT32_MAX);
 		
 		if (afFullFlags.QueryFlagsAllValues() != (atomicord32)OU_UINT32_MAX)
 		{
 			break;
 		}
 
-		CAtomicFlags afCopyOfFullFlags(afFullFlags);
+		const CAtomicFlags afCopyOfFullFlags(afFullFlags);
 
 		if (afCopyOfFullFlags.QueryFlagsAllValues() != (atomicord32)OU_UINT32_MAX)
 		{
@@ -1141,7 +1141,7 @@ static bool TestAtomicFlags_QueryFlagsAllValues()
 	
 	do
 	{
-		CAtomicFlags afTestFlags(g_aoTestValue32);
+		const CAtomicFlags afTestFlags(g_aoTestValue32);
 		
 		if (afTestFlags.QueryFlagsAllValues() != g_aoTestValue32)
 		{
@@ -1243,14 +1243,14 @@ static bool TestAtomicFlags_ToggleSingleFlagValue()
 	{
 		CAtomicFlags afTestFlags(g_aoTestValue32);
 		
-		bool bPreviousValue = afTestFlags.ToggleSingleFlagValue(g_aoTestBit32);
+		const bool bPreviousValue = afTestFlags.ToggleSingleFlagValue(g_aoTestBit32);
 		
 		if (bPreviousValue != ((g_aoTestValue32 & g_aoTestBit32) != 0) || afTestFlags.QueryFlagsAllValues() != (atomicord32)(g_aoTestValue32 ^ g_aoTestBit32))
 		{
 			break;
 		}
 
-		bool bAnotherPreviousValue = afTestFlags.ToggleSingleFlagValue(g_aoTestBit32);
+		const bool bAnotherPreviousValue = afTestFlags.ToggleSingleFlagValue(g_aoTestBit32);
 		
 		if (bAnotherPreviousValue == bPreviousValue || afTestFlags.QueryFlagsAllValues() != g_aoTestValue32)
 		{
@@ -1272,21 +1272,21 @@ static bool TestAtomicFlags_ModifySingleFlagValue()
 	{
 		CAtomicFlags afTestFlags(g_aoTestValue32);
 		
-		bool bFirstModification = afTestFlags.ModifySingleFlagValue(g_aoTestBit32, true);
+		const bool bFirstModification = afTestFlags.ModifySingleFlagValue(g_aoTestBit32, true);
 		
 		if (bFirstModification != ((g_aoTestValue32 & g_aoTestBit32) != g_aoTestBit32) || afTestFlags.QueryFlagsAllValues() != (atomicord32)(g_aoTestValue32 | g_aoTestBit32))
 		{
 			break;
 		}
 		
-		bool bAnotherModification = afTestFlags.ModifySingleFlagValue(g_aoTestBit32, bFirstModification);
+		const bool bAnotherModification = afTestFlags.ModifySingleFlagValue(g_aoTestBit32, bFirstModification);
 		
 		if (bAnotherModification == bFirstModification || afTestFlags.QueryFlagsAllValues() != (bFirstModification ? (atomicord32)(g_aoTestValue32 | g_aoTestBit32) : (atomicord32)(g_aoTestValue32 & ~g_aoTestBit32)))
 		{
 			break;
 		}
 
-		bool bYetAnotherModification = afTestFlags.ModifySingleFlagValue(g_aoTestBit32, bAnotherModification);
+		const bool bYetAnotherModification = afTestFlags.ModifySingleFlagValue(g_aoTestBit32, bAnotherModification);
 
 		if (bYetAnotherModification != bAnotherModification || afTestFlags.QueryFlagsAllValues() != (bAnotherModification ? (atomicord32)(g_aoTestValue32 | g_aoTestBit32) : (atomicord32)(g_aoTestValue32 & ~g_aoTestBit32)))
 		{
@@ -1308,7 +1308,7 @@ static bool TestAtomicFlags_AssignFlagsByMask()
 	{
 		CAtomicFlags afTestFlags(g_aoTestValue32);
 
-		atomicord32 aoPreviousFlags = afTestFlags.AssignFlagsByMask(g_aoTestMask32, g_aoTestMask32);
+		const atomicord32 aoPreviousFlags = afTestFlags.AssignFlagsByMask(g_aoTestMask32, g_aoTestMask32);
 
 		const atomicord32 aoNewFlags = (g_aoTestValue32 & ~g_aoTestMask32) | g_aoTestMask32;
 
@@ -1317,7 +1317,7 @@ static bool TestAtomicFlags_AssignFlagsByMask()
 			break;
 		}
 
-		atomicord32 aoAnotherPreviousFlags = afTestFlags.AssignFlagsByMask(g_aoTestValue32, 0);
+		const atomicord32 aoAnotherPreviousFlags = afTestFlags.AssignFlagsByMask(g_aoTestValue32, 0);
 
 		const atomicord32 aoAnotherNewFlags = aoNewFlags & ~g_aoTestValue32;
 
@@ -1326,7 +1326,7 @@ static bool TestAtomicFlags_AssignFlagsByMask()
 			break;
 		}
 	
-		atomicord32 aoYetAnotherPreviousFlags = afTestFlags.AssignFlagsByMask(g_aoTestMask32, g_aoTestMask32 & g_aoTestValue32);
+		const atomicord32 aoYetAnotherPreviousFlags = afTestFlags.AssignFlagsByMask(g_aoTestMask32, g_aoTestMask32 & g_aoTestValue32);
 		OU_ASSERT((g_aoTestMask32 & g_aoTestValue32) != 0); // Test degeneration
 		
 		const atomicord32 aoYetAnotherNewFlags = (aoAnotherNewFlags & ~g_aoTestMask32) | (g_aoTestMask32 & g_aoTestValue32);
@@ -1352,7 +1352,7 @@ static bool TestAtomicFlags_AlterFlagsByMask()
 	{
 		CAtomicFlags afTestFlags(g_aoTestValue32);
 		
-		bool bWasModification = afTestFlags.AlterFlagsByMask(g_aoTestMask32, g_aoTestMask32);
+		const bool bWasModification = afTestFlags.AlterFlagsByMask(g_aoTestMask32, g_aoTestMask32);
 		
 		const atomicord32 aoNewFlags = (g_aoTestValue32 & ~g_aoTestMask32) | g_aoTestMask32;
 		
@@ -1361,7 +1361,7 @@ static bool TestAtomicFlags_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModification = afTestFlags.AlterFlagsByMask(g_aoTestValue32, 0);
+		const bool bWasAnotherModification = afTestFlags.AlterFlagsByMask(g_aoTestValue32, 0);
 		
 		const atomicord32 aoAnotherNewFlags = aoNewFlags & ~g_aoTestValue32;
 		
@@ -1370,14 +1370,14 @@ static bool TestAtomicFlags_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModificationRepeated = afTestFlags.AlterFlagsByMask(g_aoTestValue32, 0);
+		const bool bWasAnotherModificationRepeated = afTestFlags.AlterFlagsByMask(g_aoTestValue32, 0);
 		
 		if (bWasAnotherModificationRepeated || afTestFlags.QueryFlagsAllValues() != aoAnotherNewFlags)
 		{
 			break;
 		}
 		
-		bool bWasYetAnotherModification = afTestFlags.AlterFlagsByMask(g_aoTestMask32, g_aoTestMask32 & g_aoTestValue32);
+		const bool bWasYetAnotherModification = afTestFlags.AlterFlagsByMask(g_aoTestMask32, g_aoTestMask32 & g_aoTestValue32);
 		OU_ASSERT((g_aoTestMask32 & g_aoTestValue32) != 0); // Test degeneration
 		
 		const atomicord32 aoYetAnotherNewFlags = (aoAnotherNewFlags & ~g_aoTestMask32) | (g_aoTestMask32 & g_aoTestValue32);
@@ -1401,7 +1401,7 @@ static bool TestAtomicFlags_GetFlagsMaskValue()
 	
 	do
 	{
-		CAtomicFlags afTestFlags(g_aoTestValue32);
+		const CAtomicFlags afTestFlags(g_aoTestValue32);
 		
 		if (afTestFlags.GetFlagsMaskValue(g_aoTestMask32) != ((g_aoTestValue32 & g_aoTestMask32) != 0))
 		{
@@ -1431,7 +1431,7 @@ static bool TestAtomicFlags_QueryFlagsByMask()
 	
 	do
 	{
-		CAtomicFlags afTestFlags(g_aoTestValue32);
+		const CAtomicFlags afTestFlags(g_aoTestValue32);
 		
 		if (afTestFlags.QueryFlagsByMask(g_aoTestMask32) != (atomicord32)(g_aoTestValue32 & g_aoTestMask32))
 		{
@@ -1650,28 +1650,28 @@ static bool TestAtomicFlags_EnumToggleEnumeratedFlagValue()
 	{
 		CAtomicFlags afTestFlags;
 		
-		bool bToggleFirstResult = afTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
+		const bool bToggleFirstResult = afTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
 		
 		if (bToggleFirstResult || afTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bToggleSecondResult = afTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
+		const bool bToggleSecondResult = afTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
 		
 		if (bToggleSecondResult || afTestFlags.QueryFlagsAllValues() != (atomicord32)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bToggleThirdResult = afTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
+		const bool bToggleThirdResult = afTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
 		
 		if (!bToggleThirdResult || afTestFlags.QueryFlagsAllValues() != (atomicord32)OU_INT32_MIN)
 		{
 			break;
 		}
 		
-		bool bToggleFourthResult = afTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
+		const bool bToggleFourthResult = afTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
 		
 		if (!bToggleFourthResult || afTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -1693,42 +1693,42 @@ static bool TestAtomicFlags_EnumModifyEnumeratedFlagValue()
 	{
 		CAtomicFlags afTestFlags;
 		
-		bool bModifyFirstResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, true);
+		const bool bModifyFirstResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, true);
 		
 		if (!bModifyFirstResult || afTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bModifySecondResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, true);
+		const bool bModifySecondResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, true);
 		
 		if (!bModifySecondResult || afTestFlags.QueryFlagsAllValues() != (atomicord32)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyThirdResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, true);
+		const bool bModifyThirdResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, true);
 		
 		if (bModifyThirdResult || afTestFlags.QueryFlagsAllValues() != (atomicord32)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFourthResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, true);
+		const bool bModifyFourthResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, true);
 		
 		if (bModifyFourthResult || afTestFlags.QueryFlagsAllValues() != (atomicord32)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFifthResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, false);
+		const bool bModifyFifthResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, false);
 		
 		if (!bModifyFifthResult || afTestFlags.QueryFlagsAllValues() != (atomicord32)OU_INT32_MIN)
 		{
 			break;
 		}
 		
-		bool bModifySixthResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, false);
+		const bool bModifySixthResult = afTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, false);
 		
 		if (!bModifySixthResult || afTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -1750,28 +1750,28 @@ static bool TestAtomicFlags_EnumSignalFirstEnumeratedFlagValue()
 	{
 		CAtomicFlags afTestFlags;
 
-		bool bFirstResult = afTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
+		const bool bFirstResult = afTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
 
 		if (!bFirstResult || afTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = afTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
+		const bool bSecondResult = afTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
 		
 		if (bSecondResult || afTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = afTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT32_BITS - 1);
+		const bool bThirdResult = afTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT32_BITS - 1);
 		
 		if (!bThirdResult || afTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = afTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
+		const bool bFourthResult = afTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
 		
 		if (bFourthResult || afTestFlags.QueryFlagsAllValues() != (atomicord32)(OU_INT32_MIN + 3))
 		{
@@ -1793,28 +1793,28 @@ static bool TestAtomicFlags_EnumSignalLastEnumeratedFlagValue()
 	{
 		CAtomicFlags afTestFlags;
 		
-		bool bFirstResult = afTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bFirstResult = afTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (!bFirstResult || afTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = afTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bSecondResult = afTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (bSecondResult || afTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = afTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
+		const bool bThirdResult = afTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
 		
 		if (!bThirdResult || afTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = afTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
+		const bool bFourthResult = afTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
 		
 		if (bFourthResult || afTestFlags.QueryFlagsAllValues() != (atomicord32)(OU_INT32_MIN + 3))
 		{
@@ -1834,7 +1834,7 @@ static bool TestAtomicFlags_EnumGetEnumeratedFlagValue()
 	
 	do
 	{
-		CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
+		const CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
 		
 		if (!afTestFlags.EnumGetEnumeratedFlagValue(1, 0, OU_UINT32_BITS))
 		{
@@ -1869,15 +1869,15 @@ static bool TestAtomicFlags_EnumFindFirstEnumeratedFlag()
 	
 	do
 	{
-		CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
+		const CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
 
-		unsigned int uiFirstResult = (unsigned int)afTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT32_BITS);
+		const unsigned int uiFirstResult = (unsigned int)afTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT32_BITS);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 
-		unsigned int uiSecondResult = (unsigned int)afTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT32_BITS - 1);
+		const unsigned int uiSecondResult = (unsigned int)afTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT32_BITS - 1);
 		if (uiSecondResult != OU_UINT32_BITS - 2)
 		{
 			break;
@@ -1954,21 +1954,21 @@ static bool TestAtomicFlags_EnumAllQueryEnumeratedFlags()
 	
 	do
 	{
-		CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
+		const CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
 		
-		atomicord32 aoFirstResult = afTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT32_BITS);
+		const atomicord32 aoFirstResult = afTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT32_BITS);
 		if (aoFirstResult != (atomicord32)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		atomicord32 aoSecondResult = afTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT32_BITS - 1);
+		const atomicord32 aoSecondResult = afTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT32_BITS - 1);
 		if (aoSecondResult != (atomicord32)(OU_INT32_MIN))
 		{
 			break;
 		}
 		
-		atomicord32 aoThirdResult = afTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT32_BITS - 2);
+		const atomicord32 aoThirdResult = afTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT32_BITS - 2);
 		if (aoThirdResult != 0)
 		{
 			break;
@@ -1987,21 +1987,21 @@ static bool TestAtomicFlags_EnumAnyGetEnumeratedFlagValue()
 	
 	do
 	{
-		CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
+		const CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
 		
-		bool bFirstResult = afTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT32_BITS);
+		const bool bFirstResult = afTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT32_BITS);
 		if (!bFirstResult)
 		{
 			break;
 		}
 		
-		bool bSecondResult = afTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT32_BITS - 1);
+		const bool bSecondResult = afTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT32_BITS - 1);
 		if (!bSecondResult)
 		{
 			break;
 		}
 		
-		bool bThirdResult = afTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT32_BITS - 2);
+		const bool bThirdResult = afTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT32_BITS - 2);
 		if (bThirdResult)
 		{
 			break;
@@ -2049,15 +2049,15 @@ static bool TestAtomicFlags_RetrieveFlagsEnumeratedValue()
 	
 	do
 	{
-		CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
+		const CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
 		
-		unsigned int aoFirstResult = afTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
+		const unsigned int aoFirstResult = afTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
 		if (aoFirstResult != 0)
 		{
 			break;
 		}
 		
-		unsigned int aoSecondResult = afTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT32_BITS - 2);
+		const unsigned int aoSecondResult = afTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT32_BITS - 2);
 		if (aoSecondResult != 2)
 		{
 			break;
@@ -2235,21 +2235,21 @@ static bool TestSimpleFlags64_Constructors()
 			break;
 		}
 
-		CSimpleFlags64 sfEmptyFlags;
+		const CSimpleFlags64 sfEmptyFlags;
 
 		if (sfEmptyFlags.QueryFlagsAllValues())
 		{
 			break;
 		}
 
-		CSimpleFlags64 sfFullFlags(OU_UINT64_MAX);
+		const CSimpleFlags64 sfFullFlags(OU_UINT64_MAX);
 		
 		if (sfFullFlags.QueryFlagsAllValues() != OU_UINT64_MAX)
 		{
 			break;
 		}
 
-		CSimpleFlags64 sfCopyOfFullFlags(sfFullFlags);
+		const CSimpleFlags64 sfCopyOfFullFlags(sfFullFlags);
 
 		if (sfCopyOfFullFlags.QueryFlagsAllValues() != OU_UINT64_MAX)
 		{
@@ -2298,7 +2298,7 @@ static bool TestSimpleFlags64_QueryFlagsAllValues()
 	
 	do
 	{
-		CSimpleFlags64 sfTestFlags(g_uiTestValue64);
+		const CSimpleFlags64 sfTestFlags(g_uiTestValue64);
 		
 		if (sfTestFlags.QueryFlagsAllValues() != g_uiTestValue64)
 		{
@@ -2400,14 +2400,14 @@ static bool TestSimpleFlags64_ToggleSingleFlagValue()
 	{
 		CSimpleFlags64 sfTestFlags(g_uiTestValue64);
 		
-		bool bPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit64);
+		const bool bPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit64);
 		
 		if (bPreviousValue != ((g_uiTestValue64 & g_uiTestBit64) != 0) || sfTestFlags.QueryFlagsAllValues() != (uint64ou)(g_uiTestValue64 ^ g_uiTestBit64))
 		{
 			break;
 		}
 
-		bool bAnotherPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit64);
+		const bool bAnotherPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit64);
 		
 		if (bAnotherPreviousValue == bPreviousValue || sfTestFlags.QueryFlagsAllValues() != g_uiTestValue64)
 		{
@@ -2429,21 +2429,21 @@ static bool TestSimpleFlags64_ModifySingleFlagValue()
 	{
 		CSimpleFlags64 sfTestFlags(g_uiTestValue64);
 		
-		bool bFirstModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit64, true);
+		const bool bFirstModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit64, true);
 		
 		if (bFirstModification != ((g_uiTestValue64 & g_uiTestBit64) != g_uiTestBit64) || sfTestFlags.QueryFlagsAllValues() != (uint64ou)(g_uiTestValue64 | g_uiTestBit64))
 		{
 			break;
 		}
 		
-		bool bAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit64, bFirstModification);
+		const bool bAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit64, bFirstModification);
 		
 		if (bAnotherModification == bFirstModification || sfTestFlags.QueryFlagsAllValues() != (bFirstModification ? (uint64ou)(g_uiTestValue64 | g_uiTestBit64) : (uint64ou)(g_uiTestValue64 & ~g_uiTestBit64)))
 		{
 			break;
 		}
 
-		bool bYetAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit64, bAnotherModification);
+		const bool bYetAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit64, bAnotherModification);
 
 		if (bYetAnotherModification != bAnotherModification || sfTestFlags.QueryFlagsAllValues() != (bAnotherModification ? (uint64ou)(g_uiTestValue64 | g_uiTestBit64) : (uint64ou)(g_uiTestValue64 & ~g_uiTestBit64)))
 		{
@@ -2465,7 +2465,7 @@ static bool TestSimpleFlags64_AssignFlagsByMask()
 	{
 		CSimpleFlags64 sfTestFlags(g_uiTestValue64);
 
-		uint64ou uiPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask64, g_uiTestMask64);
+		const uint64ou uiPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask64, g_uiTestMask64);
 
 		const uint64ou uiNewFlags = (g_uiTestValue64 & ~g_uiTestMask64) | g_uiTestMask64;
 
@@ -2474,7 +2474,7 @@ static bool TestSimpleFlags64_AssignFlagsByMask()
 			break;
 		}
 
-		uint64ou uiAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestValue64, 0);
+		const uint64ou uiAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestValue64, 0);
 
 		const uint64ou uiAnotherNewFlags = uiNewFlags & ~g_uiTestValue64;
 
@@ -2483,7 +2483,7 @@ static bool TestSimpleFlags64_AssignFlagsByMask()
 			break;
 		}
 	
-		uint64ou uiYetAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask64, g_uiTestMask64 & g_uiTestValue64);
+		const uint64ou uiYetAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask64, g_uiTestMask64 & g_uiTestValue64);
 		OU_ASSERT((g_uiTestMask64 & g_uiTestValue64) != 0); // Test degeneration
 		
 		const uint64ou uiYetAnotherNewFlags = (uiAnotherNewFlags & ~g_uiTestMask64) | (g_uiTestMask64 & g_uiTestValue64);
@@ -2509,7 +2509,7 @@ static bool TestSimpleFlags64_AlterFlagsByMask()
 	{
 		CSimpleFlags64 sfTestFlags(g_uiTestValue64);
 		
-		bool bWasModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask64, g_uiTestMask64);
+		const bool bWasModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask64, g_uiTestMask64);
 		
 		const uint64ou uiNewFlags = (g_uiTestValue64 & ~g_uiTestMask64) | g_uiTestMask64;
 		
@@ -2518,7 +2518,7 @@ static bool TestSimpleFlags64_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestValue64, 0);
+		const bool bWasAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestValue64, 0);
 		
 		const uint64ou uiAnotherNewFlags = uiNewFlags & ~g_uiTestValue64;
 		
@@ -2527,14 +2527,14 @@ static bool TestSimpleFlags64_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModificationRepeated = sfTestFlags.AlterFlagsByMask(g_uiTestValue64, 0);
+		const bool bWasAnotherModificationRepeated = sfTestFlags.AlterFlagsByMask(g_uiTestValue64, 0);
 		
 		if (bWasAnotherModificationRepeated || sfTestFlags.QueryFlagsAllValues() != uiAnotherNewFlags)
 		{
 			break;
 		}
 		
-		bool bWasYetAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask64, g_uiTestMask64 & g_uiTestValue64);
+		const bool bWasYetAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask64, g_uiTestMask64 & g_uiTestValue64);
 		OU_ASSERT((g_uiTestMask64 & g_uiTestValue64) != 0); // Test degeneration
 		
 		const uint64ou uiYetAnotherNewFlags = (uiAnotherNewFlags & ~g_uiTestMask64) | (g_uiTestMask64 & g_uiTestValue64);
@@ -2558,7 +2558,7 @@ static bool TestSimpleFlags64_GetFlagsMaskValue()
 	
 	do
 	{
-		CSimpleFlags64 sfTestFlags(g_uiTestValue64);
+		const CSimpleFlags64 sfTestFlags(g_uiTestValue64);
 		
 		if (sfTestFlags.GetFlagsMaskValue(g_uiTestMask64) != ((g_uiTestValue64 & g_uiTestMask64) != 0))
 		{
@@ -2588,7 +2588,7 @@ static bool TestSimpleFlags64_QueryFlagsByMask()
 	
 	do
 	{
-		CSimpleFlags64 sfTestFlags(g_uiTestValue64);
+		const CSimpleFlags64 sfTestFlags(g_uiTestValue64);
 		
 		if (sfTestFlags.QueryFlagsByMask(g_uiTestMask64) != (uint64ou)(g_uiTestValue64 & g_uiTestMask64))
 		{
@@ -2807,28 +2807,28 @@ static bool TestSimpleFlags64_EnumToggleEnumeratedFlagValue()
 	{
 		CSimpleFlags64 sfTestFlags;
 		
-		bool bToggleFirstResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT64_BITS);
+		const bool bToggleFirstResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT64_BITS);
 		
 		if (bToggleFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bToggleSecondResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS);
+		const bool bToggleSecondResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS);
 		
 		if (bToggleSecondResult || sfTestFlags.QueryFlagsAllValues() != (uint64ou)(OU_INT64_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bToggleThirdResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT64_BITS);
+		const bool bToggleThirdResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT64_BITS);
 		
 		if (!bToggleThirdResult || sfTestFlags.QueryFlagsAllValues() != (uint64ou)OU_INT64_MIN)
 		{
 			break;
 		}
 		
-		bool bToggleFourthResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS);
+		const bool bToggleFourthResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS);
 		
 		if (!bToggleFourthResult || sfTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -2850,42 +2850,42 @@ static bool TestSimpleFlags64_EnumModifyEnumeratedFlagValue()
 	{
 		CSimpleFlags64 sfTestFlags;
 		
-		bool bModifyFirstResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT64_BITS, true);
+		const bool bModifyFirstResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT64_BITS, true);
 		
 		if (!bModifyFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bModifySecondResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS, true);
+		const bool bModifySecondResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS, true);
 		
 		if (!bModifySecondResult || sfTestFlags.QueryFlagsAllValues() != (uint64ou)(OU_INT64_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyThirdResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT64_BITS, true);
+		const bool bModifyThirdResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT64_BITS, true);
 		
 		if (bModifyThirdResult || sfTestFlags.QueryFlagsAllValues() != (uint64ou)(OU_INT64_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFourthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS, true);
+		const bool bModifyFourthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS, true);
 		
 		if (bModifyFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint64ou)(OU_INT64_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFifthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT64_BITS, false);
+		const bool bModifyFifthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT64_BITS, false);
 		
 		if (!bModifyFifthResult || sfTestFlags.QueryFlagsAllValues() != (uint64ou)OU_INT64_MIN)
 		{
 			break;
 		}
 		
-		bool bModifySixthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS, false);
+		const bool bModifySixthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS, false);
 		
 		if (!bModifySixthResult || sfTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -2907,28 +2907,28 @@ static bool TestSimpleFlags64_EnumSignalFirstEnumeratedFlagValue()
 	{
 		CSimpleFlags64 sfTestFlags;
 
-		bool bFirstResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT64_BITS);
+		const bool bFirstResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT64_BITS);
 
 		if (!bFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT64_BITS);
+		const bool bSecondResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT64_BITS);
 		
 		if (bSecondResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT64_BITS - 1);
+		const bool bThirdResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT64_BITS - 1);
 		
 		if (!bThirdResult || sfTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS);
+		const bool bFourthResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS);
 		
 		if (bFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint64ou)(OU_INT64_MIN + 3))
 		{
@@ -2950,28 +2950,28 @@ static bool TestSimpleFlags64_EnumSignalLastEnumeratedFlagValue()
 	{
 		CSimpleFlags64 sfTestFlags;
 		
-		bool bFirstResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bFirstResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (!bFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bSecondResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (bSecondResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
+		const bool bThirdResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
 		
 		if (!bThirdResult || sfTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS);
+		const bool bFourthResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT64_BITS - 1, OU_UINT64_BITS);
 		
 		if (bFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint64ou)(OU_INT64_MIN + 3))
 		{
@@ -2991,7 +2991,7 @@ static bool TestSimpleFlags64_EnumGetEnumeratedFlagValue()
 	
 	do
 	{
-		CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
+		const CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
 		
 		if (!sfTestFlags.EnumGetEnumeratedFlagValue(1, 0, OU_UINT64_BITS))
 		{
@@ -3026,15 +3026,15 @@ static bool TestSimpleFlags64_EnumFindFirstEnumeratedFlag()
 	
 	do
 	{
-		CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
+		const CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
 
-		unsigned int uiFirstResult = sfTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT64_BITS);
+		const unsigned int uiFirstResult = sfTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT64_BITS);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 
-		unsigned int uiSecondResult = sfTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT64_BITS - 1);
+		const unsigned int uiSecondResult = sfTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT64_BITS - 1);
 		if (uiSecondResult != OU_UINT64_BITS - 2)
 		{
 			break;
@@ -3111,21 +3111,21 @@ static bool TestSimpleFlags64_EnumAllQueryEnumeratedFlags()
 	
 	do
 	{
-		CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
+		const CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
 		
-		uint64ou uiFirstResult = sfTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT64_BITS);
+		const uint64ou uiFirstResult = sfTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT64_BITS);
 		if (uiFirstResult != (uint64ou)(OU_INT64_MIN + 1))
 		{
 			break;
 		}
 		
-		uint64ou uiSecondResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT64_BITS - 1);
+		const uint64ou uiSecondResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT64_BITS - 1);
 		if (uiSecondResult != (uint64ou)(OU_INT64_MIN))
 		{
 			break;
 		}
 		
-		uint64ou uiThirdResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT64_BITS - 2);
+		const uint64ou uiThirdResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT64_BITS - 2);
 		if (uiThirdResult != 0)
 		{
 			break;
@@ -3144,21 +3144,21 @@ static bool TestSimpleFlags64_EnumAnyGetEnumeratedFlagValue()
 	
 	do
 	{
-		CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
+		const CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
 		
-		bool bFirstResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT64_BITS);
+		const bool bFirstResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT64_BITS);
 		if (!bFirstResult)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT64_BITS - 1);
+		const bool bSecondResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT64_BITS - 1);
 		if (!bSecondResult)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT64_BITS - 2);
+		const bool bThirdResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT64_BITS - 2);
 		if (bThirdResult)
 		{
 			break;
@@ -3206,15 +3206,15 @@ static bool TestSimpleFlags64_RetrieveFlagsEnumeratedValue()
 	
 	do
 	{
-		CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
+		const CSimpleFlags64 sfTestFlags((uint64ou)(OU_INT64_MIN + 1));
 		
-		unsigned int uiFirstResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
+		const unsigned int uiFirstResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 		
-		unsigned int uiSecondResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT64_BITS - 2);
+		const unsigned int uiSecondResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT64_BITS - 2);
 		if (uiSecondResult != 2)
 		{
 			break;
@@ -3360,21 +3360,21 @@ static bool TestSimpleFlags32_Constructors()
 			break;
 		}
 
-		CSimpleFlags32 sfEmptyFlags;
+		const CSimpleFlags32 sfEmptyFlags;
 
 		if (sfEmptyFlags.QueryFlagsAllValues())
 		{
 			break;
 		}
 
-		CSimpleFlags32 sfFullFlags(OU_UINT32_MAX);
+		const CSimpleFlags32 sfFullFlags(OU_UINT32_MAX);
 		
 		if (sfFullFlags.QueryFlagsAllValues() != OU_UINT32_MAX)
 		{
 			break;
 		}
 
-		CSimpleFlags32 sfCopyOfFullFlags(sfFullFlags);
+		const CSimpleFlags32 sfCopyOfFullFlags(sfFullFlags);
 
 		if (sfCopyOfFullFlags.QueryFlagsAllValues() != OU_UINT32_MAX)
 		{
@@ -3423,7 +3423,7 @@ static bool TestSimpleFlags32_QueryFlagsAllValues()
 	
 	do
 	{
-		CSimpleFlags32 sfTestFlags(g_uiTestValue32);
+		const CSimpleFlags32 sfTestFlags(g_uiTestValue32);
 		
 		if (sfTestFlags.QueryFlagsAllValues() != g_uiTestValue32)
 		{
@@ -3525,14 +3525,14 @@ static bool TestSimpleFlags32_ToggleSingleFlagValue()
 	{
 		CSimpleFlags32 sfTestFlags(g_uiTestValue32);
 		
-		bool bPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit32);
+		const bool bPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit32);
 		
 		if (bPreviousValue != ((g_uiTestValue32 & g_uiTestBit32) != 0) || sfTestFlags.QueryFlagsAllValues() != (uint32ou)(g_uiTestValue32 ^ g_uiTestBit32))
 		{
 			break;
 		}
 
-		bool bAnotherPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit32);
+		const bool bAnotherPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit32);
 		
 		if (bAnotherPreviousValue == bPreviousValue || sfTestFlags.QueryFlagsAllValues() != g_uiTestValue32)
 		{
@@ -3554,21 +3554,21 @@ static bool TestSimpleFlags32_ModifySingleFlagValue()
 	{
 		CSimpleFlags32 sfTestFlags(g_uiTestValue32);
 		
-		bool bFirstModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit32, true);
+		const bool bFirstModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit32, true);
 		
 		if (bFirstModification != ((g_uiTestValue32 & g_uiTestBit32) != g_uiTestBit32) || sfTestFlags.QueryFlagsAllValues() != (uint32ou)(g_uiTestValue32 | g_uiTestBit32))
 		{
 			break;
 		}
 		
-		bool bAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit32, bFirstModification);
+		const bool bAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit32, bFirstModification);
 		
 		if (bAnotherModification == bFirstModification || sfTestFlags.QueryFlagsAllValues() != (bFirstModification ? (uint32ou)(g_uiTestValue32 | g_uiTestBit32) : (uint32ou)(g_uiTestValue32 & ~g_uiTestBit32)))
 		{
 			break;
 		}
 
-		bool bYetAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit32, bAnotherModification);
+		const bool bYetAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit32, bAnotherModification);
 
 		if (bYetAnotherModification != bAnotherModification || sfTestFlags.QueryFlagsAllValues() != (bAnotherModification ? (uint32ou)(g_uiTestValue32 | g_uiTestBit32) : (uint32ou)(g_uiTestValue32 & ~g_uiTestBit32)))
 		{
@@ -3590,7 +3590,7 @@ static bool TestSimpleFlags32_AssignFlagsByMask()
 	{
 		CSimpleFlags32 sfTestFlags(g_uiTestValue32);
 
-		uint32ou uiPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask32, g_uiTestMask32);
+		const uint32ou uiPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask32, g_uiTestMask32);
 
 		const uint32ou uiNewFlags = (g_uiTestValue32 & ~g_uiTestMask32) | g_uiTestMask32;
 
@@ -3599,7 +3599,7 @@ static bool TestSimpleFlags32_AssignFlagsByMask()
 			break;
 		}
 
-		uint32ou uiAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestValue32, 0);
+		const uint32ou uiAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestValue32, 0);
 
 		const uint32ou uiAnotherNewFlags = uiNewFlags & ~g_uiTestValue32;
 
@@ -3608,7 +3608,7 @@ static bool TestSimpleFlags32_AssignFlagsByMask()
 			break;
 		}
 	
-		uint32ou uiYetAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask32, g_uiTestMask32 & g_uiTestValue32);
+		const uint32ou uiYetAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask32, g_uiTestMask32 & g_uiTestValue32);
 		OU_ASSERT((g_uiTestMask32 & g_uiTestValue32) != 0); // Test degeneration
 		
 		const uint32ou uiYetAnotherNewFlags = (uiAnotherNewFlags & ~g_uiTestMask32) | (g_uiTestMask32 & g_uiTestValue32);
@@ -3634,7 +3634,7 @@ static bool TestSimpleFlags32_AlterFlagsByMask()
 	{
 		CSimpleFlags32 sfTestFlags(g_uiTestValue32);
 		
-		bool bWasModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask32, g_uiTestMask32);
+		const bool bWasModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask32, g_uiTestMask32);
 		
 		const uint32ou uiNewFlags = (g_uiTestValue32 & ~g_uiTestMask32) | g_uiTestMask32;
 		
@@ -3643,7 +3643,7 @@ static bool TestSimpleFlags32_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestValue32, 0);
+		const bool bWasAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestValue32, 0);
 		
 		const uint32ou uiAnotherNewFlags = uiNewFlags & ~g_uiTestValue32;
 		
@@ -3652,14 +3652,14 @@ static bool TestSimpleFlags32_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModificationRepeated = sfTestFlags.AlterFlagsByMask(g_uiTestValue32, 0);
+		const bool bWasAnotherModificationRepeated = sfTestFlags.AlterFlagsByMask(g_uiTestValue32, 0);
 		
 		if (bWasAnotherModificationRepeated || sfTestFlags.QueryFlagsAllValues() != uiAnotherNewFlags)
 		{
 			break;
 		}
 		
-		bool bWasYetAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask32, g_uiTestMask32 & g_uiTestValue32);
+		const bool bWasYetAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask32, g_uiTestMask32 & g_uiTestValue32);
 		OU_ASSERT((g_uiTestMask32 & g_uiTestValue32) != 0); // Test degeneration
 		
 		const uint32ou uiYetAnotherNewFlags = (uiAnotherNewFlags & ~g_uiTestMask32) | (g_uiTestMask32 & g_uiTestValue32);
@@ -3683,7 +3683,7 @@ static bool TestSimpleFlags32_GetFlagsMaskValue()
 	
 	do
 	{
-		CSimpleFlags32 sfTestFlags(g_uiTestValue32);
+		const CSimpleFlags32 sfTestFlags(g_uiTestValue32);
 		
 		if (sfTestFlags.GetFlagsMaskValue(g_uiTestMask32) != ((g_uiTestValue32 & g_uiTestMask32) != 0))
 		{
@@ -3713,7 +3713,7 @@ static bool TestSimpleFlags32_QueryFlagsByMask()
 	
 	do
 	{
-		CSimpleFlags32 sfTestFlags(g_uiTestValue32);
+		const CSimpleFlags32 sfTestFlags(g_uiTestValue32);
 		
 		if (sfTestFlags.QueryFlagsByMask(g_uiTestMask32) != (uint32ou)(g_uiTestValue32 & g_uiTestMask32))
 		{
@@ -3932,28 +3932,28 @@ static bool TestSimpleFlags32_EnumToggleEnumeratedFlagValue()
 	{
 		CSimpleFlags32 sfTestFlags;
 		
-		bool bToggleFirstResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
+		const bool bToggleFirstResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
 		
 		if (bToggleFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bToggleSecondResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
+		const bool bToggleSecondResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
 		
 		if (bToggleSecondResult || sfTestFlags.QueryFlagsAllValues() != (uint32ou)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bToggleThirdResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
+		const bool bToggleThirdResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
 		
 		if (!bToggleThirdResult || sfTestFlags.QueryFlagsAllValues() != (uint32ou)OU_INT32_MIN)
 		{
 			break;
 		}
 		
-		bool bToggleFourthResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
+		const bool bToggleFourthResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
 		
 		if (!bToggleFourthResult || sfTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -3975,42 +3975,42 @@ static bool TestSimpleFlags32_EnumModifyEnumeratedFlagValue()
 	{
 		CSimpleFlags32 sfTestFlags;
 		
-		bool bModifyFirstResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, true);
+		const bool bModifyFirstResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, true);
 		
 		if (!bModifyFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bModifySecondResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, true);
+		const bool bModifySecondResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, true);
 		
 		if (!bModifySecondResult || sfTestFlags.QueryFlagsAllValues() != (uint32ou)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyThirdResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, true);
+		const bool bModifyThirdResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, true);
 		
 		if (bModifyThirdResult || sfTestFlags.QueryFlagsAllValues() != (uint32ou)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFourthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, true);
+		const bool bModifyFourthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, true);
 		
 		if (bModifyFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint32ou)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFifthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, false);
+		const bool bModifyFifthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT32_BITS, false);
 		
 		if (!bModifyFifthResult || sfTestFlags.QueryFlagsAllValues() != (uint32ou)OU_INT32_MIN)
 		{
 			break;
 		}
 		
-		bool bModifySixthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, false);
+		const bool bModifySixthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS, false);
 		
 		if (!bModifySixthResult || sfTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -4032,28 +4032,28 @@ static bool TestSimpleFlags32_EnumSignalFirstEnumeratedFlagValue()
 	{
 		CSimpleFlags32 sfTestFlags;
 
-		bool bFirstResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
+		const bool bFirstResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
 
 		if (!bFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
+		const bool bSecondResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT32_BITS);
 		
 		if (bSecondResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT32_BITS - 1);
+		const bool bThirdResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT32_BITS - 1);
 		
 		if (!bThirdResult || sfTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
+		const bool bFourthResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
 		
 		if (bFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint32ou)(OU_INT32_MIN + 3))
 		{
@@ -4075,28 +4075,28 @@ static bool TestSimpleFlags32_EnumSignalLastEnumeratedFlagValue()
 	{
 		CSimpleFlags32 sfTestFlags;
 		
-		bool bFirstResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bFirstResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (!bFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bSecondResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (bSecondResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
+		const bool bThirdResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
 		
 		if (!bThirdResult || sfTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
+		const bool bFourthResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT32_BITS - 1, OU_UINT32_BITS);
 		
 		if (bFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint32ou)(OU_INT32_MIN + 3))
 		{
@@ -4116,7 +4116,7 @@ static bool TestSimpleFlags32_EnumGetEnumeratedFlagValue()
 	
 	do
 	{
-		CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
+		const CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
 		
 		if (!sfTestFlags.EnumGetEnumeratedFlagValue(1, 0, OU_UINT32_BITS))
 		{
@@ -4151,15 +4151,15 @@ static bool TestSimpleFlags32_EnumFindFirstEnumeratedFlag()
 	
 	do
 	{
-		CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
+		const CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
 
-		unsigned int uiFirstResult = sfTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT32_BITS);
+		const unsigned int uiFirstResult = sfTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT32_BITS);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 
-		unsigned int uiSecondResult = sfTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT32_BITS - 1);
+		const unsigned int uiSecondResult = sfTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT32_BITS - 1);
 		if (uiSecondResult != OU_UINT32_BITS - 2)
 		{
 			break;
@@ -4236,21 +4236,21 @@ static bool TestSimpleFlags32_EnumAllQueryEnumeratedFlags()
 	
 	do
 	{
-		CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
+		const CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
 		
-		uint32ou uiFirstResult = sfTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT32_BITS);
+		const uint32ou uiFirstResult = sfTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT32_BITS);
 		if (uiFirstResult != (uint32ou)(OU_INT32_MIN + 1))
 		{
 			break;
 		}
 		
-		uint32ou uiSecondResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT32_BITS - 1);
+		const uint32ou uiSecondResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT32_BITS - 1);
 		if (uiSecondResult != (uint32ou)(OU_INT32_MIN))
 		{
 			break;
 		}
 		
-		uint32ou uiThirdResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT32_BITS - 2);
+		const uint32ou uiThirdResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT32_BITS - 2);
 		if (uiThirdResult != 0)
 		{
 			break;
@@ -4269,21 +4269,21 @@ static bool TestSimpleFlags32_EnumAnyGetEnumeratedFlagValue()
 	
 	do
 	{
-		CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
+		const CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
 		
-		bool bFirstResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT32_BITS);
+		const bool bFirstResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT32_BITS);
 		if (!bFirstResult)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT32_BITS - 1);
+		const bool bSecondResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT32_BITS - 1);
 		if (!bSecondResult)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT32_BITS - 2);
+		const bool bThirdResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT32_BITS - 2);
 		if (bThirdResult)
 		{
 			break;
@@ -4331,15 +4331,15 @@ static bool TestSimpleFlags32_RetrieveFlagsEnumeratedValue()
 	
 	do
 	{
-		CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
+		const CSimpleFlags32 sfTestFlags((uint32ou)(OU_INT32_MIN + 1));
 		
-		unsigned int uiFirstResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
+		const unsigned int uiFirstResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 		
-		unsigned int uiSecondResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT32_BITS - 2);
+		const unsigned int uiSecondResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT32_BITS - 2);
 		if (uiSecondResult != 2)
 		{
 			break;
@@ -4485,21 +4485,21 @@ static bool TestSimpleFlags16_Constructors()
 			break;
 		}
 
-		CSimpleFlags16 sfEmptyFlags;
+		const CSimpleFlags16 sfEmptyFlags;
 
 		if (sfEmptyFlags.QueryFlagsAllValues())
 		{
 			break;
 		}
 
-		CSimpleFlags16 sfFullFlags(OU_UINT16_MAX);
+		const CSimpleFlags16 sfFullFlags(OU_UINT16_MAX);
 		
 		if (sfFullFlags.QueryFlagsAllValues() != OU_UINT16_MAX)
 		{
 			break;
 		}
 
-		CSimpleFlags16 sfCopyOfFullFlags(sfFullFlags);
+		const CSimpleFlags16 sfCopyOfFullFlags(sfFullFlags);
 
 		if (sfCopyOfFullFlags.QueryFlagsAllValues() != OU_UINT16_MAX)
 		{
@@ -4548,7 +4548,7 @@ static bool TestSimpleFlags16_QueryFlagsAllValues()
 	
 	do
 	{
-		CSimpleFlags16 sfTestFlags(g_uiTestValue16);
+		const CSimpleFlags16 sfTestFlags(g_uiTestValue16);
 		
 		if (sfTestFlags.QueryFlagsAllValues() != g_uiTestValue16)
 		{
@@ -4650,14 +4650,14 @@ static bool TestSimpleFlags16_ToggleSingleFlagValue()
 	{
 		CSimpleFlags16 sfTestFlags(g_uiTestValue16);
 		
-		bool bPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit16);
+		const bool bPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit16);
 		
 		if (bPreviousValue != ((g_uiTestValue16 & g_uiTestBit16) != 0) || sfTestFlags.QueryFlagsAllValues() != (uint16ou)(g_uiTestValue16 ^ g_uiTestBit16))
 		{
 			break;
 		}
 
-		bool bAnotherPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit16);
+		const bool bAnotherPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit16);
 		
 		if (bAnotherPreviousValue == bPreviousValue || sfTestFlags.QueryFlagsAllValues() != g_uiTestValue16)
 		{
@@ -4679,21 +4679,21 @@ static bool TestSimpleFlags16_ModifySingleFlagValue()
 	{
 		CSimpleFlags16 sfTestFlags(g_uiTestValue16);
 		
-		bool bFirstModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit16, true);
+		const bool bFirstModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit16, true);
 		
 		if (bFirstModification != ((g_uiTestValue16 & g_uiTestBit16) != g_uiTestBit16) || sfTestFlags.QueryFlagsAllValues() != (uint16ou)(g_uiTestValue16 | g_uiTestBit16))
 		{
 			break;
 		}
 		
-		bool bAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit16, bFirstModification);
+		const bool bAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit16, bFirstModification);
 		
 		if (bAnotherModification == bFirstModification || sfTestFlags.QueryFlagsAllValues() != (bFirstModification ? (uint16ou)(g_uiTestValue16 | g_uiTestBit16) : (uint16ou)(g_uiTestValue16 & ~g_uiTestBit16)))
 		{
 			break;
 		}
 
-		bool bYetAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit16, bAnotherModification);
+		const bool bYetAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit16, bAnotherModification);
 
 		if (bYetAnotherModification != bAnotherModification || sfTestFlags.QueryFlagsAllValues() != (bAnotherModification ? (uint16ou)(g_uiTestValue16 | g_uiTestBit16) : (uint16ou)(g_uiTestValue16 & ~g_uiTestBit16)))
 		{
@@ -4715,7 +4715,7 @@ static bool TestSimpleFlags16_AssignFlagsByMask()
 	{
 		CSimpleFlags16 sfTestFlags(g_uiTestValue16);
 
-		uint16ou uiPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask16, g_uiTestMask16);
+		const uint16ou uiPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask16, g_uiTestMask16);
 
 		const uint16ou uiNewFlags = (g_uiTestValue16 & ~g_uiTestMask16) | g_uiTestMask16;
 
@@ -4724,7 +4724,7 @@ static bool TestSimpleFlags16_AssignFlagsByMask()
 			break;
 		}
 
-		uint16ou uiAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestValue16, 0);
+		const uint16ou uiAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestValue16, 0);
 
 		const uint16ou uiAnotherNewFlags = uiNewFlags & ~g_uiTestValue16;
 
@@ -4733,7 +4733,7 @@ static bool TestSimpleFlags16_AssignFlagsByMask()
 			break;
 		}
 	
-		uint16ou uiYetAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask16, g_uiTestMask16 & g_uiTestValue16);
+		const uint16ou uiYetAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask16, g_uiTestMask16 & g_uiTestValue16);
 		OU_ASSERT((g_uiTestMask16 & g_uiTestValue16) != 0); // Test degeneration
 		
 		const uint16ou uiYetAnotherNewFlags = (uiAnotherNewFlags & ~g_uiTestMask16) | (g_uiTestMask16 & g_uiTestValue16);
@@ -4759,7 +4759,7 @@ static bool TestSimpleFlags16_AlterFlagsByMask()
 	{
 		CSimpleFlags16 sfTestFlags(g_uiTestValue16);
 		
-		bool bWasModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask16, g_uiTestMask16);
+		const bool bWasModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask16, g_uiTestMask16);
 		
 		const uint16ou uiNewFlags = (g_uiTestValue16 & ~g_uiTestMask16) | g_uiTestMask16;
 		
@@ -4768,7 +4768,7 @@ static bool TestSimpleFlags16_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestValue16, 0);
+		const bool bWasAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestValue16, 0);
 		
 		const uint16ou uiAnotherNewFlags = uiNewFlags & ~g_uiTestValue16;
 		
@@ -4777,14 +4777,14 @@ static bool TestSimpleFlags16_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModificationRepeated = sfTestFlags.AlterFlagsByMask(g_uiTestValue16, 0);
+		const bool bWasAnotherModificationRepeated = sfTestFlags.AlterFlagsByMask(g_uiTestValue16, 0);
 		
 		if (bWasAnotherModificationRepeated || sfTestFlags.QueryFlagsAllValues() != uiAnotherNewFlags)
 		{
 			break;
 		}
 		
-		bool bWasYetAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask16, g_uiTestMask16 & g_uiTestValue16);
+		const bool bWasYetAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask16, g_uiTestMask16 & g_uiTestValue16);
 		OU_ASSERT((g_uiTestMask16 & g_uiTestValue16) != 0); // Test degeneration
 		
 		const uint16ou uiYetAnotherNewFlags = (uiAnotherNewFlags & ~g_uiTestMask16) | (g_uiTestMask16 & g_uiTestValue16);
@@ -4808,7 +4808,7 @@ static bool TestSimpleFlags16_GetFlagsMaskValue()
 	
 	do
 	{
-		CSimpleFlags16 sfTestFlags(g_uiTestValue16);
+		const CSimpleFlags16 sfTestFlags(g_uiTestValue16);
 		
 		if (sfTestFlags.GetFlagsMaskValue(g_uiTestMask16) != ((g_uiTestValue16 & g_uiTestMask16) != 0))
 		{
@@ -4838,7 +4838,7 @@ static bool TestSimpleFlags16_QueryFlagsByMask()
 	
 	do
 	{
-		CSimpleFlags16 sfTestFlags(g_uiTestValue16);
+		const CSimpleFlags16 sfTestFlags(g_uiTestValue16);
 		
 		if (sfTestFlags.QueryFlagsByMask(g_uiTestMask16) != (uint16ou)(g_uiTestValue16 & g_uiTestMask16))
 		{
@@ -5057,28 +5057,28 @@ static bool TestSimpleFlags16_EnumToggleEnumeratedFlagValue()
 	{
 		CSimpleFlags16 sfTestFlags;
 		
-		bool bToggleFirstResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT16_BITS);
+		const bool bToggleFirstResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT16_BITS);
 		
 		if (bToggleFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bToggleSecondResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS);
+		const bool bToggleSecondResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS);
 		
 		if (bToggleSecondResult || sfTestFlags.QueryFlagsAllValues() != (uint16ou)(OU_INT16_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bToggleThirdResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT16_BITS);
+		const bool bToggleThirdResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT16_BITS);
 		
 		if (!bToggleThirdResult || sfTestFlags.QueryFlagsAllValues() != (uint16ou)OU_INT16_MIN)
 		{
 			break;
 		}
 		
-		bool bToggleFourthResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS);
+		const bool bToggleFourthResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS);
 		
 		if (!bToggleFourthResult || sfTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -5100,42 +5100,42 @@ static bool TestSimpleFlags16_EnumModifyEnumeratedFlagValue()
 	{
 		CSimpleFlags16 sfTestFlags;
 		
-		bool bModifyFirstResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT16_BITS, true);
+		const bool bModifyFirstResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT16_BITS, true);
 		
 		if (!bModifyFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bModifySecondResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS, true);
+		const bool bModifySecondResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS, true);
 		
 		if (!bModifySecondResult || sfTestFlags.QueryFlagsAllValues() != (uint16ou)(OU_INT16_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyThirdResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT16_BITS, true);
+		const bool bModifyThirdResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT16_BITS, true);
 		
 		if (bModifyThirdResult || sfTestFlags.QueryFlagsAllValues() != (uint16ou)(OU_INT16_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFourthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS, true);
+		const bool bModifyFourthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS, true);
 		
 		if (bModifyFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint16ou)(OU_INT16_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFifthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT16_BITS, false);
+		const bool bModifyFifthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT16_BITS, false);
 		
 		if (!bModifyFifthResult || sfTestFlags.QueryFlagsAllValues() != (uint16ou)OU_INT16_MIN)
 		{
 			break;
 		}
 		
-		bool bModifySixthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS, false);
+		const bool bModifySixthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS, false);
 		
 		if (!bModifySixthResult || sfTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -5157,28 +5157,28 @@ static bool TestSimpleFlags16_EnumSignalFirstEnumeratedFlagValue()
 	{
 		CSimpleFlags16 sfTestFlags;
 
-		bool bFirstResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT16_BITS);
+		const bool bFirstResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT16_BITS);
 
 		if (!bFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT16_BITS);
+		const bool bSecondResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT16_BITS);
 		
 		if (bSecondResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT16_BITS - 1);
+		const bool bThirdResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT16_BITS - 1);
 		
 		if (!bThirdResult || sfTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS);
+		const bool bFourthResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS);
 		
 		if (bFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint16ou)(OU_INT16_MIN + 3))
 		{
@@ -5200,28 +5200,28 @@ static bool TestSimpleFlags16_EnumSignalLastEnumeratedFlagValue()
 	{
 		CSimpleFlags16 sfTestFlags;
 		
-		bool bFirstResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bFirstResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (!bFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bSecondResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (bSecondResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
+		const bool bThirdResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
 		
 		if (!bThirdResult || sfTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS);
+		const bool bFourthResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT16_BITS - 1, OU_UINT16_BITS);
 		
 		if (bFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint16ou)(OU_INT16_MIN + 3))
 		{
@@ -5241,7 +5241,7 @@ static bool TestSimpleFlags16_EnumGetEnumeratedFlagValue()
 	
 	do
 	{
-		CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
+		const CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
 		
 		if (!sfTestFlags.EnumGetEnumeratedFlagValue(1, 0, OU_UINT16_BITS))
 		{
@@ -5276,15 +5276,15 @@ static bool TestSimpleFlags16_EnumFindFirstEnumeratedFlag()
 	
 	do
 	{
-		CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
+		const CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
 
-		unsigned int uiFirstResult = sfTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT16_BITS);
+		const unsigned int uiFirstResult = sfTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT16_BITS);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 
-		unsigned int uiSecondResult = sfTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT16_BITS - 1);
+		const unsigned int uiSecondResult = sfTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT16_BITS - 1);
 		if (uiSecondResult != OU_UINT16_BITS - 2)
 		{
 			break;
@@ -5361,21 +5361,21 @@ static bool TestSimpleFlags16_EnumAllQueryEnumeratedFlags()
 	
 	do
 	{
-		CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
+		const CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
 		
-		uint16ou uiFirstResult = sfTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT16_BITS);
+		const uint16ou uiFirstResult = sfTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT16_BITS);
 		if (uiFirstResult != (uint16ou)(OU_INT16_MIN + 1))
 		{
 			break;
 		}
 		
-		uint16ou uiSecondResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT16_BITS - 1);
+		const uint16ou uiSecondResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT16_BITS - 1);
 		if (uiSecondResult != (uint16ou)(OU_INT16_MIN))
 		{
 			break;
 		}
 		
-		uint16ou uiThirdResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT16_BITS - 2);
+		const uint16ou uiThirdResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT16_BITS - 2);
 		if (uiThirdResult != 0)
 		{
 			break;
@@ -5394,21 +5394,21 @@ static bool TestSimpleFlags16_EnumAnyGetEnumeratedFlagValue()
 	
 	do
 	{
-		CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
+		const CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
 		
-		bool bFirstResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT16_BITS);
+		const bool bFirstResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT16_BITS);
 		if (!bFirstResult)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT16_BITS - 1);
+		const bool bSecondResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT16_BITS - 1);
 		if (!bSecondResult)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT16_BITS - 2);
+		const bool bThirdResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT16_BITS - 2);
 		if (bThirdResult)
 		{
 			break;
@@ -5456,15 +5456,15 @@ static bool TestSimpleFlags16_RetrieveFlagsEnumeratedValue()
 	
 	do
 	{
-		CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
+		const CSimpleFlags16 sfTestFlags((uint16ou)(OU_INT16_MIN + 1));
 		
-		unsigned int uiFirstResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
+		const unsigned int uiFirstResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 		
-		unsigned int uiSecondResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT16_BITS - 2);
+		const unsigned int uiSecondResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT16_BITS - 2);
 		if (uiSecondResult != 2)
 		{
 			break;
@@ -5610,21 +5610,21 @@ static bool TestSimpleFlags8_Constructors()
 			break;
 		}
 
-		CSimpleFlags8 sfEmptyFlags;
+		const CSimpleFlags8 sfEmptyFlags;
 
 		if (sfEmptyFlags.QueryFlagsAllValues())
 		{
 			break;
 		}
 
-		CSimpleFlags8 sfFullFlags(OU_UINT8_MAX);
+		const CSimpleFlags8 sfFullFlags(OU_UINT8_MAX);
 		
 		if (sfFullFlags.QueryFlagsAllValues() != OU_UINT8_MAX)
 		{
 			break;
 		}
 
-		CSimpleFlags8 sfCopyOfFullFlags(sfFullFlags);
+		const CSimpleFlags8 sfCopyOfFullFlags(sfFullFlags);
 
 		if (sfCopyOfFullFlags.QueryFlagsAllValues() != OU_UINT8_MAX)
 		{
@@ -5673,7 +5673,7 @@ static bool TestSimpleFlags8_QueryFlagsAllValues()
 	
 	do
 	{
-		CSimpleFlags8 sfTestFlags(g_uiTestValue8);
+		const CSimpleFlags8 sfTestFlags(g_uiTestValue8);
 		
 		if (sfTestFlags.QueryFlagsAllValues() != g_uiTestValue8)
 		{
@@ -5775,14 +5775,14 @@ static bool TestSimpleFlags8_ToggleSingleFlagValue()
 	{
 		CSimpleFlags8 sfTestFlags(g_uiTestValue8);
 		
-		bool bPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit8);
+		const bool bPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit8);
 		
 		if (bPreviousValue != ((g_uiTestValue8 & g_uiTestBit8) != 0) || sfTestFlags.QueryFlagsAllValues() != (uint8ou)(g_uiTestValue8 ^ g_uiTestBit8))
 		{
 			break;
 		}
 
-		bool bAnotherPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit8);
+		const bool bAnotherPreviousValue = sfTestFlags.ToggleSingleFlagValue(g_uiTestBit8);
 		
 		if (bAnotherPreviousValue == bPreviousValue || sfTestFlags.QueryFlagsAllValues() != g_uiTestValue8)
 		{
@@ -5804,21 +5804,21 @@ static bool TestSimpleFlags8_ModifySingleFlagValue()
 	{
 		CSimpleFlags8 sfTestFlags(g_uiTestValue8);
 		
-		bool bFirstModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit8, true);
+		const bool bFirstModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit8, true);
 		
 		if (bFirstModification != ((g_uiTestValue8 & g_uiTestBit8) != g_uiTestBit8) || sfTestFlags.QueryFlagsAllValues() != (uint8ou)(g_uiTestValue8 | g_uiTestBit8))
 		{
 			break;
 		}
 		
-		bool bAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit8, bFirstModification);
+		const bool bAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit8, bFirstModification);
 		
 		if (bAnotherModification == bFirstModification || sfTestFlags.QueryFlagsAllValues() != (bFirstModification ? (uint8ou)(g_uiTestValue8 | g_uiTestBit8) : (uint8ou)(g_uiTestValue8 & ~g_uiTestBit8)))
 		{
 			break;
 		}
 
-		bool bYetAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit8, bAnotherModification);
+		const bool bYetAnotherModification = sfTestFlags.ModifySingleFlagValue(g_uiTestBit8, bAnotherModification);
 
 		if (bYetAnotherModification != bAnotherModification || sfTestFlags.QueryFlagsAllValues() != (bAnotherModification ? (uint8ou)(g_uiTestValue8 | g_uiTestBit8) : (uint8ou)(g_uiTestValue8 & ~g_uiTestBit8)))
 		{
@@ -5840,7 +5840,7 @@ static bool TestSimpleFlags8_AssignFlagsByMask()
 	{
 		CSimpleFlags8 sfTestFlags(g_uiTestValue8);
 
-		uint8ou uiPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask8, g_uiTestMask8);
+		const uint8ou uiPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask8, g_uiTestMask8);
 
 		const uint8ou uiNewFlags = (g_uiTestValue8 & ~g_uiTestMask8) | g_uiTestMask8;
 
@@ -5849,7 +5849,7 @@ static bool TestSimpleFlags8_AssignFlagsByMask()
 			break;
 		}
 
-		uint8ou uiAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestValue8, 0);
+		const uint8ou uiAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestValue8, 0);
 
 		const uint8ou uiAnotherNewFlags = uiNewFlags & ~g_uiTestValue8;
 
@@ -5858,7 +5858,7 @@ static bool TestSimpleFlags8_AssignFlagsByMask()
 			break;
 		}
 	
-		uint8ou uiYetAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask8, g_uiTestMask8 & g_uiTestValue8);
+		const uint8ou uiYetAnotherPreviousFlags = sfTestFlags.AssignFlagsByMask(g_uiTestMask8, g_uiTestMask8 & g_uiTestValue8);
 		OU_ASSERT((g_uiTestMask8 & g_uiTestValue8) != 0); // Test degeneration
 		
 		const uint8ou uiYetAnotherNewFlags = (uiAnotherNewFlags & ~g_uiTestMask8) | (g_uiTestMask8 & g_uiTestValue8);
@@ -5884,7 +5884,7 @@ static bool TestSimpleFlags8_AlterFlagsByMask()
 	{
 		CSimpleFlags8 sfTestFlags(g_uiTestValue8);
 		
-		bool bWasModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask8, g_uiTestMask8);
+		const bool bWasModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask8, g_uiTestMask8);
 		
 		const uint8ou uiNewFlags = (g_uiTestValue8 & ~g_uiTestMask8) | g_uiTestMask8;
 		
@@ -5893,7 +5893,7 @@ static bool TestSimpleFlags8_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestValue8, 0);
+		const bool bWasAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestValue8, 0);
 		
 		const uint8ou uiAnotherNewFlags = uiNewFlags & ~g_uiTestValue8;
 		
@@ -5902,14 +5902,14 @@ static bool TestSimpleFlags8_AlterFlagsByMask()
 			break;
 		}
 		
-		bool bWasAnotherModificationRepeated = sfTestFlags.AlterFlagsByMask(g_uiTestValue8, 0);
+		const bool bWasAnotherModificationRepeated = sfTestFlags.AlterFlagsByMask(g_uiTestValue8, 0);
 		
 		if (bWasAnotherModificationRepeated || sfTestFlags.QueryFlagsAllValues() != uiAnotherNewFlags)
 		{
 			break;
 		}
 		
-		bool bWasYetAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask8, g_uiTestMask8 & g_uiTestValue8);
+		const bool bWasYetAnotherModification = sfTestFlags.AlterFlagsByMask(g_uiTestMask8, g_uiTestMask8 & g_uiTestValue8);
 		OU_ASSERT((g_uiTestMask8 & g_uiTestValue8) != 0); // Test degeneration
 		
 		const uint8ou uiYetAnotherNewFlags = (uiAnotherNewFlags & ~g_uiTestMask8) | (g_uiTestMask8 & g_uiTestValue8);
@@ -5933,7 +5933,7 @@ static bool TestSimpleFlags8_GetFlagsMaskValue()
 	
 	do
 	{
-		CSimpleFlags8 sfTestFlags(g_uiTestValue8);
+		const CSimpleFlags8 sfTestFlags(g_uiTestValue8);
 		
 		if (sfTestFlags.GetFlagsMaskValue(g_uiTestMask8) != ((g_uiTestValue8 & g_uiTestMask8) != 0))
 		{
@@ -5963,7 +5963,7 @@ static bool TestSimpleFlags8_QueryFlagsByMask()
 	
 	do
 	{
-		CSimpleFlags8 sfTestFlags(g_uiTestValue8);
+		const CSimpleFlags8 sfTestFlags(g_uiTestValue8);
 		
 		if (sfTestFlags.QueryFlagsByMask(g_uiTestMask8) != (uint8ou)(g_uiTestValue8 & g_uiTestMask8))
 		{
@@ -6182,28 +6182,28 @@ static bool TestSimpleFlags8_EnumToggleEnumeratedFlagValue()
 	{
 		CSimpleFlags8 sfTestFlags;
 		
-		bool bToggleFirstResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT8_BITS);
+		const bool bToggleFirstResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT8_BITS);
 		
 		if (bToggleFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bToggleSecondResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS);
+		const bool bToggleSecondResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS);
 		
 		if (bToggleSecondResult || sfTestFlags.QueryFlagsAllValues() != (uint8ou)(OU_INT8_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bToggleThirdResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT8_BITS);
+		const bool bToggleThirdResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, 0, OU_UINT8_BITS);
 		
 		if (!bToggleThirdResult || sfTestFlags.QueryFlagsAllValues() != (uint8ou)OU_INT8_MIN)
 		{
 			break;
 		}
 		
-		bool bToggleFourthResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS);
+		const bool bToggleFourthResult = sfTestFlags.EnumToggleEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS);
 		
 		if (!bToggleFourthResult || sfTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -6225,42 +6225,42 @@ static bool TestSimpleFlags8_EnumModifyEnumeratedFlagValue()
 	{
 		CSimpleFlags8 sfTestFlags;
 		
-		bool bModifyFirstResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT8_BITS, true);
+		const bool bModifyFirstResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT8_BITS, true);
 		
 		if (!bModifyFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bModifySecondResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS, true);
+		const bool bModifySecondResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS, true);
 		
 		if (!bModifySecondResult || sfTestFlags.QueryFlagsAllValues() != (uint8ou)(OU_INT8_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyThirdResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT8_BITS, true);
+		const bool bModifyThirdResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT8_BITS, true);
 		
 		if (bModifyThirdResult || sfTestFlags.QueryFlagsAllValues() != (uint8ou)(OU_INT8_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFourthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS, true);
+		const bool bModifyFourthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS, true);
 		
 		if (bModifyFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint8ou)(OU_INT8_MIN + 1))
 		{
 			break;
 		}
 		
-		bool bModifyFifthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT8_BITS, false);
+		const bool bModifyFifthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, 0, OU_UINT8_BITS, false);
 		
 		if (!bModifyFifthResult || sfTestFlags.QueryFlagsAllValues() != (uint8ou)OU_INT8_MIN)
 		{
 			break;
 		}
 		
-		bool bModifySixthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS, false);
+		const bool bModifySixthResult = sfTestFlags.EnumModifyEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS, false);
 		
 		if (!bModifySixthResult || sfTestFlags.QueryFlagsAllValues() != 0)
 		{
@@ -6282,28 +6282,28 @@ static bool TestSimpleFlags8_EnumSignalFirstEnumeratedFlagValue()
 	{
 		CSimpleFlags8 sfTestFlags;
 
-		bool bFirstResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT8_BITS);
+		const bool bFirstResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT8_BITS);
 
 		if (!bFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT8_BITS);
+		const bool bSecondResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, 0, OU_UINT8_BITS);
 		
 		if (bSecondResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT8_BITS - 1);
+		const bool bThirdResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(2, 0, OU_UINT8_BITS - 1);
 		
 		if (!bThirdResult || sfTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS);
+		const bool bFourthResult = sfTestFlags.EnumSignalFirstEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS);
 		
 		if (bFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint8ou)(OU_INT8_MIN + 3))
 		{
@@ -6325,28 +6325,28 @@ static bool TestSimpleFlags8_EnumSignalLastEnumeratedFlagValue()
 	{
 		CSimpleFlags8 sfTestFlags;
 		
-		bool bFirstResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bFirstResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (!bFirstResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
+		const bool bSecondResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 0, 1);
 		
 		if (bSecondResult || sfTestFlags.QueryFlagsAllValues() != 1)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
+		const bool bThirdResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, 1, 2);
 		
 		if (!bThirdResult || sfTestFlags.QueryFlagsAllValues() != 3)
 		{
 			break;
 		}
 		
-		bool bFourthResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS);
+		const bool bFourthResult = sfTestFlags.EnumSignalLastEnumeratedFlagValue(1, OU_UINT8_BITS - 1, OU_UINT8_BITS);
 		
 		if (bFourthResult || sfTestFlags.QueryFlagsAllValues() != (uint8ou)(OU_INT8_MIN + 3))
 		{
@@ -6366,7 +6366,7 @@ static bool TestSimpleFlags8_EnumGetEnumeratedFlagValue()
 	
 	do
 	{
-		CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
+		const CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
 		
 		if (!sfTestFlags.EnumGetEnumeratedFlagValue(1, 0, OU_UINT8_BITS))
 		{
@@ -6401,15 +6401,15 @@ static bool TestSimpleFlags8_EnumFindFirstEnumeratedFlag()
 	
 	do
 	{
-		CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
+		const CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
 
-		unsigned int uiFirstResult = sfTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT8_BITS);
+		const unsigned int uiFirstResult = sfTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT8_BITS);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 
-		unsigned int uiSecondResult = sfTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT8_BITS - 1);
+		const unsigned int uiSecondResult = sfTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT8_BITS - 1);
 		if (uiSecondResult != OU_UINT8_BITS - 2)
 		{
 			break;
@@ -6486,21 +6486,21 @@ static bool TestSimpleFlags8_EnumAllQueryEnumeratedFlags()
 	
 	do
 	{
-		CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
+		const CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
 		
-		uint8ou uiFirstResult = sfTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT8_BITS);
+		const uint8ou uiFirstResult = sfTestFlags.EnumAllQueryEnumeratedFlags(1, OU_UINT8_BITS);
 		if (uiFirstResult != (uint8ou)(OU_INT8_MIN + 1))
 		{
 			break;
 		}
 		
-		uint8ou uiSecondResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT8_BITS - 1);
+		const uint8ou uiSecondResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT8_BITS - 1);
 		if (uiSecondResult != (uint8ou)(OU_INT8_MIN))
 		{
 			break;
 		}
 		
-		uint8ou uiThirdResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT8_BITS - 2);
+		const uint8ou uiThirdResult = sfTestFlags.EnumAllQueryEnumeratedFlags(2, OU_UINT8_BITS - 2);
 		if (uiThirdResult != 0)
 		{
 			break;
@@ -6519,21 +6519,21 @@ static bool TestSimpleFlags8_EnumAnyGetEnumeratedFlagValue()
 	
 	do
 	{
-		CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
+		const CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
 		
-		bool bFirstResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT8_BITS);
+		const bool bFirstResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(1, OU_UINT8_BITS);
 		if (!bFirstResult)
 		{
 			break;
 		}
 		
-		bool bSecondResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT8_BITS - 1);
+		const bool bSecondResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT8_BITS - 1);
 		if (!bSecondResult)
 		{
 			break;
 		}
 		
-		bool bThirdResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT8_BITS - 2);
+		const bool bThirdResult = sfTestFlags.EnumAnyGetEnumeratedFlagValue(2, OU_UINT8_BITS - 2);
 		if (bThirdResult)
 		{
 			break;
@@ -6581,15 +6581,15 @@ static bool TestSimpleFlags8_RetrieveFlagsEnumeratedValue()
 	
 	do
 	{
-		CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
+		const CSimpleFlags8 sfTestFlags((uint8ou)(OU_INT8_MIN + 1));
 		
-		unsigned int uiFirstResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
+		const unsigned int uiFirstResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, 1);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 		
-		unsigned int uiSecondResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT8_BITS - 2);
+		const unsigned int uiSecondResult = sfTestFlags.RetrieveFlagsEnumeratedValue(0x3, OU_UINT8_BITS - 2);
 		if (uiSecondResult != 2)
 		{
 			break;
@@ -7091,7 +7091,7 @@ static bool TestEnumArrays_UnsortedArray()
 	for (; teEnumCurrent != ATE__MAX; ++teEnumCurrent)
 	{
 		const int iCurrentValue = TAi_IntUnsortedArray::Encode(teEnumCurrent);
-		EENUMARRAYTESTENUM teIntDecodeCheck = TAi_IntUnsortedArray::Decode(iCurrentValue);
+		const EENUMARRAYTESTENUM teIntDecodeCheck = TAi_IntUnsortedArray::Decode(iCurrentValue);
 		
 		if (!TAi_IntUnsortedArray::IsValidDecode(teIntDecodeCheck) || teIntDecodeCheck != teEnumCurrent)
 		{
@@ -7104,7 +7104,7 @@ static bool TestEnumArrays_UnsortedArray()
 		}
 
 		const char *szCurrentString = TAszStringUnsortedArray::Encode(teEnumCurrent);
-		EENUMARRAYTESTENUM teStringDecodeCheck = TAszStringUnsortedArray::Decode(szCurrentString);
+		const EENUMARRAYTESTENUM teStringDecodeCheck = TAszStringUnsortedArray::Decode(szCurrentString);
 		
 		if (!TAszStringUnsortedArray::IsValidDecode(teStringDecodeCheck) || teStringDecodeCheck != teEnumCurrent)
 		{
@@ -7116,14 +7116,14 @@ static bool TestEnumArrays_UnsortedArray()
 			break;
 		}
 
-		EENUMARRAYTESTENUM teInvalidDecodeCheck = TAszStringUnsortedArray::Decode(szCurrentString + 1);
+		const EENUMARRAYTESTENUM teInvalidDecodeCheck = TAszStringUnsortedArray::Decode(szCurrentString + 1);
 		if (teInvalidDecodeCheck != ATE__MAX || TAszStringUnsortedArray::IsValidDecode(teInvalidDecodeCheck))
 		{
 			break;
 		}
 	}
 
-	bool bResult = teEnumCurrent == ATE__MAX;
+	const bool bResult = teEnumCurrent == ATE__MAX;
 	return bResult;
 }
 
@@ -7133,8 +7133,8 @@ static bool TestEnumArrays_SortedArray()
 	
 	for (; teEnumCurrent != ATE__MAX; ++teEnumCurrent)
 	{
-		int iCurrentValue = TAi_IntSortedArray::Encode(teEnumCurrent);
-		EENUMARRAYTESTENUM teIntDecodeCheck = TAi_IntSortedArray::Decode(iCurrentValue);
+		const int iCurrentValue = TAi_IntSortedArray::Encode(teEnumCurrent);
+		const EENUMARRAYTESTENUM teIntDecodeCheck = TAi_IntSortedArray::Decode(iCurrentValue);
 		
 		if (!TAi_IntSortedArray::IsValidDecode(teIntDecodeCheck) || teIntDecodeCheck != teEnumCurrent)
 		{
@@ -7147,7 +7147,7 @@ static bool TestEnumArrays_SortedArray()
 		}
 
 		const char *szCurrentString = TAszStringSortedArray::Encode(teEnumCurrent);
-		EENUMARRAYTESTENUM teStringDecodeCheck = TAszStringSortedArray::Decode(szCurrentString);
+		const EENUMARRAYTESTENUM teStringDecodeCheck = TAszStringSortedArray::Decode(szCurrentString);
 		
 		if (!TAszStringSortedArray::IsValidDecode(teStringDecodeCheck) || teStringDecodeCheck != teEnumCurrent)
 		{
@@ -7159,14 +7159,14 @@ static bool TestEnumArrays_SortedArray()
 			break;
 		}
 
-		EENUMARRAYTESTENUM teInvalidDecodeCheck = TAszStringSortedArray::Decode(szCurrentString + 1);
+		const EENUMARRAYTESTENUM teInvalidDecodeCheck = TAszStringSortedArray::Decode(szCurrentString + 1);
 		if (teInvalidDecodeCheck != ATE__MAX || TAszStringSortedArray::IsValidDecode(teInvalidDecodeCheck))
 		{
 			break;
 		}
 	}
 
-	bool bResult = teEnumCurrent == ATE__MAX;
+	const bool bResult = teEnumCurrent == ATE__MAX;
 	return bResult;
 }
 
@@ -7460,9 +7460,9 @@ typedef CTypeSimpleWrapper<int> CTestWrapper;
 
 static bool TestTypeWrappers_Constructors()
 {
-	CTestWrapper twEmptyWrapper;
-	CTestWrapper twZeroWrapper(0);
-	CTestWrapper twCopyWrapper(twZeroWrapper);
+	const CTestWrapper twEmptyWrapper;
+	const CTestWrapper twZeroWrapper(0);
+	const CTestWrapper& twCopyWrapper(twZeroWrapper);
 	(void)twCopyWrapper;
 	return true;
 }
@@ -7473,8 +7473,8 @@ static bool TestTypeWrappers_Comparison()
 
 	do
 	{
-		CTestWrapper twOneWrapper(1);
-		CTestWrapper twTwoWrapper(2);
+		const CTestWrapper twOneWrapper(1);
+		const CTestWrapper twTwoWrapper(2);
 
 		if (!(twTwoWrapper == twTwoWrapper) || twOneWrapper == twTwoWrapper)
 		{
@@ -7519,8 +7519,8 @@ static bool TestTypeWrappers_BoolCasts()
 
 	do
 	{
-		CTestWrapper twZeroWrapper(0);
-		CTestWrapper twOneWrapper(1);
+		const CTestWrapper twZeroWrapper(0);
+		const CTestWrapper twOneWrapper(1);
 /* -- cast to bool is commented in definition
 		if (twZeroWrapper || !(false || twOneWrapper))
 		{
@@ -7545,8 +7545,8 @@ static bool TestTypeWrappers_Assignment()
 
 	do
 	{
-		CTestWrapper twZeroWrapper(0);
-		CTestWrapper twOneWrapper(1);
+		const CTestWrapper twZeroWrapper(0);
+		const CTestWrapper twOneWrapper(1);
 
 		CTestWrapper twTestWrapper;
 
@@ -7834,7 +7834,7 @@ static void *_OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Realloc(void *pv_
 	return (void *)((ptrdiff_t)pv_OldBlock - (ptrdiff_t)nBlockNewSize);
 }
 
-static void _OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Free(const void *pv_OldBlock)
+static void _OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Free(void *pv_OldBlock)
 {
 	g_bFreeInvocation = true;
 	g_bFreeSuccess = pv_OldBlock == g_pv_MallocResult;
@@ -8057,7 +8057,11 @@ static bool TestAsserts_TrueFunction(bool &bVarInvocation)
 
 static bool TestAsserts_Assert()
 {
-	bool bNDebugInvocation = false, bOrdinaryInvocation = false;
+#if !defined(NDEBUG)
+	const
+#endif
+	bool bNDebugInvocation = false;
+	bool bOrdinaryInvocation = false;
 
 #if defined(NDEBUG)
 	
@@ -8542,14 +8546,14 @@ struct CTestMacros_OffsetStruct
 
 static bool TestMacros_OffsetOf()
 {
-	size_t sOffset_i8a = offsetof(CTestMacros_OffsetStruct, m_i8a);
-	size_t sOffset_i16a = offsetof(CTestMacros_OffsetStruct, m_i16a);
-	size_t sOffset_i32a = offsetof(CTestMacros_OffsetStruct, m_i32a);
-	size_t sOffset_i64 = offsetof(CTestMacros_OffsetStruct, m_i64);
-	size_t sOffset_i32b = offsetof(CTestMacros_OffsetStruct, m_i32b);
-	size_t sOffset_i16b = offsetof(CTestMacros_OffsetStruct, m_i16b);
-	size_t sOffset_i8b = offsetof(CTestMacros_OffsetStruct, m_i8b);
-	size_t sStructSize = sizeof(CTestMacros_OffsetStruct);
+	const size_t sOffset_i8a = offsetof(CTestMacros_OffsetStruct, m_i8a);
+	const size_t sOffset_i16a = offsetof(CTestMacros_OffsetStruct, m_i16a);
+	const size_t sOffset_i32a = offsetof(CTestMacros_OffsetStruct, m_i32a);
+	const size_t sOffset_i64 = offsetof(CTestMacros_OffsetStruct, m_i64);
+	const size_t sOffset_i32b = offsetof(CTestMacros_OffsetStruct, m_i32b);
+	const size_t sOffset_i16b = offsetof(CTestMacros_OffsetStruct, m_i16b);
+	const size_t sOffset_i8b = offsetof(CTestMacros_OffsetStruct, m_i8b);
+	const size_t sStructSize = sizeof(CTestMacros_OffsetStruct);
 
 	return true
 		&& sOffset_i8a == 0
@@ -8608,11 +8612,11 @@ static bool TestMacros_ArraySize()
 
 static bool TestMacros_InIntRange()
 {
-	char iZero = 0;
-	char iOne = 1;
-	char iMinusOne = -1;
-	unsigned int uiTen = 10;
-	unsigned int uiNotZero = ~0U;
+	char const iZero = 0;
+	char const iOne = 1;
+	char const iMinusOne = -1;
+	const unsigned int uiTen = 10;
+	const unsigned int uiNotZero = ~0U;
 
 	return true
 		// && !<OU_IN_INT_RANGE>(iZero, 0, 0)
@@ -8648,11 +8652,11 @@ static bool TestMacros_InIntRange()
 
 static bool TestMacros_InI64Range()
 {
-	char iZero = 0;
-	char iOne = 1;
-	char iMinusOne = -1;
-	unsigned int uiTen = 10;
-	unsigned int uiNotZero = ~0U;
+	char const iZero = 0;
+	char const iOne = 1;
+	char const iMinusOne = -1;
+	const unsigned int uiTen = 10;
+	const unsigned int uiNotZero = ~0U;
 	
 	return true
 		// && !OU_IN_I64_RANGE(iZero, 0, 0)
@@ -8688,11 +8692,11 @@ static bool TestMacros_InI64Range()
 
 static bool TestMacros_InSizetRange()
 {
-	char iZero = 0;
-	char iOne = 1;
-	char iMinusOne = -1;
-	unsigned int uiTen = 10;
-	unsigned int uiNotZero = ~0U;
+	char const iZero = 0;
+	char const iOne = 1;
+	char const iMinusOne = -1;
+	const unsigned int uiTen = 10;
+	const unsigned int uiNotZero = ~0U;
 	
 	return true
 		// && !OU_IN_SIZET_RANGE(iZero, 0, 0)
@@ -8777,7 +8781,7 @@ static bool TestMacros(unsigned int &nOutSuccessCount, unsigned int &nOutTestCou
 // Verifies that target order is not changed
 typedef CEnumSortedElementArray<int, _OU_TARGET_OS__MAX - 1, int, 100> TAi_TargetOrderCheck;
 template<>
-int const TAi_TargetOrderCheck::m_aetElementArray[] =
+const int TAi_TargetOrderCheck::m_aetElementArray[] =
 {
 	_OU_TARGET_OS_GENUNIX, // _OU_TARGET_OS_GENUNIX
 	_OU_TARGET_OS_WINDOWS, // _OU_TARGET_OS_WINDOWS
@@ -8804,7 +8808,7 @@ const char *const TAszOSNames::m_aetElementArray[] =
 // Verifies that bits order is not changed
 typedef CEnumSortedElementArray<int, _OU_TARGET_BITS__MAX - 1, int, 101> TAi_BitsOrderCheck;
 template<>
-int const TAi_BitsOrderCheck::m_aetElementArray[] =
+const int TAi_BitsOrderCheck::m_aetElementArray[] =
 {
 	_OU_TARGET_BITS_32, // _OU_TARGET_BITS_32
 	_OU_TARGET_BITS_64, // _OU_TARGET_BITS_64
@@ -8821,7 +8825,7 @@ const char *const TAszBitsNames::m_aetElementArray[] =
 // Verifies that architectures order is not changed
 typedef CEnumSortedElementArray<int, _OU_TARGET_ARCH__MAX - 1, int, 102> TAi_ArchitecturesOrderCheck;
 template<>
-int const TAi_ArchitecturesOrderCheck::m_aetElementArray[] =
+const int TAi_ArchitecturesOrderCheck::m_aetElementArray[] =
 {
 	_OU_TARGET_ARCH_OTHER, // _OU_TARGET_ARCH_OTHER
 	_OU_TARGET_ARCH_X86, // _OU_TARGET_ARCH_X86
@@ -8848,7 +8852,7 @@ const char *const TAszArchitecturesNames::m_aetElementArray[] =
 // Verifies that compilers order is not changed
 typedef CEnumSortedElementArray<int, _OU_COMPILER__MAX - 1, int, 103> TAi_CompilersOrderCheck;
 template<>
-int const TAi_CompilersOrderCheck::m_aetElementArray[] =
+const int TAi_CompilersOrderCheck::m_aetElementArray[] =
 {
 	_OU_COMPILER__OTHER, // _OU_COMPILER__OTHER,
 	_OU_COMPILER_GCC, // _OU_COMPILER_GCC,
@@ -8867,7 +8871,7 @@ const char *const TAszCompilersNames::m_aetElementArray[] =
 // Verifies that compiler versions order is not changed
 typedef CEnumSortedElementArray<int, _OU_COMPILER_VERSION__MAX - 1, int, 104> TAi_CompilersVersionOrderCheck;
 template<>
-int const TAi_CompilersVersionOrderCheck::m_aetElementArray[] =
+const int TAi_CompilersVersionOrderCheck::m_aetElementArray[] =
 {
 	_OU_COMPILER_VERSION__OTHER, // _OU_COMPILER_VERSION__OTHER,
 	_OU_COMPILER_VERSION_MSVC1998, // _OU_COMPILER_VERSION_MSVC1998,
@@ -9026,12 +9030,12 @@ static bool ProcessOUCoverageTests(unsigned int &nOutFailureCount)
 			nSuccessCount += 1;
 		}
 
-		unsigned int nSubsysytemFailureCount = nSubsystemTestCount - nSubsysytemSuccessCount;
+		const unsigned int nSubsysytemFailureCount = nSubsystemTestCount - nSubsysytemSuccessCount;
 		printf("---------------------------------------------------\n");
 		printf("Feature tests failed:                %3u out of %3u\n", nSubsysytemFailureCount, nSubsystemTestCount);
 	}
 
-	unsigned int nFailureCount = OST__MAX - nSuccessCount;
+	const unsigned int nFailureCount = OST__MAX - nSuccessCount;
 	
 	printf("\n===================================================\n");
 	printf("Subsystem tests failed:              %3u out of %3u\n", nFailureCount, (unsigned int)OST__MAX);

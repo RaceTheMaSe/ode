@@ -155,7 +155,7 @@ bool Model::Build(const OPCODECREATE& create)
 	SetMeshInterface(create.mIMesh);
 
 	// Special case for 1-triangle meshes [Opcode 1.3]
-	udword NbTris = create.mIMesh->GetNbTriangles();
+	const udword NbTris = create.mIMesh->GetNbTriangles();
 	if(NbTris==1)
 	{
 		// We don't need to actually create a tree here, since we'll only have a single triangle to deal with anyway.

@@ -72,20 +72,20 @@ void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned row
         const dReal *ptrLElement = lastLElement;
         dReal *ptrBElement = lastBElement;
 
-        dReal Y11 = ptrBElement[0 * (size_t)b_stride]/* - Z11*/;
+        const dReal Y11 = ptrBElement[0 * (size_t)b_stride]/* - Z11*/;
         // ptrBElement[0 * b_stride] = Y11; -- unchanged
 
         if (loopX1RowCount >= 2)
         {
             const dReal p2 = ptrLElement[-1];
-            dReal Y21 = ptrBElement[-1 * (ptrdiff_t)b_stride]/* - Z21 */- p2 * Y11;
+            const dReal Y21 = ptrBElement[-1 * (ptrdiff_t)b_stride]/* - Z21 */- p2 * Y11;
             ptrBElement[-1 * (ptrdiff_t)b_stride] = Y21;
             
             if (loopX1RowCount > 2)
             {
                 const dReal p3 = ptrLElement[-2];
                 const dReal p3_1 = (ptrLElement - rowSkip)[-2];
-                dReal Y31 = ptrBElement[-2 * (ptrdiff_t)b_stride]/* - Z31 */- p3 * Y11 - p3_1 * Y21;
+                const dReal Y31 = ptrBElement[-2 * (ptrdiff_t)b_stride]/* - Z31 */- p3 * Y11 - p3_1 * Y21;
                 ptrBElement[-2 * (ptrdiff_t)b_stride] = Y31;
             }
         }
@@ -404,7 +404,7 @@ template<unsigned int block_step>
 /*static */
 sizeint ThreadedEquationSolverLDLT::estimateCooperativelySolvingL1TransposedMemoryRequirement(unsigned rowCount, SolvingL1TransposedMemoryEstimates &ref_solvingMemoryEstimates)
 {
-    unsigned blockCount = deriveSolvingL1TransposedBlockCount(rowCount, block_step);
+    const unsigned blockCount = deriveSolvingL1TransposedBlockCount(rowCount, block_step);
     const sizeint descriptorSizeRequired = dEFFICIENT_SIZE(sizeof(cellindexint) * blockCount);
     const sizeint contextSizeRequired = dEFFICIENT_SIZE(sizeof(SolveL1TransposedCellContext) * (CCI__MAX + 1) * blockCount);
     ref_solvingMemoryEstimates.assignData(descriptorSizeRequired, contextSizeRequired);
@@ -418,7 +418,7 @@ template<unsigned int block_step>
 void ThreadedEquationSolverLDLT::initializeCooperativelySolveL1TransposedMemoryStructures(unsigned rowCount, 
     atomicord32 &out_blockCompletionProgress, cellindexint *blockProgressDescriptors, SolveL1TransposedCellContext *dUNUSED(cellContexts))
 {
-    unsigned blockCount = deriveSolvingL1TransposedBlockCount(rowCount, block_step);
+    const unsigned blockCount = deriveSolvingL1TransposedBlockCount(rowCount, block_step);
 
     out_blockCompletionProgress = 0;
     memset(blockProgressDescriptors, 0, blockCount * sizeof(*blockProgressDescriptors));
@@ -440,7 +440,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
     dReal *lastBElement = B + (rowCount - 1) * (sizeint)b_stride;
 
     /* elements adjusted as if the last block was full block_step elements */
-    unsigned x1AdjustmentElements = (block_step - loopX1RowCount) % block_step;
+    const unsigned x1AdjustmentElements = (block_step - loopX1RowCount) % block_step;
     const dReal *columnAdjustedLastLElement = lastLElement + x1AdjustmentElements;
     const dReal *fullyAdjustedLastLElement = columnAdjustedLastLElement + (sizeint)rowSkip * x1AdjustmentElements;
     dReal *adjustedLastBElement = lastBElement + b_stride * x1AdjustmentElements;
@@ -934,13 +934,13 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                         if (loopX1RowCount >= 2)
                         {
-                            dReal p2 = ptrLElement[-1];
+                            const dReal p2 = ptrLElement[-1];
                             Y[1] = ptrBElement[-1 * (ptrdiff_t)b_stride]/* - Z[1] */- p2 * Y[0];
 
                             if (loopX1RowCount > 2)
                             {
-                                dReal p3 = ptrLElement[-2];
-                                dReal p3_1 = (ptrLElement - rowSkip)[-2];
+                                const dReal p3 = ptrLElement[-2];
+                                const dReal p3_1 = (ptrLElement - rowSkip)[-2];
                                 Y[2] = ptrBElement[-2 * (ptrdiff_t)b_stride]/* - Z[2] */- p3 * Y[0] - p3_1 * Y[1];
                             }
                         }
@@ -951,16 +951,16 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                     {
                         Y[0] = ptrBElement[0 * b_stride] - Z[0];
 
-                        dReal p2 = ptrLElement[-1];
+                        const dReal p2 = ptrLElement[-1];
                         Y[1] = ptrBElement[-1 * (ptrdiff_t)b_stride] - Z[1] - p2 * Y[0];
 
-                        dReal p3 = ptrLElement[-2];
-                        dReal p3_1 = (ptrLElement - rowSkip)[-2];
+                        const dReal p3 = ptrLElement[-2];
+                        const dReal p3_1 = (ptrLElement - rowSkip)[-2];
                         Y[2] = ptrBElement[-2 * (ptrdiff_t)b_stride] - Z[2] - p3 * Y[0] - p3_1 * Y[1];
 
-                        dReal p4 = ptrLElement[-3];
-                        dReal p4_1 = (ptrLElement - rowSkip)[-3];
-                        dReal p4_2 = (ptrLElement - rowSkip * 2)[-3];
+                        const dReal p4 = ptrLElement[-3];
+                        const dReal p4_1 = (ptrLElement - rowSkip)[-3];
+                        const dReal p4_2 = (ptrLElement - rowSkip * 2)[-3];
                         Y[3] = ptrBElement[-3 * (ptrdiff_t)b_stride] - Z[3] - p4 * Y[0] - p4_1 * Y[1] - p4_2 * Y[2];
                         
                         dSASSERT(block_step == 4);
@@ -1265,13 +1265,13 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                         if (loopX1RowCount >= 2)
                         {
-                            dReal p2 = ptrLElement[-1];
+                            const dReal p2 = ptrLElement[-1];
                             Y[1] = ptrBElement[-1 * (ptrdiff_t)b_stride]/* - Z[1] */- p2 * Y[0];
 
                             if (loopX1RowCount > 2)
                             {
-                                dReal p3 = ptrLElement[-2];
-                                dReal p3_1 = (ptrLElement - rowSkip)[-2];
+                                const dReal p3 = ptrLElement[-2];
+                                const dReal p3_1 = (ptrLElement - rowSkip)[-2];
                                 Y[2] = ptrBElement[-2 * (ptrdiff_t)b_stride]/* - Z[2] */- p3 * Y[0] - p3_1 * Y[1];
                             }
                         }
@@ -1282,16 +1282,16 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                     {
                         Y[0] = ptrBElement[0 * b_stride] - Z[0];
 
-                        dReal p2 = ptrLElement[-1];
+                        const dReal p2 = ptrLElement[-1];
                         Y[1] = ptrBElement[-1 * (ptrdiff_t)b_stride] - Z[1] - p2 * Y[0];
 
-                        dReal p3 = ptrLElement[-2];
-                        dReal p3_1 = (ptrLElement - rowSkip)[-2];
+                        const dReal p3 = ptrLElement[-2];
+                        const dReal p3_1 = (ptrLElement - rowSkip)[-2];
                         Y[2] = ptrBElement[-2 * (ptrdiff_t)b_stride] - Z[2] - p3 * Y[0] - p3_1 * Y[1];
 
-                        dReal p4 = ptrLElement[-3];
-                        dReal p4_1 = (ptrLElement - rowSkip)[-3];
-                        dReal p4_2 = (ptrLElement - rowSkip * 2)[-3];
+                        const dReal p4 = ptrLElement[-3];
+                        const dReal p4_1 = (ptrLElement - rowSkip)[-3];
+                        const dReal p4_2 = (ptrLElement - rowSkip * 2)[-3];
                         Y[3] = ptrBElement[-3 * (ptrdiff_t)b_stride] - Z[3] - p4 * Y[0] - p4_1 * Y[1] - p4_2 * Y[2];
                         
                         dSASSERT(block_step == 4);

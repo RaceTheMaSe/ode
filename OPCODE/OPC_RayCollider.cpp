@@ -350,7 +350,7 @@ BOOL RayCollider::InitQuery(const IceMaths::Ray& world_ray, const IceMaths::Matr
 	// The (Origin/Dir) form is needed for the ray-triangle test anyway (even for segment tests)
 	if(world)
 	{
-		IceMaths::Matrix3x3 InvWorld = *world;
+		const IceMaths::Matrix3x3 InvWorld = *world;
 		mDir = InvWorld * world_ray.mDir;
 
 		IceMaths::Matrix4x4 World;

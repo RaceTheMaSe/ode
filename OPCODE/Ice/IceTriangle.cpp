@@ -42,7 +42,7 @@ static sdword VPlaneSideEps(const Point& v, const Plane& plane, float epsilon)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Triangle::Flip()
 {
-	Point Tmp = mVerts[1];
+	const Point Tmp = mVerts[1];
 	mVerts[1] = mVerts[2];
 	mVerts[2] = Tmp;
 }
@@ -140,7 +140,7 @@ PartVal Triangle::TestAgainstPlane(const Plane& plane, float epsilon) const
 	for(udword i=0;i<3;i++)
 	{
 		// Compute side:
-		sdword Side = VPlaneSideEps(mVerts[i], plane, epsilon);
+		const sdword Side = VPlaneSideEps(mVerts[i], plane, epsilon);
 
 				if (Side < 0)	Neg = true;
 		else	if (Side > 0)	Pos = true;
@@ -213,9 +213,9 @@ void Triangle::ComputeMoment(Moment& m)
 float Triangle::MinEdgeLength()	const
 {
 	float Min = MAX_FLOAT;
-	float Length01 = mVerts[0].Distance(mVerts[1]);
-	float Length02 = mVerts[0].Distance(mVerts[2]);
-	float Length12 = mVerts[1].Distance(mVerts[2]);
+	const float Length01 = mVerts[0].Distance(mVerts[1]);
+	const float Length02 = mVerts[0].Distance(mVerts[2]);
+	const float Length12 = mVerts[1].Distance(mVerts[2]);
 	if(Length01 < Min)	Min = Length01;
 	if(Length02 < Min)	Min = Length02;
 	if(Length12 < Min)	Min = Length12;
@@ -231,9 +231,9 @@ float Triangle::MinEdgeLength()	const
 float Triangle::MaxEdgeLength()	const
 {
 	float Max = MIN_FLOAT;
-	float Length01 = mVerts[0].Distance(mVerts[1]);
-	float Length02 = mVerts[0].Distance(mVerts[2]);
-	float Length12 = mVerts[1].Distance(mVerts[2]);
+	const float Length01 = mVerts[0].Distance(mVerts[1]);
+	const float Length02 = mVerts[0].Distance(mVerts[2]);
+	const float Length12 = mVerts[1].Distance(mVerts[2]);
 	if(Length01 > Max)	Max = Length01;
 	if(Length02 > Max)	Max = Length02;
 	if(Length12 > Max)	Max = Length12;
@@ -258,7 +258,7 @@ void Triangle::ComputePoint(float u, float v, Point& pt, udword* nearvtx)	const
 	if(nearvtx)
 	{
 		// Compute distance vector
-		Point d(mVerts[0].SquareDistance(pt),	// Distance^2 from vertex 0 to point on the face
+		const Point d(mVerts[0].SquareDistance(pt),	// Distance^2 from vertex 0 to point on the face
 				mVerts[1].SquareDistance(pt),	// Distance^2 from vertex 1 to point on the face
 				mVerts[2].SquareDistance(pt));	// Distance^2 from vertex 2 to point on the face
 

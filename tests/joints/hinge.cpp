@@ -911,7 +911,7 @@ SUITE (TestdxJointHinge)
           
           const dReal *v1 = dBodyGetAngularVel(bId1);
           const dReal *v2 = dBodyGetAngularVel(bId2);
-          dVector3 rvel = { v1[0]-v2[0], v1[1]-v2[1], v1[2]-v2[2] };
+          const dVector3 rvel = { v1[0]-v2[0], v1[1]-v2[1], v1[2]-v2[2] };
           CHECK_CLOSE(rvel[0], targetvel, tolerance);
           CHECK_CLOSE(rvel[1], dReal(0), tolerance);
           CHECK_CLOSE(rvel[2], dReal(0), tolerance);

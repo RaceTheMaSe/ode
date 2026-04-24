@@ -11,7 +11,7 @@ TestDetails const details("testname", "suitename", "filename", 123);
 
 TEST(StartsWithNoTestsRun)
 {
-    TestResults results;
+    const TestResults;
     CHECK_EQUAL (0, results.GetTotalTestCount());
 }
 
@@ -26,7 +26,7 @@ TEST(RecordsNumbersOfTests)
 
 TEST(StartsWithNoTestsFailing)
 {
-    TestResults results;
+    const TestResults results;
     CHECK_EQUAL (0, results.GetFailureCount());
 }
 

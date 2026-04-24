@@ -21,7 +21,7 @@
   }
 
 #define FIXED_OPTION(o,value,content) \
-  int i_##o=value; \
+  const int i_##o=value; \
   if(i_##o==0) \
     options[STRINGIZE(o)]="ON"; \
   else \
@@ -189,13 +189,13 @@ int main(int argc, char** argv)
 
   // const char* compilerList[]      = { "" }; //, "/usr/bin/", "/path-to-mingw-toolchain/bin/" };
   // const char* buildTypes[]    = { "Release"/*, "Debug"*/ };
-  const char* c_standards[]   = { "c89"/*, "c99"   , "c11"  ,          "c17"*/ /* not gcc4 */ };
-  const char* cpp_standards[] = {        "c++98" /*, "c++11", "c++14", "c++17", "c++20", "c++23"*/ };
+  const char *const c_standards[]   = { "c89"/*, "c99"   , "c11"  ,          "c17"*/ /* not gcc4 */ };
+  const char *const cpp_standards[] = {        "c++98" /*, "c++11", "c++14", "c++17", "c++20", "c++23"*/ };
 
   // from https://stackoverflow.com/questions/22541158/redirect-std-output-of-a-c-function-to-null
   (void)fflush( stdout );                            // make sure everything is written to stdout
-  int savefd = dup( 1 );                       // dup stdout for restore
-  int outfd = creat( "compileLog.txt", 0666 ); // create an output file
+  const int savefd = dup( 1 );                       // dup stdout for restore
+  const int outfd = creat( "compileLog.txt", 0666 ); // create an output file
   dup2( outfd, 1 );                            // dup that fd to stdout
 
   // for (int c = 0; c < COUNT_OF(compiler); ++c)

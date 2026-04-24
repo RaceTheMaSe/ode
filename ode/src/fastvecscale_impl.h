@@ -147,16 +147,16 @@ void ThreadedEquationSolverLDLT::participateScalingVector(dReal *ptrAStart, cons
         {
             case 3:
             {
-                dReal a2 = ptrAElement[2 * a_stride];
-                dReal d2 = ptrDElement[2 * d_stride];
+                const dReal a2 = ptrAElement[2 * a_stride];
+                const dReal d2 = ptrDElement[2 * d_stride];
                 ptrAElement[2 * a_stride] = a2 * d2;
                 // break; -- proceed to case 2
             }
             ANNOTATE_FALLTHROUGH
             case 2:
             {
-                dReal a1 = ptrAElement[1 * a_stride];
-                dReal d1 = ptrDElement[1 * d_stride];
+                const dReal a1 = ptrAElement[1 * a_stride];
+                const dReal d1 = ptrDElement[1 * d_stride];
                 ptrAElement[1 * a_stride] = a1 * d1;
                 // break; -- proceed to case 1
             }

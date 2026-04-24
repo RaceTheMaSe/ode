@@ -81,14 +81,14 @@ TEST (CrashingTestsAreReportedAsFailures)
 
 TEST (TestWithUnspecifiedSuiteGetsDefaultSuite)
 {
-    Test test("test");
+    const Test test("test");
     CHECK(test.m_details.suiteName != NULL);
     CHECK_EQUAL("DefaultSuite", test.m_details.suiteName);
 }
 
 TEST (TestReflectsSpecifiedSuiteName)
 {
-    Test test("test", "testSuite");
+    const Test test("test", "testSuite");
     CHECK(test.m_details.suiteName != NULL);
     CHECK_EQUAL("testSuite", test.m_details.suiteName);
 }

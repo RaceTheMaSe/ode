@@ -218,7 +218,7 @@ BOOL LSSCollider::InitQuery(LSSCache& cache, const IceMaths::LSS& lss, const Ice
 			if(mTouchedPrimitives->GetNbEntries())
 			{
 				// Get index of previously touched face = the first entry in the array
-				udword PreviouslyTouchedFace = mTouchedPrimitives->GetEntry(0);
+				const udword PreviouslyTouchedFace = mTouchedPrimitives->GetEntry(0);
 
 				// Then reset the array:
 				// - if the overlap test below is successful, the index we'll get added back anyway
@@ -240,7 +240,7 @@ BOOL LSSCollider::InitQuery(LSSCache& cache, const IceMaths::LSS& lss, const Ice
 
 			// ### rewrite this
 
-			IceMaths::LSS Test(mSeg, lss.mRadius);	// in model space
+			const IceMaths::LSS Test(mSeg, lss.mRadius);	// in model space
 			IceMaths::LSS Previous(cache.Previous, sqrtf(cache.Previous.mRadius));
 
 //			if(cache.Previous.Contains(Test))
@@ -619,7 +619,7 @@ bool HybridLSSCollider::Collide(LSSCache& cache, const IceMaths::LSS& lss, const
 	if(mCurrentModel && mCurrentModel->HasSingleNode())
 	{
 		// Here we're supposed to perform a normal query, except our tree has a single node, i.e. just a few triangles
-		udword Nb = mIMesh->GetNbTriangles();
+		const udword Nb = mIMesh->GetNbTriangles();
 
 		// Loop through all triangles
 		for(udword i=0;i<Nb;i++)

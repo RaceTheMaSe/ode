@@ -34,7 +34,7 @@ bool OBB::ContainsPoint(const Point& p) const
 	// Point in OBB test using lazy evaluation and early exits
 
 	// Translate to box space
-	Point RelPoint = p - mCenter;
+	const Point RelPoint = p - mCenter;
 
 	// Point * mRot maps from box space to world space
 	// mRot * Point maps from world space to box space (what we need here)
@@ -84,9 +84,9 @@ bool OBB::ComputePlanes(Plane* planes)	const
 	// Checkings
 	if(!planes)	return false;
 
-	Point Axis0 = mRot[0];
-	Point Axis1 = mRot[1];
-	Point Axis2 = mRot[2];
+	const Point Axis0 = mRot[0];
+	const Point Axis1 = mRot[1];
+	const Point Axis2 = mRot[2];
 
 	// Writes normals
 	planes[0].n = Axis0;
@@ -97,12 +97,12 @@ bool OBB::ComputePlanes(Plane* planes)	const
 	planes[5].n = -Axis2;
 
 	// Compute a point on each plane
-	Point p0 = mCenter + Axis0 * mExtents.x;
-	Point p1 = mCenter - Axis0 * mExtents.x;
-	Point p2 = mCenter + Axis1 * mExtents.y;
-	Point p3 = mCenter - Axis1 * mExtents.y;
-	Point p4 = mCenter + Axis2 * mExtents.z;
-	Point p5 = mCenter - Axis2 * mExtents.z;
+	const Point p0 = mCenter + Axis0 * mExtents.x;
+	const Point p1 = mCenter - Axis0 * mExtents.x;
+	const Point p2 = mCenter + Axis1 * mExtents.y;
+	const Point p3 = mCenter - Axis1 * mExtents.y;
+	const Point p4 = mCenter + Axis2 * mExtents.z;
+	const Point p5 = mCenter - Axis2 * mExtents.z;
 
 	// Compute d
 	planes[0].d = -(planes[0].n|p0);
@@ -254,9 +254,9 @@ void OBB::ComputeWorldEdgeNormal(udword edge_index, Point& world_normal) const
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void OBB::ComputeLSS(LSS& lss) const
 {
-	Point Axis0 = mRot[0];
-	Point Axis1 = mRot[1];
-	Point Axis2 = mRot[2];
+	const Point Axis0 = mRot[0];
+	const Point Axis1 = mRot[1];
+	const Point Axis2 = mRot[2];
 
 	switch(mExtents.LargestAxis())
 	{

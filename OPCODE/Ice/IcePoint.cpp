@@ -97,7 +97,7 @@ Point& Point::Refract(const Point& eye, const Point& n, float refractindex, Poin
 	Env.z = eye.z - z;
 
 	float NDotE = n|Env;
-	float NDotN = n|n;
+	const float NDotN = n|n;
 	NDotE /= refractindex;
 
 	// Refracted vector
@@ -181,9 +181,9 @@ Point& Point::Transform(const Point& r, const Matrix3x3& rotpos, const Point& li
 
 Point& Point::InvTransform(const Point& r, const Matrix3x3& rotpos, const Point& linpos)
 {
-	float sx = r.x - linpos.x;
-	float sy = r.y - linpos.y;
-	float sz = r.z - linpos.z;
+	const float sx = r.x - linpos.x;
+	const float sy = r.y - linpos.y;
+	const float sz = r.z - linpos.z;
 	x = sx * rotpos.m[0][0] + sy * rotpos.m[1][0] + sz * rotpos.m[2][0];
 	y = sx * rotpos.m[0][1] + sy * rotpos.m[1][1] + sz * rotpos.m[2][1];
 	z = sx * rotpos.m[0][2] + sy * rotpos.m[1][2] + sz * rotpos.m[2][2];

@@ -478,7 +478,7 @@ static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API
 	
     while (true)
 	{
-        atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)(aoOldValue & aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
+        const atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)(aoOldValue & aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
 
 		if (aoNewValue == aoOldValue)
 		{
@@ -498,7 +498,7 @@ static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API
 	
     while (true)
 	{
-        atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)(aoOldValue | aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
+        const atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)(aoOldValue | aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
 		
 		if (aoNewValue == aoOldValue)
 		{
@@ -518,7 +518,7 @@ static _OU_ALWAYSINLINE atomicord32 _OU_CONVENTION_API
 	
     while (true)
 	{
-        atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)(aoOldValue ^ aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
+        const atomicord32 aoNewValue = (atomicord32)::InterlockedCompareExchange((__ou_cmpxchg_target_t)const_cast<atomicord32*>(paoDestination), (__ou_cmpxchg_value_t)(aoOldValue ^ aoBitMask), (__ou_cmpxchg_value_t)aoOldValue);
 		
 		if (aoNewValue == aoOldValue)
 		{

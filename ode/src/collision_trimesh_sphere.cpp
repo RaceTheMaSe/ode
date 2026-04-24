@@ -576,7 +576,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
     GIM_CONTACT * ptrimeshcontacts = GIM_DYNARRAY_POINTER(GIM_CONTACT,trimeshcontacts);
     unsigned contactcount = trimeshcontacts.m_size;
 
-    dxGIMCContactAccessor contactaccessor(ptrimeshcontacts, g1, SphereGeom, -1);
+    const dxGIMCContactAccessor contactaccessor(ptrimeshcontacts, g1, SphereGeom, -1);
     contactcount = dxGImpactContactsExportHelper::ExportMaxDepthGImpactContacts(contactaccessor, contactcount, Flags, Contacts, Stride);
 
     GIM_DYNARRAY_DESTROY(trimeshcontacts);

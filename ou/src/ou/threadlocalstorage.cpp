@@ -366,7 +366,7 @@ CTLSStorageArray *CTLSStorageArray::AllocateInstance(tlsindextype iValueCount)
 {
 	const size_t nHeaderSize = CTLSStorageArray::GetHeaderSize();
 	const size_t nBlockSize = CTLSStorageBlock::GetRequiredSize(iValueCount);
-	size_t nRequiredSize = nHeaderSize + nBlockSize * TLS_ARRAY_ELEMENT__MAX;
+	const size_t nRequiredSize = nHeaderSize + nBlockSize * TLS_ARRAY_ELEMENT__MAX;
 
 	CTLSStorageArray *psaNewInstance = (CTLSStorageArray *)AllocateMemoryBlock(nRequiredSize);
 	
@@ -418,7 +418,7 @@ void CTLSStorageArray::FreeStorageBlockOnThreadExit(CTLSStorageBlock *psbStorage
 	ReinitializeStorageSingleBlock(psbStorageBlock, iValueCount);
 	// OU_ASSERT(GetBlockThreadHandle(nBlockIndex) == INVALID_HANDLE_VALUE) -- assertion further in the code
 
-	unsigned int nBlockIndex = GetStorageBlockIndex(psbStorageBlock, iValueCount);
+	const unsigned int nBlockIndex = GetStorageBlockIndex(psbStorageBlock, iValueCount);
 	OU_ASSERT(GetBlockOccupiedFlag(nBlockIndex));
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 
@@ -515,7 +515,7 @@ bool CTLSStorageArray::FindFreeStorageBlockIndexWithPossibilityVerified(unsigned
 		}
 	}
 
-	bool bResult = nBlockIndex != TLS_ARRAY_ELEMENT__MAX;
+	const bool bResult = nBlockIndex != TLS_ARRAY_ELEMENT__MAX;
 	return bResult;
 }
 
@@ -536,7 +536,7 @@ bool CTLSStorageArray::FindAbandonedStorageBlockIndex(unsigned int &nOutFreeBloc
 		const unsigned int *puiTranslationMap;
 		
 		// Translate handles into array for the case if there are invalids
-		unsigned int nHandleCount = TranslateClientHandles(haTranslatedHandlesStorage, tmTranslationMapStorage,
+		const unsigned int nHandleCount = TranslateClientHandles(haTranslatedHandlesStorage, tmTranslationMapStorage,
 			ph_TranslatedHandles, puiTranslationMap);
 		OU_ASSERT(OU_IN_INT_RANGE(nHandleCount, 0, MAXIMUM_WAIT_OBJECTS + 1));
 		
@@ -547,7 +547,7 @@ bool CTLSStorageArray::FindAbandonedStorageBlockIndex(unsigned int &nOutFreeBloc
 
 		// Since allocating a new storage block is a relatively slow operation
 		// it is acceptable to enter kernel for checking for exited threads.
-		DWORD dwWaitResult = ::WaitForMultipleObjects(nHandleCount, ph_TranslatedHandles, FALSE, 0);
+		const DWORD dwWaitResult = ::WaitForMultipleObjects(nHandleCount, ph_TranslatedHandles, FALSE, 0);
 		
 		if (!OU_IN_INT_RANGE(dwWaitResult - WAIT_OBJECT_0, 0, nHandleCount))
 		{
@@ -560,8 +560,8 @@ bool CTLSStorageArray::FindAbandonedStorageBlockIndex(unsigned int &nOutFreeBloc
 			break;
 		}
 
-		unsigned int nTranslatedBlockIndex = (unsigned int)(dwWaitResult - WAIT_OBJECT_0);
-		unsigned int nBlockIndex = !puiTranslationMap ? nTranslatedBlockIndex : puiTranslationMap[nTranslatedBlockIndex];
+		const unsigned int nTranslatedBlockIndex = (unsigned int)(dwWaitResult - WAIT_OBJECT_0);
+		const unsigned int nBlockIndex = !puiTranslationMap ? nTranslatedBlockIndex : puiTranslationMap[nTranslatedBlockIndex];
 		
 		CTLSStorageBlock *psbStorageBlock = GetStorageBlockPointer(nBlockIndex, iValueCount);
 		ReinitializeStorageSingleBlock(psbStorageBlock, iValueCount);
@@ -725,7 +725,7 @@ unsigned int CTLSStorageArray::GetStorageBlockIndex(CTLSStorageBlock *psbStorage
 	const size_t nBlockSize = CTLSStorageBlock::GetRequiredSize(iValueCount);
 	const size_t nBlockZeroOffset = CTLSStorageBlock::GetZeroOffset(iValueCount);
 
-	unsigned int uiBlockIndex = (unsigned int)((((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((const int8ou *)this)) / (int)nBlockSize);
+	const unsigned int uiBlockIndex = (unsigned int)((((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((const int8ou *)this)) / (int)nBlockSize);
 	OU_ASSERT((size_t)(((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((int8ou *)this)) % nBlockSize == 0);
 	OU_ASSERT(OU_IN_INT_RANGE(uiBlockIndex, 0, TLS_ARRAY_ELEMENT__MAX));
 
@@ -771,7 +771,7 @@ void CTLSStorageArray::FreeStorageThreadHandle(unsigned int nBlockIndex)
 	
 	if (hExistingThreadHandle != INVALID_HANDLE_VALUE)
 	{
-		BOOL bHandleCloseResult = ::CloseHandle(hExistingThreadHandle);
+		const BOOL bHandleCloseResult = ::CloseHandle(hExistingThreadHandle);
 		OU_VERIFY(bHandleCloseResult); // Closing handle should normally succeed
 		
 		SetBlockThreadHandle(nBlockIndex, INVALID_HANDLE_VALUE);
@@ -799,7 +799,7 @@ bool CTLSStorageArray::CheckIfAllBlocksHaveInvalidThreads()
 		}
 	}
 
-	bool bResult = nBlockIndex == TLS_ARRAY_ELEMENT__MAX;
+	const bool bResult = nBlockIndex == TLS_ARRAY_ELEMENT__MAX;
 	return bResult;
 }
 
@@ -812,7 +812,7 @@ bool CTLSStorageArray::CheckIfAllBlocksHaveInvalidThreads()
 
 CTLSStorageInstance *CTLSStorageInstance::AllocateInstance(tlsindextype iValueCount, unsigned int uiInitializationFlags)
 {
-	size_t nSizeRequired = sizeof(CTLSStorageInstance);
+	const size_t nSizeRequired = sizeof(CTLSStorageInstance);
 
 	CTLSStorageInstance *psiNewInstance = (CTLSStorageInstance *)AllocateMemoryBlock(nSizeRequired);
 	
@@ -895,7 +895,7 @@ void CTLSStorageInstance::Finit()
 	{
 		FreeStorageArrayList(psaStorageArrayList);
 
-		bool bListClearingResult = TrySettingStorageArrayList(NULL, psaStorageArrayList); // It could be assigned directly, but I just do not want to add an extra method
+		const bool bListClearingResult = TrySettingStorageArrayList(NULL, psaStorageArrayList); // It could be assigned directly, but I just do not want to add an extra method
 		OU_VERIFY(bListClearingResult);
 	}
 
@@ -1002,8 +1002,8 @@ bool CTLSStorageInstance::FindFreeStorageBlockInArrayListSegment(CTLSStorageBloc
 bool CTLSStorageInstance::FindFreeStorageBlockFromArray(CTLSStorageBlock *&psbOutStorageBlock, 
 	CTLSStorageArray *psaArrayInstance)
 {
-	tlsindextype iValueCount = GetValueCount();
-	bool bIsManualCleanup = GetThreadManualCleanupFlag();
+	const tlsindextype iValueCount = GetValueCount();
+	const bool bIsManualCleanup = GetThreadManualCleanupFlag();
 
 	return psaArrayInstance->FindFreeStorageBlock(psbOutStorageBlock, iValueCount, bIsManualCleanup);
 }
@@ -1030,7 +1030,7 @@ bool CTLSStorageInstance::AllocateStorageKey(HTLSKEYVALUE &hkvOutStorageKey, EST
 
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 	
-	DWORD dwTlsIndex = ::TlsAlloc();
+	const DWORD dwTlsIndex = ::TlsAlloc();
 
 	if (dwTlsIndex != TLS_OUT_OF_INDEXES)
 	{
@@ -1044,7 +1044,7 @@ bool CTLSStorageInstance::AllocateStorageKey(HTLSKEYVALUE &hkvOutStorageKey, EST
 	
 	pthread_key_t pkThreadKey;
 
-	int iKeyCreationResult = pthread_key_create(&pkThreadKey, 
+	const int iKeyCreationResult = pthread_key_create(&pkThreadKey, 
 		(ikInstanceKind == SIK_AUTOCLEANUP) ? &CTLSStorageInstance::FreeStorageBlock_Callback_Automatic : &CTLSStorageInstance::FreeStorageBlock_Callback_Manual);
 	if (iKeyCreationResult == EOK)
 	{
@@ -1062,18 +1062,18 @@ void CTLSStorageInstance::FreeStorageKey(const HTLSKEYVALUE &hkvStorageKey)
 {
 #if _OU_TARGET_OS == _OU_TARGET_OS_WINDOWS
 	
-	DWORD dwTlsIndex = (DWORD)(size_t)(HTLSKEYVALUE::value_type)hkvStorageKey;
+	const DWORD dwTlsIndex = (DWORD)(size_t)(HTLSKEYVALUE::value_type)hkvStorageKey;
 	OU_ASSERT(dwTlsIndex != TLS_OUT_OF_INDEXES);
 
-	BOOL bIndexFreeingResult = ::TlsFree(dwTlsIndex);
+	const BOOL bIndexFreeingResult = ::TlsFree(dwTlsIndex);
 	OU_VERIFY(bIndexFreeingResult);
 	
 	
 #else // #if _OU_TARGET_OS != _OU_TARGET_OS_WINDOWS
 	
-	pthread_key_t pkThreadKey = (pthread_key_t)(size_t)(HTLSKEYVALUE::value_type)hkvStorageKey;
+	const pthread_key_t pkThreadKey = (pthread_key_t)(size_t)(HTLSKEYVALUE::value_type)hkvStorageKey;
 	
-	int iKeyDeletionResult = pthread_key_delete(pkThreadKey);
+	const int iKeyDeletionResult = pthread_key_delete(pkThreadKey);
 	OU_VERIFY(iKeyDeletionResult == EOK);
 	
 	
@@ -1150,7 +1150,7 @@ bool CThreadLocalStorage::AllocateAndSetStorageValue(const HTLSKEYSELECTOR &hksK
 	
 	do
 	{
-		ESTORAGEINSTANCEKIND ikInstanceKind = (ESTORAGEINSTANCEKIND)DecodeInstanceKindFromKeySelector(hksKeySelector);
+		const ESTORAGEINSTANCEKIND ikInstanceKind = (ESTORAGEINSTANCEKIND)DecodeInstanceKindFromKeySelector(hksKeySelector);
 		CTLSStorageInstance *psiStorageInstance = g_apsiStorageGlobalInstances[ikInstanceKind];
 
 		CTLSStorageBlock *psbStorageBlock = NULL;

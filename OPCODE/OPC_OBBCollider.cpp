@@ -204,8 +204,8 @@ BOOL OBBCollider::InitQuery(OBBCache& cache, const IceMaths::OBB& box, const Ice
 		IceMaths::Matrix4x4 InvWorldM;
 		InvertPRMatrix(InvWorldM, *worldm);
 
-		IceMaths::Matrix4x4 WorldBtoM = WorldB * InvWorldM;
-		IceMaths::Matrix4x4 WorldMtoB = *worldm * InvWorldB;
+		const IceMaths::Matrix4x4 WorldBtoM = WorldB * InvWorldM;
+		const IceMaths::Matrix4x4 WorldMtoB = *worldm * InvWorldB;
 
 		mRModelToBox = WorldMtoB;		WorldMtoB.GetTrans(mTModelToBox);
 		mRBoxToModel = WorldBtoM;		WorldBtoM.GetTrans(mTBoxToModel);
@@ -246,7 +246,7 @@ BOOL OBBCollider::InitQuery(OBBCache& cache, const IceMaths::OBB& box, const Ice
 			if(mTouchedPrimitives->GetNbEntries())
 			{
 				// Get index of previously touched face = the first entry in the array
-				udword PreviouslyTouchedFace = mTouchedPrimitives->GetEntry(0);
+				const udword PreviouslyTouchedFace = mTouchedPrimitives->GetEntry(0);
 
 				// Then reset the array:
 				// - if the overlap test below is successful, the index we'll get added back anyway
@@ -372,20 +372,20 @@ inline_ BOOL OBBCollider::OBBContainsBox(const IceMaths::Point& bc, const IceMat
 	// Yes there is:
 	// - compute model-box's AABB in OBB space
 	// - test AABB-in-AABB
-	float NCx = bc.x * mRModelToBox.m[0][0] + bc.y * mRModelToBox.m[1][0] + bc.z * mRModelToBox.m[2][0];
-	float NEx = fabsf(mRModelToBox.m[0][0] * be.x) + fabsf(mRModelToBox.m[1][0] * be.y) + fabsf(mRModelToBox.m[2][0] * be.z);
+	const float NCx = bc.x * mRModelToBox.m[0][0] + bc.y * mRModelToBox.m[1][0] + bc.z * mRModelToBox.m[2][0];
+	const float NEx = fabsf(mRModelToBox.m[0][0] * be.x) + fabsf(mRModelToBox.m[1][0] * be.y) + fabsf(mRModelToBox.m[2][0] * be.z);
 
 	if(mB0.x < NCx+NEx)	return FALSE;
 	if(mB1.x > NCx-NEx)	return FALSE;
 
-	float NCy = bc.x * mRModelToBox.m[0][1] + bc.y * mRModelToBox.m[1][1] + bc.z * mRModelToBox.m[2][1];
-	float NEy = fabsf(mRModelToBox.m[0][1] * be.x) + fabsf(mRModelToBox.m[1][1] * be.y) + fabsf(mRModelToBox.m[2][1] * be.z);
+	const float NCy = bc.x * mRModelToBox.m[0][1] + bc.y * mRModelToBox.m[1][1] + bc.z * mRModelToBox.m[2][1];
+	const float NEy = fabsf(mRModelToBox.m[0][1] * be.x) + fabsf(mRModelToBox.m[1][1] * be.y) + fabsf(mRModelToBox.m[2][1] * be.z);
 
 	if(mB0.y < NCy+NEy)	return FALSE;
 	if(mB1.y > NCy-NEy)	return FALSE;
 
-	float NCz = bc.x * mRModelToBox.m[0][2] + bc.y * mRModelToBox.m[1][2] + bc.z * mRModelToBox.m[2][2];
-	float NEz = fabsf(mRModelToBox.m[0][2] * be.x) + fabsf(mRModelToBox.m[1][2] * be.y) + fabsf(mRModelToBox.m[2][2] * be.z);
+	const float NCz = bc.x * mRModelToBox.m[0][2] + bc.y * mRModelToBox.m[1][2] + bc.z * mRModelToBox.m[2][2];
+	const float NEz = fabsf(mRModelToBox.m[0][2] * be.x) + fabsf(mRModelToBox.m[1][2] * be.y) + fabsf(mRModelToBox.m[2][2] * be.z);
 
 	if(mB0.z < NCz+NEz)	return FALSE;
 	if(mB1.z > NCz-NEz)	return FALSE;
@@ -656,7 +656,7 @@ bool HybridOBBCollider::Collide(OBBCache& cache, const IceMaths::OBB& box, const
 	if(mCurrentModel && mCurrentModel->HasSingleNode())
 	{
 		// Here we're supposed to perform a normal query, except our tree has a single node, i.e. just a few triangles
-		udword Nb = mIMesh->GetNbTriangles();
+		const udword Nb = mIMesh->GetNbTriangles();
 
 		// Loop through all triangles
 		for(udword i=0;i<Nb;i++)
@@ -745,7 +745,7 @@ bool HybridOBBCollider::Collide(OBBCache& cache, const IceMaths::OBB& box, const
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = *T++;
+					const udword TriangleIndex = *T++;
 					OBB_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}
@@ -756,7 +756,7 @@ bool HybridOBBCollider::Collide(OBBCache& cache, const IceMaths::OBB& box, const
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = BaseIndex++;
+					const udword TriangleIndex = BaseIndex++;
 					OBB_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}

@@ -104,7 +104,7 @@ static void removeJointReferencesFromAttachedBodies (dxJoint *j)
 static int listHasLoops (dObject *first)
 {
     if (first==NULL || first->next==NULL) return 0;
-    dObject *a=first,*b=first->next;
+    dObject const*a=first, *b=first->next;
     int skip=0;
     while (b) {
         if (a==b) return 1;

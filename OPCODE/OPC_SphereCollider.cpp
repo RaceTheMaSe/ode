@@ -103,7 +103,7 @@ bool SphereCollider::Collide(SphereCache& cache, const IceMaths::Sphere& sphere,
 	if(mCurrentModel && mCurrentModel->HasSingleNode())
 	{
 		// Here we're supposed to perform a normal query, except our tree has a single node, i.e. just a few triangles
-		udword Nb = mIMesh->GetNbTriangles();
+		const udword Nb = mIMesh->GetNbTriangles();
 		// Loop through all triangles
 		for(udword i=0;i<Nb;i++)
 		{
@@ -228,7 +228,7 @@ BOOL SphereCollider::InitQuery(SphereCache& cache, const IceMaths::Sphere& spher
 			if(mTouchedPrimitives->GetNbEntries())
 			{
 				// Get index of previously touched face = the first entry in the array
-				udword PreviouslyTouchedFace = mTouchedPrimitives->GetEntry(0);
+				const udword PreviouslyTouchedFace = mTouchedPrimitives->GetEntry(0);
 
 				// Then reset the array:
 				// - if the overlap test below is successful, the index we'll get added back anyway
@@ -247,7 +247,7 @@ BOOL SphereCollider::InitQuery(SphereCache& cache, const IceMaths::Sphere& spher
 		else
 		{
 			// We're interested in all contacts =>test the new real sphere N(ew) against the previous fat sphere P(revious):
-			float r = sqrtf(cache.FatRadius2) - sphere.mRadius;
+			const float r = sqrtf(cache.FatRadius2) - sphere.mRadius;
 			if(IsCacheValid(cache) && cache.Center.SquareDistance(mCenter) < r*r)
 			{
 				// - if N is included in P, return previous list
@@ -632,7 +632,7 @@ bool HybridSphereCollider::Collide(SphereCache& cache, const IceMaths::Sphere& s
 	if(mCurrentModel && mCurrentModel->HasSingleNode())
 	{
 		// Here we're supposed to perform a normal query, except our tree has a single node, i.e. just a few triangles
-		udword Nb = mIMesh->GetNbTriangles();
+		const udword Nb = mIMesh->GetNbTriangles();
 
 		// Loop through all triangles
 		for(udword i=0;i<Nb;i++)
@@ -721,7 +721,7 @@ bool HybridSphereCollider::Collide(SphereCache& cache, const IceMaths::Sphere& s
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = *T++;
+					const udword TriangleIndex = *T++;
 					SPHERE_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}
@@ -732,7 +732,7 @@ bool HybridSphereCollider::Collide(SphereCache& cache, const IceMaths::Sphere& s
 				// Loop through triangles and test each of them
 				while(NbTris--)
 				{
-					udword TriangleIndex = BaseIndex++;
+					const udword TriangleIndex = BaseIndex++;
 					SPHERE_PRIM(TriangleIndex, OPC_CONTACT)
 				}
 			}

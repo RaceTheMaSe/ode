@@ -7,7 +7,7 @@
 int main()
 {
     dInitODE();
-    int res = UnitTest::RunAllTests();
+    const int res = UnitTest::RunAllTests();
     dCloseODE();
     return res;
 }

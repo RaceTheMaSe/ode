@@ -8,7 +8,7 @@ namespace {
 
 TEST (TestListIsEmptyByDefault)
 {
-    TestList list;
+    const TestList list;
     CHECK (list.GetHead() == 0);
 }
 
@@ -41,7 +41,7 @@ TEST (ListAdderAddsTestToList)
     TestList list;
 
     Test test("");    
-    ListAdder adder(list, &test);
+    ListAdder const adder(list, &test);
 
     CHECK (list.GetHead() == &test);
     CHECK (test.next == 0);

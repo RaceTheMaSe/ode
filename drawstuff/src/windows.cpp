@@ -274,7 +274,7 @@ public:
     {
         bool fault = false;
 
-        DWORD mainWindowThreadID = m_mainWindowThreadID;
+        const DWORD mainWindowThreadID = m_mainWindowThreadID;
         if (mainWindowThreadID != 0) {
             m_mainWindowThreadID = 0;
 
@@ -466,8 +466,8 @@ LRESULT CALLBACK mainWndProc(HWND hWnd, UINT msg, WPARAM wParam,
         case WM_MOUSEMOVE: {
             MainWindowParameters *pWindowParameters = retrieveMainWindowWindowParameters(hWnd);
             if (pWindowParameters != NULL) {
-                int x = SHORT(LOWORD(lParam));
-                int y = SHORT(HIWORD(lParam));
+                const int x = SHORT(LOWORD(lParam));
+                const int y = SHORT(HIWORD(lParam));
                 if (pWindowParameters->m_mouseButtonStates != 0) {
                     dsMotion((int)pWindowParameters->m_mouseButtonStates, x - pWindowParameters->m_lastMouseX, y - pWindowParameters->m_lastMouseY);
                 }
@@ -505,7 +505,7 @@ LRESULT CALLBACK mainWndProc(HWND hWnd, UINT msg, WPARAM wParam,
         }
 
         case WM_DESTROY: {
-            MainWindowParameters *pWindowParameters = retrieveMainWindowWindowParameters(hWnd);
+            const MainWindowParameters *pWindowParameters = retrieveMainWindowWindowParameters(hWnd);
             if (pWindowParameters != NULL) {
                 delete pWindowParameters;
                 assignMainWindowWindowParameters(hWnd, NULL);
@@ -529,7 +529,7 @@ LRESULT CALLBACK mainWndProc(HWND hWnd, UINT msg, WPARAM wParam,
 static 
 LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM /*lParam*/)
 {
-    LRESULT result = 0;
+    const LRESULT result = 0;
 
     switch (LOWORD(wParam)) {
         case IDM_ABOUT: {
@@ -767,7 +767,7 @@ void dsPlatformSimLoop(int window_width, int window_height,
         winrect.top = 80;
         winrect.right = winrect.left + window_width;
         winrect.bottom = winrect.top + window_height;
-        DWORD style = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
+        DWORD const style = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
         AdjustWindowRect(&winrect, style, 1);
 
         char title[100];
@@ -792,7 +792,7 @@ void dsPlatformSimLoop(int window_width, int window_height,
 
         // set pixel format for DC
 
-        PIXELFORMATDESCRIPTOR pfd = {
+        const PIXELFORMATDESCRIPTOR pfd = {
             sizeof(PIXELFORMATDESCRIPTOR),   // size of this pfd
             1,				     // version number
             PFD_DRAW_TO_WINDOW |	     // support window
@@ -813,7 +813,7 @@ void dsPlatformSimLoop(int window_width, int window_height,
             0, 0, 0			     // layer masks ignored
         };
         // get the best available match of pixel format for the device context
-        int iPixelFormat = ChoosePixelFormat(windowDC, &pfd);
+        const int iPixelFormat = ChoosePixelFormat(windowDC, &pfd);
         if (iPixelFormat == 0) {
             dsError("could not find a good OpenGL pixel format");
             // break;
@@ -913,7 +913,7 @@ static double g_prevElapsedTime = 0.0;
 /*extern */
 double dsElapsedTime()
 {
-    double curr = timeGetTime() / 1000.0;
+    const double curr = timeGetTime() / 1000.0;
     if (g_prevElapsedTime == 0.0) {
         g_prevElapsedTime = curr;
     }

@@ -646,7 +646,7 @@ void dWorldExportDIF (dWorldID w, FILE *file, const char *prefix)
     // joints
     num = 0;
     (void)fprintf (file,"%sjoint = {}\n",prefix);
-    for (dxJoint *j=w->firstjoint; j; j=(dxJoint*)j->next) {
+    for (const dxJoint *j=w->firstjoint; j; j=(dxJoint*)j->next) {
         c.indent++;
         const char *name = getJointName (j);
         (void)fprintf (file,

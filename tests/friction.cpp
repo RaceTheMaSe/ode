@@ -73,13 +73,13 @@ SUITE(JointContact)
         dReal dummy_J[3][16] = {{0}};
         int dummy_findex[3];
 
-        dReal info2_fps = 100;
-        dReal info2_erp = 0;
+        const dReal info2_fps = 100;
+        const dReal info2_erp = 0;
         dReal *J1 = dummy_J[0];
         dReal *J2 = dummy_J[0] + 8;
         dReal *rhscfm = dummy_J[0] + 6;
         dReal *lohi = dummy_J[0] + 14;
-        unsigned rowskip = 16;
+        const unsigned rowskip = 16;
         int *findex = dummy_findex;
 
 #define ZERO_ALL do {                                           \

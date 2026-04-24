@@ -113,7 +113,7 @@ void dxEventWakeup::DoFinalizeObject()
 
     if (event_handle != NULL)
     {
-        BOOL close_result = CloseHandle(event_handle);
+        const BOOL close_result = CloseHandle(event_handle);
         dICHECK(close_result != FALSE);
 
         m_event_handle = NULL;
@@ -126,7 +126,7 @@ void dxEventWakeup::ResetWakeup()
     // Order of assignment and resetting event is not important but it is preferable to be performed this way.
     m_state_is_permanent = false;
 
-    BOOL event_set_result = ResetEvent(m_event_handle);
+    const BOOL event_set_result = ResetEvent(m_event_handle);
     dICHECK(event_set_result);
 }
 
@@ -134,7 +134,7 @@ void dxEventWakeup::WakeupAThread()
 {
     dIASSERT(!m_state_is_permanent); // Wakeup should not be used after permanent signal
 
-    BOOL event_reset_result = SetEvent(m_event_handle);
+    const BOOL event_reset_result = SetEvent(m_event_handle);
     dICHECK(event_reset_result);
 }
 
@@ -143,7 +143,7 @@ void dxEventWakeup::WakeupAllThreads()
     // Order of assignment and setting event is important!
     m_state_is_permanent = true;
 
-    BOOL event_set_result = SetEvent(m_event_handle);
+    const BOOL event_set_result = SetEvent(m_event_handle);
     dICHECK(event_set_result);
 }
 
@@ -154,14 +154,14 @@ bool dxEventWakeup::WaitWakeup(const dThreadedWaitTime *timeout_time_ptr)
 
     if (timeout_time_ptr == NULL)
     {
-        DWORD event_wait_result = WaitForSingleObject(m_event_handle, INFINITE);
+        const DWORD event_wait_result = WaitForSingleObject(m_event_handle, INFINITE);
         dICHECK(event_wait_result == WAIT_OBJECT_0);
 
         wait_result = true;
     }
     else if (timeout_time_ptr->wait_sec == 0 && timeout_time_ptr->wait_nsec == 0)
     {
-        DWORD event_wait_result = WaitForSingleObject(m_event_handle, 0);
+        const DWORD event_wait_result = WaitForSingleObject(m_event_handle, 0);
 
         wait_result = event_wait_result == WAIT_OBJECT_0;
         dICHECK(wait_result || event_wait_result == WAIT_TIMEOUT);
@@ -188,7 +188,7 @@ bool dxEventWakeup::WaitWakeup(const dThreadedWaitTime *timeout_time_ptr)
                 timeout_seconds_remaining = 0;
             }
 
-            DWORD event_wait_result = WaitForSingleObject(m_event_handle, wait_timeout);
+            const DWORD event_wait_result = WaitForSingleObject(m_event_handle, wait_timeout);
 
             if (event_wait_result == WAIT_OBJECT_0)
             {
@@ -211,7 +211,7 @@ bool dxEventWakeup::WaitWakeup(const dThreadedWaitTime *timeout_time_ptr)
     if (wait_result && m_state_is_permanent)
     {
         // Since event is automatic it is necessary to set it back for the upcoming waiters
-        BOOL event_set_result = SetEvent(m_event_handle);
+        const BOOL event_set_result = SetEvent(m_event_handle);
         dICHECK(event_set_result);
     }
 

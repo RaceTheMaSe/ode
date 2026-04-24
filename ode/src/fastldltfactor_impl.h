@@ -929,7 +929,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                         Y[0][1] = ptrBElement[rowSkip] - Z[0][1];
                     }
 
-                    dReal p2 = ptrLElement[rowSkip];
+                    const dReal p2 = ptrLElement[rowSkip];
 
                     Y[1][0] = ptrBElement[1] - Z[1][0] - p2 * Y[0][0];
                     CONST_IF (b_rows >= 2)
@@ -1145,7 +1145,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Stripe_X(const dReal *L, dR
                         Y[0][1] = ptrBElement[rowSkip] - Z[0][1];
                     }
 
-                    dReal p2 = ptrLElement[rowSkip];
+                    const dReal p2 = ptrLElement[rowSkip];
 
                     Y[1][0] = ptrBElement[1] - Z[1][0] - p2 * Y[0][0];
                     CONST_IF (b_rows >= 2)
@@ -1314,7 +1314,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
     while ((blockIndex = ThrsafeIncrementIntUpToLimit(&factorizationContext->m_nextColumnIndex, blockCount)) != blockCount) 
     {
         doneAnything = true;
-        unsigned blockStartRow = blockIndex * blockSize;
+        const unsigned blockStartRow = blockIndex * blockSize;
 
         dReal *ptrAElement = ARow + blockStartRow;
         dReal *ptrDElement = d + blockStartRow * d_stride;

@@ -451,7 +451,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
             }
 
             /* finish computing the X(i) block */
-            dReal Y11 = ptrBElement[0 * (size_t)b_stride] - (Z11 + Z12);
+            const dReal Y11 = ptrBElement[0 * (size_t)b_stride] - (Z11 + Z12);
             ptrBElement[0 * (size_t)b_stride] = Y11;
         }
     }
@@ -462,7 +462,7 @@ template<unsigned int block_step>
 /*static */
 sizeint ThreadedEquationSolverLDLT::estimateCooperativelySolvingL1StraightMemoryRequirement(unsigned rowCount, SolvingL1StraightMemoryEstimates &ref_solvingMemoryEstimates)
 {
-    unsigned blockCount = deriveSolvingL1StraightBlockCount(rowCount, block_step);
+    const unsigned blockCount = deriveSolvingL1StraightBlockCount(rowCount, block_step);
     const sizeint descriptorSizeRequired = dEFFICIENT_SIZE(sizeof(cellindexint) * blockCount);
     const sizeint contextSizeRequired = dEFFICIENT_SIZE(sizeof(SolveL1StraightCellContext) * (CCI__MAX + 1) * blockCount);
     ref_solvingMemoryEstimates.assignData(descriptorSizeRequired, contextSizeRequired);
@@ -476,7 +476,7 @@ template<unsigned int block_step>
 void ThreadedEquationSolverLDLT::initializeCooperativelySolveL1StraightMemoryStructures(unsigned rowCount, 
     atomicord32 &out_blockCompletionProgress, cellindexint *blockProgressDescriptors, SolveL1StraightCellContext *dUNUSED(cellContexts))
 {
-    unsigned blockCount = deriveSolvingL1StraightBlockCount(rowCount, block_step);
+    const unsigned blockCount = deriveSolvingL1StraightBlockCount(rowCount, block_step);
 
     out_blockCompletionProgress = 0;
     memset(blockProgressDescriptors, 0, blockCount * sizeof(*blockProgressDescriptors));
@@ -1051,18 +1051,18 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
                     {
                         Y[0] = ptrBElement[0 * b_stride] - Z[0];
 
-                        dReal p2 = ptrLElement[0];
+                        const dReal p2 = ptrLElement[0];
                         Y[1] = ptrBElement[1 * b_stride] - Z[1] - p2 * Y[0];
 
                         ptrLElement += rowSkip;
 
-                        dReal p3 = ptrLElement[0];
-                        dReal p3_1 = ptrLElement[1];
+                        const dReal p3 = ptrLElement[0];
+                        const dReal p3_1 = ptrLElement[1];
                         Y[2] = ptrBElement[2 * b_stride] - Z[2] - p3 * Y[0] - p3_1 * Y[1];
 
-                        dReal p4 = ptrLElement[rowSkip];
-                        dReal p4_1 = ptrLElement[1 + rowSkip];
-                        dReal p4_2 = ptrLElement[2 + rowSkip];
+                        const dReal p4 = ptrLElement[rowSkip];
+                        const dReal p4_1 = ptrLElement[1 + rowSkip];
+                        const dReal p4_2 = ptrLElement[2 + rowSkip];
                         Y[3] = ptrBElement[3 * b_stride] - Z[3] - p4 * Y[0] - p4_1 * Y[1] - p4_2 * Y[2];
                         dSASSERT(block_step == 4);
                     }
@@ -1072,13 +1072,13 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
 
                         if (loopX1RowCount >= 2)
                         {
-                            dReal p2 = ptrLElement[0];
+                            const dReal p2 = ptrLElement[0];
                             Y[1] = ptrBElement[1 * b_stride] - Z[1] - p2 * Y[0];
 
                             if (loopX1RowCount > 2)
                             {
-                                dReal p3 = ptrLElement[0 + rowSkip];
-                                dReal p3_1 = ptrLElement[1 + rowSkip];
+                                const dReal p3 = ptrLElement[0 + rowSkip];
+                                const dReal p3_1 = ptrLElement[1 + rowSkip];
                                 Y[2] = ptrBElement[2 * b_stride] - Z[2] - p3 * Y[0] - p3_1 * Y[1];
                             }
                         }
@@ -1436,18 +1436,18 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
                     {
                         Y[0] = ptrBElement[0 * b_stride] - Z[0];
 
-                        dReal p2 = ptrLElement[0];
+                        const dReal p2 = ptrLElement[0];
                         Y[1] = ptrBElement[1 * b_stride] - Z[1] - p2 * Y[0];
 
                         ptrLElement += rowSkip;
 
-                        dReal p3 = ptrLElement[0];
-                        dReal p3_1 = ptrLElement[1];
+                        const dReal p3 = ptrLElement[0];
+                        const dReal p3_1 = ptrLElement[1];
                         Y[2] = ptrBElement[2 * b_stride] - Z[2] - p3 * Y[0] - p3_1 * Y[1];
 
-                        dReal p4 = ptrLElement[rowSkip];
-                        dReal p4_1 = ptrLElement[1 + rowSkip];
-                        dReal p4_2 = ptrLElement[2 + rowSkip];
+                        const dReal p4 = ptrLElement[rowSkip];
+                        const dReal p4_1 = ptrLElement[1 + rowSkip];
+                        const dReal p4_2 = ptrLElement[2 + rowSkip];
                         Y[3] = ptrBElement[3 * b_stride] - Z[3] - p4 * Y[0] - p4_1 * Y[1] - p4_2 * Y[2];
                         dSASSERT(block_step == 4);
                     }
@@ -1457,13 +1457,13 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
 
                         if (loopX1RowCount >= 2)
                         {
-                            dReal p2 = ptrLElement[0];
+                            const dReal p2 = ptrLElement[0];
                             Y[1] = ptrBElement[1 * b_stride] - Z[1] - p2 * Y[0];
 
                             if (loopX1RowCount > 2)
                             {
-                                dReal p3 = ptrLElement[0 + rowSkip];
-                                dReal p3_1 = ptrLElement[1 + rowSkip];
+                                const dReal p3 = ptrLElement[0 + rowSkip];
+                                const dReal p3_1 = ptrLElement[1 + rowSkip];
                                 Y[2] = ptrBElement[2 * b_stride] - Z[2] - p3 * Y[0] - p3_1 * Y[1];
                             }
                         }

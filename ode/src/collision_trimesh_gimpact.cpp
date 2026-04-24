@@ -255,7 +255,7 @@ dTriMeshDataID dGeomTriMeshDataCreate()
 /*extern */
 void dGeomTriMeshDataDestroy(dTriMeshDataID g)
 {
-    dxTriMeshData *data = g;
+    const dxTriMeshData *data = g;
     delete data;
 }
 

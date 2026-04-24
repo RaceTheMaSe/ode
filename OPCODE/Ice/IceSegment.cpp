@@ -29,7 +29,7 @@ using namespace IceMaths;
 float Segment::SquareDistance(const Point& point, float* t)	const
 {
 	Point Diff = point - mP0;
-	Point Dir = mP1 - mP0;
+	const Point Dir = mP1 - mP0;
 	float fT = Diff | Dir;
 
 	if(fT<=0.0f)
@@ -38,7 +38,7 @@ float Segment::SquareDistance(const Point& point, float* t)	const
 	}
 	else
 	{
-		float SqrLen= Dir.SquareMagnitude();
+		const float SqrLen= Dir.SquareMagnitude();
 		if(fT>=SqrLen)
 		{
 			fT = 1.0f;

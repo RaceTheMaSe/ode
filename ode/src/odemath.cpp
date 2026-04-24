@@ -273,7 +273,7 @@ bool dxOrthogonalizeR(dMatrix3 m)
         const dReal proj = dCalcVectorDot3(m + dM3E__X_MIN, m + dM3E__Y_MIN);
         if (proj != 0) {
             // Gram-Schmidt step on row[1]
-            dReal proj_div_n0 = proj / n0;
+            const dReal proj_div_n0 = proj / n0;
             row2_store[dV3E_X] = m[static_cast<int>(dM3E__Y_MIN) + dV3E_X] - proj_div_n0 * m[static_cast<int>(dM3E__X_MIN) + dV3E_X] ;
             row2_store[dV3E_Y] = m[static_cast<int>(dM3E__Y_MIN) + dV3E_Y] - proj_div_n0 * m[static_cast<int>(dM3E__X_MIN) + dV3E_Y];
             row2_store[dV3E_Z] = m[static_cast<int>(dM3E__Y_MIN) + dV3E_Z] - proj_div_n0 * m[static_cast<int>(dM3E__X_MIN) + dV3E_Z];

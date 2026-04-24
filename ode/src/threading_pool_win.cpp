@@ -96,7 +96,7 @@ void dxEventObject::FinalizeObject()
     HANDLE event_handle = m_event_handle;
     if (event_handle != NULL)
     {
-        BOOL close_result = ::CloseHandle(event_handle);
+        const BOOL close_result = ::CloseHandle(event_handle);
         dICHECK(close_result); // Object destruction should always succeed
 
         m_event_handle = NULL;
@@ -105,13 +105,13 @@ void dxEventObject::FinalizeObject()
 
 void dxEventObject::SetEvent()
 {
-    BOOL set_result = ::SetEvent(m_event_handle);
+    const BOOL set_result = ::SetEvent(m_event_handle);
     dICHECK(set_result);
 }
 
 void dxEventObject::ResetEvent()
 {
-    BOOL reset_result = ::ResetEvent(m_event_handle);
+    const BOOL reset_result = ::ResetEvent(m_event_handle);
     dICHECK(reset_result);
 }
 
@@ -230,7 +230,7 @@ bool dxThreadPoolThreadInfo::Initialize(sizeint stack_size, unsigned int ode_dat
         // It is OK to alter priority for thread without creating it in suspended state as
         // it is anyway going to be waited for (waited for its init result) and 
         // will not be issues commands until after that.
-        int own_priority = GetThreadPriority(GetCurrentThread());
+        const int own_priority = GetThreadPriority(GetCurrentThread());
         if (own_priority != THREAD_PRIORITY_ERROR_RETURN)
         {
             if (!SetThreadPriority(thread_handle, own_priority))
@@ -239,10 +239,10 @@ bool dxThreadPoolThreadInfo::Initialize(sizeint stack_size, unsigned int ode_dat
             }
         }
 
-        bool thread_init_result = WaitInitStatus();
+        const BOOL thread_init_result = WaitInitStatus();
         if (!thread_init_result)
         {
-            DWORD error_save = GetLastError();
+            const DWORD error_save = GetLastError();
             WaitAndCloseThreadHandle(thread_handle);
             SetLastError(error_save);
             break;
@@ -271,10 +271,10 @@ bool dxThreadPoolThreadInfo::Initialize(sizeint stack_size, unsigned int ode_dat
 
 bool dxThreadPoolThreadInfo::WaitInitStatus()
 {
-    bool acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
+    const BOOL acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
     dICHECK(acknowledgement_wait_result);
 
-    DWORD error_code = (DWORD)(sizeint)m_command_param;
+    const DWORD error_code = (DWORD)(sizeint)m_command_param;
 
     bool init_status;
     if(error_code == ERROR_SUCCESS)
@@ -304,17 +304,17 @@ void dxThreadPoolThreadInfo::Finalize()
 
 void dxThreadPoolThreadInfo::WaitAndCloseThreadHandle(HANDLE thread_handle)
 {
-    DWORD thread_wait_result = WaitForSingleObject(thread_handle, INFINITE);
+    const DWORD thread_wait_result = WaitForSingleObject(thread_handle, INFINITE);
     dICHECK(thread_wait_result == WAIT_OBJECT_0);
 
-    BOOL thread_close_result = CloseHandle(thread_handle);
+    const BOOL thread_close_result = CloseHandle(thread_handle);
     dIVERIFY(thread_close_result);
 
 }
 
 void dxThreadPoolThreadInfo::ExecuteThreadCommand(dxTHREADCOMMAND command, void *param, bool wait_response)
 {
-    bool acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
+    const BOOL acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
     dICHECK(acknowledgement_wait_result);
 
     m_acknowledgement_event.ResetEvent();
@@ -326,7 +326,7 @@ void dxThreadPoolThreadInfo::ExecuteThreadCommand(dxTHREADCOMMAND command, void 
 
     if (wait_response)
     {
-        bool new_acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
+        const BOOL new_acknowledgement_wait_result = m_acknowledgement_event.WaitInfinitely();
         dICHECK(new_acknowledgement_wait_result);
     }
 }
@@ -341,7 +341,7 @@ unsigned CALLBACK dxThreadPoolThreadInfo::ThreadProcedure_Callback(void *thread_
 
 void dxThreadPoolThreadInfo::ThreadProcedure()
 {
-    bool init_result = dAllocateODEDataForThread(m_ode_data_allocate_flags) != 0;
+    const BOOL init_result = dAllocateODEDataForThread(m_ode_data_allocate_flags) != 0;
 
     ReportInitStatus(init_result != FALSE);
 
@@ -367,7 +367,7 @@ void dxThreadPoolThreadInfo::RunCommandHandlingLoop()
 
     while (!exit_requested)
     {
-        bool command_wait_result = m_command_event.WaitInfinitely();
+        const BOOL command_wait_result = m_command_event.WaitInfinitely();
         dICHECK(command_wait_result);
 
         const dxTHREADCOMMAND command_code = m_command_code;
@@ -521,7 +521,7 @@ void dxThreadingThreadPool::FinalizeThreads()
     dxThreadPoolThreadInfo *thread_infos = m_thread_infos;
     if (thread_infos != NULL)
     {
-        sizeint thread_count = m_thread_count;
+        const sizeint thread_count = m_thread_count;
 
         FinalizeIndividualThreadInfos(thread_infos, thread_count);
         dFree(thread_infos, thread_count * sizeof(dxThreadPoolThreadInfo));
@@ -535,7 +535,7 @@ bool dxThreadingThreadPool::InitializeIndividualThreadInfos(dxThreadPoolThreadIn
 {
     bool any_fault = false;
 
-    dxThreadPoolThreadInfo *const infos_end = thread_infos + thread_count;
+    const dxThreadPoolThreadInfo *const infos_end = thread_infos + thread_count;
     for (dxThreadPoolThreadInfo *current_info = thread_infos; current_info != infos_end; ++current_info)
     {
         if (!InitializeSingleThreadInfo(current_info, stack_size, ode_data_allocate_flags))
@@ -547,13 +547,13 @@ bool dxThreadingThreadPool::InitializeIndividualThreadInfos(dxThreadPoolThreadIn
         }
     }
 
-    BOOL result = !any_fault;
+    const BOOL result = !any_fault;
     return result != 0;
 }
 
 void dxThreadingThreadPool::FinalizeIndividualThreadInfos(dxThreadPoolThreadInfo *thread_infos, sizeint thread_count)
 {
-    dxThreadPoolThreadInfo *const infos_end = thread_infos + thread_count;
+    const dxThreadPoolThreadInfo *const infos_end = thread_infos + thread_count;
     for (dxThreadPoolThreadInfo *current_info = thread_infos; current_info != infos_end; ++current_info)
     {
         FinalizeSingleThreadInfo(current_info);
@@ -592,19 +592,19 @@ void dxThreadingThreadPool::ServeThreadingImplementation(dThreadingImplementatio
 {
     dxThreadPoolThreadInfo::dxServeImplementationParams params(impl, &m_ready_wait_event);
 
-    dxThreadPoolThreadInfo *const infos_end = m_thread_infos + m_thread_count;
+    const dxThreadPoolThreadInfo *const infos_end = m_thread_infos + m_thread_count;
     for (dxThreadPoolThreadInfo *current_info = m_thread_infos; current_info != infos_end; ++current_info)
     {
         current_info->ExecuteThreadCommand(dxThreadPoolThreadInfo::dxTHREAD_COMMAND_SERVE_IMPLEMENTATION, &params, true);
 
-        bool ready_wait_result = m_ready_wait_event.WaitInfinitely();
+        const BOOL ready_wait_result = m_ready_wait_event.WaitInfinitely();
         dICHECK(ready_wait_result);
     }
 }
 
 void dxThreadingThreadPool::WaitIdleState()
 {
-    dxThreadPoolThreadInfo *const infos_end = m_thread_infos + m_thread_count;
+    const dxThreadPoolThreadInfo *const infos_end = m_thread_infos + m_thread_count;
     for (dxThreadPoolThreadInfo *current_info = m_thread_infos; current_info != infos_end; ++current_info)
     {
         current_info->ExecuteThreadCommand(dxThreadPoolThreadInfo::dxTHREAD_COMMAND_NOOP, NULL, true);
@@ -624,7 +624,7 @@ void dxThreadingThreadPool::WaitIdleState()
     dThreadingThreadPoolID thread_pool = new dxThreadingThreadPool();
     if (thread_pool != NULL)
     {
-        unsigned restricted_thread_count = dMIN(thread_count, dTHREADING_MAX_SUPPORTED_POOL_THREADS);
+        const unsigned restricted_thread_count = dMIN(thread_count, dTHREADING_MAX_SUPPORTED_POOL_THREADS);
         if (thread_pool->InitializeThreads(restricted_thread_count, stack_size, ode_data_allocate_flags))
         {
             // do nothing
@@ -669,7 +669,7 @@ void dxThreadingThreadPool::WaitIdleState()
 /*extern */void dThreadingFreeThreadPool(dThreadingThreadPoolID pool)
 {
 #if defined(dBUILTIN_THREADING_IMPL_ENABLED)
-    dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
+    const dxThreadingThreadPool *thread_pool = (dxThreadingThreadPool *)pool;
     delete thread_pool;
 #else
     (void)pool;

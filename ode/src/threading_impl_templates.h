@@ -543,7 +543,7 @@ template<class tThreadMutex>
 {
     if (mutex_group != NULL)
     {
-        dmutexindex_t Mutex_count = mutex_group->m_un.m_mutex_count;
+        const dmutexindex_t Mutex_count = mutex_group->m_un.m_mutex_count;
         mutex_group->FinalizeMutexArray(Mutex_count);
 
         const sizeint anyting_not_zero = 2 * sizeof(sizeint);
@@ -607,7 +607,7 @@ bool dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Re
         ReleaseAJob(job_to_release, job_result, wait_signal_proc_ptr);
     }
 
-    dxMutexLockHelper list_access(m_list_access_lock);
+    const dxMutexLockHelper list_access(m_list_access_lock);
 
     return PickNextPendingJob(out_next_job, out_last_job_flag);
 }
@@ -681,7 +681,7 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Re
     {
         dIASSERT(current_job->m_dependencies_count != 0);
 
-        ddependencycount_t new_dependencies_count = SmartAddJobDependenciesCount(current_job, -1);
+        const ddependencycount_t new_dependencies_count = SmartAddJobDependenciesCount(current_job, -1);
 
         if (new_dependencies_count != 0)
         {
@@ -762,7 +762,7 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Qu
     const bool job_is_ready = job_instance->m_dependencies_count == 0;
 
     {
-        dxMutexLockHelper list_access(m_list_access_lock);
+        const dxMutexLockHelper list_access(m_list_access_lock);
 
         InsertJobInfoIntoListHead(job_instance);
     }
@@ -783,7 +783,7 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Al
     // It's OK that access is not atomic - that is to be handled by external logic
     dIASSERT(dependencies_count_change < 0 ? (job_instance->m_dependencies_count >= (ddependencycount_t)(-dependencies_count_change)) : ((ddependencycount_t)(-(ddependencychange_t)job_instance->m_dependencies_count) > (ddependencycount_t)dependencies_count_change));
 
-    ddependencycount_t new_dependencies_count = SmartAddJobDependenciesCount(job_instance, dependencies_count_change);
+    const ddependencycount_t new_dependencies_count = SmartAddJobDependenciesCount(job_instance, dependencies_count_change);
 
     if (new_dependencies_count == 0)
     {
@@ -798,7 +798,7 @@ template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 ddependencycount_t dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::SmartAddJobDependenciesCount(
     dxThreadedJobInfo *job_instance, ddependencychange_t dependencies_count_change)
 {
-    ddependencycount_t new_dependencies_count = tAtomicsProvider::template AddValueToTarget<sizeof(ddependencycount_t)>((volatile void *)&job_instance->m_dependencies_count, dependencies_count_change) + (sizeint)dependencies_count_change;
+    const ddependencycount_t new_dependencies_count = tAtomicsProvider::template AddValueToTarget<sizeof(ddependencycount_t)>((volatile void *)&job_instance->m_dependencies_count, dependencies_count_change) + (sizeint)dependencies_count_change;
     return new_dependencies_count;
 }
 
@@ -860,7 +860,7 @@ dxThreadedJobInfo *dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomic
 
         // Extraction must be locked so that other thread does not "steal" head info,
         // use it and then reinsert back with a different "next"
-        dxMutexLockHelper pool_access(m_pool_access_lock);
+        const dxMutexLockHelper pool_access(m_pool_access_lock);
 
         dxThreadedJobInfo *head_info = (dxThreadedJobInfo *)m_info_pool; // Head info must be re-read after mutex had been locked
 
@@ -908,7 +908,7 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Re
 template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::FreeJobInfoPoolInfos()
 {
-    dxThreadedJobInfo *current_info = (dxThreadedJobInfo *)m_info_pool;
+    const dxThreadedJobInfo *current_info = (dxThreadedJobInfo *)m_info_pool;
 
     while (current_info != NULL)
     {
@@ -924,7 +924,7 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Fr
 template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 bool dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::EnsureNumberOfJobInfosIsPreallocated(ddependencycount_t required_info_count)
 {
-    bool result = required_info_count <= m_info_count_known_to_be_preallocated 
+    const bool result = required_info_count <= m_info_count_known_to_be_preallocated 
         || DoPreallocateJobInfos(required_info_count);
     return result;
 }
@@ -1311,7 +1311,7 @@ bool dxtemplateThreadingImplementation<tJobListContainer, tJobListHandler>::Prea
     // No multithreading protection here!
     // Resources are to be preallocated before jobs start to be scheduled
     // as otherwise there is no way to implement the preallocation.
-    bool result = m_list_container.EnsureNumberOfJobInfosIsPreallocated(max_simultaneous_calls_estimate);
+    const bool result = m_list_container.EnsureNumberOfJobInfosIsPreallocated(max_simultaneous_calls_estimate);
     return result;
 }
 
@@ -1366,7 +1366,7 @@ void dxtemplateThreadingImplementation<tJobListContainer, tJobListHandler>::Wait
 
     m_list_handler.PrepareForWaitingAJobCompletion();
 
-    bool wait_status = ((dxCallWait *)call_wait)->PerformWaiting(timeout_time_ptr);
+    const bool wait_status = ((dxCallWait *)call_wait)->PerformWaiting(timeout_time_ptr);
     dIASSERT(timeout_time_ptr != NULL || wait_status);
 
     if (out_wait_status_ptr)

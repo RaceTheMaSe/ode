@@ -1132,7 +1132,7 @@ int dCollideCylinderTrimesh(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *con
         int ctContacts0 = 0;
         cData.m_gLocalContacts = (sLocalContactData*)dALLOCA16(sizeof(sLocalContactData)*(cData.m_iFlags & NUMC_MASK));
 
-        GUINT32 * boxesresult = GIM_DYNARRAY_POINTER(GUINT32,collision_result);
+        const GUINT32 * boxesresult = GIM_DYNARRAY_POINTER(GUINT32,collision_result);
         GIM_TRIMESH * ptrimesh = &Trimesh->m_collision_trimesh;
 
         gim_trimesh_locks_work_data(ptrimesh);

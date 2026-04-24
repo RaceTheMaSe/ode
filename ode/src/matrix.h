@@ -38,7 +38,7 @@ template <unsigned a_stride, typename element_type>
 ODE_INLINE
 void dxtSetZero (element_type *a, sizeint n)
 {
-    element_type *const aend = a + n * a_stride;
+    const element_type *const aend = a + n * a_stride;
     for (element_type *acurr = a; acurr != aend; acurr += a_stride) {
         *acurr = (element_type)0;
     }
@@ -55,7 +55,7 @@ template <typename element_type>
 ODE_INLINE
 void dxSetValue (element_type *a, sizeint n, element_type value)
 {
-    element_type *const aend = a + n;
+    const element_type *const aend = a + n;
     for (element_type *acurr = a; acurr != aend; ++acurr) {
         *acurr = value;
     }

@@ -1357,7 +1357,7 @@ int dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int S
     {
         GIM_CONTACT *pTriMeshContacts = GIM_DYNARRAY_POINTER(GIM_CONTACT, trimeshContacts);
 
-        dxGIMCContactAccessor contactAccessor(pTriMeshContacts, g1, g2);
+        const dxGIMCContactAccessor contactAccessor(pTriMeshContacts, g1, g2);
         const unsigned culledContactCount = dxGImpactContactsExportHelper::ExportMaxDepthGImpactContacts(contactAccessor, contactCount, Flags, Contacts, Stride);
 
         result = (int)culledContactCount;

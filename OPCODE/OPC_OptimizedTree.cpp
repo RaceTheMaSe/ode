@@ -115,15 +115,15 @@ static void _BuildCollisionTree(AABBCollisionNode* linear, const udword box_id, 
 		// The input tree must be complete => i.e. one primitive/leaf
 		ASSERT(current_node->GetNbPrimitives()==1);
 		// Get the primitive index from the input tree
-		udword PrimitiveIndex = current_node->GetPrimitives()[0];
+		const udword PrimitiveIndex = current_node->GetPrimitives()[0];
 		// Setup box data as the primitive index, marked as leaf
 		linear[box_id].mData = (PrimitiveIndex<<1)|1;
 	}
 	else
 	{
 		// To make the negative one implicit, we must store P and N in successive order
-		udword PosID = current_id++;	// Get a new id for positive child
-		udword NegID = current_id++;	// Get a new id for negative child
+		const udword PosID = current_id++;	// Get a new id for positive child
+		const udword NegID = current_id++;	// Get a new id for negative child
 		// Setup box data as the forthcoming new P pointer
 		linear[box_id].mData = (size_t)&linear[PosID];
 		// Make sure it's not marked as leaf
@@ -169,7 +169,7 @@ static void _BuildNoLeafTree(AABBNoLeafNode* linear, const udword box_id, udword
 		// The input tree must be complete => i.e. one primitive/leaf
 		ASSERT(P->GetNbPrimitives()==1);
 		// Get the primitive index from the input tree
-		udword PrimitiveIndex = P->GetPrimitives()[0];
+		const udword PrimitiveIndex = P->GetPrimitives()[0];
 		// Setup prev box data as the primitive index, marked as leaf
 		linear[box_id].mPosData = (PrimitiveIndex<<1)|1;
 	}
@@ -190,7 +190,7 @@ static void _BuildNoLeafTree(AABBNoLeafNode* linear, const udword box_id, udword
 		// The input tree must be complete => i.e. one primitive/leaf
 		ASSERT(N->GetNbPrimitives()==1);
 		// Get the primitive index from the input tree
-		udword PrimitiveIndex = N->GetPrimitives()[0];
+		const udword PrimitiveIndex = N->GetPrimitives()[0];
 		// Setup prev box data as the primitive index, marked as leaf
 		linear[box_id].mNegData = (PrimitiveIndex<<1)|1;
 	}
@@ -238,8 +238,8 @@ bool AABBCollisionTree::Build(AABBTree* tree)
 	// Checkings
 	if(!tree)	return false;
 	// Check the input tree is complete
-	udword NbTriangles	= tree->GetNbPrimitives();
-	udword NbNodes		= tree->GetNbNodes();
+	const udword NbTriangles	= tree->GetNbPrimitives();
+	const udword NbNodes		= tree->GetNbNodes();
 	if(NbNodes!=NbTriangles*2-1)	return false;
 
 	// Get nodes
@@ -334,8 +334,8 @@ bool AABBNoLeafTree::Build(AABBTree* tree)
 	// Checkings
 	if(!tree)	return false;
 	// Check the input tree is complete
-	udword NbTriangles	= tree->GetNbPrimitives();
-	udword NbExistingNodes		= tree->GetNbNodes();
+	const udword NbTriangles	= tree->GetNbPrimitives();
+	const udword NbExistingNodes		= tree->GetNbNodes();
 	if(NbExistingNodes!=NbTriangles*2-1)	return false;
 
 	const udword NbNodes = NbTriangles-1;
@@ -600,8 +600,8 @@ bool AABBQuantizedTree::Build(AABBTree* tree)
 	// Checkings
 	if(!tree)	return false;
 	// Check the input tree is complete
-	udword NbTriangles	= tree->GetNbPrimitives();
-	udword NbNodes		= tree->GetNbNodes();
+	const udword NbTriangles	= tree->GetNbPrimitives();
+	const udword NbNodes		= tree->GetNbNodes();
 	if(NbNodes!=NbTriangles*2-1)	return false;
 
 	// Get nodes
@@ -718,8 +718,8 @@ bool AABBQuantizedNoLeafTree::Build(AABBTree* tree)
 	// Checkings
 	if(!tree)	return false;
 	// Check the input tree is complete
-	udword NbTriangles	= tree->GetNbPrimitives();
-	udword NbExistingNodes = tree->GetNbNodes();
+	const udword NbTriangles	= tree->GetNbPrimitives();
+	const udword NbExistingNodes = tree->GetNbNodes();
 	if(NbExistingNodes!=NbTriangles*2-1)	return false;
 
 	// Get nodes

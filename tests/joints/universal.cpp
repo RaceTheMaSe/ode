@@ -411,11 +411,11 @@ SUITE (TestdxJointUniversal)
 
         dMatrix3 R;
 
-        dReal ang1 = REAL(0.23);
+        const dReal ang1 = REAL(0.23);
         dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
         dBodySetRotation (bId1, R);
 
-        dReal ang2 = REAL(0.0);
+        const dReal ang2 = REAL(0.0);
 
 
         CHECK_CLOSE (ang1, dJointGetUniversalAngle1 (jId), REAL(1e-4));
@@ -488,9 +488,9 @@ SUITE (TestdxJointUniversal)
 
         dMatrix3 R;
 
-        dReal ang1 = REAL(0.0);
+        const dReal ang1 = REAL(0.0);
 
-        dReal ang2 = REAL(0.23);
+        const dReal ang2 = REAL(0.23);
         dRFromAxisAndAngle (R, axis2[0], axis2[1], axis2[2], ang2);
         dBodySetRotation (bId2, R);
 
@@ -774,8 +774,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis;
         dJointGetUniversalAxis1 (jId, axis);
 
-        dReal ang1 = d2r(REAL(90.0));
-        dReal ang2 = d2r(REAL(0.0));
+        const dReal ang1 = d2r(REAL(90.0));
+        const dReal ang2 = d2r(REAL(0.0));
         dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang1);
         dBodySetRotation (bId1, R);
 
@@ -843,8 +843,8 @@ SUITE (TestdxJointUniversal)
         dJointGetUniversalAxis1 (jId, ax1);
         dJointGetUniversalAxis2 (jId, ax2);
 
-        dReal ang1 = d2r(REAL(0.0));
-        dReal ang2 = d2r(REAL(90.0));
+        const dReal ang1 = d2r(REAL(0.0));
+        const dReal ang2 = d2r(REAL(90.0));
         dRFromAxisAndAngle (R, ax2[0], ax2[1], ax2[2], ang2);
         dBodySetRotation (bId2, R);
 
@@ -915,8 +915,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis;
         dJointGetUniversalAxis2 (jId, axis);
 
-        dReal ang1 = d2r(REAL(0.0));
-        dReal ang2 = d2r(REAL(90.0));
+        const dReal ang1 = d2r(REAL(0.0));
+        const dReal ang2 = d2r(REAL(90.0));
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang2);
@@ -979,8 +979,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis;
         dJointGetUniversalAxis2 (jId, axis);
 
-        dReal ang1 = d2r(REAL(0.0));
-        dReal ang2 = d2r(REAL(90.0));
+        const dReal ang1 = d2r(REAL(0.0));
+        const dReal ang2 = d2r(REAL(90.0));
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], -ang2);
@@ -1046,8 +1046,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis;
         dJointGetUniversalAxis1 (jId, axis);
 
-        dReal ang1 = REAL(0.23);
-        dReal ang2 = REAL(0.0);
+        const dReal ang1 = REAL(0.23);
+        const dReal ang2 = REAL(0.0);
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang1);
@@ -1104,8 +1104,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis;
         dJointGetUniversalAxis2 (jId, axis);
 
-        dReal ang1 = REAL(0.0);
-        dReal ang2 = REAL(0.23);
+        const dReal ang1 = REAL(0.0);
+        const dReal ang2 = REAL(0.23);
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang2);
@@ -1169,11 +1169,11 @@ SUITE (TestdxJointUniversal)
 
         dMatrix3 R;
 
-        dReal ang1 = REAL(0.23);
+        const dReal ang1 = REAL(0.23);
         dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
         dBodySetRotation (bId1, R);
 
-        dReal ang2 = REAL(0.37);
+        const dReal ang2 = REAL(0.37);
         dRFromAxisAndAngle (R, axis2[0], axis2[1], axis2[2], ang2);
         dBodySetRotation (bId2, R);
 
@@ -1308,8 +1308,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis1;
         dJointGetUniversalAxis1 (jId, axis1);
 
-        dReal ang1 = REAL(0.0);
-        dReal ang2 = REAL(0.0);
+        const dReal ang1 = REAL(0.0);
+        const dReal ang2 = REAL(0.0);
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
@@ -1370,8 +1370,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis1;
         dJointGetUniversalAxis1 (jId, axis1);
 
-        dReal ang1 = d2r(90);
-        dReal ang2 = REAL(0.0);
+        const dReal ang1 = d2r(90);
+        const dReal ang2 = REAL(0.0);
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
@@ -1432,8 +1432,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis2;
         dJointGetUniversalAxis2 (jId, axis2);
 
-        dReal ang1 = d2r(REAL(0.0));
-        dReal ang2 = d2r(REAL(0.0));
+        const dReal ang1 = d2r(REAL(0.0));
+        const dReal ang2 = d2r(REAL(0.0));
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis2[0], axis2[1], axis2[2], ang2);
@@ -1490,8 +1490,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis2;
         dJointGetUniversalAxis2 (jId, axis2);
 
-        dReal ang1 = d2r(REAL(0.0));
-        dReal ang2 = d2r(REAL(90.0));
+        const dReal ang1 = d2r(REAL(0.0));
+        const dReal ang2 = d2r(REAL(90.0));
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis2[0], axis2[1], axis2[2], ang2);
@@ -1548,8 +1548,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis2;
         dJointGetUniversalAxis2 (jId, axis2);
 
-        dReal ang1 = d2r(0.0);
-        dReal ang2 = d2r(REAL(-90.0));
+        const dReal ang1 = d2r(0.0);
+        const dReal ang2 = d2r(REAL(-90.0));
 
 
         dMatrix3 R;
@@ -1615,8 +1615,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis1;
         dJointGetUniversalAxis1 (jId, axis1);
 
-        dReal ang1 = REAL(0.23);
-        dReal ang2 = REAL(0.0);
+        const dReal ang1 = REAL(0.23);
+        const dReal ang2 = REAL(0.0);
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
@@ -1828,7 +1828,7 @@ SUITE (TestdxJointUniversal)
         dVector3 axis1;
         dJointGetUniversalAxis1(jId, axis1);
 
-        dReal ang1 = d2r(REAL(90.0));
+        const dReal ang1 = d2r(REAL(90.0));
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis1[0], axis1[1], axis1[2], ang1);
@@ -1907,7 +1907,7 @@ SUITE (TestdxJointUniversal)
         dVector3 axis;
         dJointGetUniversalAxis2 (jId, axis);
 
-        dReal ang2 = d2r(REAL(90.0));
+        const dReal ang2 = d2r(REAL(90.0));
 
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], ang2);
@@ -1952,8 +1952,8 @@ SUITE (TestdxJointUniversal)
         dVector3 axis;
         dJointGetUniversalAxis2 (jId, axis);
 
-        dReal ang1 = 0;
-        dReal ang2 = REAL(-0.23);
+        const dReal ang1 = 0;
+        const dReal ang2 = REAL(-0.23);
 
 
         dMatrix3 R;
@@ -2079,7 +2079,7 @@ SUITE (TestdxJointUniversal)
         dVector3 axis;
         dJointGetUniversalAxis1 (jId, axis);
 
-        dReal angle = d2r(90);
+        const dReal angle = d2r(90);
         dMatrix3 R;
         dRFromAxisAndAngle (R, axis[0], axis[1], axis[2], angle);
         dBodySetRotation (bId1, R);

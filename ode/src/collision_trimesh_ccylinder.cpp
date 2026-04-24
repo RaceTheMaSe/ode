@@ -1168,7 +1168,7 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
     GIM_CONTACT * ptrimeshcontacts = GIM_DYNARRAY_POINTER(GIM_CONTACT,trimeshcontacts);
     unsigned contactcount = trimeshcontacts.m_size;
 
-    dxGIMCContactAccessor contactaccessor(ptrimeshcontacts, TriMesh, gCylinder, -1);
+    const dxGIMCContactAccessor contactaccessor(ptrimeshcontacts, TriMesh, gCylinder, -1);
     contactcount = dxGImpactContactsExportHelper::ExportMaxDepthGImpactContacts(contactaccessor, contactcount, flags, contact, skip);
 
     GIM_DYNARRAY_DESTROY(trimeshcontacts);
