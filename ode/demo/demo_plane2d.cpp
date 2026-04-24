@@ -34,9 +34,9 @@
 #   define drand48()  ((double) (((double) rand()) / ((double) RAND_MAX)))
 
 # define        N_BODIES        40
-# define        STAGE_SIZE      8.0  // in m
+# define        STAGE_SIZE      REAL(8.0)  // in m
 
-# define        TIME_STEP       0.01
+# define        TIME_STEP       REAL(0.01)
 //# define        K_SPRING        10.0
 //# define        K_DAMP          10.0
 
@@ -122,8 +122,8 @@ static void     cb_sim_step (int pause)
         angle += REAL( 0.01 );
 
         track_to_pos (g_globals_ptr->dyn_bodies[0], g_globals_ptr->plane2d_joint_ids[0],
-            dReal( STAGE_SIZE/2 + STAGE_SIZE/2.0 * (double)cos (angle) ),
-            dReal( STAGE_SIZE/2 + STAGE_SIZE/2.0 * (double)sin (angle) ));
+            STAGE_SIZE/2 + STAGE_SIZE/2 * cos (angle),
+            STAGE_SIZE/2 + STAGE_SIZE/2 * sin (angle));
 
         /* double   f0 = 0.001; */
         /* for (int b = 0; b < N_BODIES; b ++) */
@@ -240,8 +240,8 @@ extern int      main
         const int    l = (int) (1 + sqrt ((double) N_BODIES));
         const int    d = (b / l);
         const int    e = (b % l);
-        const dReal  x = dReal( (0.5 + d) / l * STAGE_SIZE );
-        const dReal  y = dReal( (0.5 + e) / l * STAGE_SIZE );
+        const dReal  x = (REAL(0.5) + (dReal)d) / (dReal)l * STAGE_SIZE;
+        const dReal  y = (REAL(0.5) + (dReal)e) / (dReal)l * STAGE_SIZE;
         const dReal  z = REAL( 1.0 ) + REAL( 0.1 ) * (dReal)drand48();
 
         g_globals_ptr->bodies_sides[b][0] = dReal( 5 * (0.2 + 0.7*drand48()) / sqrt((double)N_BODIES) );
