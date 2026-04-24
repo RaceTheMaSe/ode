@@ -37,7 +37,7 @@ using namespace Opcode;
 
 #define SET_CONTACT(prim_index, flag)						\
 	/* Set contact status */								\
-	mFlags |= flag;											\
+	mFlags |= (flag);											\
 	mTouchedPrimitives->Add(udword(prim_index));
 
 //! AABB-triangle test
@@ -653,7 +653,7 @@ bool HybridAABBCollider::Collide(AABBCache& cache, const CollisionAABB& box, con
 	if(GetContactStatus())
 	{
 		// Reset contact status, since it currently only reflects collisions with leaf boxes
-		Collider::InitQueryBase();
+		InitQueryBase();
 
 		// Change dest container so that we can use built-in overlap tests and get collided primitives
 		cache.TouchedPrimitives.Reset();
