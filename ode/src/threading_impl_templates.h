@@ -473,14 +473,14 @@ private:
     bool DoInitializeObject() { return m_list_container.InitializeObject() && m_list_handler.InitializeObject(); }
     void DoFinalizeObject() { /* Do nothing */ }
 
-protected:
+public:
     void FreeInstance() ODE_OVERRIDE;
 
 private:
     typedef dxtemplateMutexGroup<typename tJobListContainer::dxThreadMutex> dxMutexGroup;
     typedef typename tJobListHandler::dxCallWait dxCallWait;
 
-protected:
+public:
     dIMutexGroup *AllocMutexGroup(dmutexindex_t Mutex_count) ODE_OVERRIDE;
     void FreeMutexGroup(dIMutexGroup *mutex_group) ODE_OVERRIDE;
     void LockMutexGroupMutex(dIMutexGroup *mutex_group, dmutexindex_t mutex_index) ODE_OVERRIDE;

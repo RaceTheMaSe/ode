@@ -188,6 +188,7 @@ private:
         return (storageSize - sizeof(FaceAnglesWrapper<TStorageCodec>)) / singleTriangleSize + baseIncludedTriangleCount;
     }
 
+public:
     // IFaceAngleStorageControl
     void disposeStorage() ODE_OVERRIDE;
 
@@ -198,7 +199,6 @@ private:
     // IFaceAngleStorageView
     FaceAngleDomain retrieveFacesAngleFromStorage(dReal &out_angleValue, unsigned triangleIndex, dMeshTriangleVertex vertexIndex) ODE_OVERRIDE;
 
-public:
     void setFaceAngle(unsigned triangleIndex, dMeshTriangleVertex vertexIndex, dReal dAngleValue)
     {
         dIASSERT(dTMPL_IN_RANGE(triangleIndex, 0, getAllocatedTriangleCount()));
