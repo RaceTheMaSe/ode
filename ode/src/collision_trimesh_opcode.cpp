@@ -523,9 +523,6 @@ void dxTriMesh::fetchMeshTriangle(dVector3 *const pout_triangle[3], unsigned ind
 
     Opcode::VertexPointers VP = {};
     Opcode::ConversionArea VC = {};
-    VP.Vertex[0] = new IceMaths::Point();
-    VP.Vertex[1] = new IceMaths::Point();
-    VP.Vertex[2] = new IceMaths::Point();
 
     const dxTriMeshData *meshData = getMeshData();
     meshData->m_Mesh.GetTriangle(VP, index, VC);
@@ -545,10 +542,6 @@ void dxTriMesh::fetchMeshTriangle(dVector3 *const pout_triangle[3], unsigned ind
             out_triangle[dV3E_PAD] = REAL(0.0);
         }
     }
-
-    delete VP.Vertex[0];
-    delete VP.Vertex[1];
-    delete VP.Vertex[2];
 }
 
 void dxTriMesh::fetchMeshTriangle(dVector3 out_triangle[3], unsigned index, const dVector3 position, const dMatrix3 rotation) const
