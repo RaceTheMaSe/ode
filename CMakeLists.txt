@@ -988,16 +988,16 @@ if(ODE_WITH_TESTS)
 	if(WIN32)
 		list(
 			APPEND TEST_SRCS
-			tests/UnitTest++/src/Win32/TimeHelpers.cpp
-			tests/UnitTest++/src/Win32/TimeHelpers.h
+			tests/UnitTest++/src/Win32/TimeHelpersWin.cpp
+			tests/UnitTest++/src/Win32/TimeHelpersWin.h
 		)
 	else()
 		list(
 			APPEND TEST_SRCS
 			tests/UnitTest++/src/Posix/SignalTranslator.cpp
 			tests/UnitTest++/src/Posix/SignalTranslator.h
-			tests/UnitTest++/src/Posix/TimeHelpers.cpp
-			tests/UnitTest++/src/Posix/TimeHelpers.h
+			tests/UnitTest++/src/Posix/TimeHelpersPosix.cpp
+			tests/UnitTest++/src/Posix/TimeHelpersPosix.h
 		)
 	endif()
 	

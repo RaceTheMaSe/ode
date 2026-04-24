@@ -1,7 +1,7 @@
 #include "UnitTestConfig++.h"
 
 #if defined UNITTEST_POSIX
-    #include "Posix/TimeHelpers.h"
+    #include "Posix/TimeHelpersPosix.h"
 #else
-    #include "Win32/TimeHelpers.h"
+    #include "Win32/TimeHelpersWin.h"
 #endif
