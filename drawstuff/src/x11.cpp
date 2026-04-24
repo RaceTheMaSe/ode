@@ -42,6 +42,7 @@
 #include <drawstuff/drawstuff.h>
 #include <drawstuff/version.h>
 #include "internal.h"
+#include "sys/stat.h"
 
 //***************************************************************************
 // error handling for unix
@@ -315,6 +316,7 @@ static void captureFrame (int num)
 
   char s[100];
   sprintf (s,"frame/frame%04d.ppm",num);
+  mkdir("frame",S_IFDIR | S_IRWXU | S_IRWXG | S_IRWXO);
   FILE *f = fopen (s,"wb");
   if (!f) dsError ("can't open \"%s\" for writing",s);
   fprintf (f,"P6\n%d %d\n255\n",width,height);
