@@ -2,7 +2,7 @@
 #include "TestReporterStdout.h"
 
 
-int main(int, char const *[])
+int main(int /*unused*/, char const * /*unused*/[])
 {
     return UnitTest::RunAllTests();
 }
