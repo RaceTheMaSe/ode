@@ -29,9 +29,11 @@
 #endif
 
 #if defined(__cplusplus) && __cplusplus >= 201103L
+#define VIRTUAL
 #define OVERRIDE override
 #define NOEXCEPT noexcept
 #else
+#define VIRTUAL virtual
 #define OVERRIDE
 #define NOEXCEPT throw()
 #endif

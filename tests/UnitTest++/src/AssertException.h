@@ -11,9 +11,9 @@ class AssertException : public std::exception
 public:
     AssertException(char const* description, char const* filename, int lineNumber);
     AssertException(const AssertException& other) NOEXCEPT;
-    virtual ~AssertException() NOEXCEPT OVERRIDE;
+    VIRTUAL ~AssertException() NOEXCEPT OVERRIDE;
 
-    virtual char const* what() const NOEXCEPT OVERRIDE;
+    VIRTUAL char const* what() const NOEXCEPT OVERRIDE;
 
     char const* Filename() const;
     int LineNumber() const;

@@ -203,7 +203,7 @@ public:
 
     void clearTCCache() { /* do nothing */ }
 
-    virtual void computeAABB() ODE_OVERRIDE;
+    void computeAABB() ODE_OVERRIDE;
 
     dxTriMeshData *retrieveMeshData() const { return getMeshData(); }
 
