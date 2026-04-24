@@ -128,7 +128,6 @@ public:
 private:
     bool WaitInitStatus();
 
-private:
     void Finalize();
     void WaitAndCloseThreadHandle(HANDLE thread_handle);
 
@@ -162,7 +161,6 @@ private:
     void ThreadedServeImplementation(dThreadingImplementationID impl, dxEventObject *ready_wait_event);
     static void ProcessThreadServeReadiness_Callback(void *context);
 
-private:
     HANDLE      m_thread_handle;
 
     unsigned int m_ode_data_allocate_flags;

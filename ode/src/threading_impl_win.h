@@ -231,7 +231,6 @@ public:
 
     bool InitializeObject() { return true; }
 
-public:
     void LockMutex() { EnterCriticalSection(&m_critical_section); }
     bool TryLockMutex() { return TryEnterCriticalSection(&m_critical_section) != FALSE; }
     void UnlockMutex() { LeaveCriticalSection(&m_critical_section); }
