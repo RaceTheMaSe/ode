@@ -76,7 +76,7 @@
 							void				_CollideNoPrimitiveTest(const AABBQuantizedNode* node);
 							void				_CollideNoPrimitiveTest(const AABBQuantizedNoLeafNode* node);
 			// Overlap tests
-		inline_				BOOL				AABBContainsBox(const IceMaths::Point& bc, const IceMaths::Point& be);
+		inline_				BOOL				AABBContainsBox(const IceMaths::Point& bc, const IceMaths::Point& be) const;
 		inline_				BOOL				AABBAABBOverlap(const IceMaths::Point& b, const IceMaths::Point& Pb);
 		inline_				BOOL				TriBoxOverlap();
 			// Init methods

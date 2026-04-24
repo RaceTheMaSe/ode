@@ -285,7 +285,7 @@ bool AABBCollider::Collide(AABBCache& cache, const CollisionAABB& box, const AAB
  *	\return		true if the AABB contains the whole box
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-inline_ BOOL AABBCollider::AABBContainsBox(const IceMaths::Point& bc, const IceMaths::Point& be)
+inline_ BOOL AABBCollider::AABBContainsBox(const IceMaths::Point& bc, const IceMaths::Point& be) const
 {
 	if(mMin.x > bc.x - be.x)	return FALSE;
 	if(mMin.y > bc.y - be.y)	return FALSE;
