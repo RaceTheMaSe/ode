@@ -33,14 +33,14 @@ public:
         lastFinishedTest[0] = '\0';
     }
 
-    virtual void ReportTestStart(UnitTest::TestDetails const& test)
+    virtual void ReportTestStart(UnitTest::TestDetails const& test) OVERRIDE
     {
         ++testRunCount;
         std::strcpy(lastStartedSuite, test.suiteName);
         std::strcpy(lastStartedTest, test.testName);
     }
 
-    virtual void ReportFailure(UnitTest::TestDetails const& test, char const* failure)
+    virtual void ReportFailure(UnitTest::TestDetails const& test, char const* failure) OVERRIDE
     {
         ++testFailedCount;
         std::strcpy(lastFailedFile, test.filename);
@@ -50,7 +50,7 @@ public:
         std::strcpy(lastFailedMessage, failure);
     }
 
-    virtual void ReportTestFinish(UnitTest::TestDetails const& test, float testDuration)
+    virtual void ReportTestFinish(UnitTest::TestDetails const& test, float testDuration) OVERRIDE
     {
         ++testFinishedCount;
         std::strcpy(lastFinishedSuite, test.suiteName);
@@ -58,7 +58,7 @@ public:
         lastFinishedTestTime = testDuration;
     }
 
-    virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed) 
+    virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed) OVERRIDE
     {
         summaryTotalTestCount = totalTestCount;
         summaryFailedTestCount = failedTestCount;

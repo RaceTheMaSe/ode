@@ -12,7 +12,7 @@ TEST (PassingTestHasNoFailures)
     {
     public:
         PassingTest() : Test("passing") {}
-        virtual void RunImpl(TestResults& testResults_) const
+        VIRTUAL void RunImpl(TestResults& testResults_) const OVERRIDE
         {
             CHECK(true);
         }
@@ -30,7 +30,7 @@ TEST (FailingTestHasFailures)
     {
     public:
         FailingTest() : Test("failing") {}
-        virtual void RunImpl(TestResults& testResults_) const
+        VIRTUAL void RunImpl(TestResults& testResults_) const OVERRIDE
         {
             CHECK(false);
         }
@@ -48,7 +48,7 @@ TEST (ThrowingTestsAreReportedAsFailures)
     {
     public:
         CrashingTest() : Test("throwing") {}
-        virtual void RunImpl(TestResults&) const
+        VIRTUAL void RunImpl(TestResults& /*unsused*/) const OVERRIDE
         {
             throw "Blah";
         }
@@ -67,7 +67,7 @@ TEST (CrashingTestsAreReportedAsFailures)
     {
     public:
         CrashingTest() : Test("crashing") {}
-        virtual void RunImpl(TestResults&) const
+        VIRTUAL void RunImpl(TestResults&) const OVERRIDE
         {
             reinterpret_cast< void (*)() >(0)();
         }
