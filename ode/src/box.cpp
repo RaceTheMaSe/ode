@@ -161,7 +161,7 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
         // be on opposite sides of a box at the same time.
         dReal squaredDistance = 0;
 
-        for (++sideIndex; sideIndex <= 3; ++sideIndex) {
+        for (++sideIndex; sideIndex != 3; ++sideIndex) {
             const dReal side = b->side[sideIndex] * REAL(0.5);
 
             const dReal positiveDirectionDistance = side - q[sideIndex];
