@@ -603,7 +603,7 @@ bool HybridPlanesCollider::Collide(PlanesCache& cache, const IceMaths::Plane* pl
 	if(GetContactStatus())
 	{
 		// Reset contact status, since it currently only reflects collisions with leaf boxes
-		Collider::InitQueryBase();
+		InitQueryBase();
 
 		// Change dest container so that we can use built-in overlap tests and get collided primitives
 		cache.TouchedPrimitives.Reset();

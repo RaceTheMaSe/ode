@@ -718,7 +718,7 @@ bool HybridOBBCollider::Collide(OBBCache& cache, const IceMaths::OBB& box, const
 	if(GetContactStatus())
 	{
 		// Reset contact status, since it currently only reflects collisions with leaf boxes
-		Collider::InitQueryBase();
+		InitQueryBase();
 
 		// Change dest container so that we can use built-in overlap tests and get collided primitives
 		cache.TouchedPrimitives.Reset();
