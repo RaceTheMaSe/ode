@@ -1,52 +1,5 @@
 ---
-# ODE Coding Style Requirements (CSR) - clang-tidy configuration
-#
-# Reference: CSR.txt
-#
-# CSR Rule Mapping:
-#
-# ENFORCEABLE:
-#   (I.2) No goto               -> cppcoreguidelines-avoid-goto, hicpp-avoid-goto
-#   (I.1) One complex construct -> readability-function-cognitive-complexity (limit)
-#   (I.5) Init with zero        -> cppcoreguidelines-init-variables
-#   (I.6) No variable reuse     -> misc-const-correctness (partial)
-#   (I.7) Params by value const -> readability-non-const-parameter (partial)
-#   (II.3) Private fields only  -> misc-non-private-member-variables-in-classes
-#
-# PARTIALLY ENFORCEABLE (heuristic):
-#   (I.3) Single exit point     -> No direct check; readability-function-cognitive-complexity
-#                                  helps keep functions simple enough for single return
-#   (I.1) Function complexity   -> readability-function-size (lines/statements/branches)
-#
-# NOT ENFORCEABLE BY CLANG-TIDY (require code review):
-#   (I.2) No continue
-#   (I.4) Zero value means failure
-#   (I.8) Result assignment at end
-#   (I.9) Reference params copied to locals
-#   (II.1) Classes work with own fields
-#   (II.2) No direct field access (use accessors)
-#   (II.4) No code in constructors
-#   (II.5) No code in callbacks
-#   (II.6) No public virtual methods
-#   (II.7) No logical level violations
-#
-
-Checks: >
-  -*,
-  cppcoreguidelines-avoid-goto,
-  hicpp-avoid-goto,
-  cppcoreguidelines-init-variables,
-  misc-const-correctness,
-  misc-non-private-member-variables-in-classes,
-  readability-function-cognitive-complexity,
-  readability-function-size,
-  readability-non-const-parameter,
-  bugprone-branch-clone,
-  bugprone-macro-parentheses,
-  bugprone-sizeof-expression,
-  bugprone-suspicious-string-compare,
-  bugprone-use-after-move,
-
+Checks: '
   bugprone-*,
   cert-*,
   concurrency-*,
@@ -70,6 +23,7 @@ Checks: >
   -*-vararg,
   -*-no-malloc,
   -*-deprecated-headers,
+  -*-named-parameter,
   -bugprone-assignment-in-if-condition,
   -bugprone-casting-through-void,
   -bugprone-easily-swappable-parameters,
@@ -93,13 +47,13 @@ Checks: >
   -cppcoreguidelines-avoid-do-while,
   -cppcoreguidelines-avoid-magic-numbers,
   -cppcoreguidelines-avoid-non-const-global-variables,
-  -cppcoreguidelines-init-variables,
   -cppcoreguidelines-interfaces-global-init,
   -cppcoreguidelines-macro-usage,
   -cppcoreguidelines-non-private-member-variables-in-classes,
   -cppcoreguidelines-owning-memory,
   -cppcoreguidelines-prefer-member-initializer,
   -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-bounds-avoid-unchecked-container-access,
   -cppcoreguidelines-pro-bounds-constant-array-index,
   -cppcoreguidelines-pro-bounds-pointer-arithmetic,
   -cppcoreguidelines-pro-type-const-cast,
@@ -108,16 +62,18 @@ Checks: >
   -cppcoreguidelines-pro-type-static-cast-downcast,
   -cppcoreguidelines-pro-type-union-access,
   -cppcoreguidelines-macro-to-enum,
+  -cppcoreguidelines-use-enum-class,
   -hicpp-braces-around-statements,
   -hicpp-explicit-conversions,
   -hicpp-new-delete-operators,
   -hicpp-no-array-decay,
   -hicpp-no-assembler,
   -hicpp-signed-bitwise,
+  -hicpp-uppercase-literal-suffix,
   -hicpp-use-emplace,
   -hicpp-use-auto,
   -hicpp-use-equals-default,
-  -hicpp-uppercase-literal-suffix,
+  -hicpp-use-equals-delete,
   -hicpp-use-nullptr,
   -misc-definitions-in-headers,
   -misc-header-include-cycle,
@@ -130,29 +86,33 @@ Checks: >
   -performance-enum-size,
   -performance-no-int-to-ptr,
   -performance-unnecessary-value-param,
-  -readability-avoid-uncon*,
   -readability-avoid-nested-conditional-operator,
+  -readability-avoid-uncon*,
   -readability-braces-around-statements,
   -readability-casting,
   -readability-container-data-pointer,
   -readability-convert-member-functions-to-static,
   -readability-else-after-return,
+  -readability-enum-initial-value,
+  -readability-function-size,
+  -readability-function-cognitive-complexity,
   -readability-identifier-length,
   -readability-implicit-bool-conversion,
+  -readability-incon*,
+  -readability-isolate-declaration,
   -readability-magic-numbers,
   -readability-math-missing-parentheses,
   -readability-non-const-parameter,
   -readability-qualified-auto,
+  -readability-redundant-casting,
   -readability-redundant-member-init,
+  -readability-redundant-parentheses,
   -readability-simplify-boolean-expr,
+  -readability-suspicious-call-argument,
   -readability-uppercase-literal-suffix,
   -readability-use-anyofallof,
-  -readability-incon*,
-  -readability-use-std-min-max,
-  -readability-isolate-declaration,
-  -readability-enum-initial-value,
-  -readability-suspicious-call-argument,
-  -readability-use-concise-preprocessor-directives
+  -readability-use-concise-preprocessor-directives,
+  -readability-use-std-min-max'
 
 WarningsAsErrors: >
   cppcoreguidelines-avoid-goto,
