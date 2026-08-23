@@ -274,6 +274,7 @@ static void setAllColliders (int i, dColliderFn *fn)
 /*extern */void dFinitColliders()
 {
     colliders_initialized = 0;
+    (void)colliders_initialized;
 }
 
 void dSetColliderOverride (int i, int j, dColliderFn *fn)
