@@ -306,6 +306,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
     const int TriCount = (int)Collider.GetNbTouchedPrimitives();
     const int* Triangles = (const int*)Collider.GetTouchedPrimitives();
     dIASSERT(Triangles != NULL);
+    if(Triangles == NULL) return 0;
     
     if (TriCount != 0){
         if (TriMesh->m_ArrayCallback != null){

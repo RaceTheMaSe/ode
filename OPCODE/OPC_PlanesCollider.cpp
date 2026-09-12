@@ -184,6 +184,7 @@ BOOL PlanesCollider::InitQuery(PlanesCache& cache, const IceMaths::Plane* planes
 	{
 		DELETEARRAY(mPlanes);
 		mPlanes = new IceMaths::Plane[nb_planes];
+		if(!mPlanes) return FALSE;
 	}
 	mNbPlanes = nb_planes;
 
