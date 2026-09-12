@@ -38,7 +38,9 @@ spaces
 #ifdef _MSC_VER
 #pragma warning(disable:4291)  // for VC++, no complaints about "no matching operator delete found"
 #endif
-
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic ignored "-Wanalyzer-out-of-bounds"
+#endif
 //****************************************************************************
 // make the geom dirty by setting the GEOM_DIRTY and GEOM_BAD_AABB flags
 // and moving it to the front of the space's list. all the parents of a

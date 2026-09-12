@@ -304,9 +304,15 @@ bool AABBTreeNode::Subdivide(AABBTreeBuilder* builder)
 		mPos = (size_t)PosNeg;
 #endif
 	}
-
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-malloc-leak"
+#endif
 	// Update stats
 	builder->IncreaseCount(2);
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic pop
+#endif
 
 	// Assign children
 	AABBTreeNode* Pos = const_cast<AABBTreeNode *>(GetPos());

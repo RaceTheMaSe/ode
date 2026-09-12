@@ -1131,7 +1131,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
         triplane[3] =  minY;
         dGeomPlaneSetNoNormalize (sliding_plane, triplane);
         // find collision and compute contact points
-        const int numTerrainContacts = geomNPlaneCollider(o2, sliding_plane, flags, contact, skip);
+        const int numTerrainContacts = geomNPlaneCollider != NULL ? geomNPlaneCollider(o2, sliding_plane, flags, contact, skip) : 0;
         dIASSERT(numTerrainContacts <= numMaxContactsPossible);
         
         for (int i = 0; i < numTerrainContacts; i++)

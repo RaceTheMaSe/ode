@@ -986,12 +986,17 @@ void dxIslandsProcessingCallContext::ThreadedProcessJobStart()
     const dxWorldProcessIslandsInfo &islandsInfo = m_islandsInfo;
     dxBody *const *islandBodiesStart = islandsInfo.GetBodiesArray();
     dxJoint *const *islandJointsStart = islandsInfo.GetJointsArray();
-
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-null-dereference"
+#endif
     dxSingleIslandCallContext *stepperCallContext = (dxSingleIslandCallContext *)stepperArena->AllocateBlock(sizeof(dxSingleIslandCallContext));
     // Save area state after context allocation to be restored for the stepper
     void *arenaState = stepperArena->SaveState();
     new(stepperCallContext) dxSingleIslandCallContext(this, stepperArena, arenaState, islandBodiesStart, islandJointsStart);
-
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic pop
+#endif
     // Summary fault flag may be omitted as any failures will automatically propagate to dependent releasee (i.e. to m_groupReleasee)
     m_world->PostThreadedCallForUnawareReleasee(NULL, NULL, 0, m_groupReleasee, NULL, 
         &dxIslandsProcessingCallContext::ThreadedProcessIslandSearch_Callback, (void *)stepperCallContext, 0, "World Islands Stepping Selection");

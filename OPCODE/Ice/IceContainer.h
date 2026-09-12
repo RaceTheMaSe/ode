@@ -11,7 +11,10 @@
 // Include Guard
 #ifndef ICECONTAINER_H
 #define ICECONTAINER_H
-
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-malloc-leak"
+#endif
 //	#define CONTAINER_STATS
 
 	enum FindMode
@@ -240,5 +243,7 @@
 				udword*			mEntries;			//!< List of entries
 				udword			mGrowthFactor;		//!< Resize: new number of entries = old number * mGrowthFactor
 	};
-
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic pop
+#endif
 #endif // ICECONTAINER_H

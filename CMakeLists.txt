@@ -1226,9 +1226,10 @@ MACRO(ENABLE_SANITIZERS PROJECT IS_STATIC)
 					target_compile_options(${PROJECT_NAME} PRIVATE --analyze) # --analyzer-output text
 					target_link_options(${PROJECT_NAME} PRIVATE -Xanalyzer)
 			else()
-					message(WARNING "GCC Static analyzer is not recommended for C++ projects. Ignoring option")
-					# target_compile_options(${PROJECT_NAME} PRIVATE -fanalyzer)
+					message(WARNING "GCC Static analyzer is not recommended for C++ projects")
+					target_compile_options(${PROJECT_NAME} PRIVATE -fanalyzer)
 					# target_compile_options(${PROJECT_NAME} PRIVATE -Wno-analyzer-use-of-uninitialized-value) # false positives or real issues
+					target_compile_options(${PROJECT_NAME} PRIVATE -Wno-analyzer-use-of-uninitialized-value -Wno-analyzer-va-list-leak) # -Wno-analyzer-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-fd-leak
 			endif()
 		else()
 			ENABLE_ANALYZER_OPTION(-fsanitize=address)

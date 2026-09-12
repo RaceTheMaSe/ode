@@ -833,6 +833,10 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Re
     job_instance->m_prev_job_next_ptr = NULL;
 }
 
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-deref-before-check"
+#endif
 template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 dxThreadedJobInfo *dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::ExtractJobInfoFromPoolOrAllocate()
 {
@@ -886,7 +890,9 @@ dxThreadedJobInfo *dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomic
 
     return result_info;
 }
-
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic pop
+#endif
 template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::ReleaseJobInfoIntoPool(
     dxThreadedJobInfo *job_instance)

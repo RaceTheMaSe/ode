@@ -19,7 +19,10 @@
 // Include Guard
 #ifndef OPC_AABBTREE_H
 #define OPC_AABBTREE_H
-
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-null-dereference"
+#endif
 #ifdef OPC_NO_NEG_VANILLA_TREE
 	//! TO BE DOCUMENTED
 	#define IMPLEMENT_TREE(base_class, volume)																			\
@@ -133,5 +136,7 @@
 		// Stats
 				udword				mTotalNbNodes;		//!< Number of nodes in the tree.
 	};
-
+#if defined __GNUC__ && !defined(__llvm__)
+#pragma GCC diagnostic pop
+#endif
 #endif // OPC_AABBTREE_H

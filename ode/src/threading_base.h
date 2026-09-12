@@ -255,12 +255,13 @@ public:
         m_mutex_index(mutex_index),
         m_mutex_locked(true)
     {
-        threading_base->LockMutexGroupMutex(mutex_group, mutex_index);
+        if(m_threading_base != NULL)
+            threading_base->LockMutexGroupMutex(mutex_group, mutex_index);
     }
 
     ~dxMutexGroupLockHelper()
     {
-        if (m_mutex_locked)
+        if (m_mutex_locked && m_threading_base != NULL)
         {
             m_threading_base->UnlockMutexGroupMutex(m_mutex_group, m_mutex_index);
         }
@@ -269,16 +270,16 @@ public:
     void UnlockMutex()
     {
         dIASSERT(m_mutex_locked);
-
-        m_threading_base->UnlockMutexGroupMutex(m_mutex_group, m_mutex_index);
+        if(m_threading_base != NULL)
+            m_threading_base->UnlockMutexGroupMutex(m_mutex_group, m_mutex_index);
         m_mutex_locked = false;
     }
 
     void RelockMutex()
     {
         dIASSERT(!m_mutex_locked);
-
-        m_threading_base->LockMutexGroupMutex(m_mutex_group, m_mutex_index);
+        if(m_threading_base != NULL)
+            m_threading_base->LockMutexGroupMutex(m_mutex_group, m_mutex_index);
         m_mutex_locked = true;
     }
 
