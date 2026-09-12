@@ -1038,7 +1038,7 @@ dReal FindTriangleTriangleCollision(
     separating_normal[3] = REAL(0.0);
     bool bl;
     LineContactSet clipped_points1,clipped_points2;
-    LineContactSet deep_points1,deep_points2;
+    LineContactSet deep_points1 = {},deep_points2 = {};
     // It is necessary to initialize the count because both conditional statements 
     // might be skipped leading to uninitialized count being used for memcpy in if(mostdir==0)
     deep_points1.Count = 0;

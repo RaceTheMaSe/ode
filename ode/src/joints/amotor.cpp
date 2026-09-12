@@ -568,8 +568,8 @@ void dxJointAMotor::addTorques(dReal torque1, dReal torque2, dReal torque3)
     dAASSERT(dIN_RANGE(num, dSA__MIN, dSA__MAX + 1));
 
     dVector3 sum = {};
-    dVector3 torqueVector;
-    dVector3 axes[dSA__MAX];
+    dVector3 torqueVector = {};
+    dVector3 axes[dSA__MAX] = {};
 
 
     if (num != dSA__MIN)
