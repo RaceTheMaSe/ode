@@ -462,6 +462,7 @@ void dxGeom::computePosr() const
     // should only be recalced if we need to - ie offset from a body
     dIASSERT(offset_posr);  
     dIASSERT(body);
+    if(body == NULL || offset_posr == NULL) return;
 
     dMultiply0_331 (final_posr->pos,body->posr.R,offset_posr->pos);
     final_posr->pos[0] += body->posr.pos[0];

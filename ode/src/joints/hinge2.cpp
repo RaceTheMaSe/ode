@@ -216,7 +216,7 @@ dxJointHinge2::getInfo2( dReal worldFPS, dReal worldERP,
 void
 dxJointHinge2::makeV1andV2()
 {
-    if ( node[0].body )
+    if ( node[0].body && node[1].body )
     {
         // get axis 1 and 2 in global coords
         dVector3 ax1, ax2, v;
@@ -539,7 +539,8 @@ dxJointHinge2::setRelativeValues()
 
     dIASSERT(node[0].body != NULL && node[1].body != NULL);
     dVector3 ax1, ax2;
-    getAxisInfo( ax1, ax2, axis, s0, c0 );
+    if(node[0].body != NULL && node[1].body != NULL)
+        getAxisInfo( ax1, ax2, axis, s0, c0 );
 
     makeV1andV2();
     makeW1andW2();

@@ -55,7 +55,16 @@ void
 dxJointUniversal::getAxes( dVector3 ax1, dVector3 ax2 )
 {
     // This says "ax1 = joint->node[0].body->posr.R * joint->axis1"
-    dMultiply0_331( ax1, node[0].body->posr.R, axis1 );
+    if ( node[0].body )
+    {
+        dMultiply0_331( ax1, node[0].body->posr.R, axis1 );
+    }
+    else
+    {
+        ax1[0] = axis1[0];
+        ax1[1] = axis1[1];
+        ax1[2] = axis1[2];
+    }
 
     if ( node[1].body )
     {
