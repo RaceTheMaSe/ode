@@ -503,8 +503,8 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
         bool goForLockedBlockPrimaryCalculation = false, goForLockedBlockDuplicateCalculation = false;
         bool goAssigningTheResult = false, stayWithinTheBlock = false;
 
-        dReal Z[block_step];
-        dReal Y[block_step];
+        dReal Z[block_step] = {};
+        dReal Y[block_step] = {};
 
         dReal *ptrBElement=NULL;
 

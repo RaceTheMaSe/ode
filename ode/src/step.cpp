@@ -1520,13 +1520,10 @@ void dxStepIsland_Stage4(dxStepperStage4CallContext *stage4CallContext)
         const dReal *invIrow = invI + (sizeint)bi * dM3E__MAX;
         const dReal body_invMass_mul_stepSize = stepSize * b->invMass;
 
-        dReal bodyConstrForce[CFE__MAX];
+        dReal bodyConstrForce[CFE__MAX] = {};
         bool constrForceAvailable = false;
         
         unsigned linkIndex = bodyStartJoints != NULL ? bodyStartJoints[bi] : 0;
-        if (linkIndex != 0) {
-            dSetZero(bodyConstrForce, dARRAY_SIZE(bodyConstrForce));
-        }
 
         // compute the constraint force as constrForce = J'*lambda
         for (; linkIndex != 0; constrForceAvailable = true, linkIndex = bodyJointLinks[linkIndex - 1]) {

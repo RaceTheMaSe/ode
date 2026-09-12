@@ -65,8 +65,9 @@ int dMassCheck (const dMass *m)
     // is positive definite, given that I is PD and mass>0. see the theorem
     // about partitioned PD matrices for proof.
 
-    dMatrix3 I2,chat;
+    dMatrix3 I2 = {},chat = {};
     dSetZero (chat,12);
+    dSetZero (I2,12);
     dSetCrossMatrixPlus (chat,m->c,4);
     dMultiply0_333 (I2,chat,chat);
     for (i=0; i<3; i++) I2[i] = m->I[i] + m->mass*I2[i];
@@ -464,7 +465,7 @@ void dMassTranslate (dMass *m, dReal x, dReal y, dReal z)
     // where c is the existing center of mass and I is the old inertia.
 
     int i,j;
-    dMatrix3 ahat,chat,t1,t2;
+    dMatrix3 ahat = {},chat = {},t1 = {},t2 = {};
     dReal a[3];
 
     dAASSERT (m);
