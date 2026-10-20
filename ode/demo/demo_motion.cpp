@@ -244,16 +244,16 @@ static void command (int cmd)
     dMass m;
     int setBody;
   
-    cmd = locase (cmd);
+    cmd = locase ((char)cmd);
     if (cmd == 'b' || cmd == 's' || cmd == 'c' || cmd == 'y')
         {
             setBody = 0;
             if (num < NUM) {
-                i = num;
+                i = (dsizeint)num;
                 num++;
             }
             else {
-                i = nextobj;
+                i = (dsizeint)nextobj;
                 nextobj++;
                 if (nextobj >= num) nextobj = 0;
 

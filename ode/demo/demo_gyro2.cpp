@@ -57,7 +57,7 @@ static dBodyID impGyroBody;
 
 static void start()
 {
-  dAllocateODEDataForThread(dAllocateMaskAll);
+  dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
   float xyz[3] = {0,-4.0f,3.0f};
   float hpr[3] = {90.0000,-15.0000,0.0000};

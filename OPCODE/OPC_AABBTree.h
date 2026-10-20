@@ -30,7 +30,7 @@
 		/* Data access */																								\
 		inline_	const IceMaths::volume*		Get##volume()	const	{ return &mBV;							}					\
 		/* Clear the last bit */																						\
-		inline_	const base_class*	GetPos()		const	{ return (const base_class*)(mPos&~1);	}					\
+		inline_	const base_class*	GetPos()		const	{ return (const base_class*)(mPos&(size_t)~1);	}					\
 		inline_	const base_class*	GetNeg()		const	{ const base_class* P = GetPos(); return P ? P+1 : null;}	\
 																														\
 		/* We don't need to test both nodes since we can't have one without the other	*/								\

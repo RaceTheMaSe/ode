@@ -730,7 +730,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
     // handle auto-disabling of bodies
     dInternalHandleAutoDisabling (world,stepsize);
 
-    unsigned int nb = world->nb, nj = world->nj;
+    unsigned int nb = (unsigned int)world->nb, nj = (unsigned int)world->nj;
     // Make array for island body/joint counts
     unsigned int *islandsizes = memarena->AllocateArray<unsigned int>(2 * (sizeint)nb);
     unsigned int *sizescurr;
@@ -786,7 +786,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
                                     if (nbody && nbody->tag <= 0) {
                                         nbody->tag = 1;
                                         // Make sure all bodies are in the enabled state.
-                                        nbody->flags &= ~dxBodyDisabled;
+                                        nbody->flags &= (unsigned int)~dxBodyDisabled;
                                         stack[stacksize++] = nbody;
                                     }
                                 } else {

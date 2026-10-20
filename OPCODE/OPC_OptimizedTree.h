@@ -125,7 +125,7 @@
 		/* Data access */																							\
 		inline_						const node*		GetNodes()		const	{ return mNodes;					}	\
 		/* Stats */																									\
-		OPC_override(AABBOptimizedTree)	udword			GetUsedBytes()	const	OPCODE_OVERRIDE	{ return mNbNodes*sizeof(node);		}	\
+		OPC_override(AABBOptimizedTree)	udword			GetUsedBytes()	const	OPCODE_OVERRIDE	{ return mNbNodes*(udword)sizeof(node);		}	\
 		private:																									\
 									node*			mNodes;
 

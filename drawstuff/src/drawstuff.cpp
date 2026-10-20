@@ -223,8 +223,8 @@ Image::Image(char *filename)
     else ungetc(c, f);
 
     // read in rest of data
-    image_data = new byte[image_width*image_height * 3];
-    if (fread(image_data, image_width*image_height * 3, 1, f) != 1)
+    image_data = new byte[(size_t)(image_width*image_height * 3)];
+    if (fread(image_data, (size_t)(image_width*image_height * 3), 1, f) != 1)
         dsError("Can not read data from image file `%s'", filename);
     fclose(f);
 }
@@ -646,7 +646,7 @@ void drawTriangle(const float *v0, const float *v1, const float *v2, int solid)
     crossProduct3(normal, u, v);
     normalizeVector3(normal);
 
-    glBegin(solid ? GL_TRIANGLES : GL_LINE_STRIP);
+    glBegin(GLenum(solid ? GL_TRIANGLES : GL_LINE_STRIP));
     glNormal3fv(normal);
     glVertex3fv(v0);
     glVertex3fv(v1);
@@ -667,7 +667,7 @@ void drawTriangleD(const double *v0, const double *v1, const double *v2, int sol
     crossProduct3(normal, u, v);
     normalizeVector3(normal);
 
-    glBegin(solid ? GL_TRIANGLES : GL_LINE_STRIP);
+    glBegin(GLenum(solid ? GL_TRIANGLES : GL_LINE_STRIP));
     glNormal3fv(normal);
     glVertex3dv(v0);
     glVertex3dv(v1);

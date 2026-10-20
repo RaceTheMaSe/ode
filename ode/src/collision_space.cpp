@@ -478,8 +478,8 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
     // for `n' objects, an n*n array of bits is used to record if those objects
     // have been intersection-tested against each other yet. this array can
     // grow large with high n, but oh well...
-    int tested_rowsize = (n+7) >> 3;	// number of bytes needed for n bits
-    std::vector<uint8> tested(n * tested_rowsize);
+    int tested_rowsize = (int)((n+7) >> 3);	// number of bytes needed for n bits
+    std::vector<uint8> tested(n * (sizeint)tested_rowsize);
 
     // create a hash table to store all AABBs. each AABB may take up to 8 cells.
     // we use chaining to resolve collisions, but we use a relatively large table
@@ -508,7 +508,7 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
             const int yend = dbounds[3];
             for (int yi = dbounds[2]; yi <= yend; yi++) {
                 int zbegin = dbounds[4];
-                unsigned long hi = (getVirtualAddressBase(aabbIt->level,xi,yi) + zbegin) % sz;
+                unsigned long hi = (getVirtualAddressBase((unsigned int)aabbIt->level,(unsigned int)xi,(unsigned int)yi) + (unsigned long)zbegin) % sz;
                 const int zend = dbounds[5];
                 for (int zi = zbegin; zi <= zend; (hi = hi + 1U != sz ? hi + 1U : 0UL), zi++) {
                     // get the hash index
@@ -542,7 +542,7 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
                 for (int yi = db[2]; yi <= yend; yi++) {
                     int zbegin = db[4];
                     // get the hash index
-                    unsigned long hi = (getVirtualAddressBase(level, xi, yi) + zbegin) % sz;
+                    unsigned long hi = (getVirtualAddressBase((unsigned int)level, (unsigned int)xi, (unsigned int)yi) + (unsigned long)zbegin) % sz;
                     const int zend = db[5];
                     for (int zi = zbegin; zi <= zend; (hi = hi + 1U != sz ? hi + 1U : 0UL), zi++) {
                         // search all nodes at this index
@@ -556,16 +556,16 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
                                     // against each other
                                     unsigned char mask;
                                     if (aabbIt->index <= node->aabb->index) {
-                                        i = (aabbIt->index * tested_rowsize)+(node->aabb->index >> 3);
-                                        mask = 1 << (node->aabb->index & 7);
+                                        i = (int)((aabbIt->index * (sizeint)tested_rowsize)+(node->aabb->index >> 3));
+                                        mask = (unsigned char)(1 << (node->aabb->index & 7));
                                     }
                                     else {
-                                        i = (node->aabb->index * tested_rowsize)+(aabbIt->index >> 3);
-                                        mask = 1 << (aabbIt->index & 7);
+                                        i = (int)((node->aabb->index * (sizeint)tested_rowsize)+(aabbIt->index >> 3));
+                                        mask = (unsigned char)(1 << (aabbIt->index & 7));
                                     }
-                                    dIASSERT (i >= 0 && (sizeint)i < (tested_rowsize*n));
-                                    if ((tested[i] & mask)==0) {
-                                        tested[i] |= mask;
+                                    dIASSERT (i >= 0 && (sizeint)i < ((sizeint)tested_rowsize*n));
+                                    if ((tested[(size_t)i] & mask)==0) {
+                                        tested[(size_t)i] |= mask;
                                         collideAABBs (aabbIt->geom,node->aabb->geom,userData,callback);
                                     }
                             }

@@ -124,7 +124,7 @@ using namespace Opcode;
 	/* Set contact status */													\
 	mFlags |= flag;																\
 	/* In any case the contact has been found and recorded in mStabbedFace  */	\
-	mStabbedFace.mFaceID = prim_index;
+	mStabbedFace.mFaceID = udword(prim_index);
 
 #ifdef OPC_RAYHIT_CALLBACK
 
@@ -173,7 +173,7 @@ using namespace Opcode;
 
 #define SEGMENT_PRIM(prim_index, flag)														\
 	/* Request vertices from the app */														\
-	VertexPointers VP;	ConversionArea VC;	mIMesh->GetTriangle(VP, prim_index, VC);		\
+	VertexPointers VP;	ConversionArea VC;	mIMesh->GetTriangle(VP, udword(prim_index), VC);		\
 																							\
 	/* Perform ray-tri overlap test and return */											\
 	if(RayTriOverlap(*VP.Vertex[0], *VP.Vertex[1], *VP.Vertex[2]))							\
@@ -188,7 +188,7 @@ using namespace Opcode;
 
 #define RAY_PRIM(prim_index, flag)															\
 	/* Request vertices from the app */														\
-	VertexPointers VP;	ConversionArea VC;	mIMesh->GetTriangle(VP, prim_index, VC);		\
+	VertexPointers VP;	ConversionArea VC;	mIMesh->GetTriangle(VP, udword(prim_index), VC);		\
 																							\
 	/* Perform ray-tri overlap test and return */											\
 	if(RayTriOverlap(*VP.Vertex[0], *VP.Vertex[1], *VP.Vertex[2]))							\

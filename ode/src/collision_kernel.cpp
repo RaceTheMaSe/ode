@@ -372,8 +372,8 @@ dxGeom::dxGeom (dSpaceID _space, int is_placeable)
     tome_ex = NULL;
     parent_space = NULL;
     dSetZero (aabb,6);
-    category_bits = ~0;
-    collide_bits = ~0;
+    category_bits = ~(unsigned long)(0);
+    collide_bits = ~(unsigned long)(0);
 
     // put this geom in a space if required
     if (_space) dSpaceAdd (_space,this);
@@ -391,7 +391,7 @@ dxGeom::~dxGeom()
 
 unsigned dxGeom::getParentSpaceTLSKind() const
 {
-    return parent_space ? parent_space->tls_kind : dSPACE_TLS_KIND_INIT_VALUE;
+    return parent_space ? parent_space->tls_kind : (unsigned)dSPACE_TLS_KIND_INIT_VALUE;
 }
 
 int dxGeom::AABBTest (dxGeom * /*g*/, dReal /*box*/[6])
@@ -920,8 +920,8 @@ dxUserGeom::dxUserGeom (int class_num) : dxGeom (NULL,1)
 {
     type = class_num;
     int size = user_classes[type-dFirstUserClass].bytes;
-    user_data = dAlloc (size);
-    memset (user_data,0,size);
+    user_data = dAlloc ((dsizeint)size);
+    memset (user_data,0,(size_t)size);
 }
 
 
@@ -929,7 +929,7 @@ dxUserGeom::~dxUserGeom()
 {
     dGeomClass *c = &user_classes[type-dFirstUserClass];
     if (c->dtor) c->dtor (this);
-    dFree (user_data,c->bytes);
+    dFree (user_data,(dsizeint)c->bytes);
 }
 
 

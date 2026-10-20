@@ -88,7 +88,7 @@ int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* cont
     OBBCache cache;
     dxTriMesh *trimesh = (dxTriMesh *)o2;
     if (collider.Collide(cache, convexOOB, trimesh->retrieveMeshBVTreeRef(), null, &meshTransformation)) {
-        int triCount = collider.GetNbTouchedPrimitives();
+        unsigned int triCount = (unsigned int)collider.GetNbTouchedPrimitives();
         if (triCount > 0) {
             const int* triangles = (const int*)collider.GetTouchedPrimitives();
             contactcount = (int)dCollideConvexTrimeshTrianglesCCD(o1, o2, triangles, triCount, flags, contacts, skip);
@@ -111,7 +111,7 @@ int dCollideConvexTrimesh( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* cont
         GIM_TRIMESH * ptrimesh = &trimesh->m_collision_trimesh;
         gim_trimesh_locks_work_data(ptrimesh);
 
-        contactcount = dCollideConvexTrimeshTrianglesCCD(o1, o2, (int *)boxesresult, collision_result.m_size, flags, contacts, skip);
+        contactcount = (int)dCollideConvexTrimeshTrianglesCCD(o1, o2, (int *)boxesresult, collision_result.m_size, flags, contacts, skip);
 
         gim_trimesh_unlocks_work_data(ptrimesh);
     }

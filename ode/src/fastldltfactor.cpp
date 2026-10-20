@@ -258,7 +258,7 @@ void ThreadedEquationSolverLDLT::factotLDLT_solvingCompleteSync(FactorLDLTWorker
 
         if (blockFactorizingThreadCount > 1)
         {
-            threading->AlterThreadedCallDependenciesCount(blockFactorizingSyncReleasee, blockFactorizingThreadCount - 1);
+            threading->AlterThreadedCallDependenciesCount(blockFactorizingSyncReleasee, (ddependencychange_t)blockFactorizingThreadCount - 1);
         }
     }
 
@@ -396,7 +396,7 @@ void ThreadedEquationSolverLDLT::factotLDLT_solvingFinalSync(FactorLDLTWorkerCon
 
     if (blockFactorizingThreadCount > 1)
     {
-        threading->AlterThreadedCallDependenciesCount(blockFactorizingSyncReleasee, blockFactorizingThreadCount - 1);
+        threading->AlterThreadedCallDependenciesCount(blockFactorizingSyncReleasee, (ddependencychange_t)blockFactorizingThreadCount - 1);
         threading->PostThreadedCallsGroup(NULL, blockFactorizingThreadCount - 1, blockFactorizingSyncReleasee, &factotLDLT_scalingAndFactorizingFinal_callback, &ref_workerContext, "FactorLDLT S'n'F Final");
     }
 
@@ -439,7 +439,7 @@ int ThreadedEquationSolverLDLT::factotLDLT_completion_callback(void *dUNUSED(cal
 /*extern ODE_API */
 void dFactorLDLT(dReal *A, dReal *d, int n, int nskip1)
 {
-    factorMatrixAsLDLT<1>(A, d, n, nskip1);
+    factorMatrixAsLDLT<1>(A, d, (unsigned int)n, (unsigned int)nskip1);
 }
 
 

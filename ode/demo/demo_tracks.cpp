@@ -155,7 +155,7 @@ static void resetSim()
 
 static void start()
 {
-    dAllocateODEDataForThread(dAllocateMaskAll);
+    dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
     world = dWorldCreate();
     dWorldSetGravity (world,0,0,REAL(-9.8));
@@ -463,9 +463,9 @@ static void simLoop (int pause)
     }
     
     // now we draw everything
-    unsigned ngeoms = dSpaceGetNumGeoms(space);
+    unsigned ngeoms = (unsigned)dSpaceGetNumGeoms(space);
     for (unsigned i=0; i<ngeoms; ++i) {
-        dGeomID g = dSpaceGetGeom(space, i);
+        dGeomID g = dSpaceGetGeom(space, (int)i);
 
         if (g == ground)
             continue; // drawstuff is already drawing it for us

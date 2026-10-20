@@ -119,7 +119,7 @@ udword AABBTreeNode::Split(udword axis, AABBTreeBuilder* builder)
 			// Swap entries
 			udword Tmp = mNodePrimitives[i];
 			mNodePrimitives[i] = mNodePrimitives[NbPos];
-			mNodePrimitives[NbPos] = Tmp;
+			mNodePrimitives[NbPos] = (dTriIndex)Tmp;
 			// Count primitives assigned to positive space
 			NbPos++;
 		}
@@ -418,7 +418,7 @@ bool AABBTree::Build(AABBTreeBuilder* builder)
 	mIndices = new dTriIndex[builder->mNbPrimitives];
 	CHECKALLOC(mIndices);
 	// Identity permutation
-	for(udword i=0;i<builder->mNbPrimitives;i++)	mIndices[i] = i;
+	for(udword i=0;i<builder->mNbPrimitives;i++)	mIndices[i] = (dTriIndex)i;
 
 	// Setup initial node. Here we have a complete permutation of the app's primitives.
 	mNodePrimitives	= mIndices;
@@ -565,7 +565,7 @@ bool AABBTree::Refit2(AABBTreeBuilder* builder)
 udword AABBTree::GetUsedBytes() const
 {
 	udword TotalSize = mTotalNbNodes*GetNodeSize();
-	if(mIndices)	TotalSize+=mNbPrimitives*sizeof(udword);
+	if(mIndices)	TotalSize+=mNbPrimitives*(udword)sizeof(udword);
 	return TotalSize;
 }
 

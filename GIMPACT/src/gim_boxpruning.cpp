@@ -116,7 +116,7 @@ void gim_aabbset_sort(GIM_AABB_SET * aabbset, char calc_global_bound)
             GIM_CONVERT_VEC3F_GUINT_XZ(paabb[i].minX,paabb[i].minZ,sorted_tokens[i].m_key);
             sorted_tokens[i].m_value = i;
         }
-        GIM_QUICK_SORT_ARRAY(GIM_RSORT_TOKEN , sorted_tokens, count, RSORT_TOKEN_COMPARATOR,GIM_DEF_EXCHANGE_MACRO);
+        GIM_QUICK_SORT_ARRAY(GIM_RSORT_TOKEN , sorted_tokens, (int32_t)count, RSORT_TOKEN_COMPARATOR,GIM_DEF_EXCHANGE_MACRO);
     }
     else
     {

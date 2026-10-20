@@ -105,7 +105,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 // start simulation - set viewpoint
 static void start()
 {
-    dAllocateODEDataForThread(dAllocateMaskAll);
+    dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
     dsSetViewpoint (xyz,hpr);
     printf ("Press 'd' to add force along positive x direction.\nPress 'a' to add force along negative x direction.\n");

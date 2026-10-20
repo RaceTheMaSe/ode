@@ -321,7 +321,7 @@ public:
 			}
 		}
 
-		return uiResult;
+		return (int)uiResult;
 	}
 	
 public:

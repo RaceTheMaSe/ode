@@ -74,8 +74,8 @@ public:
     static storage_type encodeForStorage(dReal angleValue)
     {
         unsigned angleAsInt = (unsigned)dFloor(dFabs(angleValue) * (dReal)(static_cast<int>(STORAGE_TYPE_MAX) / M_PI));
-        unsigned limitedAngleAsInt = dMIN(angleAsInt, STORAGE_TYPE_MAX);
-        storage_type result = angleValue < REAL(0.0) ? -(storage_type)limitedAngleAsInt : (storage_type)limitedAngleAsInt; 
+        unsigned limitedAngleAsInt = dMIN(angleAsInt, static_cast<unsigned>(STORAGE_TYPE_MAX));
+        storage_type result = angleValue < REAL(0.0) ? (storage_type)(-(storage_type)limitedAngleAsInt) : (storage_type)limitedAngleAsInt; 
         return  result;
     }
 
@@ -181,7 +181,7 @@ private:
 
     static sizeint calculateStorageSizeForTriangleCount(unsigned triangleCount)
     {
-        const unsigned baseIncludedTriangleCount = dSTATIC_ARRAY_SIZE(FaceAnglesWrapper<TStorageCodec>::StorageRecord, m_triangleFaceAngles);
+        const unsigned baseIncludedTriangleCount = (unsigned)dSTATIC_ARRAY_SIZE(FaceAnglesWrapper<TStorageCodec>::StorageRecord, m_triangleFaceAngles);
         const sizeint singleTriangleSize = membersize(FaceAnglesWrapper<TStorageCodec>::StorageRecord, m_triangleFaceAngles[0]);
         return sizeof(FaceAnglesWrapper<TStorageCodec>) + (triangleCount > baseIncludedTriangleCount ? (triangleCount - baseIncludedTriangleCount) * singleTriangleSize : 0U);
     }
@@ -190,7 +190,7 @@ private:
     {
         dIASSERT(storageSize >= sizeof(FaceAnglesWrapper<TStorageCodec>));
 
-        const unsigned baseIncludedTriangleCount = dSTATIC_ARRAY_SIZE(FaceAnglesWrapper<TStorageCodec>::StorageRecord, m_triangleFaceAngles);
+        const unsigned baseIncludedTriangleCount = (unsigned)dSTATIC_ARRAY_SIZE(FaceAnglesWrapper<TStorageCodec>::StorageRecord, m_triangleFaceAngles);
         const sizeint singleTriangleSize = membersize(FaceAnglesWrapper<TStorageCodec>::StorageRecord, m_triangleFaceAngles[0]);
         return (storageSize - sizeof(FaceAnglesWrapper<TStorageCodec>)) / singleTriangleSize + baseIncludedTriangleCount;
     }
@@ -454,7 +454,7 @@ void dxTriDataBase::EdgeRecord::setupEdge(dMeshTriangleVertex edgeIdx, int triId
         dxSwap(m_vert1Flags, m_vert2Flags);
     }
 
-    m_triIdx = triIdx;
+    m_triIdx = (unsigned int)triIdx;
     m_absVertexFlags = 0;
 }
 
@@ -487,7 +487,7 @@ dMeshTriangleVertex dxTriDataBase::EdgeRecord::getOppositeVertexIndex() const
 {
      extern const CEnumUnsortedElementArray<unsigned, dxTriDataBase::CUF__USE_VERTICES_LAST / dxTriDataBase::CUF__USE_VERTICES_MIN, dMeshTriangleVertex, 0x161116DC> g_VertFlagOppositeIndices;
 
-    dMeshTriangleVertex oppositeIndex = g_VertFlagOppositeIndices.Encode(((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1);
+    dMeshTriangleVertex oppositeIndex = g_VertFlagOppositeIndices.Encode((unsigned)(((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1));
     dIASSERT(dIN_RANGE(oppositeIndex, dMTV__MIN, dMTV__MAX));
 
     return oppositeIndex;
@@ -497,7 +497,7 @@ dMeshTriangleVertex dxTriDataBase::EdgeRecord::getEdgeStartVertexIndex() const
 {
     extern const CEnumUnsortedElementArray<unsigned, dxTriDataBase::CUF__USE_VERTICES_LAST / dxTriDataBase::CUF__USE_VERTICES_MIN, dMeshTriangleVertex, 0x161225E9> g_VertFlagEdgeStartIndices;
 
-    dMeshTriangleVertex startIndex = g_VertFlagEdgeStartIndices.Encode(((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1);
+    dMeshTriangleVertex startIndex = g_VertFlagEdgeStartIndices.Encode((unsigned)((m_vert1Flags | m_vert2Flags) ^ CUF__USE_ALL_VERTICES) / CUF__USE_VERTICES_MIN - 1);
     dIASSERT(dIN_RANGE(startIndex, dMTV__MIN, dMTV__MAX));
 
     return startIndex;
@@ -517,8 +517,8 @@ void dGeomTriMeshDataBuildSimple1(dTriMeshDataID g,
         Indices, IndexCount, 3 * sizeof(dTriIndex),
         Normals);
 #else
-    dGeomTriMeshDataBuildDouble1(g, Vertices, 4 * sizeof(dReal), VertexCount, 
-        Indices, IndexCount, 3 * sizeof(dTriIndex),
+    dGeomTriMeshDataBuildDouble1(g, Vertices, 4 * (int)sizeof(dReal), VertexCount, 
+        Indices, IndexCount, 3 * (int)sizeof(dTriIndex),
         Normals);
 #endif
 }
@@ -582,7 +582,7 @@ int dGeomTriMeshDataPreprocess2(dTriMeshDataID g, unsigned int buildRequestFlags
 
     bool buildUseFlags = (buildRequestFlags & (1U << dTRIDATAPREPROCESS_BUILD_CONCAVE_EDGES)) != 0;
     FaceAngleStorageMethod faceAnglesRequirement = (buildRequestFlags & (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES)) != 0
-        ? g_TriMeshDataPreprocess_FaceAnglesExtraDataAngleStorageMethods.Encode(requestExtraData != NULL && dIN_RANGE(requestExtraData[dTRIDATAPREPROCESS_BUILD_FACE_ANGLES], dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MIN, dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MAX) ? (unsigned)requestExtraData[dTRIDATAPREPROCESS_BUILD_FACE_ANGLES] : dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__DEFAULT)
+        ? g_TriMeshDataPreprocess_FaceAnglesExtraDataAngleStorageMethods.Encode(requestExtraData != NULL && dIN_RANGE(requestExtraData[dTRIDATAPREPROCESS_BUILD_FACE_ANGLES], dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MIN, dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__MAX) ? (unsigned)requestExtraData[dTRIDATAPREPROCESS_BUILD_FACE_ANGLES] : (unsigned)dTRIDATAPREPROCESS_FACE_ANGLES_EXTRA__DEFAULT)
         : ASM__INVALID;
     return data->preprocessData(buildUseFlags, faceAnglesRequirement);
 }
@@ -758,7 +758,7 @@ int dGeomTriMeshGetTriangleCount(dGeomID g)
 
     const dxTriMesh *mesh = static_cast<dxTriMesh *>(g);
     unsigned result = mesh->getMeshTriangleCount();
-    return result;
+    return (int)result;
 }
 
 
@@ -771,7 +771,7 @@ void dGeomTriMeshGetTriangle(dGeomID g, int index, dVector3 *v0/*=NULL*/, dVecto
     dxTriMesh *mesh = static_cast<dxTriMesh *>(g);
 
     dVector3 *pv[3] = { v0, v1, v2 };
-    mesh->fetchMeshTransformedTriangle(pv, index);
+    mesh->fetchMeshTransformedTriangle(pv, (unsigned int)index);
 }
 
 /*extern ODE_API */
@@ -782,7 +782,7 @@ void dGeomTriMeshGetPoint(dGeomID g, int index, dReal u, dReal v, dVector3 Out)
     dxTriMesh *mesh = static_cast<dxTriMesh *>(g);
 
     dVector3 dv[3];
-    mesh->fetchMeshTransformedTriangle(dv, index);
+    mesh->fetchMeshTransformedTriangle(dv, (unsigned int)index);
 
     GetPointFromBarycentric(dv, u, v, Out);
 }

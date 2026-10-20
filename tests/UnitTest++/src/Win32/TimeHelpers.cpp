@@ -40,7 +40,7 @@ __int64 Timer::GetTime() const
 
 void TimeHelpers::SleepMs(int const ms)
 {
-	::Sleep(ms);
+	::Sleep((DWORD)ms);
 }
 
 }

@@ -107,7 +107,7 @@ void dxTriMeshData::buildData(const IceMaths::Point *Vertices, int VertexStide, 
     m_Mesh.SetNbTriangles(IndexCount / dMTV__MAX);
     m_Mesh.SetNbVertices(VertexCount);
     m_Mesh.SetPointers(Indices, Vertices);
-    m_Mesh.SetStrides(TriStride, VertexStide);
+    m_Mesh.SetStrides((udword)TriStride, (udword)VertexStide);
     m_Mesh.SetSingle(Single);
 
     // Build tree
@@ -698,8 +698,8 @@ void dGeomTriMeshDataBuildSingle1(dTriMeshDataID g,
     dUASSERT(g, "The argument is not a trimesh data");
 
     dxTriMeshData *data = g;
-    data->buildData((const IceMaths::Point *)Vertices, VertexStride, VertexCount, 
-        (const IceMaths::IndexedTriangle *)Indices, IndexCount, TriStride, 
+    data->buildData((const IceMaths::Point *)Vertices, VertexStride, (unsigned int)VertexCount, 
+        (const IceMaths::IndexedTriangle *)Indices, (unsigned int)IndexCount, TriStride, 
         (const dReal *)Normals, 
         true);
 }
@@ -712,8 +712,8 @@ void dGeomTriMeshDataBuildDouble1(dTriMeshDataID g,
 {
     dUASSERT(g, "The argument is not a trimesh data");
 
-    g->buildData((const IceMaths::Point *)Vertices, VertexStride, VertexCount, 
-        (const IceMaths::IndexedTriangle *)Indices, IndexCount, TriStride, 
+    g->buildData((const IceMaths::Point *)Vertices, VertexStride, (unsigned int)VertexCount, 
+        (const IceMaths::IndexedTriangle *)Indices, (unsigned int)IndexCount, TriStride, 
         (const dReal *)Normals, 
         false);
 }

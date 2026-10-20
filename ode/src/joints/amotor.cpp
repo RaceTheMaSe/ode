@@ -39,7 +39,7 @@ void dJointSetAMotorNumAxes(dJointID j, int num)
 
     num = dCLAMP(num, dSA__MIN, dSA__MAX);
 
-    joint->setNumAxes(num);
+    joint->setNumAxes((unsigned int)num);
 }
 
 /*extern */
@@ -54,7 +54,7 @@ void dJointSetAMotorAxis(dJointID j, int anum, int rel/*=dJointBodyRelativity*/,
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    joint->setAxisValue(anum, (dJointBodyRelativity)rel, x, y, z);
+    joint->setAxisValue((unsigned int)anum, (dJointBodyRelativity)rel, x, y, z);
 }
 
 /*extern */
@@ -67,7 +67,7 @@ void dJointSetAMotorAngle(dJointID j, int anum, dReal angle)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    joint->setAngleValue(anum, angle);
+    joint->setAngleValue((unsigned int)anum, angle);
 }
 
 /*extern */
@@ -83,7 +83,7 @@ void dJointSetAMotorParam(dJointID j, int parameter, dReal value)
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
     int limotParam = parameter & 0xff;
-    joint->setLimotParameter(anum, limotParam, value);
+    joint->setLimotParameter((unsigned int)anum, limotParam, value);
 }
 
 /*extern */
@@ -116,7 +116,7 @@ void dJointGetAMotorAxis(dJointID j, int anum, dVector3 result)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    joint->getAxisValue(result, anum);
+    joint->getAxisValue(result, (unsigned int)anum);
 }
 
 /*extern */
@@ -129,7 +129,7 @@ int dJointGetAMotorAxisRel(dJointID j, int anum)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    int result = joint->getAxisBodyRelativity(anum);
+    int result = joint->getAxisBodyRelativity((unsigned int)anum);
     return result;
 }
 
@@ -143,7 +143,7 @@ dReal dJointGetAMotorAngle(dJointID j, int anum)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    dReal result = joint->getAngleValue(anum);
+    dReal result = joint->getAngleValue((unsigned int)anum);
     return result;
 }
 
@@ -157,7 +157,7 @@ dReal dJointGetAMotorAngleRate(dJointID j, int anum)
 
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
-    dReal result = joint->calculateAngleRate(anum);
+    dReal result = joint->calculateAngleRate((unsigned int)anum);
     return result;
 }
 
@@ -174,7 +174,7 @@ dReal dJointGetAMotorParam(dJointID j, int parameter)
     anum = dCLAMP(anum, dSA__MIN, dSA__MAX - 1);
 
     int limotParam = parameter & 0xff;
-    dReal result = joint->getLimotParameter(anum, limotParam);
+    dReal result = joint->getLimotParameter((unsigned int)anum, limotParam);
     return result;
 }
 
@@ -257,7 +257,7 @@ dxJointAMotor::~dxJointAMotor()
 /*virtual */
 void dxJointAMotor::getSureMaxInfo(SureMaxInfo* info)
 {
-    info->max_m = m_num;
+    info->max_m = (uint8)m_num;
 }
 
 /*virtual */
@@ -333,8 +333,8 @@ void dxJointAMotor::getInfo2(dReal worldFPS, dReal /*worldERP*/,
     {
         if (m_limot[i].addLimot(this, worldFPS, J1 + rowTotalSkip, J2 + rowTotalSkip, pairRhsCfm + pairTotalSkip, pairLoHi + pairTotalSkip, *(axptr[i]), 1)) 
         {
-            rowTotalSkip += rowskip;
-            pairTotalSkip += pairskip;
+            rowTotalSkip += (sizeint)rowskip;
+            pairTotalSkip += (sizeint)pairskip;
         }
     }
 }
@@ -566,7 +566,7 @@ dReal dxJointAMotor::calculateAngleRate(unsigned anum) const
 
 void dxJointAMotor::addTorques(dReal torque1, dReal torque2, dReal torque3)
 {
-    unsigned num = getNumAxes();
+    unsigned num = (unsigned)getNumAxes();
     dAASSERT(dIN_RANGE(num, dSA__MIN, dSA__MAX + 1));
 
     dVector3 sum = {};

@@ -762,7 +762,7 @@ void dBodyVectorFromWorld (dBodyID b, dReal px, dReal py, dReal pz,
 void dBodySetFiniteRotationMode (dBodyID b, int mode)
 {
     dAASSERT (b);
-    b->flags &= ~(dxBodyFlagFiniteRotation | dxBodyFlagFiniteRotationAxis);
+    b->flags &= (unsigned int)~(dxBodyFlagFiniteRotation | dxBodyFlagFiniteRotationAxis);
     if (mode) {
         b->flags |= dxBodyFlagFiniteRotation;
         if (b->finite_rot_axis[0] != 0 || b->finite_rot_axis[1] != 0 ||
@@ -784,7 +784,7 @@ void dBodySetFiniteRotationAxis (dBodyID b, dReal x, dReal y, dReal z)
         b->flags |= dxBodyFlagFiniteRotationAxis;
     }
     else {
-        b->flags &= ~dxBodyFlagFiniteRotationAxis;
+        b->flags &= (unsigned int)~dxBodyFlagFiniteRotationAxis;
     }
 }
 
@@ -847,7 +847,7 @@ int dBodyIsKinematic (dBodyID b)
 void dBodyEnable (dBodyID b)
 {
     dAASSERT (b);
-    b->flags &= ~dxBodyDisabled;
+    b->flags &= (unsigned int)~dxBodyDisabled;
     b->adis_stepsleft = b->adis.idle_steps;
     b->adis_timeleft = b->adis.idle_time;
     // no code for average-processing needed here
@@ -871,7 +871,7 @@ int dBodyIsEnabled (dBodyID b)
 void dBodySetGravityMode (dBodyID b, int mode)
 {
     dAASSERT (b);
-    if (mode) b->flags &= ~dxBodyNoGravity;
+    if (mode) b->flags &= (unsigned int)~dxBodyNoGravity;
     else b->flags |= dxBodyNoGravity;
 }
 
@@ -916,7 +916,7 @@ void dBodySetAutoDisableAngularThreshold (dBodyID b, dReal angular_average_thres
 int dBodyGetAutoDisableAverageSamplesCount (dBodyID b)
 {
     dAASSERT(b);
-    return b->adis.average_samples;
+    return (int)b->adis.average_samples;
 }
 
 
@@ -991,13 +991,13 @@ void dBodySetAutoDisableFlag (dBodyID b, int do_auto_disable)
     dAASSERT(b);
     if (!do_auto_disable)
     {
-        b->flags &= ~dxBodyAutoDisable;
+        b->flags &= (unsigned int)~dxBodyAutoDisable;
         // (mg) we should also reset the IsDisabled state to correspond to the DoDisabling flag
-        b->flags &= ~dxBodyDisabled;
+        b->flags &= (unsigned int)~dxBodyDisabled;
         b->adis.idle_steps = dWorldGetAutoDisableSteps(b->world);
         b->adis.idle_time = dWorldGetAutoDisableTime(b->world);
         // resetting the average calculations too
-        dBodySetAutoDisableAverageSamplesCount(b, dWorldGetAutoDisableAverageSamplesCount(b->world) );
+        dBodySetAutoDisableAverageSamplesCount(b, (unsigned int)dWorldGetAutoDisableAverageSamplesCount(b->world) );
     }
     else
     {
@@ -1030,7 +1030,7 @@ void dBodySetLinearDamping(dBodyID b, dReal scale)
     if (scale != 0)
         b->flags |= dxBodyLinearDamping;
     else
-        b->flags &= ~dxBodyLinearDamping;
+        b->flags &= (unsigned int)~dxBodyLinearDamping;
     b->dampingp.linear_scale = scale;
 }
 
@@ -1046,7 +1046,7 @@ void dBodySetAngularDamping(dBodyID b, dReal scale)
     if (scale != 0)
         b->flags |= dxBodyAngularDamping;
     else
-        b->flags &= ~dxBodyAngularDamping;
+        b->flags &= (unsigned int)~dxBodyAngularDamping;
     b->dampingp.angular_scale = scale;
 }
 
@@ -1090,7 +1090,7 @@ void dBodySetDampingDefaults(dBodyID b)
     b->dampingp = w->dampingp;
     const unsigned mask = dxBodyLinearDamping | dxBodyAngularDamping;
     b->flags &= ~mask; // zero them
-    b->flags |= w->body_flags & mask;
+    b->flags |= (unsigned int)w->body_flags & mask;
 }
 
 dReal dBodyGetMaxAngularSpeed(dBodyID b)
@@ -1105,7 +1105,7 @@ void dBodySetMaxAngularSpeed(dBodyID b, dReal max_speed)
     if (max_speed < dInfinity)
         b->flags |= dxBodyMaxAngularSpeed;
     else
-        b->flags &= ~dxBodyMaxAngularSpeed;
+        b->flags &= (unsigned int)~dxBodyMaxAngularSpeed;
     b->max_angular_speed = max_speed;
 }
 
@@ -1133,7 +1133,7 @@ dGeomID dBodyGetNextGeom(dGeomID geom)
 int dBodyGetGyroscopicMode(dBodyID b)
 {
     dAASSERT(b);
-    return b->flags & dxBodyGyroscopic;
+    return (int)(b->flags & dxBodyGyroscopic);
 }
 
 void dBodySetGyroscopicMode(dBodyID b, int enabled)
@@ -1142,7 +1142,7 @@ void dBodySetGyroscopicMode(dBodyID b, int enabled)
     if (enabled)
         b->flags |= dxBodyGyroscopic;
     else
-        b->flags &= ~dxBodyGyroscopic;
+        b->flags &= (unsigned int)~dxBodyGyroscopic;
 }
 
 
@@ -1404,7 +1404,7 @@ void dJointAttach (dxJoint *joint, dxBody *body1, dxBody *body2)
         joint->flags |= dJOINT_REVERSE;
     }
     else {
-        joint->flags &= (~dJOINT_REVERSE);
+        joint->flags &= (unsigned int)~dJOINT_REVERSE;
     }
 
     // attach to new bodies
@@ -1438,7 +1438,7 @@ void dJointAttach (dxJoint *joint, dxBody *body1, dxBody *body2)
 void dJointEnable (dxJoint *joint)
 {
     dAASSERT (joint);
-    joint->flags &= ~dJOINT_DISABLED;
+    joint->flags &= (unsigned int)~dJOINT_DISABLED;
 }
 
 void dJointDisable (dxJoint *joint)
@@ -1954,7 +1954,7 @@ void dWorldSetAutoDisableAngularThreshold (dWorldID w, dReal angular_average_thr
 int dWorldGetAutoDisableAverageSamplesCount (dWorldID w)
 {
     dAASSERT(w);
-    return w->adis.average_samples;
+    return (int)w->adis.average_samples;
 }
 
 
@@ -2097,14 +2097,14 @@ void dWorldSetQuickStepNumIterations (dWorldID w, int num)
     dAASSERT(w);
     dAASSERT(num > 0);
 
-    w->qs.AssignNumIterations(dMAX(num, 1)); // QuickStep implementation relies of number of iteration not being zero
+    w->qs.AssignNumIterations((unsigned int)dMAX(num, 1)); // QuickStep implementation relies of number of iteration not being zero
 }
 
 int dWorldGetQuickStepNumIterations (dWorldID w)
 {
     dAASSERT(w);
     
-    return w->qs.GetNumIterations();
+    return (int)w->qs.GetNumIterations();
 }
 
 
@@ -2270,7 +2270,7 @@ extern "C" ODE_API void dTestDataStructures()
             dBodyID b1 = body [dRand() % (unsigned long)nb];
             dBodyID b2 = body [dRand() % (unsigned long)nb];
             if (b1 != b2) {
-                int k = dRand() % nj;
+                int k = (int)(dRand() % (unsigned long)nj);
                 DO(printf ("reattaching joint %p\n",joint[k]));
                 dJointAttach (joint[k],b1,b2);
                 checkWorld (w);

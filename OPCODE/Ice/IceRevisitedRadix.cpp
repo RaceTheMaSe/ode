@@ -60,11 +60,11 @@ using namespace IceCore;
 
 #define CREATE_HISTOGRAMS(type, buffer)														\
 	/* Clear counters/histograms */															\
-	ZeroMemory(mHistogram, 256*4*sizeof(udword));											\
+	ZeroMemory(mHistogram, (udword)((size_t)256*4*sizeof(udword)));							\
 																							\
 	/* Prepare to count */																	\
-	const ubyte* p = (const ubyte*)input;																\
-	const ubyte* pe = &p[nb*4];																	\
+	const ubyte* p = (const ubyte*)input;													\
+	const ubyte* pe = &p[(size_t)nb*4];														\
 	udword* h0= &mHistogram[0];		/* Histogram for first pass (LSB)	*/					\
 	udword* h1= &mHistogram[256];	/* Histogram for second pass		*/					\
 	udword* h2= &mHistogram[512];	/* Histogram for third pass			*/					\
@@ -75,7 +75,7 @@ using namespace IceCore;
 	if(INVALID_RANKS)																		\
 	{																						\
 		/* Prepare for temporal coherence */												\
-		const type* Running = (const type*)buffer;														\
+		const type* Running = (const type*)buffer;											\
 		type PrevVal = *Running;															\
 																							\
 		while(p!=pe)																		\
@@ -150,7 +150,7 @@ using namespace IceCore;
 	/* for words and O(n) for bytes. Running time for floats depends on actual values... */	\
 																							\
 	/* Get first byte */																	\
-	const ubyte UniqueVal = *(((const ubyte*)input)+pass);												\
+	const ubyte UniqueVal = *(((const ubyte*)input)+(pass));								\
 																							\
 	/* Check that byte's counter */															\
 	if(CurCount[UniqueVal]==nb)	PerformPass=false
@@ -508,6 +508,6 @@ udword RadixSort::GetUsedRam() const
 	UsedRam += 256*4*sizeof(udword);			// Histograms
 	UsedRam += 256*sizeof(udword);				// Offsets
 #endif
-	UsedRam += 2*CURRENT_SIZE*sizeof(udword);	// 2 lists of indices
+	UsedRam += 2*CURRENT_SIZE*(udword)sizeof(udword);	// 2 lists of indices
 	return UsedRam;
 }

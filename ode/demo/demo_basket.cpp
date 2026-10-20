@@ -100,7 +100,7 @@ static void nearCallback (void *data, dGeomID o1, dGeomID o2)
 
 static void start()
 {
-  dAllocateODEDataForThread(dAllocateMaskAll);
+  dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
   float xyz[3] = {-8,0,5};
   float hpr[3] = {0.0f,-29.5000f,0.0000f};
@@ -182,9 +182,9 @@ static void simLoop (int pause)
 
   for (int i=0; i<numi/3; i++)
   {
-    int i0 = world_indices[i*3+0];
-    int i1 = world_indices[i*3+1];
-    int i2 = world_indices[i*3+2];
+    int i0 = (int)world_indices[i*3+0];
+    int i1 = (int)world_indices[i*3+1];
+    int i2 = (int)world_indices[i*3+2];
     float *v0 = world_vertices+i0*3;
     float *v1 = world_vertices+i1*3;
     float *v2 = world_vertices+i2*3;

@@ -126,7 +126,7 @@ public:
     void remove (int i) {
         if (i >= 0 && i < _size) {	// passing this test guarantees size>0
             int n = _size-1-i;
-            if (n>0) memmove (((T*)_data) + i, ((T*)_data) + i+1, n*sizeof(T));
+            if (n>0) memmove (((T*)_data) + i, ((T*)_data) + i+1, (size_t)n*sizeof(T));
             _size--;
         }
     }

@@ -224,7 +224,7 @@ inline static int _IsBetter(sLocalContactData& c1,sLocalContactData& c2)
 // iterate through gLocalContacts and filtered out "near contact"
 void sTrimeshCapsuleColliderData::_OptimizeLocalContacts()
 {
-    int nContacts = m_ctContacts;
+    int nContacts = (int)m_ctContacts;
 
     for (int i = 0; i < nContacts-1; i++)
     {
@@ -278,7 +278,7 @@ int	sTrimeshCapsuleColliderData::_ProcessLocalContacts(dContactGeom *contact,
 
         if (1 == m_gLocalContacts[iContact].nFlags)
         {
-            Contact =  SAFECONTACT(m_iFlags, contact, nFinalContact, m_iStride);
+            Contact =  SAFECONTACT((int)m_iFlags, contact, (int)nFinalContact, m_iStride);
             Contact->depth = m_gLocalContacts[iContact].fDepth;
             SET(Contact->normal,m_gLocalContacts[iContact].vNormal);
             SET(Contact->pos,m_gLocalContacts[iContact].vPos);
@@ -296,7 +296,7 @@ int	sTrimeshCapsuleColliderData::_ProcessLocalContacts(dContactGeom *contact,
     //	printf("[Info] %d contacts generated,%d  filtered.\n",m_ctContacts,m_ctContacts-nFinalContact);
     //}
 
-    return nFinalContact;
+    return (int)nFinalContact;
 }
 
 BOOL sTrimeshCapsuleColliderData::_cldClipEdgeToPlane( 
@@ -934,7 +934,7 @@ void sTrimeshCapsuleColliderData::SetupInitialContext(dxTriMesh *TriMesh, dxGeom
 
     // global info for contact creation
     m_iStride			=skip;
-    m_iFlags			=flags;
+    m_iFlags			=(unsigned int)flags;
 
     // reset contact counter
     m_ctContacts = 0;	
@@ -1055,7 +1055,7 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
     if (Collider.GetContactStatus()) 
     {
         // Retrieve data
-        int TriCount = Collider.GetNbTouchedPrimitives();
+        int TriCount = (int)Collider.GetNbTouchedPrimitives();
 
         if (TriCount != 0)
         {
@@ -1080,12 +1080,12 @@ int dCollideCCTL(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *contact, int s
                 if (!TriMesh->invokeCallback(Capsule, Triint)) continue;
 
                 dVector3 dv[3];
-                TriMesh->fetchMeshTriangle(dv, Triint, cData.m_vTriMeshPos, cData.m_mTriMeshRot);
+                TriMesh->fetchMeshTriangle(dv, (unsigned int)Triint, cData.m_vTriMeshPos, cData.m_mTriMeshRot);
 
                 uint8 meshFlags = useFlags != NULL ? useFlags[Triint] : (uint8)dxTriMeshData::CUF__USE_ALL_COMPONENTS;
 
                 bool bFinishSearching;
-                ctContacts0 = cData.TestCollisionForSingleTriangle(ctContacts0, Triint, dv, meshFlags, bFinishSearching);
+                ctContacts0 = (unsigned int)cData.TestCollisionForSingleTriangle((int)ctContacts0, Triint, dv, meshFlags, bFinishSearching);
 
                 if (bFinishSearching) 
                 {

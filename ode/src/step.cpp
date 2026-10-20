@@ -578,7 +578,7 @@ void dxStepIsland_Stage0_Bodies(dxStepperStage0BodiesCallContext *callContext)
     if (ThrsafeExchange(&callContext->m_tagsTaken, 1) == 0)
     {
         // number all bodies in the body list - set their tag values
-        for (unsigned int i=0; i<nb; i++) body[i]->tag = i;
+        for (unsigned int i=0; i<nb; i++) body[i]->tag = (int)i;
     }
 
     if (ThrsafeExchange(&callContext->m_gravityTaken, 1) == 0)
@@ -759,7 +759,7 @@ void dxStepIsland_Stage0_Joints(dxStepperStage0JointsCallContext *callContext)
                 dJointWithInfo1 *jimixend = jointinfos + mix_end;
                 while (true) {	// jicurr=dest, _jcurr=src
                     if (_jcurr == _jend) {
-                        lcp_end = jicurr - jointinfos;
+                        lcp_end = (sizeint)(jicurr - jointinfos);
                         fwd_end_reached = true;
                         break;
                     }
@@ -792,8 +792,8 @@ void dxStepIsland_Stage0_Joints(dxStepperStage0JointsCallContext *callContext)
                             dJointWithInfo1 *jiunbstart = jointinfos + unb_start;
                             jiunbstart->info = jicurr->info;
                             jiunbstart->joint = j;
-                            lcp_end = jicurr - jointinfos;
-                            mix_end = jimixend - jointinfos;
+                            lcp_end = (sizeint)(jicurr - jointinfos);
+                            mix_end = (sizeint)(jimixend - jointinfos);
                             jicurr = jiunbstart - 1;
                             break;
                         }
@@ -812,8 +812,8 @@ void dxStepIsland_Stage0_Joints(dxStepperStage0JointsCallContext *callContext)
                 dJointWithInfo1 *jimixstart = jointinfos + mix_start - 1;
                 while (true) {	// jicurr=dest, _jcurr=src
                     if (_jcurr == _jend) {
-                        unb_start = (jicurr + 1) - jointinfos;
-                        mix_start = (jimixstart + 1) - jointinfos;
+                        unb_start = (sizeint)((jicurr + 1) - jointinfos);
+                        mix_start = (sizeint)((jimixstart + 1) - jointinfos);
                         bkw_end_reached = true;
                         break;
                     }
@@ -846,8 +846,8 @@ void dxStepIsland_Stage0_Joints(dxStepperStage0JointsCallContext *callContext)
                             lcp_end = lcp_end + 1;
                             jilcpend->info = jicurr->info;
                             jilcpend->joint = j;
-                            unb_start = (jicurr + 1) - jointinfos;
-                            mix_start = (jimixstart + 1) - jointinfos;
+                            unb_start = (sizeint)((jicurr + 1) - jointinfos);
+                            mix_start = (sizeint)((jimixstart + 1) - jointinfos);
                             jicurr = jilcpend + 1;
                             break;
                         }
@@ -872,7 +872,7 @@ void dxStepIsland_Stage0_Joints(dxStepperStage0JointsCallContext *callContext)
         const dJointWithInfo1 *jicurr = jointinfos + ji_start;
         const dJointWithInfo1 *const jiend = jointinfos + ji_end;
         for (unsigned int i = 0; jicurr != jiend; i++, ++jicurr) {
-            jicurr->joint->tag = i;
+            jicurr->joint->tag = (int)i;
         }
     }
 
@@ -1093,7 +1093,7 @@ void dxStepIsland_Stage2a(dxStepperStage2CallContext *stage2CallContext)
                 for (int *findexCurr = findexRow; findexCurr != findicesEnd; ++findexCurr) {
                     int fival = *findexCurr;
                     if (fival != -1) {
-                        *findexCurr = fival + ofsi;
+                        *findexCurr = fival + (int)ofsi;
                     }
                 }
             }
@@ -1118,7 +1118,7 @@ int dxStepIsland_Stage2aSync_Callback(void *_stage2CallContext, dcallindex_t cal
 
     dIASSERT(allowedThreads > 1); /*if (allowedThreads > 1) */{ // The allowed thread count is greater than one as otherwise current function would not be scheduled for execution from the previous stage
         dxWorld *world = callContext->m_world;
-        world->AlterThreadedCallDependenciesCount(callThisReleasee, allowedThreads - 1);
+        world->AlterThreadedCallDependenciesCount(callThisReleasee, (ddependencychange_t)allowedThreads - 1);
         world->PostThreadedCallsGroup(NULL, allowedThreads - 1, callThisReleasee, &dxStepIsland_Stage2b_Callback, stage2CallContext, "StepIsland Stage2b");
     }
     dxStepIsland_Stage2b(stage2CallContext);
@@ -1264,7 +1264,7 @@ int dxStepIsland_Stage2bSync_Callback(void *_stage2CallContext, dcallindex_t cal
 
     dIASSERT(allowedThreads > 1); /*if (allowedThreads > 1) */{ // The allowed thread count is greater than one as otherwise current function would not be scheduled for execution from the previous stage
         dxWorld *world = callContext->m_world;
-        world->AlterThreadedCallDependenciesCount(callThisReleasee, allowedThreads - 1);
+        world->AlterThreadedCallDependenciesCount(callThisReleasee, (ddependencychange_t)allowedThreads - 1);
         world->PostThreadedCallsGroup(NULL, allowedThreads - 1, callThisReleasee, &dxStepIsland_Stage2c_Callback, stage2CallContext, "StepIsland Stage2c");
     }
     dxStepIsland_Stage2c(stage2CallContext);
@@ -1485,7 +1485,7 @@ void dxStepIsland_Stage3(dxStepperStage3CallContext *stage3CallContext)
     else {
         dCallReleaseeID finalReleasee = callContext->m_finalReleasee;
         dxWorld *world = callContext->m_world;
-        world->AlterThreadedCallDependenciesCount(finalReleasee, allowedThreads - 1);
+        world->AlterThreadedCallDependenciesCount(finalReleasee, (ddependencychange_t)allowedThreads - 1);
         world->PostThreadedCallsGroup(NULL, allowedThreads - 1, finalReleasee, &dxStepIsland_Stage4_Callback, stage4CallContext, "StepIsland Stage4");
         // Note: Adding another dependency for the finalReleasee is not necessary as it already depends on the current call
         dxStepIsland_Stage4(stage4CallContext);

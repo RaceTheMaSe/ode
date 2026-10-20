@@ -1860,13 +1860,13 @@ static bool TestAtomicFlags_EnumFindFirstEnumeratedFlag()
 	{
 		CAtomicFlags afTestFlags((atomicord32)(OU_INT32_MIN + 1));
 
-		unsigned int uiFirstResult = afTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT32_BITS);
+		unsigned int uiFirstResult = (unsigned int)afTestFlags.EnumFindFirstEnumeratedFlag(1, OU_UINT32_BITS);
 		if (uiFirstResult != 0)
 		{
 			break;
 		}
 
-		unsigned int uiSecondResult = afTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT32_BITS - 1);
+		unsigned int uiSecondResult = (unsigned int)afTestFlags.EnumFindFirstEnumeratedFlag(2, OU_UINT32_BITS - 1);
 		if (uiSecondResult != OU_UINT32_BITS - 2)
 		{
 			break;
@@ -6755,8 +6755,8 @@ static bool TestFlagsDefines_EnumFlagsMask()
 			break;
 		}
 		
-		iMask = OU_FLAGS_ENUMFLAGS_MASK(uint64ou, 1, OU_UINT64_BITS);
-		if (iMask ^ OU_UINT64_MAX)
+		iMask = (ou::int64ou)OU_FLAGS_ENUMFLAGS_MASK(uint64ou, 1, OU_UINT64_BITS);
+		if (iMask ^ (ou::int64ou)OU_UINT64_MAX)
 		{
 			break;
 		}
@@ -7819,7 +7819,7 @@ static void *_OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Alloc(size_t nBlo
 static void *_OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Realloc(void *pv_OldBlock, size_t nBlockNewSize)
 {
 	g_bReallocInvocation = true;
-	return (void *)((ptrdiff_t)pv_OldBlock - nBlockNewSize);
+	return (void *)((ptrdiff_t)pv_OldBlock - (ptrdiff_t)nBlockNewSize);
 }
 
 static void _OU_CONVENTION_CALLBACK TestCustomizations_MemMgr_Free(void *pv_OldBlock)
@@ -9033,6 +9033,6 @@ int main(int /*argc*/, char* /*argv*/[])
 	unsigned int nFailureCount;
 	ProcessOUCoverageTests(nFailureCount);
 
-	return nFailureCount;
+	return (int)nFailureCount;
 }
 

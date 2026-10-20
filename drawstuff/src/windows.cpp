@@ -116,7 +116,7 @@ struct RenderingThreadParams
 
     void pushBufferedChar(int charCode)
     {
-        int nextHead = (m_keyBufferHead + 1) % dARRAY_SIZE(m_keyBufferStorage);
+        int nextHead = (int)(((size_t)m_keyBufferHead + 1) % dARRAY_SIZE(m_keyBufferStorage));
         if (nextHead != m_keyBufferTail) {
             m_keyBufferStorage[m_keyBufferHead] = charCode;
             m_keyBufferHead = nextHead;
@@ -127,7 +127,7 @@ struct RenderingThreadParams
     {
         assert(areAnyBufferedChars());
 
-        m_keyBufferTail = (m_keyBufferTail + 1) % dARRAY_SIZE(m_keyBufferStorage);
+        m_keyBufferTail = (int)(((size_t)m_keyBufferTail + 1) % dARRAY_SIZE(m_keyBufferStorage));
     }
 
     int peekBufferedChar() const 
@@ -210,7 +210,7 @@ unsigned CALLBACK renderingThread(LPVOID lpParam)
         }
     }
 
-    return executionSucceeded;
+    return (unsigned int)executionSucceeded;
 }
 
 static 
@@ -449,13 +449,13 @@ LRESULT CALLBACK mainWndProc(HWND hWnd, UINT msg, WPARAM wParam,
             MainWindowParameters *pWindowParameters = retrieveMainWindowWindowParameters(hWnd);
             if (pWindowParameters != NULL) {
                 if (msg == WM_LBUTTONUP) {
-                    pWindowParameters->m_mouseButtonStates &= ~MainWindowParameters::MBS_LBUTTONDOWN;
+                    pWindowParameters->m_mouseButtonStates &= (unsigned int)~MainWindowParameters::MBS_LBUTTONDOWN;
                 }
                 else if (msg == WM_MBUTTONUP) {
-                    pWindowParameters->m_mouseButtonStates &= ~MainWindowParameters::MBS_MBUTTONDOWN;
+                    pWindowParameters->m_mouseButtonStates &= (unsigned int)~MainWindowParameters::MBS_MBUTTONDOWN;
                 }
                 else {
-                    pWindowParameters->m_mouseButtonStates &= ~MainWindowParameters::MBS_RBUTTONDOWN;
+                    pWindowParameters->m_mouseButtonStates &= (unsigned int)~MainWindowParameters::MBS_RBUTTONDOWN;
                 }
             }
 
@@ -472,7 +472,7 @@ LRESULT CALLBACK mainWndProc(HWND hWnd, UINT msg, WPARAM wParam,
                 int x = SHORT(LOWORD(lParam));
                 int y = SHORT(HIWORD(lParam));
                 if (pWindowParameters->m_mouseButtonStates != 0) {
-                    dsMotion(pWindowParameters->m_mouseButtonStates, x - pWindowParameters->m_lastMouseX, y - pWindowParameters->m_lastMouseY);
+                    dsMotion((int)pWindowParameters->m_mouseButtonStates, x - pWindowParameters->m_lastMouseX, y - pWindowParameters->m_lastMouseY);
                 }
 
                 pWindowParameters->m_lastMouseX = x;
@@ -544,7 +544,7 @@ LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM /*lParam*/)
             RenderingThreadParams *pRendererParams = retrieveMainWindowRendererThreadParams(hWnd);
             if (pRendererParams != NULL) {
                 bool rendererPause = (pRendererParams->m_rendererPause = !pRendererParams->m_rendererPause);
-                CheckMenuItem(GetMenu(hWnd), IDM_PAUSE, rendererPause ? MF_CHECKED : MF_UNCHECKED);
+                CheckMenuItem(GetMenu(hWnd), IDM_PAUSE, UINT(rendererPause ? MF_CHECKED : MF_UNCHECKED));
                 if (rendererPause) { 
                     pRendererParams->m_rendererSingleStep = false;
                 }
@@ -576,7 +576,7 @@ LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM /*lParam*/)
             MainWindowParameters *pWindowParameters = retrieveMainWindowWindowParameters(hWnd);
             if (pWindowParameters != NULL) {
                 bool hideTextures = (pWindowParameters->m_hideTextures = !pWindowParameters->m_hideTextures);
-                CheckMenuItem(GetMenu(hWnd), IDM_TEXTURES, hideTextures ? MF_UNCHECKED : MF_CHECKED);
+                CheckMenuItem(GetMenu(hWnd), IDM_TEXTURES, UINT(hideTextures ? MF_UNCHECKED : MF_CHECKED));
                 dsSetTextures(!hideTextures);
             }
 
@@ -587,7 +587,7 @@ LRESULT handleMainWindowCommand(HWND hWnd, WPARAM wParam, LPARAM /*lParam*/)
             MainWindowParameters *pWindowParameters = retrieveMainWindowWindowParameters(hWnd);
             if (pWindowParameters != NULL) {
                 bool hideShadows = (pWindowParameters->m_hideShadows = !pWindowParameters->m_hideShadows);
-                CheckMenuItem(GetMenu(hWnd), IDM_SHADOWS, hideShadows ? MF_UNCHECKED : MF_CHECKED);
+                CheckMenuItem(GetMenu(hWnd), IDM_SHADOWS, UINT(hideShadows ? MF_UNCHECKED : MF_CHECKED));
                 dsSetShadows(!hideShadows);
             }
 

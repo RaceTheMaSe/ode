@@ -309,7 +309,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
     }
 
     // get results
-    int TriCount = Collider.GetNbTouchedPrimitives();
+    int TriCount = (int)Collider.GetNbTouchedPrimitives();
     const int* Triangles = (const int*)Collider.GetTouchedPrimitives();
     dIASSERT(Triangles != NULL);
     
@@ -330,7 +330,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
             if (!TriMesh->invokeCallback(SphereGeom, TriIndex))
                 continue;
 
-            TriMesh->fetchMeshTriangle(dv, TriIndex, TLPosition, TLRotation);
+            TriMesh->fetchMeshTriangle(dv, (unsigned int)TriIndex, TLPosition, TLRotation);
 
             dVector3& v0 = dv[0];
             dVector3& v1 = dv[1];
@@ -437,7 +437,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
                 Contact->g2 = SphereGeom;
                 Contact->side2 = -1;
 
-                if (OutTriCount > 1 && !(Flags & CONTACTS_UNIMPORTANT)){
+                if (OutTriCount > 1 && !((unsigned int)Flags & CONTACTS_UNIMPORTANT)){
                     dVector3 pos;
                     pos[0] = Contact->pos[0];
                     pos[1] = Contact->pos[1];
@@ -501,7 +501,7 @@ int dCollideSTL(dxGeom* g1, dxGeom* SphereGeom, int Flags, dContactGeom* Contact
                 return 1;
             }
             else if (TriMesh->m_SphereContactsMergeOption == MERGE_CONTACT_NORMALS) {
-                if (OutTriCount != 1 && !(Flags & CONTACTS_UNIMPORTANT)){
+                if (OutTriCount != 1 && !((unsigned int)Flags & CONTACTS_UNIMPORTANT)){
                     dVector3 Normal;
 
                     dContactGeom* FirstContact = SAFECONTACT(Flags, Contacts, 0, Stride);

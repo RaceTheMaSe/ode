@@ -523,12 +523,12 @@ static void printHeightfieldClass (PrintingContext &c, dxGeom * /*g*/)
 static void printGeom (PrintingContext &c, dxGeom *g)
 {
     unsigned long category = dGeomGetCategoryBits (g);
-    if (category != (unsigned long)(~0)) {
+    if (category != ~(unsigned long)0) {
         c.printIndent();
         fprintf (c.file,"category_bits = %lu\n",category);
     }
     unsigned long collide = dGeomGetCollideBits (g);
-    if (collide != (unsigned long)(~0)) {
+    if (collide != ~(unsigned long)0) {
         c.printIndent();
         fprintf (c.file,"collide_bits = %lu\n",collide);
     }

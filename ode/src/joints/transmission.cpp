@@ -76,7 +76,7 @@ dxJointTransmission::getInfo1( dxJoint::Info1* info )
     // first needs to traverse the backlash gap.
 
     info->m = 1;
-    info->nub = backlash > 0 ? 0 : 1;
+    info->nub = (uint8)(backlash > 0 ? 0 : 1);
 }
 
 void

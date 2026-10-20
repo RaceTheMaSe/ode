@@ -476,11 +476,11 @@ static int findPos(const void *obj1, const void *obj2, const ccd_t *ccd,
     ccdVec3Copy(&p1, ccd_vec3_origin);
     ccdVec3Copy(&p2, ccd_vec3_origin);
     for (i = 0; i < 4; i++){
-        ccdVec3Copy(&vec, &ccdSimplexPoint(portal, i)->v1);
+        ccdVec3Copy(&vec, &ccdSimplexPoint(portal, (int)i)->v1);
         ccdVec3Scale(&vec, b[i]);
         ccdVec3Add(&p1, &vec);
 
-        ccdVec3Copy(&vec, &ccdSimplexPoint(portal, i)->v2);
+        ccdVec3Copy(&vec, &ccdSimplexPoint(portal, (int)i)->v2);
         ccdVec3Scale(&vec, b[i]);
         ccdVec3Add(&p2, &vec);
     }

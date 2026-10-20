@@ -52,7 +52,7 @@ Container::Container() : mMaxNbEntries(0), mCurNbEntries(0), mEntries(null), mGr
  *	Constructor. Also allocates a given number of entries.
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Container::Container(udword size, float growth_factor) : mMaxNbEntries(0), mCurNbEntries(0), mEntries(null), mGrowthFactor(growth_factor)
+Container::Container(udword size, float growth_factor) : mMaxNbEntries(0), mCurNbEntries(0), mEntries(null), mGrowthFactor((udword)growth_factor)
 {
 #ifdef CONTAINER_STATS
 	mNbContainers++;
@@ -155,7 +155,7 @@ bool Container::Resize(udword needed)
 	CHECKALLOC(NewEntries);
 
 	// Copy old data if needed
-	if(mCurNbEntries)	CopyMemory(NewEntries, mEntries, mCurNbEntries*sizeof(udword));
+	if(mCurNbEntries)	CopyMemory(NewEntries, mEntries, mCurNbEntries*(udword)sizeof(udword));
 
 	// Delete old data
 	DELETEARRAY(mEntries);
@@ -228,7 +228,7 @@ bool Container::Refit()
 #endif
 
 	// Copy old data
-	CopyMemory(NewEntries, mEntries, mCurNbEntries*sizeof(udword));
+	CopyMemory(NewEntries, mEntries, mCurNbEntries*(udword)sizeof(udword));
 
 	// Delete old data
 	DELETEARRAY(mEntries);
@@ -363,7 +363,7 @@ Container& Container::FindPrev(udword& entry, FindMode find_mode)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 udword Container::GetUsedRam() const
 {
-	return sizeof(Container) + mMaxNbEntries * sizeof(udword);
+	return (udword)(sizeof(Container) + mMaxNbEntries * sizeof(udword));
 }
 
 /*void Container::operator=(const Container& object)

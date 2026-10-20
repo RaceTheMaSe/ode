@@ -257,7 +257,7 @@ void ccdPtDumpSVT2(ccd_pt_t *pt, FILE *fout)
     ccd_pt_vertex_t *v, *a, *b, *c;
     ccd_pt_edge_t *e;
     ccd_pt_face_t *f;
-    size_t i;
+    int i;
 
     fprintf(fout, "-----\n");
 

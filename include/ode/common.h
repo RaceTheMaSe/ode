@@ -88,7 +88,7 @@ typedef duint32 dTriIndex;
 /* round an integer up to a multiple of 4, except that 0 and 1 are unmodified
  * (used to compute matrix leading dimensions)
  */
-#define dPAD(a) (((a) > 1) ? (((a) + 3) & (int)(~3)) : (a))
+#define dPAD(a) (((a) > 1) ? ((unsigned int)((a) + 3) & (unsigned int)(int)(~3)) : (unsigned int)(a))
 
 typedef enum {
     dSA__MIN,

@@ -649,7 +649,7 @@ void dLCP::transfer_i_from_C_to_N (unsigned i, void *tmpbuf)
         unsigned j = 0;
         for ( ; j < nC; ++j) {
             if (C[j] == nC - 1) {
-                last_idx = j;
+                last_idx = (int)j;
             }
             if (C[j] == i) {
                 dxLDLTRemove (m_A, C, m_L, m_d, m_n, nC, j, m_nskip, tmpbuf);
@@ -663,7 +663,7 @@ void dLCP::transfer_i_from_C_to_N (unsigned i, void *tmpbuf)
                     dIASSERT (k < nC);
                 }
                 else {
-                    k = last_idx;
+                    k = (unsigned int)last_idx;
                 }
                 C[k] = C[j];
                 if (j != (nC - 1)) memmove (C + j, C + j + 1, (nC - j - 1) * sizeof(C[0]));
@@ -858,7 +858,7 @@ void dxSolveLCP_AllUnbounded (dxWorldProcessMemArena * /*memarena*/, unsigned n,
 
     transfer_b_to_x<true>(pairsbx, n);    
 
-    unsigned nskip = dPAD(n);
+    unsigned nskip = (unsigned)dPAD(n);
     factorMatrixAsLDLT<PBX__MAX> (A, pairsbx + PBX_B, n, nskip);
     solveEquationSystemWithLDLT<PBX__MAX, PBX__MAX> (A, pairsbx + PBX_B, pairsbx + PBX_X, n, nskip);
 }
@@ -1226,16 +1226,16 @@ extern "C" ODE_API int dTestSolveLCP()
 #endif
     printf ("dTestSolveLCP()\n");
 
-    dReal *A = arena->AllocateArray<dReal> (n*nskip);
+    dReal *A = arena->AllocateArray<dReal> ((sizeint)n*nskip);
     dReal *x = arena->AllocateArray<dReal> (n);
     dReal *b = arena->AllocateArray<dReal> (n);
     dReal *w = arena->AllocateArray<dReal> (n);
     dReal *lo = arena->AllocateArray<dReal> (n);
     dReal *hi = arena->AllocateArray<dReal> (n);
 
-    dReal *A2 = arena->AllocateArray<dReal> (n*nskip);
-    dReal *pairsbx = arena->AllocateArray<dReal> (n * PBX__MAX);
-    dReal *pairslh = arena->AllocateArray<dReal> (n * PLH__MAX);
+    dReal *A2 = arena->AllocateArray<dReal> ((sizeint)n*nskip);
+    dReal *pairsbx = arena->AllocateArray<dReal> ((sizeint)n * PBX__MAX);
+    dReal *pairslh = arena->AllocateArray<dReal> ((sizeint)n * PLH__MAX);
 
     dReal *tmp1 = arena->AllocateArray<dReal> (n);
     dReal *tmp2 = arena->AllocateArray<dReal> (n);
@@ -1278,7 +1278,7 @@ extern "C" ODE_API int dTestSolveLCP()
             // ensure that it doesn't get referenced (if it does, the answer will be
             // wrong).
 
-            memcpy (A2, A, n * nskip * sizeof(dReal));
+            memcpy (A2, A, (sizeint)n * nskip * sizeof(dReal));
             dClearUpperTriangle (A2, n);
             for (i = 0; i != n; ++i) {
                 dReal *currbx = pairsbx + i * PBX__MAX;
@@ -1334,7 +1334,7 @@ extern "C" ODE_API int dTestSolveLCP()
             }
 
             // pacifier
-            printf ("passed: NL=%3d NH=%3d C=%3d   ",n1,n2,n3);
+            printf ("passed: NL=%3u NH=%3u C=%3u   ",n1,n2,n3);
             printf ("time=%10.3f ms  avg=%10.4f\n",time * 1000.0,average);
 
         } END_STATE_SAVE(arena, saveInner);

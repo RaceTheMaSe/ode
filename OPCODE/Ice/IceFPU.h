@@ -56,7 +56,7 @@
 	//! Saturates positive to zero.
 	inline_ float fsat(float f)
 	{
-		udword y = IR(f) & ~(SIR(f) >>31);
+		udword y = IR(f) & (udword)~(SIR(f) >>31);
 		return FR(y);
 	}
 
@@ -90,9 +90,9 @@
 
 		x2 = number * 0.5f;
 		y  = number;
-		i  = IR(y);
+		i  = (int)IR(y);
 		i  = 0x5f3759df - (i >> 1);
-		y  = FR(i);
+		y  = FR((unsigned int)i);
 		y  = y * (threehalfs - (x2 * y * y));
 
 		return y;
@@ -101,7 +101,7 @@
 	//! TO BE DOCUMENTED
 	inline_ float fsqrt(float f)
 	{
-		udword y = ( ( SIR(f) - 0x3f800000 ) >> 1 ) + 0x3f800000;
+		udword y = (udword)( ( SIR(f) - 0x3f800000 ) >> 1 ) + 0x3f800000;
 		// Iteration...?
 		// (float&)y = (3.0f - ((float&)y * (float&)y) / f) * (float&)y * 0.5f;
 		// Result

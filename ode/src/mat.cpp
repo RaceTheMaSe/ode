@@ -42,8 +42,8 @@ dMatrix::dMatrix (int rows, int cols)
     if (rows < 1 || cols < 1) dDebug (0,"bad matrix size");
     n = rows;
     m = cols;
-    data = (dReal*) dAlloc (n*m*sizeof(dReal));
-    dSetZero (data,n*m);
+    data = (dReal*) dAlloc ((size_t)(n*m)*sizeof(dReal));
+    dSetZero (data,(size_t)(n*m));
 }
 
 
@@ -51,8 +51,8 @@ dMatrix::dMatrix (const dMatrix &a)
 {
     n = a.n;
     m = a.m;
-    data = (dReal*) dAlloc (n*m*sizeof(dReal));
-    memcpy (data,a.data,n*m*sizeof(dReal));
+    data = (dReal*) dAlloc ((size_t)(n*m)*sizeof(dReal));
+    memcpy (data,a.data,(size_t)(n*m)*sizeof(dReal));
 }
 
 
@@ -62,7 +62,7 @@ dMatrix::dMatrix (int rows, int cols,
     if (rows < 1 || cols < 1) dDebug (0,"bad matrix size");
     n = rows;
     m = cols;
-    data = (dReal*) dAlloc (n*m*sizeof(dReal));
+    data = (dReal*) dAlloc ((size_t)(n*m)*sizeof(dReal));
     for (int i=0; i<n; i++) {
         for (int j=0; j<m; j++) data[i*m+j] = _data[i*rowskip + j*colskip];
     }
@@ -71,7 +71,7 @@ dMatrix::dMatrix (int rows, int cols,
 
 dMatrix::~dMatrix()
 {
-    if (data) dFree (data,n*m*sizeof(dReal));
+    if (data) dFree (data,(size_t)(n*m)*sizeof(dReal));
 }
 
 
@@ -84,12 +84,12 @@ dReal & dMatrix::operator () (int i, int j)
 
 void dMatrix::operator= (const dMatrix &a)
 {
-    if (data) dFree (data,n*m*sizeof(dReal));
+    if (data) dFree (data,(size_t)(n*m)*sizeof(dReal));
     n = a.n;
     m = a.m;
     if (n > 0 && m > 0) {
-        data = (dReal*) dAlloc (n*m*sizeof(dReal));
-        memcpy (data,a.data,n*m*sizeof(dReal));
+        data = (dReal*) dAlloc ((size_t)(n*m)*sizeof(dReal));
+        memcpy (data,a.data,(size_t)(n*m)*sizeof(dReal));
     }
     else data = NULL;
 }

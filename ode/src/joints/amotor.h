@@ -51,7 +51,7 @@ public:
     int getOperationMode() const { return m_mode; }
 
     void setNumAxes(unsigned num);
-    int getNumAxes() const { return m_num; }
+    int getNumAxes() const { return (int)m_num; }
 
     dJointBodyRelativity getAxisBodyRelativity(unsigned anum) const;
 

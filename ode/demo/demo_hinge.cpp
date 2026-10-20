@@ -49,7 +49,7 @@ static int occasional_error = 0;
 
 static void start()
 {
-  dAllocateODEDataForThread(dAllocateMaskAll);
+  dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
   float xyz[3] = {1.0382f,-1.0811f,1.4700f};
   float hpr[3] = {135.0000f,-19.5000f,0.0000f};

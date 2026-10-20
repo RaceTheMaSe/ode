@@ -51,7 +51,7 @@ static inline void getClockCount (unsigned long cc[2])
     LARGE_INTEGER a;
     QueryPerformanceCounter (&a);
     cc[0] = a.LowPart;
-    cc[1] = a.HighPart;
+    cc[1] = (ULONG)a.HighPart;
 }
 
 
@@ -64,7 +64,7 @@ static inline double loadClockCount (unsigned long cc[2])
 {
     LARGE_INTEGER a;
     a.LowPart = cc[0];
-    a.HighPart = cc[1];
+    a.HighPart = (LONG)cc[1];
     return double(a.QuadPart);
 }
 
@@ -471,7 +471,7 @@ void dTimerReport (FILE *fout, int average)
     if (total <= 0) total = 1;
 
     // compute time difference for all slots except the last one. update totals
-    double *times = (double*) ALLOCA (num * sizeof(double));
+    double *times = (double*) ALLOCA ((size_t)num * sizeof(double));
     for (i=0; i < (num-1); i++) {
         double timer1 = loadClockCount (event[i].cc);
         double timer2 = loadClockCount (event[i+1].cc);

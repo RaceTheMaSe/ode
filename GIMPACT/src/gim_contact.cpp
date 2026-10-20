@@ -46,7 +46,7 @@ void gim_merge_contacts(GDYNAMIC_ARRAY * source_contacts,
 	}
 
 	//sort keys
-	GIM_QUICK_SORT_ARRAY(GIM_RSORT_TOKEN , keycontacts, source_count, RSORT_TOKEN_COMPARATOR,GIM_DEF_EXCHANGE_MACRO);
+	GIM_QUICK_SORT_ARRAY(GIM_RSORT_TOKEN , keycontacts, (int32_t)source_count, RSORT_TOKEN_COMPARATOR,GIM_DEF_EXCHANGE_MACRO);
 
 	// Merge contacts
 	GIM_CONTACT * pcontact = NULL;

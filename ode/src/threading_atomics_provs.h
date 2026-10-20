@@ -120,7 +120,7 @@ inline sizeint dxFakeAtomicsProvider::AddValueToTarget<sizeof(dxFakeAtomicsProvi
 {
     atomicord_t original_value = *(volatile atomicord_t *)value_accumulator_ptr;
 
-    *(volatile atomicord_t *)value_accumulator_ptr = original_value + (atomicord_t)value_addend;
+    *(volatile atomicord_t *)value_accumulator_ptr = (atomicord_t)((diffint)original_value + value_addend);
 
     return original_value;
 }
@@ -130,7 +130,7 @@ inline sizeint dxFakeAtomicsProvider::AddValueToTarget<2 * sizeof(dxFakeAtomicsP
 {
     atomicptr_t original_value = *(volatile atomicptr_t *)value_accumulator_ptr;
 
-    *(volatile atomicptr_t *)value_accumulator_ptr = (atomicptr_t)((sizeint)original_value + (sizeint)value_addend);
+    *(volatile atomicptr_t *)value_accumulator_ptr = (atomicptr_t)((diffint)original_value + value_addend);
 
     return (sizeint)original_value;
 }

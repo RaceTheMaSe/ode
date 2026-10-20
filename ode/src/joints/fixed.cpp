@@ -80,7 +80,7 @@ dxJointFixed::getInfo2 ( dReal worldFPS, dReal worldERP,
     dMultiply0_331 ( ofs, b0->posr.R, offset );
 
     if ( b1 ) {
-        dSetCrossMatrixPlus( J1 + GI2__JA_MIN, ofs, rowskip );
+        dSetCrossMatrixPlus( J1 + GI2__JA_MIN, ofs, (unsigned int)rowskip );
 
         J2[GI2_JLX] = -1;
         J2[rowskip + GI2_JLY] = -1;

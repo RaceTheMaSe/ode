@@ -48,8 +48,8 @@ struct dxGIMCContactAccessor
         pcontact->depth = (dReal)ptrimeshcontact->m_depth;
         pcontact->g1 = m_g1;
         pcontact->g2 = m_g2;
-        pcontact->side1 = ptrimeshcontact->m_feature1;
-        pcontact->side2 = !m_gotside2ovr ? ptrimeshcontact->m_feature2 : m_side2ovr;
+        pcontact->side1 = (int)ptrimeshcontact->m_feature1;
+        pcontact->side2 = !m_gotside2ovr ? (int)ptrimeshcontact->m_feature2 : m_side2ovr;
     }
 
     const GIM_CONTACT *m_ptrimeshcontacts;

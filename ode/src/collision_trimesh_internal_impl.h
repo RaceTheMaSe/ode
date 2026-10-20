@@ -38,11 +38,11 @@ template<typename tcoordfloat, typename tindexint>
 void dxTriDataBase::retrieveTriangleVertexPoints(dVector3 out_Points[dMTV__MAX], unsigned triangleIndex,
     const tcoordfloat *vertexInstances, int vertexStride, const tindexint *triangleVertexIndices, int triangleStride)
 {
-    const tindexint *triangleIndicesOfInterest = (const tindexint *)((const uint8 *)triangleVertexIndices + (sizeint)triangleIndex * triangleStride);
+    const tindexint *triangleIndicesOfInterest = (const tindexint *)((const uint8 *)triangleVertexIndices + (sizeint)triangleIndex * (sizeint)triangleStride);
     for (unsigned trianglePoint = dMTV__MIN; trianglePoint != dMTV__MAX; ++trianglePoint)
     {
         unsigned vertexIndex = triangleIndicesOfInterest[trianglePoint];
-        const tcoordfloat *pointVertex = (const tcoordfloat *)((const uint8 *)vertexInstances + (sizeint)vertexIndex * vertexStride);
+        const tcoordfloat *pointVertex = (const tcoordfloat *)((const uint8 *)vertexInstances + (sizeint)vertexIndex * (sizeint)vertexStride);
         dAssignVector3(out_Points[trianglePoint], (dReal)pointVertex[dSA_X], (dReal)pointVertex[dSA_Y], (dReal)pointVertex[dSA_Z]);
         dSASSERT(dSA_X == 0);
         dSASSERT(dSA_Y == 1);
@@ -61,9 +61,9 @@ void dxTriDataBase::meaningfulPreprocess_SetupEdgeRecords(EdgeRecord *edges, siz
     for (sizeint edgeIdx = 0; edgeIdx != numEdges; ++triangleIdx, edgeIdx += dMTV__MAX)
     {
         dataAccessor.getTriangleVertexIndices(vertexIndices, triangleIdx);
-        edges[edgeIdx + dMTV_FIRST].setupEdge(dMTV_FIRST, triangleIdx, vertexIndices);
-        edges[edgeIdx + dMTV_SECOND].setupEdge(dMTV_SECOND, triangleIdx, vertexIndices);
-        edges[edgeIdx + dMTV_THIRD].setupEdge(dMTV_THIRD, triangleIdx, vertexIndices);
+        edges[edgeIdx + dMTV_FIRST].setupEdge(dMTV_FIRST, (int)triangleIdx, vertexIndices);
+        edges[edgeIdx + dMTV_SECOND].setupEdge(dMTV_SECOND, (int)triangleIdx, vertexIndices);
+        edges[edgeIdx + dMTV_THIRD].setupEdge(dMTV_THIRD, (int)triangleIdx, vertexIndices);
     }
 }
 
@@ -96,9 +96,9 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
                 if (useFlags != NULL)
                 {
                     // For the last element EdgeRecord::kAbsVertexUsed assignment can be skipped as noone is going to need it anymore
-                    useFlags[currEdge[0].m_triIdx] |= ((edges[currEdge[0].m_vertIdx1].m_absVertexFlags & EdgeRecord::AVF_VERTEX_USED) == 0 ? currEdge[0].m_vert1Flags : 0) 
+                    useFlags[currEdge[0].m_triIdx] |= (uint8)(((edges[currEdge[0].m_vertIdx1].m_absVertexFlags & EdgeRecord::AVF_VERTEX_USED) == 0 ? currEdge[0].m_vert1Flags : 0) 
                         | ((edges[currEdge[0].m_vertIdx2].m_absVertexFlags & EdgeRecord::AVF_VERTEX_USED) == 0 ? currEdge[0].m_vert2Flags : 0)
-                        | currEdge[0].m_edgeFlags;
+                        | currEdge[0].m_edgeFlags);
                 }
             }
 
@@ -193,7 +193,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
                 if (useFlags != NULL)
                 {
                     // Mark the vertices of a concave edge to prevent their use
-                    unsigned absVertexFlags1 = edges[vertIdx1].m_absVertexFlags;
+                    uint8 absVertexFlags1 = edges[vertIdx1].m_absVertexFlags;
                     edges[vertIdx1].m_absVertexFlags |= absVertexFlags1 | EdgeRecord::AVF_VERTEX_HAS_CONCAVE_EDGE | EdgeRecord::AVF_VERTEX_USED;
 
                     if ((absVertexFlags1 & (EdgeRecord::AVF_VERTEX_HAS_CONCAVE_EDGE | EdgeRecord::AVF_VERTEX_USED)) == EdgeRecord::AVF_VERTEX_USED)
@@ -209,7 +209,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
                     }
 
                     unsigned absVertexFlags2 = edges[vertIdx2].m_absVertexFlags;
-                    edges[vertIdx2].m_absVertexFlags = absVertexFlags2 | EdgeRecord::AVF_VERTEX_HAS_CONCAVE_EDGE | EdgeRecord::AVF_VERTEX_USED;
+                    edges[vertIdx2].m_absVertexFlags = (uint8)(absVertexFlags2 | EdgeRecord::AVF_VERTEX_HAS_CONCAVE_EDGE | EdgeRecord::AVF_VERTEX_USED);
 
                     if ((absVertexFlags2 & (EdgeRecord::AVF_VERTEX_HAS_CONCAVE_EDGE | EdgeRecord::AVF_VERTEX_USED)) == EdgeRecord::AVF_VERTEX_USED)
                     {
@@ -270,7 +270,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
                     }
 
                     // And finally store the use flags adding the edge flags in
-                    useFlags[triIdx] = triUseFlags | edgeToUse[0].m_edgeFlags;
+                    useFlags[triIdx] = (uint8)(triUseFlags | edgeToUse[0].m_edgeFlags);
                 }
             }
 
@@ -288,7 +288,7 @@ void dxTriDataBase::meaningfulPreprocess_buildEdgeFlags(uint8 *useFlags/*=NULL*/
             if (useFlags != NULL)
             {
                 unsigned triIdx = currEdge[0].m_triIdx;
-                unsigned triUseExtraFlags = 0;
+                uint8 triUseExtraFlags = 0;
                 
                 if ((edges[vertIdx1].m_absVertexFlags & EdgeRecord::AVF_VERTEX_USED) == 0)
                 {

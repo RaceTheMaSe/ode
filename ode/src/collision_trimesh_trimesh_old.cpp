@@ -177,7 +177,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
         // Get collision status => if true, objects overlap
         if ( Collider.GetContactStatus() ) {
             // Number of colliding pairs and list of pairs
-            int TriCount = Collider.GetNbPairs();
+            int TriCount = (int)Collider.GetNbPairs();
             const IceCore::Pair* CollidingPairs = Collider.GetPairs();
 
             if (TriCount > 0) {
@@ -203,12 +203,12 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
 
                 for (int i = 0; i < TriCount; i++) {
 
-                    id1 = CollidingPairs[i].id0;
-                    id2 = CollidingPairs[i].id1;
+                    id1 = (int)CollidingPairs[i].id0;
+                    id2 = (int)CollidingPairs[i].id1;
 
                     // grab the colliding triangles
-                    static_cast<dxTriMesh *>(g1)->fetchMeshTriangle(v1, id1, TLPosition1, TLRotation1);
-                    static_cast<dxTriMesh *>(g2)->fetchMeshTriangle(v2, id2, TLPosition2, TLRotation2);
+                    static_cast<dxTriMesh *>(g1)->fetchMeshTriangle(v1, (unsigned)id1, TLPosition1, TLRotation1);
+                    static_cast<dxTriMesh *>(g2)->fetchMeshTriangle(v2, (unsigned)id2, TLPosition2, TLRotation2);
 
                     // Since we'll be doing matrix transformations, we need to
                     //  make sure that all vertices have four elements
@@ -421,7 +421,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                             pen_v[j], n, depth, OutTriCount);
                                         badPen = false;
 
-                                        if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+                                        if (((unsigned)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                                             break;
                                         }
                                     }
@@ -437,7 +437,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                                 pen_v[j], n, depth, OutTriCount);
                                             badPen = false;
 
-                                            if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+                                            if (((unsigned)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                                                 break;
                                             }
                                         }
@@ -551,7 +551,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                                     firstClippedTri.Points[j], n, depth, OutTriCount);
                                                 badPen = false;
 
-                                                if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+                                                if (((unsigned)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                                                     break;
                                                 }
                                             }
@@ -653,7 +653,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                                     secondClippedTri.Points[j], n, depth, OutTriCount);
                                                 badPen = false;
 
-                                                if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+                                                if (((unsigned)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                                                     break;
                                                 }
                                             }
@@ -815,7 +815,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                                         firstClippedTri.Points[j], esn, depth, OutTriCount);
                                                     badPen = false;
 
-                                                    if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+                                                    if (((unsigned)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                                                         break;
                                                     }
                                                 }
@@ -843,7 +843,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                                             secondClippedTri.Points[j], esn, depth, OutTriCount);
                                                         badPen = false;
 
-                                                        if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+                                                        if (((unsigned)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                                                             break;
                                                         }
                                                     }
@@ -875,7 +875,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                                     pen_v[j], n, dp, OutTriCount);
                                                 badPen = false;
 
-                                                if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+                                                if (((unsigned)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                                                     break;
                                                 }
                                             }
@@ -897,7 +897,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                                                         pen_v[j], n, dp, OutTriCount);
                                                     badPen = false;
 
-                                                    if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+                                                    if (((unsigned)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                                                         break;
                                                     }
                                                 }
@@ -959,7 +959,7 @@ dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int Strid
                             } // not coplanar (main loop)
                     } // TriTriIntersectWithIsectLine
 
-                    if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+                    if (((unsigned)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                         break;
                     }
                 }
@@ -1716,7 +1716,7 @@ static void ClipConvexPolygonAgainstPlane( const dVector3 N, dReal C, LineContac
                 }
             }
             Quantity = CQuantity;
-            memcpy( Contacts.Points, CV, CQuantity * sizeof(dVector3) );
+            memcpy( Contacts.Points, CV, (dsizeint)CQuantity * sizeof(dVector3) );
         }
         // else polygon fully on positive side of plane, nothing to do    
         Contacts.Count = Quantity;
@@ -1867,7 +1867,7 @@ GenerateContact(int in_Flags, dContactGeom* in_Contacts, int in_Stride,
         dContactGeom* Contact;
         dVector3 diff;
 
-        if (!(in_Flags & CONTACTS_UNIMPORTANT))
+        if (!((unsigned)in_Flags & CONTACTS_UNIMPORTANT))
         {
             bool duplicate = false;
 

@@ -402,7 +402,7 @@ bool AABBNoLeafTree::Refit(const MeshInterface* mesh_interface)
 
 		if(Current.HasPosLeaf())
 		{
-			mesh_interface->GetTriangle(VP, Current.GetPosPrimitive(), VC);
+			mesh_interface->GetTriangle(VP, (udword)Current.GetPosPrimitive(), VC);
 			ComputeMinMax(Min, Max, VP);
 		}
 		else
@@ -414,7 +414,7 @@ bool AABBNoLeafTree::Refit(const MeshInterface* mesh_interface)
 
 		if(Current.HasNegLeaf())
 		{
-			mesh_interface->GetTriangle(VP, Current.GetNegPrimitive(), VC);
+			mesh_interface->GetTriangle(VP, (udword)Current.GetNegPrimitive(), VC);
 			ComputeMinMax(Min_, Max_, VP);
 		}
 		else
@@ -563,7 +563,7 @@ bool AABBNoLeafTree::Walk(GenericWalkingCallback callback, void* user_data) cons
 	if(!(Data&1))													\
 	{																\
 		/* Compute box number */									\
-		size_t Nb = ((NodeType *)(Data) - (Nodes));	                \
+		size_t Nb = (size_t)((NodeType *)(Data) - (Nodes));	                \
 		Data = (size_t) &mNodes[Nb];                                \
 	}                                                               \
 	/* ...remapped */												\

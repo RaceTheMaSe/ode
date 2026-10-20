@@ -80,7 +80,7 @@ static HTLSKEYVALUE g_ahkvStorageGlobalKeyValues[SIK__MAX] = { NULL };
 
 static inline size_t DecodeInstanceKindFromKeySelector(const HTLSKEYSELECTOR &hksKeySelector)
 {
-	return (HTLSKEYSELECTOR::value_type)hksKeySelector - g_ahkvStorageGlobalKeyValues;
+	return (size_t)((HTLSKEYSELECTOR::value_type)hksKeySelector - (HTLSKEYSELECTOR::value_type)g_ahkvStorageGlobalKeyValues);
 }
 
 static inline HTLSKEYSELECTOR EncodeKeySelectorFromStorageKind(ESTORAGEINSTANCEKIND ikInstanceKind)
@@ -733,8 +733,8 @@ unsigned int CTLSStorageArray::GetStorageBlockIndex(CTLSStorageBlock *psbStorage
 	const size_t nBlockSize = CTLSStorageBlock::GetRequiredSize(iValueCount);
 	const size_t nBlockZeroOffset = CTLSStorageBlock::GetZeroOffset(iValueCount);
 
-	unsigned int uiBlockIndex = (unsigned int)((((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((const int8ou *)this)) / nBlockSize);
-	OU_ASSERT((((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((int8ou *)this)) % nBlockSize == 0);
+	unsigned int uiBlockIndex = (unsigned int)((((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((const int8ou *)this)) / (int)nBlockSize);
+	OU_ASSERT((size_t)(((int8ou *)psbStorageBlock) - nBlockZeroOffset - nHeaderSize - ((int8ou *)this)) % nBlockSize == 0);
 	OU_ASSERT(OU_IN_INT_RANGE(uiBlockIndex, 0, TLS_ARRAY_ELEMENT__MAX));
 
 	return uiBlockIndex;
@@ -1117,7 +1117,7 @@ void CTLSStorageInstance::FreeStorageBlock_Callback_Manual(void *pv_DataValue)
 
 void CTLSStorageInstance::FreeStorageBlock(CTLSStorageBlock *psbStorageBlock)
 {
-	const int iValueCount = GetValueCount();
+	const tlsindextype iValueCount = GetValueCount();
 	
 	CTLSStorageArray *psaArrayInstance = psbStorageBlock->GetHostArray();
 	psaArrayInstance->FreeStorageBlockOnThreadExit(psbStorageBlock, iValueCount);

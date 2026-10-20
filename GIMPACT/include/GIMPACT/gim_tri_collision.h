@@ -48,7 +48,7 @@ email: projectileman@yahoo.com
 	{ \
 		_vi = _i%polygon_point_count; \
 		_d = DISTANCE_PLANE_POINT(plane,polygon_points[_vi]); \
-		_classif = _d>G_EPSILON ?1:0; \
+		_classif = (GUINT32)(_d>G_EPSILON ?1:0); \
 		if(_classif == 0) \
 		{ \
 			if(_prevclassif==1) \

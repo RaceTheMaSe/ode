@@ -169,8 +169,8 @@ void UpdateContactKey(CONTACT_KEY & key, dContactGeom * contact)
         dReal coord = contact->pos[i];
         coord = dFloor(coord * CONTACT_POS_HASH_QUOTIENT);
 
-        const int sz = sizeof(coord) / sizeof(unsigned);
-        dIASSERT(sizeof(coord) % sizeof(unsigned) == 0);
+        const int sz = (int)(sizeof(coord) / sizeof(unsigned));
+        dSASSERT(sizeof(coord) % sizeof(unsigned) == 0);
 
         unsigned hash_v[ sz ];
         memcpy(hash_v, &coord, sizeof(coord));
@@ -538,7 +538,7 @@ int dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int S
         // Get collision status => if true, objects overlap
         if ( Collider.GetContactStatus() ) {
             // Number of colliding pairs and list of pairs
-            int TriCount = Collider.GetNbPairs();
+            int TriCount = (int)Collider.GetNbPairs();
             const IceCore::Pair* CollidingPairs = Collider.GetPairs();
 
             if (TriCount > 0) {
@@ -549,12 +549,12 @@ int dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int S
 
                 for (int i = 0; i < TriCount; i++)
                 {
-                    id1 = CollidingPairs[i].id0;
-                    id2 = CollidingPairs[i].id1;
+                    id1 = (int)CollidingPairs[i].id0;
+                    id2 = (int)CollidingPairs[i].id1;
 
                     // grab the colliding triangles
-                    static_cast<dxTriMesh *>(g1)->fetchMeshTriangle(v1, id1, TLPosition1, TLRotation1);
-                    static_cast<dxTriMesh *>(g2)->fetchMeshTriangle(v2, id2, TLPosition2, TLRotation2);
+                    static_cast<dxTriMesh *>(g1)->fetchMeshTriangle(v1, (unsigned int)id1, TLPosition1, TLRotation1);
+                    static_cast<dxTriMesh *>(g2)->fetchMeshTriangle(v2, (unsigned int)id2, TLPosition2, TLRotation2);
 
                     // Since we'll be doing matrix transformations, we need to
                     //  make sure that all vertices have four elements
@@ -570,7 +570,7 @@ int dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int S
                     // Continue loop even after contacts are full 
                     // as existing contacts' normals/depths might be updated
                     // Break only if contacts are not important
-                    if ((OutTriCount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT)))
+                    if (((unsigned int)OutTriCount | CONTACTS_UNIMPORTANT) == ((unsigned int)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT)))
                     {
                         break;
                     }
@@ -839,7 +839,7 @@ ClipConvexPolygonAgainstPlane( const dVector3 N, dReal C,
         return;
     }
     Contacts.Count = clippedcount;
-    memcpy( Contacts.Points, clipped, clippedcount * sizeof(dVector3) );
+    memcpy( Contacts.Points, clipped, (size_t)clippedcount * sizeof(dVector3) );
     return;
 }
 
@@ -1000,7 +1000,7 @@ void ClipPointsByTri(
     dVector4 plane;
 
     clipped_points.Count = pointcount;
-    memcpy(&clipped_points.Points[0],&points[0],pointcount*sizeof(dVector3));
+    memcpy(&clipped_points.Points[0],&points[0],(size_t)pointcount*sizeof(dVector3));
     for(i=0;i<3;i++)
     {
         if (BuildEdgePlane(
@@ -1158,7 +1158,7 @@ dReal FindTriangleTriangleCollision(
         memcpy(
             &deep_points.Points[0],
             &deep_points1.Points[0],
-            deep_points1.Count*sizeof(dVector3));
+            (size_t)deep_points1.Count*sizeof(dVector3));
 
         ///invert normal for point to tri1
         MULT(separating_normal,separating_normal,REAL(-1.0));
@@ -1169,7 +1169,7 @@ dReal FindTriangleTriangleCollision(
         memcpy(
             &deep_points.Points[0],
             &deep_points2.Points[0],
-            deep_points2.Count*sizeof(dVector3));
+            (size_t)deep_points2.Count*sizeof(dVector3));
 
     }
     /*else
@@ -1302,7 +1302,7 @@ bool TriTriContacts(const dVector3 tr1[3],
         // Continue loop even after contacts are full 
         // as existing contacts' normals/depths might be updated
         // Break only if contacts are not important
-        if ((contactcount | CONTACTS_UNIMPORTANT) == (Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT)))
+        if (((unsigned int)contactcount | CONTACTS_UNIMPORTANT) == ((unsigned int)Flags & (NUMC_MASK | CONTACTS_UNIMPORTANT)))
         {
             break;
         }
@@ -1362,7 +1362,7 @@ int dCollideTTL(dxGeom* g1, dxGeom* g2, int Flags, dContactGeom* Contacts, int S
         dxGIMCContactAccessor contactAccessor(pTriMeshContacts, g1, g2);
         unsigned culledContactCount = dxGImpactContactsExportHelper::ExportMaxDepthGImpactContacts(contactAccessor, contactCount, Flags, Contacts, Stride);
 
-        result = culledContactCount;
+        result = (int)culledContactCount;
     }
 
     GIM_DYNARRAY_DESTROY(trimeshContacts);

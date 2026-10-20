@@ -57,7 +57,7 @@ unsigned long  dRandGetSeed()
 
 void dRandSetSeed (unsigned long s)
 {
-    seed = s;
+    seed = (duint32)s;
 }
 
 
@@ -69,7 +69,7 @@ int dTestRand()
     if (dRand() != 0x3c6ef35f || dRand() != 0x47502932 ||
         dRand() != 0xd1ccf6e9 || dRand() != 0xaaf95334 ||
         dRand() != 0x6252e503) ret = 0;
-    seed = oldseed;
+    seed = (duint32)oldseed;
     return ret;
 }
 
@@ -83,7 +83,7 @@ int dRandInt (int n)
     volatile unsigned long raw_r = dRand();
     duint32 r = (duint32)raw_r;
     
-    duint32 un = n;
+    duint32 un = (duint32)n;
     dSASSERT(sizeof(n) == sizeof(un));
 
     // note: probably more aggressive than it needs to be -- might be
@@ -111,24 +111,24 @@ int dRandInt (int n)
         if (un <= (duint32)0x00000002) {
             r ^= (r >> 2);
             r ^= (r >> 1);
-            result = (r/* & (duint32)0x01*/) & (un >> 1);
+            result = (int)((r/* & (duint32)0x01*/) & (un >> 1));
         } else {
             if (un <= (duint32)0x00000004) {
                 r ^= (r >> 2);
-                result = ((r & (duint32)0x03) * un) >> 2;
+                result = (int)(((r & (duint32)0x03) * un) >> 2);
             } else {
-                result = ((r & (duint32)0x0F) * un) >> 4;
+                result = (int)(((r & (duint32)0x0F) * un) >> 4);
             }
         }
     } else {
         if (un <= (duint32)0x00000100) {
             r ^= (r >> 16);
             r ^= (r >> 8);
-            result = ((r & (duint32)0xFF) * un) >> 8;
+            result = (int)(((r & (duint32)0xFF) * un) >> 8);
         } else {
             if (un <= (duint32)0x00010000) {
                 r ^= (r >> 16);
-                result = ((r & (duint32)0xFFFF) * un) >> 16;
+                result = (int)(((r & (duint32)0xFFFF) * un) >> 16);
             } else {
                 result = (int)(((duint64)r * un) >> 32);
             }
@@ -149,7 +149,7 @@ dReal dRandReal()
 
 void dPrintMatrix (const dReal *A, int n, int m, const char *fmt, FILE *f)
 {
-    int skip = dPAD(m);
+    int skip = (int)dPAD(m);
     const dReal *Arow = A;
     for (int i=0; i<n; Arow+=skip, ++i) {
         for (int j=0; j<m; ++j) fprintf (f,fmt,(double)Arow[j]);
@@ -167,7 +167,7 @@ void dMakeRandomVector (dReal *A, int n, dReal range)
 
 void dMakeRandomMatrix (dReal *A, int n, int m, dReal range)
 {
-    int skip = dPAD(m);
+    int skip = (int)dPAD(m);
     //  dSetZero (A,n*skip);
     dReal *Arow = A;
     for (int i=0; i<n; Arow+=skip, ++i) {
@@ -178,7 +178,7 @@ void dMakeRandomMatrix (dReal *A, int n, int m, dReal range)
 
 void dClearUpperTriangle (dReal *A, int n)
 {
-    int skip = dPAD(n);
+    int skip = (int)dPAD(n);
     dReal *Arow = A;
     for (int i=0; i<n; Arow+=skip, ++i) {
         for (int j=i+1; j<n; ++j) Arow[j] = 0;
@@ -188,7 +188,7 @@ void dClearUpperTriangle (dReal *A, int n)
 
 dReal dMaxDifference (const dReal *A, const dReal *B, int n, int m)
 {
-    int skip = dPAD(m);
+    int skip = (int)dPAD(m);
     dReal max = REAL(0.0);
     const dReal *Arow = A, *Brow = B;
     for (int i=0; i<n; Arow+=skip, Brow +=skip, ++i) {
@@ -203,7 +203,7 @@ dReal dMaxDifference (const dReal *A, const dReal *B, int n, int m)
 
 dReal dMaxDifferenceLowerTriangle (const dReal *A, const dReal *B, int n)
 {
-    int skip = dPAD(n);
+    int skip = (int)dPAD(n);
     dReal max = REAL(0.0);
     const dReal *Arow = A, *Brow = B;
     for (int i=0; i<n; Arow+=skip, Brow+=skip, ++i) {

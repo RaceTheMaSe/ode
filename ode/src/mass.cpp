@@ -271,7 +271,7 @@ void dMassSetTrimesh( dMass *m, dReal density, dGeomID g )
         if( nx > ny && nx > nz )
             C = 0;
         else
-            C = (ny > nz) ? 1 : 2;
+            C = (unsigned int)((ny > nz) ? 1 : 2);
 
         // Even though all triangles might be initially valid, 
         // a triangle may degenerate into a segment after applying 

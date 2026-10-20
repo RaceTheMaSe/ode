@@ -509,7 +509,7 @@ void dInitODE()
     int bInitResult = InternalInitODE(0);
     dIVERIFY(bInitResult);
 
-    int ibAllocResult = InternalAllocateODEDataForThread(dAllocateMaskAll);
+    int ibAllocResult = InternalAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
     dIVERIFY(ibAllocResult);
 }
 

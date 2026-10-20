@@ -30,7 +30,7 @@
 									m[2][0] = m20;	m[2][1] = m21;	m[2][2] = m22;
 								}
 		//! Copy constructor
-		inline_					Matrix3x3(const Matrix3x3& mat)				{ CopyMemory(m, &mat.m, 9*sizeof(float));	}
+		inline_					Matrix3x3(const Matrix3x3& mat)				{ CopyMemory(m, &mat.m, 9*(udword)sizeof(float));	}
 		//! Copy assignment
 		inline_					Matrix3x3& operator=(const Matrix3x3& mat)				{ CopyMemory(m, &mat.m, 9*(udword)sizeof(float));	 return *this; }
 		//! Destructor
@@ -70,7 +70,7 @@
 								}
 
 		//! Copy from a Matrix3x3
-		inline_	void			Copy(const Matrix3x3& source)				{ CopyMemory(m, source.m, 9*sizeof(float));			}
+		inline_	void			Copy(const Matrix3x3& source)				{ CopyMemory(m, source.m, 9*(udword)sizeof(float));			}
 
 		// Row-column access
 		//! Returns a row.

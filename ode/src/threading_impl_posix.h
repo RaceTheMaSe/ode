@@ -355,7 +355,7 @@ bool dxCondvarWakeup::BlockAsAWaiter(const dThreadedWaitTime *timeout_time_ptr)
         dICHECK(clock_result != -1);
 
         time_t wakeup_sec = current_time.tv_sec + timeout_time_ptr->wait_sec;
-        unsigned long wakeup_nsec = current_time.tv_nsec + timeout_time_ptr->wait_nsec;
+        unsigned long wakeup_nsec = (unsigned long)current_time.tv_nsec + timeout_time_ptr->wait_nsec;
 
         if (wakeup_nsec >= 1000000000)
         {
@@ -364,7 +364,7 @@ bool dxCondvarWakeup::BlockAsAWaiter(const dThreadedWaitTime *timeout_time_ptr)
         }
 
         wakeup_time.tv_sec = wakeup_sec;
-        wakeup_time.tv_nsec = wakeup_nsec;
+        wakeup_time.tv_nsec = (long)wakeup_nsec;
     }
 
     while (true)

@@ -270,9 +270,9 @@ dxSAPSpace::dxSAPSpace( dSpaceID _space, int axisorder ) : dxSpace( _space )
     aabb[4] = -dInfinity;
     aabb[5] = dInfinity;
 
-    ax0idx = ( ( axisorder ) & 3 ) << 1;
-    ax1idx = ( ( axisorder >> 2 ) & 3 ) << 1;
-    ax2idx = ( ( axisorder >> 4 ) & 3 ) << 1;
+    ax0idx = (uint32)( ( axisorder ) & 3 ) << 1;
+    ax1idx = (uint32)( ( axisorder >> 2 ) & 3 ) << 1;
+    ax2idx = (uint32)( ( axisorder >> 4 ) & 3 ) << 1;
 }
 
 dxSAPSpace::~dxSAPSpace()
@@ -440,7 +440,7 @@ void dxSAPSpace::collide( void *userData, dNearCallback *callback )
     // separate all ENABLED geoms into infinite AABBs and normal AABBs
     TmpGeomList.setSize(0);
     TmpInfGeomList.setSize(0);
-    int axis0max = ax0idx + 1;
+    int axis0max = (int)ax0idx + 1;
     for( int i = 0; i < geom_count; ++i ) {
         dxGeom* g = GeomList[i];
         if( !GEOM_ENABLED(g) ) // skip disabled ones
@@ -466,8 +466,8 @@ void dxSAPSpace::collide( void *userData, dNearCallback *callback )
     for( int j = 0; j < overlapCount; ++j )
     {
         const Pair& pair = overlapBoxes[ j ];
-        dxGeom* g1 = TmpGeomList[ pair.id0 ];
-        dxGeom* g2 = TmpGeomList[ pair.id1 ];
+        dxGeom* g1 = TmpGeomList[ (int)pair.id0 ];
+        dxGeom* g2 = TmpGeomList[ (int)pair.id1 ];
         collideGeomsNoAABBs( g1, g2, userData, callback );
     }
 
@@ -529,7 +529,7 @@ void dxSAPSpace::BoxPruning( int numBoxes, dxGeom** geoms, dArray< Pair >& pairs
         poslist[ i ] = (float)TmpGeomList[i]->aabb[ ax0idx ];
 
     // 2) Sort the list
-    const uint32* Sorted = sortContext.RadixSort( poslist.data(), numBoxes );
+    const uint32* Sorted = sortContext.RadixSort( poslist.data(), (uint32)numBoxes );
 
     // 3) Prune the list
     const uint32* const LastSorted = Sorted + numBoxes;
@@ -542,7 +542,7 @@ void dxSAPSpace::BoxPruning( int numBoxes, dxGeom** geoms, dArray< Pair >& pairs
         IndexPair.id0 = *Sorted++;
 
         // empty, this loop just advances RunningAddress
-        for (bExitLoop = false; poslist[*RunningAddress++] < poslist[IndexPair.id0]; )
+        for (bExitLoop = false; poslist[(int)*RunningAddress++] < poslist[(int)IndexPair.id0]; )
         {
             if (RunningAddress == LastSorted)
             {
@@ -560,7 +560,7 @@ void dxSAPSpace::BoxPruning( int numBoxes, dxGeom** geoms, dArray< Pair >& pairs
         const dReal idx0ax1max = geoms[IndexPair.id0]->aabb[ax1idx+1];
         const dReal idx0ax2max = geoms[IndexPair.id0]->aabb[ax2idx+1];
 
-        for (const uint32* RunningAddress2 = RunningAddress; poslist[ IndexPair.id1 = *RunningAddress2++ ] <= idx0ax0max; )
+        for (const uint32* RunningAddress2 = RunningAddress; poslist[ (int)(IndexPair.id1 = *RunningAddress2++) ] <= idx0ax0max; )
         {
             const dReal* aabb0 = geoms[ IndexPair.id0 ]->aabb;
             const dReal* aabb1 = geoms[ IndexPair.id1 ]->aabb;

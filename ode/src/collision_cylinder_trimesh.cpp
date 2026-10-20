@@ -193,7 +193,7 @@ int	sCylinderTrimeshColliderData::_ProcessLocalContacts(dContactGeom *contact,
                                                         dxGeom *Cylinder, dxTriMesh *Trimesh)
 {
 #ifdef OPTIMIZE_CONTACTS
-    if (m_nContacts > 1 && !(m_iFlags & CONTACTS_UNIMPORTANT))
+    if (m_nContacts > 1 && !((unsigned int)m_iFlags & CONTACTS_UNIMPORTANT))
     {
         // Can be optimized...
         _OptimizeLocalContacts();
@@ -1052,7 +1052,7 @@ int dCollideCylinderTrimesh(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *con
     dQueryCTLPotentialCollisionTriangles(Collider, cData, Cylinder, Trimesh, pccColliderCache->m_DefaultBoxCache);
 
     // Retrieve data
-    int TriCount = Collider.GetNbTouchedPrimitives();
+    int TriCount = (int)Collider.GetNbTouchedPrimitives();
 
     if (TriCount != 0)
     {
@@ -1077,7 +1077,7 @@ int dCollideCylinderTrimesh(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *con
 
 
             dVector3 dv[3];
-            Trimesh->fetchMeshTriangle(dv, Triint, cData.m_vTrimeshPos, cData.m_mTrimeshRot);
+            Trimesh->fetchMeshTriangle(dv, (unsigned int)Triint, cData.m_vTrimeshPos, cData.m_mTrimeshRot);
 
             bool bFinishSearching;
             ctContacts0 = cData.TestCollisionForSingleTriangle(ctContacts0, Triint, dv, bFinishSearching);
@@ -1141,10 +1141,10 @@ int dCollideCylinderTrimesh(dxGeom *o1, dxGeom *o2, int flags, dContactGeom *con
 
         for(unsigned int i=0;i<collision_result.m_size;i++)
         {
-            const int Triint = boxesresult[i];
+            const int Triint = (int)boxesresult[i];
 
             dVector3 dv[3];
-            gim_trimesh_get_triangle_vertices(ptrimesh, Triint, dv[0], dv[1], dv[2]);
+            gim_trimesh_get_triangle_vertices(ptrimesh, (GUINT32)Triint, dv[0], dv[1], dv[2]);
 
             bool bFinishSearching;
             ctContacts0 = cData.TestCollisionForSingleTriangle(ctContacts0, Triint, dv, bFinishSearching);

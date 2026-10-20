@@ -174,13 +174,13 @@ int ThreadedEquationSolverLDLT::scaleVector_completion_callback(void *dUNUSED(ca
 /*extern ODE_API */
 void dScaleVector(dReal *a, const dReal *d, int n)
 {
-    scaleLargeVector<1, 1>(a, d, n);
+    scaleLargeVector<1, 1>(a, d, (unsigned int)n);
 }
 
 /*extern ODE_API_DEPRECATED ODE_API */
 void dVectorScale(dReal *a, const dReal *d, int n)
 {
-    scaleLargeVector<1, 1>(a, d, n);
+    scaleLargeVector<1, 1>(a, d, (unsigned int)n);
 }
 
 

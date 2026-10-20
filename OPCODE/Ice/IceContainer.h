@@ -69,7 +69,7 @@
 									}
 
 									// Add new entry
-									CopyMemory(&mEntries[mCurNbEntries], entries, nb*sizeof(uword));
+									CopyMemory(&mEntries[mCurNbEntries], entries, nb*(udword)sizeof(uword));
 									mCurNbEntries+=nb;
 									return *this;
 								}
@@ -84,7 +84,7 @@
 									}
 
 									// Add new entry
-									CopyMemory(&mEntries[mCurNbEntries], entries, nb*sizeof(udword));
+									CopyMemory(&mEntries[mCurNbEntries], entries, nb*(udword)sizeof(uword));
 									mCurNbEntries+=nb;
 									return *this;
 								}
@@ -126,7 +126,7 @@
 									}
 
 									// Add new entry
-									CopyMemory(&mEntries[mCurNbEntries], entries, nb*sizeof(float));
+									CopyMemory(&mEntries[mCurNbEntries], entries, nb*(udword)sizeof(float));
 									mCurNbEntries+=nb;
 									return *this;
 								}
@@ -210,7 +210,7 @@
 		inline_	udword			GetGrowthFactor()				const	{ return mGrowthFactor;					}	//!< Returns the growth factor
 		inline_	void			SetGrowthFactor(udword growth)			{ mGrowthFactor = growth;				}	//!< Sets the growth factor
 		inline_	bool			IsFull()						const	{ return mCurNbEntries==mMaxNbEntries;	}	//!< Checks the container is full
-		inline_	BOOL			IsNotEmpty()					const	{ return mCurNbEntries;					}	//!< Checks the container is empty
+		inline_	BOOL			IsNotEmpty()					const	{ return (BOOL)mCurNbEntries;					}	//!< Checks the container is empty
 
 		//! Read-access as an array
 		inline_	udword			operator[](udword i)			const	{ ASSERT(i>=0 && i<mCurNbEntries); return mEntries[i];	}

@@ -112,7 +112,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 
 static void start()
 {
-  dAllocateODEDataForThread(dAllocateMaskAll);
+  dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
   float xyz[3] = {1.7772f,-0.7924f,2.7600f};
   float hpr[3] = {90.0000,-54.0000,0.0000};

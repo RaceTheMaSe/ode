@@ -362,8 +362,8 @@ void dGeomTriMeshDataBuildSingle1(dTriMeshDataID g,
 
     dxTriMeshData *data = g;
 
-    data->buildData(Vertices, VertexStride, VertexCount,
-        Indices, IndexCount, TriStride,
+    data->buildData(Vertices, VertexStride, (unsigned int)VertexCount,
+        Indices, (unsigned int)IndexCount, TriStride,
         Normals,
         true);
 }
@@ -380,8 +380,8 @@ void dGeomTriMeshDataBuildDouble1(dTriMeshDataID g,
 
     dxTriMeshData *data = g;
 
-    data->buildData(Vertices, VertexStride, VertexCount,
-        Indices, IndexCount, TriStride,
+    data->buildData(Vertices, VertexStride, (unsigned int)VertexCount,
+        Indices, (unsigned int)IndexCount, TriStride,
         Normals,
         false);
 }

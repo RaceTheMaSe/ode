@@ -67,7 +67,7 @@ static int iteration;
 
 static void start()
 {
-  dAllocateODEDataForThread(dAllocateMaskAll);
+  dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
   float xyz[3] = {1.5572f,-1.8886f,1.5700f};
   float hpr[3] = {118.5000f,-17.0000f,0.0000f};
@@ -234,7 +234,7 @@ int main (int argc, char **argv)
   fn.path_to_textures = DRAWSTUFF_TEXTURE_PATH;
 
   dInitODE2(0);
-  dRandSetSeed (time(NULL));
+  dRandSetSeed ((unsigned int)time(NULL));
   reset_test();
 
   // run simulation

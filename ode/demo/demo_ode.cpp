@@ -26,7 +26,7 @@
 //****************************************************************************
 // matrix sizes
 
-#define dALIGN_SIZE(buf_size, alignment) (((buf_size) + (alignment - 1)) & (int)(~(alignment - 1))) // Casting the mask to int ensures sign-extension to larger integer sizes
+#define dALIGN_SIZE(buf_size, alignment) (((size_t)(buf_size) + (alignment - 1)) & (size_t)(int)(~(alignment - 1))) // Casting the mask to int ensures sign-extension to larger integer sizes
 
 #define MSIZE 21
 #define MSIZE4 dALIGN_SIZE(MSIZE, 4)	// MSIZE rounded up to 4
@@ -145,7 +145,7 @@ static void testPad()
     HEADER;
     char s[100];
     s[0]=0;
-    for (int i=0; i<=16; i++) sprintf (s+strlen(s),"%d ",dPAD(i));
+    for (unsigned int i=0; i<=16; i++) sprintf (s+strlen(s),"%u ",dPAD(i));
     printf ("\t%s\n", strcmp(s,"0 1 4 4 4 8 8 8 8 12 12 12 12 16 16 16 16 ") ?
         "FAILED" : "passed");
 }
@@ -200,7 +200,7 @@ static void testNormalize3()
         if (dFabs(n2[1]/n1[1] - n2[2]/n1[2]) > tol) bad |= 8;
         if (dFabs(dCalcVectorDot3(n2,n1) - dSqrt(dCalcVectorDot3(n1,n1))) > tol) bad |= 16;
         if (bad) {
-            printf ("\tFAILED (code=%x)\n",bad);
+            printf ("\tFAILED (code=%x)\n",(unsigned int)bad);
             return;
         }
     }
@@ -388,7 +388,7 @@ static void testCholeskySolve()
 
 static void testInvertPDMatrix()
 {
-    int i,j,ok;
+    unsigned i,j,ok;
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *Ainv = (dReal *)dAlloc(matrixSize), *I = (dReal *)dAlloc(matrixSize);
 
@@ -440,7 +440,7 @@ static void testIsPositiveDefinite()
 
 static void testFastLDLTFactorization()
 {
-    int i,j;
+    unsigned i,j;
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), *DL = (dReal *)dAlloc(matrixSize),
         *ATEST = (dReal *)dAlloc(matrixSize), *d = (dReal *)dAlloc(vectorSize), diff;
@@ -476,9 +476,9 @@ static void testFastLDLTFactorization()
 
 static void testCoopLDLTFactorization()
 {
-    unsigned i,j;
+    unsigned int i,j;
 
-    const dsizeint COOP_MSIZE = MSIZE * 51, COOP_MSIZE4 = dALIGN_SIZE(COOP_MSIZE, 4);
+    const dsizeint COOP_MSIZE = MSIZE * 51, COOP_MSIZE4 = (dsizeint)dALIGN_SIZE(COOP_MSIZE, 4);
 
     dsizeint matrixSize = sizeof(dReal) * COOP_MSIZE4 * COOP_MSIZE, vectorSize = sizeof(dReal) * COOP_MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), *DL = (dReal *)dAlloc(matrixSize),
@@ -496,26 +496,26 @@ static void testCoopLDLTFactorization()
 
     HEADER;
 
-    for (unsigned pass = 0; pass != 4; ++pass)
+    for (unsigned int pass = 0; pass != 4; ++pass)
     {
         dTimerStart ("Factoring LDLT");
 
         const unsigned allowedThreads = 4;
-        const unsigned PASS_MSIZE = COOP_MSIZE - pass, PASS_MSIZE4 = dALIGN_SIZE(PASS_MSIZE, 4);
+        const unsigned PASS_MSIZE = COOP_MSIZE - pass, PASS_MSIZE4 = (unsigned int)dALIGN_SIZE(PASS_MSIZE, 4);
 
         dTimerNow ("Preparing data");
-        dMakeRandomMatrix (L, PASS_MSIZE, PASS_MSIZE, 1.0);
-        dMultiply2 (A, L, L, PASS_MSIZE, PASS_MSIZE, PASS_MSIZE);
+        dMakeRandomMatrix (L, (int)PASS_MSIZE, (int)PASS_MSIZE, 1.0);
+        dMultiply2 (A, L, L, (int)PASS_MSIZE, (int)PASS_MSIZE, (int)PASS_MSIZE);
         memcpy (L, A, sizeof(dReal) * PASS_MSIZE4 * PASS_MSIZE);
 
         dTimerNow ("Factoring multi threaded");
         dCooperativelyFactorLDLT (resources, allowedThreads, L, d, PASS_MSIZE, PASS_MSIZE4);
 
         dTimerNow ("Verifying");
-        dClearUpperTriangle (L, PASS_MSIZE);
+        dClearUpperTriangle (L, (int)PASS_MSIZE);
         for (i = 0; i < PASS_MSIZE; i++) L[i * PASS_MSIZE4 + i] = 1.0;
 
-        dSetZero (DL, PASS_MSIZE4 * PASS_MSIZE);
+        dSetZero (DL, (int)(PASS_MSIZE4 * PASS_MSIZE));
         for (i = 0; i < PASS_MSIZE; i++) {
             for (j = 0; j < PASS_MSIZE; j++) DL[i * PASS_MSIZE4 + j] = L[i * PASS_MSIZE4 + j] / d[j];
         }
@@ -578,7 +578,7 @@ static void testSolveLDLT()
 
 static void testCoopSolveLDLT()
 {
-    const dsizeint COOP_MSIZE = MSIZE * 51, COOP_MSIZE4 = dALIGN_SIZE(COOP_MSIZE, 4);
+    const dsizeint COOP_MSIZE = MSIZE * 51, COOP_MSIZE4 = (dsizeint)dALIGN_SIZE(COOP_MSIZE, 4);
 
     dsizeint matrixSize = sizeof(dReal) * COOP_MSIZE4 * COOP_MSIZE, vectorSize = sizeof(dReal) * COOP_MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
@@ -597,24 +597,24 @@ static void testCoopSolveLDLT()
 
     HEADER;
 
-    for (int pass = 0; pass != 4; ++pass)
+    for (unsigned int pass = 0; pass != 4; ++pass)
     {
         dTimerStart ("Solving LDLT");
 
         const unsigned allowedThreads = 4;
-        const unsigned PASS_MSIZE = COOP_MSIZE - pass, PASS_MSIZE4 = dALIGN_SIZE(PASS_MSIZE, 4);
+        const unsigned PASS_MSIZE = COOP_MSIZE - pass, PASS_MSIZE4 = (unsigned int)dALIGN_SIZE(PASS_MSIZE, 4);
 
         dTimerNow ("Preparing data");
-        dMakeRandomMatrix (b, PASS_MSIZE, 1, 1.0);
+        dMakeRandomMatrix (b, (int)PASS_MSIZE, 1, 1.0);
 
-        dMakeRandomMatrix (L, PASS_MSIZE, PASS_MSIZE, 1.0);
-        dMultiply2 (A, L, L, PASS_MSIZE, PASS_MSIZE, PASS_MSIZE);
+        dMakeRandomMatrix (L, (int)PASS_MSIZE, (int)PASS_MSIZE, 1.0);
+        dMultiply2 (A, L, L, (int)PASS_MSIZE, (int)PASS_MSIZE, (int)PASS_MSIZE);
 
         memcpy (x, b, PASS_MSIZE * sizeof(dReal));
         memcpy (L, A, sizeof(dReal) * PASS_MSIZE4 * PASS_MSIZE);
 
         dTimerNow ("Factoring");
-        dFactorLDLT (L, d, PASS_MSIZE, PASS_MSIZE4);
+        dFactorLDLT (L, d, (int)PASS_MSIZE, (int)PASS_MSIZE4);
 
         dTimerNow ("Solving multi-threaded");
         dCooperativelySolveLDLT(resources, allowedThreads, L, d, x, PASS_MSIZE, PASS_MSIZE4);
@@ -647,7 +647,7 @@ static void testCoopSolveLDLT()
 
 static void testLDLTAddTL()
 {
-    int i,j;
+    unsigned i,j;
     dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
         *DL = (dReal *)dAlloc(matrixSize), *ATEST = (dReal *)dAlloc(matrixSize), 
@@ -694,7 +694,7 @@ static void testLDLTAddTL()
 
 static void testLDLTRemove()
 {
-    int i,j,r;
+    unsigned i,j,r;
     dsizeint intVectorSize = sizeof(int) * MSIZE, matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     int *p = (int *)dAlloc(intVectorSize);
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
@@ -709,7 +709,7 @@ static void testLDLTRemove()
     for (i=0; i<MSIZE; i++) Arows[i] = A+i*MSIZE4;
 
     // fill permutation vector
-    for (i=0; i<MSIZE; i++) p[i]=i;
+    for (i=0; i<MSIZE; i++) p[i]=(int)i;
 
     dMakeRandomMatrix (A,MSIZE,MSIZE,1.0);
     dMultiply2 (L,A,A,MSIZE,MSIZE,MSIZE);
@@ -720,22 +720,22 @@ static void testLDLTRemove()
     for (r=0; r<MSIZE; r++) {
         // get Atest1 = A with row/column r removed
         memcpy (Atest1,A,MSIZE4*MSIZE*sizeof(dReal));
-        dRemoveRowCol (Atest1,MSIZE,MSIZE4,r);
+        dRemoveRowCol (Atest1,MSIZE,MSIZE4,(int)r);
 
         // test that the row/column removal worked
-        int bad = 0;
+        unsigned bad = 0;
         for (i=0; i<MSIZE; i++) {
             for (j=0; j<MSIZE; j++) {
                 if (i != r && j != r) {
-                    int ii = i;
-                    int jj = j;
+                    unsigned ii = i;
+                    unsigned jj = j;
                     if (ii >= r) ii--;
                     if (jj >= r) jj--;
                     if (A[i*MSIZE4+j] != Atest1[ii*MSIZE4+jj]) bad = 1;
                 }
             }
         }
-        if (bad) printf ("\trow/col removal FAILED for row %d\n",r);
+        if (bad) printf ("\trow/col removal FAILED for row %u\n",r);
 
         // zero out last row/column of Atest1
         for (i=0; i<MSIZE; i++) {
@@ -746,7 +746,7 @@ static void testLDLTRemove()
         // get L2*D2*L2' = adjusted factorization to remove that row
         memcpy (L2,L,MSIZE4*MSIZE*sizeof(dReal));
         memcpy (d2,d,MSIZE*sizeof(dReal));
-        dLDLTRemove (/*A*/ Arows,p,L2,d2,MSIZE,MSIZE,r,MSIZE4);
+        dLDLTRemove (/*A*/ Arows,p,L2,d2,MSIZE,MSIZE,(int)r,MSIZE4);
 
         // get Atest2 = L2*D2*L2'
         dClearUpperTriangle (L2,MSIZE);
@@ -1076,8 +1076,8 @@ public:
         if (n == max)
         {
             max *= 2;
-            T* newdata = new T[max];
-            memcpy(newdata, data, sizeof(T)*n);
+            T* newdata = new T[(size_t)max];
+            memcpy(newdata, data, sizeof(T)*(size_t)n);
             delete[] data;
             data = newdata;
         }
@@ -1148,15 +1148,15 @@ dReal dMatrixComparison::nextMatrix (dReal *A, int n, int m, int lower_tri,
                                      const char *name, ...)
 {
     if (A==NULL || n < 1 || m < 1 || name==NULL) dDebug (false,"bad args to nextMatrix");
-    int num = n*dPAD(m);
+    unsigned num = (unsigned)n*dPAD(m);
 
     if (afterfirst==0) {
         dMatInfo *mi = (dMatInfo*) dAlloc (sizeof(dMatInfo));
         mi->n = n;
         mi->m = m;
-        mi->size = num * sizeof(dReal);
-        mi->data = (dReal*) dAlloc (mi->size);
-        memcpy (mi->data,A,mi->size);
+        mi->size = (int)(num * sizeof(dReal));
+        mi->data = (dReal*) dAlloc ((dsizeint)mi->size);
+        memcpy (mi->data,A,(size_t)mi->size);
 
         va_list ap;
         va_start (ap,name);
@@ -1214,7 +1214,7 @@ void dMatrixComparison::end()
 void dMatrixComparison::reset()
 {
     for (int i=0; i<mat.size(); i++) {
-        dFree (mat[i]->data,mat[i]->size);
+        dFree (mat[i]->data,(dsizeint)mat[i]->size);
         dFree (mat[i],sizeof(dMatInfo));
     }
     mat.clear();
@@ -1283,7 +1283,7 @@ static void dTestMatrixComparison()
 
     // test broken sequences (with matrix error)
     dRandSetSeed (seed);
-    volatile int passcount = 0;
+    volatile unsigned passcount = 0;
     for (i=1; i<49;) {
         if (setjmp (jump_buffer)) {
             passcount = passcount + 1;
@@ -1291,7 +1291,7 @@ static void dTestMatrixComparison()
         else {
             dSetDebugHandler (&myDebug);
             dMakeRandomMatrix (A,i,i+1,1.0);
-            A[(i-1)*dPAD(i+1)+i] += REAL(0.01);
+            A[((unsigned int)i-1)*dPAD(i+1)+(unsigned int)i] += REAL(0.01);
             mc.nextMatrix (A,i,i+1,0,"A%d",i);
             dSetDebugHandler (orig_debug);
         }

@@ -399,7 +399,7 @@ dxQuadTreeSpace::dxQuadTreeSpace(dSpaceID _space, const dVector3 Center, const d
     Blocks[0].Create(MinX, MaxX, MinZ, MaxZ, NULL, Depth, TempBlocks);
 
     CurrentBlock = NULL;
-    CurrentChild = (int*)dAlloc((Depth + 1) * sizeof(int));
+    CurrentChild = (int*)dAlloc(((size_t)Depth + 1) * sizeof(int));
     CurrentLevel = 0;
     CurrentObject = NULL;
     CurrentIndex = -1;
@@ -424,7 +424,7 @@ dxQuadTreeSpace::~dxQuadTreeSpace(){
     sizeint BlockCount = numNodes(Depth);
 
     dFree(Blocks, BlockCount * sizeof(Block));
-    dFree(CurrentChild, (Depth + 1) * sizeof(int));
+    dFree(CurrentChild, ((size_t)Depth + 1) * sizeof(int));
 }
 
 #if defined(__GNUC__) && !defined(__clang__)

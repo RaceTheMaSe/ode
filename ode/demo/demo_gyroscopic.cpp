@@ -105,7 +105,7 @@ static void tilt();
 
 static void command (int cmd)
 {
-    cmd = locase (cmd);
+    cmd = locase ((char)cmd);
     if (cmd == ' ')
     {
         reset();       

@@ -58,7 +58,7 @@ static GlobalVars *g_globals_ptr = NULL;
 static void     cb_start ()
 /*************************/
 {
-    dAllocateODEDataForThread(dAllocateMaskAll);
+    dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
     static float    xyz[3] = { 0.5f*(float)STAGE_SIZE, 0.5f*(float)STAGE_SIZE, 0.85f*(float)STAGE_SIZE};
     static float    hpr[3] = { 90.0f, -90.0f, 0 };

@@ -156,7 +156,7 @@ void dVector3Inv(dVector3& a)
 static inline 
 void dMat3GetCol(const dMatrix3& m,const int col, dVector3& v)
 {
-    dGetMatrixColumn3(v, m, col);
+    dGetMatrixColumn3(v, m, (unsigned int)col);
 }
 
 static inline 

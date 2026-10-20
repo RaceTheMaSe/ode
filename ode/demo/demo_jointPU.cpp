@@ -193,7 +193,7 @@ static void printKeyBoardShortCut()
 // start simulation - set viewpoint
 static void start()
 {
-  dAllocateODEDataForThread(dAllocateMaskAll);
+  dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
   dsSetViewpoint (xyz,hpr);
   printf ("This program demonstrates how the PU joint works.\n");
@@ -633,8 +633,8 @@ int main (int argc, char **argv)
   space = dSimpleSpaceCreate (NULL);
   contactgroup = dJointGroupCreate (0);
   geom[GROUND] = dCreatePlane (space, 0,0,1,0);
-  dGeomSetCategoryBits (geom[GROUND], catBits[GROUND]);
-  dGeomSetCollideBits (geom[GROUND], catBits[ALL]);
+  dGeomSetCategoryBits (geom[GROUND], (unsigned long)catBits[GROUND]);
+  dGeomSetCollideBits (geom[GROUND], (unsigned long)catBits[ALL]);
 
   dMass m;
 
@@ -645,8 +645,8 @@ int main (int argc, char **argv)
   m.adjust (Mass1);
   geom[W] = dCreateBox (space, boxDim[X], boxDim[Y], boxDim[Z]);
   dGeomSetBody (geom[W], body[W]);
-  dGeomSetCategoryBits (geom[W], catBits[W]);
-  dGeomSetCollideBits (geom[W], catBits[ALL] & (~catBits[W]) & (~catBits[JOINT]) );
+  dGeomSetCategoryBits (geom[W], (unsigned long)catBits[W]);
+  dGeomSetCollideBits (geom[W], (unsigned long)(catBits[ALL] & (~catBits[W]) & (~catBits[JOINT])) );
   dBodySetMass (body[W], &m);
 
 
@@ -660,24 +660,24 @@ int main (int argc, char **argv)
   m.adjust (Mass1);
   geom[D] = dCreateBox (space, boxDim[X], boxDim[Y], boxDim[Z]);
   dGeomSetBody (geom[D], body[D]);
-  dGeomSetCategoryBits (geom[D], catBits[D]);
-  dGeomSetCollideBits (geom[D], catBits[ALL] & (~catBits[D]) & (~catBits[JOINT]) );
+  dGeomSetCategoryBits (geom[D], (unsigned long)catBits[D]);
+  dGeomSetCollideBits (geom[D], (unsigned long)(catBits[ALL] & (~catBits[D]) & (~catBits[JOINT])) );
   dBodySetMass (body[D], &m);
 
 
   // Create the external part of the slider joint
   geom[EXT] = dCreateBox (NULL, extDim[X], extDim[Y], extDim[Z]);
-  dGeomSetCategoryBits (geom[EXT], catBits[EXT]);
+  dGeomSetCategoryBits (geom[EXT], (unsigned long)catBits[EXT]);
   dGeomSetCollideBits (geom[EXT],
-                       catBits[ALL] & (~catBits[JOINT]) & (~catBits[W]) & (~catBits[D]) );
+                       (unsigned long)(catBits[ALL] & (~catBits[JOINT]) & (~catBits[W]) & (~catBits[D])) );
 
   // Create the internal part of the slider joint
   geom[INT] = dCreateBox (NULL, INT_EXT_RATIO*extDim[X],
                           INT_EXT_RATIO*extDim[Y],
                           INT_EXT_RATIO*extDim[Z]);
-  dGeomSetCategoryBits (geom[INT], catBits[INT]);
+  dGeomSetCategoryBits (geom[INT], (unsigned long)catBits[INT]);
   dGeomSetCollideBits (geom[INT],
-                       catBits[ALL] & (~catBits[JOINT]) & (~catBits[W]) & (~catBits[D]) );
+                       (unsigned long)(catBits[ALL] & (~catBits[JOINT]) & (~catBits[W]) & (~catBits[D])) );
 
 
   dMatrix3 R;
@@ -686,9 +686,9 @@ int main (int argc, char **argv)
   geom[AXIS1] = dCreateCylinder(NULL, axDim[RADIUS], axDim[LENGTH]);
   dRFromAxisAndAngle(R, 0,1,0, dReal(REAL(0.5)*PI));
   dGeomSetRotation(geom[AXIS1], R);
-  dGeomSetCategoryBits(geom[AXIS1], catBits[AXIS1]);
+  dGeomSetCategoryBits(geom[AXIS1], (unsigned long)catBits[AXIS1]);
   dGeomSetCollideBits(geom[AXIS1],
-                      catBits[ALL]  & ~catBits[JOINT] & ~catBits[W] & ~catBits[D]);
+                      (unsigned long)(catBits[ALL]  & ~catBits[JOINT] & ~catBits[W] & ~catBits[D]));
 
 
   // Create the second axis of the universal joint
@@ -696,15 +696,15 @@ int main (int argc, char **argv)
   //Rotation of 90deg around y
   dRFromAxisAndAngle(R, 1,0,0, dReal(REAL(0.5)*PI));
   dGeomSetRotation(geom[AXIS2], R);
-  dGeomSetCategoryBits(geom[AXIS2], catBits[AXIS2]);
+  dGeomSetCategoryBits(geom[AXIS2], (unsigned long)catBits[AXIS2]);
   dGeomSetCollideBits(geom[AXIS2],
-                      catBits[ALL]  & ~catBits[JOINT] & ~catBits[W] & ~catBits[D]);
+                      (unsigned long)(catBits[ALL]  & ~catBits[JOINT] & ~catBits[W] & ~catBits[D]));
 
   // Create the anchor
   geom[ANCHOR] = dCreateBox (NULL, ancDim[X], ancDim[Y], ancDim[Z]);
-  dGeomSetCategoryBits(geom[ANCHOR], catBits[ANCHOR]);
+  dGeomSetCategoryBits(geom[ANCHOR], (unsigned long)catBits[ANCHOR]);
   dGeomSetCollideBits(geom[ANCHOR],
-                      catBits[ALL] & (~catBits[JOINT]) & (~catBits[W]) & (~catBits[D]) );
+                      (unsigned long)(catBits[ALL] & (~catBits[JOINT]) & (~catBits[W]) & (~catBits[D])) );
 
 
 

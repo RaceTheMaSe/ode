@@ -668,7 +668,7 @@ static bool _cldClosestPointOnTwoLines(
 
 // clip and generate contacts
 void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v1, const dVector3 &v2, int TriIndex) {
-    dIASSERT( !(m_iFlags & CONTACTS_UNIMPORTANT) || m_ctContacts < (m_iFlags & NUMC_MASK) ); // Do not call the function if there is no room to store results
+    dIASSERT( !((unsigned int)m_iFlags & CONTACTS_UNIMPORTANT) || m_ctContacts < (m_iFlags & NUMC_MASK) ); // Do not call the function if there is no room to store results
 
     // if we have edge/edge intersection
     if (m_iBestAxis > 4 ) {
@@ -710,7 +710,7 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
         // setup direction parameter for box edge
         dVector3 vua;
         int col=(m_iBestAxis-5)/3;
-        GETCOL(m_mHullBoxRot,col,vua);
+        GETCOL(m_mHullBoxRot,(unsigned int)col,vua);
 
         // find two closest points on both edges
         _cldClosestPointOnTwoLines( vPa, vua, vPb, vub, fParam1, fParam2 );
@@ -788,7 +788,7 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
         // Here find center of box face we are going to project
         dVector3 vCenter;
         dVector3 vRotCol;
-        GETCOL(m_mHullBoxRot,iB0,vRotCol);
+        GETCOL(m_mHullBoxRot,(unsigned int)iB0,vRotCol);
 
         if (vNr[iB0] > 0) {
             vCenter[0] = m_vHullBoxPos[0] - v0[0] - m_vBoxHalfSize[iB0] * vRotCol[0];
@@ -804,8 +804,8 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
         dVector3 avPoints[4];
 
         dVector3 vRotCol2;
-        GETCOL(m_mHullBoxRot,iB1,vRotCol);
-        GETCOL(m_mHullBoxRot,iB2,vRotCol2);
+        GETCOL(m_mHullBoxRot,(unsigned int)iB1,vRotCol);
+        GETCOL(m_mHullBoxRot,(unsigned int)iB2,vRotCol2);
 
         for(int x=0;x<3;x++) {
             avPoints[0][x] = vCenter[x] + (m_vBoxHalfSize[iB1] * vRotCol[x]) - (m_vBoxHalfSize[iB2] * vRotCol2[x]);
@@ -888,7 +888,7 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
 
             GenerateContact(TriIndex, vPntTmp, m_vBestNormal, -fTempDepth);
 
-            if ((m_ctContacts | CONTACTS_UNIMPORTANT) == (m_iFlags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+            if (((unsigned int)m_ctContacts | CONTACTS_UNIMPORTANT) == ((unsigned int)m_iFlags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                 break;
             }
         }
@@ -952,14 +952,14 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
 
 
         // Plane p0
-        GETCOL(m_mHullBoxRot,iA1,vTemp);
+        GETCOL(m_mHullBoxRot,(unsigned int)iA1,vTemp);
         CONSTRUCTPLANE(plPlane,vTemp,m_vBoxHalfSize[iA1]);
 
         _cldClipPolyToPlane( avTempArray1, iTempCnt1, avTempArray2, iTempCnt2, plPlane );
 
 
         // Plane p1
-        GETCOL(m_mHullBoxRot,iA1,vTemp);
+        GETCOL(m_mHullBoxRot,(unsigned int)iA1,vTemp);
         vTemp[0]=-vTemp[0];
         vTemp[1]=-vTemp[1];
         vTemp[2]=-vTemp[2];
@@ -968,13 +968,13 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
         _cldClipPolyToPlane( avTempArray2, iTempCnt2, avTempArray1, iTempCnt1, plPlane );
 
         // Plane p2
-        GETCOL(m_mHullBoxRot,iA2,vTemp);
+        GETCOL(m_mHullBoxRot,(unsigned int)iA2,vTemp);
         CONSTRUCTPLANE(plPlane,vTemp,m_vBoxHalfSize[iA2]);
 
         _cldClipPolyToPlane( avTempArray1, iTempCnt1, avTempArray2, iTempCnt2, plPlane );
 
         // Plane p3
-        GETCOL(m_mHullBoxRot,iA2,vTemp);
+        GETCOL(m_mHullBoxRot,(unsigned int)iA2,vTemp);
         vTemp[0]=-vTemp[0];
         vTemp[1]=-vTemp[1];
         vTemp[2]=-vTemp[2];
@@ -999,7 +999,7 @@ void sTrimeshBoxColliderData::_cldClipping(const dVector3 &v0, const dVector3 &v
 
             GenerateContact(TriIndex, vPntTmp, m_vBestNormal, -fTempDepth);
 
-            if ((m_ctContacts | CONTACTS_UNIMPORTANT) == (m_iFlags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+            if (((unsigned int)m_ctContacts | CONTACTS_UNIMPORTANT) == ((unsigned int)m_iFlags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                 break;
             }
         }
@@ -1023,7 +1023,7 @@ void sTrimeshBoxColliderData::GenerateContact(int TriIndex, const dVector3 in_Co
         dContactGeom* TgtContact = NULL;
         bool deeper = false;
 
-        if (!(m_iFlags & CONTACTS_UNIMPORTANT))
+        if (!((unsigned int)m_iFlags & CONTACTS_UNIMPORTANT))
         {
             dReal MinDepth = dInfinity;
             dContactGeom* MinContact = NULL;
@@ -1169,7 +1169,7 @@ void sTrimeshBoxColliderData::TestCollisionForSingleTriangle(int Triint, dVector
         of contacts is reached because it selects maximal penetration depths.
         See also comments in GenerateContact()
         */
-        finish = ((m_ctContacts | CONTACTS_UNIMPORTANT) == (m_iFlags & (NUMC_MASK | CONTACTS_UNIMPORTANT)));
+        finish = (((unsigned int)m_ctContacts | CONTACTS_UNIMPORTANT) == ((unsigned int)m_iFlags & (NUMC_MASK | CONTACTS_UNIMPORTANT)));
     }
 
     bOutFinishSearching = finish;
@@ -1280,7 +1280,7 @@ int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, 
     }
 
     // Retrieve data
-    int TriCount = Collider.GetNbTouchedPrimitives();
+    int TriCount = (int)Collider.GetNbTouchedPrimitives();
     const int* Triangles = (const int*)Collider.GetTouchedPrimitives();
     dIASSERT(Triangles != NULL);
 
@@ -1299,7 +1299,7 @@ int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, 
             if (!TriMesh->invokeCallback(BoxGeom, Triint)) continue;
 
             dVector3 dv[3];
-            TriMesh->fetchMeshTriangle(dv, Triint, vPosMesh, mRotMesh);
+            TriMesh->fetchMeshTriangle(dv, (unsigned int)Triint, vPosMesh, mRotMesh);
 
             bool bFinishSearching;
             cData.TestCollisionForSingleTriangle(Triint, dv, bFinishSearching);
@@ -1359,8 +1359,8 @@ int dCollideBTL(dxGeom* g1, dxGeom* BoxGeom, int Flags, dContactGeom* Contacts, 
     {
         dVector3 dv[3];
 
-        int Triint = boxesresult[i];
-        gim_trimesh_get_triangle_vertices(ptrimesh, Triint, dv[0], dv[1], dv[2]);
+        int Triint = (int)boxesresult[i];
+        gim_trimesh_get_triangle_vertices(ptrimesh, (GUINT32)Triint, dv[0], dv[1], dv[2]);
 
         bool bFinishSearching;
         cData.TestCollisionForSingleTriangle(Triint, dv, bFinishSearching);

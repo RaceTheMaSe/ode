@@ -207,7 +207,7 @@ static void printKeyBoardShortCut()
 // start simulation - set viewpoint
 static void start()
 {
-    dAllocateODEDataForThread(dAllocateMaskAll);
+    dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
     dsSetViewpoint (xyz,hpr);
     printf ("This program demonstrates how the Piston joint works.\n");
@@ -718,8 +718,8 @@ int main (int argc, char **argv)
     space = dSimpleSpaceCreate (NULL);
     contactgroup = dJointGroupCreate (0);
     geom[GROUND] = dCreatePlane (space, 0,0,1,0);
-    dGeomSetCategoryBits (geom[GROUND], catBits[GROUND]);
-    dGeomSetCollideBits (geom[GROUND], catBits[ALL]);
+    dGeomSetCategoryBits (geom[GROUND], (unsigned long)catBits[GROUND]);
+    dGeomSetCollideBits (geom[GROUND], (unsigned long)catBits[ALL]);
 
     dMass m;
     dMatrix3 R;
@@ -727,8 +727,8 @@ int main (int argc, char **argv)
 
     // Create the Obstacle
     geom[OBS] = dCreateBox (space, OBS_SIDES[0], OBS_SIDES[1], OBS_SIDES[2]);
-    dGeomSetCategoryBits (geom[OBS], catBits[OBS]);
-    dGeomSetCollideBits (geom[OBS], catBits[ALL]);
+    dGeomSetCategoryBits (geom[OBS], (unsigned long)catBits[OBS]);
+    dGeomSetCollideBits (geom[OBS], (unsigned long)catBits[ALL]);
     //Rotation of 45deg around y
     dRFromAxisAndAngle (R, 1,1,0, dReal(REAL(-0.25)*PI));
     dGeomSetRotation (geom[OBS], R);
@@ -748,8 +748,8 @@ int main (int argc, char **argv)
     geom[BODY2] = dCreateBox (space, BODY2_SIDES[0], BODY2_SIDES[1], BODY2_SIDES[2]);
     dGeomSetBody (geom[BODY2], body[BODY2]);
     dGeomSetOffsetRotation (geom[BODY2], R);
-    dGeomSetCategoryBits (geom[BODY2], catBits[BODY2]);
-    dGeomSetCollideBits (geom[BODY2], catBits[ALL] & (~catBits[BODY1]) );
+    dGeomSetCategoryBits (geom[BODY2], (unsigned long)catBits[BODY2]);
+    dGeomSetCollideBits (geom[BODY2], (unsigned long)(catBits[ALL] & (~catBits[BODY1])) );
     dBodySetMass (body[BODY2], &m);
 
 
@@ -761,8 +761,8 @@ int main (int argc, char **argv)
     geom[BODY1] = dCreateCapsule (space, RADIUS, BODY1_LENGTH);
     dGeomSetBody (geom[BODY1], body[BODY1]);
     dGeomSetOffsetRotation (geom[BODY1], R);
-    dGeomSetCategoryBits (geom[BODY1], catBits[BODY1]);
-    dGeomSetCollideBits (geom[BODY1], catBits[ALL] & ~catBits[BODY2] & ~catBits[RECT]);
+    dGeomSetCategoryBits (geom[BODY1], (unsigned long)catBits[BODY1]);
+    dGeomSetCollideBits (geom[BODY1], (unsigned long)(catBits[ALL] & ~catBits[BODY2] & ~catBits[RECT]));
 
     dMass mRect;
     dMassSetBox (&mRect, 1, RECT_SIDES[0], RECT_SIDES[1], RECT_SIDES[2]);
@@ -774,8 +774,8 @@ int main (int argc, char **argv)
                             (BODY1_LENGTH-RECT_SIDES[0]) /REAL(2.0),
                             0.0,
                             -RADIUS -RECT_SIDES[2]/REAL(2.0));
-    dGeomSetCategoryBits (geom[RECT], catBits[RECT]);
-    dGeomSetCollideBits (geom[RECT], catBits[ALL] & (~catBits[BODY1]) );
+    dGeomSetCategoryBits (geom[RECT], (unsigned long)catBits[RECT]);
+    dGeomSetCollideBits (geom[RECT], (unsigned long)(catBits[ALL] & (~catBits[BODY1])) );
 
     dBodySetMass (body[BODY1], &m);
 

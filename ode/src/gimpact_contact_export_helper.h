@@ -87,7 +87,7 @@ void dxGImpactContactsExportHelper::ExportExcesssiveContacts(dxGImpactContactAcc
 
         if (depth > marginaldepth)
         {
-            dContactGeom *pcontact = SAFECONTACT(Flags, Contacts, contactshead, Stride);
+            dContactGeom *pcontact = SAFECONTACT(Flags, Contacts, (int)contactshead, Stride);
             srccontacts.ExportContactGeomByIndex(pcontact, i);
 
             if (++contactshead == maxcontacts)
@@ -99,7 +99,7 @@ void dxGImpactContactsExportHelper::ExportExcesssiveContacts(dxGImpactContactAcc
         {
             --contacttail;
 
-            dContactGeom *pcontact = SAFECONTACT(Flags, Contacts, contacttail, Stride);
+            dContactGeom *pcontact = SAFECONTACT(Flags, Contacts, (int)contacttail, Stride);
             srccontacts.ExportContactGeomByIndex(pcontact, i);
         }
     }
@@ -112,7 +112,7 @@ void dxGImpactContactsExportHelper::ExportFitContacts(dxGImpactContactAccessor &
 {
     for (unsigned i = 0; i < contactcount; i++)
     {
-        dContactGeom *pcontact = SAFECONTACT(Flags, Contacts, i, Stride);
+        dContactGeom *pcontact = SAFECONTACT(Flags, Contacts, (int)i, Stride);
 
         srccontacts.ExportContactGeomByIndex(pcontact, i);
     }

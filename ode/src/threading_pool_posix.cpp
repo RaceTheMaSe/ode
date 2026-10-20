@@ -677,7 +677,7 @@ bool dxThreadingThreadPool::InitializeIndividualThreadInfos(dxThreadPoolThreadIn
     {
         if (!InitializeSingleThreadInfo(current_info, stack_size, ode_data_allocate_flags))
         {
-            FinalizeIndividualThreadInfos(thread_infos, current_info - thread_infos);
+            FinalizeIndividualThreadInfos(thread_infos, (sizeint)(current_info - thread_infos));
 
             any_fault = true;
             break;

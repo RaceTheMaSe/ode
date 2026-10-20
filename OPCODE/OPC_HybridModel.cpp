@@ -260,7 +260,7 @@ bool HybridModel::Build(const OPCODECREATE& create)
 			// Keep track of source indices (from vanilla tree)
 			mNbPrimitives = mSource->GetNbPrimitives();
 			mIndices = new udword[mNbPrimitives];
-			CopyMemory(mIndices, mSource->GetIndices(), mNbPrimitives*sizeof(udword));
+			CopyMemory(mIndices, mSource->GetIndices(), mNbPrimitives*(udword)sizeof(udword));
 		}
 	}
 
@@ -304,8 +304,8 @@ udword HybridModel::GetUsedBytes() const
 {
 	udword UsedBytes = 0;
 	if(mTree)		UsedBytes += mTree->GetUsedBytes();
-	if(mIndices)	UsedBytes += mNbPrimitives * sizeof(udword);	// mIndices
-	if(mTriangles)	UsedBytes += mNbLeaves * sizeof(LeafTriangles);	// mTriangles
+	if(mIndices)	UsedBytes += mNbPrimitives * (udword)sizeof(udword);	// mIndices
+	if(mTriangles)	UsedBytes += mNbLeaves * (udword)sizeof(LeafTriangles);	// mTriangles
 	return UsedBytes;
 }
 

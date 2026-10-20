@@ -145,7 +145,7 @@ static void createMainWindow (int _width, int _height)
   attributes.event_mask = ButtonPressMask | ButtonReleaseMask |
     KeyPressMask | KeyReleaseMask | ButtonMotionMask | PointerMotionHintMask |
     StructureNotifyMask;
-  win = XCreateWindow (display,RootWindow(display,screen),50,50,width,height,
+  win = XCreateWindow (display,RootWindow(display,screen),50,50,(unsigned)width,(unsigned)height,
 		       0,visual->depth, InputOutput,visual->visual,
 		       CWBackPixel | CWColormap | CWEventMask,&attributes);
 
@@ -169,7 +169,7 @@ static void createMainWindow (int _width, int _height)
 
   // pop up the window
   XMapWindow (display,win);
-  XSync (display,win);
+  XSync (display,(int)win);
 }
 
 
@@ -228,7 +228,7 @@ static void handleEvent (XEvent &event, dsFunctions *fn)
     KeySym key;
     XLookupString (&event.xkey,NULL,0,&key,NULL);
     if ((event.xkey.state & ControlMask) == 0) {
-      if (key >= ' ' && key <= 126 && fn->command) fn->command (key);
+      if (key >= ' ' && key <= 126 && fn->command) fn->command ((int)key);
     }
     else if (event.xkey.state & ControlMask) {
       switch (key) {
@@ -264,7 +264,7 @@ static void handleEvent (XEvent &event, dsFunctions *fn)
     break;
       }
     }
-    last_key_pressed = key;		// a kludgy place to put this...
+    last_key_pressed = (int)key;		// a kludgy place to put this...
   }
   return;
 
@@ -318,19 +318,19 @@ static void captureFrame (int num)
   FILE *f = fopen (s,"wb");
   if (!f) dsError ("can't open \"%s\" for writing",s);
   fprintf (f,"P6\n%d %d\n255\n",width,height);
-  XImage *image = XGetImage (display,win,0,0,width,height,~0,ZPixmap);
+  XImage *image = XGetImage (display,win,0,0,(unsigned)width,(unsigned)height,~0UL,ZPixmap);
 
-  int rshift = 7 - getHighBitIndex (image->red_mask);
-  int gshift = 7 - getHighBitIndex (image->green_mask);
-  int bshift = 7 - getHighBitIndex (image->blue_mask);
+  int rshift = 7 - getHighBitIndex ((unsigned int)image->red_mask);
+  int gshift = 7 - getHighBitIndex ((unsigned int)image->green_mask);
+  int bshift = 7 - getHighBitIndex ((unsigned int)image->blue_mask);
 
   for (int y=0; y<height; y++) {
     for (int x=0; x<width; x++) {
       unsigned long pixel = XGetPixel (image,x,y);
       unsigned char b[3];
-      b[0] = SHIFTL(pixel & image->red_mask,rshift);
-      b[1] = SHIFTL(pixel & image->green_mask,gshift);
-      b[2] = SHIFTL(pixel & image->blue_mask,bshift);
+      b[0] = (unsigned char)SHIFTL(pixel & image->red_mask,rshift);
+      b[1] = (unsigned char)SHIFTL(pixel & image->green_mask,gshift);
+      b[2] = (unsigned char)SHIFTL(pixel & image->blue_mask,bshift);
       fwrite (b,3,1,f);
     }
   }
@@ -357,7 +357,7 @@ static void processDrawFrame(int *frame, dsFunctions *fn)
 static void microsleep(int usecs)
 {
 #ifdef HAVE_UNISTD_H
-  usleep(usecs);
+  usleep((useconds_t)usecs);
 #endif
 }
 

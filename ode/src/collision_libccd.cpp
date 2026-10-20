@@ -332,7 +332,7 @@ int ccdCollide(
     ccd.mpr_tolerance = (ccd_real_t)1E-6;
 
 
-    if (flags & CONTACTS_UNIMPORTANT){
+    if ((unsigned int)flags & CONTACTS_UNIMPORTANT){
         if (ccdMPRIntersect(obj1, obj2, &ccd)){
             return 1;
         }else{
@@ -558,7 +558,7 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                     dReal a = maxContactsRecip * (dReal)i;
                     if (testAndPrepareDiscContactForAngle(a, rmin, lmin, lSum, minCyl, maxCyl, p, depth)) {
                         contactCount = addCylCylContact(o1, o2, &maxCyl->axis, contacts, &p, normaldir, depth, contactCount, flags, skip);
-                        if ((flags & CONTACTS_UNIMPORTANT) != 0) {
+                        if (((unsigned int)flags & CONTACTS_UNIMPORTANT) != 0) {
                             dIASSERT(contactCount != 0);
                             break;
                         }
@@ -655,14 +655,14 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                     dReal a = minB + nMinRecip * (dReal)i;
                     if (testAndPrepareDiscContactForAngle(a, rmin, lmin, lSum, minCyl, maxCyl, p, depth)) {
                         contactCount = addCylCylContact(o1, o2, &maxCyl->axis, contacts, &p, normaldir, depth, contactCount, flags, skip);
-                        if ((flags & CONTACTS_UNIMPORTANT) != 0) {
+                        if (((unsigned int)flags & CONTACTS_UNIMPORTANT) != 0) {
                             dIASSERT(contactCount != 0);
                             break;
                         }
                     }
                 }
 
-                if (contactCount == 0 || (flags & CONTACTS_UNIMPORTANT) == 0) {
+                if (contactCount == 0 || ((unsigned int)flags & CONTACTS_UNIMPORTANT) == 0) {
                     // Then the larger disc, + additional point as the start/end points of arcs overlap
                     // (or a single contact at the arc middle point if just one is required)
                     dReal nMaxRecip = nMax > 1 ? diffA / (dReal)(nMax - 1) : diffA; // The 'else' value does not matter. Just try helping the optimizer.
@@ -673,7 +673,7 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                         dReal a = adjustedMinA + nMaxRecip * (dReal)i;
                         if (testAndPrepareDiscContactForAngle(a, rmax, lmax, lSum, maxCyl, minCyl, p, depth)) {
                             contactCount = addCylCylContact(o1, o2, &maxCyl->axis, contacts, &p, normaldir, depth, contactCount, flags, skip);
-                            if ((flags & CONTACTS_UNIMPORTANT) != 0) {
+                            if (((unsigned int)flags & CONTACTS_UNIMPORTANT) != 0) {
                                 dIASSERT(contactCount != 0);
                                 break;
                             }
@@ -750,7 +750,7 @@ unsigned dCollideConvexTrimeshTrianglesCCD(dxGeom *o1, dxGeom *o2, const int *in
     ccd_convex_t c1;
     ccd_triangle_t c2;
     dVector3 triangle[dMTV__MAX];
-    unsigned maxContacts = (flags & NUMC_MASK);
+    unsigned maxContacts = (unsigned int)(flags & NUMC_MASK);
     unsigned contactCount = 0;
     ccdGeomToConvex(o1, &c1);
     ccdGeomToObj(o2, (ccd_obj_t *)&c2);
@@ -774,14 +774,14 @@ unsigned dCollideConvexTrimeshTrianglesCCD(dxGeom *o1, dxGeom *o2, const int *in
             if (meshFaceAngleView == NULL || correctTriangleContactNormal(&c2, &tempContact, meshFaceAngleView, indices, numIndices)) {
                 contactCount = addUniqueContact(contacts, &tempContact, contactCount, maxContacts, flags, skip);
 
-                if ((flags & CONTACTS_UNIMPORTANT) != 0) {
+                if (((unsigned int)flags & CONTACTS_UNIMPORTANT) != 0) {
                     break;
                 }
             }
         }
     }
 
-    if ((flags & CONTACTS_UNIMPORTANT) == 0 && contactCount == 1) {
+    if (((unsigned int)flags & CONTACTS_UNIMPORTANT) == 0 && contactCount == 1) {
         dContactGeom *contact = SAFECONTACT(flags, contacts, 0, skip);
         dGeomTriMeshGetTriangle(o2, contact->side2, &triangle[dMTV_FIRST], &triangle[dMTV_SECOND], &triangle[dMTV_THIRD]);
         contactCount = addTrianglePerturbedContacts(o1, o2, meshFaceAngleView, indices, numIndices, flags, contacts, skip, &c1, &c2, triangle, contact, contactCount);
@@ -789,7 +789,7 @@ unsigned dCollideConvexTrimeshTrianglesCCD(dxGeom *o1, dxGeom *o2, const int *in
 
     // Normalize accumulated normals, if necessary
     for (unsigned k = 0; k != contactCount; ) {
-        dContactGeom *contact = SAFECONTACT(flags, contacts, k, skip);
+        dContactGeom *contact = SAFECONTACT(flags, contacts, (int)k, skip);
         bool stayWithinThisIndex = false;
 
         // Only the merged contact normals need to be normalized
@@ -801,7 +801,7 @@ unsigned dCollideConvexTrimeshTrianglesCCD(dxGeom *o1, dxGeom *o2, const int *in
                 --contactCount;
 
                 if (k != contactCount) {
-                    dContactGeom *lastContact = SAFECONTACT(flags, contacts, contactCount, skip);
+                    dContactGeom *lastContact = SAFECONTACT(flags, contacts, (int)contactCount, skip);
                     *contact = *lastContact;
                 }
 
@@ -822,7 +822,7 @@ unsigned addTrianglePerturbedContacts(dxGeom *o1, dxGeom *o2, IFaceAngleStorageV
     const int *indices, unsigned numIndices, int flags, dContactGeom *contacts, int skip,
     ccd_convex_t *c1, ccd_triangle_t *c2, dVector3 *triangle, dContactGeom *contact, unsigned contacCount)
 {
-    unsigned maxContacts = (flags & NUMC_MASK);
+    unsigned maxContacts = (unsigned int)(flags & NUMC_MASK);
     
     dVector3 pos;
     dCopyVector3(pos, contact->pos);
@@ -850,13 +850,13 @@ unsigned addTrianglePerturbedContacts(dxGeom *o1, dxGeom *o2, IFaceAngleStorageV
         }
     }
 
-    for (unsigned j = upAvailable ? 0 : 2; j != 2; ++j) {
+    for (unsigned j = (unsigned int)(upAvailable ? 0 : 2); j != 2; ++j) {
         dQFromAxisAndAngle(q1[j], upAxis[dV3E_X], upAxis[dV3E_Y], upAxis[dV3E_Z], perturbationAngle);
         dQFromAxisAndAngle(q2[j], cross[dV3E_X], cross[dV3E_Y], cross[dV3E_Z], perturbationAngle);
         perturbationAngle = -perturbationAngle;
     }
 
-    for (unsigned k = upAvailable ? 0 : 4; k != 4; ++k) {
+    for (unsigned k = (unsigned int)(upAvailable ? 0 : 4); k != 4; ++k) {
         dQuaternion qr;
         dQMultiply0(qr, q1[k % 2], q2[k / 2]);
 
@@ -951,7 +951,7 @@ bool correctTriangleContactNormal(ccd_triangle_t *t, dContactGeom *contact,
                 ccd_real_t contactNormalToTriangleNormalAngle = CCD_ATAN2(y, x);
 
                 dReal angleValueAsDRead;
-                FaceAngleDomain angleDomain = meshFaceAngleView->retrieveFacesAngleFromStorage(angleValueAsDRead, contact->side2, (dMeshTriangleVertex)testEdgeIndex);
+                FaceAngleDomain angleDomain = meshFaceAngleView->retrieveFacesAngleFromStorage(angleValueAsDRead, (unsigned int)contact->side2, (dMeshTriangleVertex)testEdgeIndex);
                 ccd_real_t angleValue = (ccd_real_t)angleValueAsDRead;
 
                 ccd_real_t targetAngle=CCD_ZERO;
@@ -1018,7 +1018,7 @@ unsigned addUniqueContact(dContactGeom *contacts, dContactGeom *c, unsigned cont
 
     dReal c_posX = c->pos[dV3E_X], c_posY = c->pos[dV3E_Y], c_posZ = c->pos[dV3E_Z];
     for (unsigned k = 0; k != contactcount; k++) {
-        dContactGeom* pc = SAFECONTACT(flags, contacts, k, skip);
+        dContactGeom* pc = SAFECONTACT(flags, contacts, (int)k, skip);
         
         if (fabs(c_posX - pc->pos[dV3E_X]) < (dReal)CONTACT_POS_EPSILON
             && fabs(c_posY - pc->pos[dV3E_Y]) < (dReal)CONTACT_POS_EPSILON
@@ -1041,7 +1041,7 @@ unsigned addUniqueContact(dContactGeom *contacts, dContactGeom *c, unsigned cont
     }
 
     if (!isDuplicate && index < maxcontacts) {
-        dContactGeom* contact = SAFECONTACT(flags, contacts, index, skip);
+        dContactGeom* contact = SAFECONTACT(flags, contacts, (int)index, skip);
         contact->g1 = c->g1;
         contact->g2 = c->g2;
         contact->depth = c->depth;

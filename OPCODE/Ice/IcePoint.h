@@ -255,7 +255,7 @@
 								}
 
 		#define TWEAKMASK		0x3fffff
-		#define TWEAKNOTMASK	~TWEAKMASK
+		#define TWEAKNOTMASK	((udword)~TWEAKMASK)
 		//! Slighty moves the point out
 		inline_	void			TweakBigger()
 								{

@@ -125,8 +125,8 @@ SUITE(JointContact)
         joint->getInfo1(&info1);
         CHECK_EQUAL(2, (int)info1.m);
         ZERO_ALL;
-        joint->getInfo2(info2_fps, info2_erp, rowskip, J1, J2,
-            rowskip, rhscfm, lohi, findex);
+        joint->getInfo2(info2_fps, info2_erp, (int)rowskip, J1, J2,
+            (int)rowskip, rhscfm, lohi, findex);
         CHECK_CLOSE(dReal(0), dummy_J[1][0], dReal(1e-6));
         CHECK_CLOSE(dReal(0), dummy_J[1][1], dReal(1e-6));
         CHECK_CLOSE(dReal(-1), dummy_J[1][2], dReal(1e-6));
@@ -155,8 +155,8 @@ SUITE(JointContact)
         joint->getInfo1(&info1);
         CHECK_EQUAL(2, (int)info1.m);
         ZERO_ALL;
-        joint->getInfo2(info2_fps, info2_erp, rowskip, J1, J2,
-            rowskip, rhscfm, lohi, findex);
+        joint->getInfo2(info2_fps, info2_erp, (int)rowskip, J1, J2,
+            (int)rowskip, rhscfm, lohi, findex);
         CHECK_CLOSE(dReal(0), dummy_J[1][0], dReal(1e-6));
         CHECK_CLOSE(dReal(1), dummy_J[1][1], dReal(1e-6));
         CHECK_CLOSE(dReal(0), dummy_J[1][2], dReal(1e-6));

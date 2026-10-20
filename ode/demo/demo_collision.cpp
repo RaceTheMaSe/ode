@@ -1328,7 +1328,7 @@ static int space_pressed = 0;
 static 
 void start()
 {
-    dAllocateODEDataForThread(dAllocateMaskAll);
+    dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
     static float xyz[3] = { 2.4807f,-1.8023f,2.7600f };
     static float hpr[3] = { 141.5000,-18.5000,0.0000 };
@@ -1405,7 +1405,7 @@ void do_tests(int argc, char **argv)
         // first put the active tests into a separate array
         int n = 0;
         for (i = 0; i < MAX_TESTS; i++) if (testslot[i].name) n++;
-        TestSlot **ts = (TestSlot**)malloc(n * sizeof(TestSlot*));
+        TestSlot **ts = (TestSlot**)malloc((size_t)n * sizeof(TestSlot*));
         j = 0;
         for (i = 0; i < MAX_TESTS; i++) if (testslot[i].name) ts[j++] = testslot + i;
         if (j != n) dDebug(0, "internal");

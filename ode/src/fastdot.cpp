@@ -41,6 +41,6 @@ dReal dxDot (const dReal *a, const dReal *b, unsigned n)
 /*extern */
 dReal dDot (const dReal *a, const dReal *b, int n)
 {
-    return dxDot (a, b, n);
+    return dxDot (a, b, (unsigned int)n);
 }
 

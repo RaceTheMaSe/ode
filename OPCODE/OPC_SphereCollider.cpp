@@ -47,7 +47,7 @@ using namespace Opcode;
 //! Sphere-triangle overlap test
 #define SPHERE_PRIM(prim_index, flag)									\
 	/* Request vertices from the app */									\
-	VertexPointers VP;	ConversionArea VC;	mIMesh->GetTriangle(VP, prim_index, VC); \
+	VertexPointers VP;	ConversionArea VC;	mIMesh->GetTriangle(VP, udword(prim_index), VC); \
 																		\
 	/* Perform sphere-tri overlap test */								\
 	if(SphereTriOverlap(*VP.Vertex[0], *VP.Vertex[1], *VP.Vertex[2]))	\

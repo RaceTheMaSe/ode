@@ -818,7 +818,7 @@ template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 ddependencycount_t dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::SmartAddJobDependenciesCount(
     dxThreadedJobInfo *job_instance, ddependencychange_t dependencies_count_change)
 {
-    ddependencycount_t new_dependencies_count = tAtomicsProvider::template AddValueToTarget<sizeof(ddependencycount_t)>((volatile void *)&job_instance->m_dependencies_count, dependencies_count_change) + dependencies_count_change;
+    ddependencycount_t new_dependencies_count = tAtomicsProvider::template AddValueToTarget<sizeof(ddependencycount_t)>((volatile void *)&job_instance->m_dependencies_count, dependencies_count_change) + (sizeint)dependencies_count_change;
     return new_dependencies_count;
 }
 

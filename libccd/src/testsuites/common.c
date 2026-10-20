@@ -48,28 +48,28 @@ static void svtCyl(ccd_cyl_t *c, FILE *out, const char *color, const char *name)
     fprintf(out, "0 16\n");
     fprintf(out, "0 31\n");
     for (i = 1; i < 16; i++){
-        fprintf(out, "0 %d\n", i);
-        fprintf(out, "16 %d\n", i + 16);
+        fprintf(out, "0 %u\n", i);
+        fprintf(out, "16 %u\n", i + 16);
         if (i != 0){
-            fprintf(out, "%d %d\n", i - 1, i);
-            fprintf(out, "%d %d\n", i + 16 - 1, i + 16);
+            fprintf(out, "%u %u\n", i - 1, i);
+            fprintf(out, "%u %u\n", i + 16 - 1, i + 16);
         }
 
-        fprintf(out, "%d %d\n", i, i + 16);
-        fprintf(out, "%d %d\n", i, i + 16 - 1);
+        fprintf(out, "%u %u\n", i, i + 16);
+        fprintf(out, "%u %u\n", i, i + 16 - 1);
     }
 
     fprintf(out, "Faces:\n");
     for (i = 2; i < 16; i++){
-        fprintf(out, "0 %d %d\n", i, i -1);
-        fprintf(out, "16 %d %d\n", i + 16, i + 16 -1);
+        fprintf(out, "0 %u %u\n", i, i -1);
+        fprintf(out, "16 %u %u\n", i + 16, i + 16 -1);
 
     }
     fprintf(out, "0 16 31\n");
     fprintf(out, "0 31 15\n");
     for (i = 1; i < 16; i++){
-        fprintf(out, "%d %d %d\n", i, i + 16, i + 16 - 1);
-        fprintf(out, "%d %d %d\n", i, i + 16 - 1, i - 1);
+        fprintf(out, "%u %u %u\n", i, i + 16, i + 16 - 1);
+        fprintf(out, "%u %u %u\n", i, i + 16 - 1, i - 1);
     }
     fprintf(out, "-----\n");
 }

@@ -118,12 +118,12 @@ void dxRemoveRowCol (dReal *A, unsigned n, unsigned nskip, unsigned r);
 
 ODE_PURE_INLINE sizeint dxEstimateFactorCholeskyTmpbufSize(unsigned n)
 {
-    return dPAD(n) * sizeof(dReal);
+    return (sizeint)dPAD(n) * sizeof(dReal);
 }
 
 ODE_PURE_INLINE sizeint dxEstimateSolveCholeskyTmpbufSize(unsigned n)
 {
-    return dPAD(n) * sizeof(dReal);
+    return (sizeint)dPAD(n) * sizeof(dReal);
 }
 
 ODE_PURE_INLINE sizeint dxEstimateInvertPDMatrixTmpbufSize(unsigned n)
@@ -150,7 +150,7 @@ ODE_PURE_INLINE sizeint dxEstimateLDLTRemoveTmpbufSize(unsigned n2, unsigned nsk
 }
 
 /* For internal use */
-#define dSetZero(a, n) dxSetZero(a, n)
+#define dSetZero(a, n) dxSetZero(a, (unsigned int)n)
 #define dSetValue(a, n, value) dxSetValue(a, n, value)
 #define dDot(a, b, n) dxDot(a, b, n)
 #define dMultiply0(A, B, C, p, q, r) dxMultiply0(A, B, C, p, q, r)

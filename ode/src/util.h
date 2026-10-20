@@ -87,17 +87,17 @@ public:
 #define BUFFER_TO_ARENA_EXTRA (EFFICIENT_ALIGNMENT + dEFFICIENT_SIZE(sizeof(dxWorldProcessMemArena)))
     static bool IsArenaPossible(sizeint nBufferSize)
     {
-        return SIZE_MAX - BUFFER_TO_ARENA_EXTRA >= nBufferSize; // This ensures there will be no overflow
+        return SIZE_MAX - (sizeint)BUFFER_TO_ARENA_EXTRA >= nBufferSize; // This ensures there will be no overflow
     }
 
     static sizeint MakeBufferSize(sizeint nArenaSize)
     {
-        return nArenaSize - BUFFER_TO_ARENA_EXTRA;
+        return nArenaSize - (sizeint)BUFFER_TO_ARENA_EXTRA;
     }
 
     static sizeint MakeArenaSize(sizeint nBufferSize)
     {
-        return BUFFER_TO_ARENA_EXTRA + nBufferSize;
+        return (sizeint)BUFFER_TO_ARENA_EXTRA + nBufferSize;
     }
 #undef BUFFER_TO_ARENA_EXTRA
 

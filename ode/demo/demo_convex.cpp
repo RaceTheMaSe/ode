@@ -102,7 +102,7 @@ static void nearCallback(void *data, dGeomID o1, dGeomID o2)
 
 static void start()
 {
-	dAllocateODEDataForThread(dAllocateMaskAll);
+	dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 	float xyz[3] = {-8,0,5};
 	float hpr[3] = {0.0f,-29.5000f,0.0000f};
 	dsSetViewpoint (xyz,hpr);
@@ -177,9 +177,9 @@ static void simLoop(int pause)
 		(
 			pos, rot,
 			halton_planes[i],
-			halton_numf[i],
+			(unsigned int)halton_numf[i],
 			halton_verts[i],
-			halton_numv[i],
+			(unsigned int)halton_numv[i],
 			halton_faces[i]
 		);
 	}
@@ -253,9 +253,9 @@ int main (int argc, char **argv)
 		(
 			space,
 			halton_planes[i],
-			halton_numf[i],
+			(unsigned int)halton_numf[i],
 			halton_verts[i],
-			halton_numv[i],
+			(unsigned int)halton_numv[i],
 			halton_faces[i]
 		);
 		hgeom[i] = geom;

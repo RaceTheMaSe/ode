@@ -77,11 +77,11 @@ dxGeom (space,1)
             points[(index[0]*3)+1]*points[(index[1]*3)+0]*points[(index[2]*3)+2] -
             points[(index[0]*3)+0]*points[(index[1]*3)+2]*points[(index[2]*3)+1])<0)
         {
-            fprintf(stdout,"WARNING: Polygon %d is not defined counterclockwise\n",i);
+            fprintf(stdout,"WARNING: Polygon %u is not defined counterclockwise\n",i);
         }
         points_in_poly+=(*points_in_poly+1);
         index=points_in_poly+1;
-        if(planes[(i*4)+3]<0) fprintf(stdout,"WARNING: Plane %d does not contain the origin\n",i);
+        if(planes[(i*4)+3]<0) fprintf(stdout,"WARNING: Plane %u does not contain the origin\n",i);
     }
 #endif
 
@@ -588,7 +588,7 @@ int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
     dxConvex *Convex = (dxConvex*) o1;
     dxPlane *Plane = (dxPlane*) o2;
     unsigned int contacts=0;
-    unsigned int maxc = flags & NUMC_MASK;
+    unsigned int maxc = (unsigned int)(flags & NUMC_MASK);
     dVector3 v2;
 
 #define LTEQ_ZERO	0x10000000
@@ -606,11 +606,11 @@ int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
         dReal distance2 = dVector3Dot(Plane->p, v2) - Plane->p[3]; // Ax + By + Cz - D
         if((distance2 <= REAL(0.0)))
         {
-            distance2sign = distance2 != REAL(0.0) ? LTEQ_ZERO : BOTH_SIGNS;
+            distance2sign = (unsigned int)(distance2 != REAL(0.0) ? LTEQ_ZERO : BOTH_SIGNS);
 
             if (contacts != maxc)
             {
-                dContactGeom *target = SAFECONTACT(flags, contact, contacts, skip);
+                dContactGeom *target = SAFECONTACT(flags, contact, (int)contacts, skip);
                 dVector3Copy(Plane->p, target->normal);
                 dVector3Copy(v2, target->pos);
                 target->depth = -distance2;
@@ -630,7 +630,7 @@ int dCollideConvexPlane (dxGeom *o1, dxGeom *o2, int flags,
             break; // Nothing can be changed anymore
         }
     }
-    if (totalsign == BOTH_SIGNS) return contacts;
+    if (totalsign == BOTH_SIGNS) return (int)contacts;
     return 0;
 #undef BOTH_SIGNS
 #undef GTEQ_ZERO
@@ -743,7 +743,7 @@ int dCollideSphereConvex (dxGeom *o1, dxGeom *o2, int flags,
             if(closestdist>dFabs(dist))
             {
                 closestdist=dFabs(dist);
-                closestplane=i;
+                closestplane=(int)i;
             }
         }
         pPoly+=pPoly[0]+1;
@@ -1607,7 +1607,7 @@ int dCollideRayConvex(dxGeom *o1, dxGeom *o2,
                 // Store depth
                 contact->depth = alpha;
 
-                if ((flags & CONTACTS_UNIMPORTANT) && contact->depth <= ray->length)
+                if (((unsigned int)flags & CONTACTS_UNIMPORTANT) && contact->depth <= ray->length)
                 {
                     // Break on any contact if contacts are not important
                     break;

@@ -265,9 +265,9 @@ static void simLoop(int pause)
 #endif
 
     // now we draw everything
-    unsigned ngeoms = dSpaceGetNumGeoms(space);
+    unsigned ngeoms = (unsigned)dSpaceGetNumGeoms(space);
     for (unsigned i=0; i<ngeoms; ++i) {
-        dGeomID g = dSpaceGetGeom(space, i);
+        dGeomID g = dSpaceGetGeom(space, (int)i);
 
         drawGeom(g);
     }

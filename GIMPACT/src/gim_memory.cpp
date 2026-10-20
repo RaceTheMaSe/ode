@@ -445,7 +445,7 @@ GUINT32 gim_create_buffer(
     pbuffer += buffer_id->m_buffer_id ;
     pbuffer->m_buffer_handle = newbufferhandle;
     pbuffer->m_size = buffer_size;
-    pbuffer->m_usage = usage;
+    pbuffer->m_usage = (uint32_t)usage;
     pbuffer->m_lock_count = 0;
     pbuffer->m_refcount = 0;
     pbuffer->m_mapped_pointer = NULL;
@@ -487,7 +487,7 @@ GUINT32 gim_create_buffer_from_data(
     pbuffer += buffer_id->m_buffer_id ;
     pbuffer->m_buffer_handle = newbufferhandle;
     pbuffer->m_size = buffer_size;
-    pbuffer->m_usage = usage;
+    pbuffer->m_usage = (uint32_t)usage;
     pbuffer->m_lock_count = 0;
     pbuffer->m_mapped_pointer = NULL;
     pbuffer->m_refcount = 0;
@@ -531,7 +531,7 @@ GINT32 gim_buffer_realloc(GBUFFER_ID * buffer_id,GUINT32 newsize)
     VALIDATE_BUFFER_ID_PT(buffer_id)
     if(pbuffer->m_lock_count>0) return G_BUFFER_OP_INVALID;
     GPTR newhandle = buffer_id->m_bm_data->m_prototype->realloc_fn(
-		pbuffer->m_buffer_handle,pbuffer->m_size,pbuffer->m_usage,newsize,pbuffer->m_usage);
+		pbuffer->m_buffer_handle,pbuffer->m_size,(int)pbuffer->m_usage,newsize,(int)pbuffer->m_usage);
     if(newhandle==NULL) return G_BUFFER_OP_INVALID;
     pbuffer->m_buffer_handle = newhandle;
     //realloc shadow buffer if any
@@ -589,7 +589,7 @@ GINT32 gim_lock_buffer(GBUFFER_ID * buffer_id,int access,char ** map_pointer)
 	{
 		if(pbuffer->m_access == G_MA_READ_ONLY)
 		{
-			result = gim_lock_buffer(&pbuffer->m_shadow_buffer,access,map_pointer);
+			result = (GUINT32)gim_lock_buffer(&pbuffer->m_shadow_buffer,access,map_pointer);
 			if(result!= G_BUFFER_OP_SUCCESS) return G_BUFFER_OP_INVALID;
 			pbuffer->m_mapped_pointer = *map_pointer;
 			pbuffer->m_lock_count++;
@@ -604,7 +604,7 @@ GINT32 gim_lock_buffer(GBUFFER_ID * buffer_id,int access,char ** map_pointer)
 	{
 		if(pbuffer->m_access == G_MA_READ_ONLY)
 		{
-			result = gim_lock_buffer(&pbuffer->m_shadow_buffer,access,map_pointer);
+			result = (GUINT32)gim_lock_buffer(&pbuffer->m_shadow_buffer,access,map_pointer);
 			if(result!= G_BUFFER_OP_SUCCESS) return G_BUFFER_OP_INVALID;
 			pbuffer->m_mapped_pointer = *map_pointer;
 			pbuffer->m_lock_count++;
@@ -624,7 +624,7 @@ GINT32 gim_lock_buffer(GBUFFER_ID * buffer_id,int access,char ** map_pointer)
 	}
 	else if(pbuffer->m_usage==G_MU_STATIC_READ_DYNAMIC_WRITE_COPY)
 	{
-		result = gim_lock_buffer(&pbuffer->m_shadow_buffer,access,map_pointer);
+		result = (GUINT32)gim_lock_buffer(&pbuffer->m_shadow_buffer,access,map_pointer);
         if(result!= G_BUFFER_OP_SUCCESS) return G_BUFFER_OP_INVALID;
         pbuffer->m_mapped_pointer = *map_pointer;
         pbuffer->m_lock_count++;
@@ -677,7 +677,7 @@ GINT32 gim_unlock_buffer(GBUFFER_ID * buffer_id)
 	{
 		if(pbuffer->m_access == G_MA_READ_ONLY)
 		{
-			result = gim_unlock_buffer(&pbuffer->m_shadow_buffer);
+			result = (GUINT32)gim_unlock_buffer(&pbuffer->m_shadow_buffer);
 			if(result!= G_BUFFER_OP_SUCCESS) return G_BUFFER_OP_INVALID;
 			pbuffer->m_mapped_pointer = NULL;
 			pbuffer->m_lock_count=0;
@@ -693,7 +693,7 @@ GINT32 gim_unlock_buffer(GBUFFER_ID * buffer_id)
 	{
 		if(pbuffer->m_access == G_MA_READ_ONLY)
 		{
-			result = gim_unlock_buffer(&pbuffer->m_shadow_buffer);
+			result = (GUINT32)gim_unlock_buffer(&pbuffer->m_shadow_buffer);
 			if(result!= G_BUFFER_OP_SUCCESS) return G_BUFFER_OP_INVALID;
 			pbuffer->m_mapped_pointer = NULL;
 			pbuffer->m_lock_count=0;
@@ -714,7 +714,7 @@ GINT32 gim_unlock_buffer(GBUFFER_ID * buffer_id)
 	}
 	else if(pbuffer->m_usage==G_MU_STATIC_READ_DYNAMIC_WRITE_COPY)
 	{
-	    result = gim_unlock_buffer(&pbuffer->m_shadow_buffer);
+	    result = (GUINT32)gim_unlock_buffer(&pbuffer->m_shadow_buffer);
         if(result!= G_BUFFER_OP_SUCCESS) return G_BUFFER_OP_INVALID;
         pbuffer->m_mapped_pointer = NULL;
         pbuffer->m_lock_count=0;
@@ -870,7 +870,7 @@ void gim_buffer_array_copy_value(GBUFFER_ARRAY * source_data,
 	GUINT32 buffer_manager_id,int usage)
 {
     //Create new buffer
-    GUINT32 buffsize = source_data->m_element_count*source_data->m_byte_stride;
+    GUINT32 buffsize = source_data->m_element_count*(GUINT32)source_data->m_byte_stride;
     gim_create_buffer(dest_buffer_managers,buffer_manager_id,buffsize,usage,&dest_data->m_buffer_id);
 
     //copy ref data

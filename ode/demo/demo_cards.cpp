@@ -29,8 +29,8 @@
 #define dsDrawBox dsDrawBoxD
 #endif
 
-static int levels = 5;
-static int ncards = 0;
+static size_t levels = 5;
+static size_t ncards = 0;
 
 static dSpaceID space;
 static dWorldID world;
@@ -70,7 +70,7 @@ const dReal Card::sides[3] = { cwidth, cthickness, clength };
 
 static std::vector<Card*> cards;
 
-static int getncards(int nLevels)
+static size_t getncards(size_t nLevels)
 {
     return (3*nLevels*nLevels + nLevels) / 2;
 }
@@ -79,16 +79,16 @@ static void place_cards()
 {
     ncards = getncards(levels);
     // destroy removed cards (if any)
-    int oldcards = cards.size();
-    for (int i=ncards; i<oldcards; ++i)
+    size_t oldcards = cards.size();
+    for (size_t i=ncards; i<oldcards; ++i)
         delete cards[i];
     cards.resize(ncards);
     // construct new cards (if any)
-    for (int i=oldcards; i<ncards; ++i)
+    for (size_t i=oldcards; i<ncards; ++i)
         cards[i] = new Card;
     
     // for each level
-    int c = 0;
+    size_t c = 0;
     dMatrix3 right, left, hrot;
     dReal angle = (dReal)(20*M_PI/180.);
     dRFromAxisAndAngle(right, 1, 0, 0, -angle);
@@ -100,12 +100,12 @@ static void place_cards()
     dReal vstep = dCos(angle)*clength + eps;
     dReal hstep = dSin(angle)*clength + eps;
     
-    for (int lvl=0; lvl<levels; ++lvl) {
+    for (size_t lvl=0; lvl<levels; ++lvl) {
         // there are 3*(levels-lvl)-1 cards in each level, except last
-        int n = (levels-lvl);
+        size_t n = (levels-lvl);
         dReal height = (dReal)(lvl)*vstep + vstep/2;
         // inclined cards
-        for (int i=0; i<2*n; ++i, ++c) {
+        for (size_t i=0; i<2*n; ++i, ++c) {
             dBodySetPosition(cards[c]->body, 
                     0,
                     -(dReal)n*hstep + hstep*(dReal)i,
@@ -121,7 +121,7 @@ static void place_cards()
             break;
         
         // horizontal cards
-        for (int i=0; i<n-1; ++i, ++c) {
+        for (size_t i=0; i<n-1; ++i, ++c) {
             dBodySetPosition(cards[c]->body,
                     0,
                     -((dReal)(n-1) - (clength-hstep)/2)*hstep + 2*hstep*(dReal)i,
@@ -172,7 +172,7 @@ static void simLoop(int pause)
     }
     
     dsSetColor (1,1,0);
-    for (int i=0; i<ncards; ++i) {
+    for (size_t i=0; i<ncards; ++i) {
         dsSetColor (1, (float)((dReal)i/(dReal)ncards), 0);
         cards[i]->draw();
     }

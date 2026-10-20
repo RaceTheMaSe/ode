@@ -43,7 +43,7 @@ using namespace Opcode;
 //! Planes-triangle test
 #define PLANES_PRIM(prim_index, flag)		\
 	/* Request vertices from the app */		\
-	mIMesh->GetTriangle(mVP, prim_index, mVC);	\
+	mIMesh->GetTriangle(mVP, udword(prim_index), mVC);	\
 	/* Perform triangle-box overlap test */	\
 	if(PlanesTriOverlap(clip_mask))			\
 	{										\
@@ -108,7 +108,7 @@ bool PlanesCollider::Collide(PlanesCache& cache, const IceMaths::Plane* planes, 
 	// Init collision query
 	if(InitQuery(cache, planes, nb_planes, worldm))	return true;
 
-	udword PlaneMask = (1<<nb_planes)-1;
+	udword PlaneMask = (udword)((1<<nb_planes)-1);
 
 	if(!model.HasLeafNodes())
 	{
@@ -195,7 +195,7 @@ BOOL PlanesCollider::InitQuery(PlanesCache& cache, const IceMaths::Plane* planes
 //		for(udword i=0;i<nb_planes;i++)	mPlanes[i] = planes[i] * InvWorldM;
 		for(udword i=0;i<nb_planes;i++)	TransformPlane(mPlanes[i], planes[i], InvWorldM);
 	}
-	else CopyMemory(mPlanes, planes, nb_planes*sizeof(IceMaths::Plane));
+	else CopyMemory(mPlanes, planes, nb_planes*(udword)sizeof(IceMaths::Plane));
 
 	// 3) Setup destination pointer
 	mTouchedPrimitives = &cache.TouchedPrimitives;
@@ -209,7 +209,7 @@ BOOL PlanesCollider::InitQuery(PlanesCache& cache, const IceMaths::Plane* planes
 			mTouchedPrimitives->Reset();
 
 			// Perform overlap test between the unique triangle and the planes (and set contact status if needed)
-			udword clip_mask = (1<<mNbPlanes)-1;
+			udword clip_mask = (udword)((1<<mNbPlanes)-1);
 			PLANES_PRIM(udword(0), OPC_CONTACT)
 
 			// Return immediately regardless of status
@@ -236,7 +236,7 @@ BOOL PlanesCollider::InitQuery(PlanesCache& cache, const IceMaths::Plane* planes
 				mTouchedPrimitives->Reset();
 
 				// Perform overlap test between the cached triangle and the planes (and set contact status if needed)
-				udword clip_mask = (1<<mNbPlanes)-1;
+				udword clip_mask = (udword)((1<<mNbPlanes)-1);
 				PLANES_PRIM(PreviouslyTouchedFace, OPC_TEMPORAL_CONTACT)
 
 				// Return immediately if possible
@@ -541,7 +541,7 @@ bool HybridPlanesCollider::Collide(PlanesCache& cache, const IceMaths::Plane* pl
 		udword Nb = mIMesh->GetNbTriangles();
 
 		// Loop through all triangles
-		udword clip_mask = (1<<mNbPlanes)-1;
+		udword clip_mask = (udword)((1<<mNbPlanes)-1);
 		for(udword i=0;i<Nb;i++)
 		{
 			PLANES_PRIM(i, OPC_CONTACT)
@@ -553,7 +553,7 @@ bool HybridPlanesCollider::Collide(PlanesCache& cache, const IceMaths::Plane* pl
 	mTouchedBoxes.Reset();
 	mTouchedPrimitives = &mTouchedBoxes;
 
-	udword PlaneMask = (1<<nb_planes)-1;
+	udword PlaneMask = (udword)((1<<nb_planes)-1);
 
 	// Now, do the actual query against leaf boxes
 	if(!model.HasLeafNodes())
@@ -617,7 +617,7 @@ bool HybridPlanesCollider::Collide(PlanesCache& cache, const IceMaths::Plane* pl
 		const udword* Indices = model.GetIndices();
 
 		// Loop through touched leaves
-		udword clip_mask = (1<<mNbPlanes)-1;
+		udword clip_mask = (udword)((1<<mNbPlanes)-1);
 		while(Nb--)
 		{
 			const LeafTriangles& CurrentLeaf = LT[*Touched++];

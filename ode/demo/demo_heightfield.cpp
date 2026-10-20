@@ -207,7 +207,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 
 static void start()
 {
-    dAllocateODEDataForThread(dAllocateMaskAll);
+    dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
     float xyz[3] = {3.1640f,-4.3079f,1.7600f};
     float hpr[3] = {135.5000f,-7.0000f,0.0000f};
@@ -248,7 +248,7 @@ static void command(int cmd)
     dMass m;
     bool setBody = false;
 
-    cmd = locase (cmd);
+    cmd = locase ((char)cmd);
 
 
     //
@@ -259,10 +259,10 @@ static void command(int cmd)
          cmd == 'x' || cmd == 'y' || cmd == 'v' ) {
 
         if ( num < NUM ) {
-            i = num;
+            i = (dsizeint)num;
             num++;
         } else {
-            i = nextobj++;
+            i = (dsizeint)nextobj++;
             nextobj %= num;
 
             // destroy the body and geoms for slot i

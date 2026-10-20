@@ -486,7 +486,7 @@ void AABBTreeCollider::_Collide(const AABBCollisionNode* b0, const AABBCollision
 	{
 		if(b1->IsLeaf())
 		{
-			PrimTest(b0->GetPrimitive(), b1->GetPrimitive());
+			PrimTest((udword)b0->GetPrimitive(), (udword)b1->GetPrimitive());
 		}
 		else
 		{
@@ -609,13 +609,13 @@ void AABBTreeCollider::_CollideTriBox(const AABBNoLeafNode* b)
 	if(!TriBoxOverlap(b->mAABB.mCenter, b->mAABB.mExtents))	return;
 
 	// Keep same triangle, deal with first child
-	if(b->HasPosLeaf())	PrimTestTriIndex(b->GetPosPrimitive());
+	if(b->HasPosLeaf())	PrimTestTriIndex((udword)b->GetPosPrimitive());
 	else				_CollideTriBox(b->GetPos());
 
 	if(ContactFound()) return;
 
 	// Keep same triangle, deal with second child
-	if(b->HasNegLeaf())	PrimTestTriIndex(b->GetNegPrimitive());
+	if(b->HasNegLeaf())	PrimTestTriIndex((udword)b->GetNegPrimitive());
 	else				_CollideTriBox(b->GetNeg());
 }
 
@@ -631,21 +631,21 @@ void AABBTreeCollider::_CollideBoxTri(const AABBNoLeafNode* b)
 	if(!TriBoxOverlap(b->mAABB.mCenter, b->mAABB.mExtents))	return;
 
 	// Keep same triangle, deal with first child
-	if(b->HasPosLeaf())	PrimTestIndexTri(b->GetPosPrimitive());
+	if(b->HasPosLeaf())	PrimTestIndexTri((udword)b->GetPosPrimitive());
 	else				_CollideBoxTri(b->GetPos());
 
 	if(ContactFound()) return;
 
 	// Keep same triangle, deal with second child
-	if(b->HasNegLeaf())	PrimTestIndexTri(b->GetNegPrimitive());
+	if(b->HasNegLeaf())	PrimTestIndexTri((udword)b->GetNegPrimitive());
 	else				_CollideBoxTri(b->GetNeg());
 }
 
 //! Request triangle vertices from the app and transform them
 #define FETCH_LEAF(prim_index, imesh, rot, trans)				\
-	mLeafIndex = prim_index;									\
+	mLeafIndex = udword(prim_index);									\
 	/* Request vertices from the app */							\
-	VertexPointers VP;	ConversionArea VC;	imesh->GetTriangle(VP, prim_index, VC); \
+	VertexPointers VP;	ConversionArea VC;	imesh->GetTriangle(VP, udword(prim_index), VC); \
 	/* Transform them in a common space */						\
 	TransformPoint(mLeafVerts[0], *VP.Vertex[0], rot, trans);	\
 	TransformPoint(mLeafVerts[1], *VP.Vertex[1], rot, trans);	\
@@ -671,12 +671,12 @@ void AABBTreeCollider::_Collide(const AABBNoLeafNode* a, const AABBNoLeafNode* b
 	{
 		FETCH_LEAF(a->GetPosPrimitive(), mIMesh0, mR0to1, mT0to1)
 
-		if(BHasPosLeaf)	PrimTestTriIndex(b->GetPosPrimitive());
+		if(BHasPosLeaf)	PrimTestTriIndex((udword)b->GetPosPrimitive());
 		else			_CollideTriBox(b->GetPos());
 
 		if(ContactFound()) return;
 
-		if(BHasNegLeaf)	PrimTestTriIndex(b->GetNegPrimitive());
+		if(BHasNegLeaf)	PrimTestTriIndex((udword)b->GetNegPrimitive());
 		else			_CollideTriBox(b->GetNeg());
 	}
 	else
@@ -706,12 +706,12 @@ void AABBTreeCollider::_Collide(const AABBNoLeafNode* a, const AABBNoLeafNode* b
 	{
 		FETCH_LEAF(a->GetNegPrimitive(), mIMesh0, mR0to1, mT0to1)
 
-		if(BHasPosLeaf)	PrimTestTriIndex(b->GetPosPrimitive());
+		if(BHasPosLeaf)	PrimTestTriIndex((udword)b->GetPosPrimitive());
 		else			_CollideTriBox(b->GetPos());
 
 		if(ContactFound()) return;
 
-		if(BHasNegLeaf)	PrimTestTriIndex(b->GetNegPrimitive());
+		if(BHasNegLeaf)	PrimTestTriIndex((udword)b->GetNegPrimitive());
 		else			_CollideTriBox(b->GetNeg());
 	}
 	else
@@ -758,7 +758,7 @@ void AABBTreeCollider::_Collide(const AABBQuantizedNode* b0, const AABBQuantized
 	// Perform BV-BV overlap test
 	if(!BoxBoxOverlap(a, Pa, b, Pb))	return;
 
-	if(b0->IsLeaf() && b1->IsLeaf()) { PrimTest(b0->GetPrimitive(), b1->GetPrimitive()); return; }
+	if(b0->IsLeaf() && b1->IsLeaf()) { PrimTest((udword)b0->GetPrimitive(), (udword)b1->GetPrimitive()); return; }
 
 	if(b1->IsLeaf() || (!b0->IsLeaf() && (b0->GetSize() > b1->GetSize())))
 	{
@@ -814,12 +814,12 @@ void AABBTreeCollider::_CollideTriBox(const AABBQuantizedNoLeafNode* b)
 	// Perform triangle-box overlap test
 	if(!TriBoxOverlap(Pb, eb))	return;
 
-	if(b->HasPosLeaf())	PrimTestTriIndex(b->GetPosPrimitive());
+	if(b->HasPosLeaf())	PrimTestTriIndex((udword)b->GetPosPrimitive());
 	else				_CollideTriBox(b->GetPos());
 
 	if(ContactFound()) return;
 
-	if(b->HasNegLeaf())	PrimTestTriIndex(b->GetNegPrimitive());
+	if(b->HasNegLeaf())	PrimTestTriIndex((udword)b->GetNegPrimitive());
 	else				_CollideTriBox(b->GetNeg());
 }
 
@@ -839,12 +839,12 @@ void AABBTreeCollider::_CollideBoxTri(const AABBQuantizedNoLeafNode* b)
 	// Perform triangle-box overlap test
 	if(!TriBoxOverlap(Pa, ea))	return;
 
-	if(b->HasPosLeaf())	PrimTestIndexTri(b->GetPosPrimitive());
+	if(b->HasPosLeaf())	PrimTestIndexTri((udword)b->GetPosPrimitive());
 	else				_CollideBoxTri(b->GetPos());
 
 	if(ContactFound()) return;
 
-	if(b->HasNegLeaf())	PrimTestIndexTri(b->GetNegPrimitive());
+	if(b->HasNegLeaf())	PrimTestIndexTri((udword)b->GetNegPrimitive());
 	else				_CollideBoxTri(b->GetNeg());
 }
 
@@ -877,12 +877,12 @@ void AABBTreeCollider::_Collide(const AABBQuantizedNoLeafNode* a, const AABBQuan
 	{
 		FETCH_LEAF(a->GetPosPrimitive(), mIMesh0, mR0to1, mT0to1)
 
-		if(BHasPosLeaf)	PrimTestTriIndex(b->GetPosPrimitive());
+		if(BHasPosLeaf)	PrimTestTriIndex((udword)b->GetPosPrimitive());
 		else			_CollideTriBox(b->GetPos());
 
 		if(ContactFound()) return;
 
-		if(BHasNegLeaf)	PrimTestTriIndex(b->GetNegPrimitive());
+		if(BHasNegLeaf)	PrimTestTriIndex((udword)b->GetNegPrimitive());
 		else			_CollideTriBox(b->GetNeg());
 	}
 	else
@@ -912,12 +912,12 @@ void AABBTreeCollider::_Collide(const AABBQuantizedNoLeafNode* a, const AABBQuan
 	{
 		FETCH_LEAF(a->GetNegPrimitive(), mIMesh0, mR0to1, mT0to1)
 
-		if(BHasPosLeaf)	PrimTestTriIndex(b->GetPosPrimitive());
+		if(BHasPosLeaf)	PrimTestTriIndex((udword)b->GetPosPrimitive());
 		else			_CollideTriBox(b->GetPos());
 
 		if(ContactFound()) return;
 
-		if(BHasNegLeaf)	PrimTestTriIndex(b->GetNegPrimitive());
+		if(BHasNegLeaf)	PrimTestTriIndex((udword)b->GetNegPrimitive());
 		else			_CollideTriBox(b->GetNeg());
 	}
 	else

@@ -482,13 +482,13 @@ void dxRemoveRowCol(dReal *A, unsigned n, unsigned nskip, unsigned r)
 /*extern ODE_API */
 void dSetZero(dReal *a, int n)
 {
-    dxSetZero(a, n);
+    dxSetZero(a, (unsigned int)n);
 }
 
 /*extern ODE_API */
 void dSetValue(dReal *a, int n, dReal value)
 {
-    dxSetValue(a, n, value);
+    dxSetValue(a, (unsigned int)n, value);
 }
 
 // dReal dDot (const dReal *a, const dReal *b, int n);
@@ -496,62 +496,62 @@ void dSetValue(dReal *a, int n, dReal value)
 /*extern ODE_API */
 void dMultiply0(dReal *A, const dReal *B, const dReal *C, int p,int q,int r)
 {
-    dxMultiply0(A, B, C, p, q, r);
+    dxMultiply0(A, B, C, (unsigned int)p, (unsigned int)q, (unsigned int)r);
 }
 
 /*extern ODE_API */
 void dMultiply1(dReal *A, const dReal *B, const dReal *C, int p,int q,int r)
 {
-    dxMultiply1(A, B, C, p, q, r);
+    dxMultiply1(A, B, C, (unsigned int)p, (unsigned int)q, (unsigned int)r);
 }
 
 /*extern ODE_API */
 void dMultiply2(dReal *A, const dReal *B, const dReal *C, int p,int q,int r)
 {
-    dxMultiply2(A, B, C, p, q, r);
+    dxMultiply2(A, B, C, (unsigned int)p, (unsigned int)q, (unsigned int)r);
 }
 
 /*extern ODE_API */
 int dFactorCholesky(dReal *A, int n)
 {
-    return dxFactorCholesky(A, n, NULL);
+    return dxFactorCholesky(A, (unsigned int)n, NULL);
 }
 
 /*extern ODE_API */
 void dSolveCholesky(const dReal *L, dReal *b, int n)
 {
-    dxSolveCholesky(L, b, n, NULL);
+    dxSolveCholesky(L, b, (unsigned int)n, NULL);
 }
 
 /*extern ODE_API */
 int dInvertPDMatrix (const dReal *A, dReal *Ainv, int n)
 {
-    return dxInvertPDMatrix(A, Ainv, n, NULL);
+    return dxInvertPDMatrix(A, Ainv, (unsigned int)n, NULL);
 }
 
 /*extern ODE_API */
 int dIsPositiveDefinite(const dReal *A, int n)
 {
-    return dxIsPositiveDefinite(A, n, NULL);
+    return dxIsPositiveDefinite(A, (unsigned int)n, NULL);
 }
 
 
 /*extern ODE_API */
 void dLDLTAddTL(dReal *L, dReal *d, const dReal *a, int n, int nskip)
 {
-    dxLDLTAddTL(L, d, a, n, nskip, NULL);
+    dxLDLTAddTL(L, d, a, (unsigned int)n, (unsigned int)nskip, NULL);
 }
 
 /*extern ODE_API */
 void dLDLTRemove(dReal **A, const int *p, dReal *L, dReal *d, int n1, int n2, int r, int nskip)
 {
-    dxLDLTRemove(A, (const unsigned *)p, L, d, n1, n2, r, nskip, NULL);
+    dxLDLTRemove(A, (const unsigned *)p, L, d, (unsigned int)n1, (unsigned int)n2, (unsigned int)r, (unsigned int)nskip, NULL);
     dSASSERT(sizeof(unsigned) == sizeof(*p));
 }
 
 /*extern ODE_API */
 void dRemoveRowCol(dReal *A, int n, int nskip, int r)
 {
-    dxRemoveRowCol(A, n, nskip, r);
+    dxRemoveRowCol(A, (unsigned int)n, (unsigned int)nskip, (unsigned int)r);
 }
 

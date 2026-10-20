@@ -79,7 +79,7 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
     /* Intersect */
     int TriCount = 0;
     if (Collider.Collide(WorldRay, TriMesh->retrieveMeshBVTreeRef(), &MeshMatrix)) {
-        TriCount = pccColliderCache->m_Faces.GetNbFaces();
+        TriCount = (int)pccColliderCache->m_Faces.GetNbFaces();
     }
 
     if (TriCount == 0) {
@@ -101,7 +101,7 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
                 dContactGeom* Contact = SAFECONTACT(Flags, Contacts, OutTriCount, Stride);
 
                 dVector3 dv[3];
-                TriMesh->fetchMeshTriangle(dv, TriIndex, TLPosition, TLRotation);
+                TriMesh->fetchMeshTriangle(dv, (unsigned int)TriIndex, TLPosition, TLRotation);
 
                 dVector3 vu;
                 vu[0] = dv[1][0] - dv[0][0];
@@ -176,11 +176,11 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
 
     if(ClosestHit)
     {
-        intersect = gim_trimesh_ray_closest_collisionODE(&TriMesh->m_collision_trimesh,Origin,Direction,Length,&contact_data);
+        intersect = (char)gim_trimesh_ray_closest_collisionODE(&TriMesh->m_collision_trimesh,Origin,Direction,Length,&contact_data);
     }
     else
     {
-        intersect = gim_trimesh_ray_collisionODE(&TriMesh->m_collision_trimesh,Origin,Direction,Length,&contact_data);
+        intersect = (char)gim_trimesh_ray_collisionODE(&TriMesh->m_collision_trimesh,Origin,Direction,Length,&contact_data);
     }
 
     if(intersect == 0)
@@ -198,7 +198,7 @@ int dCollideRTL(dxGeom* g1, dxGeom* RayGeom, int Flags, dContactGeom* Contacts, 
         Contact->depth = (dReal)contact_data.tparam;
         Contact->g1 = TriMesh;
         Contact->g2 = RayGeom;
-        Contact->side1 = contact_data.m_face_id;
+        Contact->side1 = (int)contact_data.m_face_id;
         Contact->side2 = -1;
         return 1;
     }

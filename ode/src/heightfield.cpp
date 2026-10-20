@@ -745,12 +745,12 @@ void dGeomHeightfieldDataBuildByte( dHeightfieldDataID d,
     else
     {
         // We own the height data, allocate storage
-        d->m_pHeightData = new unsigned char[ d->m_nWidthSamples * d->m_nDepthSamples ];
+        d->m_pHeightData = new unsigned char[ (size_t)(d->m_nWidthSamples * d->m_nDepthSamples) ];
         dIASSERT( d->m_pHeightData );
 
         // Copy data.
         memcpy( const_cast<void*>(d->m_pHeightData), pHeightData,
-            sizeof( unsigned char ) * d->m_nWidthSamples * d->m_nDepthSamples );
+            sizeof( unsigned char ) * (size_t)(d->m_nWidthSamples * d->m_nDepthSamples) );
     }
 
     // Find height bounds
@@ -781,12 +781,12 @@ void dGeomHeightfieldDataBuildShort( dHeightfieldDataID d,
     else
     {
         // We own the height data, allocate storage
-        d->m_pHeightData = new short[ d->m_nWidthSamples * d->m_nDepthSamples ];
+        d->m_pHeightData = new short[ (size_t)(d->m_nWidthSamples * d->m_nDepthSamples) ];
         dIASSERT( d->m_pHeightData );
 
         // Copy data.
         memcpy( const_cast<void*>(d->m_pHeightData), pHeightData,
-            sizeof( short ) * d->m_nWidthSamples * d->m_nDepthSamples );
+            sizeof( short ) * (size_t)(d->m_nWidthSamples * d->m_nDepthSamples) );
     }
 
     // Find height bounds
@@ -817,12 +817,12 @@ void dGeomHeightfieldDataBuildSingle( dHeightfieldDataID d,
     else
     {
         // We own the height data, allocate storage
-        d->m_pHeightData = new float[ d->m_nWidthSamples * d->m_nDepthSamples ];
+        d->m_pHeightData = new float[ (size_t)(d->m_nWidthSamples * d->m_nDepthSamples) ];
         dIASSERT( d->m_pHeightData );
 
         // Copy data.
         memcpy( const_cast<void*>(d->m_pHeightData), pHeightData,
-            sizeof( float ) * d->m_nWidthSamples * d->m_nDepthSamples );
+            sizeof( float ) * (size_t)(d->m_nWidthSamples * d->m_nDepthSamples) );
     }
 
     // Find height bounds
@@ -852,12 +852,12 @@ void dGeomHeightfieldDataBuildDouble( dHeightfieldDataID d,
     else
     {
         // We own the height data, allocate storage
-        d->m_pHeightData = new double[ d->m_nWidthSamples * d->m_nDepthSamples ];
+        d->m_pHeightData = new double[ (size_t)(d->m_nWidthSamples * d->m_nDepthSamples) ];
         dIASSERT( d->m_pHeightData );
 
         // Copy data.
         memcpy( const_cast<void*>(d->m_pHeightData), pHeightData,
-            sizeof( double ) * d->m_nWidthSamples * d->m_nDepthSamples );
+            sizeof( double ) * (size_t)(d->m_nWidthSamples * d->m_nDepthSamples) );
     }
 
     // Find height bounds
@@ -987,8 +987,8 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
     int  x, z;
     // check if not above or inside terrain first
     // while filling a heightmap partial temporary buffer
-    const unsigned int numX = (maxX - minX) + 1;
-    const unsigned int numZ = (maxZ - minZ) + 1;
+    const unsigned int numX = (unsigned int)(maxX - minX) + 1;
+    const unsigned int numZ = (unsigned int)(maxZ - minZ) + 1;
     const dReal minO2Height = o2->aabb[2];
     const dReal maxO2Height = o2->aabb[3];
     unsigned int x_local, z_local;
@@ -1226,7 +1226,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
     int numTerrainContacts = 0;
     dContactGeom *planeContacts = m_p_data->m_contacts;
 
-    const unsigned int numTriMax = (maxX - minX) * (maxZ - minZ) * 2;
+    const unsigned int numTriMax = (unsigned int)((maxX - minX) * (maxZ - minZ) * 2);
     if (tempTriangleBufferSize < numTriMax)
     {
         resetTriangleBuffer();
@@ -1283,8 +1283,8 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
     */  
     // keep only triangle that does intersect geom
 
-    const unsigned int maxX_local = maxX - minX;
-    const unsigned int maxZ_local = maxZ - minZ;
+    const unsigned int maxX_local = (unsigned int)(maxX - minX);
+    const unsigned int maxZ_local = (unsigned int)(maxZ - minZ);
 
     for ( x_local = 0; x_local < maxX_local; x_local++)
     {

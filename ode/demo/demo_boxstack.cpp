@@ -175,7 +175,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 
 static void start()
 {
-    dAllocateODEDataForThread(dAllocateMaskAll);
+    dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
     float xyz[3] = {2.1640f,-1.3079f,1.7600f};
     float hpr[3] = {125.5000f,-17.0000f,0.0000f};
@@ -216,15 +216,15 @@ static void command(int cmd)
     dMass m;
     bool setBody = false;
 
-    cmd = locase(cmd);
+    cmd = locase((char)cmd);
     if (cmd == 'b' || cmd == 's' || cmd == 'c' || cmd == 'x' || cmd == 'y' || cmd == 'v') {
         if (num < NUM) {
             // new object to be created
-            i = num;
+            i = (dsizeint)num;
             num++;
         } else {
             // recycle existing object
-            i = nextobj++;
+            i = (dsizeint)nextobj++;
             nextobj %= num; // wrap-around if needed
 
             // destroy the body and geoms for slot i

@@ -197,7 +197,7 @@ void dSolveLDLT(const dReal *L, const dReal *d, dReal *b, int n, int nskip)
         dAASSERT(d != NULL);
         dAASSERT(b != NULL);
 
-        solveEquationSystemWithLDLT<1, 1>(L, d, b, n, nskip);
+        solveEquationSystemWithLDLT<1, 1>(L, d, b, (unsigned int)n, (unsigned int)nskip);
     }
 }
 

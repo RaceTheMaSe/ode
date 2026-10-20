@@ -40,9 +40,9 @@
 
 		inline_			Axes(AxisOrder order)
 						{
-							mAxis0 = (order   ) & 3;
-							mAxis1 = (order>>2) & 3;
-							mAxis2 = (order>>4) & 3;
+							mAxis0 = (udword)((order   ) & 3);
+							mAxis1 = (udword)((order>>2) & 3);
+							mAxis2 = (udword)((order>>4) & 3);
 						}
 		inline_			~Axes()		{}
 

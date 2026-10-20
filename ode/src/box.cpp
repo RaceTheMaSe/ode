@@ -258,7 +258,7 @@ static int intersectRectQuad (dReal h[2], dReal p[8], dReal ret[16])
         }
     }
 done:
-    if (q != ret) memcpy (ret,q,nr*2*sizeof(dReal));
+    if (q != ret) memcpy (ret,q,(size_t)nr*2*sizeof(dReal));
     return nr;
 }
 
@@ -408,7 +408,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     normalR = norm; \
     invert_normal = ((expr1_val) < 0); \
     code = (cc); \
-    if (flags & CONTACTS_UNIMPORTANT) break; \
+    if ((unsigned int)flags & CONTACTS_UNIMPORTANT) break; \
     } do {} while(0)
 
         s = -dInfinity;
@@ -441,7 +441,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     normalC[0] = (n1)/l; normalC[1] = (n2)/l; normalC[2] = (n3)/l; \
     invert_normal = ((expr1_val) < 0); \
     code = (cc); \
-    if (flags & CONTACTS_UNIMPORTANT) break; \
+    if ((unsigned int)flags & CONTACTS_UNIMPORTANT) break; \
     } \
     } do {} while(0)
 
@@ -685,7 +685,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
             ret[cnum*2] = ret[j*2];
             ret[cnum*2+1] = ret[j*2+1];
             cnum++;
-            if ((cnum | CONTACTS_UNIMPORTANT) == (flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
+            if (((unsigned int)cnum | CONTACTS_UNIMPORTANT) == ((unsigned int)flags & (NUMC_MASK | CONTACTS_UNIMPORTANT))) {
                 break;
             }
         }
@@ -708,7 +708,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
         }
     }
     else {
-        dIASSERT(!(flags & CONTACTS_UNIMPORTANT)); // cnum should be generated not greater than maxc so that "then" clause is executed
+        dIASSERT(!((unsigned int)flags & CONTACTS_UNIMPORTANT)); // cnum should be generated not greater than maxc so that "then" clause is executed
         // we have more contacts than are wanted, some of them must be culled.
         // find the deepest point, it is always the first contact.
         int i1 = 0;
@@ -963,7 +963,7 @@ int dCollideBoxPlane(dxGeom *o1, dxGeom *o2,
         }
 
         // The number of contacts requested. We can't return more than this many.
-        const unsigned maxc = flags & NUMC_MASK;
+        const unsigned maxc = (unsigned)flags & NUMC_MASK;
         dIASSERT(maxc != 0);
 
         // Otherwise, we need to figure out the position of the vertex, and potentially other vertices.
@@ -1014,7 +1014,7 @@ int dCollideBoxPlane(dxGeom *o1, dxGeom *o2,
         //
         // The deepest vertex corresponds to always choosing "-". So we can fill it in right away.
         {
-            dContactGeom *currContact = contact; dIASSERT(contact == CONTACT(contact, nContactsFound * skip));
+            dContactGeom *currContact = contact; dIASSERT(contact == CONTACT(contact, (int)nContactsFound * skip));
             currContact->pos[0] = p[0] - signedHalfSideVectors[2][0] - signedHalfSideVectors[1][0] - signedHalfSideVectors[0][0];
             currContact->pos[1] = p[1] - signedHalfSideVectors[2][1] - signedHalfSideVectors[1][1] - signedHalfSideVectors[0][1];
             currContact->pos[2] = p[2] - signedHalfSideVectors[2][2] - signedHalfSideVectors[1][2] - signedHalfSideVectors[0][2];
@@ -1066,7 +1066,7 @@ int dCollideBoxPlane(dxGeom *o1, dxGeom *o2,
     {                                                                                                                                                    \
         break;                                                                                                                                           \
     }                                                                                                                                                    \
-    dContactGeom *currContact = CONTACT(contact, nContactsFound * skip);                                                                                 \
+    dContactGeom *currContact = CONTACT(contact, (int)nContactsFound * skip);                                                                                 \
     currContact->pos[0] = p[0] op3 orderedSignedHalfSideVectors[2][0] op2 orderedSignedHalfSideVectors[1][0] op1 orderedSignedHalfSideVectors[0][0];     \
     currContact->pos[1] = p[1] op3 orderedSignedHalfSideVectors[2][1] op2 orderedSignedHalfSideVectors[1][1] op1 orderedSignedHalfSideVectors[0][1];     \
     currContact->pos[2] = p[2] op3 orderedSignedHalfSideVectors[2][2] op2 orderedSignedHalfSideVectors[1][2] op1 orderedSignedHalfSideVectors[0][2];     \
@@ -1137,7 +1137,7 @@ do {} while (0) // END OF MACRO DEFINITION
         finishBoxPlaneContacts(nContactsFound, contact, skip, box, plane, normal);
     }
 
-    int retVal = nContactsFound;
+    int retVal = (int)nContactsFound;
     return retVal;
 }
 
@@ -1147,7 +1147,7 @@ void finishBoxPlaneContacts(unsigned contactCount, dContactGeom *&contact, int s
 {
     for (unsigned contactIndex = 0; contactIndex != contactCount; ++contactIndex)
     {
-        dContactGeom *currContact = CONTACT(contact, contactIndex * skip);
+        dContactGeom *currContact = CONTACT(contact, (int)contactIndex * skip);
         currContact->g1 = o1;
         currContact->g2 = o2;
         currContact->side1 = -1;

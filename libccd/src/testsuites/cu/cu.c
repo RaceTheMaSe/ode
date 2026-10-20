@@ -204,7 +204,7 @@ static void run_test_suite(const char *ts_name, cu_test_suite_t *ts)
         /* send message what test is currently running */
         len = snprintf(buffer, MSGBUF_LEN, "%c    --> Running %s...\n",
                        TEST_NAME, cu_current_test);
-        write(fd, buffer, len);
+        write(fd, buffer, (unsigned int)len);
 
         /* run test */
         (*(ts->func))();
@@ -233,11 +233,11 @@ static void run_test_suite(const char *ts_name, cu_test_suite_t *ts)
 static void receive_messages(void)
 {
     char buf[BUF_LEN]; /* buffer */
-    int buf_len; /* how many chars stored in buf */
+    long buf_len; /* how many chars stored in buf */
     char bufout[MSGBUF_LEN]; /* buffer which can be printed out */
-    int bufout_len;
+    unsigned int bufout_len;
     int state = 0; /* 0 - waiting for code, 1 - copy msg to stdout */
-    int i;
+    long i;
     int end = 0; /* end of messages? */
 
     bufout_len = 0;
@@ -301,7 +301,7 @@ void cu_fail_assertation(const char *file, int line, const char *msg)
     len = snprintf(buf, MSGBUF_LEN, "%c%s:%d (%s::%s) :: %s\n",
             CHECK_FAILED,
             file, line, cu_current_test_suite, cu_current_test, msg);
-    write(fd, buf, len);
+    write(fd, buf, (unsigned int)len);
 
     /* enable test_failed flag */
     test_failed = 1;

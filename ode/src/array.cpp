@@ -39,7 +39,7 @@ void dArrayBase::_freeAll (int sizeofT)
 {
     if (_data) {
         if (_data == this+1) return;	// if constructLocalArray() was called
-        dFree (_data,_anum * sizeofT);
+        dFree (_data,(dsizeint)(_anum * sizeofT));
     }
 }
 
@@ -53,8 +53,8 @@ void dArrayBase::_setSize (int newsize, int sizeofT)
             dDebug (0,"setSize() out of space in LOCAL array");
         }
         int newanum = roundUpToPowerOfTwo (newsize);
-        if (_data) _data = dRealloc (_data, _anum*sizeofT, newanum*sizeofT);
-        else _data = dAlloc (newanum*sizeofT);
+        if (_data) _data = dRealloc (_data, (dsizeint)(_anum*sizeofT), (dsizeint)(newanum*sizeofT));
+        else _data = dAlloc ((dsizeint)(newanum*sizeofT));
         _anum = newanum;
     }
     _size = newsize;

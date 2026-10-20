@@ -204,7 +204,7 @@ void dSolveL1T(const dReal *L, dReal *B, int rowCount, int rowSkip)
         dAASSERT(L != NULL);
         dAASSERT(B != NULL);
 
-        solveL1Transposed<1>(L, B, rowCount, rowSkip);
+        solveL1Transposed<1>(L, B, (unsigned int)rowCount, (unsigned int)rowSkip);
     }
 }
 

@@ -70,7 +70,7 @@ const dReal BODY_POSITIONS[][2] = {
 };
 
 static const dReal *HULLS[] = { HULL1, HULL2, HULL3, HULL4, HULL5, HULL6 };
-const int HULL_SIZES[] = {
+const unsigned int HULL_SIZES[] = {
     sizeof(HULL1) / sizeof(dReal) / 2,
     sizeof(HULL2) / sizeof(dReal) / 2,
     sizeof(HULL3) / sizeof(dReal) / 2,
@@ -79,13 +79,13 @@ const int HULL_SIZES[] = {
     sizeof(HULL6) / sizeof(dReal) / 2
 };
 static const dReal *CENTERS[] = { CENTER1, CENTER2, CENTER3, CENTER4, CENTER5, CENTER6 };
-const int HULLS_COUNT = sizeof(HULLS) / sizeof(dReal *);
+const unsigned int HULLS_COUNT = sizeof(HULLS) / sizeof(dReal *);
 
 const dReal TRIMESH_HEIGHT = REAL(2.0);
 
 static dReal *odeVerts[HULLS_COUNT];
 static dTriIndex *odeInds[HULLS_COUNT];
-static int odeIndsCount[HULLS_COUNT];
+static unsigned int odeIndsCount[HULLS_COUNT];
 
 static dTriMeshDataID triMeshDataId[HULLS_COUNT];
 static dGeomID triMeshId[HULLS_COUNT];
@@ -136,7 +136,7 @@ static void nearCallback(void *data, dGeomID o1, dGeomID o2)
 
 static void start()
 {
-    dAllocateODEDataForThread(dAllocateMaskAll);
+    dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
     float xyz[3] = { -8,0,5 };
     float hpr[3] = { 0.0f,-29.5000f,0.0000f };
     dsSetViewpoint(xyz, hpr);
@@ -145,7 +145,7 @@ static void start()
 
 static void reset()
 {
-    for (int i = 0; i < HULLS_COUNT; i++)
+    for (unsigned int i = 0; i < HULLS_COUNT; i++)
     {
         dBodySetPosition(bodyId[i],
             dReal(BODY_POSITIONS[i][0]) * REAL(0.05),
@@ -190,7 +190,7 @@ static void simLoop(int pause)
     for (int i = 0; i<nrofsteps && !pause; i++)
     {
         // Add force to TriMesh bodies, and make them gather towards world center
-        for (int j = 0; j < HULLS_COUNT; j++)
+        for (unsigned int j = 0; j < HULLS_COUNT; j++)
         {
             const dReal *pos = dBodyGetPosition(bodyId[j]);
             // Calculate force tensity according to distance from world center
@@ -210,7 +210,7 @@ static void simLoop(int pause)
     }
 
     dsSetColor(1, 1, 1);
-    for (int i = 0; i < HULLS_COUNT; i++)
+    for (unsigned int i = 0; i < HULLS_COUNT; i++)
     {
         const dReal *Pos = dBodyGetPosition(bodyId[i]);
         const dReal *Rot = dBodyGetRotation(bodyId[i]);
@@ -218,7 +218,7 @@ static void simLoop(int pause)
         // Draw TriMeshes
         if (odeVerts[i])
         {
-            for (int j = 0; j < odeIndsCount[i] / 3; j++)
+            for (unsigned int j = 0; j < odeIndsCount[i] / 3; j++)
             {
                 const dVector3 v0 = {
                     dReal(odeVerts[i][odeInds[i][j * 3 + 0] * 3]),
@@ -275,14 +275,14 @@ int main(int argc, char **argv)
     dWorldSetAutoDisableTime(world, REAL(0.15));
 
     // Generate TriMesh geometries and bodies
-    for (int i = 0; i < HULLS_COUNT; i++)
+    for (unsigned int i = 0; i < HULLS_COUNT; i++)
     {
-        int hullSize = HULL_SIZES[i];
+        unsigned int hullSize = HULL_SIZES[i];
         // Vertices
-        int odeVertsCount1 = hullSize * 3 * 2;
-        int odeVertsCount = odeVertsCount1 + 2 * 3;
+        unsigned int odeVertsCount1 = hullSize * 3 * 2;
+        unsigned int odeVertsCount = odeVertsCount1 + 2 * 3;
         odeVerts[i] = new dReal[odeVertsCount];
-        for (int j = 0; j < hullSize; j++)
+        for (unsigned int j = 0; j < hullSize; j++)
         {
             // Bottom layer
             odeVerts[i][j * 3] = (HULLS[i][j * 2] - CENTERS[i][0]) * REAL(0.05);
@@ -302,28 +302,28 @@ int main(int argc, char **argv)
         odeVerts[i][odeVertsCount1 + 3 + 1] = REAL(0.0);
         odeVerts[i][odeVertsCount1 + 3 + 2] = TRIMESH_HEIGHT;
         // Indices
-        int odeIndsCount1 = hullSize * 6;
+        unsigned int odeIndsCount1 = hullSize * 6;
         odeIndsCount[i] = odeIndsCount1 * 2;
         odeInds[i] = new dTriIndex[odeIndsCount[i]];
-        for (int j = 0; j < hullSize; j++)
+        for (unsigned int j = 0; j < hullSize; j++)
         {
             // Wall triangles
             // Wrap around index
-            int n1 = j + 1 < hullSize ? j + 1 : 0;
-            int n2 = hullSize + n1;
-            odeInds[i][j * 6] = j;
-            odeInds[i][j * 6 + 1] = n1;
-            odeInds[i][j * 6 + 2] = hullSize + j;
-            odeInds[i][j * 6 + 3] = hullSize + j;
-            odeInds[i][j * 6 + 4] = n1;
-            odeInds[i][j * 6 + 5] = n2;
+            unsigned int n1 = j + 1 < hullSize ? j + 1 : 0;
+            unsigned int n2 = hullSize + n1;
+            odeInds[i][j * 6] = (dTriIndex)j;
+            odeInds[i][j * 6 + 1] = (dTriIndex)n1;
+            odeInds[i][j * 6 + 2] = (dTriIndex)(hullSize + j);
+            odeInds[i][j * 6 + 3] = (dTriIndex)(hullSize + j);
+            odeInds[i][j * 6 + 4] = (dTriIndex)n1;
+            odeInds[i][j * 6 + 5] = (dTriIndex)n2;
             // Bottom and Top triangles
-            odeInds[i][odeIndsCount1 + j * 6] = j;
-            odeInds[i][odeIndsCount1 + j * 6 + 1] = n1;
-            odeInds[i][odeIndsCount1 + j * 6 + 2] = hullSize * 2;
-            odeInds[i][odeIndsCount1 + j * 6 + 3] = hullSize + j;
-            odeInds[i][odeIndsCount1 + j * 6 + 4] = n2;
-            odeInds[i][odeIndsCount1 + j * 6 + 5] = hullSize * 2 + 1;
+            odeInds[i][odeIndsCount1 + j * 6] = (dTriIndex)j;
+            odeInds[i][odeIndsCount1 + j * 6 + 1] = (dTriIndex)n1;
+            odeInds[i][odeIndsCount1 + j * 6 + 2] = (dTriIndex)(hullSize * 2);
+            odeInds[i][odeIndsCount1 + j * 6 + 3] = (dTriIndex)(hullSize + j);
+            odeInds[i][odeIndsCount1 + j * 6 + 4] = (dTriIndex)n2;
+            odeInds[i][odeIndsCount1 + j * 6 + 5] = (dTriIndex)(hullSize * 2 + 1);
         }
 
         bodyId[i] = dBodyCreate(world);
@@ -357,7 +357,7 @@ int main(int argc, char **argv)
         dBodySetAngularDamping(bodyId[i], REAL(0.1));
 
         triMeshDataId[i] = dGeomTriMeshDataCreate();
-        dGeomTriMeshDataBuildReal(triMeshDataId[i], odeVerts[i], 3 * sizeof(float), odeVertsCount, odeInds[i], odeIndsCount[i], 3 * sizeof(dTriIndex));
+        dGeomTriMeshDataBuildReal(triMeshDataId[i], odeVerts[i], 3 * sizeof(float), (int)odeVertsCount, odeInds[i], (int)odeIndsCount[i], 3 * sizeof(dTriIndex));
         dGeomTriMeshDataPreprocess2(triMeshDataId[i], (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES), NULL);
 
         triMeshId[i] = dCreateTriMesh(space, triMeshDataId[i], NULL, NULL, NULL);
@@ -367,7 +367,7 @@ int main(int argc, char **argv)
     // run simulation
     dsSimulationLoop(argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &fn);
 
-    for (int i = 0; i < HULLS_COUNT; i++)
+    for (unsigned int i = 0; i < HULLS_COUNT; i++)
     {
         dGeomTriMeshDataDestroy(triMeshDataId[i]);
         dGeomDestroy(triMeshId[i]);

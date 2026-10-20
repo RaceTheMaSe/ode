@@ -938,7 +938,7 @@ static dReal doStuffAndGetError (int n)
 
 static void start()
 {
-  dAllocateODEDataForThread(dAllocateMaskAll);
+  dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
   float xyz[3] = {1.0382f,-1.0811f,1.4700f};
   float hpr[3] = {135.0000f,-19.5000f,0.0000f};
@@ -1073,7 +1073,7 @@ int main (int argc, char **argv)
     else if ( argv[i][0]=='-' && argv[i][1]=='n' && isdigit(argv[i][2]) ) {
       char *endptr;
       long int n = strtol (&(argv[i][2]),&endptr,10);
-			if (*endptr == 0) cmd_test_num = n;
+			if (*endptr == 0) cmd_test_num = (int)n;
 		}
     else
       cmd_path_to_textures = argv[i];

@@ -20,7 +20,7 @@ void IceCore::	SRand(udword seed)
 
 udword IceCore::Rand()
 {
-	return rand();
+	return (udword)rand();
 }
 
 

@@ -116,7 +116,7 @@ static void captureFrame( int num ){
 	}
 	fprintf( f,"P6\n%d %d\n255\n", windowWidth, windowHeight );
 	for( int y=windowHeight-1; y>-1; y-- ){
-		fwrite( buffer[y*windowWidth], 3*windowWidth, 1, f );
+		fwrite( buffer[y*windowWidth], 3*(size_t)windowWidth, 1, f );
 	}
 	fclose (f);	
 }

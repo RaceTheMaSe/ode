@@ -597,7 +597,7 @@ static int simplexToPolytope4(const void *obj1, const void *obj2,
 
     /* no touching contact - simply create tetrahedron */
     for (i = 0; i < 4; i++){
-        v[i] = ccdPtAddVertex(pt, ccdSimplexPoint(simplex, i));
+        v[i] = ccdPtAddVertex(pt, ccdSimplexPoint(simplex, (int)i));
     }
     
     e[0] = ccdPtAddEdge(pt, v[0], v[1]);

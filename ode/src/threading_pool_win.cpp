@@ -345,7 +345,7 @@ void dxThreadPoolThreadInfo::ThreadProcedure()
 {
     bool init_result = dAllocateODEDataForThread(m_ode_data_allocate_flags) != 0;
 
-    ReportInitStatus(init_result);
+    ReportInitStatus(init_result != FALSE);
 
     if (init_result)
     {
@@ -542,15 +542,15 @@ bool dxThreadingThreadPool::InitializeIndividualThreadInfos(dxThreadPoolThreadIn
     {
         if (!InitializeSingleThreadInfo(current_info, stack_size, ode_data_allocate_flags))
         {
-            FinalizeIndividualThreadInfos(thread_infos, current_info - thread_infos);
+            FinalizeIndividualThreadInfos(thread_infos, (sizeint)(current_info - thread_infos));
 
             any_fault = true;
             break;
         }
     }
 
-    bool result = !any_fault;
-    return result;
+    BOOL result = !any_fault;
+    return result != 0;
 }
 
 void dxThreadingThreadPool::FinalizeIndividualThreadInfos(dxThreadPoolThreadInfo *thread_infos, sizeint thread_count)

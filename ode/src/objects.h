@@ -179,8 +179,8 @@ private:
         dIASSERT(iterationCount != 0);
         dIASSERT(extraIterationCountFactor >= 0);
 
-        dReal extraIterationCount = iterationCount * extraIterationCountFactor;
-        return extraIterationCount < UINT_MAX ? (unsigned)extraIterationCount : UINT_MAX;
+        dReal extraIterationCount = (dReal)iterationCount * extraIterationCountFactor;
+        return (unsigned)extraIterationCount < UINT_MAX ? (unsigned)extraIterationCount : UINT_MAX;
     }
 
     void UpdateDynamicIterationCountAdjustmentEnabledState()

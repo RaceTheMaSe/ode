@@ -135,7 +135,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 
 static void start()
 {
-  dAllocateODEDataForThread(dAllocateMaskAll);
+  dAllocateODEDataForThread((unsigned int)dAllocateMaskAll);
 
   float xyz[3] = {2.1640f,-1.3079f,1.7600f};
   float hpr[3] = {135.5000f,-17.0000f,0.0000f};
@@ -165,7 +165,7 @@ static void simLoop (int /*pause*/)
   for (i=0; i < NUM; i++) {
     for (j=i+1; j < NUM; j++) {
       if (good_matrix[i][j] && !test_matrix[i][j]) {
-	printf ("failed to report collision (%d,%d) (seed=%ld)\n",i,j,seed);
+	printf ("failed to report collision (%d,%d) (seed=%lu)\n",i,j,seed);
       }
     }
   }

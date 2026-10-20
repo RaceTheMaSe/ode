@@ -348,7 +348,7 @@ Bitsets , based on \ref DYNAMIC_ARRAYS .
     if ((bit_index) < GIM_BITSET_SIZE(array_data)) \
 	{ \
         GUINT32 * _pt = GIM_DYNARRAY_POINTER(GUINT32, array_data); \
-        _pt[(bit_index) >> GUINT32_EXPONENT] &= ~(1 << ((bit_index) & (GUINT32_BIT_COUNT - 1))); \
+        _pt[(bit_index) >> GUINT32_EXPONENT] &= (GUINT32)~(1 << ((bit_index) & (GUINT32_BIT_COUNT - 1))); \
 	} \
 } do{} while(0)
 //! @}
@@ -726,13 +726,13 @@ struct GBUFFER_ARRAY
 //typedef  struct _GBUFFER_ARRAY GBUFFER_ARRAY;
 
 //! Sets offset for a buffered array.
-#define GIM_BUFFER_ARRAY_SET_OFFSET(_array_data,_offset) (_array_data).m_byte_offset = (_offset)*(_array_data).m_byte_stride;
+#define GIM_BUFFER_ARRAY_SET_OFFSET(_array_data,_offset) (_array_data).m_byte_offset = GUINT32((_offset)*(_array_data).m_byte_stride);
 
 //! Sets offset for a buffered array.
 #define GIM_BUFFER_ARRAY_GET_OFFSET(_array_data,_offset) (_offset) = (_array_data).m_byte_offset/(_array_data).m_byte_stride;
 
 //!Return a pointer of the element at the _index
-#define GIM_BUFFER_ARRAY_POINTER(_type,_array_data,_index) (_type *)((_array_data).m_buffer_data + (_index)*(_array_data).m_byte_stride)
+#define GIM_BUFFER_ARRAY_POINTER(_type,_array_data,_index) (_type *)((_array_data).m_buffer_data + (_index)*(GUINT32)(_array_data).m_byte_stride)
 
 //! Sets stride for a buffered array.
 #define GIM_BUFFER_ARRAY_SET_STRIDE(_type,_array_data) (_array_data).m_byte_stride = sizeof(_type);

@@ -73,9 +73,9 @@ public:
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */SetFlagsMaskValue(ContainerType ctFlagsMask, bool bFlagValue)
 	{
-		m_ctFlagsValue = bFlagValue 
+		m_ctFlagsValue = ContainerType(bFlagValue 
 			? (m_ctFlagsValue | ctFlagsMask) 
-			: (m_ctFlagsValue & ~ctFlagsMask);
+			: (m_ctFlagsValue & ~ctFlagsMask));
 	}
 
 	// Can operate both on single flag and flag set
@@ -89,7 +89,7 @@ public:
 	_OU_ALWAYSINLINE void _OU_CONVENTION_METHOD 
 	/*void */DropFlagsMaskValue(ContainerType ctFlagsMask)
 	{
-		m_ctFlagsValue &= ~ctFlagsMask;
+		m_ctFlagsValue &= (ContainerType)~ctFlagsMask;
 	}
 
 
@@ -123,7 +123,7 @@ public:
 	{
 		ContainerType ctFlagsOldValue = m_ctFlagsValue;
 	
-		m_ctFlagsValue = (ctFlagsOldValue & ~ctFlagsMask) | (ctFlagsValue & ctFlagsMask);
+		m_ctFlagsValue = ContainerType((ctFlagsOldValue & ~ctFlagsMask) | (ctFlagsValue & ctFlagsMask));
 		
 		return ctFlagsOldValue;
 	}
@@ -135,7 +135,7 @@ public:
 	{
 		ContainerType ctFlagsOldValue = m_ctFlagsValue;
 		
-		m_ctFlagsValue = (ctFlagsOldValue & ~ctFlagsMask) | (ctFlagsValue & ctFlagsMask);
+		m_ctFlagsValue = ContainerType((ctFlagsOldValue & ~ctFlagsMask) | (ctFlagsValue & ctFlagsMask));
 		
 		return ((ctFlagsOldValue ^ ctFlagsValue) & ctFlagsMask) != (ContainerType)0;
 	}
@@ -152,7 +152,7 @@ public:
 	_OU_ALWAYSINLINE ContainerType _OU_CONVENTION_METHOD 
 	/*ContainerType */QueryFlagsByMask(ContainerType ctFlagsMask) const
 	{
-		return (m_ctFlagsValue & ctFlagsMask);
+		return ContainerType(m_ctFlagsValue & ctFlagsMask);
 	}
 	
 public:
@@ -177,7 +177,7 @@ public:
 		(void)uiEnumeratedMaximum;
 #endif
 
-		SetFlagsMaskValue(ctStartingFlag << uiEnumeratedValue, bFlagValue);
+		SetFlagsMaskValue((ContainerType)(ctStartingFlag << uiEnumeratedValue), bFlagValue);
 	}
 
 	// Signal value of flag indexed by enum
@@ -189,7 +189,7 @@ public:
 		(void)uiEnumeratedMaximum;
 #endif
 
-		SignalFlagsMaskValue(ctStartingFlag << uiEnumeratedValue);
+		SignalFlagsMaskValue((ContainerType)(ctStartingFlag << uiEnumeratedValue));
 	}
 
 	// Drop value of flag indexed by enum
@@ -201,7 +201,7 @@ public:
 		(void)uiEnumeratedMaximum;
 #endif
 
-		DropFlagsMaskValue(ctStartingFlag << uiEnumeratedValue);
+		DropFlagsMaskValue((ContainerType)(ctStartingFlag << uiEnumeratedValue));
 	}
 	
 
@@ -215,7 +215,7 @@ public:
 		(void)uiEnumeratedMaximum;
 #endif
 
-		return ToggleSingleFlagValue(ctStartingFlag << uiEnumeratedValue); 
+		return ToggleSingleFlagValue((ContainerType)(ctStartingFlag << uiEnumeratedValue)); 
 	}
 
 	// Can operate on single flag only
@@ -228,7 +228,7 @@ public:
 		(void)uiEnumeratedMaximum;
 #endif
 
-		return ModifySingleFlagValue(ctStartingFlag << uiEnumeratedValue, bFlagValue);
+		return ModifySingleFlagValue((ContainerType)(ctStartingFlag << uiEnumeratedValue), bFlagValue);
 	}
 	
 
@@ -238,7 +238,7 @@ public:
 	{
 		OU_ASSERT(uiEnumeratedValue < uiEnumeratedMaximum && OU_FLAGS_ENUMFLAGS_START_VALID(ContainerType, ctStartingFlag, uiEnumeratedMaximum));
 
-		return (AssignFlagsByMask(ctStartingFlag << uiEnumeratedValue, ctStartingFlag << uiEnumeratedValue) & OU_FLAGS_ENUMFLAGS_MASK(ContainerType, ctStartingFlag, uiEnumeratedMaximum)) == (ContainerType)0;
+		return (AssignFlagsByMask((ContainerType)(ctStartingFlag << uiEnumeratedValue), (ContainerType)(ctStartingFlag << uiEnumeratedValue)) & OU_FLAGS_ENUMFLAGS_MASK(ContainerType, ctStartingFlag, uiEnumeratedMaximum)) == (ContainerType)0;
 	}
 	
 	// Returns if this was the last flag signaled
@@ -247,7 +247,7 @@ public:
 	{
 		OU_ASSERT(uiEnumeratedValue < uiEnumeratedMaximum && OU_FLAGS_ENUMFLAGS_START_VALID(ContainerType, ctStartingFlag, uiEnumeratedMaximum));
 		
-		return (AssignFlagsByMask(ctStartingFlag << uiEnumeratedValue, ctStartingFlag << uiEnumeratedValue) & OU_FLAGS_ENUMFLAGS_MASK(ContainerType, ctStartingFlag, uiEnumeratedMaximum)) == (OU_FLAGS_ENUMFLAGS_MASK(ContainerType, ctStartingFlag, uiEnumeratedMaximum) & ~(ctStartingFlag << uiEnumeratedValue));
+		return (AssignFlagsByMask((ContainerType)(ctStartingFlag << uiEnumeratedValue), (ContainerType)(ctStartingFlag << uiEnumeratedValue)) & OU_FLAGS_ENUMFLAGS_MASK(ContainerType, ctStartingFlag, uiEnumeratedMaximum)) == (OU_FLAGS_ENUMFLAGS_MASK(ContainerType, ctStartingFlag, uiEnumeratedMaximum) & ~(ctStartingFlag << uiEnumeratedValue));
 	}
 	
 	
@@ -260,7 +260,7 @@ public:
 		(void)uiEnumeratedMaximum;
 #endif
 
-		return GetFlagsMaskValue(ctStartingFlag << uiEnumeratedValue);
+		return GetFlagsMaskValue((ContainerType)(ctStartingFlag << uiEnumeratedValue));
 	}
 	
 	// Find enum value for first flag signaled
@@ -328,7 +328,7 @@ public:
 	{
 		OU_ASSERT(OU_FLAGS_STOREENUM_VALUE_IN_MASK(ContainerType, uiEnumeratedValue, ctEnumeratedValueMask));
 
-		AssignFlagsByMask(ctEnumeratedValueMask << uiEnumeratedValueShift, (ContainerType)uiEnumeratedValue << uiEnumeratedValueShift);
+		AssignFlagsByMask((ContainerType)(ctEnumeratedValueMask << uiEnumeratedValueShift), (ContainerType)(uiEnumeratedValue << uiEnumeratedValueShift));
 	}
 
 	// Retrieve enumerated value from flags

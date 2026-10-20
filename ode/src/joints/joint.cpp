@@ -121,7 +121,7 @@ void setBall( dxJoint *joint, dReal fps, dReal erp,
     J1[rowskip + dxJoint::GI2_JLY] = 1;
     J1[2 * rowskip + dxJoint::GI2_JLZ] = 1;
     dMultiply0_331( a1, joint->node[0].body->posr.R, anchor1 );
-    dSetCrossMatrixMinus( J1 + dxJoint::GI2__JA_MIN, a1, rowskip );
+    dSetCrossMatrixMinus( J1 + dxJoint::GI2__JA_MIN, a1, (unsigned int)rowskip );
 
     dxBody *b1 = joint->node[1].body;
     if ( b1 )
@@ -130,7 +130,7 @@ void setBall( dxJoint *joint, dReal fps, dReal erp,
         J2[rowskip + dxJoint::GI2_JLY] = -1;
         J2[2 * rowskip + dxJoint::GI2_JLZ] = -1;
         dMultiply0_331( a2, b1->posr.R, anchor2 );
-        dSetCrossMatrixPlus( J2 + dxJoint::GI2__JA_MIN, a2, rowskip );
+        dSetCrossMatrixPlus( J2 + dxJoint::GI2__JA_MIN, a2, (unsigned int)rowskip );
     }
 
     // set right hand side

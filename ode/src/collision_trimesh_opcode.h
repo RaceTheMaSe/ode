@@ -98,7 +98,7 @@ public:
     }
 
     bool getVertexUSEDFlag(unsigned VertexIndex) const { return (m_VertexUseBits[VertexIndex / 8] & (1 << (VertexIndex % 8))) != 0; }
-    void setVertexUSEDFlag(unsigned VertexIndex) { m_VertexUseBits[VertexIndex / 8] |= (1 << (VertexIndex % 8)); }
+    void setVertexUSEDFlag(unsigned VertexIndex) { m_VertexUseBits[VertexIndex / 8] |= (uint8)(1 << (VertexIndex % 8)); }
 
 private:
     bool reallocVertexUSEDFlags(sizeint VertexNewElements)
