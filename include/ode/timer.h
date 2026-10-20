@@ -37,7 +37,7 @@ extern "C" {
  */
 typedef struct dStopwatch {
   double time;					/**< total clock count */
-  unsigned long cc[2];	/**< clock count since last `start' */
+  unsigned long cc[2];	/**< clock count since last 'start' */
 } dStopwatch;
 
 ODE_API void dStopwatchReset (dStopwatch *);
@@ -52,7 +52,7 @@ ODE_API void dTimerStart (const char *description);	/* pass a static string here
 ODE_API void dTimerNow (const char *description);	/* pass a static string here */
 ODE_API void dTimerEnd(void);
 
-/* print out a timer report. if `average' is nonzero, print out the average
+/* print out a timer report. if 'average' is nonzero, print out the average
  * time for each slot (this is only meaningful if the same start-now-end
  * calls are being made repeatedly.
  */

@@ -1455,12 +1455,12 @@ ODE_API void dBodyVectorFromWorld
  * @brief controls the way a body's orientation is updated at each timestep.
  * @ingroup bodies
  * @param mode can be 0 or 1:
- * \li 0: An ``infinitesimal'' orientation update is used.
+ * \li 0: An ''infinitesimal'' orientation update is used.
  * This is fast to compute, but it can occasionally cause inaccuracies
  * for bodies that are rotating at high speed, especially when those
  * bodies are joined to other bodies.
  * This is the default for every new body that is created.
- * \li 1: A ``finite'' orientation update is used.
+ * \li 1: A ''finite'' orientation update is used.
  * This is more costly to compute, but will be more accurate for high
  * speed rotations.
  * @remarks
@@ -1781,7 +1781,7 @@ ODE_API void dBodySetGyroscopicMode(dBodyID b, int enabled);
  *	a small problem:
  *	when the joint is at one stop and the motor is set to move it away
  *	from the stop, too much force may be applied for one time step,
- *	causing a ``jumping'' motion.
+ *	causing a ''jumping'' motion.
  *	This fudge factor is used to scale this excess force.
  *	It should have a value between zero and one (the default value).
  *	If the jumping motion is too visible in a joint, the value can be
@@ -2067,7 +2067,7 @@ ODE_API dJointType dJointGetType (dJointID);
  * @remarks
  * If one of these returned body IDs is zero, the joint connects the other body
  * to the static environment.
- * If both body IDs are zero, the joint is in ``limbo'' and has no effect on
+ * If both body IDs are zero, the joint is in ''limbo'' and has no effect on
  * the simulation.
  */
 ODE_API dBodyID dJointGetBody (dJointID, int index);
@@ -2646,7 +2646,7 @@ ODE_API void dJointSetLMotorNumAxes (dJointID, int num);
 /**
  * @brief Set the AMotor axes.
  * @param anum selects the axis to change (0,1 or 2).
- * @param rel Each axis can have one of three ``relative orientation'' modes
+ * @param rel Each axis can have one of three ''relative orientation'' modes
  * \li 0: The axis is anchored to the global frame.
  * \li 1: The axis is anchored to the first body.
  * \li 2: The axis is anchored to the second body.
@@ -3184,7 +3184,7 @@ ODE_API int dJointGetAMotorNumAxes (dJointID);
 /**
  * @brief Get the AMotor axes.
  * @param anum selects the axis to change (0,1 or 2).
- * @param rel Each axis can have one of three ``relative orientation'' modes.
+ * @param rel Each axis can have one of three ''relative orientation'' modes.
  * \li 0: The axis is anchored to the global frame.
  * \li 1: The axis is anchored to the first body.
  * \li 2: The axis is anchored to the second body.

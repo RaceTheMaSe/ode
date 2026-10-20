@@ -62,13 +62,13 @@ ODE_API void dEstimateCooperativelyFactorLDLTResourceRequirements(dResourceRequi
     unsigned maximalAllowedThreadCount, unsigned maximalRowCount);
 
 /**
- * @brief Cooperatively factorizes a matrix `A' into L*D*L'
+ * @brief Cooperatively factorizes a matrix 'A' into L*D*L'
  *
- * The function factorizes a matrix `A' into L*D*L', where `L' is lower triangular with ones on
- * the diagonal, and `D' is diagonal.
+ * The function factorizes a matrix 'A' into L*D*L', where 'L' is lower triangular with ones on
+ * the diagonal, and 'D' is diagonal.
  * @a A is a rowCount*rowCount matrix stored by rows, with a leading dimension of @a rowCount rounded
- * up at least to 4 elements. `L; is written into the strict lower triangle of @a A 
- * (the ones are not written) and the reciprocal of the diagonal elements of `D' are written into @a d.
+ * up at least to 4 elements. 'L; is written into the strict lower triangle of @a A 
+ * (the ones are not written) and the reciprocal of the diagonal elements of 'D' are written into @a d.
  *
  * The @a resources must have had been allocated from a ResourceRequirements object 
  * estimated in @c dEstimateCooperativelyFactorLDLTResourceRequirements.
@@ -79,8 +79,8 @@ ODE_API void dEstimateCooperativelyFactorLDLTResourceRequirements(dResourceRequi
  *
  * @param resources The resources allocated for the function
  * @param allowedThreadCount Maximum thread count to use (the actual thread count could be less, depending on other parameters)
- * @param A The `A' matrix
- * @param d The `d' vector
+ * @param A The 'A' matrix
+ * @param d The 'd' vector
  * @param rowCount The row count in @a A and @a d
  * @param rowskip The actual number of elements to be added to skip to next row in @a A
  * @ingroup matrix_coop
@@ -114,10 +114,10 @@ ODE_API void dEstimateCooperativelySolveLDLTResourceRequirements(dResourceRequir
 /**
  * @brief Cooperatively solves L*D*L'*x=b
  * 
- * Given `L', a rowCount*rowCount lower triangular matrix with ones on the diagonal,
- * and `d', a rowCount*1 vector of the reciprocal diagonal elements of a rowCount*rowCount matrix
- * D, the function solves L*D*L'*x=b where `x' and `b' are rowCount*1. 
- * The leading dimension of @a L is @a rowSkip. The resulting vector `x' overwrites @a b.
+ * Given 'L', a rowCount*rowCount lower triangular matrix with ones on the diagonal,
+ * and 'd', a rowCount*1 vector of the reciprocal diagonal elements of a rowCount*rowCount matrix
+ * D, the function solves L*D*L'*x=b where 'x' and 'b' are rowCount*1. 
+ * The leading dimension of @a L is @a rowSkip. The resulting vector 'x' overwrites @a b.
  *
  * The @a resources must have had been allocated from a ResourceRequirements object 
  * estimated in @c dEstimateCooperativelySolveLDLTResourceRequirements.
@@ -128,9 +128,9 @@ ODE_API void dEstimateCooperativelySolveLDLTResourceRequirements(dResourceRequir
  *
  * @param resources The resources allocated for the function
  * @param allowedThreadCount Maximum thread count to use (the actual thread count could be less, depending on other parameters)
- * @param L The `L' matrix
- * @param d The `d' vector
- * @param b The `b' vector; also the result is stored here
+ * @param L The 'L' matrix
+ * @param d The 'd' vector
+ * @param b The 'b' vector; also the result is stored here
  * @param rowCount The row count in @a L, @a d and @a b
  * @param rowskip The actual number of elements to be added to skip to next row in @a L
  * @ingroup matrix_coop
@@ -164,9 +164,9 @@ ODE_API void dEstimateCooperativelySolveL1StraightResourceRequirements(dResource
 /**
  * @brief Cooperatively solves L*x=b
  * 
- * The function solves L*x=b, where `L' is rowCount*rowCount lower triangular with ones on the diagonal,
- * and `x', `b' are rowCount*1. The leading dimension of @a L is @a rowSkip.
- * @a b is overwritten with `x'.
+ * The function solves L*x=b, where 'L' is rowCount*rowCount lower triangular with ones on the diagonal,
+ * and 'x', 'b' are rowCount*1. The leading dimension of @a L is @a rowSkip.
+ * @a b is overwritten with 'x'.
  *
  * The @a resources must have had been allocated from a ResourceRequirements object 
  * estimated in @c dEstimateCooperativelySolveL1StraightResourceRequirements.
@@ -177,8 +177,8 @@ ODE_API void dEstimateCooperativelySolveL1StraightResourceRequirements(dResource
  *
  * @param resources The resources allocated for the function
  * @param allowedThreadCount Maximum thread count to use (the actual thread count could be less, depending on other parameters)
- * @param L The `L' matrix
- * @param b The `b' vector; also the result is stored here
+ * @param L The 'L' matrix
+ * @param b The 'b' vector; also the result is stored here
  * @param rowCount The row count in @a L and @a b
  * @param rowskip The actual number of elements to be added to skip to next row in @a L
  * @ingroup matrix_coop
@@ -212,9 +212,9 @@ ODE_API void dEstimateCooperativelySolveL1TransposedResourceRequirements(dResour
 /**
  * @brief Cooperatively solves L'*x=b
  *
- * The function solves L'*x=b, where `L' is rowCount*rowCount lower triangular with ones on the diagonal,
- * and `x', b are rowCount*1. The leading dimension of @a L is @a rowSkip.
- * @a b is overwritten with `x'.
+ * The function solves L'*x=b, where 'L' is rowCount*rowCount lower triangular with ones on the diagonal,
+ * and 'x', b are rowCount*1. The leading dimension of @a L is @a rowSkip.
+ * @a b is overwritten with 'x'.
  *
  * The @a resources must have had been allocated from a ResourceRequirements object 
  * estimated in @c dEstimateCooperativelySolveL1TransposedResourceRequirements.
@@ -225,8 +225,8 @@ ODE_API void dEstimateCooperativelySolveL1TransposedResourceRequirements(dResour
  *
  * @param resources The resources allocated for the function
  * @param allowedThreadCount Maximum thread count to use (the actual thread count could be less, depending on other parameters)
- * @param L The `L' matrix
- * @param b The `b' vector; also the result is stored here
+ * @param L The 'L' matrix
+ * @param b The 'b' vector; also the result is stored here
  * @param rowCount The row count in @a L and @a b
  * @param rowskip The actual number of elements to be added to skip to next row in @a L
  * @ingroup matrix_coop
