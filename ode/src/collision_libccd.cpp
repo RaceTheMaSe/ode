@@ -130,8 +130,8 @@ void ccdGeomToObj(dGeomID g, ccd_obj_t *o)
     ode_pos = dGeomGetPosition(g);
     dGeomGetQuaternion(g, ode_rot);
 
-    ccdVec3Set(&o->pos, ode_pos[0], ode_pos[1], ode_pos[2]);
-    ccdQuatSet(&o->rot, ode_rot[1], ode_rot[2], ode_rot[3], ode_rot[0]);
+    ccdVec3Set(&o->pos, static_cast<ccd_real_t>(ode_pos[0]), static_cast<ccd_real_t>(ode_pos[1]), static_cast<ccd_real_t>(ode_pos[2]));
+    ccdQuatSet(&o->rot, static_cast<ccd_real_t>(ode_rot[1]), static_cast<ccd_real_t>(ode_rot[2]), static_cast<ccd_real_t>(ode_rot[3]), static_cast<ccd_real_t>(ode_rot[0]));
 
     ccdQuatInvert2(&o->rot_inv, &o->rot);
 }
@@ -156,8 +156,8 @@ void ccdGeomToCap(dGeomID g, ccd_cap_t *cap)
     ccdGeomToObj(g, (ccd_obj_t *)cap);
 
     dGeomCapsuleGetParams(g, &r, &h);
-    cap->radius = r;
-    ccdVec3Set(&cap->axis, 0.0, 0.0, h / 2);
+    cap->radius = (ccd_real_t)r;
+    ccdVec3Set(&cap->axis, 0.0, 0.0, (ccd_real_t)h / 2);
     ccdQuatRotVec(&cap->axis, &cap->o.rot);
     ccdVec3Copy(&cap->p1, &cap->axis);
     ccdVec3Copy(&cap->p2, &cap->axis);
@@ -173,8 +173,8 @@ void ccdGeomToCyl(dGeomID g, ccd_cyl_t *cyl)
     ccdGeomToObj(g, (ccd_obj_t *)cyl);
 
     dGeomCylinderGetParams(g, &r, &h);
-    cyl->radius = r;
-    ccdVec3Set(&cyl->axis, 0.0, 0.0, h / 2);
+    cyl->radius = (ccd_real_t)r;
+    ccdVec3Set(&cyl->axis, 0.0, 0.0, (ccd_real_t)h / 2);
     ccdQuatRotVec(&cyl->axis, &cyl->o.rot);
     ccdVec3Copy(&cyl->p1, &cyl->axis);
     ccdVec3Copy(&cyl->p2, &cyl->axis);
@@ -189,7 +189,7 @@ static
 void ccdGeomToSphere(dGeomID g, ccd_sphere_t *s)
 {
     ccdGeomToObj(g, (ccd_obj_t *)s);
-    s->radius = dGeomSphereGetRadius(g);
+    s->radius = (ccd_real_t)dGeomSphereGetRadius(g);
 }
 
 static 
@@ -227,7 +227,7 @@ void ccdSupportCap(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v)
     ccdVec3Copy(v, _dir);
     ccdVec3Scale(v, o->radius);
 
-    if (ccdVec3Dot(_dir, &o->axis) > REAL(0.0)){
+    if (ccdVec3Dot(_dir, &o->axis) > (ccd_real_t)REAL(0.0)){
         ccdVec3Add(v, &o->p1);
     }else{
         ccdVec3Add(v, &o->p2);
@@ -243,7 +243,7 @@ void ccdSupportCyl(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v)
     ccd_real_t len;
     
     const ccd_real_t dot = ccdVec3Dot(_dir, &cyl->axis);
-    if (dot > REAL(0.0)){
+    if (dot > (ccd_real_t)REAL(0.0)){
         ccdVec3Copy(v, &cyl->p1);
     } else{
         ccdVec3Copy(v, &cyl->p2);
@@ -266,7 +266,7 @@ void ccdSupportSphere(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v)
 
     ccdVec3Copy(v, _dir);
     ccdVec3Scale(v, s->radius);
-    dIASSERT(dFabs(CCD_SQRT(ccdVec3Len2(_dir)) - REAL(1.0)) < REAL(1e-6)); // ccdVec3Scale(v, CCD_ONE / CCD_SQRT(ccdVec3Len2(_dir)));
+    dIASSERT(dFabs(CCD_SQRT((dReal)ccdVec3Len2(_dir)) - REAL(1.0)) < REAL(1e-6)); // ccdVec3Scale(v, CCD_ONE / CCD_SQRT(ccdVec3Len2(_dir)));
 
     ccdVec3Add(v, &s->o.pos);
 }
@@ -286,7 +286,7 @@ void ccdSupportConvex(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v)
     maxdot = -CCD_REAL_MAX;
     curp = c->convex->points;
     for (i = 0; i < c->convex->pointcount; i++, curp += 3){
-        ccdVec3Set(&p, curp[0], curp[1], curp[2]);
+        ccdVec3Set(&p, static_cast<ccd_real_t>(curp[0]), static_cast<ccd_real_t>(curp[1]), static_cast<ccd_real_t>(curp[2]));
         dot = ccdVec3Dot(&dir, &p);
         if (dot > maxdot){
             ccdVec3Copy(v, &p);
@@ -526,7 +526,7 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
 
         // Project the smaller cylinder's center onto the larger cylinder's plane
         ccdVec3Copy(&proj, &maxCyl->axis);
-        ccdVec3Scale(&proj, -dot);
+        ccdVec3Scale(&proj, (ccd_real_t)-dot);
         ccdVec3Add(&proj, &p);
         const dReal radiiDiff = (dReal)sqrt(ccdVec3Len2(&proj));
         const dReal depth_h = r1 + r2 - radiiDiff;
@@ -584,10 +584,10 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                     const dReal l = (rmaxSquare - rminSquare + dSquare) * (REAL(0.5) * dRecip);
                     const dReal h = dSqrt(rmaxSquare - l * l);
                     const dReal divLbyD = l * dRecip, divHbyD = h * dRecip;
-                    const dReal x1 = (dReal)(divLbyD * ccdVec3X(&proj) + divHbyD * ccdVec3Y(&proj));
-                    const dReal y1 = (dReal)(divLbyD * ccdVec3Y(&proj) - divHbyD * ccdVec3X(&proj));
-                    const dReal x2 = (dReal)(divLbyD * ccdVec3X(&proj) - divHbyD * ccdVec3Y(&proj));
-                    const dReal y2 = (dReal)(divLbyD * ccdVec3Y(&proj) + divHbyD * ccdVec3X(&proj));
+                    const dReal x1 = (dReal)(divLbyD * (dReal)ccdVec3X(&proj) + divHbyD * (dReal)ccdVec3Y(&proj));
+                    const dReal y1 = (dReal)(divLbyD * (dReal)ccdVec3Y(&proj) - divHbyD * (dReal)ccdVec3X(&proj));
+                    const dReal x2 = (dReal)(divLbyD * (dReal)ccdVec3X(&proj) - divHbyD * (dReal)ccdVec3Y(&proj));
+                    const dReal y2 = (dReal)(divLbyD * (dReal)ccdVec3Y(&proj) + divHbyD * (dReal)ccdVec3X(&proj));
                     // Map the intersection points to angles
                     const dReal ap1 = dAtan2(y1, x1);
                     const dReal ap2 = dAtan2(y2, x2);
@@ -612,10 +612,10 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                     const dReal l = (rminSquare - rmaxSquare + dSquare) * (REAL(0.5) * dRecip);
                     const dReal h = dSqrt(rminSquare - l * l);
                     const dReal divLbyD = l * dRecip, divHbyD = h * dRecip;
-                    const dReal x1 = (dReal)(divLbyD * ccdVec3X(&proj) + divHbyD * ccdVec3Y(&proj));
-                    const dReal y1 = (dReal)(divLbyD * ccdVec3Y(&proj) - divHbyD * ccdVec3X(&proj));
-                    const dReal x2 = (dReal)(divLbyD * ccdVec3X(&proj) - divHbyD * ccdVec3Y(&proj));
-                    const dReal y2 = (dReal)(divLbyD * ccdVec3Y(&proj) + divHbyD * ccdVec3X(&proj));
+                    const dReal x1 = (dReal)(divLbyD * (dReal)ccdVec3X(&proj) + divHbyD * (dReal)ccdVec3Y(&proj));
+                    const dReal y1 = (dReal)(divLbyD * (dReal)ccdVec3Y(&proj) - divHbyD * (dReal)ccdVec3X(&proj));
+                    const dReal x2 = (dReal)(divLbyD * (dReal)ccdVec3X(&proj) - divHbyD * (dReal)ccdVec3Y(&proj));
+                    const dReal y2 = (dReal)(divLbyD * (dReal)ccdVec3Y(&proj) + divHbyD * (dReal)ccdVec3X(&proj));
                     const dReal ap1 = dAtan2(y1, x1);
                     const dReal ap2 = dAtan2(y2, x2);
                     minB = dMin(ap1, ap2);
@@ -693,7 +693,7 @@ bool testAndPrepareDiscContactForAngle(dReal angle, dReal radius, dReal length, 
     bool ret = false;
 
     ccd_vec3_t p2;
-    ccdVec3Set(&p, dCos(angle) * radius, dSin(angle) * radius, 0);
+    ccdVec3Set(&p, (ccd_real_t)(dCos(angle) * radius), (ccd_real_t)(dSin(angle) * radius), 0);
     ccdQuatRotVec(&p, &priCyl->o.rot);
     ccdVec3Add(&p, &priCyl->o.pos);
     ccdVec3Copy(&p2, &p);
@@ -702,7 +702,7 @@ bool testAndPrepareDiscContactForAngle(dReal angle, dReal radius, dReal length, 
 
     if (depth >= 0) {
         ccdVec3Copy(&p2, &priCyl->axis);
-        ccdVec3Scale(&p2, length);
+        ccdVec3Scale(&p2, (ccd_real_t)length);
         ccdVec3Add(&p, &p2);
 
         out_depth = depth;
@@ -723,9 +723,9 @@ int addCylCylContact(dxGeom *o1, dxGeom *o2, ccd_vec3_t* axis, dContactGeom *con
     contact->g2 = o2;
     contact->side1 = -1;
     contact->side2 = -1;
-    contact->normal[0] = (dReal)(normaldir * ccdVec3X(axis));
-    contact->normal[1] = (dReal)(normaldir * ccdVec3Y(axis));
-    contact->normal[2] = (dReal)(normaldir * ccdVec3Z(axis));
+    contact->normal[0] = (dReal)(normaldir * (dReal)ccdVec3X(axis));
+    contact->normal[1] = (dReal)(normaldir * (dReal)ccdVec3Y(axis));
+    contact->normal[2] = (dReal)(normaldir * (dReal)ccdVec3Z(axis));
     contact->depth = depth;
     contact->pos[0] = (dReal)ccdVec3X(p);
     contact->pos[1] = (dReal)ccdVec3Y(p);
