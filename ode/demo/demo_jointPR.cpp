@@ -346,6 +346,7 @@ int main (int argc, char **argv)
     contactgroup = dJointGroupCreate (0);
     dWorldSetGravity (world,0,0,-10);
     ground = dCreatePlane (space,0,0,1,0);
+    (void)ground;
 
     //create two boxes
     dMass m;

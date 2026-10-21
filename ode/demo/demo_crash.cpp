@@ -277,7 +277,7 @@ void setupSimulation()
 
 
 	ground = dCreatePlane (space,0,0,1,0);
-	
+	(void)ground;
 	bodies = 0;
 	joints = 0;
 	boxes = 0;

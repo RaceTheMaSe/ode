@@ -136,6 +136,7 @@ static void reset()
     contactgroup = dJointGroupCreate (0);
     dWorldSetGravity (world,0,0,-GRAVITY);
     ground = dCreatePlane (space,0,0,1,0);
+    (void)ground;
 
     // Calculate mass for sphere a capsule with water density.
     dMass sphereMass;

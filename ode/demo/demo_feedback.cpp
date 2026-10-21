@@ -282,6 +282,7 @@ int main (int argc, char **argv)
   dJointSetSliderParam (sliders[1],dParamHiStop,REAL(  -0.2));
 
   groundgeom = dCreatePlane(space, 0,0,1,0);
+  (void)groundgeom;
 
   for (i=0; i<SEGMCNT; i++)
     colours[i]=0.0;

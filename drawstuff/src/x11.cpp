@@ -135,6 +135,7 @@ static void createMainWindow (int _width, int _height)
   height = _height;
   glx_context = NULL;
   last_key_pressed = 0;
+  (void)last_key_pressed;
 
   if (width < 1 || height < 1) dsDebug ("bad window width or height");
 
