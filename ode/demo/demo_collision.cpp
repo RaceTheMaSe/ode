@@ -368,8 +368,8 @@ int test_ccylinder_point_depth()
     // ********** test point on surface (excluding caps) has depth 0
 
     beta = dRandReal() * dReal(2 * M_PI);
-    x = r * (dReal)sin(beta);
-    y = r * (dReal)cos(beta);
+    x = r * (dReal)dSin(beta);
+    y = r * (dReal)dCos(beta);
     beta = dRandReal() - REAL(0.5);
     for (j = 0; j < 3; j++) a[j] = p[j] + x * R[j * 4 + 0] + y * R[j * 4 + 1] + l * beta*R[j * 4 + 2];
     if (dFabs(dGeomCapsulePointDepth(ccyl, a[0], a[1], a[2])) >= tol) FAILED();
@@ -791,8 +791,8 @@ int test_ray_and_ccylinder()
     // ********** test ray outside ccyl that just misses (between caps)
 
     k = dRandReal() * dReal(2 * M_PI);
-    x = (dReal)sin(k);
-    y = (dReal)cos(k);
+    x = (dReal)dSin(k);
+    y = (dReal)dCos(k);
     for (j = 0; j < 3; j++) a[j] = x * R[j * 4 + 0] + y * R[j * 4 + 1];
     k = (dRandReal() - REAL(0.5))*l;
     for (j = 0; j < 3; j++) b[j] = -a[j] * r * 2 + k * R[j * 4 + 2] + p[j];

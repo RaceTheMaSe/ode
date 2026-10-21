@@ -29,7 +29,7 @@ transform is the identity.
 
 */
 
-#include <math.h>
+#include <cmath>
 #include <ode/ode.h>
 #include <ode/rotation.h>
 #include "matrix.h"

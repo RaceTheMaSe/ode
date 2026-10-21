@@ -21,7 +21,7 @@
  *************************************************************************/
 
 
-#include <math.h>
+#include <cmath>
 #include <ode/odeconfig.h>
 #include "transmission.h"
 #include "joint_internal.h"
@@ -143,7 +143,7 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
         dCopyVector3(l[1], l[0]);
 
         nn = dCalcVectorDot3(n[0], n[1]);
-        dIASSERT(fabs(nn) != 1);
+        dIASSERT(dFabs(nn) != 1);
         
         na_0 = dCalcVectorDot3(n[0], a[0]);
         na_1 = dCalcVectorDot3(n[1], a[1]);

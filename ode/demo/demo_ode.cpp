@@ -93,7 +93,7 @@ static ODE_NORETURN_VOID myMessageFunction (int num, const char *msg, va_list ap
 
 static int cmp (dReal a, dReal b)
 {
-    return (fabs(a-b) < tol);
+    return (dFabs(a-b) < tol);
 }
 
 //****************************************************************************
@@ -229,11 +229,11 @@ static void testPlaneSpace()
         dMakeRandomVector (n,3,1.0);
         dNormalize3 (n);
         dPlaneSpace (n,p,q);
-        if (fabs(dCalcVectorDot3(n,p)) > tol) bad = 1;
-        if (fabs(dCalcVectorDot3(n,q)) > tol) bad = 1;
-        if (fabs(dCalcVectorDot3(p,q)) > tol) bad = 1;
-        if (fabs(dCalcVectorDot3(p,p)-1) > tol) bad = 1;
-        if (fabs(dCalcVectorDot3(q,q)-1) > tol) bad = 1;
+        if (dFabs(dCalcVectorDot3(n,p)) > tol) bad = 1;
+        if (dFabs(dCalcVectorDot3(n,q)) > tol) bad = 1;
+        if (dFabs(dCalcVectorDot3(p,q)) > tol) bad = 1;
+        if (dFabs(dCalcVectorDot3(p,p)-1) > tol) bad = 1;
+        if (dFabs(dCalcVectorDot3(q,q)-1) > tol) bad = 1;
     }
     printf ("\t%s\n", bad ? "FAILED" : "passed");
 }

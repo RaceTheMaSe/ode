@@ -122,8 +122,8 @@ static void     cb_sim_step (int pause)
         angle += REAL( 0.01 );
 
         track_to_pos (g_globals_ptr->dyn_bodies[0], g_globals_ptr->plane2d_joint_ids[0],
-            STAGE_SIZE/2 + STAGE_SIZE/2 * cos (angle),
-            STAGE_SIZE/2 + STAGE_SIZE/2 * sin (angle));
+            STAGE_SIZE/2 + STAGE_SIZE/2 * dCos (angle),
+            STAGE_SIZE/2 + STAGE_SIZE/2 * dSin (angle));
 
         /* double   f0 = 0.001; */
         /* for (int b = 0; b < N_BODIES; b ++) */
