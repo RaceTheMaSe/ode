@@ -162,7 +162,7 @@ bool dxWorldProcessContext::EnsureStepperSyncObjectsAreAllocated(dxWorld *pswWor
 
 dxWorldProcessMemArena *dxWorldProcessContext::ObtainStepperMemArena()
 {
-    dxWorldProcessMemArena *pmaArenaInstance = NULL;
+    dxWorldProcessMemArena *pmaArenaInstance = NULL; //NOLINT(misc-const-correctness)
 
     while (true)
     {
@@ -1237,7 +1237,7 @@ dxWorldProcessMemArena *dxAllocateTemporaryWorldProcessMemArena(
 {
     const dxWorldProcessMemoryManager *surememmgr = memmgr ? memmgr : g_WorldProcessMallocMemoryManager;
     const dxWorldProcessMemoryReserveInfo *surereserveinfo = reserveinfo ? reserveinfo : g_WorldProcessDefaultReserveInfo;
-    dxWorldProcessMemArena *const arena = dxWorldProcessMemArena::ReallocateMemArena(NULL, memreq, surememmgr, surereserveinfo->m_fReserveFactor, surereserveinfo->m_uiReserveMinimum);
+    dxWorldProcessMemArena *const arena = dxWorldProcessMemArena::ReallocateMemArena(NULL, memreq, surememmgr, surereserveinfo->m_fReserveFactor, surereserveinfo->m_uiReserveMinimum); //NOLINT(misc-const-correctness)
     return arena;
 }
 

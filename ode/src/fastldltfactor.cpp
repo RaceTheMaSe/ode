@@ -76,7 +76,7 @@ void ThreadedEquationSolverLDLT::cooperativelyFactorLDLT(
 unsigned ThreadedEquationSolverLDLT::restrictFactoringLDLTAllowedThreadCount(
     dxThreadingBase *threading, unsigned allowedThreadCount, unsigned rowCount)
 {
-    unsigned limitedThreadCount = 1;
+    unsigned limitedThreadCount = 1; //NOLINT(misc-const-correctness)
 
 #if defined(dCOOPERATIVE_ENABLED)
     const unsigned int solvingBlockStep = FSL1S_BLOCK_SIZE; // Required by the implementation

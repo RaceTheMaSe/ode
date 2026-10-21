@@ -65,7 +65,7 @@ static volatile atomicptr s_cachedPosR = NULL; // dxPosR *
 
 static inline dxPosR* dAllocPosr()
 {
-    dxPosR *retPosR;
+    dxPosR *retPosR; //NOLINT(misc-const-correctness)
 
 #if defined(dATOMICS_ENABLED)
     retPosR = (dxPosR *)AtomicExchangePointer(&s_cachedPosR, NULL);

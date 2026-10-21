@@ -200,7 +200,7 @@ private:
 
     void *extractData(sizeint &out_sizeUsed)
     {
-        void *const bufferPointer = m_bufferAllocated;
+        void *const bufferPointer = m_bufferAllocated; //NOLINT(misc-const-correctness)
 
         if (bufferPointer != NULL)
         {

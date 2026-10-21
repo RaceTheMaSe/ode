@@ -1050,9 +1050,9 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
         }
     }
     // get All Planes that could collide against.
-    dColliderFn *geomRayNCollider=NULL;
-    dColliderFn *geomNPlaneCollider=NULL;
-    dGetDepthFn *geomNDepthGetter=NULL;
+    dColliderFn *geomRayNCollider=NULL;   //NOLINT(misc-const-correctness)
+    dColliderFn *geomNPlaneCollider=NULL; //NOLINT(misc-const-correctness)
+    dGetDepthFn *geomNDepthGetter=NULL;   //NOLINT(misc-const-correctness)
 
     // int max_collisionContact = numMaxContactsPossible; -- not used
     switch (o2->type)

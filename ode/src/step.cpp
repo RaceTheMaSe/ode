@@ -1368,7 +1368,7 @@ void dxStepIsland_Stage2c(dxStepperStage2CallContext *stage2CallContext)
         const dReal *J = localContext->m_J;
         const dReal *rhs_tmp = stage2CallContext->m_rhs_tmp;
         dReal *pairsRhsCfm = localContext->m_pairsRhsCfm;
-        atomicord32 *const bodyStartJoints = localContext->m_bodyStartJoints;
+        atomicord32 *const bodyStartJoints = localContext->m_bodyStartJoints; //NOLINT(misc-const-correctness)
         atomicord32 *bodyJointLinks = localContext->m_bodyJointLinks;
 
         // compute the right hand side `rhs'

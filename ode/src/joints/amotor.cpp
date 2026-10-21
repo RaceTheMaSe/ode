@@ -309,7 +309,7 @@ void dxJointAMotor::getInfo2(dReal worldFPS, dReal /*worldERP*/,
     // easier to take the Euler rate expression for d(angle[2])/dt with respect
     // to the components of w and set that to 0.
 
-    const dVector3 *axptr[dSA__MAX] = {};
+    const dVector3 *axptr[dSA__MAX] = {}; //NOLINT(misc-const-correctness)
     for (int j = dSA__MIN; j != dSA__MAX; ++j) { axptr[j] = &ax[j]; }
 
     dVector3 ax0_cross_ax1;

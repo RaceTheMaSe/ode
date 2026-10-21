@@ -1153,7 +1153,7 @@ void dBodySetGyroscopicMode(dBodyID b, int enabled)
 template<class T>
 static dxJoint* createJoint(dWorldID w, dJointGroupID group)
 {
-    dxJoint *j;
+    dxJoint *j; //NOLINT(misc-const-correctness)
     if (group) {
         j = group->alloc<T>(w);
     } else {
@@ -1306,7 +1306,7 @@ void dJointDestroy (dxJoint *j)
 dJointGroupID dJointGroupCreate (int /*max_size*/)
 {
     // not anymore ... dUASSERT (max_size > 0,"max size must be > 0");
-    dxJointGroup *const group = new dxJointGroup();
+    dxJointGroup *const group = new dxJointGroup(); //NOLINT(misc-const-correctness)
     return group;
 }
 
@@ -1576,7 +1576,7 @@ int dAreConnectedExcluding (dBodyID b1, dBodyID b2, int joint_type)
 
 dxWorld * dWorldCreate()
 {
-    dxWorld *const w = new dxWorld();
+    dxWorld *const w = new dxWorld(); //NOLINT(misc-const-correctness)
 
     return w;
 }

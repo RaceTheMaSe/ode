@@ -89,8 +89,8 @@ void ThreadedEquationSolverLDLT::cooperativelySolveLDLT(
 unsigned ThreadedEquationSolverLDLT::restrictSolvingLDLTAllowedThreadCount(
     dxThreadingBase *threading, unsigned allowedThreadCount, unsigned rowCount, unsigned &out_stageBlockCountSifficiencyMask)
 {
-    unsigned limitedThreadCount = 1;
-    unsigned stageBlockCountSifficiencyMask = 0;
+    unsigned limitedThreadCount = 1; //NOLINT(misc-const-correctness)
+    unsigned stageBlockCountSifficiencyMask = 0; //NOLINT(misc-const-correctness)
 
 #if defined(dCOOPERATIVE_ENABLED)
     {

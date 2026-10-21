@@ -1075,7 +1075,7 @@ int dCollideBoxPlane(dxGeom *o1, dxGeom *o2,
 do {} while (0) // END OF MACRO DEFINITION
 
         // But first we need to sort the sides and Bs. We'll start with them in their original order...
-        const dReal *orderedSignedHalfSideVectors[3] = {
+        const dReal *orderedSignedHalfSideVectors[3] = { //NOLINT(misc-const-correctness)
             &(signedHalfSideVectors[0][0]),
             &(signedHalfSideVectors[1][0]),
             &(signedHalfSideVectors[2][0]),

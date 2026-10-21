@@ -389,7 +389,7 @@ dxQuadTreeSpace::dxQuadTreeSpace(dSpaceID _space, const dVector3 Center, const d
     const sizeint BlockCount = numNodes(Depth);
 
     Blocks = (Block*)dAlloc(BlockCount * sizeof(Block));
-    Block* TempBlocks = Blocks + 1;	// This pointer gets modified!
+    Block* TempBlocks = Blocks + 1;	 //NOLINT(misc-const-correctness) This pointer gets modified!
 
     const dReal MinX = Center[AXIS0] - Extents[AXIS0];
     const dReal MaxX = dNextAfter((Center[AXIS0] + Extents[AXIS0]), (dReal)dInfinity);

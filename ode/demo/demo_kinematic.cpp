@@ -87,14 +87,14 @@ static void dropBox()
 
 static void queueRemoval(dGeomID g)
 {
-    Box *const b = (Box*)dGeomGetData(g);
+    Box *const b = (Box*)dGeomGetData(g); //NOLINT(misc-const-correctness)
     to_remove->insert(b);
 }
 
 static void removeQueued()
 {
     while (!to_remove->empty()) {
-        Box *const b = *to_remove->begin();
+        Box *const b = *to_remove->begin(); //NOLINT(misc-const-correctness)
         to_remove->erase(b);
         boxes->erase(b);
         delete b;

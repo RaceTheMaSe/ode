@@ -1071,7 +1071,7 @@ int main (int argc, char **argv)
     else if ( argv[i][0]=='-' && argv[i][1]=='g' && argv[i][2]==0) cmd_graphics = 0;
     else if ( argv[i][0]=='-' && argv[i][1]=='e' && argv[i][2]==0) cmd_occasional_error = 0;
     else if ( argv[i][0]=='-' && argv[i][1]=='n' && isdigit(argv[i][2]) ) {
-      char *endptr;
+      char *endptr; //NOLINT(misc-const-correctness)
       const long int n = strtol (&(argv[i][2]),&endptr,10);
 			if (*endptr == 0) cmd_test_num = (int)n;
 		}

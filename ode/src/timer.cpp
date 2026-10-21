@@ -178,7 +178,7 @@ static inline void serialize()
 
 static inline double loadClockCount (unsigned long a[2])
 {
-    double ret;
+    double ret; //NOLINT(misc-const-correctness)
 #ifndef X86_64_SYSTEM
     asm volatile ("fildll %1; fstpl %0" : "=m" (ret) : "m" (a[0]) :
     "cc","memory");

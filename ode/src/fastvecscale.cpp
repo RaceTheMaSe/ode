@@ -74,7 +74,7 @@ void ThreadedEquationSolverLDLT::cooperativelyScaleVector(dxRequiredResourceCont
 unsigned ThreadedEquationSolverLDLT::restrictScalingVectorAllowedThreadCount(
     dxThreadingBase *threading, unsigned allowedThreadCount, unsigned elementCount)
 {
-    unsigned limitedThreadCount = 1;
+    unsigned limitedThreadCount = 1; //NOLINT(misc-const-correctness)
 
 #if defined(dCOOPERATIVE_ENABLED)
     const unsigned int blockStep = SV_BLOCK_SIZE; // Required by the implementation

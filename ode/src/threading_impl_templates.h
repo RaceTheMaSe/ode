@@ -752,7 +752,7 @@ template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 dxThreadedJobInfo *dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::AllocateJobInfoFromPool()
 {
     // No locking is necessary
-    dxThreadedJobInfo *job_instance = ExtractJobInfoFromPoolOrAllocate();
+    dxThreadedJobInfo *job_instance = ExtractJobInfoFromPoolOrAllocate(); //NOLINT(misc-const-correctness)
     return job_instance;
 }
 
@@ -836,7 +836,7 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Re
 template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 dxThreadedJobInfo *dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::ExtractJobInfoFromPoolOrAllocate()
 {
-    dxThreadedJobInfo *result_info;
+    dxThreadedJobInfo *result_info; //NOLINT(misc-const-correctness)
 
     bool waited_lull = false;
     m_info_wait_lull.RegisterToLull();
@@ -936,7 +936,7 @@ bool dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Do
 
     bool allocation_failure = false;
 
-    dxThreadedJobInfo *info_pool = (dxThreadedJobInfo *)m_info_pool;
+    dxThreadedJobInfo *info_pool = (dxThreadedJobInfo *)m_info_pool; //NOLINT(misc-const-correctness)
 
     ddependencycount_t info_index = 0;
     for (dxThreadedJobInfo **current_info_ptr = &info_pool; ; )

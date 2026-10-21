@@ -1317,7 +1317,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
         const unsigned blockStartRow = blockIndex * blockSize;
 
         dReal *ptrAElement = ARow + blockStartRow;
-        dReal *ptrDElement = d + blockStartRow * d_stride;
+        dReal *ptrDElement = d + blockStartRow * d_stride; //NOLINT(misc-const-correctness)
         for (unsigned columnCounter = blockIndex != blockCount - 1 ? blockSize : factorizationRow - blockStartRow; ; )
         {
             dReal p1, q1, p2, q2, dd;
