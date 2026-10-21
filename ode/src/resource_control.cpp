@@ -196,7 +196,7 @@ dResourceContainerID dResourceContainerAcquire(/*const */dResourceRequirementsID
     dResourceContainerID result = NULL;
     bool allocationSucceeded = false;
     
-    dxRequiredResourceContainer *containerInstance;
+    dxRequiredResourceContainer *containerInstance = {};
     bool containerAllocated = false;
 
     const dxResourceRequirementDescriptor *requirementsInstance = decodeResourceRequirementsID(requirements);

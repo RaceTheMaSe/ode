@@ -288,7 +288,7 @@ dxJointUniversal::getInfo1( dxJoint::Info1 *info )
 
     if ( limiting1 || limiting2 )
     {
-        dReal angle1, angle2;
+        dReal angle1 = {}, angle2 = {};
         getAngles( &angle1, &angle2 );
         if ( limiting1 )
             limot1.testRotationalLimit( angle1 );

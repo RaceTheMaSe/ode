@@ -65,7 +65,7 @@ static volatile atomicptr s_cachedPosR = NULL; // dxPosR *
 
 static inline dxPosR* dAllocPosr()
 {
-    dxPosR *retPosR; //NOLINT(misc-const-correctness)
+    dxPosR *retPosR = {}; //NOLINT(misc-const-correctness)
 
 #if defined(dATOMICS_ENABLED)
     retPosR = (dxPosR *)AtomicExchangePointer(&s_cachedPosR, NULL);
@@ -174,7 +174,7 @@ static void setAllColliders (int i, dColliderFn *fn)
 
     memset (colliders,0,sizeof(colliders));
 
-    int i,j;
+    int i = {},j = {};
 
     // setup space colliders
     for (i=dFirstSpaceClass; i <= dLastSpaceClass; i++) {

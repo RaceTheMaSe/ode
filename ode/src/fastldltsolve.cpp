@@ -40,7 +40,7 @@ void ThreadedEquationSolverLDLT::estimateCooperativeSolvingLDLTResourceRequireme
     dxResourceRequirementDescriptor *summaryRequirementsDescriptor,
     unsigned allowedThreadCount, unsigned rowCount)
 {
-    unsigned stageBlockCountSifficiencyMask;
+    unsigned stageBlockCountSifficiencyMask = {};
     dxThreadingBase *threading = summaryRequirementsDescriptor->getrelatedThreading();
     const unsigned limitedThreadCount = restrictSolvingLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount, stageBlockCountSifficiencyMask);
 
@@ -70,7 +70,7 @@ void ThreadedEquationSolverLDLT::cooperativelySolveLDLT(
 {
     dAASSERT(rowCount != 0);
 
-    unsigned stageBlockCountSifficiencyMask;
+    unsigned stageBlockCountSifficiencyMask = {};
 
     dxThreadingBase *threading = resourceContainer->getThreadingInstance();
     const unsigned limitedThreadCount = restrictSolvingLDLTAllowedThreadCount(threading, allowedThreadCount, rowCount, stageBlockCountSifficiencyMask);

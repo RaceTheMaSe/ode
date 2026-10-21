@@ -54,7 +54,7 @@ static void start()
     dBodySetPosition(body2, 0, 0, 1);
 
 
-    dGeomID g;
+    dGeomID g = {};
     dMass mass;
     
     g = dCreateBox(space, REAL(0.2), REAL(0.2), 1);

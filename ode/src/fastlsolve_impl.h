@@ -69,7 +69,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
         const dReal *ptrLElement=NULL;
         dReal *ptrBElement=NULL;
 
-        dReal Z11, Z21, Z31, Z41;
+        dReal Z11 = {}, Z21 = {}, Z31 = {}, Z41 = {};
 
         /* compute all 4 x 1 block of X, from rows i..i+4-1 */
         if (subsequentPass)
@@ -82,7 +82,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
             /* the inner loop that computes outer products and adds them to Z */
             for (unsigned columnCounter = blockStartRow; ; )
             {
-                dReal q1, p1, p2, p3, p4;
+                dReal q1 = {}, p1 = {}, p2 = {}, p3 = {}, p4 = {};
 
                 /* load p and q values */
                 q1 = ptrBElement[0 * (size_t)b_stride];
@@ -283,7 +283,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
         }
 
         /* finish computing the X(i) block */
-        dReal Y11, Y21, Y31, Y41;
+        dReal Y11 = {}, Y21 = {}, Y31 = {}, Y41 = {};
         {
             Y11 = ptrBElement[0 * (size_t)b_stride] - Z11;
             ptrBElement[0 * (size_t)b_stride] = Y11;
@@ -316,7 +316,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
         /* compute all 1 x 1 block of X, from rows i..i+1-1 */
         dReal *ptrBElement=NULL;
 
-        dReal Z11, Z12;
+        dReal Z11 = {}, Z12 = {};
 
         if (subsequentPass)
         {
@@ -330,7 +330,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
             unsigned columnCounter = blockStartRow;
             for (bool exitLoop = columnCounter < 4; !exitLoop; exitLoop = false) 
             {
-                dReal p1, p2, q1, q2;
+                dReal p1 = {}, p2 = {}, q1 = {}, q2 = {};
 
                 /* load p and q values */
                 p1 = ptrLElement[0];
@@ -417,7 +417,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
             /* compute left-over iterations */
             if ((columnCounter & 2) != 0) 
             {
-                dReal p1, p2, q1, q2;
+                dReal p1 = {}, p2 = {}, q1 = {}, q2 = {};
 
                 /* load p and q values */
                 p1 = ptrLElement[0];
@@ -436,7 +436,7 @@ void solveL1Straight (const dReal *L, dReal *B, unsigned rowCount, unsigned rowS
 
             if ((columnCounter & 1) != 0)
             {
-                dReal p1, q1;
+                dReal p1 = {}, q1 = {};
 
                 /* load p and q values */
                 p1 = ptrLElement[0];
@@ -652,7 +652,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
 
                     for (unsigned columnCounter = finalColumnBlock - completedColumnBlock; ; )
                     {
-                        dReal q1, p1, p2, p3, p4;
+                        dReal q1 = {}, p1 = {}, p2 = {}, p3 = {}, p4 = {};
 
                         /* load p and q values */
                         q1 = ptrBElement[0 * b_stride];
@@ -892,7 +892,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
 
                         for (unsigned columnCounter = finalColumnBlock - columnCompletedSoFar; ; )
                         {
-                            dReal q1, q2, q3, q4, p1, p2, p3, p4;
+                            dReal q1 = {}, q2 = {}, q3 = {}, q4 = {}, p1 = {}, p2 = {}, p3 = {}, p4 = {};
 
                             /* load p and q values */
                             q1 = ptrBElement[0 * b_stride];
@@ -1186,7 +1186,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
                     unsigned columnCounter = finalColumnBlock - completedColumnBlock;
                     for (bool exitInnerLoop = false; !exitInnerLoop; exitInnerLoop = --columnCounter == 0)
                     {
-                        dReal q1, p1, p2, p3, p4;
+                        dReal q1 = {}, p1 = {}, p2 = {}, p3 = {}, p4 = {};
 
                         /* load p and q values */
                         q1 = ptrBElement[0 * b_stride];
@@ -1304,7 +1304,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
                     unsigned lastCompletedColumn = completedColumnBlock;
                     for (unsigned columnCounter = finalColumnBlock - completedColumnBlock; ; )
                     {
-                        dReal q1, q2, q3, q4;
+                        dReal q1 = {}, q2 = {}, q3 = {}, q4 = {};
 
                         /* load q values */
                         q1 = ptrBElement[0 * b_stride];
@@ -1314,7 +1314,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Straight(const dReal *L, dR
 
                         for (unsigned partialRow = 0; ; )
                         {
-                            dReal p1, p2, p3, p4;
+                            dReal p1 = {}, p2 = {}, p3 = {}, p4 = {};
 
                             /* load p values */
                             p1 = ptrLElement[0];

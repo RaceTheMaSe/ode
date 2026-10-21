@@ -207,8 +207,8 @@ int dCollideCapsuleBox (dxGeom *o1, dxGeom *o2, int flags,
     if (dCalcPointsDistance3(pline, pbox)<mindist) {
         // consider capsule as box
         dVector3 normal;
-        dReal depth;
-        int code;
+        dReal depth = {};
+        int code = {};
         // WARNING! rad2 is declared as #define in Microsoft headers (as well as psh2, chx2, grp2, frm2, rct2, ico2, stc2, lst2, cmb2, edt2, scr2). Avoid abbreviations!
         /* dReal rad2 = radius*REAL(2.0); */ const dReal radiusMul2 = radius * REAL(2.0);
         const dVector3 capboxside = {radiusMul2, radiusMul2, cyl->lz + radiusMul2};
@@ -242,7 +242,7 @@ int dCollideCapsuleCapsule (dxGeom *o1, dxGeom *o2,
     dIASSERT (o2->type == dCapsuleClass);
     dIASSERT ((flags & NUMC_MASK) >= 1);
 
-    int i;
+    int i = {};
     const dReal tolerance = REAL(1e-5);
 
     const dxCapsule *cyl1 = (dxCapsule*) o1;

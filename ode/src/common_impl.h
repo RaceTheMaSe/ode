@@ -177,7 +177,7 @@ public:
 
     void freeAllocation()
     {
-        sizeint sizeUsed;
+        sizeint sizeUsed = {};
         void *bufferPointer = extractData(sizeUsed);
         
         if (bufferPointer != NULL)

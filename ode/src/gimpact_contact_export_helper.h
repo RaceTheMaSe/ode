@@ -41,7 +41,7 @@ public:
     static unsigned ExportMaxDepthGImpactContacts(dxGImpactContactAccessor &srccontacts, unsigned contactcount,
         int Flags, dContactGeom* Contacts, int Stride)
     {
-        unsigned result;
+        unsigned result = {};
 
         const unsigned maxcontacts = (unsigned)(Flags & NUMC_MASK);
         if (contactcount > maxcontacts)
@@ -121,7 +121,7 @@ template<class dxGImpactContactAccessor>
 /*static */
 dReal dxGImpactContactsExportHelper::FindContactsMarginalDepth(dxGImpactContactAccessor &srccontacts, unsigned contactcount, unsigned maxcontacts)
 {
-    dReal result;
+    dReal result = {};
 
     dReal *pdepths = (dReal *)ALLOCA(contactcount * sizeof(dReal));
     unsigned marginindex = 0;

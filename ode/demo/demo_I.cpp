@@ -82,7 +82,7 @@ static void start()
 
 static void computeMassParams (dMass *m, dReal q[NUM][3], const dReal pm[NUM])
 {
-  int i,j;
+  int i = {},j = {};
   dMassSetZero (m);
   for (i=0; i<NUM; i++) {
     m->mass += pm[i];
@@ -103,7 +103,7 @@ static void computeMassParams (dMass *m, dReal q[NUM][3], const dReal pm[NUM])
 
 static void reset_test()
 {
-  int i;
+  int i = {};
   dMass m,anchor_m;
   dReal q[NUM][3], pm[NUM];	// particle positions and masses
   const dReal pos1[3] = {1,0,1};	// point of reference (POR)

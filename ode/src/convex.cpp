@@ -117,7 +117,7 @@ void dxConvex::FillEdges()
     delete[] edges;
     edgecount = 0;
     edge e;
-    bool isinset;
+    bool isinset = {};
     for(unsigned int i=0;i<planecount;++i)
     {
         for(unsigned int j=0;j<*points_in_poly;++j)
@@ -322,8 +322,8 @@ static inline void ClosestPointBetweenSegments(dVector3& p1,
 {
     // s & t were originally part of the output args, but since
     // we don't really need them, we'll just declare them in here
-    dReal s;
-    dReal t;
+    dReal s = {};
+    dReal t = {};
     dVector3 d1 = {q1[0] - p1[0],
         q1[1] - p1[1],
         q1[2] - p1[2]};
@@ -647,7 +647,7 @@ int dCollideSphereConvex (dxGeom *o1, dxGeom *o2, int flags,
 
     dxSphere *Sphere = (dxSphere*) o1;
     dxConvex *Convex = (dxConvex*) o2;
-    dReal dist,closestdist=dInfinity;
+    dReal dist = {},closestdist=dInfinity;
     dVector4 plane;
     // dVector3 contactpoint;
     dVector3 offsetpos,out,temp;
@@ -803,7 +803,7 @@ static inline void ComputeInterval(dxConvex& cvx,dVector4 const axis,dReal& min,
 {
     /* TODO: Use Support points here */
     dVector3 point;
-    dReal value;
+    dReal value = {};
     //fprintf(stdout,"Compute Interval Axis %f,%f,%f\n",axis[0],axis[1],axis[2]);
     dMultiply0_331(point,cvx.final_posr->R,cvx.points);
     //fprintf(stdout,"initial point %f,%f,%f\n",point[0],point[1],point[2]);
@@ -925,7 +925,7 @@ static inline bool CheckSATConvexFaces(dxConvex& cvx1,
                                 dxConvex& cvx2,
                                 ConvexConvexSATOutput& ccso)
 {
-    dReal min,max,min1,max1,min2,max2,depth;
+    dReal min = {},max = {},min1 = {},max1 = {},min2 = {},max2 = {},depth = {};
     dVector4 plane;
     for(unsigned int i=0;i<cvx1.planecount;++i)
     {
@@ -972,7 +972,7 @@ static inline bool CheckSATConvexEdges(dxConvex& cvx1,
                                 ConvexConvexSATOutput& ccso)
 {
     // Test cross products of pairs of edges
-    dReal depth,min,max,min1,max1,min2,max2;
+    dReal depth = {},min = {},max = {},min1 = {},max1 = {},min2 = {},max2 = {};
     dVector4 plane;
     dVector3 e1,e2,e1a,e1b,e2a,e2b;
     dVector3 dist;
@@ -1072,8 +1072,8 @@ inline unsigned int GetIncidentSide(ConvexConvexSATOutput& ccso)
 static inline unsigned int GetSupportSide(dVector3& dir,dxConvex& cvx)
 {
     dVector3 dics,tmp; // Direction in convex space
-    dReal SavedDot;
-    dReal Dot;
+    dReal SavedDot = {};
+    dReal Dot = {};
     unsigned int side=0;
     dVector3Copy(dir,tmp);
     dNormalize3(tmp);
@@ -1119,17 +1119,17 @@ int TestConvexIntersection(dxConvex& cvx1,dxConvex& cvx2, int flags,
     {
         // cvx1 MUST always be in contact->g1 and cvx2 in contact->g2
         // This was learned the hard way :(
-        unsigned int incident_side;
-        const unsigned int* pIncidentPoly;
-        const unsigned int* pIncidentPoints;
-        unsigned int reference_side;
-        const unsigned int* pReferencePoly;
-        const unsigned int* pReferencePoints;
+        unsigned int incident_side = {};
+        const unsigned int* pIncidentPoly = {};
+        const unsigned int* pIncidentPoints = {};
+        unsigned int reference_side = {};
+        const unsigned int* pReferencePoly = {};
+        const unsigned int* pReferencePoints = {};
         dVector4 plane,rplane,iplane;
         dVector3 tmp;
         dVector3 dist,p;
-        dReal t,d,d1,d2;
-        bool outside,out;
+        dReal t = {},d = {},d1 = {},d2 = {};
+        bool outside = {},out = {};
         dVector3Copy(ccso.dist,dist);
         reference_side = GetSupportSide(dist,cvx1);
         dNegateVector3(dist);
@@ -1490,7 +1490,7 @@ int dCollideRayConvex(dxGeom *o1, dxGeom *o2,
     contact->side1 = -1;
     contact->side2 = -1; // TODO: set plane index?
 
-    dReal alpha, beta, nsign;
+    dReal alpha = {}, beta = {}, nsign = {};
     int flag = 0;
 
     //

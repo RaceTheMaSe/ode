@@ -234,7 +234,7 @@ static int ray_sphere_helper (dxRay *ray, dVector3 const sphere_pos, dReal radiu
     dReal k = B*B - C;
     if (k < 0) return 0;
     k = dSqrt(k);
-    dReal alpha;
+    dReal alpha = {};
     if (mode && C >= 0) {
         alpha = -B + k;
         if (alpha < 0) return 0;
@@ -300,7 +300,7 @@ int dCollideRayBox (dxGeom *o1, dxGeom *o2, int flags,
     contact->side1 = -1;
     contact->side2 = -1;
 
-    int i;
+    int i = {};
 
     // compute the start and delta of the ray relative to the box.
     // we will do all subsequent computations in this box-relative coordinate
@@ -361,8 +361,8 @@ int dCollideRayBox (dxGeom *o1, dxGeom *o2, int flags,
 
     // check if the ray intersects
     if (lo > hi) return 0;
-    dReal alpha;
-    int n;
+    dReal alpha = {};
+    int n = {};
     if (lo >= 0) {
         alpha = lo;
         n = nlo;
@@ -406,7 +406,7 @@ int dCollideRayCapsule (dxGeom *o1, dxGeom *o2,
 
     // compute some useful info
     dVector3 cs,q,r;
-    dReal C,k;
+    dReal C = {},k = {};
     cs[0] = ray->final_posr->pos[0] - ccyl->final_posr->pos[0];
     cs[1] = ray->final_posr->pos[1] - ccyl->final_posr->pos[1];
     cs[2] = ray->final_posr->pos[2] - ccyl->final_posr->pos[2];

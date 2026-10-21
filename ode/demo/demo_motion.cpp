@@ -238,7 +238,7 @@ static char locase (char c)
 
 static void command (int cmdIn)
 {
-    dsizeint i;
+    dsizeint i = {};
     dReal sides[3];
     dMass m;
   
@@ -357,12 +357,12 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
         dsDrawSphere (pos,R,(float)dGeomSphereGetRadius (g));
     }
     else if (type == dCapsuleClass) {
-        dReal radius,length;
+        dReal radius = {},length = {};
         dGeomCapsuleGetParams (g,&radius,&length);
         dsDrawCapsule (pos,R,(float)length,(float)radius);
     }
     else if (type == dCylinderClass) {
-        dReal radius,length;
+        dReal radius = {},length = {};
         dGeomCylinderGetParams (g,&radius,&length);
         dsDrawCylinder (pos,R,(float)length,(float)radius);
     }

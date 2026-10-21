@@ -102,7 +102,7 @@ bool dxSafeNormalize3 (dVector3 a)
         const dReal abs_a1 = dFabs(a[dV3E_Y]);
         const dReal abs_a2 = dFabs(a[dV3E_Z]);
 
-        dVec3Element idx;
+        dVec3Element idx = {};
 
         if (abs_a1 > abs_a0) {
             if (abs_a2 > abs_a1) { // abs_a2 is the largest

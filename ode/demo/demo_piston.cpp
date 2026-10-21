@@ -131,7 +131,7 @@ static int tc = 0; // The test case choice;
 //collision detection
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-    int n;
+    int n = {};
 
     dBodyID b1 = dGeomGetBody (o1);
     dBodyID b2 = dGeomGetBody (o2);
@@ -512,7 +512,7 @@ static void drawBox (dGeomID id, int R, int G, int B)
 // simulation loop
 static void simLoop (int pause)
 {
-    const dReal *rot;
+    const dReal *rot = {};
     dVector3 ax = {};
     dReal l=0;
 
@@ -567,7 +567,7 @@ static void simLoop (int pause)
         update();
 
 
-        dReal radius, length;
+        dReal radius = {}, length = {};
 
         dsSetTexture (DS_WOOD);
 

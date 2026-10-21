@@ -130,7 +130,7 @@ dReal dGeomBoxPointDepth (dGeomID g, dReal x, dReal y, dReal z)
 
     bool outside = false;
     dReal lastOuterOffset = 0;
-    unsigned int sideIndex;
+    unsigned int sideIndex = {};
 
     for (sideIndex = 0; sideIndex != 3; ++sideIndex) {
         const dReal side = b->side[sideIndex] * REAL(0.5);
@@ -269,8 +269,8 @@ done:
 static void cullPoints (int n, dReal p[], int m, int i0, int iret[])
 {
     // compute the centroid of the polygon in cx,cy
-    int i,j;
-    dReal a,cx,cy,q;
+    int i = {},j = {};
+    dReal a = {},cx = {},cy = {},q = {};
     if (n==1) {
         cx = p[0];
         cy = p[1];
@@ -308,7 +308,7 @@ static void cullPoints (int n, dReal p[], int m, int i0, int iret[])
     for (j=1; j<m; j++) {
         a = (dReal)((double)dReal(j)*(2*M_PI/m) + (double)A[i0]);
         if ((double)a > M_PI) a -= (dReal)(2*M_PI);
-        dReal maxdiff=1e9,diff;
+        dReal maxdiff=1e9,diff = {};
 #ifndef dNODEBUG
         *iret = i0;			// iret is not allowed to keep this value
 #endif
@@ -357,9 +357,9 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     const dReal fudge_factor = REAL(1.05);
     dVector3 p,pp,normalC={0,0,0};
     const dReal *normalR = NULL;
-    dReal A[3],B[3],R11,R12,R13,R21,R22,R23,R31,R32,R33,
-        Q11,Q12,Q13,Q21,Q22,Q23,Q31,Q32,Q33,s,s2,l,expr1_val;
-    int i,j,invert_normal,code;
+    dReal A[3] = {},B[3] = {},R11 = {},R12 = {},R13 = {},R21 = {},R22 = {},R23 = {},R31 = {},R32 = {},R33 = {},
+        Q11 = {},Q12 = {},Q13 = {},Q21 = {},Q22 = {},Q23 = {},Q31 = {},Q32 = {},Q33 = {},s = {},s2 = {},l = {},expr1_val = {};
+    int i = {},j = {},invert_normal = {},code = {};
 
     // get vector from centers of box 1 to box 2, relative to box 1
     p[0] = p2[0] - p1[0];
@@ -486,7 +486,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
         // An edge from box 1 touches an edge from box 2.
         // find a point pa on the intersecting edge of box 1
         dVector3 pa;
-        dReal sign;
+        dReal sign = {};
         // Copy p1 into pa
         for (i=0; i<3; i++) pa[i] = p1[i]; // why no memcpy?
         // Get world position of p2 into pa
@@ -505,7 +505,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
             for (i=0; i<3; i++) pb[i] += sign * B[j] * R2[i*4+j];
         }
 
-        dReal alpha,beta;
+        dReal alpha = {},beta = {};
         dVector3 ua,ub;
         // Get direction of first edge
         for (i=0; i<3; i++) ua[i] = R1[(code-7)/3 + i*4];
@@ -527,7 +527,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     // face (i.e. the normal vector is perpendicular to this) and face 'b' to be
     // the incident face (the closest face of the other box).
     // Note: Unmodified parameter values are being used here
-    const dReal *Ra,*Rb,*pa,*pb,*Sa,*Sb;
+    const dReal *Ra = {},*Rb = {},*pa = {},*pb = {},*Sa = {},*Sb = {};
     if (code <= 3) { // One of the faces of box 1 is the reference face
         Ra = R1; // Rotation of 'a'
         Rb = R2; // Rotation of 'b'
@@ -571,7 +571,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     // find the largest component of anr: this corresponds to the normal
     // for the incident face. the other axis numbers of the incident face
     // are stored in a1,a2.
-    int lanr,a1,a2;
+    int lanr = {},a1 = {},a2 = {};
     if (anr[1] > anr[0]) {
         if (anr[1] > anr[2]) {
             a1 = 0;
@@ -607,7 +607,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
     }
 
     // find the normal and non-normal axis numbers of the reference box
-    int codeN,code1,code2;
+    int codeN = {},code1 = {},code2 = {};
     if (code <= 3) codeN = code-1; else codeN = code-4;
     if (codeN==0) {
         code1 = 1;
@@ -624,7 +624,7 @@ int dBoxBox (const dVector3 p1, const dMatrix3 R1,
 
     // find the four corners of the incident face, in reference-face coordinates
     dReal quad[8];	// 2D coordinate of incident face (x,y pairs)
-    dReal c1,c2,m11,m12,m21,m22;
+    dReal c1 = {},c2 = {},m11 = {},m12 = {},m21 = {},m22 = {};
     c1 = dCalcVectorDot3_14 (center,Ra+code1);
     c2 = dCalcVectorDot3_14 (center,Ra+code2);
     // optimize this? - we have already computed this data above, but it is not
@@ -742,8 +742,8 @@ int dCollideBoxBox (dxGeom *o1, dxGeom *o2, int flags,
     dIASSERT ((flags & NUMC_MASK) >= 1);
 
     dVector3 normal;
-    dReal depth;
-    int code;
+    dReal depth = {};
+    int code = {};
     dxBox *b1 = (dxBox*) o1;
     dxBox *b2 = (dxBox*) o2;
     const int num = dBoxBox (o1->final_posr->pos,o1->final_posr->R,b1->side, o2->final_posr->pos,o2->final_posr->R,b2->side,

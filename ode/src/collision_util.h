@@ -201,7 +201,7 @@ void dMatrix3Copy(const dReal* source,dMatrix3& dest)
 static inline 
 dReal dMatrix3Det( const dMatrix3& mat )
 {
-    dReal det;
+    dReal det = {};
 
     det = mat[0] * ( mat[5]*mat[10] - mat[9]*mat[6] )
         - mat[1] * ( mat[4]*mat[10] - mat[8]*mat[6] )

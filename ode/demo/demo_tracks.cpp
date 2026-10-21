@@ -188,7 +188,7 @@ static void start()
 
 
     // tracks made out of boxes
-    dGeomID trk;
+    dGeomID trk = {};
     dMatrix3 r1, r2, r3;
     dVector3 ro = {0, -(REAL(0.5)*track_gauge + REAL(0.5)*track_width), track_elevation};
     dMatrix3 s1, s2, s3;

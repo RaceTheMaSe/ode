@@ -208,7 +208,7 @@ static void drawGeom(dGeomID g)
     const dReal *rot = dGeomGetRotation(g);
 
 	if (gclass == dCylinderClass) {
-		dReal length, radius;
+		dReal length = {}, radius = {};
 
 		if (g == geom1) {
 		dsSetColorAlpha(1, 0, 0, 1);

@@ -146,7 +146,7 @@ int dCollideSphereBox (dxGeom *o1, dxGeom *o2, int flags,
     // normal to push the sphere to the closest box face.
 
     dVector3 l,t,p,q,r;
-    dReal depth;
+    dReal depth = {};
     int onborder = 0;
 
     const dxSphere *sphere = (dxSphere*) o1;

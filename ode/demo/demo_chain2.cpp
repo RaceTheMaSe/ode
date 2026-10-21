@@ -122,7 +122,7 @@ int main (int argc, char **argv)
   // create world
   dInitODE2(0);
 
-  int i;
+  int i = {};
   
   // allocate resources
   world = new dWorld();

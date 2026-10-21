@@ -124,7 +124,7 @@ static void ccdSupportTriangle(const void *obj, const ccd_vec3_t *_dir, ccd_vec3
 static 
 void ccdGeomToObj(dGeomID g, ccd_obj_t *o)
 {
-    const dReal *ode_pos;
+    const dReal *ode_pos = {};
     dQuaternion ode_rot;
 
     ode_pos = dGeomGetPosition(g);
@@ -152,7 +152,7 @@ void ccdGeomToBox(dGeomID g, ccd_box_t *box)
 static 
 void ccdGeomToCap(dGeomID g, ccd_cap_t *cap)
 {
-    dReal r, h;
+    dReal r = {}, h = {};
     ccdGeomToObj(g, (ccd_obj_t *)cap);
 
     dGeomCapsuleGetParams(g, &r, &h);
@@ -169,7 +169,7 @@ void ccdGeomToCap(dGeomID g, ccd_cap_t *cap)
 static 
 void ccdGeomToCyl(dGeomID g, ccd_cyl_t *cyl)
 {
-    dReal r, h;
+    dReal r = {}, h = {};
     ccdGeomToObj(g, (ccd_obj_t *)cyl);
 
     dGeomCylinderGetParams(g, &r, &h);
@@ -240,7 +240,7 @@ void ccdSupportCyl(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v)
 {
     const ccd_cyl_t *cyl = (const ccd_cyl_t *)obj;
     ccd_vec3_t dir;
-    ccd_real_t len;
+    ccd_real_t len = {};
     
     const ccd_real_t dot = ccdVec3Dot(_dir, &cyl->axis);
     if (dot > (ccd_real_t)REAL(0.0)){
@@ -276,9 +276,9 @@ void ccdSupportConvex(const void *obj, const ccd_vec3_t *_dir, ccd_vec3_t *v)
 {
     const ccd_convex_t *c = (const ccd_convex_t *)obj;
     ccd_vec3_t dir, p;
-    ccd_real_t maxdot, dot;
-    sizeint i;
-    const dReal *curp;
+    ccd_real_t maxdot = {}, dot = {};
+    sizeint i = {};
+    const dReal *curp = {};
 
     ccdVec3Copy(&dir, _dir);
     ccdQuatRotVec(&dir, &c->o.rot_inv);
@@ -313,9 +313,9 @@ int ccdCollide(
     void *obj1, ccd_support_fn supp1, ccd_center_fn cen1,
     void *obj2, ccd_support_fn supp2, ccd_center_fn cen2)
 {
-    ccd_t ccd;
-    int res;
-    ccd_real_t depth;
+    ccd_t ccd = {};
+    int res = {};
+    ccd_real_t depth = {};
     ccd_vec3_t dir, pos;
     const int max_contacts = (flags & NUMC_MASK);
 
@@ -490,17 +490,17 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
     // Check if cylinders' axes are in line
     if (REAL(1.0) - axesProd < REAL(1e-3)) {
         ccd_vec3_t p, proj;
-        dReal r1, l1;
-        dReal r2, l2;
+        dReal r1 = {}, l1 = {};
+        dReal r2 = {}, l2 = {};
         dGeomCylinderGetParams(o1, &r1, &l1);
         dGeomCylinderGetParams(o2, &r2, &l2);
         l1 *= REAL(0.5);
         l2 *= REAL(0.5);
        
         // Determine the cylinder with smaller radius (minCyl) and bigger radius (maxCyl) and their respective properties: radius, length
-        bool r1IsMin;
-        dReal rmin, rmax;
-        ccd_cyl_t *minCyl, *maxCyl;
+        bool r1IsMin = {};
+        dReal rmin = {}, rmax = {};
+        ccd_cyl_t *minCyl = {}, *maxCyl = {};
         if (r1 <= r2) {
             rmin = r1; rmax = r2;
             minCyl = cyl1; maxCyl = cyl2;
@@ -553,7 +553,7 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                 // Simply generate N points on the rim of the smaller disc
                 const dReal maxContactsRecip = (dReal)(0 < maxContacts ? (2.0 * M_PI / maxContacts) : (2.0 * M_PI)); // The 'else' value does not matter. Just try helping the optimizer.
                 for (int i = 0; i < maxContacts; i++) {
-                    dReal depth;
+                    dReal depth = {};
                     const dReal a = maxContactsRecip * (dReal)i;
                     if (testAndPrepareDiscContactForAngle(a, rmin, lmin, lSum, minCyl, maxCyl, p, depth)) {
                         contactCount = addCylCylContact(o1, o2, &maxCyl->axis, contacts, &p, normaldir, depth, contactCount, flags, skip);
@@ -578,7 +578,7 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                 const dReal dRecip = REAL(1.0) / d;
                 const dReal rmaxSquare = rmax * rmax, rminSquare = rmin * rmin, dSquare = d * d;
 
-                dReal minA, diffA, minB, diffB;
+                dReal minA = {}, diffA = {}, minB = {}, diffB = {};
 
                 {
                     const dReal l = (rmaxSquare - rminSquare + dSquare) * (REAL(0.5) * dRecip);
@@ -650,7 +650,7 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                 // Smaller disc first, skipping the overlapping points
                 const dReal nMinRecip = 0 < nMin ? diffB / (dReal)(nMin + 1) : diffB; // The 'else' value does not matter. Just try helping the optimizer.
                 for (int i = 1; i <= nMin; i++) {
-                    dReal depth;
+                    dReal depth = {};
                     const dReal a = minB + nMinRecip * (dReal)i;
                     if (testAndPrepareDiscContactForAngle(a, rmin, lmin, lSum, minCyl, maxCyl, p, depth)) {
                         contactCount = addCylCylContact(o1, o2, &maxCyl->axis, contacts, &p, normaldir, depth, contactCount, flags, skip);
@@ -668,7 +668,7 @@ int collideCylCyl(dxGeom *o1, dxGeom *o2, ccd_cyl_t* cyl1, ccd_cyl_t* cyl2, int 
                     const dReal adjustedMinA = nMax == 1 ? minA + REAL(0.5) * diffA : minA;
 
                     for (int i = 0; i < nMax; i++) {
-                        dReal depth;
+                        dReal depth = {};
                         const dReal a = adjustedMinA + nMaxRecip * (dReal)i;
                         if (testAndPrepareDiscContactForAngle(a, rmax, lmax, lSum, maxCyl, minCyl, p, depth)) {
                             contactCount = addCylCylContact(o1, o2, &maxCyl->axis, contacts, &p, normaldir, depth, contactCount, flags, skip);

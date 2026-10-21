@@ -47,7 +47,7 @@ dObStack::dObStack():
 dObStack::~dObStack()
 {
     // free all arenas
-    Arena *a,*nexta;
+    Arena *a = {},*nexta = {};
     a = m_first;
     while (a) {
         nexta = a->m_next;

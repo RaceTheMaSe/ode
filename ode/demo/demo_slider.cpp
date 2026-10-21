@@ -95,7 +95,7 @@ static void simLoop (int pause)
       static int count = 0;
       if ((count % 20)==0) {
 	// randomly adjust orientation of body[0]
-	const dReal *R1;
+	const dReal *R1 = {};
 	dMatrix3 R2,R3;
 	R1 = dBodyGetRotation (body[0]);
 	dRFromAxisAndAngle (R2,dRandReal()-REAL(0.5),dRandReal()-REAL(0.5),

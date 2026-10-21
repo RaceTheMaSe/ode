@@ -160,7 +160,7 @@ dxJointHinge2::getInfo2( dReal worldFPS, dReal worldERP,
     int * /* findex */ )
 {
     // get information we need to set the hinge row
-    dReal s, c;
+    dReal s = {}, c = {};
     dVector3 q;
 
     dVector3 ax1, ax2;

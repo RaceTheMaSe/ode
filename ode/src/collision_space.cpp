@@ -97,14 +97,14 @@ dxSpace::~dxSpace()
     ENSURE_NOT_LOCKED();
     if (cleanup) {
         // note that destroying each geom will call remove()
-        dxGeom *g,*n;
+        dxGeom *g = {},*n = {};
         for (g = first; g; g=n) {
             n = g->next;
             dGeomDestroy (g);
         }
     }
     else {
-        dxGeom *g,*n;
+        dxGeom *g = {},*n = {};
         for (g = first; g; g=n) {
             n = g->next;
             remove (g);
@@ -116,7 +116,7 @@ dxSpace::~dxSpace()
 void dxSpace::computeAABB()
 {
     if (first) {
-        int i;
+        int i = {};
         dReal a[6];
         a[0] = dInfinity;
         a[1] = -dInfinity;
@@ -335,7 +335,7 @@ static int findLevel (const dReal bounds[6])
     }
 
     // compute q
-    dReal q,q2;
+    dReal q = {},q2 = {};
     q = bounds[1] - bounds[0];	// x bounds
     q2 = bounds[3] - bounds[2];	// y bounds
     if (q2 > q) q = q2;
@@ -343,7 +343,7 @@ static int findLevel (const dReal bounds[6])
     if (q2 > q) q = q2;
 
     // find level such that 0.5 * 2^level < q <= 2^level
-    int level;
+    int level = {};
     dFrexp (q,&level);	// q = (0.5 .. 1.0) * 2^level (definition of frexp)
     return level;
 }
@@ -421,8 +421,8 @@ void dxHashSpace::cleanGeoms()
 void dxHashSpace::collide (void *userData, dNearCallback *callback)
 {
     dAASSERT(callback);
-    dxGeom *geom;
-    int i,maxlevel;
+    dxGeom *geom = {};
+    int i = {},maxlevel = {};
 
     // 0 or 1 geoms can't collide with anything
     if (count < 2) return;
@@ -554,7 +554,7 @@ void dxHashSpace::collide (void *userData, dNearCallback *callback)
                                 node->x == xi && node->y == yi && node->z == zi) {
                                     // see if aabb and node->aabb have already been tested
                                     // against each other
-                                    unsigned char mask;
+                                    unsigned char mask = {};
                                     if (aabbIt->index <= node->aabb->index) {
                                         i = (int)((aabbIt->index * (sizeint)tested_rowsize)+(node->aabb->index >> 3));
                                         mask = (unsigned char)(1 << (node->aabb->index & 7));
@@ -806,7 +806,7 @@ void dSpaceCollide2 (dxGeom *g1, dxGeom *g2, void *data,
                      dNearCallback *callback)
 {
     dAASSERT (g1 && g2 && callback);
-    dxSpace *s1,*s2;
+    dxSpace *s1 = {},*s2 = {};
 
     // see if either geom is a space
     if (IS_SPACE(g1)) s1 = (dxSpace*) g1; else s1 = NULL;

@@ -603,7 +603,7 @@ void dLCP::transfer_i_from_N_to_C (unsigned i)
             dReal *ell = m_ell, *d = m_d;
             const dReal *Dell = m_Dell;
             for (unsigned j = 0; j < nC; ++j) {
-                dReal ell_j;
+                dReal ell_j = {};
                 const dReal Dell_j = Dell[j];
                 Ltgt[j] = ell[j] = ell_j = Dell_j * d[j];
                 ell_Dell_dot += ell_j * Dell_j;
@@ -652,7 +652,7 @@ void dLCP::transfer_i_from_C_to_N (unsigned i, void *tmpbuf)
             }
             if (C[j] == i) {
                 dxLDLTRemove (m_A, C, m_L, m_d, m_n, nC, j, m_nskip, tmpbuf);
-                unsigned k;
+                unsigned k = {};
                 if (last_idx == -1) {
                     for (k = j + 1 ; k < nC; ++k) {
                         if (C[k] == nC - 1) {
@@ -1019,7 +1019,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                 int cmd = 1;		// index switching command
                 unsigned si = 0;		// si = index to switch if cmd>3
 
-                dReal s;
+                dReal s = {};
                 if(delta_w[i] != REAL(0.0))
                     s = -w[i] / delta_w[i];
                 else if(w[i] != REAL(0.0))
@@ -1115,7 +1115,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
                 lcp.pN_plusequals_s_times_qN (w, s, delta_w);
                 w[i] += s * delta_w[i];
 
-                void *tmpbuf;
+                void *tmpbuf = {};
                 // switch indexes between sets if necessary
                 switch (cmd) {
                 case 1:		// done
@@ -1224,7 +1224,7 @@ extern "C" ODE_API int dTestSolveLCP()
     }
     arena->ResetState();
 
-    unsigned i;
+    unsigned i = {};
     const unsigned nskip = dPAD(n);
 #ifdef dDOUBLE
     const dReal tol = REAL(1e-9);

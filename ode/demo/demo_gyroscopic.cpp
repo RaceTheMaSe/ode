@@ -54,7 +54,7 @@ static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
     dRSetIdentity (RI);
     const dReal ss[3] = {REAL(0.02),REAL(0.02),REAL(0.02)};
 
-    int i;
+    int i = {};
     dBodyID b1 = dGeomGetBody(o1);
     dBodyID b2 = dGeomGetBody(o2);
 
@@ -220,7 +220,7 @@ int main (int argc, char **argv)
     top1->setMass(m);
     top2->setMass(m);
     
-    dGeom *g1, *g2, *pin1, *pin2;
+    dGeom *g1 = {}, *g2 = {}, *pin1 = {}, *pin2 = {};
     g1 = new dCylinder(*space, topradius, toplength);
     g1->setBody(*top1);
     g2 = new dCylinder(*space, topradius, toplength);

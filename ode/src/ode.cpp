@@ -128,8 +128,8 @@ static inline int generateWorldCheckTag()
 
 static void checkWorld (dxWorld *w)
 {
-    dxBody *b;
-    dxJoint *j;
+    dxBody *b = {};
+    dxJoint *j = {};
 
     // check there are no loops
     if (listHasLoops (w->firstbody)) dDebug (0,"body list has loops");
@@ -1153,7 +1153,7 @@ void dBodySetGyroscopicMode(dBodyID b, int enabled)
 template<class T>
 static dxJoint* createJoint(dWorldID w, dJointGroupID group)
 {
-    dxJoint *j; //NOLINT(misc-const-correctness)
+    dxJoint *j = {}; //NOLINT(misc-const-correctness)
     if (group) {
         j = group->alloc<T>(w);
     } else {
@@ -1346,7 +1346,7 @@ void dJointGroupEmpty (dJointGroupID group)
             }
         } else {
             // ...else if there is no memory, go on detaching the way it is possible
-            sizeint joint_bytes;
+            sizeint joint_bytes = {};
             for (dxJoint *j = (dxJoint *)group->beginEnum(); j != NULL; j = (dxJoint *)group->continueEnum(joint_bytes)) {
                 joint_bytes = j->size(); // Get size before object is destroyed!
                 FinalizeAndDestroyJointInstance(j, false);
@@ -1502,7 +1502,7 @@ dJointID dConnectingJoint (dBodyID in_b1, dBodyID in_b2)
 {
     dAASSERT (in_b1 || in_b2);
 
-    dBodyID b1, b2;
+    dBodyID b1 = {}, b2 = {};
 
     if (in_b1 == NULL) {
         b1 = in_b2;
@@ -1528,7 +1528,7 @@ int dConnectingJointList (dBodyID in_b1, dBodyID in_b2, dJointID* out_list)
     dAASSERT (in_b1 || in_b2);
 
 
-    dBodyID b1, b2;
+    dBodyID b1 = {}, b2 = {};
 
     if (in_b1 == NULL) {
         b1 = in_b2;
@@ -1586,14 +1586,14 @@ void dWorldDestroy (dxWorld *w)
 {
     // delete all bodies and joints
     dAASSERT (w);
-    dxBody *nextb, *b = w->firstbody;
+    dxBody *nextb = {}, *b = w->firstbody;
     while (b) {
         nextb = (dxBody*) b->next;
         dBodyDestroy(b); // calling here dBodyDestroy for correct destroying! (i.e. the average buffers)
         b = nextb;
     }
 
-    dxJoint *nextj, *j = w->firstjoint;
+    dxJoint *nextj = {}, *j = w->firstjoint;
     while (j) {
         nextj = (dxJoint*)j->next;
         if (j->flags & dJOINT_INGROUP) {
@@ -2226,7 +2226,7 @@ dReal dWorldGetContactSurfaceLayer (dWorldID w)
 
 extern "C" ODE_API void dTestDataStructures()
 {
-    int i;
+    int i = {};
     DO(printf ("testDynamicsStuff()\n"));
 
     dBodyID body [NUM];
@@ -2443,8 +2443,8 @@ const char* dGetConfiguration (void)
 // Helper to check for a feature of ODE
 int dCheckConfiguration( const char* token )
 {
-    const char *start;
-    const char *where, *terminator;
+    const char *start = {};
+    const char *where = {}, *terminator = {};
 
     /* Feature names should not have spaces. */
     where = strchr(token, ' ');

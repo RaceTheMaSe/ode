@@ -109,7 +109,7 @@ void dClosestLineSegmentPoints (const dVector3 a1, const dVector3 a2,
                                 dVector3 cp1, dVector3 cp2)
 {
     dVector3 a1a2,b1b2,a1b1,a1b2,a2b1,a2b2,n;
-    dReal la,lb,k,da1,da2,da3,da4,db1,db2,db3,db4,det;
+    dReal la = {},lb = {},k = {},da1 = {},da2 = {},da3 = {},da4 = {},db1 = {},db2 = {},db3 = {},db4 = {},det = {};
 
 #define SET2(a,b) (a)[0]=(b)[0]; (a)[1]=(b)[1]; (a)[2]=(b)[2]
 #define SET3(a,b,op,c) a[0]=b[0] op c[0]; a[1]=b[1] op c[1]; a[2]=b[2] op c[2] // NOLINT(bugprone-macro-parentheses)
@@ -247,7 +247,7 @@ void dClosestLineBoxPoints (const dVector3 p1, const dVector3 p2,
                             const dVector3 side,
                             dVector3 lret, dVector3 bret)
 {
-    int i;
+    int i = {};
 
     // compute the start and delta of the line p1-p2 relative to the box.
     // we will do all subsequent computations in this box-relative coordinate
@@ -398,8 +398,8 @@ int dBoxTouchesBox (const dVector3 p1, const dMatrix3 R1,
     // Rij is R1'*R2, i.e. the relative rotation between R1 and R2.
     // Qij is abs(Rij)
     dVector3 p,pp;
-    dReal A1,A2,A3,B1,B2,B3,R11,R12,R13,R21,R22,R23,R31,R32,R33,
-        Q11,Q12,Q13,Q21,Q22,Q23,Q31,Q32,Q33;
+    dReal A1 = {},A2 = {},A3 = {},B1 = {},B2 = {},B3 = {},R11 = {},R12 = {},R13 = {},R21 = {},R22 = {},R23 = {},R31 = {},R32 = {},R33 = {},
+        Q11 = {},Q12 = {},Q13 = {},Q21 = {},Q22 = {},Q23 = {},Q31 = {},Q32 = {},Q33 = {};
 
     // get vector from centers of box 1 to box 2, relative to box 1
     p[0] = p2[0] - p1[0];

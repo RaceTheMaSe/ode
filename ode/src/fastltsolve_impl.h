@@ -100,7 +100,7 @@ void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned row
         const dReal *ptrLElement=NULL;
         dReal *ptrBElement=NULL;
 
-        dReal Z41, Z31, Z21, Z11;
+        dReal Z41 = {}, Z31 = {}, Z21 = {}, Z11 = {};
 
         if (subsequentPass)
         {
@@ -114,7 +114,7 @@ void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned row
 
             if (rowCounter % 2 != 0)
             {
-                dReal q1, p4, p3, p2, p1;
+                dReal q1 = {}, p4 = {}, p3 = {}, p2 = {}, p1 = {};
 
                 /* load p and q values */
                 q1 = ptrBElement[0 * (ptrdiff_t)b_stride];
@@ -136,7 +136,7 @@ void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned row
 
             if (rowCounter % 4 != 0)
             {
-                dReal q1, p4, p3, p2, p1;
+                dReal q1 = {}, p4 = {}, p3 = {}, p2 = {}, p1 = {};
 
                 /* load p and q values */
                 q1 = ptrBElement[0 * (ptrdiff_t)b_stride];
@@ -173,7 +173,7 @@ void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned row
             /* the inner loop that computes outer products and adds them to Z */
             for (bool exitLoop = rowCounter == 0; !exitLoop; exitLoop = false)
             {
-                dReal q1, p4, p3, p2, p1;
+                dReal q1 = {}, p4 = {}, p3 = {}, p2 = {}, p1 = {};
 
                 /* load p and q values */
                 q1 = ptrBElement[0 * (ptrdiff_t)b_stride];
@@ -371,7 +371,7 @@ void solveL1Transposed(const dReal *L, dReal *B, unsigned rowCount, unsigned row
         }
 
         /* finish computing the X(i) block */
-        dReal Y11, Y21, Y31, Y41;
+        dReal Y11 = {}, Y21 = {}, Y31 = {}, Y41 = {};
         {
             Y11 = ptrBElement[0 * (size_t)b_stride] - Z11;
             ptrBElement[0 * (size_t)b_stride] = Y11;
@@ -615,7 +615,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                 {
                     if ((loopX1RowCount & 1) != 0)
                     {
-                        dReal q1, p4, p3, p2, p1;
+                        dReal q1 = {}, p4 = {}, p3 = {}, p2 = {}, p1 = {};
 
                         /* load p and q values */
                         q1 = ptrBElement[0 * (ptrdiff_t)b_stride];
@@ -636,7 +636,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                     if ((loopX1RowCount & 2) != 0)
                     {
-                        dReal q1, p4, p3, p2, p1;
+                        dReal q1 = {}, p4 = {}, p3 = {}, p2 = {}, p1 = {};
 
                         /* load p and q values */
                         q1 = ptrBElement[0 * (ptrdiff_t)b_stride];
@@ -702,7 +702,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                 for (; !exitLoopNested; exitLoopNested = false)
                 {
-                    dReal q1, p4, p3, p2, p1;
+                    dReal q1 = {}, p4 = {}, p3 = {}, p2 = {}, p1 = {};
 
                     /* load p and q values */
                     q1 = ptrBElement[0 * (ptrdiff_t)b_stride];
@@ -1072,7 +1072,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
                 {
                     if ((loopX1RowCount & 1) != 0)
                     {
-                        dReal q1, p4, p3, p2, p1;
+                        dReal q1 = {}, p4 = {}, p3 = {}, p2 = {}, p1 = {};
 
                         /* load p and q values */
                         q1 = ptrBElement[0 * (ptrdiff_t)b_stride];
@@ -1093,7 +1093,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                     if ((loopX1RowCount & 2) != 0)
                     {
-                        dReal q1, p4, p3, p2, p1;
+                        dReal q1 = {}, p4 = {}, p3 = {}, p2 = {}, p1 = {};
 
                         /* load p and q values */
                         q1 = ptrBElement[0 * (ptrdiff_t)b_stride];
@@ -1135,7 +1135,7 @@ void ThreadedEquationSolverLDLT::participateSolvingL1Transposed(const dReal *L, 
 
                 for (; !exitInnerLoop; exitInnerLoop = --rowCounter == 0)
                 {
-                    dReal q1, p4, p3, p2, p1;
+                    dReal q1 = {}, p4 = {}, p3 = {}, p2 = {}, p1 = {};
 
                     /* load p and q values */
                     q1 = ptrBElement[0 * (ptrdiff_t)b_stride];

@@ -164,7 +164,7 @@ simLoop(int pause)
     dsSetTexture(DS_WOOD);
     dsSetColor(.3f, .3f, 1);
     dsDrawBox(kbox->getPosition(), kbox->getRotation(), lengths);
-    dReal length, radius;
+    dReal length = {}, radius = {};
     kpole->getParams(&radius, &length);
     dsSetTexture(DS_CHECKERED);
     dsSetColor(1, 1, 0);

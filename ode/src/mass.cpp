@@ -41,7 +41,7 @@
 
 int dMassCheck (const dMass *m)
 {
-    int i;
+    int i = {};
 
     if (m->mass <= 0) {
         dDEBUGMSG ("mass must be > 0");
@@ -140,7 +140,7 @@ void dMassSetSphereTotal (dMass *m, dReal total_mass, dReal radius)
 void dMassSetCapsule (dMass *m, dReal density, int direction,
                       dReal radius, dReal length)
 {
-    dReal M1,M2,Ia,Ib;
+    dReal M1 = {},M2 = {},Ia = {},Ib = {};
     dAASSERT (m);
     dUASSERT (direction >= 1 && direction <= 3,"bad direction number");
     dMassSetZero (m);
@@ -179,7 +179,7 @@ void dMassSetCylinder (dMass *m, dReal density, int direction,
 void dMassSetCylinderTotal (dMass *m, dReal total_mass, int direction,
                             dReal radius, dReal length)
 {
-    dReal r2,I;
+    dReal r2 = {},I = {};
     dAASSERT (m);
     dUASSERT (direction >= 1 && direction <= 3,"bad direction number");
     dMassSetZero (m);
@@ -464,7 +464,7 @@ void dMassTranslate (dMass *m, dReal x, dReal y, dReal z)
     //
     // where c is the existing center of mass and I is the old inertia.
 
-    int i,j;
+    int i = {},j = {};
     dMatrix3 ahat = {},chat = {},t1 = {},t2 = {};
     dReal a[3];
 
@@ -536,7 +536,7 @@ void dMassRotate (dMass *m, const dMatrix3 R)
 
 void dMassAdd (dMass *a, const dMass *b)
 {
-    int i;
+    int i = {};
     dAASSERT (a && b);
     const dReal denom = dRecip (a->mass + b->mass);
     for (i=0; i<3; i++) a->c[i] = (a->c[i]*a->mass + b->c[i]*b->mass)*denom;

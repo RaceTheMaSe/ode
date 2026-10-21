@@ -123,11 +123,11 @@ void ThreadedEquationSolverLDLT::doCooperativelyScaleVectorValidated(
     dCallWaitID completionWait = resourceContainer->getStockCallWait();
     dAASSERT(completionWait != NULL);
 
-    atomicord32 blockCompletionProgress;
+    atomicord32 blockCompletionProgress = {};
 
     initializeCooperativelyScaleVectorMemoryStructures(blockCompletionProgress);
 
-    dCallReleaseeID calculationFinishReleasee;
+    dCallReleaseeID calculationFinishReleasee = {};
     ScaleVectorWorkerContext workerContext; // The variable must exist in the outer scope
 
     workerContext.init(vectorData, scaleData, elementCount, blockCompletionProgress);

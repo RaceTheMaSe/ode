@@ -103,7 +103,7 @@ void ThreadedEquationSolverLDLT::participateScalingVector(dReal *ptrAStart, cons
     const unsigned completeBlockCount = elementCount / block_step;
     const unsigned trailingBlockElements = elementCount % block_step;
 
-    unsigned blockIndex;
+    unsigned blockIndex = {};
     while ((blockIndex = ThrsafeIncrementIntUpToLimit(&refBlockCompletionProgress, completeBlockCount)) != completeBlockCount)
     {
         dReal *ptrAElement = ptrAStart + (sizeint)(blockIndex * block_step) * a_stride;

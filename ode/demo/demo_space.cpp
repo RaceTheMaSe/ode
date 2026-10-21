@@ -62,7 +62,7 @@ static unsigned long seed=37;
 
 static void init_test()
 {
-  int i,j;
+  int i = {},j = {};
   const dReal scale = REAL(0.5);
 
   // set random boxes
@@ -117,7 +117,7 @@ static void init_test()
 
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-  dsizeint i,j;
+  dsizeint i = {},j = {};
   i = (dsizeint) dGeomGetData (o1);
   j = (dsizeint) dGeomGetData (o2);
   if (i==j)
@@ -156,7 +156,7 @@ static void command (int cmd)
 
 static void simLoop (int /*pause*/)
 {
-  int i,j;
+  int i = {},j = {};
 
   for (i=0; i < NUM; i++) {
     for (j=0; j < NUM; j++) test_matrix[i][j] = 0;
@@ -188,7 +188,7 @@ static void simLoop (int /*pause*/)
 
 int main (int argc, char **argv)
 {
-  int i;
+  int i = {};
 
   // setup pointers to drawstuff callback functions
   dsFunctions fn;

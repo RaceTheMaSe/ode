@@ -149,9 +149,9 @@ static void     cb_sim_step (int pause)
         for (int b = 0; b < N_BODIES; b ++)
         {
             const dReal     *rot = dBodyGetAngularVel (g_globals_ptr->dyn_bodies[b].id());
-            const dReal     *quat_ptr;
+            const dReal     *quat_ptr = {};
             dReal           quat[4],
-                            quat_len;
+                            quat_len = {};
 
 
             quat_ptr = dBodyGetQuaternion (g_globals_ptr->dyn_bodies[b].id());
@@ -214,7 +214,7 @@ extern int      main
     char        **argv
 )
 {
-    int         b;
+    int         b = {};
     dsFunctions drawstuff_functions;
 
 
@@ -224,8 +224,8 @@ extern int      main
 
     // dynamic world
 
-    dReal  cf_mixing;// = 1 / TIME_STEP * K_SPRING + K_DAMP;
-    dReal  err_reduct;// = TIME_STEP * K_SPRING * cf_mixing;
+    dReal  cf_mixing = {};// = 1 / TIME_STEP * K_SPRING + K_DAMP;
+    dReal  err_reduct = {};// = TIME_STEP * K_SPRING * cf_mixing;
     err_reduct = REAL( 0.5 );
     cf_mixing = REAL( 0.001 );
     dWorldSetERP (g_globals_ptr->dyn_world.id (), err_reduct);

@@ -97,7 +97,7 @@ static int draw_all_objects_called;
 static 
 void nearCallback(void * /*data*/, dGeomID o1, dGeomID o2)
 {
-    int n;
+    int n = {};
     const int N = 100;
     dContactGeom contact[N];
 
@@ -125,7 +125,7 @@ void nearCallback(void * /*data*/, dGeomID o1, dGeomID o2)
 static 
 void draw_all_objects(dSpaceID space)
 {
-    int i, j;
+    int i = {}, j = {};
 
     draw_all_objects_called = 1;
     if (!graphical_test) return;
@@ -179,14 +179,14 @@ void draw_all_objects(dSpaceID space)
 
         case dCapsuleClass: {
             dsSetColorAlpha(0, 1, 0, 0.8f);
-            dReal radius, length;
+            dReal radius = {}, length = {};
             dGeomCapsuleGetParams(g, &radius, &length);
             dsDrawCapsule(pos, dGeomGetRotation(g), (float)length, (float)radius);
             break;
         }
         case dCylinderClass: {
             dsSetColorAlpha(0, 1, 0, 0.8f);
-            dReal radius, length;
+            dReal radius = {}, length = {};
             dGeomCylinderGetParams(g, &radius, &length);
             dsDrawCylinder(pos, dGeomGetRotation(g), (float)length, (float)radius);
             break;
@@ -223,10 +223,10 @@ void draw_all_objects(dSpaceID space)
 static 
 int test_sphere_point_depth()
 {
-    int j;
+    int j = {};
     dVector3 p, q;
     dMatrix3 R;
-    dReal r, d;
+    dReal r = {}, d = {};
 
     const dSimpleSpace space(NULL);
     dGeomID sphere = dCreateSphere(NULL, 1);
@@ -268,10 +268,10 @@ int test_sphere_point_depth()
 static 
 int test_box_point_depth()
 {
-    int i, j;
+    int i = {}, j = {};
     dVector3 s, p, q, q2;	// s = box sides
     dMatrix3 R;
-    dReal ss, d;		// ss = smallest side
+    dReal ss = {}, d = {};		// ss = smallest side
 
     const dSimpleSpace space(NULL);
     dGeomID box = dCreateBox(NULL, 1, 1, 1);
@@ -338,10 +338,10 @@ int test_box_point_depth()
 static 
 int test_ccylinder_point_depth()
 {
-    int j;
+    int j = {};
     dVector3 p, a;
     dMatrix3 R;
-    dReal r, l, beta, x, y, d;
+    dReal r = {}, l = {}, beta = {}, x = {}, y = {}, d = {};
 
     const dSimpleSpace space(NULL);
     dGeomID ccyl = dCreateCapsule(NULL, 1, 1);
@@ -426,9 +426,9 @@ int test_ccylinder_point_depth()
 static 
 int test_plane_point_depth()
 {
-    int j;
+    int j = {};
     dVector3 n, p, q, a, b;	// n = plane normal
-    dReal d;
+    dReal d = {};
 
     const dSimpleSpace space(NULL);
     dGeomID plane = dCreatePlane(NULL, 0, 0, 1, 0);
@@ -476,11 +476,11 @@ int test_plane_point_depth()
 static 
 int test_ray_and_sphere()
 {
-    int j;
+    int j = {};
     dContactGeom contact;
     dVector3 p, q, q2, n, v1;
     dMatrix3 R;
-    dReal r, k;
+    dReal r = {}, k = {};
 
     const dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(NULL, 0);
@@ -620,11 +620,11 @@ int test_ray_and_sphere()
 static 
 int test_ray_and_box()
 {
-    int i, j;
+    int i = {}, j = {};
     dContactGeom contact;
     dVector3 s, p, q, n, q2, q3, q4;		// s = box sides
     dMatrix3 R;
-    dReal k;
+    dReal k = {};
 
     const dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(NULL, 0);
@@ -749,11 +749,11 @@ int test_ray_and_box()
 static 
 int test_ray_and_ccylinder()
 {
-    int j;
+    int j = {};
     dContactGeom contact;
     dVector3 p, a, b, n;
     dMatrix3 R;
-    dReal r, l, k, x, y;
+    dReal r = {}, l = {}, k = {}, x = {}, y = {};
 
     const dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(NULL, 0);
@@ -914,11 +914,11 @@ int test_ray_and_cylinder()
 static 
 int test_ray_and_plane()
 {
-    int j;
+    int j = {};
     dContactGeom contact;
     dVector3 n, p, q, a, b, g, h;		// n,d = plane parameters
     dMatrix3 R;
-    dReal d;
+    dReal d = {};
 
     const dSimpleSpace space(NULL);
     dGeomID ray = dCreateRay(NULL, 0);
@@ -1031,7 +1031,7 @@ static
 int edgeIntersectsRect(const dVector3 v1, const dVector3 v2,
     const dVector3 p1, const dVector3 p2, const dVector3 p3)
 {
-    int k;
+    int k = {};
     dVector3 u1, u2, n, tmp;
 
     for (k = 0; k < 3; k++) u1[k] = p3[k] - p1[k];
@@ -1042,7 +1042,7 @@ int edgeIntersectsRect(const dVector3 v1, const dVector3 v2,
     dNormalize3(u1);
     dNormalize3(u2);
 
-    dReal error;
+    dReal error = {};
 #ifdef dSINGLE
     const dReal uEpsilon = REAL(1e-5), pEpsilon = REAL(1e-6), tmpEpsilon = REAL(1.5e-4);
 #else
@@ -1121,7 +1121,7 @@ int testBoxesTouch2(const dVector3 p1, const dMatrix3 R1,
     const dVector3 side1, const dVector3 p2,
     const dMatrix3 R2, const dVector3 side2)
 {
-    int j, k, j1, j2;
+    int j = {}, k = {}, j1 = {}, j2 = {};
 
     // for 6 faces from box 2
     for (int fd = 0; fd < 3; fd++) {		// direction for face
@@ -1189,7 +1189,7 @@ int testBoxesTouch2(const dVector3 p1, const dMatrix3 R1,
 static 
 int test_dBoxTouchesBox()
 {
-    int k, bt1, bt2;
+    int k = {}, bt1 = {}, bt2 = {};
     dVector3 p1, p2, side1, side2;
     dMatrix3 R1, R2;
 
@@ -1242,11 +1242,11 @@ int test_dBoxTouchesBox()
 static 
 int test_dBoxBox()
 {
-    int k, bt;
+    int k = {}, bt = {};
     dVector3 p1, p2, side1, side2, normal, normal2;
     dMatrix3 R1, R2;
-    dReal depth, depth2;
-    int code;
+    dReal depth = {}, depth2 = {};
+    int code = {};
     dContactGeom contact[48];
 
     const dSimpleSpace space(NULL);

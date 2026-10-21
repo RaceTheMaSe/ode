@@ -69,12 +69,12 @@ int dCollideCylinderSphere(dxGeom* Cylinder, dxGeom* Sphere,
 #endif
 
     // get the data from the geoms
-    dReal radius, length;
+    dReal radius = {}, length = {};
     dGeomCylinderGetParams(Cylinder, &radius, &length);
     const dVector3 &cylpos = Cylinder->final_posr->pos;
     //const dReal* pfRot1 = dGeomGetRotation(Cylinder);
 
-    dReal radius2;
+    dReal radius2 = {};
     radius2 = dGeomSphereGetRadius(Sphere);
     const dReal* SpherePos = dGeomGetPosition(Sphere);
 
@@ -86,7 +86,7 @@ int dCollideCylinderSphere(dxGeom* Cylinder, dxGeom* Sphere,
     vDir1[1] = Cylinder->final_posr->R[6];
     vDir1[2] = Cylinder->final_posr->R[10];
 
-    dReal s;
+    dReal s = {};
     s = length * REAL(0.5); // just a precomputed factor
     G1Pos2[0] = vDir1[0] * s + cylpos[0];
     G1Pos2[1] = vDir1[1] * s + cylpos[1];
@@ -97,7 +97,7 @@ int dCollideCylinderSphere(dxGeom* Cylinder, dxGeom* Sphere,
     G1Pos1[2] = vDir1[2] * -s + cylpos[2];
 
     dVector3 C;
-    dReal t;
+    dReal t = {};
     // Step 1: compute the two distances 's' and 't'
     // 's' is the distance from the first disc (in vDir1-/Zylinderaxis-direction), the disc with G1Pos1 in the middle
     s = (SpherePos[0] - G1Pos1[0]) * vDir1[0] - (G1Pos1[1] - SpherePos[1]) * vDir1[1] - (G1Pos1[2] - SpherePos[2]) * vDir1[2];

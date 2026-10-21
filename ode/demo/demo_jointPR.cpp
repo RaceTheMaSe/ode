@@ -75,7 +75,7 @@ static dGeomID box2[1];
 //collision detection
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-    int n;
+    int n = {};
 
     dBodyID b1 = dGeomGetBody(o1);
     dBodyID b2 = dGeomGetBody(o2);

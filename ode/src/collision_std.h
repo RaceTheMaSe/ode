@@ -180,7 +180,7 @@ struct dxConvex : public dxGeom
         unsigned int index=0;
         dMultiply1_331 (rdir,final_posr->R,dir);
         dReal max = dCalcVectorDot3(points,rdir);
-        dReal tmp;
+        dReal tmp = {};
         for (unsigned int i = 1; i < pointcount; ++i) 
         {
             tmp = dCalcVectorDot3(points+((size_t)(i*3)),rdir);

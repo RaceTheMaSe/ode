@@ -32,7 +32,7 @@ static volatile duint32 seed = 0;
 
 unsigned long dRand()
 {
-    duint32 origSeed, newSeed;
+    duint32 origSeed = {}, newSeed = {};
 #if !defined(dTHREADING_INTF_DISABLED)
     do {
 #endif
@@ -75,7 +75,7 @@ int dTestRand()
 // adam's all-int straightforward(?) dRandInt (0..n-1)
 int dRandInt (int n)
 {
-    int result;
+    int result = {};
     // Since there is no memory barrier macro in ODE assign via volatile variable 
     // to prevent compiler reusing seed as value of `r'
     volatile const unsigned long raw_r = dRand();
@@ -158,7 +158,7 @@ void dPrintMatrix (const dReal *A, int n, int m, const char *fmt, FILE *f)
 
 void dMakeRandomVector (dReal *A, int n, dReal range)
 {
-    int i;
+    int i = {};
     for (i=0; i<n; i++) A[i] = (dRandReal()*REAL(2.0)-REAL(1.0))*range;
 }
 

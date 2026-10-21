@@ -137,7 +137,7 @@ static dJoint *joint;
 //collision detection
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-  int n;
+  int n = {};
 
   const int N = 10;
   dContact contact[N];
@@ -293,7 +293,7 @@ static void command (int cmd)
     break;
 
   case 'l': case 'L' : {
-      dReal aLimit, lLimit, fmax;
+      dReal aLimit = {}, lLimit = {}, fmax = {};
       if (  joint->getParam (dParamFMax) != 0 ) {
         aLimit = dInfinity;
         lLimit = dInfinity;
@@ -456,7 +456,7 @@ static void simLoop (int pause)
     update();
 
 
-    dReal radius, length;
+    dReal radius = {}, length = {};
 
     dsSetTexture (DS_WOOD);
 

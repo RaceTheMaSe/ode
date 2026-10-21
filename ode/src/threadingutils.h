@@ -170,7 +170,7 @@ atomicptr ThrsafeExchangePointer(volatile atomicptr *papDestination, atomicptr a
 static inline 
 unsigned int ThrsafeIncrementIntUpToLimit(volatile atomicord32 *storagePointer, unsigned int limitValue)
 {
-    unsigned int resultValue;
+    unsigned int resultValue = {};
     while (true) {
         resultValue = *storagePointer;
         // The ">=" comparison is used here to allow continuing incrementing the destination 
@@ -189,7 +189,7 @@ unsigned int ThrsafeIncrementIntUpToLimit(volatile atomicord32 *storagePointer, 
 static inline 
 sizeint ThrsafeIncrementSizeUpToLimit(volatile sizeint *storagePointer, sizeint limitValue)
 {
-    sizeint resultValue;
+    sizeint resultValue = {};
     while (true) {
         resultValue = *storagePointer;
         // The ">=" comparison is not required here at present ("==" could be used). 

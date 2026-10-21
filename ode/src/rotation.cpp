@@ -67,7 +67,7 @@ void dRFromAxisAndAngle (dMatrix3 R, dReal ax, dReal ay, dReal az,
 
 void dRFromEulerAngles (dMatrix3 R, dReal phi, dReal theta, dReal psi)
 {
-    dReal sphi,cphi,stheta,ctheta,spsi,cpsi;
+    dReal sphi = {},cphi = {},stheta = {},ctheta = {},spsi = {},cpsi = {};
     dAASSERT (R);
     sphi = dSin(phi);
     cphi = dCos(phi);
@@ -93,7 +93,7 @@ void dRFromEulerAngles (dMatrix3 R, dReal phi, dReal theta, dReal psi)
 void dRFrom2Axes (dMatrix3 R, dReal ax, dReal ay, dReal az,
                   dReal bx, dReal by, dReal bz)
 {
-    dReal l,k;
+    dReal l = {},k = {};
     dAASSERT (R);
     l = dSqrt (ax*ax + ay*ay + az*az);
     if (l <= REAL(0.0)) {
@@ -257,7 +257,7 @@ void dRfromQ (dMatrix3 R, const dQuaternion q)
 void dQfromR (dQuaternion q, const dMatrix3 R)
 {
     dAASSERT (q && R);
-    dReal tr,s;
+    dReal tr = {},s = {};
     tr = _R(0,0) + _R(1,1) + _R(2,2);
     if (tr >= 0) {
         s = dSqrt (tr + 1);

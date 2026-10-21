@@ -127,7 +127,7 @@ static dGeomID Ray;
 
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-  int i;
+  int i = {};
   // if (o1->body && o2->body) return;
 
   // exit without doing anything if the two bodies are connected by a joint
@@ -208,7 +208,7 @@ static char locase (char c)
 
 static void command (int cmdIn)
 {
-  int i;
+  int i = {};
   dReal sides[3];
   dMass m;
   bool setBody = false;
@@ -390,7 +390,7 @@ static void drawGeom (dGeomID g, const dReal *pos, const dReal *R, int draw_aabb
     dsDrawSphere (pos,R,(float)dGeomSphereGetRadius (g));
   }
   else if (type == dCapsuleClass) {
-    dReal radius,length;
+    dReal radius = {},length = {};
     dGeomCapsuleGetParams (g,&radius,&length);
     dsDrawCapsule (pos,R,(float)length,(float)radius);
   } else if (type == dConvexClass) {

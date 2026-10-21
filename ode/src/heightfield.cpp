@@ -164,12 +164,12 @@ void dxHeightfieldData::SetData( int nWidthSamples, int nDepthSamples,
 // recomputes heights bounds
 void dxHeightfieldData::ComputeHeightBounds()
 {
-    int i;
-    dReal h;
-    const unsigned char *data_byte;
-    const short *data_short;
-    const float *data_float;
-    const double *data_double;
+    int i = {};
+    dReal h = {};
+    const unsigned char *data_byte = {};
+    const short *data_short = {};
+    const float *data_float = {};
+    const double *data_double = {};
 
     switch ( m_nGetHeightMode )
     {
@@ -267,8 +267,8 @@ bool dxHeightfieldData::IsOnHeightfield2 ( const HeightFieldVertex * const CellC
     // Currently both the implementation has been optimized and effects of 
     // computational errors have been eliminated.
 
-    dReal MaxX, MinX;
-    dReal MaxZ, MinZ;
+    dReal MaxX = {}, MinX = {};
+    dReal MaxZ = {}, MinZ = {};
 
     if (isABC)
     {
@@ -319,10 +319,10 @@ bool dxHeightfieldData::IsOnHeightfield2 ( const HeightFieldVertex * const CellC
 dReal dxHeightfieldData::GetHeight( int x, int z ) const
 {
     dReal h=0;
-    const unsigned char *data_byte;
-    const short *data_short;
-    const float *data_float;
-    const double *data_double;
+    const unsigned char *data_byte = {};
+    const short *data_short = {};
+    const float *data_float = {};
+    const double *data_double = {};
 
     if ( m_bWrapMode == 0 )
     {
@@ -396,7 +396,7 @@ dReal dxHeightfieldData::GetHeight( dReal x, dReal z ) const
     //dIASSERT( ( dx + dEpsilon >= 0.0f ) && ( dx - dEpsilon <= 1.0f ) );
     //dIASSERT( ( dz + dEpsilon >= 0.0f ) && ( dz - dEpsilon <= 1.0f ) );
 
-    dReal y, y0;
+    dReal y = {}, y0 = {};
 
     if ( dx + dz <= REAL( 1.0 ) ) // Use <= comparison to prefer simpler branch
     {
@@ -420,10 +420,10 @@ dReal dxHeightfieldData::GetHeight( dReal x, dReal z ) const
 // dxHeightfieldData destructor
 dxHeightfieldData::~dxHeightfieldData()
 {
-    const unsigned char *data_byte;
-    const short *data_short;
-    const float *data_float;
-    const double *data_double;
+    const unsigned char *data_byte = {};
+    const short *data_short = {};
+    const float *data_float = {};
+    const double *data_double = {};
 
     if ( m_bCopyHeightData )
     {
@@ -980,14 +980,14 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
                                            int skip )
 {
     dContactGeom *pContact = NULL;
-    int  x, z;
+    int  x = {}, z = {};
     // check if not above or inside terrain first
     // while filling a heightmap partial temporary buffer
     const unsigned int numX = (unsigned int)(maxX - minX) + 1;
     const unsigned int numZ = (unsigned int)(maxZ - minZ) + 1;
     const dReal minO2Height = o2->aabb[2];
     const dReal maxO2Height = o2->aabb[3];
-    unsigned int x_local, z_local;
+    unsigned int x_local = {}, z_local = {};
     dReal maxY = - dInfinity;
     dReal minY = dInfinity;
     // localize and const for faster access
@@ -1000,7 +1000,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
             allocateHeightBuffer(numX, numZ);
         }
 
-        dReal Xpos, Ypos;
+        dReal Xpos = {}, Ypos = {};
 
         for ( x = minX, x_local = 0; x_local < numX; x++, x_local++)
         {
@@ -1260,7 +1260,7 @@ int dxHeightfield::dCollideHeightfieldZone( const int minX, const int maxX, cons
     }
 
     unsigned int numTri = 0;
-    HeightFieldVertex *A, *B, *C, *D;
+    HeightFieldVertex *A = {}, *B = {}, *C = {}, *D = {};
     /*    (y is up)
          A--------B-...x
          |       /|
@@ -1734,7 +1734,7 @@ int dCollideHeightfield( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contac
     dIASSERT( o1->type == dHeightfieldClass );
     dIASSERT((flags & NUMC_MASK) >= 1);
 
-    int i;
+    int i = {};
 
     // if ((flags & NUMC_MASK) == 0) -- An assertion check is made on entry
     //	{ flags = (flags & ~NUMC_MASK) | 1; dSASSERT((1 & ~NUMC_MASK) == 0); }
@@ -1746,7 +1746,7 @@ int dCollideHeightfield( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contac
     dVector3 posbak;
     dMatrix3 Rbak;
     dReal aabbbak[6];
-    int gflagsbak;
+    int gflagsbak = {};
     dVector3 pos0,pos1;
     dMatrix3 R1;
 
@@ -1804,7 +1804,8 @@ int dCollideHeightfield( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contac
     // using O2 aabb
     //  aabb[6] is (minx, maxx, miny, maxy, minz, maxz) 
     const bool wrapped = terrain->m_p_data->m_bWrapMode != 0;
-
+    dContactGeom *pContact = {};
+    
     if ( !wrapped )
     {
         if (    o2->aabb[0] > terrain->m_p_data->m_fWidth //MinX
@@ -1841,7 +1842,6 @@ int dCollideHeightfield( dxGeom *o1, dxGeom *o2, int flags, dContactGeom* contac
         dIASSERT( numTerrainContacts <= numMaxTerrainContacts );
     }
 
-    dContactGeom *pContact;
     for ( i = numTerrainOrigContacts; i != numTerrainContacts; ++i )
     {
         pContact = CONTACT(contact,(size_t)(i*skip));

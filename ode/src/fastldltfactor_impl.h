@@ -132,7 +132,7 @@ void solveL1Stripe_2(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
         dReal *ptrBElement=NULL;
 
         /* declare variables - Z matrix */
-        dReal Z11, Z12, Z21, Z22;
+        dReal Z11 = {}, Z12 = {}, Z21 = {}, Z22 = {};
 
         /* compute all 2 x 2 block of X, from rows i..i+2-1 */
         if (subsequentPass)
@@ -148,7 +148,7 @@ void solveL1Stripe_2(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
             for (unsigned columnCounter = blockStartRow; ;) 
             {
                 /* declare p and q vectors, etc */
-                dReal p1, q1, p2, q2;
+                dReal p1 = {}, q1 = {}, p2 = {}, q2 = {};
 
                 /* compute outer product and add it to the Z matrix */
                 p1 = ptrLElement[0];
@@ -276,7 +276,7 @@ void scaleAndFactorizeL1Stripe_2(dReal *ARow, dReal *d, unsigned factorizationRo
 
     for (unsigned columnCounter = factorizationRow; ; ) 
     {
-        dReal p1, q1, p2, q2, dd;
+        dReal p1 = {}, q1 = {}, p2 = {}, q2 = {}, dd = {};
 
         p1 = ptrAElement[0];
         p2 = ptrAElement[rowSkip];
@@ -434,7 +434,7 @@ void solveStripeL1_1(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
         dReal *ptrBElement=NULL;
 
         /* declare variables - Z matrix */
-        dReal Z11, Z21;
+        dReal Z11 = {}, Z21 = {};
 
         if (subsequentPass)
         {
@@ -451,7 +451,7 @@ void solveStripeL1_1(const dReal *L, dReal *B, unsigned rowCount, unsigned rowSk
             for (unsigned columnCounter = blockStartRow; ; ) 
             {
                 /* declare p and q vectors, etc */
-                dReal p1, q1, p2;
+                dReal p1 = {}, q1 = {}, p2 = {};
 
                 /* compute outer product and add it to the Z matrix */
                 p1 = ptrLElement[0];
@@ -551,7 +551,7 @@ void scaleAndFactorizeL1Stripe_1(dReal *ARow, dReal *d, unsigned factorizationRo
 
     for (unsigned columnCounter = factorizationRow; ; ) 
     {
-        dReal p1, p2, q1, q2, dd1, dd2;
+        dReal p1 = {}, p2 = {}, q1 = {}, q2 = {}, dd1 = {}, dd2 = {};
 
         p1 = ptrAElement[0];
         p2 = ptrAElement[1];
@@ -1310,7 +1310,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
     const unsigned blockCount = deriveScalingAndFactorizingL1StripeBlockCountFromFactorizationRow(factorizationRow, blockSize);
     dIASSERT(blockCount != 0);
 
-    unsigned blockIndex;
+    unsigned blockIndex = {};
     while ((blockIndex = ThrsafeIncrementIntUpToLimit(&factorizationContext->m_nextColumnIndex, blockCount)) != blockCount) 
     {
         doneAnything = true;
@@ -1320,7 +1320,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
         dReal *ptrDElement = d + blockStartRow * d_stride; //NOLINT(misc-const-correctness)
         for (unsigned columnCounter = blockIndex != blockCount - 1 ? blockSize : factorizationRow - blockStartRow; ; )
         {
-            dReal p1, q1, p2, q2, dd;
+            dReal p1 = {}, q1 = {}, p2 = {}, q2 = {}, dd = {};
 
             p1 = ptrAElement[0];
             CONST_IF (a_rows >= 2)
@@ -1482,7 +1482,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
 
     if (doneAnything)
     {
-        unsigned partialSumThreadIndex;
+        unsigned partialSumThreadIndex = {};
         for (bool exitLoop = false; !exitLoop; exitLoop = CooperativeAtomics::AtomicCompareExchangeUint32(&factorizationContext->m_sumThreadIndex, partialSumThreadIndex, ownThreadIndex + 1))
         {
             partialSumThreadIndex = factorizationContext->m_sumThreadIndex;
@@ -1515,7 +1515,7 @@ void ThreadedEquationSolverLDLT::participateScalingAndFactorizingL1Stripe_X(dRea
         dReal *ptrDElement = d + factorizationRow * d_stride;
 
         /* solve for diagonal 2 x 2 block at A(i,i) */
-        dReal Y11, Y21, Y22;
+        dReal Y11 = {}, Y21 = {}, Y22 = {};
         
         Y11 = ptrAElement[0] - sameZ[0];
         CONST_IF (a_rows >= 2)

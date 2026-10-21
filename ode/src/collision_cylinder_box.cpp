@@ -219,7 +219,7 @@ int sCylinderBoxData::_cldTestAxis( dVector3& vInputNormal, int iAxis )
     // project box and Cylinder on mAxis
     const dReal fdot1 = dVector3Dot(m_vCylinderAxis, vInputNormal);
 
-    dReal frc;
+    dReal frc = {};
 
     if (fdot1 > REAL(1.0) ||
         fdot1 < REAL(-1.0)) 
@@ -758,7 +758,7 @@ void sCylinderBoxData::_cldClipBoxToCylinder()
     vAbsNormal[2] = dFabs( vNr[2] );
 
     // find which face in box is closest to cylinder
-    int iB0, iB1, iB2;
+    int iB0 = {}, iB1 = {}, iB2 = {};
 
     // Different from Croteam's code
     if (vAbsNormal[1] > vAbsNormal[0]) 
@@ -903,8 +903,8 @@ void sCylinderBoxData::_cldClipBoxToCylinder()
     }
 
     // back transform clipped points to absolute space
-    dReal ftmpdot;	
-    dReal fTempDepth;
+    dReal ftmpdot = {};	
+    dReal fTempDepth = {};
     dVector3 vPoint;
 
     if (nCircleSegment % 2)

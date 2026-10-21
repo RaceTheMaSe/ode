@@ -161,7 +161,7 @@ static inline void Multiply1_12q1 (dReal *A, const dReal *B, const dReal *C, uns
     dReal d = 0;
     dReal e = 0;
     dReal f = 0;
-    dReal s;
+    dReal s = 0;
 
     for(unsigned int i=0, k = 0; i<q; k += 12, i++)
     {
@@ -863,7 +863,7 @@ static void compute_invM_JT (volatile atomicord32 *mi_storage, dReal *iMJ,
 {
     const unsigned int m_steps = (m + (step_size - 1)) / step_size;
 
-    unsigned mi_step;
+    unsigned mi_step = {};
     while ((mi_step = ThrsafeIncrementIntUpToLimit(mi_storage, m_steps)) != m_steps) {
         unsigned int mi = mi_step * step_size;
         const unsigned int miend = mi + dRESTRICT_STEP(step_size, m - mi);
@@ -1026,7 +1026,7 @@ static void multiplyAdd_J (volatile atomicord32 *mi_storage,
 {
     const unsigned int m_steps = (m + (step_size - 1)) / step_size;
 
-    unsigned mi_step;
+    unsigned mi_step = {};
     while ((mi_step = ThrsafeIncrementIntUpToLimit(mi_storage, m_steps)) != m_steps) {
         unsigned int mi = mi_step * step_size;
         const unsigned int miend = mi + dRESTRICT_STEP(step_size, m - mi);
@@ -1147,7 +1147,7 @@ void dxQuickStepIsland(const dxStepperProcessingCallContext *callContext)
 
         const dxWorld *world = callContext->m_world;
 
-        dCallReleaseeID stage1CallReleasee;
+        dCallReleaseeID stage1CallReleasee = {};
         world->PostThreadedCallForUnawareReleasee(NULL, &stage1CallReleasee, bodyThreads + jointThreads, callContext->m_finalReleasee, 
             NULL, &dxQuickStepIsland_Stage1_Callback, stage1CallContext, 0, "QuickStepIsland Stage1");
 
@@ -1231,7 +1231,7 @@ void dxQuickStepIsland_Stage0_Bodies(dxQuickStepperStage0BodiesCallContext *call
         const unsigned int step_size = dxQUICKSTEPISLAND_STAGE0_BODIES_STEP;
         const unsigned int nb_steps = (nb + (step_size - 1)) / step_size;
 
-        unsigned bi_step;
+        unsigned bi_step = {};
         while ((bi_step = ThrsafeIncrementIntUpToLimit(&callContext->m_inertiaBodyIndex, nb_steps)) != nb_steps) {
             unsigned int bi = bi_step * step_size;
             const unsigned int biend = bi + dRESTRICT_STEP(step_size, nb - bi);
@@ -1462,17 +1462,17 @@ void dxQuickStepIsland_Stage1(dxQuickStepperStage1CallContext *stage1CallContext
         {
             const dxWorld *world = callContext->m_world;
             
-            dCallReleaseeID stage3CallReleasee;
+            dCallReleaseeID stage3CallReleasee = {};
             world->PostThreadedCallForUnawareReleasee(NULL, &stage3CallReleasee, 1, callContext->m_finalReleasee, 
                 NULL, &dxQuickStepIsland_Stage3_Callback, stage3CallContext, 0, "QuickStepIsland Stage3");
 
-            dCallReleaseeID stage2bSyncReleasee;
+            dCallReleaseeID stage2bSyncReleasee = {};
             world->PostThreadedCall(NULL, &stage2bSyncReleasee, 1, stage3CallReleasee, 
                 NULL, &dxQuickStepIsland_Stage2bSync_Callback, stage2CallContext, 0, "QuickStepIsland Stage2b Sync");
 
             const unsigned stage2a_allowedThreads = CalculateOptimalThreadsCount<dxQUICKSTEPISLAND_STAGE2A_STEP>(nj, allowedThreads);
 
-            dCallReleaseeID stage2aSyncReleasee;
+            dCallReleaseeID stage2aSyncReleasee = {};
             world->PostThreadedCall(NULL, &stage2aSyncReleasee, stage2a_allowedThreads, stage2bSyncReleasee, 
                 NULL, &dxQuickStepIsland_Stage2aSync_Callback, stage2CallContext, 0, "QuickStepIsland Stage2a Sync");
 
@@ -1536,12 +1536,12 @@ void dxQuickStepIsland_Stage2a(dxQuickStepperStage2CallContext *stage2CallContex
         const unsigned int step_size = dxQUICKSTEPISLAND_STAGE2A_STEP;
         const unsigned int nj_steps = (nj + (step_size - 1)) / step_size;
 
-        unsigned ji_step;
+        unsigned ji_step = {};
         while ((ji_step = ThrsafeIncrementIntUpToLimit(&stage2CallContext->m_ji_J, nj_steps)) != nj_steps) {
             unsigned int ji = ji_step * step_size;
             const unsigned int jiend = ji + dRESTRICT_STEP(step_size, nj - ji);
 
-            for (unsigned infom, ofsi = mindex[ji].mIndex; ; ofsi += infom) {
+            for (unsigned infom = {}, ofsi = mindex[ji].mIndex; ; ofsi += infom) {
                 infom = mindex[ji + 1].mIndex - ofsi;
 
                 dReal *const JRow = J + (sizeint)ofsi * JME__MAX;
@@ -1625,12 +1625,12 @@ void dxQuickStepIsland_Stage2a(dxQuickStepperStage2CallContext *stage2CallContex
         const unsigned int step_size = dxQUICKSTEPISLAND_STAGE2A_STEP;
         const unsigned int nj_steps = (nj + (step_size - 1)) / step_size;
 
-        unsigned ji_step;
+        unsigned ji_step = {};
         while ((ji_step = ThrsafeIncrementIntUpToLimit(&stage2CallContext->m_ji_jb, nj_steps)) != nj_steps) {
             unsigned int ji = ji_step * step_size;
             const unsigned int jiend = ji + dRESTRICT_STEP(step_size, nj - ji);
 
-            for (unsigned infom, ofsi = mindex[ji].mIndex; ; ofsi += infom) {
+            for (unsigned infom = {}, ofsi = mindex[ji].mIndex; ; ofsi += infom) {
                 infom = mindex[ji + 1].mIndex - ofsi;
 
                 const dxJoint *joint = jointinfos[ji].joint;
@@ -1708,7 +1708,7 @@ void dxQuickStepIsland_Stage2b(dxQuickStepperStage2CallContext *stage2CallContex
         const unsigned int nb_steps = (nb + (step_size - 1)) / step_size;
 
         // put -(v/h + invM*fe) into rhs_tmp
-        unsigned bi_step;
+        unsigned bi_step = {};
         while ((bi_step = ThrsafeIncrementIntUpToLimit(&stage2CallContext->m_bi, nb_steps)) != nb_steps) {
             unsigned int bi = bi_step * step_size;
             const unsigned int biend = bi + dRESTRICT_STEP(step_size, nb - bi);
@@ -1905,25 +1905,25 @@ void dxQuickStepIsland_Stage3(dxQuickStepperStage3CallContext *stage3CallContext
             const dxWorld *world = callContext->m_world;
             stage4CallContext->m_LCP_iteration_premature_exit_delta = world->qs.GetPrematureExitDelta();
 
-            dCallReleaseeID stage5CallReleasee;
+            dCallReleaseeID stage5CallReleasee = {};
             world->PostThreadedCallForUnawareReleasee(NULL, &stage5CallReleasee, 1, callContext->m_finalReleasee, 
                 NULL, &dxQuickStepIsland_Stage5_Callback, stage5CallContext, 0, "QuickStepIsland Stage5");
 
-            dCallReleaseeID stage4LCP_IterationSyncReleasee;
+            dCallReleaseeID stage4LCP_IterationSyncReleasee = {};
             world->PostThreadedCall(NULL, &stage4LCP_IterationSyncReleasee, 1, stage5CallReleasee, 
                 NULL, &dxQuickStepIsland_Stage4LCP_IterationSync_Callback, stage4CallContext, 0, "QuickStepIsland Stage4LCP_Iteration Sync");
 
             const unsigned int stage4LCP_Iteration_allowedThreads = CalculateOptimalThreadsCount<1U>(m, allowedThreads);
             stage4CallContext->AssignLCP_IterationData(stage4LCP_IterationSyncReleasee, stage4LCP_Iteration_allowedThreads);
 
-            dCallReleaseeID stage4LCP_IterationStartReleasee;
+            dCallReleaseeID stage4LCP_IterationStartReleasee = {};
             world->PostThreadedCall(NULL, &stage4LCP_IterationStartReleasee, 3, stage4LCP_IterationSyncReleasee, 
                 NULL, &dxQuickStepIsland_Stage4LCP_IterationStart_Callback, stage4CallContext, 0, "QuickStepIsland Stage4LCP_Iteration Start");
 
             const unsigned int nj = localContext->m_nj;
             const unsigned int stage4a_allowedThreads = CalculateOptimalThreadsCount<dxQUICKSTEPISLAND_STAGE4A_STEP>(nj, allowedThreads);
 
-            dCallReleaseeID stage4LCP_fcStartReleasee;
+            dCallReleaseeID stage4LCP_fcStartReleasee = {};
             // Note: It is unnecessary to make fc dependent on 4a if there is no WARM_STARTING
             // However I'm doing so to minimize use of preprocessor conditions in sources
             const unsigned stage4LCP_fcDependenciesCountToUse = stage4a_allowedThreads;
@@ -1939,7 +1939,7 @@ void dxQuickStepIsland_Stage3(dxQuickStepperStage3CallContext *stage3CallContext
 
             const unsigned stage4LCP_iMJ_allowedThreads = CalculateOptimalThreadsCount<dxQUICKSTEPISLAND_STAGE4LCP_IMJ_STEP>(m, allowedThreads);
 
-            dCallReleaseeID stage4LCP_iMJSyncReleasee;
+            dCallReleaseeID stage4LCP_iMJSyncReleasee = {};
             world->PostThreadedCall(NULL, &stage4LCP_iMJSyncReleasee, stage4LCP_iMJ_allowedThreads, stage4LCP_IterationStartReleasee, 
                 NULL, &dxQuickStepIsland_Stage4LCP_iMJSync_Callback, stage4CallContext, 0, "QuickStepIsland Stage4LCP_iMJ Sync");
 
@@ -1982,7 +1982,7 @@ void dxQuickStepIsland_Stage4a(dxQuickStepperStage4CallContext *stage4CallContex
     const unsigned int step_size = dxQUICKSTEPISLAND_STAGE4A_STEP;
     const unsigned int nj_steps = (nj + (step_size - 1)) / step_size;
     
-    unsigned ji_step;
+    unsigned ji_step = {};
     while ((ji_step = ThrsafeIncrementIntUpToLimit(&stage4CallContext->m_ji_4a, nj_steps)) != nj_steps) {
         const unsigned int ji = ji_step * step_size;
         dReal *lambdacurr = lambda + mindex[ji].mIndex;
@@ -2080,7 +2080,7 @@ int dxQuickStepIsland_Stage4LCP_fcStart_Callback(void *_stage4CallContext, dcall
     const dxStepperProcessingCallContext *callContext = stage4CallContext->m_stepperCallContext;
     const dxQuickStepperLocalContext *localContext = stage4CallContext->m_localContext;
 
-    unsigned int fcPrepareComplexity, fcCompleteComplexity;
+    unsigned int fcPrepareComplexity = {}, fcCompleteComplexity = {};
 #ifdef WARM_STARTING
     fcPrepareComplexity = localContext->m_m / dxQUICKSTEPISLAND_STAGE4LCP_FC_COMPLETE_TO_PREPARE_COMPLEXITY_DIVISOR;
     fcCompleteComplexity = callContext->m_islandBodiesCount;
@@ -2221,7 +2221,7 @@ void dxQuickStepIsland_Stage4LCP_MTfcComputation_cold(dxQuickStepperStage4CallCo
     const unsigned int nb_steps = (nb + (step_size - 1)) / step_size;
     dReal *fc = stage4CallContext->m_cforce;
 
-    unsigned bi_step;
+    unsigned bi_step = {};
     while ((bi_step = ThrsafeIncrementIntUpToLimit(&stage4CallContext->m_bi_fc, nb_steps)) != nb_steps) {
         const unsigned int bi = bi_step * step_size;
         const unsigned int bicnt = dRESTRICT_STEP(step_size, nb - bi);
@@ -2244,7 +2244,7 @@ void dxQuickStepIsland_Stage4LCP_MTForceMaxAdjustmentZeroing(dxQuickStepperStage
     const unsigned int nb_steps = (nb + (step_size - 1)) / step_size;
     dReal *forceMaxAdjustments = stage4CallContext->m_forceMaxAdjustments;
 
-    unsigned bi_step;
+    unsigned bi_step = {};
     while ((bi_step = ThrsafeIncrementIntUpToLimit(&stage4CallContext->m_bi_forceMaxAdj, nb_steps)) != nb_steps) {
         const unsigned int bi = bi_step * step_size;
         const unsigned int bicnt = dRESTRICT_STEP(step_size, nb - bi);
@@ -2309,7 +2309,7 @@ void dxQuickStepIsland_Stage4LCP_AdComputation(dxQuickStepperStage4CallContext *
     const unsigned int step_size = dxQUICKSTEPISLAND_STAGE4LCP_AD_STEP;
     const unsigned int m_steps = (m + (step_size - 1)) / step_size;
 
-    unsigned mi_step;
+    unsigned mi_step = {};
     while ((mi_step = ThrsafeIncrementIntUpToLimit(&stage4CallContext->m_mi_Ad, m_steps)) != m_steps) {
         unsigned int mi = mi_step * step_size;
         const unsigned int miend = mi + dRESTRICT_STEP(step_size, m - mi);
@@ -2427,7 +2427,7 @@ int dxQuickStepIsland_Stage4LCP_IterationStart_Callback(void *_stage4CallContext
     }
 
     if (!abortIterating) {
-        dCallReleaseeID nextReleasee;
+        dCallReleaseeID nextReleasee = {};
         dCallReleaseeID stage4LCP_IterationSyncReleasee = stage4CallContext->m_LCP_IterationSyncReleasee;
         const unsigned int stage4LCP_Iteration_allowedThreads = stage4CallContext->m_LCP_IterationAllowedThreads;
 
@@ -2462,7 +2462,7 @@ int dxQuickStepIsland_Stage4LCP_IterationStart_Callback(void *_stage4CallContext
         }
 
         if (!lastIteration) {
-            dCallReleaseeID stage4LCP_IterationStartReleasee;
+            dCallReleaseeID stage4LCP_IterationStartReleasee = {};
             world->PostThreadedCallForUnawareReleasee(NULL, &stage4LCP_IterationStartReleasee, syncCallDependencies, stage4LCP_IterationSyncReleasee,
                 NULL, &dxQuickStepIsland_Stage4LCP_IterationStart_Callback, stage4CallContext, 0, "QuickStepIsland Stage4LCP_Iteration Start");
             nextReleasee = stage4LCP_IterationStartReleasee;
@@ -2478,7 +2478,7 @@ int dxQuickStepIsland_Stage4LCP_IterationStart_Callback(void *_stage4CallContext
 
             stage4CallContext->ResetSOR_ConstraintsReorderVariables(reorderThreads);
 
-            dCallReleaseeID stage4LCP_ConstraintsReorderingSyncReleasee;
+            dCallReleaseeID stage4LCP_ConstraintsReorderingSyncReleasee = {};
             world->PostThreadedCall(NULL, &stage4LCP_ConstraintsReorderingSyncReleasee, reorderThreads, nextReleasee,
                 NULL, &dxQuickStepIsland_Stage4LCP_ConstraintsReorderingSync_Callback, stage4CallContext, 0, "QuickStepIsland Stage4LCP_ConstraintsReordering Sync");
 
@@ -2879,7 +2879,7 @@ void dxQuickStepIsland_Stage4LCP_MTIteration(dxQuickStepperStage4CallContext *st
                     const unsigned level0DownLink = mi_links[2 * (sizeint)currentLevelFirstLink + 1];
                     if (level0DownLink != invalid_link) {
                         // ...and if yes, insert the record into the list of available level roots
-                        unsigned int levelRootsFirst;
+                        unsigned int levelRootsFirst = {};
                         do {
                             levelRootsFirst = mi_links[2 * dxHEAD_INDEX + 0];
                             mi_links[2 * (sizeint)currentLevelFirstLink + 0] = levelRootsFirst;
@@ -2963,9 +2963,9 @@ void dxQuickStepIsland_Stage4LCP_IterationStep(dxQuickStepperStage4CallContext *
     const IndexError *order = stage4CallContext->m_order;
     const unsigned int index = (unsigned int)order[i].index;
 
-    dReal *fc_ptr1;
+    dReal *fc_ptr1 = {};
     dReal *fc_ptr2 = NULL;
-    dReal delta;
+    dReal delta = {};
 
     dReal *lambda = stage4CallContext->m_lambda;
     const dReal old_lambda = lambda[index];
@@ -2973,7 +2973,7 @@ void dxQuickStepIsland_Stage4LCP_IterationStep(dxQuickStepperStage4CallContext *
     const dReal *J = localContext->m_J;
     const dReal *J_ptr = J + (sizeint)index * JME__MAX;
 
-    sizeint b1AsSizeint;
+    sizeint b1AsSizeint = {};
     diffint b1ToB2Offset = 0;
     {
         delta = J_ptr[JME_RHS] - old_lambda * J_ptr[JME_CFM];
@@ -3001,7 +3001,7 @@ void dxQuickStepIsland_Stage4LCP_IterationStep(dxQuickStepperStage4CallContext *
     }
 
     {
-        dReal hi_act, lo_act;
+        dReal hi_act = {}, lo_act = {};
 
         // set the limits for this constraint. 
         // this is the place where the QuickStep method differs from the
@@ -3158,7 +3158,7 @@ void dxQuickStepIsland_Stage4b(dxQuickStepperStage4CallContext *stage4CallContex
         const unsigned int step_size = dxQUICKSTEPISLAND_STAGE4B_STEP;
         const unsigned int nj_steps = (nj + (step_size - 1)) / step_size;
 
-        unsigned ji_step;
+        unsigned ji_step = {};
         while ((ji_step = ThrsafeIncrementIntUpToLimit(&stage4CallContext->m_ji_4b, nj_steps)) != nj_steps) {
             unsigned int ji = ji_step * step_size;
             const unsigned int jiend = ji + dRESTRICT_STEP(step_size, nj - ji);
@@ -3279,7 +3279,7 @@ void dxQuickStepIsland_Stage5(dxQuickStepperStage5CallContext *stage5CallContext
 
         const dxWorld *wrld = callContext->m_world;
 
-        dCallReleaseeID stage6aSyncReleasee;
+        dCallReleaseeID stage6aSyncReleasee = {};
         wrld->PostThreadedCallForUnawareReleasee(NULL, &stage6aSyncReleasee, stage6a_allowedThreads, callContext->m_finalReleasee, 
             NULL, &dxQuickStepIsland_Stage6aSync_Callback, stage6CallContext, 0, "QuickStepIsland Stage6a Sync");
 
@@ -3351,7 +3351,7 @@ void dxQuickStepIsland_Stage6a(dxQuickStepperStage6CallContext *stage6CallContex
     const unsigned int step_size = dxQUICKSTEPISLAND_STAGE6A_STEP;
     const unsigned int nb_steps = (nb + (step_size - 1)) / step_size;
 
-    unsigned bi_step;
+    unsigned bi_step = {};
     while ((bi_step = ThrsafeIncrementIntUpToLimit(&stage6CallContext->m_bi_6a, nb_steps)) != nb_steps) {
         const unsigned int bi = bi_step * step_size;
         const unsigned int bicnt = dRESTRICT_STEP(step_size, nb - bi);
@@ -3461,7 +3461,7 @@ void dxQuickStepIsland_Stage6b(dxQuickStepperStage6CallContext *stage6CallContex
     const unsigned int step_size = dxQUICKSTEPISLAND_STAGE6B_STEP;
     const unsigned int nb_steps = (nb + (step_size - 1)) / step_size;
 
-    unsigned bi_step;
+    unsigned bi_step = {};
     while ((bi_step = ThrsafeIncrementIntUpToLimit(&stage6CallContext->m_bi_6b, nb_steps)) != nb_steps) {
         const unsigned int bi = bi_step * step_size;
         const unsigned int bicnt = dRESTRICT_STEP(step_size, nb - bi);
@@ -3489,7 +3489,7 @@ sizeint dxEstimateQuickStepMemoryRequirements (dxBody * const *body,
                                               unsigned int _nj)
 {
     (void)body; // unused
-    unsigned int nj, m, mfb;
+    unsigned int nj = {}, m = {}, mfb = {};
 
     {
         unsigned int njcurr = 0, mcurr = 0, mfbcurr = 0;

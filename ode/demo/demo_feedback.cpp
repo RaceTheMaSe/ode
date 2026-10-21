@@ -130,7 +130,7 @@ static void drawGeom (dGeomID g)
   }
   if (type == dCylinderClass)
   {
-    dReal r,l;
+    dReal r = {},l = {};
     dGeomCylinderGetParams(g, &r, &l);
     dsDrawCylinder (pos, R, (float)l, (float)r);
   }
@@ -140,7 +140,7 @@ static void drawGeom (dGeomID g)
 static void inspectJoints(void)
 {
   const dReal forcelimit = 5000.0;
-  int i;
+  int i = {};
   for (i=0; i<SEGMCNT-1; i++)
   {
     if (dJointGetBody(hinges[i], 0))
@@ -170,7 +170,7 @@ static void inspectJoints(void)
 
 static void simLoop (int pause)
 {
-  int i;
+  int i = {};
 
   const double simstep = 0.002; // 2ms simulation steps
   const double dt = dsElapsedTime();
@@ -229,7 +229,7 @@ int main (int argc, char **argv)
   dWorldSetGravity (world,0,0,REAL(-9.8));
   dWorldSetQuickStepNumIterations (world, 20);
 
-  int i;
+  int i = {};
   for (i=0; i<SEGMCNT; i++)
   {
     segbodies[i] = dBodyCreate (world);

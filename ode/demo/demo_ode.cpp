@@ -114,7 +114,7 @@ static int cmpIdentityMat3 (dMatrix3 A)
 
 static void transpose3x3 (dMatrix3 A)
 {
-    dReal tmp;
+    dReal tmp = {};
     tmp=A[4]; A[4]=A[1]; A[1]=tmp;
     tmp=A[8]; A[8]=A[2]; A[2]=tmp;
     tmp=A[9]; A[9]=A[6]; A[6]=tmp;
@@ -187,7 +187,7 @@ static void testSetZero()
 static void testNormalize3()
 {
     HEADER;
-    int i,j,bad=0;
+    int i = {},j = {},bad=0;
     dVector3 n1,n2;
     for (i=0; i<1000; i++) {
         dMakeRandomVector (n1,3,1.0);
@@ -245,7 +245,7 @@ static void testMatrixMultiply()
 {
     // A is 2x3, B is 3x4, B2 is B except stored columnwise, C is 2x4
     dReal A[8],B[12],A2[12],B2[16],C[8];
-    int i;
+    int i = {};
 
     HEADER;
     dSetZero (A,8);
@@ -326,7 +326,7 @@ static void testSmallMatrixMultiply()
 static void testCholeskyFactorization()
 {
     const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
-    dReal *A = (dReal *)dAlloc(matrixSize), *B = (dReal *)dAlloc(matrixSize), *C = (dReal *)dAlloc(matrixSize), diff;
+    dReal *A = (dReal *)dAlloc(matrixSize), *B = (dReal *)dAlloc(matrixSize), *C = (dReal *)dAlloc(matrixSize), diff = {};
 
     HEADER;
     dMakeRandomMatrix (A,MSIZE,MSIZE,1.0);
@@ -350,7 +350,7 @@ static void testCholeskySolve()
 {
     const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize);
-    dReal *b = (dReal *)dAlloc(vectorSize), *x = (dReal *)dAlloc(vectorSize), *btest = (dReal *)dAlloc(vectorSize), diff;
+    dReal *b = (dReal *)dAlloc(vectorSize), *x = (dReal *)dAlloc(vectorSize), *btest = (dReal *)dAlloc(vectorSize), diff = {};
 
     HEADER;
 
@@ -387,7 +387,7 @@ static void testCholeskySolve()
 
 static void testInvertPDMatrix()
 {
-    unsigned i,j,ok;
+    unsigned i = {},j = {},ok = {};
     const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *Ainv = (dReal *)dAlloc(matrixSize), *I = (dReal *)dAlloc(matrixSize);
 
@@ -439,10 +439,10 @@ static void testIsPositiveDefinite()
 
 static void testFastLDLTFactorization()
 {
-    unsigned i,j;
+    unsigned i = {},j = {};
     const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), *DL = (dReal *)dAlloc(matrixSize),
-        *ATEST = (dReal *)dAlloc(matrixSize), *d = (dReal *)dAlloc(vectorSize), diff;
+        *ATEST = (dReal *)dAlloc(matrixSize), *d = (dReal *)dAlloc(vectorSize), diff = {};
 
     HEADER;
 
@@ -475,13 +475,13 @@ static void testFastLDLTFactorization()
 
 static void testCoopLDLTFactorization()
 {
-    unsigned int i,j;
+    unsigned int i = {},j = {};
 
     const dsizeint COOP_MSIZE = MSIZE * 51, COOP_MSIZE4 = (dsizeint)dALIGN_SIZE(COOP_MSIZE, 4);
 
     const dsizeint matrixSize = sizeof(dReal) * COOP_MSIZE4 * COOP_MSIZE, vectorSize = sizeof(dReal) * COOP_MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), *DL = (dReal *)dAlloc(matrixSize),
-        *ATEST = (dReal *)dAlloc(matrixSize), *d = (dReal *)dAlloc(vectorSize), diff;
+        *ATEST = (dReal *)dAlloc(matrixSize), *d = (dReal *)dAlloc(vectorSize), diff = {};
 
     const unsigned threadCountMaximum = 8;
     dThreadingImplementationID threading = dThreadingAllocateMultiThreadedImplementation();
@@ -548,7 +548,7 @@ static void testSolveLDLT()
     const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
         *d = (dReal *)dAlloc(vectorSize), *x = (dReal *)dAlloc(vectorSize), 
-        *b = (dReal *)dAlloc(vectorSize), *btest = (dReal *)dAlloc(vectorSize), diff;
+        *b = (dReal *)dAlloc(vectorSize), *btest = (dReal *)dAlloc(vectorSize), diff = {};
 
     HEADER;
 
@@ -582,7 +582,7 @@ static void testCoopSolveLDLT()
     const dsizeint matrixSize = sizeof(dReal) * COOP_MSIZE4 * COOP_MSIZE, vectorSize = sizeof(dReal) * COOP_MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
         *d = (dReal *)dAlloc(vectorSize), *x = (dReal *)dAlloc(vectorSize), 
-        *b = (dReal *)dAlloc(vectorSize), *btest = (dReal *)dAlloc(vectorSize), diff;
+        *b = (dReal *)dAlloc(vectorSize), *btest = (dReal *)dAlloc(vectorSize), diff = {};
 
     const unsigned threadCountMaximum = 8;
     dThreadingImplementationID threading = dThreadingAllocateMultiThreadedImplementation();
@@ -646,11 +646,11 @@ static void testCoopSolveLDLT()
 
 static void testLDLTAddTL()
 {
-    unsigned i,j;
+    unsigned i = {},j = {};
     const dsizeint matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
         *DL = (dReal *)dAlloc(matrixSize), *ATEST = (dReal *)dAlloc(matrixSize), 
-        *d = (dReal *)dAlloc(vectorSize), *a = (dReal *)dAlloc(vectorSize), diff;
+        *d = (dReal *)dAlloc(vectorSize), *a = (dReal *)dAlloc(vectorSize), diff = {};
 
     HEADER;
 
@@ -693,13 +693,13 @@ static void testLDLTAddTL()
 
 static void testLDLTRemove()
 {
-    unsigned i,j,r;
+    unsigned i = {},j = {},r = {};
     const dsizeint intVectorSize = sizeof(int) * MSIZE, matrixSize = sizeof(dReal) * MSIZE4 * MSIZE, vectorSize = sizeof(dReal) * MSIZE;
     int *p = (int *)dAlloc(intVectorSize);
     dReal *A = (dReal *)dAlloc(matrixSize), *L = (dReal *)dAlloc(matrixSize), 
         *L2 = (dReal *)dAlloc(matrixSize), *DL2 = (dReal *)dAlloc(matrixSize), 
         *Atest1 = (dReal *)dAlloc(matrixSize), *Atest2 = (dReal *)dAlloc(matrixSize), 
-        *d = (dReal *)dAlloc(vectorSize), *d2 = (dReal *)dAlloc(vectorSize), diff, maxdiff;
+        *d = (dReal *)dAlloc(vectorSize), *d2 = (dReal *)dAlloc(vectorSize), diff = {}, maxdiff = {};
 
     HEADER;
 
@@ -803,7 +803,7 @@ static void printMassParams (dMass *m)
 
 static void compareMassParams (dMass *m1, dMass *m2, const char *msg)
 {
-    int i,j,ok = 1;
+    int i = {},j = {},ok = 1;
     if (!(cmp(m1->mass,m2->mass) && cmp(m1->c[0],m2->c[0]) &&
         cmp(m1->c[1],m2->c[1]) && cmp(m1->c[2],m2->c[2])))
         ok = 0;
@@ -817,7 +817,7 @@ static void compareMassParams (dMass *m1, dMass *m2, const char *msg)
 
 static void computeMassParams (dMass *m, dReal q[NUMP][3], const dReal pm[NUMP])
 {
-    int i,j;
+    int i = {},j = {};
     dMassSetZero (m);
     for (i=0; i<NUMP; i++) {
         m->mass += pm[i];
@@ -839,7 +839,7 @@ static void computeMassParams (dMass *m, dReal q[NUMP][3], const dReal pm[NUMP])
 static void testMassFunctions()
 {
     dMass m;
-    int i,j;
+    int i = {},j = {};
     dReal q[NUMP][3];		// particle positions
     dReal pm[NUMP];		// particle masses
     dMass m1,m2;
@@ -961,7 +961,7 @@ static void testRtoQandQtoR()
     HEADER;
     dMatrix3 R,I,R2;
     dQuaternion q;
-    int i;
+    int i = {};
 
     // test makeRandomRotation()
     makeRandomRotation (R);
@@ -999,7 +999,7 @@ static void testQuaternionMultiply()
     HEADER;
     dMatrix3 RA,RB,RC,Rtest;
     dQuaternion qa,qb,qc;
-    dReal diff,maxdiff=0;
+    dReal diff = {},maxdiff=0;
 
     for (int i=0; i<100; i++) {
         makeRandomRotation (RB);
@@ -1162,7 +1162,7 @@ dReal dMatrixComparison::nextMatrix (dReal *A, int n, int m, int lower_tri,
         mi->data = (dReal*) dAlloc ((dsizeint)mi->size);
         memcpy (mi->data,A,(size_t)mi->size);
 
-        va_list ap;
+        va_list ap = {};
         va_start (ap,name);
         (void)vsprintf (mi->name,name,ap);
         va_end (ap);
@@ -1179,7 +1179,7 @@ dReal dMatrixComparison::nextMatrix (dReal *A, int n, int m, int lower_tri,
         index++;
 
         dMatInfo mi;
-        va_list ap;
+        va_list ap = {};
         va_start (ap,name);
         (void)vsprintf (mi.name,name,ap);
         va_end (ap);
@@ -1192,7 +1192,7 @@ dReal dMatrixComparison::nextMatrix (dReal *A, int n, int m, int lower_tri,
             dDebug (0,"dMatrixComparison, size mismatch (%dx%d and %dx%d)",
             mp->n,mp->m,n,m);
 
-        dReal maxdiff;
+        dReal maxdiff = {};
         if (lower_tri) {
             maxdiff = dMaxDifferenceLowerTriangle (A,mp->data,n);
         }
@@ -1250,7 +1250,7 @@ static ODE_NORETURN_VOID myDebug (int /*num*/, const char* /*msg*/, va_list /*ap
 
 static void dTestMatrixComparison()
 {
-    int i;
+    int i = {};
     printf ("dTestMatrixComparison()\n");
     dMessageFunction *orig_debug = dGetDebugHandler();
 

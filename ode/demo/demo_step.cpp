@@ -59,7 +59,7 @@ static dJointID joint[NUMJ];
 
 static void createTest()
 {
-  int i,j;
+  int i = {},j = {};
   if (world) dWorldDestroy (world);
 
   world = dWorldCreate();
@@ -96,7 +96,7 @@ static void createTest()
   char linked[NUM*NUM];
   for (i=0; i<NUM*NUM; i++) linked[i] = 0;
   for (i=0; i<NUMJ; i++) {
-    int b1,b2;
+    int b1 = {},b2 = {};
     do {
       b1 = dRandInt (NUM);
       b2 = dRandInt (NUM);
@@ -136,7 +136,7 @@ static void simLoop (int pause)
 {
   if (!pause) {
     // add random forces and torques to all bodies
-    int i;
+    int i = {};
     const dReal scale1 = 5;
     const dReal scale2 = 5;
     for (i=0; i<NUM; i++) {

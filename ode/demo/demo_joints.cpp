@@ -975,7 +975,7 @@ static void simLoop (int pause)
       static int count = 0;
       if ((count % 20)==0) {
 	// randomly adjust orientation of body[0]
-	const dReal *R1;
+	const dReal *R1 = {};
 	dMatrix3 R2,R3;
 	R1 = dBodyGetRotation (body[0]);
 	dRFromAxisAndAngle (R2,dRandReal()-REAL(0.5),dRandReal()-REAL(0.5),
@@ -1061,7 +1061,7 @@ static void doTest (int argc, char **argv, int n, int fatal_if_bad_n)
 
 int main (int argc, char **argv)
 {
-  int i;
+  int i = {};
   dInitODE2(0);
 
   // process the command line args. anything that starts with `-' is assumed
@@ -1071,7 +1071,7 @@ int main (int argc, char **argv)
     else if ( argv[i][0]=='-' && argv[i][1]=='g' && argv[i][2]==0) cmd_graphics = 0;
     else if ( argv[i][0]=='-' && argv[i][1]=='e' && argv[i][2]==0) cmd_occasional_error = 0;
     else if ( argv[i][0]=='-' && argv[i][1]=='n' && isdigit(argv[i][2]) ) {
-      char *endptr; //NOLINT(misc-const-correctness)
+      char *endptr = {}; //NOLINT(misc-const-correctness)
       const long int n = strtol (&(argv[i][2]),&endptr,10);
 			if (*endptr == 0) cmd_test_num = (int)n;
 		}

@@ -113,7 +113,7 @@ static dReal cannon_angle=0,cannon_elevation=REAL(-1.2);
 
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-	int n;
+	int n = {};
 	
 	dBodyID b1 = dGeomGetBody(o1);
 	dBodyID b2 = dGeomGetBody(o2);
@@ -167,7 +167,7 @@ static void start()
 
 static void makeCar(dReal x, dReal y, int &bodyI, int &jointI, int &boxI, int &sphereI)
 {
-	int i;
+	int i = {};
 	dMass mass;
 	
 	// chassis body
@@ -251,7 +251,7 @@ void shutdownSimulation()
 static 
 void setupSimulation()
 {
-	int i;
+	int i = {};
 	for (i = 0; i < 1000; i++)
 		wb_stepsdis[i] = 0;
 
@@ -503,7 +503,7 @@ static void command (int cmd)
 
 static void simLoop (int pause)
 {
-	int i, j;
+	int i = {}, j = {};
 		
 	dsSetTexture (DS_WOOD);
 

@@ -618,7 +618,7 @@ bool dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Pi
 {
     bool result = false;
 
-    dxThreadedJobInfo *current_job;
+    dxThreadedJobInfo *current_job = {};
     if (UnlinkJobFromReadyList(current_job, out_last_job_flag))
     {
         dIASSERT(current_job->m_dependencies_count == 0);
@@ -840,7 +840,7 @@ void dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::Re
 template<class tThreadLull, class tThreadMutex, class tAtomicsProvider>
 dxThreadedJobInfo *dxtemplateJobListContainer<tThreadLull, tThreadMutex, tAtomicsProvider>::ExtractJobInfoFromPoolOrAllocate()
 {
-    dxThreadedJobInfo *result_info; //NOLINT(misc-const-correctness)
+    dxThreadedJobInfo *result_info = {}; //NOLINT(misc-const-correctness)
 
     bool waited_lull = false;
     m_info_wait_lull.RegisterToLull();
@@ -1218,7 +1218,7 @@ void dxtemplateJobListSelfHandler<tThreadWakeup, tJobListContainer>::PerformJobP
 
     for (bool job_result = false; ; )
     {
-        bool dummy_last_job_flag;
+        bool dummy_last_job_flag = {};
         if (!m_job_list_ptr->ReleaseAJobAndPickNextPendingOne(current_job, job_result, &dxCallWait::AbstractSignalTheWait, current_job, dummy_last_job_flag))
         {
             break;
@@ -1354,7 +1354,7 @@ void dxtemplateThreadingImplementation<tJobListContainer, tJobListHandler>::Alte
 
     dxThreadedJobInfo *job_instance = dMAKE_RELEASEE_JOBINSTANCE(target_releasee);
 
-    bool job_has_become_ready;
+    bool job_has_become_ready = {};
     m_list_container.AlterJobProcessingDependencies(job_instance, dependencies_count_change, job_has_become_ready);
 
     if (job_has_become_ready)

@@ -132,9 +132,9 @@ void ThreadedEquationSolverLDLT::doCooperativelySolveL1TransposedValidated(
     dCallWaitID completionWait = resourceContainer->getStockCallWait();
     dAASSERT(completionWait != NULL);
 
-    atomicord32 blockCompletionProgress;
-    cellindexint *blockProgressDescriptors;
-    SolveL1TransposedCellContext *cellContexts;
+    atomicord32 blockCompletionProgress = {};
+    cellindexint *blockProgressDescriptors = {};
+    SolveL1TransposedCellContext *cellContexts = {};
 
     SolvingL1TransposedMemoryEstimates solvingMemoryEstimates;
     const sizeint solvingMemoryRequired = estimateCooperativelySolvingL1TransposedMemoryRequirement<blockStep>(rowCount, solvingMemoryEstimates);
@@ -150,7 +150,7 @@ void ThreadedEquationSolverLDLT::doCooperativelySolveL1TransposedValidated(
 
     initializeCooperativelySolveL1TransposedMemoryStructures<blockStep>(rowCount, blockCompletionProgress, blockProgressDescriptors, cellContexts);
 
-    dCallReleaseeID calculationFinishReleasee;
+    dCallReleaseeID calculationFinishReleasee = {};
     SolveL1TransposedWorkerContext workerContext; // The variable must exist in the outer scope
 
     workerContext.init(L, b, rowCount, rowSkip, blockCompletionProgress, blockProgressDescriptors, cellContexts);

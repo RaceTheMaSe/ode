@@ -178,7 +178,7 @@ static inline void serialize()
 
 static inline double loadClockCount (unsigned long a[2])
 {
-    double ret; //NOLINT(misc-const-correctness)
+    double ret = {}; //NOLINT(misc-const-correctness)
 #ifndef X86_64_SYSTEM
     asm volatile ("fildll %1; fstpl %0" : "=m" (ret) : "m" (a[0]) :
     "cc","memory");
@@ -448,8 +448,8 @@ static void fprintDoubleWithPrefix (FILE *f, double a, const char *fmt)
 
 void dTimerReport (FILE *fout, int average)
 {
-    int i;
-    sizeint maxl;
+    int i = {};
+    sizeint maxl = {};
     const double ccunit = 1.0/dTimerTicksPerSecond();
     (void)fprintf (fout,"\nTimer Report (");
     fprintDoubleWithPrefix (fout,ccunit,"%.2f ");
@@ -482,7 +482,7 @@ void dTimerReport (FILE *fout, int average)
 
     // print report (with optional averages)
     for (i=0; i<num; i++) {
-        double t,p;
+        double t = {},p = {};
         if (i < (num-1)) {
             t = times[i];
             p = t/total * 100.0;

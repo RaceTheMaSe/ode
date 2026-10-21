@@ -132,9 +132,9 @@ void ThreadedEquationSolverLDLT::doCooperativelySolveL1StraightValidated(
     dCallWaitID completionWait = resourceContainer->getStockCallWait();
     dAASSERT(completionWait != NULL);
 
-    atomicord32 blockCompletionProgress;
-    cellindexint *blockProgressDescriptors;
-    SolveL1StraightCellContext *cellContexts;
+    atomicord32 blockCompletionProgress = {};
+    cellindexint *blockProgressDescriptors = {};
+    SolveL1StraightCellContext *cellContexts = {};
 
     SolvingL1StraightMemoryEstimates solvingMemoryEstimates;
     const sizeint solvingMemoryRequired = estimateCooperativelySolvingL1StraightMemoryRequirement<blockStep>(rowCount, solvingMemoryEstimates);
@@ -150,7 +150,7 @@ void ThreadedEquationSolverLDLT::doCooperativelySolveL1StraightValidated(
 
     initializeCooperativelySolveL1StraightMemoryStructures<blockStep>(rowCount, blockCompletionProgress, blockProgressDescriptors, cellContexts);
 
-    dCallReleaseeID calculationFinishReleasee;
+    dCallReleaseeID calculationFinishReleasee = {};
     SolveL1StraightWorkerContext workerContext; // The variable must exist in the outer scope
 
     workerContext.init(L, b, rowCount, rowSkip, blockCompletionProgress, blockProgressDescriptors, cellContexts);

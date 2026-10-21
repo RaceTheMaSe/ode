@@ -303,7 +303,7 @@ ODE_PURE_INLINE void dSetCrossMatrixMinus(dReal *res, const dReal* const a, unsi
 
 ODE_PURE_INLINE dReal dCalcPointsDistance3(const dReal* const a, const dReal* const b)
 {
-  dReal res;
+  dReal res = 0;
   dReal tmp[3];
   dSubtractVectors3(tmp, a, b);
   res = dCalcVectorLength3(tmp);
@@ -443,7 +443,7 @@ ODE_PURE_INLINE void dMultiplyAdd2_333(dReal *res, const dReal* const a, const d
 
 ODE_PURE_INLINE dReal dCalcMatrix3Det( const dReal* const mat )
 {
-    dReal det;
+    dReal det = 0;
 
     det = mat[0] * ( mat[5]*mat[10] - mat[9]*mat[6] )
         - mat[1] * ( mat[4]*mat[10] - mat[8]*mat[6] )
@@ -462,8 +462,8 @@ ODE_PURE_INLINE dReal dCalcMatrix3Det( const dReal* const mat )
 */
 ODE_PURE_INLINE dReal dInvertMatrix3(dReal *dst, const dReal* const ma)
 {
-    dReal det;  
-    dReal detRecip;
+    dReal det = 0;  
+    dReal detRecip = 0;
 
     det = dCalcMatrix3Det( ma );
     

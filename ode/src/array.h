@@ -103,8 +103,8 @@ public:
     }
 
     void swap (dArray<T> &x) ODE_NOEXCEPT {
-        int tmp1;
-        void *tmp2;
+        int tmp1 = {};
+        void *tmp2 = {};
         tmp1=_size; _size=x._size; x._size=tmp1;
         tmp1=_anum; _anum=x._anum; x._anum=tmp1;
         tmp2=_data; _data=x._data; x._data=tmp2;

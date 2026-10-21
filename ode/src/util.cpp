@@ -442,7 +442,7 @@ struct dxSingleIslandCallContext
 
 void dInternalHandleAutoDisabling (dxWorld *world, dReal stepsize)
 {
-    dxBody *bb;
+    dxBody *bb = {};
     for ( bb=world->firstbody; bb; bb=(dxBody*)bb->next )
     {
         // don't freeze objects mid-air (patch 1586738)
@@ -531,7 +531,7 @@ void dInternalHandleAutoDisabling (dxWorld *world, dReal stepsize)
             }
 
             // threshold test
-            dReal av_lspeed, av_aspeed;
+            dReal av_lspeed = {}, av_aspeed = {};
             av_lspeed = dCalcVectorDot3( average_lvel, average_lvel );
             if ( av_lspeed > bb->adis.linear_average_threshold )
             {
@@ -749,7 +749,7 @@ static sizeint BuildIslandsAndEstimateStepperMemoryRequirements(
     const unsigned int nb = (unsigned int)world->nb, nj = (unsigned int)world->nj;
     // Make array for island body/joint counts
     unsigned int *islandsizes = memarena->AllocateArray<unsigned int>(2 * (sizeint)nb);
-    unsigned int *sizescurr;
+    unsigned int *sizescurr = {};
 
     // make arrays for body and joint lists (for a single island) to go into
     dxBody **body = memarena->AllocateArray<dxBody *>(nb);
@@ -915,7 +915,7 @@ bool dxProcessIslands (dxWorld *world, const dxWorldProcessIslandsInfo &islandsI
 
         int summaryFault = 0;
 
-        unsigned activeThreadCount;
+        unsigned activeThreadCount = {};
         const unsigned islandsAllowedThreadCount = world->calculateIslandIterationMaxThreadCount(&activeThreadCount);
         dIASSERT(islandsAllowedThreadCount != 0);
         dIASSERT(activeThreadCount >= islandsAllowedThreadCount);
@@ -928,7 +928,7 @@ bool dxProcessIslands (dxWorld *world, const dxWorldProcessIslandsInfo &islandsI
             break;
         }
 
-        dCallReleaseeID groupReleasee;
+        dCallReleaseeID groupReleasee = {};
         // First post a group call with dependency count set to number of expected threads
         world->PostThreadedCall(&summaryFault, &groupReleasee, islandsAllowedThreadCount, NULL, pcwGroupCallWait, 
             &dxIslandsProcessingCallContext::ThreadedProcessGroup_Callback, (void *)&callContext, 0, "World Islands Stepping Group");
@@ -1042,7 +1042,7 @@ void dxIslandsProcessingCallContext::ThreadedProcessIslandSearch(dxSingleIslandC
                 // Restore saved stepper memory arena position
                 stepperCallContext->RestoreSavedMemArenaStateForStepper();
 
-                dCallReleaseeID nextSearchReleasee;
+                dCallReleaseeID nextSearchReleasee = {};
 
                 // Summary fault flag may be omitted as any failures will automatically propagate to dependent releasee (i.e. to m_groupReleasee)
                 m_world->PostThreadedCallForUnawareReleasee(NULL, &nextSearchReleasee, 1, m_groupReleasee, NULL, 

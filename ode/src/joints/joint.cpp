@@ -739,7 +739,7 @@ bool dxJointLimitMotor::addLimot( dxJoint *joint,
                 if ( bounce > 0 )
                 {
                     // calculate joint velocity
-                    dReal velocity;
+                    dReal velocity = {};
                     if ( rotational )
                     {
                         velocity = dCalcVectorDot3( joint->node[0].body->avel, ax1 );

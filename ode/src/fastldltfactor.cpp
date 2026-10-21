@@ -157,18 +157,18 @@ void ThreadedEquationSolverLDLT::doCooperativelyFactorLDLTValidated(
     dIASSERT(bufferAllocated != NULL);
     dIASSERT(dALIGN_PTR(bufferAllocated, ALLOCATION_DEFAULT_ALIGNMENT) == bufferAllocated);
 
-    atomicord32 solvingBlockCompletionProgress;
-    cellindexint *solvingBlockProgressDescriptors;
-    FactorizationSolveL1StripeCellContext *solvingCellContexts;
+    atomicord32 solvingBlockCompletionProgress = {};
+    cellindexint *solvingBlockProgressDescriptors = {};
+    FactorizationSolveL1StripeCellContext *solvingCellContexts = {};
 
-    FactorizationFactorizeL1StripeContext *factorizingFactorizationContext;
+    FactorizationFactorizeL1StripeContext *factorizingFactorizationContext = {};
 
     void *bufferCurrentLocation = bufferAllocated;
     bufferCurrentLocation = markCooperativelySolvingL1Stripe_XMemoryStructuresOut(bufferCurrentLocation, solvingMemoryEstimates, solvingBlockProgressDescriptors, solvingCellContexts);
     bufferCurrentLocation = markCooperativelyScalingAndFactorizingL1Stripe_XMemoryStructuresOut(bufferCurrentLocation, scalingAndFactorizingEstimates, factorizingFactorizationContext);
     dIVERIFY(bufferCurrentLocation <= (uint8 *)bufferAllocated + totalSizeRequired);
 
-    dCallReleaseeID calculationFinishReleasee;
+    dCallReleaseeID calculationFinishReleasee = {};
     dxThreadingBase *threading = resourceContainer->getThreadingInstance();
     threading->PostThreadedCall(NULL, &calculationFinishReleasee, 1, NULL, completionWait, &factotLDLT_completion_callback, NULL, 0, "FactorLDLT Completion");
 
@@ -189,7 +189,7 @@ void ThreadedEquationSolverLDLT::doCooperativelyFactorLDLTValidated(
     initializeCooperativelySolvingL1Stripe_XMemoryStructures(blockIndex, solvingBlockCompletionProgress, solvingBlockProgressDescriptors, solvingCellContexts);
     const unsigned secondBlockSolvingThreadCount = deriveSolvingL1StripeThreadCount(blockIndex, allowedThreadCount);
 
-    dCallReleaseeID secondBlockSolvingSyncReleasee;
+    dCallReleaseeID secondBlockSolvingSyncReleasee = {};
     threading->PostThreadedCall(NULL, &secondBlockSolvingSyncReleasee, secondBlockSolvingThreadCount, NULL, NULL, &factotLDLT_solvingCompleteSync_callback, &workerContext, 0, "FactorLDLT Solving Complete Sync");
     
     if (secondBlockSolvingThreadCount > 1)
@@ -244,7 +244,7 @@ void ThreadedEquationSolverLDLT::factotLDLT_solvingCompleteSync(FactorLDLTWorker
     const unsigned blockFactorizingThreadCount = deriveScalingAndFactorizingL1StripeThreadCount(factorizingBlockCount, ref_workerContext.m_allowedThreadCount);
     initializeCooperativelyScalingAndFactorizingL1Stripe_XMemoryStructures(factorizingFactorizationContext, blockFactorizingThreadCount);
 
-    dCallReleaseeID blockFactorizingSyncReleasee;
+    dCallReleaseeID blockFactorizingSyncReleasee = {};
 
     const dxThreadingBase *threading = ref_workerContext.m_threading;
     if (solvingBlockIndex != ref_workerContext.m_totalBlockCount - 1)
@@ -315,7 +315,7 @@ void ThreadedEquationSolverLDLT::factotLDLT_scalingAndFactorizingCompleteSync(Fa
     initializeCooperativelySolvingL1Stripe_XMemoryStructures(blockIndex, refSolvingBlockCompletionProgress, solvingBlockProgressDescriptors, solvingCellContexts);
     const unsigned blockSolvingThreadCount = deriveSolvingL1StripeThreadCount(blockIndex, ref_workerContext.m_allowedThreadCount);
 
-    dCallReleaseeID blockSolvingSyncReleasee;
+    dCallReleaseeID blockSolvingSyncReleasee = {};
 
     const dxThreadingBase *threading = ref_workerContext.m_threading;
     if (blockIndex != ref_workerContext.m_totalBlockCount - 1 || ref_workerContext.m_rowCount % FSL1S_REGULAR_B_ROWS == 0)

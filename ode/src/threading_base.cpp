@@ -49,7 +49,7 @@ void dxThreadingBase::PostThreadedCallsGroup(
 {
     dIASSERT(member_count != 0);
 
-    dThreadingImplementationID impl;
+    dThreadingImplementationID impl = {};
     const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
 
     for (unsigned member_index = 0; member_index != member_count; ++member_index) {
@@ -65,7 +65,7 @@ void dxThreadingBase::PostThreadedCallsIndexOverridenGroup(int *out_summary_faul
 {
     dIASSERT(member_count != 0);
 
-    dThreadingImplementationID impl;
+    dThreadingImplementationID impl = {};
     const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
 
     for (unsigned member_index = 0; member_index != member_count; ++member_index) {
@@ -81,7 +81,7 @@ void dxThreadingBase::PostThreadedCallForUnawareReleasee(
     dThreadedCallFunction *call_func, void *call_context, dcallindex_t instance_index, 
     const char *call_name/*=NULL*/) const
 {
-    dThreadingImplementationID impl;
+    dThreadingImplementationID impl = {};
     const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
 
     functions->alter_call_dependencies_count(impl, dependent_releasee, 1);

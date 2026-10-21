@@ -107,56 +107,56 @@ public:
 
     dMutexGroupID AllocMutexGroup(dmutexindex_t Mutex_count, const char *const *Mutex_names_ptr/*=NULL*/) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         return functions->alloc_mutex_group(impl, Mutex_count, Mutex_names_ptr);
     }
 
     void FreeMutexGroup(dMutexGroupID mutex_group) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         functions->free_mutex_group(impl, mutex_group);
     }
 
     void LockMutexGroupMutex(dMutexGroupID mutex_group, dmutexindex_t mutex_index) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         functions->lock_group_mutex(impl, mutex_group, mutex_index);
     }
 
 //     bool TryLockMutexGroupMutex(dMutexGroupID mutex_group, dmutexindex_t mutex_index) const
 //     {
-//         dThreadingImplementationID impl;
+//         dThreadingImplementationID impl = {};
 //         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
 //         return functions->trylock_group_mutex(impl, mutex_group, mutex_index) != 0;
 //     }
 
     void UnlockMutexGroupMutex(dMutexGroupID mutex_group, dmutexindex_t mutex_index) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         functions->unlock_group_mutex(impl, mutex_group, mutex_index);
     }
 
     dCallWaitID AllocThreadedCallWait() const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         return functions->alloc_call_wait(impl);
     }
 
     void ResetThreadedCallWait(dCallWaitID call_wait) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         functions->reset_call_wait(impl, call_wait);
     }
 
     void FreeThreadedCallWait(dCallWaitID call_wait) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         functions->free_call_wait(impl, call_wait);
     }
@@ -167,7 +167,7 @@ public:
         dThreadedCallFunction *call_func, void *call_context, dcallindex_t instance_index, 
         const char *call_name/*=NULL*/) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         functions->post_call(impl, out_summary_fault, out_post_releasee, dependencies_count, dependent_releasee, call_wait, call_func, call_context, instance_index, call_name);
     }
@@ -175,7 +175,7 @@ public:
     void AlterThreadedCallDependenciesCount(dCallReleaseeID target_releasee, 
         ddependencychange_t dependencies_count_change) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         functions->alter_call_dependencies_count(impl, target_releasee, dependencies_count_change);
     }
@@ -184,7 +184,7 @@ public:
         dCallWaitID call_wait, const dThreadedWaitTime *timeout_time_ptr/*=NULL*/, 
         const char *wait_name/*=NULL*/) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         functions->wait_call(impl, out_wait_status, call_wait, timeout_time_ptr, wait_name);
         functions->reset_call_wait(impl, call_wait);
@@ -194,21 +194,21 @@ public:
         dCallWaitID call_wait, const dThreadedWaitTime *timeout_time_ptr/*=NULL*/, 
         const char *wait_name/*=NULL*/) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         functions->wait_call(impl, out_wait_status, call_wait, timeout_time_ptr, wait_name);
     }
 
     unsigned RetrieveThreadingThreadCount() const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         return functions->retrieve_thread_count(impl);
     }
 
     bool PreallocateResourcesForThreadedCalls(unsigned max_simultaneous_calls_estimate) const
     {
-        dThreadingImplementationID impl;
+        dThreadingImplementationID impl = {};
         const dxThreadingFunctionsInfo *functions = FindThreadingImpl(impl);
         return functions->preallocate_resources_for_calls(impl, max_simultaneous_calls_estimate) != 0;
     }

@@ -77,7 +77,7 @@ static dReal speed=0,steer=0;	// user commands
 
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-  int n;
+  int n = {};
 
   // only collide things with the ground
   const int g1 = (o1 == ground || o1 == ground_box);
@@ -162,7 +162,7 @@ static void command (int cmd)
 
 static void simLoop (int pause)
 {
-  int i;
+  int i = {};
   if (!pause) {
     // motor
     dJointSetHinge2Param (joint[0],dParamVel2,-speed);
@@ -204,7 +204,7 @@ static void simLoop (int pause)
 
 int main (int argc, char **argv)
 {
-  int i;
+  int i = {};
   dMass m;
 
   // setup pointers to drawstuff callback functions

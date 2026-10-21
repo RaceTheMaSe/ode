@@ -470,7 +470,7 @@ void dxSAPSpace::collide( void *userData, dNearCallback *callback )
 
     const int infSize = TmpInfGeomList.size();
     const int normSize = TmpGeomList.size();
-    int m, n;
+    int m = {}, n = {};
 
     for ( m = 0; m < infSize; ++m )
     {
@@ -532,7 +532,7 @@ void dxSAPSpace::BoxPruning( int numBoxes, dxGeom** geoms, dArray< Pair >& pairs
     const uint32* const LastSorted = Sorted + numBoxes;
     const uint32* RunningAddress = Sorted;
 
-    bool bExitLoop;
+    bool bExitLoop = {};
     Pair IndexPair;
     while ( Sorted < LastSorted )
     {

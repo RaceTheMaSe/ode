@@ -83,7 +83,7 @@ static dGeomID box[N1][N2];
 
 static void nearCallback (void * /*data*/, dGeomID o1, dGeomID o2)
 {
-  int i;
+  int i = {};
 
   // only collide things with the ground
   const int g1 = (o1 == ground);
@@ -124,7 +124,7 @@ static void start()
 
 static void simLoop (int pause)
 {
-  int i;
+  int i = {};
   if (!pause) {
     // apply forces to all bodies
     for (i=0; i<N1; i++) {
@@ -153,7 +153,7 @@ static void simLoop (int pause)
 
 int main (int argc, char **argv)
 {
-  int i,j;
+  int i = {},j = {};
   dMass m;
 
   // setup pointers to drawstuff callback functions

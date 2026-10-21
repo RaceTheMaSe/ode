@@ -86,7 +86,7 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
     int * /* findex */ )
  {
     dVector3 a[2], n[2], l[2], r[2], c[2] = {}, s, t, O, d, z, u, v;
-    dReal theta, delta, nn, na_0, na_1, cosphi, sinphi, m;
+    dReal theta = {}, delta = {}, nn = {}, na_0 = {}, na_1 = {}, cosphi = {}, sinphi = {}, m = {};
     const dReal *p[2], *omega[2];
     int i = 0;
 
@@ -248,7 +248,7 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
     }
     
     for (i = 0 ; i < 2 ; i += 1) {
-        dReal phase_hat;
+        dReal phase_hat = {};
 
         dSubtractVectors3 (r[i], c[i], a[i]);
         
@@ -318,7 +318,7 @@ dxJointTransmission::getInfo2( dReal worldFPS, dReal /*worldERP*/,
         
         for (i = 0 ; i < 2 ; i += 1) {
             dVector3 nn_;
-            dReal a_;
+            dReal a_ = {};
             
             dCalcVectorCross3(nn_, n[i], d_);
             a_ = dCalcVectorDot3(nn_, nn_);
