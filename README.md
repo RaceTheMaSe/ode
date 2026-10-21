@@ -1,11 +1,11 @@
 The Open Dynamics Engine (ODE)
 ==============================
 
-[![Windows Build](./actions/workflows/build-windows.yml/badge.svg)](./actions/workflows/build-windows.yml)
-[![MSYS2 Build](./actions/workflows/build-msys2.yml/badge.svg)](./actions/workflows/build-msys2.yml)
-[![Ubuntu Build](./actions/workflows/build-ubuntu.yml/badge.svg)](./actions/workflows/build-ubuntu.yml)
-[![Arch Linux Build](./actions/workflows/build-archlinux.yml/badge.svg)](./actions/workflows/build-archlinux.yml)
-[![macOS Build](./actions/workflows/build-macos.yml/badge.svg)](./actions/workflows/build-macos.yml)
+[![Windows Build](../../actions/workflows/build-windows.yml/badge.svg)](./actions/workflows/build-windows.yml)
+[![MSYS2 Build](../../actions/workflows/build-msys2.yml/badge.svg)](./actions/workflows/build-msys2.yml)
+[![Ubuntu Build](../../actions/workflows/build-ubuntu.yml/badge.svg)](./actions/workflows/build-ubuntu.yml)
+[![Arch Linux Build](../../actions/workflows/build-archlinux.yml/badge.svg)](./actions/workflows/build-archlinux.yml)
+[![macOS Build](../../actions/workflows/build-macos.yml/badge.svg)](./actions/workflows/build-macos.yml)
 
 [![ODE logo](./web/odelogo.svg)](https://www.ode.org/)
 
