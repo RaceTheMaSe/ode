@@ -921,7 +921,7 @@ void dxSolveLCP_Generic (dxWorldProcessMemArena *memarena, unsigned n, dReal *A,
     const unsigned adj_nub = lcp.getNub();
     for (unsigned i = adj_nub; i < n; ++i) {
         bool s_error = false;
-        // the index i is the driving index and indexes i+1..n-1 are "dont care",
+        // the index i is the driving index and indexes i+1..n-1 are "don't care",
         // i.e. when we make changes to the system those x's will be zero and we
         // don't care what happens to those w's. in other words, we only consider
         // an (i+1)*(i+1) sub-problem of A*x=b+w.

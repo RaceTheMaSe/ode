@@ -29,7 +29,7 @@
 
 #if defined(__GNUC__)
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Warray-bounds" // NOTE: ensure that this cannot happen by doing OOB checks - yes its low level, its pointer arithmetics on self managed storage ... dangerous and necessary for this whole TLS
+#pragma GCC diagnostic ignored "-Warray-bounds" // NOTE: ensure that this cannot happen by doing OOB checks - yes its low level, its pointer arithmetic on self managed storage ... dangerous and necessary for this whole TLS
 #endif
 
 #include <ou/features.h>

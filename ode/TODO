@@ -20,7 +20,7 @@ there's no need to compute/test the AABB in this case.
 hash space: implement collide2() efficiently instead of the current
 simple-space-like brute-force approach.
 
-hash space: incremental scheme, so we dont have to rebuild the data structures
+hash space: incremental scheme, so we don't have to rebuild the data structures
 for geoms that don't move.
 
 disabled geoms (remove from all collision considerations) ... isn't this the
@@ -159,7 +159,7 @@ lists are never tested against each other.
 
 deleting a body a joint is attached to should adjust the joint to only have
 one body attached. currently the connected joints have *both* their body
-attachments removed. BUT, dont do this if the dJOINT_TWOBODIES flag is set
+attachments removed. BUT, don't do this if the dJOINT_TWOBODIES flag is set
 on the joint.
 
 document error, mem and math functions.
@@ -530,12 +530,12 @@ transformation geometry object.
 
 joint groups should also be destroyed by destroying the world --> naaahhh.
 
-DONT DO THIS: body/joint creators with world = 0 --> not inserted into any
+DON'T DO THIS: body/joint creators with world = 0 --> not inserted into any
 world. allow bodies/joints to be detached from a world (this is what happens
 to grouped joints when a world is destroyed).
 	can bodies and joints be linked together when not attached to world??
 	what happens when we have an island of b/j, some of which are not in
-	world? soln: dont keep lists of b/j in the world, just infer it from
+	world? soln: don't keep lists of b/j in the world, just infer it from
 	the islands?
 
 body & joint disabling / enabling

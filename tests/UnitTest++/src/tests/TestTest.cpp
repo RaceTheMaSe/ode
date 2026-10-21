@@ -51,7 +51,7 @@ TEST (ThrowingTestsAreReportedAsFailures)
     public:
         CrashingTest() : Test("throwing") {}
     private:
-        VIRTUAL void RunImpl(TestResults& /*unsused*/) const OVERRIDE
+        VIRTUAL void RunImpl(TestResults& /*unused*/) const OVERRIDE
         {
             throw "Blah";
         }
