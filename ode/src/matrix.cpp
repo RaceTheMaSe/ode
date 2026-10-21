@@ -299,15 +299,15 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
         dReal alphanew = alpha1 + (W11*W11)*dee;
         dIASSERT(alphanew != dReal(0.0));
         dee /= alphanew;
-        const dReal gamma1 = W11 * dee;
+        const dReal gamma_1 = W11 * dee;
         dee *= alpha1;
         alpha1 = alphanew;
         alphanew = alpha2 - (W21*W21)*dee;
         // dee /= alphanew;
         //dReal gamma2 = W21 * dee;
         alpha2 = alphanew;
-        const dReal k1 = REAL(1.0) - W21*gamma1;
-        const dReal k2 = W21*gamma1*W11 - W21;
+        const dReal k1 = REAL(1.0) - W21*gamma_1;
+        const dReal k2 = W21*gamma_1*W11 - W21;
         const dReal *ll = L + nskip;
         for (unsigned p = 1; p < n; ll += nskip, ++p) {
             const dReal Wp = W1[p];
@@ -326,12 +326,12 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
         dReal alphanew = alpha1 + (k1*k1)*dee;
         dIASSERT(alphanew != dReal(0.0));
         dee /= alphanew;
-        const dReal gamma1 = k1 * dee;
+        const dReal gamma_1 = k1 * dee;
         dee *= alpha1;
         alpha1 = alphanew;
         alphanew = alpha2 - (k2*k2)*dee;
         dee /= alphanew;
-        const dReal gamma2 = k2 * dee;
+        const dReal gamma_2 = k2 * dee;
         dee *= alpha2;
         d[j] = dee;
         alpha2 = alphanew;
@@ -340,10 +340,10 @@ void dxLDLTAddTL(dReal *L, dReal *d, const dReal *a, unsigned n, unsigned nskip,
         for (unsigned p = j + 1; p < n; l += nskip, ++p) {
             dReal ell = *l;
             dReal Wp = W1[p] - k1 * ell;
-            ell += gamma1 * Wp;
+            ell += gamma_1 * Wp;
             W1[p] = Wp;
             Wp = W2[p] - k2 * ell;
-            ell -= gamma2 * Wp;
+            ell -= gamma_2 * Wp;
             W2[p] = Wp;
             *l = ell;
         }
