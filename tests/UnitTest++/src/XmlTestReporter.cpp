@@ -12,8 +12,12 @@ namespace {
 
 void ReplaceChar(string& str, char const c, string const& replacement)
 {
-    for (size_t pos = str.find(c); pos != string::npos; pos = str.find(c, pos + 1))
-        str.replace(pos, 1, replacement);
+    string s = str;
+    for (size_t pos = s.find(c); pos != string::npos; pos = s.find(c, pos + 1))
+    {
+        s.replace(pos, 1, replacement);
+    }
+    str = s;
 }
 
 string XmlEscape(string const& value)

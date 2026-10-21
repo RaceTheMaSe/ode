@@ -765,7 +765,7 @@ int main (int argc, char **argv)
   // run simulation
   dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &fn);
 
-  delete joint;
+  delete joint; joint = NULL;
   dJointGroupDestroy (contactgroup);
   dSpaceDestroy (space);
   dWorldDestroy (world);

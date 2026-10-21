@@ -240,16 +240,16 @@ int main (int argc, char **argv)
     // run simulation
     dsSimulationLoop (argc, argv, DS_SIMULATION_DEFAULT_WIDTH, DS_SIMULATION_DEFAULT_HEIGHT, &fn);
 
-    delete g1;
-    delete g2;
-    delete pin1;
-    delete pin2;
-    delete floor;
+    delete g1; g1 = NULL;
+    delete g2; g2 = NULL;
+    delete pin1; pin1 = NULL;
+    delete pin2; pin2 = NULL;
+    delete floor; floor = NULL;
     contactgroup->empty();
-    delete contactgroup;
-    delete top1;
-    delete top2;
-    delete space;
-    delete world;
+    delete contactgroup; contactgroup = NULL;
+    delete top1; top1 = NULL;
+    delete top2; top2 = NULL;
+    delete space; space = NULL;
+    delete world; world = NULL;
     dCloseODE();
 }

@@ -44,10 +44,10 @@
 
 static dWorld* world = NULL;
 static dSimpleSpace* space = NULL;
-static dBody* body[NUM];
-static dBallJoint* joint[NUM-1];
-static dJointGroup* contactgroup;
-static dBox* box[NUM];
+static dBody* body[NUM] = {};
+static dBallJoint* joint[NUM-1] = {};
+static dJointGroup* contactgroup = NULL;
+static dBox* box[NUM] = {};
 
 
 // this is called by space.collide when two objects in space are
@@ -175,9 +175,9 @@ int main (int argc, char **argv)
   }
   for(i=0;i<NUM;++i)
     delete body[i];
-  delete contactgroup;
-  delete space;
-  delete world;
+  delete contactgroup; contactgroup = NULL;
+  delete space; space = NULL;
+  delete world; world = NULL;
   
   dCloseODE();
   return 0;

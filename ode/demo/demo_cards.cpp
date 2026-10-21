@@ -68,7 +68,7 @@ static const dReal cwidth=.5, cthickness=REAL(.02), clength=1;
 const dReal Card::sides[3] = { cwidth, cthickness, clength };
 
 
-static std::vector<Card*>* cards;
+static std::vector<Card*>* cards = NULL;
 
 static size_t getncards(size_t nLevels)
 {
@@ -247,6 +247,7 @@ int main(int argc, char **argv)
     dGeomDestroy(ground);
     dSpaceDestroy(space);
     delete cards;
+    cards = NULL;
     
     dCloseODE();
 }

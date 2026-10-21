@@ -247,7 +247,7 @@ int main(int argc, char **argv)
     
     dCloseODE();
 
-    delete boxes;
-    delete to_remove;
-    delete joints;
+    delete boxes; boxes = NULL;
+    delete to_remove; to_remove = NULL;
+    delete joints; joints = NULL;
 }
